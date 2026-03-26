@@ -1,7 +1,7 @@
 title: "Strategic Materials Ledger"
 description: "Real-time price tracking and provenance auditing for rare earth elements and strategic materials"
-url: ""
-baseurl: ""
+url: "https://mironovb.github.io"
+baseurl: "/periodicpricing"
 
 markdown: kramdown
 highlighter: rouge
