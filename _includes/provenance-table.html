@@ -1,0 +1,66 @@
+{% comment %}
+  Usage: {% include provenance-table.html symbol=page.symbol %}
+  Renders all price records for the given element.
+{% endcomment %}
+
+{% assign sym = include.symbol %}
+{% assign has_records = false %}
+
+<div class="data-table-wrapper">
+  <table class="data-table" id="provenance-table">
+    <thead>
+      <tr>
+        <th data-sortable data-sort-key="date">Date</th>
+        <th data-sortable data-sort-key="tier">Tier</th>
+        <th data-sortable data-sort-key="form">Form</th>
+        <th>Purity</th>
+        <th data-sortable data-sort-key="price" class="col-price">USD/kg</th>
+        <th class="col-quantity">MOQ</th>
+        <th>Seller</th>
+        <th>Country</th>
+        <th>Source</th>
+        <th>Status</th>
+        <th>Ref</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for record in site.data.price_records %}
+        {% if record.element_symbol == sym %}
+          {% assign has_records = true %}
+          <tr data-date="{{ record.quote_date }}"
+              data-tier="{{ record.market_tier }}"
+              data-form="{{ record.form }}"
+              data-price="{{ record.normalized_usd_per_kg }}">
+            <td class="col-date">{{ record.quote_date }}</td>
+            <td>{{ record.market_tier | capitalize }}</td>
+            <td>{{ record.form | capitalize }}</td>
+            <td>{{ record.purity }}</td>
+            <td class="col-price">${{ record.normalized_usd_per_kg | round: 2 }}</td>
+            <td class="col-quantity">{% if record.moq_kg > 0 %}{{ record.moq_kg }} kg{% else %}—{% endif %}</td>
+            <td>{{ record.seller_name | default: "—" }}</td>
+            <td>{{ record.seller_country | default: "—" }}</td>
+            <td>{{ record.source_type | replace: '_', ' ' | capitalize }}</td>
+            <td>{% include badge.html status=record.verification_status %}</td>
+            <td>
+              {% if record.source_url %}
+                <a href="{{ record.source_url }}" class="table-source-link" target="_blank" rel="noopener">Link</a>
+              {% elsif record.invoice_ref %}
+                <span class="mono text-xs">{{ record.invoice_ref }}</span>
+              {% else %}
+                —
+              {% endif %}
+            </td>
+          </tr>
+        {% endif %}
+      {% endfor %}
+
+      {% unless has_records %}
+        <tr class="table-empty">
+          <td colspan="11">
+            No price records for this element. Add data via invoice upload or curated offer ingestion.
+          </td>
+        </tr>
+      {% endunless %}
+    </tbody>
+  </table>
+</div>

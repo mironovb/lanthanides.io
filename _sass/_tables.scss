@@ -1,0 +1,121 @@
+.data-table-wrapper {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.data-table {
+  width: 100%;
+  font-size: $fs-sm;
+  border: $border-thin;
+  border-radius: $radius-md;
+  overflow: hidden;
+
+  th, td {
+    padding: $sp-2 $sp-3;
+    text-align: left;
+    border-bottom: $border-thin;
+    vertical-align: top;
+  }
+
+  th {
+    font-size: $fs-xs;
+    font-weight: $fw-semibold;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: $text-muted;
+    background: $bg-tertiary;
+    white-space: nowrap;
+    position: sticky;
+    top: 0;
+    z-index: 1;
+
+    &[data-sortable] {
+      cursor: pointer;
+      user-select: none;
+
+      &:hover {
+        color: $text-primary;
+        background: mix($bg-tertiary, #fff, 95%);
+      }
+
+      &::after {
+        content: " ↕";
+        font-size: 0.75em;
+        color: $text-dim;
+      }
+
+      &.sort-asc::after {
+        content: " ↑";
+        color: $accent-teal;
+      }
+
+      &.sort-desc::after {
+        content: " ↓";
+        color: $accent-teal;
+      }
+    }
+  }
+
+  td {
+    color: $text-secondary;
+  }
+
+  // Numeric columns
+  .col-price,
+  .col-quantity,
+  .col-numeric {
+    font-family: $font-mono;
+    text-align: right;
+    white-space: nowrap;
+  }
+
+  .col-date {
+    font-family: $font-mono;
+    white-space: nowrap;
+  }
+
+  .col-symbol {
+    font-family: $font-mono;
+    font-weight: $fw-bold;
+    color: $text-primary;
+  }
+
+  tbody tr {
+    transition: background $transition-fast;
+
+    &:nth-child(even) {
+      background: rgba($bg-tertiary, 0.3);
+    }
+
+    &:hover {
+      background: rgba($accent-blue, 0.05);
+    }
+  }
+
+  // Empty table state
+  .table-empty {
+    td {
+      text-align: center;
+      padding: $sp-8 $sp-4;
+      color: $text-dim;
+      font-style: italic;
+    }
+  }
+}
+
+// Compact variant
+.data-table-compact {
+  th, td {
+    padding: $sp-1 $sp-2;
+    font-size: $fs-xs;
+  }
+}
+
+.table-source-link {
+  color: $accent-blue;
+  font-size: $fs-xs;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}

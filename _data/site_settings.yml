@@ -1,0 +1,62 @@
+# Strategic Materials Ledger — Site Settings
+# Configurable thresholds and display parameters.
+
+# Data freshness
+freshness_threshold_days: 90
+stale_threshold_days: 180
+
+# Normalization defaults
+default_currency: USD
+default_unit: kg
+
+# Confidence thresholds
+high_confidence_minimum: 0.8
+medium_confidence_minimum: 0.5
+
+# Heatmap baselines
+heatmap_baselines:
+  - id: rolling_30d
+    label: "Rolling 30-day median"
+    days: 30
+  - id: rolling_180d
+    label: "Rolling 180-day median"
+    days: 180
+  - id: pre_policy
+    label: "Pre-policy baseline"
+    description: "Manually configured reference date for policy-shock analysis"
+    reference_date: null
+  - id: custom
+    label: "Custom date range"
+    start_date: null
+    end_date: null
+
+# Verification status labels
+verification_labels:
+  verified_invoice: "Verified Invoice"
+  corroborated: "Corroborated"
+  single_source_offer: "Single-Source Offer"
+  benchmark_linked: "Benchmark-Linked"
+  placeholder: "Placeholder"
+  stale: "Stale"
+  archived: "Archived"
+
+# Source trust tiers (1 = highest)
+source_trust_tiers:
+  1: "Uploaded invoices"
+  2: "Direct distributor/manufacturer offers with explicit quantity and date"
+  3: "Manually reviewed public offers"
+  4: "Benchmark references"
+  5: "News/context only (not a price source)"
+
+# Category display labels
+category_labels:
+  rare_earth_light: "Light Rare Earth"
+  rare_earth_heavy: "Heavy Rare Earth"
+  strategic_metal: "Strategic Metal"
+  semiconductor_metal: "Semiconductor Metal"
+
+# Export control status labels
+export_control_labels:
+  restricted: "Restricted"
+  monitored: "Monitored"
+  normal: "Normal"

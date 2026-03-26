@@ -1,0 +1,114 @@
+# Strategic Materials Ledger — Alternative Supply Intelligence
+# Non-dominant source countries and substitution pathways.
+# PLACEHOLDER DATA — illustrative entries for UI development.
+
+- element: Nd
+  alternatives:
+    - country: Australia
+      status: established
+      known_producers:
+        - "Lynas Rare Earths"
+      product_forms:
+        - oxide
+        - carbonate
+      scale_notes: "~10,000 t/yr REO capacity at Mt Weld"
+      caveats: "Separation done in Malaysia; limited metal conversion"
+    - country: United States
+      status: emerging
+      known_producers:
+        - "MP Materials"
+      product_forms:
+        - oxide
+      scale_notes: "Mountain Pass restarted; oxide separation in commissioning"
+      caveats: "Currently ships concentrate to China for separation"
+  substitution_notes: "No direct substitute for NdFeB permanent magnets. Ferrite magnets offer inferior performance."
+  uncertainty_notes: "Non-China NdPr supply remains <15% of global production."
+  last_updated: "2026-03-01"
+
+- element: Dy
+  alternatives:
+    - country: Myanmar
+      status: established
+      known_producers: []
+      product_forms:
+        - ion-adsorption clay
+      scale_notes: "Significant HREE source; ~40% of China's ionic clay feedstock"
+      caveats: "Supply disrupted by regional conflict since late 2025"
+    - country: Australia
+      status: exploratory
+      known_producers:
+        - "Northern Minerals"
+      product_forms:
+        - oxide
+      scale_notes: "Browns Range pilot plant; pre-commercial"
+      caveats: "Heavy REE separation is technically challenging"
+  substitution_notes: "Grain boundary diffusion technology reduces Dy content in magnets by 30-50%."
+  uncertainty_notes: "HREE supply is more concentrated than LREE."
+  last_updated: "2026-03-01"
+
+- element: Ga
+  alternatives:
+    - country: Japan
+      status: established
+      known_producers:
+        - "Dowa Holdings"
+        - "Mitsubishi Chemical"
+      product_forms:
+        - metal
+      scale_notes: "Secondary recovery from zinc refining; ~10% of global supply"
+      caveats: "Dependent on zinc smelter operations"
+    - country: South Korea
+      status: emerging
+      known_producers: []
+      product_forms:
+        - metal
+      scale_notes: "Small-scale recovery programs"
+      caveats: "Limited domestic zinc refining capacity"
+  substitution_notes: "Silicon can replace GaAs in some RF applications. No substitute for GaN in high-power electronics."
+  uncertainty_notes: "China controls ~80% of primary gallium production."
+  last_updated: "2026-03-01"
+
+- element: Ge
+  alternatives:
+    - country: Belgium
+      status: established
+      known_producers:
+        - "Umicore"
+      product_forms:
+        - metal
+        - oxide
+      scale_notes: "Significant recycling and refining capacity"
+      caveats: "Feedstock dependent on zinc concentrates"
+    - country: Canada
+      status: emerging
+      known_producers:
+        - "Teck Resources"
+      product_forms:
+        - compound
+      scale_notes: "By-product from zinc operations"
+      caveats: "Limited dedicated Ge separation"
+  substitution_notes: "Silicon lenses replacing Ge in some IR applications. No substitute for fiber optics."
+  uncertainty_notes: "Recycling provides ~30% of refined Ge supply globally."
+  last_updated: "2026-03-01"
+
+- element: W
+  alternatives:
+    - country: Vietnam
+      status: established
+      known_producers:
+        - "Masan High-Tech Materials"
+      product_forms:
+        - oxide
+        - powder
+      scale_notes: "~5,000 t/yr tungsten concentrate from Nui Phao mine"
+      caveats: "Environmental concerns; processing still developing"
+    - country: Rwanda
+      status: emerging
+      known_producers: []
+      product_forms:
+        - concentrate
+      scale_notes: "Artisanal and small-scale mining"
+      caveats: "Traceability and conflict mineral considerations"
+  substitution_notes: "Molybdenum can substitute for tungsten in some steel alloys. No substitute for cemented carbide cutting tools."
+  uncertainty_notes: "China controls ~80% of tungsten production and processing."
+  last_updated: "2026-03-01"

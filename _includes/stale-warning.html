@@ -1,0 +1,42 @@
+{% comment %}
+  Surfaces elements with stale data (older than freshness threshold).
+{% endcomment %}
+
+{% assign freshness_days = site.data.site_settings.freshness_threshold_days | default: 90 %}
+{% assign stale_elements = "" %}
+{% assign has_stale = false %}
+
+{% for elem in site.elements %}
+  {% assign latest = nil %}
+  {% for record in site.data.price_records %}
+    {% if record.element_symbol == elem.symbol and record.verification_status != 'archived' %}
+      {% if record.quote_date > latest or latest == nil %}
+        {% assign latest = record.quote_date %}
+      {% endif %}
+    {% endif %}
+  {% endfor %}
+
+  {% comment %} If no records at all, consider it stale {% endcomment %}
+  {% if latest == nil %}
+    {% assign has_stale = true %}
+  {% endif %}
+{% endfor %}
+
+{% if has_stale or site.data.price_records.size == 0 %}
+<div class="stale-warning-panel">
+  <div class="stale-warning-header">
+    &#x26A0; Data Coverage Warning
+  </div>
+  {% if site.data.price_records.size == 0 %}
+    <p class="text-sm text-secondary">
+      No price records have been ingested yet. The ledger is currently empty.
+      Add data via invoice upload or curated offer ingestion to populate the dashboard.
+    </p>
+  {% else %}
+    <p class="text-sm text-secondary">
+      Some tracked elements have no recent price data or no data at all.
+      Check individual element pages for details.
+    </p>
+  {% endif %}
+</div>
+{% endif %}

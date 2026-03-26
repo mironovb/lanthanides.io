@@ -1,0 +1,111 @@
+// Periodic table style navigator
+.periodic-nav {
+  @include panel;
+  overflow-x: auto;
+}
+
+.periodic-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(64px, 1fr));
+  gap: 3px;
+
+  @include bp-md {
+    grid-template-columns: repeat(auto-fill, minmax(74px, 1fr));
+  }
+}
+
+.periodic-cell {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: $sp-2 $sp-1;
+  background: $bg-tertiary;
+  border: 1px solid $border-primary;
+  border-radius: $radius-sm;
+  text-decoration: none;
+  transition: all $transition-fast;
+  min-height: 60px;
+
+  &:hover {
+    background: rgba($accent-blue, 0.08);
+    border-color: $accent-blue-dim;
+    transform: translateY(-1px);
+    box-shadow: $shadow-sm;
+  }
+
+  @include focus-ring;
+
+  .cell-z {
+    font-size: 8px;
+    color: $text-dim;
+    font-family: $font-mono;
+  }
+
+  .cell-symbol {
+    font-family: $font-mono;
+    font-size: $fs-md;
+    font-weight: $fw-bold;
+    color: $text-primary;
+    line-height: 1;
+  }
+
+  .cell-price {
+    font-family: $font-mono;
+    font-size: 9px;
+    color: $text-muted;
+    margin-top: 2px;
+  }
+
+  .cell-indicator {
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    margin-top: 3px;
+  }
+
+  // Category tinting
+  &.cat-rare-earth-light { border-left: 2px solid $cat-ree-light; }
+  &.cat-rare-earth-heavy { border-left: 2px solid $cat-ree-heavy; }
+  &.cat-strategic-metal { border-left: 2px solid $cat-strategic; }
+  &.cat-semiconductor-metal { border-left: 2px solid $cat-semiconductor; }
+
+  // Legacy class names (underscore variant)
+  &.cat-ree-light { border-left: 2px solid $cat-ree-light; }
+  &.cat-ree-heavy { border-left: 2px solid $cat-ree-heavy; }
+  &.cat-strategic { border-left: 2px solid $cat-strategic; }
+  &.cat-semiconductor { border-left: 2px solid $cat-semiconductor; }
+
+  // Status indicators
+  &.has-data .cell-indicator { background: $accent-teal; }
+  &.stale-data .cell-indicator { background: $accent-amber; }
+  &.no-data .cell-indicator { background: $text-dim; }
+}
+
+.periodic-nav-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $sp-3;
+  margin-top: $sp-3;
+  padding-top: $sp-3;
+  border-top: $border-thin;
+  font-size: $fs-xs;
+  color: $text-muted;
+
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: $sp-1;
+
+    .legend-swatch {
+      width: 10px;
+      height: 10px;
+      border-radius: 2px;
+
+      &.swatch-ree-light { background: $cat-ree-light; }
+      &.swatch-ree-heavy { background: $cat-ree-heavy; }
+      &.swatch-strategic { background: $cat-strategic; }
+      &.swatch-semiconductor { background: $cat-semiconductor; }
+    }
+  }
+}

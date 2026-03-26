@@ -1,0 +1,282 @@
+// Breadcrumb
+.breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: $sp-1;
+  margin-bottom: $sp-4;
+  font-size: $fs-xs;
+  color: $text-dim;
+
+  a {
+    color: $text-muted;
+    transition: color $transition-fast;
+
+    &:hover {
+      color: $text-primary;
+    }
+  }
+
+  .breadcrumb-sep {
+    color: $border-secondary;
+  }
+
+  .breadcrumb-current {
+    font-family: $font-mono;
+    font-weight: $fw-semibold;
+    color: $text-secondary;
+  }
+}
+
+// Element header
+.element-header {
+  display: flex;
+  align-items: flex-start;
+  gap: $sp-4;
+  margin-bottom: $sp-6;
+  padding-bottom: $sp-4;
+  border-bottom: $border-thin;
+
+  .element-header-left {
+    flex: 1;
+  }
+
+  .element-identity {
+    display: flex;
+    align-items: flex-start;
+    gap: $sp-4;
+  }
+
+  .element-symbol-block {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 72px;
+    height: 72px;
+    background: $bg-tertiary;
+    border: 1px solid $border-secondary;
+    border-radius: $radius-lg;
+    flex-shrink: 0;
+
+    &.cat-rare-earth-light { border-left: 4px solid $cat-ree-light; }
+    &.cat-rare-earth-heavy { border-left: 4px solid $cat-ree-heavy; }
+    &.cat-strategic-metal { border-left: 4px solid $cat-strategic; }
+    &.cat-semiconductor-metal { border-left: 4px solid $cat-semiconductor; }
+  }
+
+  .element-z-block {
+    font-family: $font-mono;
+    font-size: $fs-xs;
+    color: $text-dim;
+  }
+
+  .element-symbol-large {
+    font-family: $font-mono;
+    font-size: $fs-2xl;
+    font-weight: $fw-bold;
+    color: $text-primary;
+    line-height: 1;
+  }
+
+  .element-identity-text {
+    flex: 1;
+  }
+
+  .element-name-large {
+    font-size: $fs-xl;
+    font-weight: $fw-semibold;
+    color: $text-primary;
+    line-height: $lh-tight;
+    margin: 0;
+
+    @include bp-md {
+      font-size: $fs-2xl;
+    }
+  }
+
+  .element-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: $sp-2;
+    margin-top: $sp-2;
+  }
+
+  .element-notes {
+    font-size: $fs-sm;
+    color: $text-muted;
+    margin-top: $sp-2;
+    line-height: $lh-relaxed;
+  }
+
+  .element-updated {
+    margin-left: auto;
+    text-align: right;
+    font-size: $fs-xs;
+    color: $text-dim;
+    font-family: $font-mono;
+    white-space: nowrap;
+    flex-shrink: 0;
+
+    .element-headline-price {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: $sp-1;
+      margin-bottom: $sp-2;
+      padding-bottom: $sp-2;
+      border-bottom: $border-thin;
+      font-size: $fs-xl;
+    }
+
+    @include bp-max-md {
+      margin-left: 0;
+      margin-top: $sp-2;
+    }
+  }
+
+  @include bp-max-md {
+    flex-direction: column;
+  }
+}
+
+// Price row
+.element-prices-row {
+  display: grid;
+  gap: $sp-4;
+  margin-bottom: $sp-6;
+
+  @include bp-md {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+// Section titles
+.element-section {
+  margin-bottom: $sp-6;
+
+  .section-title {
+    @include label;
+    margin-bottom: $sp-3;
+    padding-bottom: $sp-2;
+    border-bottom: $border-thin;
+  }
+}
+
+// Policy notes section
+.policy-notes {
+  @include card;
+  padding: $sp-4;
+
+  .policy-status {
+    display: flex;
+    align-items: center;
+    gap: $sp-2;
+    margin-bottom: $sp-3;
+  }
+
+  .policy-updated {
+    margin-top: $sp-3;
+    padding-top: $sp-2;
+    border-top: $border-thin;
+    font-size: $fs-xs;
+    color: $text-dim;
+    font-family: $font-mono;
+  }
+}
+
+// Alternative supply section
+.alt-supply {
+  @include card;
+  padding: $sp-4;
+
+  .alt-supply-item {
+    padding: $sp-3 0;
+    border-bottom: $border-thin;
+    font-size: $fs-sm;
+
+    &:last-child { border-bottom: none; }
+
+    .alt-country {
+      font-weight: $fw-semibold;
+      color: $text-primary;
+    }
+
+    .alt-status {
+      font-size: $fs-xs;
+      margin-left: $sp-2;
+    }
+
+    .alt-details {
+      margin-top: $sp-2;
+      color: $text-secondary;
+      line-height: $lh-relaxed;
+    }
+  }
+}
+
+// Sidebar element nav
+.sidebar-nav-card {
+  @include card;
+  padding: $sp-4;
+
+  .sidebar-element-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2px;
+    max-height: 200px;
+    overflow-y: auto;
+  }
+
+  .sidebar-element-link {
+    display: flex;
+    align-items: center;
+    gap: $sp-2;
+    padding: $sp-1 $sp-2;
+    font-size: $fs-xs;
+    border-radius: $radius-sm;
+    transition: background $transition-fast;
+    text-decoration: none;
+    flex: 0 0 calc(50% - 1px);
+
+    &:hover {
+      background: $bg-tertiary;
+    }
+
+    &.active {
+      background: rgba($accent-teal, 0.08);
+    }
+  }
+}
+
+// Methodology note on element page
+.methodology-note {
+  @include card;
+  padding: $sp-3;
+  font-size: $fs-xs;
+  color: $text-dim;
+  line-height: $lh-relaxed;
+  border-color: rgba($border-primary, 0.5);
+
+  strong {
+    color: $text-muted;
+  }
+}
+
+// Sparse data disclaimer
+.sparse-data-warning {
+  @include card;
+  padding: $sp-3 $sp-4;
+  border-color: rgba($accent-amber, 0.2);
+  background: rgba($accent-amber, 0.02);
+  font-size: $fs-sm;
+  color: $text-secondary;
+  display: flex;
+  align-items: flex-start;
+  gap: $sp-2;
+
+  .warning-icon {
+    color: $accent-amber;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+}

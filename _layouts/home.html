@@ -1,0 +1,110 @@
+---
+layout: default
+---
+
+<div class="home-hero">
+  <div class="hero-content">
+    <h1 class="hero-title">Strategic Materials Ledger</h1>
+    <p class="hero-subtitle">
+      Industrial price intelligence for rare earth elements and strategic materials.
+      Provenance-first methodology — every price requires a verified source.
+    </p>
+    <div class="hero-meta">
+      {% assign total = site.data.price_records | size %}
+      {% assign elem_count = site.elements | size %}
+      <span class="hero-stat"><strong class="mono">{{ elem_count }}</strong> elements tracked</span>
+      <span class="hero-stat-sep">|</span>
+      <span class="hero-stat"><strong class="mono">{{ total }}</strong> price records</span>
+      <span class="hero-stat-sep">|</span>
+      <span class="hero-stat">Built {{ site.time | date: "%Y-%m-%d" }}</span>
+    </div>
+  </div>
+</div>
+
+<div class="home-search">
+  {% include search-box.html %}
+</div>
+
+{{ content }}
+
+<div class="dashboard-grid">
+  <div class="dashboard-full-width">
+    {% include stats-panel.html %}
+  </div>
+
+  <div class="dashboard-two-thirds">
+    {% include movers-panel.html %}
+  </div>
+
+  <div class="panel restricted-panel">
+    <div class="panel-header">
+      <h2>Export-Controlled</h2>
+      <span class="panel-count badge-ctrl badge-restricted">Restricted</span>
+    </div>
+    {% for cat in site.data.element_catalog %}
+      {% if cat.export_control_status == 'restricted' %}
+        <a href="{{ '/elements/' | append: cat.symbol | append: '/' | relative_url }}" class="restricted-item">
+          <span>
+            <span class="mono fw-bold">{{ cat.symbol }}</span>
+            <span class="text-sm text-secondary">{{ cat.name }}</span>
+          </span>
+          {% assign latest_price = nil %}
+          {% for r in site.data.price_records %}
+            {% if r.element_symbol == cat.symbol and r.market_tier == 'bulk' %}
+              {% if r.quote_date > latest_price.quote_date or latest_price == nil %}
+                {% assign latest_price = r %}
+              {% endif %}
+            {% endif %}
+          {% endfor %}
+          {% if latest_price %}
+            <span class="mono text-sm">${{ latest_price.normalized_usd_per_kg }}/kg</span>
+          {% else %}
+            <span class="text-dim text-xs">No data</span>
+          {% endif %}
+        </a>
+      {% endif %}
+    {% endfor %}
+  </div>
+
+  <div class="dashboard-full-width">
+    <div class="panel">
+      <div class="panel-header">
+        <h2>Recently Updated</h2>
+        <a href="{{ '/elements/' | relative_url }}" class="panel-link">View all &rarr;</a>
+      </div>
+      {% if site.data.price_records.size > 0 %}
+        <div class="feed-list">
+          {% assign sorted_records = site.data.price_records | sort: 'quote_date' | reverse %}
+          {% assign shown = 0 %}
+          {% for record in sorted_records %}
+            {% if shown < 10 and record.verification_status != 'archived' %}
+              <a href="{{ '/elements/' | append: record.element_symbol | append: '/' | relative_url }}" class="feed-item feed-{{ record.source_type }}">
+                <div class="feed-left">
+                  <span class="feed-symbol">{{ record.element_symbol }}</span>
+                  <div>
+                    <div class="feed-text">
+                      {{ record.element_name }}
+                      — {{ record.form }} {{ record.purity }}
+                      — <strong class="mono">${{ record.normalized_usd_per_kg }}/kg</strong>
+                      <span class="text-dim">({{ record.market_tier }})</span>
+                    </div>
+                    <div class="feed-timestamp">{{ record.quote_date }} · {{ record.source_type | replace: '_', ' ' }}</div>
+                  </div>
+                </div>
+              </a>
+              {% assign shown = shown | plus: 1 %}
+            {% endif %}
+          {% endfor %}
+        </div>
+      {% else %}
+        <div class="panel-empty">No price records ingested yet.</div>
+      {% endif %}
+    </div>
+  </div>
+
+  <div class="dashboard-full-width">
+    {% include periodic-nav.html %}
+  </div>
+</div>
+
+{% include disclaimer.html %}

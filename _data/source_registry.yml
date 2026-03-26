@@ -1,0 +1,89 @@
+# Strategic Materials Ledger — Source Registry
+# Curated data sources with trust tiers and ingestion status.
+# PLACEHOLDER DATA — illustrative sources for UI development.
+
+- id: placeholder-ui-dev
+  name: "Placeholder Data (UI Development)"
+  type: placeholder
+  trust_tier: 5
+  url: null
+  country: null
+  ingestion_method: manual
+  supported_elements:
+    - Nd
+    - Pr
+    - Dy
+    - Tb
+    - Sm
+    - Gd
+    - Y
+    - Sc
+    - Te
+    - V
+    - Ga
+    - Ge
+    - Sb
+    - W
+    - In
+    - Bi
+    - Mo
+  last_fetch: "2026-03-26"
+  parse_status: active
+  review_status: reviewed
+  notes: "PLACEHOLDER — rounded illustrative prices for UI development. Not real market data."
+
+- id: example-distributor-01
+  name: "Pacific Rare Materials Co."
+  type: distributor
+  trust_tier: 2
+  url: null
+  country: CN
+  ingestion_method: csv_import
+  supported_elements:
+    - Nd
+    - Pr
+    - Dy
+    - Tb
+    - Sm
+    - Gd
+    - Y
+  last_fetch: null
+  parse_status: pending_review
+  review_status: pending
+  notes: "PLACEHOLDER — example distributor source for UI development."
+
+- id: example-marketplace-01
+  name: "European Strategic Metals GmbH"
+  type: marketplace
+  trust_tier: 3
+  url: null
+  country: DE
+  ingestion_method: manual
+  supported_elements:
+    - Ga
+    - Ge
+    - In
+    - Sb
+    - W
+  last_fetch: null
+  parse_status: pending_review
+  review_status: pending
+  notes: "PLACEHOLDER — example marketplace source for UI development."
+
+- id: example-benchmark-01
+  name: "Global Minor Metals Index"
+  type: benchmark
+  trust_tier: 4
+  url: null
+  country: UK
+  ingestion_method: manual
+  supported_elements:
+    - Te
+    - V
+    - Bi
+    - Mo
+    - Sc
+  last_fetch: null
+  parse_status: inactive
+  review_status: pending
+  notes: "PLACEHOLDER — example benchmark source for UI development."

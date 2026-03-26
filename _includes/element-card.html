@@ -1,0 +1,128 @@
+{% comment %}
+  Usage: {% include element-card.html element=elem %}
+  Where elem is a collection item from site.elements
+{% endcomment %}
+
+{% assign el = include.element %}
+{% assign cat_info = nil %}
+{% for c in site.data.element_catalog %}
+  {% if c.symbol == el.symbol %}
+    {% assign cat_info = c %}
+    {% break %}
+  {% endif %}
+{% endfor %}
+
+{% comment %} Find latest prices for this element {% endcomment %}
+{% assign latest_retail_price = nil %}
+{% assign latest_bulk_price = nil %}
+{% assign latest_retail_date = nil %}
+{% assign latest_bulk_date = nil %}
+{% assign record_count = 0 %}
+{% assign latest_date = nil %}
+{% assign earliest_bulk = nil %}
+{% assign earliest_bulk_date = "9999-99-99" %}
+{% assign latest_bulk_val = nil %}
+
+{% for record in site.data.price_records %}
+  {% if record.element_symbol == el.symbol and record.verification_status != 'archived' %}
+    {% assign record_count = record_count | plus: 1 %}
+    {% if record.quote_date > latest_date or latest_date == nil %}
+      {% assign latest_date = record.quote_date %}
+    {% endif %}
+    {% if record.market_tier == 'retail' %}
+      {% if record.quote_date > latest_retail_date or latest_retail_date == nil %}
+        {% assign latest_retail_price = record.normalized_usd_per_kg %}
+        {% assign latest_retail_date = record.quote_date %}
+      {% endif %}
+    {% endif %}
+    {% if record.market_tier == 'bulk' or record.market_tier == 'industrial' or record.market_tier == 'distributor' %}
+      {% if record.quote_date > latest_bulk_date or latest_bulk_date == nil %}
+        {% assign latest_bulk_price = record.normalized_usd_per_kg %}
+        {% assign latest_bulk_date = record.quote_date %}
+        {% assign latest_bulk_val = record.normalized_usd_per_kg %}
+      {% endif %}
+      {% if record.quote_date < earliest_bulk_date %}
+        {% assign earliest_bulk = record.normalized_usd_per_kg %}
+        {% assign earliest_bulk_date = record.quote_date %}
+      {% endif %}
+    {% endif %}
+  {% endif %}
+{% endfor %}
+
+{% comment %} Compute trend direction {% endcomment %}
+{% assign trend = "flat" %}
+{% if earliest_bulk and latest_bulk_val %}
+  {% if latest_bulk_val > earliest_bulk %}
+    {% assign trend = "up" %}
+  {% elsif latest_bulk_val < earliest_bulk %}
+    {% assign trend = "down" %}
+  {% endif %}
+{% endif %}
+
+<a href="{{ el.url | relative_url }}" class="element-card"
+   data-symbol="{{ el.symbol }}"
+   data-name="{{ el.name }}"
+   data-category="{{ cat_info.category }}"
+   data-export="{{ cat_info.export_control_status }}"
+   data-updated="{{ latest_date }}"
+   data-retail="{{ latest_retail_price }}"
+   data-bulk="{{ latest_bulk_price }}">
+  <div class="element-card-header">
+    <div class="element-card-symbol-wrap cat-{{ cat_info.category | replace: '_', '-' }}">
+      <span class="element-symbol">{{ el.symbol }}</span>
+    </div>
+    <div class="element-card-title">
+      <span class="element-name">{{ el.name }}</span>
+      <span class="element-card-z">#{{ cat_info.atomic_number }}</span>
+    </div>
+    {% if trend != "flat" and latest_bulk_val %}
+      <span class="element-card-trend trend-{{ trend }}">
+        {% if trend == "up" %}&#x25B2;{% else %}&#x25BC;{% endif %}
+      </span>
+    {% endif %}
+  </div>
+  <div class="element-card-meta">
+    {% case cat_info.category %}
+      {% when 'rare_earth_light' %}
+        <span class="badge-cat badge-ree-light">Light REE</span>
+      {% when 'rare_earth_heavy' %}
+        <span class="badge-cat badge-ree-heavy">Heavy REE</span>
+      {% when 'strategic_metal' %}
+        <span class="badge-cat badge-strategic">Strategic</span>
+      {% when 'semiconductor_metal' %}
+        <span class="badge-cat badge-semiconductor">Semiconductor</span>
+    {% endcase %}
+    {% case cat_info.export_control_status %}
+      {% when 'restricted' %}
+        <span class="badge-ctrl badge-restricted">Restricted</span>
+      {% when 'monitored' %}
+        <span class="badge-ctrl badge-monitored">Monitored</span>
+    {% endcase %}
+  </div>
+  <div class="element-card-prices">
+    <div class="price-slot">
+      <div class="price-label">Retail</div>
+      {% if latest_retail_price %}
+        <div class="price-value">${{ latest_retail_price }}<span class="text-xs text-muted">/kg</span></div>
+      {% else %}
+        <div class="price-empty">&mdash;</div>
+      {% endif %}
+    </div>
+    <div class="price-slot">
+      <div class="price-label">Bulk</div>
+      {% if latest_bulk_price %}
+        <div class="price-value">${{ latest_bulk_price }}<span class="text-xs text-muted">/kg</span></div>
+      {% else %}
+        <div class="price-empty">&mdash;</div>
+      {% endif %}
+    </div>
+  </div>
+  <div class="element-card-footer">
+    <span>{{ record_count }} record{% if record_count != 1 %}s{% endif %}</span>
+    {% if latest_date %}
+      <span class="mono">{{ latest_date }}</span>
+    {% else %}
+      <span class="text-dim">No data</span>
+    {% endif %}
+  </div>
+</a>

@@ -1,0 +1,87 @@
+# Strategic Materials Ledger — Policy Events
+# Tracks export controls, tariffs, sanctions, and supply disruptions.
+# PLACEHOLDER DATA — illustrative events for UI development.
+
+- id: pe-001
+  date: "2025-07-01"
+  title: "China expands rare earth export licensing requirements"
+  description: "New licensing rules require end-use certificates for all rare earth oxide and metal exports exceeding 10 kg. Affects Light and Heavy REE categories."
+  affected_elements:
+    - Nd
+    - Pr
+    - Dy
+    - Tb
+    - Sm
+    - Gd
+    - Y
+  affected_forms:
+    - oxide
+    - metal
+  event_type: export_control
+  source_country: CN
+  source_url: null
+  source_name: "PLACEHOLDER"
+  notes: "PLACEHOLDER — illustrative policy event for UI development."
+
+- id: pe-002
+  date: "2025-09-15"
+  title: "US adds gallium and germanium to critical minerals tariff schedule"
+  description: "25% tariff applied to gallium and germanium imports from non-allied nations. Semiconductor supply chains expected to adjust sourcing."
+  affected_elements:
+    - Ga
+    - Ge
+  affected_forms:
+    - metal
+    - compound
+  event_type: tariff
+  source_country: US
+  source_url: null
+  source_name: "PLACEHOLDER"
+  notes: "PLACEHOLDER — illustrative policy event for UI development."
+
+- id: pe-003
+  date: "2025-11-20"
+  title: "Antimony added to EU critical raw materials restricted list"
+  description: "Following supply concentration analysis, antimony designated as restricted strategic material by the European Commission."
+  affected_elements:
+    - Sb
+  affected_forms:
+    - metal
+    - oxide
+  event_type: export_control
+  source_country: EU
+  source_url: null
+  source_name: "PLACEHOLDER"
+  notes: "PLACEHOLDER — illustrative policy event for UI development."
+
+- id: pe-004
+  date: "2026-01-10"
+  title: "Myanmar rare earth mining disrupted by regional instability"
+  description: "Heavy rare earth production from Myanmar's Kachin State disrupted. Dysprosium and terbium supply tightens."
+  affected_elements:
+    - Dy
+    - Tb
+  affected_forms:
+    - oxide
+    - metal
+  event_type: supply_disruption
+  source_country: MM
+  source_url: null
+  source_name: "PLACEHOLDER"
+  notes: "PLACEHOLDER — illustrative policy event for UI development."
+
+- id: pe-005
+  date: "2026-02-28"
+  title: "Tungsten export quotas reduced for Q2 2026"
+  description: "China announces 15% reduction in tungsten export quotas for Q2 2026, citing domestic demand for defense applications."
+  affected_elements:
+    - W
+  affected_forms:
+    - metal
+    - powder
+    - carbide
+  event_type: export_control
+  source_country: CN
+  source_url: null
+  source_name: "PLACEHOLDER"
+  notes: "PLACEHOLDER — illustrative policy event for UI development."

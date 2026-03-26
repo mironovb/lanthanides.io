@@ -1,0 +1,66 @@
+{% comment %}
+  Top movers panel — computes price changes from earliest to latest bulk price.
+  Uses Liquid to compute direction. JS enhances with sorting.
+{% endcomment %}
+
+<div class="panel movers-panel">
+  <div class="panel-header">
+    <h2>Price Movements</h2>
+    <span class="panel-count text-xs text-dim">Bulk oxide/metal, earliest to latest</span>
+  </div>
+
+  {% if site.data.price_records.size == 0 %}
+    <div class="panel-empty">
+      No price data available. Ingest price records to see price movements.
+    </div>
+  {% else %}
+    <div class="movers-list" id="movers-list">
+      {% for elem in site.elements %}
+        {% assign earliest_price = nil %}
+        {% assign earliest_date = "9999-99-99" %}
+        {% assign latest_price = nil %}
+        {% assign latest_date = "0000-00-00" %}
+
+        {% for r in site.data.price_records %}
+          {% if r.element_symbol == elem.symbol and r.verification_status != 'archived' %}
+            {% if r.market_tier == 'bulk' or r.market_tier == 'industrial' or r.market_tier == 'distributor' %}
+              {% if r.quote_date < earliest_date %}
+                {% assign earliest_price = r.normalized_usd_per_kg %}
+                {% assign earliest_date = r.quote_date %}
+              {% endif %}
+              {% if r.quote_date > latest_date %}
+                {% assign latest_price = r.normalized_usd_per_kg %}
+                {% assign latest_date = r.quote_date %}
+              {% endif %}
+            {% endif %}
+          {% endif %}
+        {% endfor %}
+
+        {% if earliest_price and latest_price and earliest_date != latest_date %}
+          {% assign diff = latest_price | minus: earliest_price %}
+          {% assign abs_diff = diff %}
+          {% if diff < 0 %}{% assign abs_diff = 0 | minus: diff %}{% endif %}
+          {% if earliest_price > 0 %}
+            {% assign pct_raw = diff | times: 10000 | divided_by: earliest_price %}
+            {% assign pct_int = pct_raw | divided_by: 100 %}
+            {% assign pct_dec = pct_raw | modulo: 100 %}
+            {% if pct_dec < 0 %}{% assign pct_dec = 0 | minus: pct_dec %}{% endif %}
+          {% endif %}
+
+          <a href="{{ elem.url | relative_url }}" class="mover-item" data-change="{{ diff }}">
+            <div class="mover-left">
+              <span class="mover-symbol">{{ elem.symbol }}</span>
+              <span class="mover-name">{{ elem.name }}</span>
+            </div>
+            <div class="mover-right">
+              <span class="mover-price mono">${{ latest_price }}/kg</span>
+              <span class="mover-change {% if diff > 0 %}up{% elsif diff < 0 %}down{% else %}flat{% endif %}">
+                {% if diff > 0 %}+{% endif %}{% if pct_int %}{{ pct_int }}.{{ pct_dec }}%{% else %}0%{% endif %}
+              </span>
+            </div>
+          </a>
+        {% endif %}
+      {% endfor %}
+    </div>
+  {% endif %}
+</div>

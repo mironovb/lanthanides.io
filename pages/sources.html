@@ -1,0 +1,128 @@
+---
+layout: data-page
+title: "Source Registry"
+description: "Curated data sources, trust tiers, and ingestion status."
+permalink: /sources/
+---
+
+<div class="element-section">
+  <h2 class="section-title">Trust Tiers</h2>
+  <div class="data-table-wrapper">
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th class="col-numeric">Tier</th>
+          <th>Description</th>
+          <th>Reliability</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for tier in site.data.site_settings.source_trust_tiers %}
+          <tr>
+            <td class="col-numeric">{{ tier[0] }}</td>
+            <td>{{ tier[1] }}</td>
+            <td>
+              {% case tier[0] %}
+                {% when 1 %}<span class="badge badge-verified">Highest</span>
+                {% when 2 %}<span class="badge badge-corroborated">High</span>
+                {% when 3 %}<span class="badge badge-single-source">Medium</span>
+                {% when 4 %}<span class="badge badge-benchmark">Reference</span>
+                {% when 5 %}<span class="badge badge-archived">Context Only</span>
+              {% endcase %}
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="element-section mt-6">
+  <h2 class="section-title">Registered Sources</h2>
+
+  {% if site.data.source_registry.size > 0 %}
+    <div class="data-table-wrapper">
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Source</th>
+            <th>Type</th>
+            <th class="col-numeric">Trust Tier</th>
+            <th>Country</th>
+            <th>Ingestion</th>
+            <th>Status</th>
+            <th>Last Fetch</th>
+            <th>Review</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for source in site.data.source_registry %}
+            <tr>
+              <td>
+                {{ source.name }}
+                {% if source.url %}
+                  <br><a href="{{ source.url }}" class="table-source-link" target="_blank" rel="noopener">{{ source.url | truncate: 40 }}</a>
+                {% endif %}
+              </td>
+              <td>{{ source.type | capitalize }}</td>
+              <td class="col-numeric">{{ source.trust_tier }}</td>
+              <td>{{ source.country | default: "—" }}</td>
+              <td><span class="text-xs mono">{{ source.ingestion_method | default: "manual" }}</span></td>
+              <td>
+                {% case source.parse_status %}
+                  {% when 'active' %}<span class="badge badge-verified">Active</span>
+                  {% when 'inactive' %}<span class="badge badge-archived">Inactive</span>
+                  {% when 'error' %}<span class="badge badge-stale">Error</span>
+                  {% when 'pending_review' %}<span class="badge badge-single-source">Pending</span>
+                  {% else %}<span class="text-dim">—</span>
+                {% endcase %}
+              </td>
+              <td class="col-date">{{ source.last_fetch | default: "Never" }}</td>
+              <td>
+                {% case source.review_status %}
+                  {% when 'reviewed' %}<span class="text-teal">Reviewed</span>
+                  {% when 'pending' %}<span class="text-amber">Pending</span>
+                  {% else %}<span class="text-dim">N/A</span>
+                {% endcase %}
+              </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  {% else %}
+    <div class="panel">
+      <div class="panel-empty">
+        No sources are registered yet.
+        Add sources to <code>_data/source_registry.yml</code> to populate this page.
+      </div>
+    </div>
+  {% endif %}
+</div>
+
+<div class="element-section mt-6">
+  <h2 class="section-title">Adding a New Source</h2>
+  <div class="card">
+    <p class="text-sm text-secondary">
+      To register a new data source, add an entry to <code>_data/source_registry.yml</code> with the following fields:
+    </p>
+    <div class="mt-4">
+      <pre class="code" style="white-space: pre-wrap; font-size: 0.75rem; line-height: 1.5; padding: 1rem; background: #16161f; border-radius: 4px;">- id: source-unique-id
+  name: "Source Display Name"
+  type: distributor          # invoice | distributor | marketplace | benchmark | news
+  trust_tier: 2              # 1-5 (see trust tiers above)
+  url: "https://example.com"
+  country: US
+  ingestion_method: manual   # manual | csv_import | api | scraper_adapter
+  supported_elements:
+    - Nd
+    - Pr
+  last_fetch: null
+  parse_status: pending_review
+  review_status: pending
+  notes: "Description of source"</pre>
+    </div>
+  </div>
+</div>
+
+{% include disclaimer.html %}

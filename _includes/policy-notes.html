@@ -1,0 +1,65 @@
+{% comment %}
+  Usage: {% include policy-notes.html symbol=page.symbol %}
+{% endcomment %}
+
+{% assign sym = include.symbol %}
+{% assign cat_info = nil %}
+{% for c in site.data.element_catalog %}
+  {% if c.symbol == sym %}
+    {% assign cat_info = c %}
+    {% break %}
+  {% endif %}
+{% endfor %}
+
+{% assign related_events = "" %}
+{% assign has_events = false %}
+
+<div class="policy-notes">
+  <div class="panel-header">
+    <h3>Export Controls &amp; Policy Notes</h3>
+  </div>
+
+  <div class="policy-status">
+    {% case cat_info.export_control_status %}
+      {% when 'restricted' %}
+        <span class="badge-ctrl badge-restricted">Restricted</span>
+      {% when 'monitored' %}
+        <span class="badge-ctrl badge-monitored">Monitored</span>
+      {% when 'normal' %}
+        <span class="badge-ctrl badge-normal">Normal</span>
+    {% endcase %}
+    <span class="text-xs text-muted">
+      Dominant source: {{ cat_info.dominant_source_country | default: "—" }}
+    </span>
+  </div>
+
+  {% if cat_info.notes %}
+    <p class="text-sm text-secondary mt-2">{{ cat_info.notes }}</p>
+  {% endif %}
+
+  {% comment %} Policy events affecting this element {% endcomment %}
+  {% for event in site.data.policy_events %}
+    {% for affected in event.affected_elements %}
+      {% if affected == sym %}
+        {% assign has_events = true %}
+        <div class="feed-item feed-policy mt-2">
+          <div class="feed-timestamp">{{ event.date }} — {{ event.event_type | replace: '_', ' ' | capitalize }}</div>
+          <div class="feed-text">
+            <strong>{{ event.title }}</strong><br>
+            {{ event.description }}
+            {% if event.source_url %}
+              <br><a href="{{ event.source_url }}" target="_blank" rel="noopener" class="text-xs">Source: {{ event.source_name | default: "Link" }}</a>
+            {% endif %}
+          </div>
+        </div>
+      {% endif %}
+    {% endfor %}
+  {% endfor %}
+
+  {% unless has_events %}
+    <p class="text-xs text-dim mt-2">
+      No specific policy events recorded for this element.
+      Policy notes are living documents — they are updated as conditions change.
+    </p>
+  {% endunless %}
+</div>

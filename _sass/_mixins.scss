@@ -1,0 +1,74 @@
+// Responsive breakpoints
+@mixin bp-sm { @media (min-width: $bp-sm) { @content; } }
+@mixin bp-md { @media (min-width: $bp-md) { @content; } }
+@mixin bp-lg { @media (min-width: $bp-lg) { @content; } }
+@mixin bp-xl { @media (min-width: $bp-xl) { @content; } }
+@mixin bp-max-sm { @media (max-width: #{$bp-sm - 1}) { @content; } }
+@mixin bp-max-md { @media (max-width: #{$bp-md - 1}) { @content; } }
+
+// Card surface
+@mixin card {
+  background: $bg-card;
+  border: $border-card;
+  border-radius: $radius-md;
+}
+
+// Panel (dashboard section)
+@mixin panel {
+  @include card;
+  padding: $sp-4;
+}
+
+// Truncate text
+@mixin truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+// Visually hidden (accessible)
+@mixin sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+// Focus ring
+@mixin focus-ring {
+  &:focus-visible {
+    outline: 2px solid $accent-blue;
+    outline-offset: 2px;
+  }
+}
+
+// Container
+@mixin container {
+  max-width: $max-width;
+  margin: 0 auto;
+  padding: 0 $sp-4;
+
+  @include bp-lg {
+    padding: 0 $sp-8;
+  }
+}
+
+// Grid gap helpers
+@mixin grid-gap($gap: $sp-4) {
+  display: grid;
+  gap: $gap;
+}
+
+// Uppercase label
+@mixin label {
+  font-size: $fs-xs;
+  font-weight: $fw-semibold;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: $text-muted;
+}

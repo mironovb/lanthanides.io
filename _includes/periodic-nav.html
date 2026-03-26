@@ -1,0 +1,58 @@
+<div class="periodic-nav">
+  <div class="panel-header">
+    <h2>Materials Navigator</h2>
+    <span class="panel-count">{{ site.elements | size }} elements</span>
+  </div>
+
+  <div class="periodic-grid">
+    {% for elem in site.elements %}
+      {% assign cat_info = nil %}
+      {% for c in site.data.element_catalog %}
+        {% if c.symbol == elem.symbol %}
+          {% assign cat_info = c %}
+          {% break %}
+        {% endif %}
+      {% endfor %}
+
+      {% assign has_data = false %}
+      {% assign latest_bulk = nil %}
+      {% for record in site.data.price_records %}
+        {% if record.element_symbol == elem.symbol and record.verification_status != 'archived' %}
+          {% assign has_data = true %}
+          {% if record.market_tier == 'bulk' or record.market_tier == 'industrial' %}
+            {% if record.quote_date > latest_bulk.quote_date or latest_bulk == nil %}
+              {% assign latest_bulk = record %}
+            {% endif %}
+          {% endif %}
+        {% endif %}
+      {% endfor %}
+
+      <a href="{{ elem.url | relative_url }}"
+         class="periodic-cell cat-{{ cat_info.category | replace: '_', '-' }} {% if has_data %}has-data{% else %}no-data{% endif %}"
+         title="{{ elem.name }} ({{ elem.symbol }}){% if latest_bulk %} — ${{ latest_bulk.normalized_usd_per_kg }}/kg{% endif %}">
+        <span class="cell-z">{{ cat_info.atomic_number }}</span>
+        <span class="cell-symbol">{{ elem.symbol }}</span>
+        {% if latest_bulk %}
+          <span class="cell-price">${{ latest_bulk.normalized_usd_per_kg }}</span>
+        {% else %}
+          <span class="cell-indicator"></span>
+        {% endif %}
+      </a>
+    {% endfor %}
+  </div>
+
+  <div class="periodic-nav-legend">
+    <div class="legend-item">
+      <span class="legend-swatch swatch-ree-light"></span> Light REE
+    </div>
+    <div class="legend-item">
+      <span class="legend-swatch swatch-ree-heavy"></span> Heavy REE
+    </div>
+    <div class="legend-item">
+      <span class="legend-swatch swatch-strategic"></span> Strategic
+    </div>
+    <div class="legend-item">
+      <span class="legend-swatch swatch-semiconductor"></span> Semiconductor
+    </div>
+  </div>
+</div>

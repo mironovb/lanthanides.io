@@ -1,0 +1,219 @@
+# Strategic Materials Ledger — Element Catalog
+# Master metadata for all tracked elements.
+# To add a new element: append an entry here AND create a matching _elements/<Symbol>.md file.
+
+- symbol: Nd
+  name: Neodymium
+  atomic_number: 60
+  category: rare_earth_light
+  family: Lanthanide
+  default_forms:
+    - oxide
+    - metal
+    - powder
+  export_control_status: restricted
+  dominant_source_country: CN
+  notes: "Critical for NdFeB permanent magnets."
+
+- symbol: Pr
+  name: Praseodymium
+  atomic_number: 59
+  category: rare_earth_light
+  family: Lanthanide
+  default_forms:
+    - oxide
+    - metal
+    - alloy
+  export_control_status: restricted
+  dominant_source_country: CN
+  notes: "Often co-produced with neodymium; used in magnets and ceramics."
+
+- symbol: Dy
+  name: Dysprosium
+  atomic_number: 66
+  category: rare_earth_heavy
+  family: Lanthanide
+  default_forms:
+    - oxide
+    - metal
+  export_control_status: restricted
+  dominant_source_country: CN
+  notes: "Essential additive for high-temperature NdFeB magnets."
+
+- symbol: Tb
+  name: Terbium
+  atomic_number: 65
+  category: rare_earth_heavy
+  family: Lanthanide
+  default_forms:
+    - oxide
+    - metal
+  export_control_status: restricted
+  dominant_source_country: CN
+  notes: "Used in magnets, phosphors, and solid-state devices."
+
+- symbol: Sm
+  name: Samarium
+  atomic_number: 62
+  category: rare_earth_light
+  family: Lanthanide
+  default_forms:
+    - oxide
+    - metal
+    - alloy
+  export_control_status: monitored
+  dominant_source_country: CN
+  notes: "Key component of SmCo permanent magnets."
+
+- symbol: Gd
+  name: Gadolinium
+  atomic_number: 64
+  category: rare_earth_heavy
+  family: Lanthanide
+  default_forms:
+    - oxide
+    - metal
+  export_control_status: monitored
+  dominant_source_country: CN
+  notes: "Used in MRI contrast agents and nuclear reactor shielding."
+
+- symbol: Y
+  name: Yttrium
+  atomic_number: 39
+  category: rare_earth_light
+  family: Transition metal
+  default_forms:
+    - oxide
+    - metal
+  export_control_status: monitored
+  dominant_source_country: CN
+  notes: "Used in ceramics, phosphors, and superconductors."
+
+- symbol: Sc
+  name: Scandium
+  atomic_number: 21
+  category: rare_earth_light
+  family: Transition metal
+  default_forms:
+    - oxide
+    - metal
+  export_control_status: normal
+  dominant_source_country: CN
+  notes: "Used in aluminum-scandium alloys for aerospace."
+
+- symbol: Te
+  name: Tellurium
+  atomic_number: 52
+  category: strategic_metal
+  family: Metalloid
+  default_forms:
+    - metal
+    - powder
+    - compound
+  export_control_status: normal
+  dominant_source_country: CN
+  notes: "Critical for CdTe thin-film solar cells and thermoelectrics."
+
+- symbol: V
+  name: Vanadium
+  atomic_number: 23
+  category: strategic_metal
+  family: Transition metal
+  default_forms:
+    - oxide
+    - metal
+    - alloy
+  export_control_status: normal
+  dominant_source_country: CN
+  notes: "Used in high-strength steel alloys and vanadium redox flow batteries."
+
+- symbol: Ga
+  name: Gallium
+  atomic_number: 31
+  category: semiconductor_metal
+  family: Post-transition metal
+  default_forms:
+    - metal
+    - compound
+  export_control_status: restricted
+  dominant_source_country: CN
+  notes: "Essential for GaAs and GaN semiconductors."
+
+- symbol: Ge
+  name: Germanium
+  atomic_number: 32
+  category: semiconductor_metal
+  family: Metalloid
+  default_forms:
+    - metal
+    - oxide
+    - compound
+  export_control_status: restricted
+  dominant_source_country: CN
+  notes: "Used in fiber optics, infrared optics, and semiconductors."
+
+- symbol: Sb
+  name: Antimony
+  atomic_number: 51
+  category: strategic_metal
+  family: Metalloid
+  default_forms:
+    - metal
+    - oxide
+    - compound
+  export_control_status: restricted
+  dominant_source_country: CN
+  notes: "Used in flame retardants, lead-acid batteries, and ammunition."
+
+- symbol: W
+  name: Tungsten
+  atomic_number: 74
+  category: strategic_metal
+  family: Transition metal
+  default_forms:
+    - metal
+    - oxide
+    - powder
+    - carbide
+  export_control_status: restricted
+  dominant_source_country: CN
+  notes: "Highest melting point of all metals; used in cutting tools, armor, and electronics."
+
+- symbol: In
+  name: Indium
+  atomic_number: 49
+  category: semiconductor_metal
+  family: Post-transition metal
+  default_forms:
+    - metal
+    - oxide
+    - compound
+  export_control_status: monitored
+  dominant_source_country: CN
+  notes: "Critical for ITO coatings in displays and touchscreens."
+
+- symbol: Bi
+  name: Bismuth
+  atomic_number: 83
+  category: strategic_metal
+  family: Post-transition metal
+  default_forms:
+    - metal
+    - oxide
+    - compound
+  export_control_status: normal
+  dominant_source_country: CN
+  notes: "Lead-free solder alternative; used in pharmaceuticals and cosmetics."
+
+- symbol: Mo
+  name: Molybdenum
+  atomic_number: 42
+  category: strategic_metal
+  family: Transition metal
+  default_forms:
+    - metal
+    - oxide
+    - powder
+  export_control_status: normal
+  dominant_source_country: CN
+  notes: "Key alloying element in high-strength steels and superalloys."

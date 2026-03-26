@@ -1,0 +1,143 @@
+.heatmap-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $sp-2;
+  margin-bottom: $sp-4;
+}
+
+.heatmap-baseline-btn {
+  font-size: $fs-xs;
+  font-weight: $fw-medium;
+  padding: $sp-1 $sp-3;
+  border: 1px solid $border-secondary;
+  border-radius: $radius-sm;
+  background: $bg-tertiary;
+  color: $text-secondary;
+  cursor: pointer;
+  transition: all $transition-fast;
+
+  &:hover {
+    border-color: $accent-blue-dim;
+    color: $text-primary;
+  }
+
+  &.active {
+    border-color: $accent-blue;
+    color: $accent-blue;
+    background: rgba($accent-blue, 0.1);
+  }
+}
+
+.heatmap-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+  gap: 2px;
+}
+
+.heatmap-cell {
+  @include card;
+  padding: $sp-2 $sp-3;
+  text-align: center;
+  transition: transform $transition-fast, border-color $transition-fast;
+  cursor: default;
+  min-height: 80px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  &:hover {
+    transform: translateY(-1px);
+    border-color: $border-accent;
+    z-index: 1;
+  }
+
+  .heatmap-symbol {
+    font-family: $font-mono;
+    font-size: $fs-md;
+    font-weight: $fw-bold;
+    color: $text-primary;
+  }
+
+  .heatmap-name {
+    font-size: $fs-xs;
+    color: $text-muted;
+    margin-top: $sp-1;
+  }
+
+  .heatmap-score {
+    font-family: $font-mono;
+    font-size: $fs-sm;
+    font-weight: $fw-semibold;
+    margin-top: $sp-1;
+  }
+
+  .heatmap-premium {
+    font-size: $fs-xs;
+    color: $text-dim;
+  }
+
+  // Color states applied via JS
+  &.heat-cool {
+    border-color: rgba($heat-cool, 0.3);
+    background: rgba($heat-cool, 0.05);
+    .heatmap-score { color: $heat-cool; }
+  }
+
+  &.heat-neutral {
+    .heatmap-score { color: $text-secondary; }
+  }
+
+  &.heat-warm {
+    border-color: rgba($heat-warm, 0.3);
+    background: rgba($heat-warm, 0.05);
+    .heatmap-score { color: $heat-warm; }
+  }
+
+  &.heat-hot {
+    border-color: rgba($heat-hot, 0.3);
+    background: rgba($heat-hot, 0.08);
+    .heatmap-score { color: $heat-hot; }
+  }
+
+  &.heat-no-data {
+    opacity: 0.4;
+    .heatmap-score { color: $text-dim; }
+  }
+}
+
+.heatmap-legend {
+  display: flex;
+  align-items: center;
+  gap: $sp-2;
+  margin-top: $sp-4;
+  font-size: $fs-xs;
+  color: $text-muted;
+
+  .heatmap-legend-scale {
+    display: flex;
+    height: 8px;
+    width: 200px;
+    border-radius: 4px;
+    overflow: hidden;
+
+    .scale-segment {
+      flex: 1;
+      &.seg-cool { background: $heat-cool; }
+      &.seg-neutral { background: $heat-neutral; }
+      &.seg-warm { background: $heat-warm; }
+      &.seg-hot { background: $heat-hot; }
+    }
+  }
+}
+
+.heatmap-disclaimer {
+  margin-top: $sp-4;
+  padding: $sp-3;
+  background: rgba($accent-amber, 0.03);
+  border: 1px solid rgba($accent-amber, 0.15);
+  border-radius: $radius-md;
+  font-size: $fs-xs;
+  color: $text-secondary;
+  line-height: $lh-relaxed;
+}

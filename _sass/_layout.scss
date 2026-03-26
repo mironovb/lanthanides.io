@@ -1,0 +1,113 @@
+.site-wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.site-main {
+  flex: 1;
+  @include container;
+  padding-top: $sp-6;
+  padding-bottom: $sp-8;
+}
+
+.container {
+  @include container;
+}
+
+.grid-2 {
+  @include grid-gap;
+  @include bp-md { grid-template-columns: repeat(2, 1fr); }
+}
+
+.grid-3 {
+  @include grid-gap;
+  @include bp-md { grid-template-columns: repeat(2, 1fr); }
+  @include bp-lg { grid-template-columns: repeat(3, 1fr); }
+}
+
+.grid-4 {
+  @include grid-gap;
+  grid-template-columns: repeat(2, 1fr);
+  @include bp-md { grid-template-columns: repeat(3, 1fr); }
+  @include bp-lg { grid-template-columns: repeat(4, 1fr); }
+}
+
+.grid-auto {
+  @include grid-gap;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+}
+
+.flex-row {
+  display: flex;
+  align-items: center;
+  gap: $sp-3;
+}
+
+.flex-between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.flex-wrap {
+  flex-wrap: wrap;
+}
+
+.gap-1 { gap: $sp-1; }
+.gap-2 { gap: $sp-2; }
+.gap-3 { gap: $sp-3; }
+.gap-4 { gap: $sp-4; }
+
+.mt-2 { margin-top: $sp-2; }
+.mt-4 { margin-top: $sp-4; }
+.mt-6 { margin-top: $sp-6; }
+.mt-8 { margin-top: $sp-8; }
+.mb-2 { margin-bottom: $sp-2; }
+.mb-4 { margin-bottom: $sp-4; }
+.mb-6 { margin-bottom: $sp-6; }
+
+.uppercase {
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+// Two-column layout with sidebar
+.layout-with-sidebar {
+  @include bp-lg {
+    display: grid;
+    grid-template-columns: 1fr $sidebar-width;
+    gap: $sp-6;
+    align-items: start;
+  }
+}
+
+.sidebar-sticky {
+  @include bp-lg {
+    position: sticky;
+    top: calc(#{$header-height} + #{$sp-4});
+  }
+}
+
+.section-heading {
+  @include label;
+  margin-bottom: $sp-3;
+  padding-bottom: $sp-2;
+  border-bottom: $border-thin;
+}
+
+// Page title (data-page layout)
+.page-title {
+  font-size: $fs-2xl;
+  font-weight: $fw-bold;
+  color: $text-primary;
+  margin-bottom: $sp-2;
+}
+
+.page-description {
+  font-size: $fs-md;
+  color: $text-secondary;
+  margin-bottom: $sp-6;
+  max-width: 72ch;
+  line-height: $lh-relaxed;
+}

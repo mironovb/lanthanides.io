@@ -1,0 +1,197 @@
+.card {
+  @include card;
+  padding: $sp-4;
+  transition: border-color $transition-fast;
+
+  &:hover {
+    border-color: $border-accent;
+  }
+}
+
+.card-compact {
+  @include card;
+  padding: $sp-3;
+}
+
+// Element card (index view)
+.element-card {
+  @include card;
+  padding: $sp-3 $sp-4;
+  display: flex;
+  flex-direction: column;
+  gap: $sp-2;
+  transition: border-color $transition-base, transform $transition-base, box-shadow $transition-base;
+
+  &:hover {
+    border-color: $accent-blue-dim;
+    transform: translateY(-2px);
+    box-shadow: $shadow-md;
+  }
+
+  .element-card-header {
+    display: flex;
+    align-items: center;
+    gap: $sp-2;
+  }
+
+  .element-card-symbol-wrap {
+    width: 42px;
+    height: 42px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: $radius-md;
+    background: $bg-tertiary;
+    border: 1px solid $border-primary;
+    flex-shrink: 0;
+
+    &.cat-rare-earth-light { border-left: 3px solid $cat-ree-light; }
+    &.cat-rare-earth-heavy { border-left: 3px solid $cat-ree-heavy; }
+    &.cat-strategic-metal { border-left: 3px solid $cat-strategic; }
+    &.cat-semiconductor-metal { border-left: 3px solid $cat-semiconductor; }
+  }
+
+  .element-symbol {
+    font-family: $font-mono;
+    font-size: $fs-lg;
+    font-weight: $fw-bold;
+    color: $text-primary;
+    line-height: 1;
+  }
+
+  .element-card-title {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .element-name {
+    font-size: $fs-sm;
+    color: $text-secondary;
+    font-weight: $fw-medium;
+  }
+
+  .element-card-z {
+    font-family: $font-mono;
+    font-size: $fs-xs;
+    color: $text-dim;
+  }
+
+  .element-card-trend {
+    margin-left: auto;
+    font-size: $fs-xs;
+    &.trend-up { color: $accent-red; }
+    &.trend-down { color: $accent-teal; }
+  }
+
+  .element-card-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: $sp-1;
+  }
+
+  .element-card-prices {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: $sp-3;
+    margin-top: $sp-1;
+    padding-top: $sp-2;
+    border-top: $border-thin;
+  }
+
+  .price-slot {
+    .price-label {
+      @include label;
+      font-size: 0.6rem;
+      margin-bottom: $sp-1;
+    }
+
+    .price-value {
+      font-family: $font-mono;
+      font-size: $fs-md;
+      font-weight: $fw-semibold;
+      color: $text-primary;
+    }
+
+    .price-empty {
+      font-size: $fs-md;
+      color: $text-dim;
+    }
+  }
+
+  .element-card-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: auto;
+    padding-top: $sp-2;
+    font-size: $fs-xs;
+    color: $text-dim;
+  }
+}
+
+// Price card (detail view)
+.price-card {
+  @include card;
+  padding: $sp-4;
+
+  .price-card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: $sp-3;
+
+    h3 {
+      @include label;
+    }
+  }
+
+  .price-card-value {
+    font-family: $font-mono;
+    font-size: $fs-3xl;
+    font-weight: $fw-bold;
+    color: $text-primary;
+    line-height: 1;
+  }
+
+  .price-card-unit {
+    font-size: $fs-sm;
+    color: $text-secondary;
+    margin-top: $sp-1;
+  }
+
+  .price-card-details {
+    margin-top: $sp-3;
+    padding-top: $sp-3;
+    border-top: $border-thin;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: $sp-1 $sp-3;
+    font-size: $fs-sm;
+
+    dt {
+      color: $text-muted;
+    }
+
+    dd {
+      color: $text-secondary;
+      font-family: $font-mono;
+    }
+  }
+
+  .price-card-empty {
+    padding: $sp-6 $sp-4;
+    text-align: center;
+
+    .empty-label {
+      font-size: $fs-sm;
+      color: $text-muted;
+      font-style: italic;
+    }
+
+    .empty-note {
+      font-size: $fs-xs;
+      color: $text-dim;
+      margin-top: $sp-2;
+    }
+  }
+}

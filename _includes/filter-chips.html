@@ -1,0 +1,24 @@
+<div class="filter-bar" id="filter-bar">
+  <div class="filter-group">
+    <span class="filter-label">Category</span>
+    <button class="filter-chip active" data-filter="category" data-value="all">All</button>
+    <button class="filter-chip" data-filter="category" data-value="rare_earth_light">Light REE</button>
+    <button class="filter-chip" data-filter="category" data-value="rare_earth_heavy">Heavy REE</button>
+    <button class="filter-chip" data-filter="category" data-value="strategic_metal">Strategic</button>
+    <button class="filter-chip" data-filter="category" data-value="semiconductor_metal">Semiconductor</button>
+  </div>
+  <div class="filter-group">
+    <span class="filter-label">Controls</span>
+    <button class="filter-chip" data-filter="export" data-value="restricted">Restricted</button>
+    <button class="filter-chip" data-filter="export" data-value="monitored">Monitored</button>
+  </div>
+  <div class="sort-controls">
+    <label for="sort-select">Sort:</label>
+    <select id="sort-select">
+      <option value="symbol">Symbol</option>
+      <option value="name">Name</option>
+      <option value="category">Category</option>
+      <option value="updated" selected>Last Updated</option>
+    </select>
+  </div>
+</div>

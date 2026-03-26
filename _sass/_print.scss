@@ -1,0 +1,89 @@
+@media print {
+  body {
+    background: white;
+    color: #111;
+    font-size: 11pt;
+  }
+
+  .site-header,
+  .site-footer,
+  .site-nav,
+  .search-wrapper,
+  .filter-bar,
+  .sort-controls,
+  .periodic-nav,
+  .nav-mobile-toggle {
+    display: none !important;
+  }
+
+  .site-main {
+    padding: 0;
+    max-width: 100%;
+  }
+
+  .card,
+  .panel,
+  .price-card,
+  .element-card,
+  .data-table {
+    border: 1px solid #ccc;
+    background: white;
+    break-inside: avoid;
+  }
+
+  .badge {
+    border: 1px solid #999;
+    color: #333;
+    background: #eee;
+
+    &::before {
+      background: #666;
+    }
+  }
+
+  .element-symbol-large,
+  .element-symbol,
+  .col-symbol {
+    color: #000;
+  }
+
+  .text-secondary,
+  .text-muted {
+    color: #444;
+  }
+
+  .text-dim {
+    color: #888;
+  }
+
+  a {
+    color: #111;
+    text-decoration: underline;
+  }
+
+  .data-table th {
+    background: #f0f0f0;
+    color: #333;
+  }
+
+  .data-table tbody tr:nth-child(even) {
+    background: #f9f9f9;
+  }
+
+  .price-card-value {
+    color: #000;
+  }
+
+  .heatmap-cell {
+    border: 1px solid #ccc;
+    background: white;
+    color: #000;
+  }
+
+  // Show URLs for links
+  a[href^="http"]::after {
+    content: " [" attr(href) "]";
+    font-size: 0.8em;
+    color: #666;
+  }
+}

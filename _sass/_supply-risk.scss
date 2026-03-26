@@ -1,0 +1,241 @@
+// Supply risk page styles
+.risk-overview-grid {
+  display: grid;
+  gap: $sp-4;
+  margin-bottom: $sp-6;
+
+  @include bp-md {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @include bp-lg {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.risk-card {
+  @include card;
+  padding: $sp-4;
+
+  .risk-card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: $sp-3;
+
+    h3 {
+      font-family: $font-mono;
+      font-weight: $fw-bold;
+      font-size: $fs-lg;
+      color: $text-primary;
+
+      .risk-card-name {
+        font-family: $font-sans;
+        font-size: $fs-sm;
+        font-weight: $fw-normal;
+        color: $text-secondary;
+        margin-left: $sp-2;
+      }
+    }
+  }
+
+  .risk-indicators {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: $sp-2;
+    margin-bottom: $sp-3;
+  }
+
+  .risk-indicator {
+    padding: $sp-2;
+    background: $bg-tertiary;
+    border-radius: $radius-sm;
+    text-align: center;
+
+    .risk-indicator-value {
+      font-family: $font-mono;
+      font-size: $fs-md;
+      font-weight: $fw-bold;
+      color: $text-primary;
+    }
+
+    .risk-indicator-label {
+      @include label;
+      font-size: 0.55rem;
+      margin-top: $sp-1;
+    }
+  }
+
+  .risk-factors {
+    font-size: $fs-xs;
+    color: $text-secondary;
+    line-height: $lh-relaxed;
+
+    .risk-factor {
+      display: flex;
+      align-items: center;
+      gap: $sp-2;
+      padding: $sp-1 0;
+      border-bottom: 1px solid rgba($border-primary, 0.3);
+
+      &:last-child { border-bottom: none; }
+    }
+
+    .risk-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      flex-shrink: 0;
+
+      &.risk-high { background: $accent-red; }
+      &.risk-medium { background: $accent-amber; }
+      &.risk-low { background: $accent-teal; }
+    }
+  }
+}
+
+// Policy timeline
+.policy-timeline {
+  margin-top: $sp-6;
+
+  .timeline-item {
+    display: flex;
+    gap: $sp-4;
+    padding: $sp-4 0;
+    border-bottom: $border-thin;
+
+    &:last-child { border-bottom: none; }
+  }
+
+  .timeline-date {
+    font-family: $font-mono;
+    font-size: $fs-sm;
+    color: $text-dim;
+    min-width: 90px;
+    flex-shrink: 0;
+  }
+
+  .timeline-content {
+    flex: 1;
+
+    .timeline-title {
+      font-weight: $fw-semibold;
+      color: $text-primary;
+      font-size: $fs-md;
+      margin-bottom: $sp-1;
+    }
+
+    .timeline-description {
+      font-size: $fs-sm;
+      color: $text-secondary;
+      line-height: $lh-relaxed;
+    }
+
+    .timeline-affected {
+      display: flex;
+      flex-wrap: wrap;
+      gap: $sp-1;
+      margin-top: $sp-2;
+    }
+
+    .timeline-element-tag {
+      font-family: $font-mono;
+      font-size: $fs-xs;
+      font-weight: $fw-bold;
+      padding: 0.1em 0.4em;
+      background: $bg-tertiary;
+      border: 1px solid $border-primary;
+      border-radius: $radius-sm;
+      color: $text-secondary;
+    }
+  }
+
+  .timeline-type {
+    font-size: $fs-xs;
+    padding: 0.1em 0.4em;
+    border-radius: $radius-sm;
+    font-weight: $fw-semibold;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+
+    &.type-export-control {
+      color: $accent-red;
+      background: rgba($accent-red, 0.08);
+      border: 1px solid rgba($accent-red, 0.2);
+    }
+    &.type-tariff {
+      color: $accent-amber;
+      background: rgba($accent-amber, 0.08);
+      border: 1px solid rgba($accent-amber, 0.2);
+    }
+    &.type-supply-disruption {
+      color: $accent-purple;
+      background: rgba($accent-purple, 0.08);
+      border: 1px solid rgba($accent-purple, 0.2);
+    }
+    &.type-sanction {
+      color: $accent-red;
+      background: rgba($accent-red, 0.08);
+      border: 1px solid rgba($accent-red, 0.2);
+    }
+    &.type-regulatory {
+      color: $accent-blue;
+      background: rgba($accent-blue, 0.08);
+      border: 1px solid rgba($accent-blue, 0.2);
+    }
+  }
+}
+
+// Concentration chart
+.concentration-grid {
+  display: grid;
+  gap: $sp-3;
+  margin-top: $sp-4;
+
+  @include bp-md {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.concentration-item {
+  display: flex;
+  align-items: center;
+  gap: $sp-3;
+  padding: $sp-2 $sp-3;
+  background: $bg-tertiary;
+  border-radius: $radius-sm;
+  font-size: $fs-sm;
+
+  .concentration-symbol {
+    font-family: $font-mono;
+    font-weight: $fw-bold;
+    color: $text-primary;
+    min-width: 24px;
+  }
+
+  .concentration-bar-wrapper {
+    flex: 1;
+    height: 6px;
+    background: rgba($border-primary, 0.5);
+    border-radius: 3px;
+    overflow: hidden;
+  }
+
+  .concentration-bar {
+    height: 100%;
+    border-radius: 3px;
+    transition: width $transition-slow;
+
+    &.bar-high { background: $accent-red; }
+    &.bar-medium { background: $accent-amber; }
+    &.bar-low { background: $accent-teal; }
+  }
+
+  .concentration-value {
+    font-family: $font-mono;
+    font-size: $fs-xs;
+    color: $text-muted;
+    min-width: 28px;
+    text-align: right;
+  }
+}

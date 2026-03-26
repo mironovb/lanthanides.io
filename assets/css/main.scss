@@ -1,0 +1,25 @@
+---
+---
+// Strategic Materials Ledger — Master Stylesheet
+// All Sass partials are imported here.
+
+@import "variables";
+@import "reset";
+@import "mixins";
+@import "typography";
+@import "layout";
+@import "header";
+@import "footer";
+@import "cards";
+@import "badges";
+@import "tables";
+@import "panels";
+@import "charts";
+@import "heatmap";
+@import "search";
+@import "periodic-nav";
+@import "element-detail";
+@import "home";
+@import "supply-risk";
+@import "responsive";
+@import "print";

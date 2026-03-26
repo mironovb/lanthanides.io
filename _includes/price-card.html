@@ -1,0 +1,97 @@
+{% comment %}
+  Usage: {% include price-card.html tier="retail" symbol=page.symbol %}
+  Finds and displays the latest price record for the given tier and element.
+{% endcomment %}
+
+{% assign tier = include.tier %}
+{% assign sym = include.symbol %}
+{% assign best_record = nil %}
+{% assign best_date = nil %}
+
+{% for record in site.data.price_records %}
+  {% if record.element_symbol == sym and record.verification_status != 'archived' %}
+    {% if tier == 'retail' and record.market_tier == 'retail' %}
+      {% if record.quote_date > best_date or best_date == nil %}
+        {% assign best_record = record %}
+        {% assign best_date = record.quote_date %}
+      {% endif %}
+    {% endif %}
+    {% if tier == 'bulk' %}
+      {% if record.market_tier == 'bulk' or record.market_tier == 'industrial' or record.market_tier == 'distributor' %}
+        {% if record.quote_date > best_date or best_date == nil %}
+          {% assign best_record = record %}
+          {% assign best_date = record.quote_date %}
+        {% endif %}
+      {% endif %}
+    {% endif %}
+  {% endif %}
+{% endfor %}
+
+<div class="price-card">
+  <div class="price-card-header">
+    <h3>Latest {{ tier | capitalize }} Price</h3>
+    {% if best_record %}
+      {% include badge.html status=best_record.verification_status %}
+    {% endif %}
+  </div>
+
+  {% if best_record %}
+    <div class="price-card-value">${{ best_record.normalized_usd_per_kg | round: 2 }}</div>
+    <div class="price-card-unit">USD / kg — normalized</div>
+
+    <dl class="price-card-details">
+      <dt>Form</dt>
+      <dd>{{ best_record.form | capitalize }}</dd>
+
+      <dt>Purity</dt>
+      <dd>{{ best_record.purity }}</dd>
+
+      <dt>Quote Date</dt>
+      <dd>{{ best_record.quote_date }}</dd>
+
+      <dt>Source</dt>
+      <dd>{{ best_record.source_type | replace: '_', ' ' | capitalize }}</dd>
+
+      {% if best_record.seller_name %}
+      <dt>Seller</dt>
+      <dd>{{ best_record.seller_name }}</dd>
+      {% endif %}
+
+      {% if best_record.seller_country %}
+      <dt>Country</dt>
+      <dd>{{ best_record.seller_country }}</dd>
+      {% endif %}
+
+      {% if best_record.moq_kg and best_record.moq_kg > 0 %}
+      <dt>MOQ</dt>
+      <dd>{{ best_record.moq_kg }} kg</dd>
+      {% endif %}
+
+      {% if best_record.original_currency != 'USD' or best_record.original_unit != 'kg' %}
+      <dt>Original</dt>
+      <dd>{{ best_record.original_price_per_unit }} {{ best_record.original_currency }}/{{ best_record.original_unit }}</dd>
+      {% endif %}
+
+      {% if best_record.incoterm %}
+      <dt>Incoterm</dt>
+      <dd>{{ best_record.incoterm }}</dd>
+      {% endif %}
+
+      <dt>Taxes</dt>
+      <dd>{{ best_record.taxes_included | default: "unknown" }}</dd>
+
+      <dt>Shipping</dt>
+      <dd>{{ best_record.shipping_included | default: "unknown" }}</dd>
+
+      <dt>Confidence</dt>
+      <dd>{{ best_record.confidence_score }}</dd>
+    </dl>
+  {% else %}
+    <div class="price-card-empty">
+      <div class="empty-label">No verified current {{ tier }} price</div>
+      <div class="empty-note">
+        Add price data via invoice upload or curated offer ingestion.
+      </div>
+    </div>
+  {% endif %}
+</div>

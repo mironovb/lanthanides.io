@@ -1,0 +1,123 @@
+// Strategic Materials Ledger — Design Tokens
+// Industrial / laboratory / procurement terminal aesthetic
+
+// ── Color Palette ──────────────────────────────────────────
+$bg-primary:       #0c0c14;
+$bg-secondary:     #12121c;
+$bg-tertiary:      #1a1a26;
+$bg-card:          #151520;
+$bg-input:         #10101a;
+
+$border-primary:   #252535;
+$border-secondary: #303042;
+$border-accent:    #404055;
+
+$text-primary:     #e4e6ec;
+$text-secondary:   #9a9cb0;
+$text-muted:       #6a6c82;
+$text-dim:         #45475a;
+
+$accent-teal:      #3d9970;
+$accent-teal-dim:  #2a6b4e;
+$accent-blue:      #4a90c4;
+$accent-blue-dim:  #2d5a82;
+$accent-amber:     #d4a017;
+$accent-amber-dim: #8a6a10;
+$accent-red:       #c0392b;
+$accent-red-dim:   #7a2218;
+$accent-purple:    #8e6abf;
+
+$white:            #f5f6fa;
+$paper:            #e8ecf1;
+
+// ── Verification badge colors ──────────────────────────────
+$badge-verified:   #3d9970;
+$badge-corroborate:#4a90c4;
+$badge-single:     #d4a017;
+$badge-benchmark:  #8e6abf;
+$badge-placeholder:#6a6c82;
+$badge-stale:      #c0392b;
+$badge-archived:   #45475a;
+
+// ── Category colors ────────────────────────────────────────
+$cat-ree-light:    #4a90c4;
+$cat-ree-heavy:    #8e6abf;
+$cat-strategic:    #d4a017;
+$cat-semiconductor:#3d9970;
+
+// ── Export control colors ──────────────────────────────────
+$ctrl-restricted:  #c0392b;
+$ctrl-monitored:   #d4a017;
+$ctrl-normal:      #3d9970;
+
+// ── Heatmap scale ──────────────────────────────────────────
+$heat-cool:        #2a6b4e;
+$heat-neutral:     #303042;
+$heat-warm:        #8a6a10;
+$heat-hot:         #c0392b;
+
+// ── Typography ─────────────────────────────────────────────
+$font-sans:        "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+$font-mono:        "JetBrains Mono", "Fira Code", "SF Mono", "Cascadia Code", "Consolas", monospace;
+
+$fs-xs:            0.6875rem;   // 11px
+$fs-sm:            0.75rem;     // 12px
+$fs-base:          0.8125rem;   // 13px
+$fs-md:            0.875rem;    // 14px
+$fs-lg:            1rem;        // 16px
+$fs-xl:            1.25rem;     // 20px
+$fs-2xl:           1.5rem;      // 24px
+$fs-3xl:           2rem;        // 32px
+$fs-4xl:           2.5rem;      // 40px
+
+$fw-normal:        400;
+$fw-medium:        500;
+$fw-semibold:      600;
+$fw-bold:          700;
+
+$lh-tight:         1.2;
+$lh-normal:        1.5;
+$lh-relaxed:       1.65;
+
+// ── Spacing ────────────────────────────────────────────────
+$sp-1:             0.25rem;
+$sp-2:             0.5rem;
+$sp-3:             0.75rem;
+$sp-4:             1rem;
+$sp-5:             1.25rem;
+$sp-6:             1.5rem;
+$sp-8:             2rem;
+$sp-10:            2.5rem;
+$sp-12:            3rem;
+$sp-16:            4rem;
+
+// ── Layout ─────────────────────────────────────────────────
+$max-width:        1440px;
+$content-width:    1200px;
+$sidebar-width:    340px;
+$header-height:    50px;
+
+// ── Borders & Radii ────────────────────────────────────────
+$radius-sm:        3px;
+$radius-md:        6px;
+$radius-lg:        8px;
+$radius-xl:        12px;
+
+$border-thin:      1px solid $border-primary;
+$border-card:      1px solid $border-secondary;
+
+// ── Transitions ────────────────────────────────────────────
+$transition-fast:  120ms ease;
+$transition-base:  200ms ease;
+$transition-slow:  350ms ease;
+
+// ── Breakpoints ────────────────────────────────────────────
+$bp-sm:            480px;
+$bp-md:            768px;
+$bp-lg:            1024px;
+$bp-xl:            1280px;
+
+// ── Shadows ────────────────────────────────────────────────
+$shadow-sm:        0 1px 3px rgba(0, 0, 0, 0.25);
+$shadow-md:        0 2px 8px rgba(0, 0, 0, 0.3);
+$shadow-lg:        0 4px 16px rgba(0, 0, 0, 0.35);
