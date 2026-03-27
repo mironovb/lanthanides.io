@@ -13,12 +13,14 @@ layout: default
 {% assign record_count = 0 %}
 {% assign latest_date = nil %}
 {% assign latest_price = nil %}
+{% assign latest_purity = nil %}
 {% for record in site.data.price_records %}
   {% if record.element_symbol == page.symbol %}
     {% assign record_count = record_count | plus: 1 %}
     {% if record.quote_date > latest_date or latest_date == nil %}
       {% assign latest_date = record.quote_date %}
       {% assign latest_price = record.normalized_usd_per_kg %}
+      {% assign latest_purity = record.purity %}
     {% endif %}
   {% endif %}
 {% endfor %}
@@ -59,6 +61,20 @@ layout: default
         {% if cat_info.notes %}
           <p class="element-notes">{{ cat_info.notes }}</p>
         {% endif %}
+        <dl class="element-meta-grid">
+          {% if cat_info.trade_form and cat_info.trade_form != "" %}
+            <dt>Trade form</dt>
+            <dd>{{ cat_info.trade_form }}</dd>
+          {% endif %}
+          {% if cat_info.origin_countries %}
+            <dt>Available from</dt>
+            <dd>{{ cat_info.origin_countries | join: ", " }}</dd>
+          {% endif %}
+          {% if latest_purity %}
+            <dt>Purity</dt>
+            <dd class="mono">{{ latest_purity }}</dd>
+          {% endif %}
+        </dl>
       </div>
     </div>
   </div>
@@ -72,7 +88,7 @@ layout: default
     {% if latest_date %}
       Last price: {{ latest_date }}<br>
     {% endif %}
-    {{ record_count }} record{% if record_count != 1 %}s{% endif %}
+    {{ record_count }} offer{% if record_count != 1 %}s{% endif %}
   </div>
 </div>
 
@@ -83,7 +99,7 @@ layout: default
     </div>
 
     <div class="element-section">
-      <h2 class="section-title">Price History</h2>
+      <h2 class="section-title">All Offers</h2>
       {% include provenance-table.html symbol=page.symbol %}
     </div>
 

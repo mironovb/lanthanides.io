@@ -94,6 +94,17 @@
     line-height: $lh-relaxed;
   }
 
+  .element-meta-grid {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: $sp-1 $sp-3;
+    margin-top: $sp-2;
+    font-size: $fs-xs;
+
+    dt { color: $text-dim; }
+    dd { color: $text-secondary; }
+  }
+
   .element-updated {
     margin-left: auto;
     text-align: right;

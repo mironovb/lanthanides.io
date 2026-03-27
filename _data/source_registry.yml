@@ -5,7 +5,7 @@
   type: distributor
   trust_tier: 2
   country: US
-  supported_elements: [Nd, Pr, Dy, Tb, Sm, Gd, Y, Sc, Te, V, Ga, Ge, Sb, W, In, Bi, Mo]
+  supported_elements: [La, Ce, Pr, Nd, Sm, Y, Sc, Eu, Gd, Tb, Dy, Ho, Er, Tm, Yb, Lu, Te, V, Sb, W, Bi, Mo, Zr, Ga, Ge, Se, In]
   parse_status: active
   review_status: reviewed
 
@@ -14,7 +14,7 @@
   type: distributor
   trust_tier: 2
   country: CN
-  supported_elements: [Nd, Pr, Dy, Tb, Sm, Gd, Y, Sc, Te, V, Ga, Ge, Sb, W, In, Bi, Mo]
+  supported_elements: [La, Ce, Pr, Nd, Sm, Y, Sc, Eu, Gd, Tb, Dy, Ho, Er, Tm, Yb, Lu, Te, V, Sb, W, Bi, Mo, Zr, Ga, Ge, Se, In]
   parse_status: active
   review_status: reviewed
 
@@ -23,7 +23,7 @@
   type: marketplace
   trust_tier: 3
   country: CN
-  supported_elements: [Nd, Pr, Dy, Tb, Sm, Gd, Y, Te, V, Ga, Ge, Sb, W, In, Bi, Mo]
+  supported_elements: [La, Ce, Pr, Nd, Sm, Y, Eu, Gd, Tb, Dy, Ho, Er, Yb, Te, V, Sb, W, Bi, Mo, Ga, Ge, Se, In]
   parse_status: active
   review_status: reviewed
 
@@ -32,7 +32,7 @@
   type: distributor
   trust_tier: 2
   country: US
-  supported_elements: [Nd, Dy, Tb, Sc, Te, Ga, Ge, W, In, Mo]
+  supported_elements: [Nd, Dy, Tb, Sc, Lu, Te, W, Zr, Ga, Ge, In, Mo]
   parse_status: active
   review_status: reviewed
 

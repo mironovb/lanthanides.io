@@ -9,45 +9,64 @@ layout: default
 
 {{ content }}
 
-<div class="elements-grid">
-  {% for elem in site.elements %}
-    {% assign cat_info = nil %}
-    {% for c in site.data.element_catalog %}
-      {% if c.symbol == elem.symbol %}
-        {% assign cat_info = c %}
-        {% break %}
-      {% endif %}
-    {% endfor %}
+{% comment %} Build category groups in display order {% endcomment %}
+{% assign categories = "rare_earth_light,rare_earth_heavy,strategic_metal,semiconductor_metal" | split: "," %}
+{% assign cat_labels = "Light Rare Earths,Heavy Rare Earths,Strategic Metals,Semiconductor Metals" | split: "," %}
 
-    {% assign latest_price = nil %}
-    {% assign source_count = 0 %}
-    {% assign source_names = "" %}
-    {% for record in site.data.price_records %}
-      {% if record.element_symbol == elem.symbol and record.market_tier == 'retail' %}
-        {% assign source_count = source_count | plus: 1 %}
-        {% if record.quote_date > latest_price.quote_date or latest_price == nil %}
-          {% assign latest_price = record %}
+{% for cat in categories %}
+  {% assign cat_index = forloop.index0 %}
+  <div class="category-section">
+    <h2 class="category-heading">{{ cat_labels[cat_index] }}</h2>
+    <div class="elements-grid">
+      {% comment %} Sort elements within category by atomic number {% endcomment %}
+      {% assign cat_elements = "" | split: "" %}
+      {% for c in site.data.element_catalog %}
+        {% if c.category == cat %}
+          {% assign cat_elements = cat_elements | push: c %}
         {% endif %}
-      {% endif %}
-    {% endfor %}
+      {% endfor %}
+      {% assign cat_elements = cat_elements | sort: "atomic_number" %}
 
-    <a href="{{ elem.url | relative_url }}" class="element-tile cat-{{ cat_info.category | replace: '_', '-' }}">
-      <span class="tile-z">{{ cat_info.atomic_number }}</span>
-      <span class="tile-symbol">{{ elem.symbol }}</span>
-      <span class="tile-name">{{ elem.name }}</span>
-      {% if latest_price %}
-        <span class="tile-price">${{ latest_price.normalized_usd_per_kg }}<span class="tile-unit">/kg</span></span>
-        <span class="tile-sources">{{ source_count }} offer{% if source_count != 1 %}s{% endif %}</span>
-      {% else %}
-        <span class="tile-price tile-no-data">&mdash;</span>
-      {% endif %}
-    </a>
-  {% endfor %}
-</div>
+      {% for cat_info in cat_elements %}
+        {% assign elem = nil %}
+        {% for e in site.elements %}
+          {% if e.symbol == cat_info.symbol %}
+            {% assign elem = e %}
+            {% break %}
+          {% endif %}
+        {% endfor %}
 
-<div class="home-legend">
-  <span class="legend-item"><span class="legend-dot dot-ree-light"></span> Light REE</span>
-  <span class="legend-item"><span class="legend-dot dot-ree-heavy"></span> Heavy REE</span>
-  <span class="legend-item"><span class="legend-dot dot-strategic"></span> Strategic</span>
-  <span class="legend-item"><span class="legend-dot dot-semiconductor"></span> Semiconductor</span>
-</div>
+        {% if elem %}
+          {% assign latest_price = nil %}
+          {% assign source_count = 0 %}
+          {% for record in site.data.price_records %}
+            {% if record.element_symbol == cat_info.symbol and record.market_tier == 'retail' %}
+              {% assign source_count = source_count | plus: 1 %}
+              {% if record.quote_date > latest_price.quote_date or latest_price == nil %}
+                {% assign latest_price = record %}
+              {% endif %}
+            {% endif %}
+          {% endfor %}
+
+          <a href="{{ elem.url | relative_url }}" class="element-tile cat-{{ cat_info.category | replace: '_', '-' }}">
+            <div class="tile-top">
+              <span class="tile-z">{{ cat_info.atomic_number }}</span>
+            </div>
+            <span class="tile-symbol">{{ cat_info.symbol }}</span>
+            <span class="tile-name">{{ cat_info.name }}</span>
+            {% if latest_price %}
+              <span class="tile-price">${{ latest_price.normalized_usd_per_kg }}<span class="tile-unit">/kg</span></span>
+              <span class="tile-purity">{{ latest_price.purity }}</span>
+              <span class="tile-meta">{{ source_count }} offer{% if source_count != 1 %}s{% endif %} · {{ cat_info.dominant_source_country }}</span>
+            {% else %}
+              <span class="tile-price tile-no-data">&mdash;</span>
+            {% endif %}
+            {% if cat_info.trade_form and cat_info.trade_form != "" %}
+              <span class="tile-form">{{ cat_info.trade_form }}</span>
+            {% endif %}
+          </a>
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+{% endfor %}

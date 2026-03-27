@@ -1,92 +1,77 @@
 # Strategic Materials Ledger — Element Catalog
-# Master metadata for all tracked elements.
-# To add a new element: append an entry here AND create a matching _elements/<Symbol>.md file.
 
-- symbol: Nd
-  name: Neodymium
-  atomic_number: 60
+# ── Light Rare Earths (La through Sm, plus Y and Sc) ──────
+
+- symbol: La
+  name: Lanthanum
+  atomic_number: 57
   category: rare_earth_light
   family: Lanthanide
-  default_forms:
-    - oxide
-    - metal
-    - powder
-  export_control_status: restricted
+  default_forms: [oxide, metal]
+  export_control_status: monitored
   dominant_source_country: CN
-  notes: "Critical for NdFeB permanent magnets."
+  origin_countries: [CN, US, AU]
+  trade_form: "Oxide (La₂O₃)"
+  notes: "Used in catalysts, optics, and battery electrodes."
+
+- symbol: Ce
+  name: Cerium
+  atomic_number: 58
+  category: rare_earth_light
+  family: Lanthanide
+  default_forms: [oxide, metal, compound]
+  export_control_status: monitored
+  dominant_source_country: CN
+  origin_countries: [CN, US, AU]
+  trade_form: "Oxide (CeO₂)"
+  notes: "Most abundant REE. Used in catalytic converters, polishing powders, and glass."
 
 - symbol: Pr
   name: Praseodymium
   atomic_number: 59
   category: rare_earth_light
   family: Lanthanide
-  default_forms:
-    - oxide
-    - metal
-    - alloy
+  default_forms: [oxide, metal, alloy]
   export_control_status: restricted
   dominant_source_country: CN
-  notes: "Often co-produced with neodymium; used in magnets and ceramics."
+  origin_countries: [CN, AU, MM]
+  trade_form: "Oxide (Pr₆O₁₁)"
+  notes: "Co-produced with neodymium; used in magnets and ceramics."
 
-- symbol: Dy
-  name: Dysprosium
-  atomic_number: 66
-  category: rare_earth_heavy
+- symbol: Nd
+  name: Neodymium
+  atomic_number: 60
+  category: rare_earth_light
   family: Lanthanide
-  default_forms:
-    - oxide
-    - metal
+  default_forms: [oxide, metal, powder]
   export_control_status: restricted
   dominant_source_country: CN
-  notes: "Essential additive for high-temperature NdFeB magnets."
-
-- symbol: Tb
-  name: Terbium
-  atomic_number: 65
-  category: rare_earth_heavy
-  family: Lanthanide
-  default_forms:
-    - oxide
-    - metal
-  export_control_status: restricted
-  dominant_source_country: CN
-  notes: "Used in magnets, phosphors, and solid-state devices."
+  origin_countries: [CN, AU, MM, US]
+  trade_form: "Oxide (Nd₂O₃)"
+  notes: "Critical for NdFeB permanent magnets."
 
 - symbol: Sm
   name: Samarium
   atomic_number: 62
   category: rare_earth_light
   family: Lanthanide
-  default_forms:
-    - oxide
-    - metal
-    - alloy
+  default_forms: [oxide, metal, alloy]
   export_control_status: monitored
   dominant_source_country: CN
+  origin_countries: [CN, AU]
+  trade_form: "Oxide (Sm₂O₃)"
   notes: "Key component of SmCo permanent magnets."
-
-- symbol: Gd
-  name: Gadolinium
-  atomic_number: 64
-  category: rare_earth_heavy
-  family: Lanthanide
-  default_forms:
-    - oxide
-    - metal
-  export_control_status: monitored
-  dominant_source_country: CN
-  notes: "Used in MRI contrast agents and nuclear reactor shielding."
 
 - symbol: Y
   name: Yttrium
   atomic_number: 39
   category: rare_earth_light
   family: Transition metal
-  default_forms:
-    - oxide
-    - metal
+  default_forms: [oxide, metal]
   export_control_status: monitored
   dominant_source_country: CN
+  origin_countries: [CN, AU, IN]
+  trade_form: "Oxide (Y₂O₃)"
   notes: "Used in ceramics, phosphors, and superconductors."
 
 - symbol: Sc
@@ -94,24 +79,135 @@
   atomic_number: 21
   category: rare_earth_light
   family: Transition metal
-  default_forms:
-    - oxide
-    - metal
+  default_forms: [oxide, metal]
   export_control_status: normal
   dominant_source_country: CN
+  origin_countries: [CN, AU, PH, RU]
+  trade_form: "Oxide (Sc₂O₃)"
   notes: "Used in aluminum-scandium alloys for aerospace."
+
+# ── Heavy Rare Earths (Eu through Lu, plus Gd) ────────────
+
+- symbol: Eu
+  name: Europium
+  atomic_number: 63
+  category: rare_earth_heavy
+  family: Lanthanide
+  default_forms: [oxide, metal]
+  export_control_status: restricted
+  dominant_source_country: CN
+  origin_countries: [CN]
+  trade_form: "Oxide (Eu₂O₃)"
+  notes: "Used in phosphors for displays and lighting."
+
+- symbol: Gd
+  name: Gadolinium
+  atomic_number: 64
+  category: rare_earth_heavy
+  family: Lanthanide
+  default_forms: [oxide, metal]
+  export_control_status: monitored
+  dominant_source_country: CN
+  origin_countries: [CN, AU]
+  trade_form: "Oxide (Gd₂O₃)"
+  notes: "Used in MRI contrast agents and nuclear reactor shielding."
+
+- symbol: Tb
+  name: Terbium
+  atomic_number: 65
+  category: rare_earth_heavy
+  family: Lanthanide
+  default_forms: [oxide, metal]
+  export_control_status: restricted
+  dominant_source_country: CN
+  origin_countries: [CN, MM]
+  trade_form: "Oxide (Tb₄O₇)"
+  notes: "Used in magnets, phosphors, and solid-state devices."
+
+- symbol: Dy
+  name: Dysprosium
+  atomic_number: 66
+  category: rare_earth_heavy
+  family: Lanthanide
+  default_forms: [oxide, metal]
+  export_control_status: restricted
+  dominant_source_country: CN
+  origin_countries: [CN, MM, AU]
+  trade_form: "Oxide (Dy₂O₃)"
+  notes: "Essential additive for high-temperature NdFeB magnets."
+
+- symbol: Ho
+  name: Holmium
+  atomic_number: 67
+  category: rare_earth_heavy
+  family: Lanthanide
+  default_forms: [oxide, metal]
+  export_control_status: monitored
+  dominant_source_country: CN
+  origin_countries: [CN]
+  trade_form: "Oxide (Ho₂O₃)"
+  notes: "Used in lasers, magnets, and nuclear control rods."
+
+- symbol: Er
+  name: Erbium
+  atomic_number: 68
+  category: rare_earth_heavy
+  family: Lanthanide
+  default_forms: [oxide, metal]
+  export_control_status: monitored
+  dominant_source_country: CN
+  origin_countries: [CN, AU]
+  trade_form: "Oxide (Er₂O₃)"
+  notes: "Used in fiber optic amplifiers and glass colorant."
+
+- symbol: Tm
+  name: Thulium
+  atomic_number: 69
+  category: rare_earth_heavy
+  family: Lanthanide
+  default_forms: [oxide, metal]
+  export_control_status: monitored
+  dominant_source_country: CN
+  origin_countries: [CN]
+  trade_form: "Oxide (Tm₂O₃)"
+  notes: "Used in portable X-ray sources and lasers."
+
+- symbol: Yb
+  name: Ytterbium
+  atomic_number: 70
+  category: rare_earth_heavy
+  family: Lanthanide
+  default_forms: [oxide, metal]
+  export_control_status: monitored
+  dominant_source_country: CN
+  origin_countries: [CN]
+  trade_form: "Oxide (Yb₂O₃)"
+  notes: "Used in fiber lasers, metallurgy, and atomic clocks."
+
+- symbol: Lu
+  name: Lutetium
+  atomic_number: 71
+  category: rare_earth_heavy
+  family: Lanthanide
+  default_forms: [oxide, metal]
+  export_control_status: monitored
+  dominant_source_country: CN
+  origin_countries: [CN]
+  trade_form: "Oxide (Lu₂O₃)"
+  notes: "Used in PET scan detectors and specialty catalysts."
+
+# ── Strategic Metals ───────────────────────────────────────
 
 - symbol: Te
   name: Tellurium
   atomic_number: 52
   category: strategic_metal
   family: Metalloid
-  default_forms:
-    - metal
-    - powder
-    - compound
+  default_forms: [metal, powder]
   export_control_status: normal
   dominant_source_country: CN
+  origin_countries: [CN, JP, CA, SE]
+  trade_form: "Metal ingot"
   notes: "Critical for CdTe thin-film solar cells and thermoelectrics."
 
 - symbol: V
@@ -119,50 +215,23 @@
   atomic_number: 23
   category: strategic_metal
   family: Transition metal
-  default_forms:
-    - oxide
-    - metal
-    - alloy
+  default_forms: [oxide, metal, alloy]
   export_control_status: normal
   dominant_source_country: CN
+  origin_countries: [CN, RU, ZA, BR]
+  trade_form: "Pentoxide (V₂O₅)"
   notes: "Used in high-strength steel alloys and vanadium redox flow batteries."
-
-- symbol: Ga
-  name: Gallium
-  atomic_number: 31
-  category: semiconductor_metal
-  family: Post-transition metal
-  default_forms:
-    - metal
-    - compound
-  export_control_status: restricted
-  dominant_source_country: CN
-  notes: "Essential for GaAs and GaN semiconductors."
-
-- symbol: Ge
-  name: Germanium
-  atomic_number: 32
-  category: semiconductor_metal
-  family: Metalloid
-  default_forms:
-    - metal
-    - oxide
-    - compound
-  export_control_status: restricted
-  dominant_source_country: CN
-  notes: "Used in fiber optics, infrared optics, and semiconductors."
 
 - symbol: Sb
   name: Antimony
   atomic_number: 51
   category: strategic_metal
   family: Metalloid
-  default_forms:
-    - metal
-    - oxide
-    - compound
+  default_forms: [metal, oxide]
   export_control_status: restricted
   dominant_source_country: CN
+  origin_countries: [CN, TJ, RU, AU]
+  trade_form: "Metal ingot"
   notes: "Used in flame retardants, lead-acid batteries, and ammunition."
 
 - symbol: W
@@ -170,39 +239,23 @@
   atomic_number: 74
   category: strategic_metal
   family: Transition metal
-  default_forms:
-    - metal
-    - oxide
-    - powder
-    - carbide
+  default_forms: [metal, oxide, powder, carbide]
   export_control_status: restricted
   dominant_source_country: CN
-  notes: "Highest melting point of all metals; used in cutting tools, armor, and electronics."
-
-- symbol: In
-  name: Indium
-  atomic_number: 49
-  category: semiconductor_metal
-  family: Post-transition metal
-  default_forms:
-    - metal
-    - oxide
-    - compound
-  export_control_status: monitored
-  dominant_source_country: CN
-  notes: "Critical for ITO coatings in displays and touchscreens."
+  origin_countries: [CN, VN, RU, AT]
+  trade_form: "Powder / APT"
+  notes: "Highest melting point of all metals; used in cutting tools and armor."
 
 - symbol: Bi
   name: Bismuth
   atomic_number: 83
   category: strategic_metal
   family: Post-transition metal
-  default_forms:
-    - metal
-    - oxide
-    - compound
+  default_forms: [metal, oxide]
   export_control_status: normal
   dominant_source_country: CN
+  origin_countries: [CN, VN, MX, JP]
+  trade_form: "Metal ingot"
   notes: "Lead-free solder alternative; used in pharmaceuticals and cosmetics."
 
 - symbol: Mo
@@ -210,10 +263,71 @@
   atomic_number: 42
   category: strategic_metal
   family: Transition metal
-  default_forms:
-    - metal
-    - oxide
-    - powder
+  default_forms: [metal, oxide, powder]
   export_control_status: normal
   dominant_source_country: CN
+  origin_countries: [CN, US, CL, PE]
+  trade_form: "Oxide (MoO₃)"
   notes: "Key alloying element in high-strength steels and superalloys."
+
+- symbol: Zr
+  name: Zirconium
+  atomic_number: 40
+  category: strategic_metal
+  family: Transition metal
+  default_forms: [metal, oxide, sponge]
+  export_control_status: normal
+  dominant_source_country: AU
+  origin_countries: [AU, ZA, CN, US]
+  trade_form: "Sponge / oxide"
+  notes: "Used in nuclear fuel cladding, ceramics, and chemical processing."
+
+# ── Semiconductor Metals ───────────────────────────────────
+
+- symbol: Ga
+  name: Gallium
+  atomic_number: 31
+  category: semiconductor_metal
+  family: Post-transition metal
+  default_forms: [metal, compound]
+  export_control_status: restricted
+  dominant_source_country: CN
+  origin_countries: [CN, JP, KR, DE]
+  trade_form: "Metal (liquid/solid)"
+  notes: "Essential for GaAs and GaN semiconductors."
+
+- symbol: Ge
+  name: Germanium
+  atomic_number: 32
+  category: semiconductor_metal
+  family: Metalloid
+  default_forms: [metal, oxide]
+  export_control_status: restricted
+  dominant_source_country: CN
+  origin_countries: [CN, BE, CA, RU]
+  trade_form: "Metal ingot / dioxide"
+  notes: "Used in fiber optics, infrared optics, and semiconductors."
+
+- symbol: Se
+  name: Selenium
+  atomic_number: 34
+  category: semiconductor_metal
+  family: Metalloid
+  default_forms: [metal, powder]
+  export_control_status: normal
+  dominant_source_country: CN
+  origin_countries: [CN, JP, BE, DE]
+  trade_form: "Powder / shot"
+  notes: "Used in glass manufacturing, electronics, and solar cells."
+
+- symbol: In
+  name: Indium
+  atomic_number: 49
+  category: semiconductor_metal
+  family: Post-transition metal
+  default_forms: [metal, oxide]
+  export_control_status: monitored
+  dominant_source_country: CN
+  origin_countries: [CN, KR, JP, CA]
+  trade_form: "Metal ingot"
+  notes: "Critical for ITO coatings in displays and touchscreens."

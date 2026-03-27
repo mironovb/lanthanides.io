@@ -1,7 +1,7 @@
 // Home header
 .home-header {
   text-align: center;
-  padding: $sp-8 0 $sp-6;
+  padding: $sp-8 0 $sp-4;
 
   .home-title {
     font-size: $fs-2xl;
@@ -17,13 +17,27 @@
   }
 }
 
-// Element grid — centered
+// Category sections
+.category-section {
+  margin-bottom: $sp-6;
+
+  .category-heading {
+    font-size: $fs-sm;
+    font-weight: $fw-semibold;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: $text-muted;
+    margin-bottom: $sp-3;
+    padding-bottom: $sp-2;
+    border-bottom: $border-thin;
+  }
+}
+
+// Element grid
 .elements-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
   gap: $sp-3;
-  max-width: 960px;
-  margin: 0 auto $sp-6;
 
   @include bp-md {
     grid-template-columns: repeat(4, 1fr);
@@ -38,31 +52,33 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: $sp-3 $sp-2;
+  padding: $sp-3 $sp-2 $sp-2;
   background: $bg-card;
   border: $border-thin;
   border-radius: $radius-md;
   text-decoration: none;
   transition: box-shadow $transition-base, border-color $transition-base;
-  position: relative;
 
   &:hover {
     box-shadow: $shadow-md;
     border-color: $border-accent;
   }
 
-  // Category left-border accent
+  // Category top-border accent
   &.cat-rare-earth-light { border-top: 3px solid $cat-ree-light; }
   &.cat-rare-earth-heavy { border-top: 3px solid $cat-ree-heavy; }
   &.cat-strategic-metal { border-top: 3px solid $cat-strategic; }
   &.cat-semiconductor-metal { border-top: 3px solid $cat-semiconductor; }
 
+  .tile-top {
+    align-self: flex-end;
+    line-height: 1;
+  }
+
   .tile-z {
     font-family: $font-mono;
     font-size: 10px;
     color: $text-dim;
-    align-self: flex-end;
-    line-height: 1;
   }
 
   .tile-symbol {
@@ -71,7 +87,7 @@
     font-weight: $fw-bold;
     color: $text-primary;
     line-height: 1;
-    margin: $sp-1 0;
+    margin: 2px 0;
   }
 
   .tile-name {
@@ -98,37 +114,27 @@
     color: $text-muted;
   }
 
-  .tile-sources {
-    font-size: $fs-xs;
+  .tile-purity {
+    font-family: $font-mono;
+    font-size: 10px;
     color: $text-muted;
+    margin-top: 1px;
+  }
+
+  .tile-meta {
+    font-size: 10px;
+    color: $text-dim;
     margin-top: 2px;
   }
-}
 
-// Legend
-.home-legend {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: $sp-4;
-  padding: $sp-4 0 $sp-8;
-  font-size: $fs-xs;
-  color: $text-muted;
-
-  .legend-item {
-    display: flex;
-    align-items: center;
-    gap: $sp-1;
-  }
-
-  .legend-dot {
-    width: 10px;
-    height: 3px;
-    border-radius: 1px;
-
-    &.dot-ree-light { background: $cat-ree-light; }
-    &.dot-ree-heavy { background: $cat-ree-heavy; }
-    &.dot-strategic { background: $cat-strategic; }
-    &.dot-semiconductor { background: $cat-semiconductor; }
+  .tile-form {
+    font-size: 9px;
+    color: $text-dim;
+    margin-top: $sp-1;
+    text-align: center;
+    line-height: $lh-tight;
+    border-top: 1px solid $border-primary;
+    padding-top: $sp-1;
+    width: 100%;
   }
 }
