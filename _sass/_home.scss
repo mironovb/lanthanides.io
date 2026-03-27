@@ -17,7 +17,15 @@
   }
 }
 
-// ── Home top row: Key Developments + Recent News ─────────────
+// ── Shared panel label ────────────────────────────────────────
+.panel-label {
+  @include label;
+  margin-bottom: $sp-3;
+  padding-bottom: $sp-2;
+  border-bottom: $border-thin;
+}
+
+// ── Home top row: News (left) + Key Developments (right) ─────
 .home-top-row {
   display: flex;
   flex-direction: column;
@@ -30,107 +38,98 @@
   }
 }
 
-// ── Key Developments ─────────────────────────────────────────
-.key-developments {
-  flex: 3;
+// ── News panel (homepage, left side) ─────────────────────────
+.news-panel-home {
+  flex: 5;
   min-width: 0;
-
-  .kd-heading {
-    @include label;
-    margin-bottom: $sp-3;
-    padding-bottom: $sp-2;
-    border-bottom: $border-thin;
-  }
-}
-
-.kd-list {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  display: flex;
-  flex-direction: column;
-  gap: $sp-2;
-}
-
-.kd-item {
-  font-size: $fs-xs;
-  color: $text-secondary;
-  line-height: $lh-relaxed;
-  padding: $sp-2 $sp-3;
-  background: $bg-secondary;
-  border-radius: $radius-sm;
-  border-left: 3px solid $border-secondary;
-
-  &.kd-high {
-    border-left-color: $accent-red;
-  }
-
-  &.kd-medium {
-    border-left-color: $accent-amber;
-  }
-}
-
-.kd-text {
-  display: block;
-}
-
-.kd-ref {
-  display: block;
-  font-style: normal;
-  font-size: 10px;
-  color: $text-dim;
-  margin-top: 2px;
-}
-
-// ── Compact news panel (homepage) ────────────────────────────
-.news-panel-compact {
-  flex: 2;
-  min-width: 0;
-
-  .news-heading {
-    @include label;
-    margin-bottom: $sp-3;
-    padding-bottom: $sp-2;
-    border-bottom: $border-thin;
-  }
 }
 
 .news-preview {
   position: relative;
   display: flex;
   flex-direction: column;
-  gap: $sp-2;
+  gap: $sp-3;
 }
 
-.news-item-mini {
-  display: flex;
-  gap: $sp-2;
-  padding: $sp-2 $sp-3;
+.news-card {
+  padding: $sp-3;
   background: $bg-secondary;
-  border-radius: $radius-sm;
+  border-radius: $radius-md;
   border-left: 3px solid $border-secondary;
+}
 
-  @include bp-max-md {
-    flex-direction: column;
-    gap: 2px;
+.news-card-header {
+  display: flex;
+  align-items: center;
+  gap: $sp-2;
+  margin-bottom: $sp-1;
+}
+
+.news-card-date {
+  font-family: $font-mono;
+  font-size: 10px;
+  color: $text-dim;
+  white-space: nowrap;
+}
+
+.news-card-elements {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 3px;
+
+  code {
+    font-family: $font-mono;
+    font-size: 9px;
+    font-weight: $fw-semibold;
+    color: $accent-blue;
+    background: $accent-blue-dim;
+    padding: 1px 4px;
+    border-radius: 3px;
+    line-height: 1.4;
   }
 }
 
-.news-fade {
-  position: relative;
-  text-align: center;
-  padding-top: $sp-2;
+.news-card-title {
+  font-size: $fs-sm;
+  font-weight: $fw-semibold;
+  color: $text-primary;
+  line-height: $lh-tight;
+  margin: 0 0 $sp-1;
+}
 
-  &::before {
-    content: "";
-    position: absolute;
-    top: -$sp-8;
-    left: 0;
-    right: 0;
-    height: $sp-8;
-    background: linear-gradient(to bottom, transparent, $bg-primary);
-    pointer-events: none;
+.news-card-body {
+  font-size: $fs-xs;
+  color: $text-secondary;
+  line-height: $lh-relaxed;
+  margin: 0;
+}
+
+.news-card-refs {
+  margin-top: $sp-2;
+  padding-top: $sp-1;
+  border-top: 1px solid $border-primary;
+
+  cite {
+    display: block;
+    font-style: normal;
+    font-size: 10px;
+    color: $text-dim;
+    line-height: $lh-relaxed;
   }
+}
+
+// 3rd card: visible but faded, overlapped by gradient
+.news-card-faded {
+  mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 10%, rgba(0,0,0,0) 90%);
+  -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 10%, rgba(0,0,0,0) 90%);
+}
+
+.news-fade-overlay {
+  text-align: center;
+  margin-top: -$sp-4;
+  position: relative;
+  z-index: 1;
+  padding-bottom: $sp-1;
 }
 
 .news-read-more {
@@ -140,11 +139,111 @@
   text-decoration: none;
 
   &:hover {
-    color: $text-muted;
+    color: $text-secondary;
   }
 }
 
-// ── Shared news styles (homepage mini + full page) ───────────
+// ── Key Developments (homepage, right side) ──────────────────
+.key-developments {
+  flex: 3;
+  min-width: 0;
+}
+
+.kd-list {
+  display: flex;
+  flex-direction: column;
+  gap: $sp-2;
+}
+
+.kd-card {
+  padding: $sp-2 $sp-3;
+  background: $bg-secondary;
+  border-radius: $radius-sm;
+  border-left: 3px solid $border-secondary;
+
+  &.kd-high  { border-left-color: $accent-red; }
+  &.kd-medium { border-left-color: $accent-amber; }
+}
+
+.kd-card-top {
+  display: flex;
+  align-items: baseline;
+  gap: $sp-2;
+  margin-bottom: 2px;
+}
+
+.kd-severity {
+  font-size: 8px;
+  line-height: 1;
+  flex-shrink: 0;
+
+  .kd-high & { color: $accent-red; }
+  .kd-medium & { color: $accent-amber; }
+}
+
+.kd-title {
+  font-size: $fs-xs;
+  font-weight: $fw-semibold;
+  color: $text-primary;
+  line-height: $lh-tight;
+}
+
+.kd-detail {
+  font-size: $fs-xs;
+  color: $text-secondary;
+  line-height: $lh-relaxed;
+  margin: 0;
+}
+
+.kd-elements {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 3px;
+  margin-top: $sp-1;
+
+  code {
+    font-family: $font-mono;
+    font-size: 9px;
+    font-weight: $fw-semibold;
+    color: $accent-blue;
+    background: $accent-blue-dim;
+    padding: 1px 4px;
+    border-radius: 3px;
+    line-height: 1.4;
+  }
+}
+
+.kd-ref {
+  display: block;
+  font-style: normal;
+  font-size: 10px;
+  color: $text-dim;
+  margin-top: $sp-1;
+}
+
+// ── Full news page (/news/) ──────────────────────────────────
+.news-full-list {
+  display: flex;
+  flex-direction: column;
+  gap: $sp-3;
+  max-width: 820px;
+
+  .news-item {
+    display: flex;
+    gap: $sp-3;
+    padding: $sp-3;
+    background: $bg-secondary;
+    border-radius: $radius-md;
+    border-left: 3px solid $border-secondary;
+
+    @include bp-max-md {
+      flex-direction: column;
+      gap: $sp-1;
+    }
+  }
+}
+
+// Shared news sub-elements (used on full news page)
 .news-date {
   font-family: $font-mono;
   font-size: $fs-xs;
@@ -161,18 +260,18 @@
 }
 
 .news-headline {
-  font-size: $fs-xs;
+  font-size: $fs-sm;
   font-weight: $fw-semibold;
   color: $text-primary;
   line-height: $lh-tight;
-  margin: 0;
+  margin: 0 0 $sp-1;
 }
 
 .news-text {
   font-size: $fs-xs;
   color: $text-secondary;
   line-height: $lh-relaxed;
-  margin: $sp-1 0 0;
+  margin: 0;
 }
 
 .news-elements {
@@ -194,6 +293,8 @@
 
 .news-refs {
   margin-top: $sp-2;
+  padding-top: $sp-1;
+  border-top: 1px solid $border-primary;
 
   cite {
     display: block;
@@ -201,32 +302,6 @@
     font-size: 10px;
     color: $text-dim;
     line-height: $lh-relaxed;
-  }
-}
-
-// ── Full news page list ──────────────────────────────────────
-.news-full-list {
-  display: flex;
-  flex-direction: column;
-  gap: $sp-3;
-  max-width: 820px;
-
-  .news-item {
-    display: flex;
-    gap: $sp-3;
-    padding: $sp-3;
-    background: $bg-secondary;
-    border-radius: $radius-md;
-    border-left: 3px solid $border-secondary;
-
-    @include bp-max-md {
-      flex-direction: column;
-      gap: $sp-1;
-    }
-
-    .news-headline {
-      font-size: $fs-sm;
-    }
   }
 }
 

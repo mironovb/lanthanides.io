@@ -9,53 +9,70 @@ layout: default
 
 {{ content }}
 
-{% comment %} ── Key Developments + Recent News (side by side on desktop) ── {% endcomment %}
+{% comment %} ── Recent News (left) + Key Developments (right) ── {% endcomment %}
+{% assign sorted_news = site.data.news | sort: "date" | reverse %}
 <div class="home-top-row">
 
-  {% comment %} ── Key Developments (left) ── {% endcomment %}
-  <section class="key-developments">
-    <h2 class="kd-heading">Key Developments</h2>
-    <ul class="kd-list">
-      {% for item in site.data.key_developments %}
-        <li class="kd-item kd-{{ item.severity }}">
-          <span class="kd-text">{{ item.summary }}</span>
-          {% if item.ref and item.ref != "" %}
-            <cite class="kd-ref">{{ item.ref }}</cite>
-          {% endif %}
-        </li>
-      {% endfor %}
-    </ul>
-  </section>
-
-  {% comment %} ── Recent News (right, compact) ── {% endcomment %}
-  {% assign sorted_news = site.data.news | sort: "date" | reverse %}
+  {% comment %} ── Recent News (left) ── {% endcomment %}
   {% if sorted_news.size > 0 %}
-  <section class="news-panel-compact">
-    <h2 class="news-heading">Recent News</h2>
+  <section class="news-panel-home">
+    <h2 class="panel-label">Recent News</h2>
     <div class="news-preview">
-      {% for item in sorted_news limit:2 %}
-        <article class="news-item-mini">
-          <time class="news-date" datetime="{{ item.date }}">{{ item.date }}</time>
-          <div class="news-body">
-            <h3 class="news-headline">{{ item.headline }}</h3>
+      {% for item in sorted_news limit:3 %}
+        <article class="news-card {% if forloop.index == 3 %}news-card-faded{% endif %}">
+          <div class="news-card-header">
+            <time class="news-card-date" datetime="{{ item.date }}">{{ item.date }}</time>
             {% if item.elements.size > 0 %}
-              <span class="news-elements">
+              <span class="news-card-elements">
                 {% for sym in item.elements %}
-                  <code>{{ sym }}</code>{% unless forloop.last %} {% endunless %}
+                  <code>{{ sym }}</code>
                 {% endfor %}
               </span>
             {% endif %}
           </div>
+          <h3 class="news-card-title">{{ item.headline }}</h3>
+          <p class="news-card-body">{{ item.body }}</p>
+          {% if item.references.size > 0 %}
+            <div class="news-card-refs">
+              {% for ref in item.references %}
+                <cite>{{ ref.label }}</cite>
+              {% endfor %}
+            </div>
+          {% endif %}
         </article>
       {% endfor %}
-      {% if sorted_news.size > 2 %}
-        <div class="news-fade">
-          <a href="{{ '/news/' | relative_url }}" class="news-read-more">{{ sorted_news.size | minus: 2 }} more &rarr;</a>
-        </div>
-      {% endif %}
+      <div class="news-fade-overlay">
+        <a href="{{ '/news/' | relative_url }}" class="news-read-more">read more &rarr;</a>
+      </div>
     </div>
   </section>
   {% endif %}
+
+  {% comment %} ── Key Developments (right) ── {% endcomment %}
+  <section class="key-developments">
+    <h2 class="panel-label">Key Developments</h2>
+    <div class="kd-list">
+      {% for item in site.data.key_developments %}
+        <div class="kd-card kd-{{ item.severity }}">
+          <div class="kd-card-top">
+            <span class="kd-severity">{% if item.severity == 'high' %}&#9679;{% else %}&#9675;{% endif %}</span>
+            <strong class="kd-title">{{ item.title }}</strong>
+          </div>
+          <p class="kd-detail">{{ item.detail }}</p>
+          {% if item.elements %}
+            <span class="kd-elements">
+              {% for sym in item.elements %}
+                <code>{{ sym }}</code>
+              {% endfor %}
+            </span>
+          {% endif %}
+          {% if item.ref and item.ref != "" %}
+            <cite class="kd-ref">{{ item.ref }}</cite>
+          {% endif %}
+        </div>
+      {% endfor %}
+    </div>
+  </section>
 
 </div>
 
