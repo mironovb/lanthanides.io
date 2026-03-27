@@ -20,19 +20,22 @@ layout: default
     <ul class="news-list">
       {% for item in sorted_news limit:3 %}
         <li class="news-entry {% if forloop.index == 3 %}news-entry-faded{% endif %}">
-          <div class="news-entry-head">
-            <time datetime="{{ item.date }}">{{ item.date }}</time>
-            {% if item.elements.size > 0 %}
-              <span class="news-entry-elements">{{ item.elements | join: "  " }}</span>
+          <span class="news-dot">&#9679;</span>
+          <div class="news-entry-content">
+            <div class="news-entry-head">
+              <time datetime="{{ item.date }}">{{ item.date }}</time>
+              {% if item.elements.size > 0 %}
+                <span class="news-entry-elements">{{ item.elements | join: "  " }}</span>
+              {% endif %}
+            </div>
+            <strong class="news-entry-title">{{ item.headline }}</strong>
+            <p class="news-entry-body">{{ item.body }}</p>
+            {% if item.references.size > 0 %}
+              {% for ref in item.references %}
+                <cite class="news-entry-ref">{{ ref.label }}</cite>
+              {% endfor %}
             {% endif %}
           </div>
-          <strong class="news-entry-title">{{ item.headline }}</strong>
-          <p class="news-entry-body">{{ item.body }}</p>
-          {% if item.references.size > 0 %}
-            {% for ref in item.references %}
-              <cite class="news-entry-ref">{{ ref.label }}</cite>
-            {% endfor %}
-          {% endif %}
         </li>
       {% endfor %}
     </ul>

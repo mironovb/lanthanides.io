@@ -27,14 +27,11 @@
 
 // ── Home top row: two columns, forced side-by-side ───────────
 .home-top-row {
+  display: grid;
+  grid-template-columns: 3fr 2fr;
+  gap: $sp-8;
+  align-items: start;
   margin-bottom: $sp-6;
-
-  @include bp-lg {
-    display: grid;
-    grid-template-columns: 3fr 2fr;
-    gap: $sp-8;
-    align-items: start;
-  }
 }
 
 // ── Recent News (left column) ────────────────────────────────
@@ -52,10 +49,26 @@
 }
 
 .news-entry {
+  display: flex;
+  gap: $sp-2;
+  align-items: flex-start;
   padding: $sp-3 0;
   border-bottom: 1px solid $border-primary;
 
   &:first-child { padding-top: 0; }
+}
+
+.news-dot {
+  flex-shrink: 0;
+  font-size: 10px;
+  line-height: $lh-tight;
+  margin-top: 2px;
+  color: $text-primary;
+}
+
+.news-entry-content {
+  min-width: 0;
+  flex: 1;
 }
 
 .news-entry-head {
@@ -126,10 +139,6 @@
 // ── Key Developments (right column) ──────────────────────────
 .kd-section {
   min-width: 0;
-
-  @include bp-max-md {
-    margin-top: $sp-4;
-  }
 }
 
 .kd-list {
