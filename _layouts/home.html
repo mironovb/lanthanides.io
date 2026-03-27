@@ -9,24 +9,56 @@ layout: default
 
 {{ content }}
 
-{% comment %} ── Key Developments ── {% endcomment %}
-<section class="kd-section">
-  <h2 class="panel-label">Key Developments</h2>
-  <div class="kd-list">
-    {% for item in site.data.key_developments %}
-      <div class="kd-entry">
-        <span class="kd-dot {% if item.severity == 'high' %}kd-dot-high{% else %}kd-dot-med{% endif %}">{% if item.severity == 'high' %}&#9679;{% else %}&#9675;{% endif %}</span>
-        <div class="kd-content">
-          <strong class="kd-title">{{ item.title }}</strong>
-          <p class="kd-detail">{{ item.detail }}</p>
-          {% if item.elements %}<span class="kd-elements">{{ item.elements | join: " " }}</span>{% endif %}
-          {% if item.ref and item.ref != "" %}<cite class="kd-ref">{{ item.ref }}</cite>{% endif %}
+{% comment %} ── News (left) + Key Developments (right) ── {% endcomment %}
+{% assign sorted_news = site.data.news | sort: "date" | reverse %}
+<div class="home-top-row">
+
+  {% comment %} ── Recent News (left) ── {% endcomment %}
+  {% if sorted_news.size > 0 %}
+  <section class="news-home">
+    <h2 class="panel-label">Recent News</h2>
+    <div class="news-preview">
+      {% for item in sorted_news limit:3 %}
+        <div class="news-entry {% if forloop.index == 3 %}news-entry-faded{% endif %}">
+          <time class="news-entry-date" datetime="{{ item.date }}">{{ item.date }}</time>
+          <strong class="news-entry-title">{{ item.headline }}</strong>
+          <p class="news-entry-body">{{ item.body }}</p>
+          {% if item.elements.size > 0 %}
+            <span class="news-entry-elements">{{ item.elements | join: " " }}</span>
+          {% endif %}
+          {% if item.references.size > 0 %}
+            {% for ref in item.references %}
+              <cite class="news-entry-ref">{{ ref.label }}</cite>
+            {% endfor %}
+          {% endif %}
         </div>
+      {% endfor %}
+      <div class="news-more-wrap">
+        <a href="{{ '/news/' | relative_url }}" class="news-read-more">read more &rarr;</a>
       </div>
-    {% endfor %}
-    <a href="{{ '/news/' | relative_url }}" class="kd-more">read more &rarr;</a>
-  </div>
-</section>
+    </div>
+  </section>
+  {% endif %}
+
+  {% comment %} ── Key Developments (right) ── {% endcomment %}
+  <section class="kd-section">
+    <h2 class="panel-label">Key Developments</h2>
+    <div class="kd-list">
+      {% for item in site.data.key_developments %}
+        <div class="kd-entry">
+          <span class="kd-dot {% if item.severity == 'high' %}kd-dot-high{% else %}kd-dot-med{% endif %}">{% if item.severity == 'high' %}&#9679;{% else %}&#9675;{% endif %}</span>
+          <div class="kd-content">
+            <strong class="kd-title">{{ item.title }}</strong>
+            <p class="kd-detail">{{ item.detail }}</p>
+            {% if item.elements %}<span class="kd-elements">{{ item.elements | join: " " }}</span>{% endif %}
+            {% if item.ref and item.ref != "" %}<cite class="kd-ref">{{ item.ref }}</cite>{% endif %}
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </section>
+
+</div>
 
 {% comment %} ── Unified Element Grid ── {% endcomment %}
 {% assign display_order = "rare_earth_light,rare_earth_heavy,strategic_metal,semiconductor_metal" | split: "," %}
