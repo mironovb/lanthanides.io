@@ -103,6 +103,10 @@ layout: default
 
       <a href="{{ elem.url | relative_url }}" class="element-tile cat-{{ cat_info.category | replace: '_', '-' }}">
         <div class="tile-top">
+          <span class="tile-indicators">
+            {% if cat_info.cn_export_control %}<span class="ind-control" title="CN export control">&#10071;</span>{% endif %}
+            {% if cat_info.high_demand %}<span class="ind-demand" title="High demand">&#128293;</span>{% endif %}
+          </span>
           <span class="tile-z">{{ cat_info.atomic_number }}</span>
         </div>
         <span class="tile-symbol">{{ cat_info.symbol }}</span>
@@ -114,15 +118,21 @@ layout: default
         {% else %}
           <span class="tile-price tile-no-data">&mdash;</span>
         {% endif %}
+        <span class="tile-price-tier">{% for i in (1..cat_info.price_tier) %}${% endfor %}</span>
       </a>
     {% endif %}
   {% endfor %}
 </div>
 
-{% comment %} ── Category Color Legend ── {% endcomment %}
+{% comment %} ── Unified Legend ── {% endcomment %}
 <div class="category-legend">
   <span class="legend-item"><span class="legend-swatch swatch-ree-light"></span>Light Rare Earths</span>
   <span class="legend-item"><span class="legend-swatch swatch-ree-heavy"></span>Heavy Rare Earths</span>
   <span class="legend-item"><span class="legend-swatch swatch-strategic"></span>Strategic Metals</span>
   <span class="legend-item"><span class="legend-swatch swatch-semiconductor"></span>Semiconductor Metals</span>
+</div>
+<div class="indicator-legend">
+  <span class="legend-item"><span class="legend-icon">&#10071;</span>China export control</span>
+  <span class="legend-item"><span class="legend-icon">&#128293;</span>High demand</span>
+  <span class="legend-item"><span class="legend-icon legend-icon-dollar">$$$$</span>Relative price level ($ to $$$$)</span>
 </div>

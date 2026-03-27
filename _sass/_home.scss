@@ -325,8 +325,26 @@
   &.cat-semiconductor-metal { border-top: 3px solid $cat-semiconductor; }
 
   .tile-top {
-    align-self: flex-end;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    align-self: stretch;
     line-height: 1;
+  }
+
+  .tile-indicators {
+    display: flex;
+    gap: 2px;
+    font-size: 11px;
+    line-height: 1;
+  }
+
+  .ind-control {
+    font-size: 11px;
+  }
+
+  .ind-demand {
+    font-size: 11px;
   }
 
   .tile-z {
@@ -380,6 +398,15 @@
     color: $text-dim;
     margin-top: 2px;
   }
+
+  .tile-price-tier {
+    font-family: $font-mono;
+    font-size: 10px;
+    font-weight: $fw-semibold;
+    color: $accent-amber;
+    letter-spacing: -0.5px;
+    margin-top: 3px;
+  }
 }
 
 // ── Category color legend ────────────────────────────────────
@@ -412,4 +439,26 @@
   &.swatch-ree-heavy { background: $cat-ree-heavy; border-color: $cat-ree-heavy; }
   &.swatch-strategic { background: $cat-strategic; border-color: $cat-strategic; }
   &.swatch-semiconductor { background: $cat-semiconductor; border-color: $cat-semiconductor; }
+}
+
+// ── Indicator legend (below category legend) ────────────────
+.indicator-legend {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: $sp-4;
+  padding: $sp-2 0 $sp-3;
+}
+
+.legend-icon {
+  font-size: 13px;
+  line-height: 1;
+
+  &.legend-icon-dollar {
+    font-family: $font-mono;
+    font-size: 11px;
+    font-weight: $fw-semibold;
+    color: $accent-amber;
+    letter-spacing: -0.5px;
+  }
 }
