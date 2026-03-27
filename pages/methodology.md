@@ -25,6 +25,36 @@ Larger-quantity purchases through industrial distributors, manufacturers, or com
 
 ---
 
+## Display Price Calculation {#display-price-calculation}
+
+The headline price shown on the main grid for each element is a **confidence-weighted mean (CWM)** computed across all retail-tier price records:
+
+$$
+P_{\text{CWM}} = \frac{\sum_{i=1}^{n} p_i \cdot c_i}{\sum_{i=1}^{n} c_i}
+$$
+
+Where:
+- *p<sub>i</sub>* is the normalised price (USD/kg) of the *i*-th retail record
+- *c<sub>i</sub>* is the confidence score (0.0–1.0) assigned to that record
+- *n* is the total number of retail records for the element
+
+**Why CWM, not a simple average or latest price?**
+
+| Approach | Problem |
+|----------|---------|
+| Latest price only | A single outlier quote (high or low) misleads; ignores all other data |
+| Simple mean | Treats a low-confidence scrape equally to a verified invoice |
+| Median | Discards magnitude information; less responsive to genuine shifts |
+| **CWM** | **Higher-confidence records pull the average toward the most reliable signal** |
+
+The CWM is labelled on each tile (e.g., "CWM · 3 offers"). It includes all retail records regardless of material form or purity — these are **not** merged with bulk/wholesale records, which remain separate.
+
+For elements with only one retail record, the CWM equals the single available price. As more records are added, the estimate becomes more robust.
+
+Bulk and wholesale prices are displayed separately on individual element pages and are never blended into the CWM.
+
+---
+
 ## Normalization
 
 All prices are normalized to **USD per kilogram** for comparability. The normalization process:

@@ -90,16 +90,26 @@ layout: default
     {% endfor %}
 
     {% if elem %}
-      {% assign latest_price = nil %}
+      {% comment %} ── Confidence-weighted mean (CWM) of retail offers ── {% endcomment %}
+      {% assign weighted_sum = 0 %}
+      {% assign weight_total = 0 %}
       {% assign source_count = 0 %}
+      {% assign latest_record = nil %}
       {% for record in site.data.price_records %}
         {% if record.element_symbol == cat_info.symbol and record.market_tier == 'retail' %}
           {% assign source_count = source_count | plus: 1 %}
-          {% if record.quote_date > latest_price.quote_date or latest_price == nil %}
-            {% assign latest_price = record %}
+          {% assign conf_int = record.confidence_score | times: 100 | round %}
+          {% assign wp = record.normalized_usd_per_kg | times: conf_int %}
+          {% assign weighted_sum = weighted_sum | plus: wp %}
+          {% assign weight_total = weight_total | plus: conf_int %}
+          {% if record.quote_date > latest_record.quote_date or latest_record == nil %}
+            {% assign latest_record = record %}
           {% endif %}
         {% endif %}
       {% endfor %}
+      {% if weight_total > 0 %}
+        {% assign display_price = weighted_sum | divided_by: weight_total %}
+      {% endif %}
 
       <a href="{{ elem.url | relative_url }}" class="element-tile cat-{{ cat_info.category | replace: '_', '-' }}">
         <div class="tile-top">
@@ -111,10 +121,10 @@ layout: default
         </div>
         <span class="tile-symbol">{{ cat_info.symbol }}</span>
         <span class="tile-name">{{ cat_info.name }}</span>
-        {% if latest_price %}
-          <span class="tile-price">${{ latest_price.normalized_usd_per_kg }}<span class="tile-unit">/kg</span></span>
-          <span class="tile-purity">{{ latest_price.purity }}</span>
-          <span class="tile-meta">{{ source_count }} offer{% if source_count != 1 %}s{% endif %} · {{ cat_info.dominant_source_country }}</span>
+        {% if display_price %}
+          <span class="tile-price">${{ display_price }}<span class="tile-unit">/kg</span></span>
+          <span class="tile-price-label">CWM · {{ source_count }} offer{% if source_count != 1 %}s{% endif %}</span>
+          <span class="tile-meta">{{ cat_info.dominant_source_country }}</span>
         {% else %}
           <span class="tile-price tile-no-data">&mdash;</span>
         {% endif %}
@@ -135,4 +145,5 @@ layout: default
   <span class="legend-item"><span class="legend-icon">&#10071;</span>China export control</span>
   <span class="legend-item"><span class="legend-icon">&#128293;</span>High demand</span>
   <span class="legend-item"><span class="legend-icon legend-icon-dollar">$$$$</span>Relative price level ($ to $$$$)</span>
+  <span class="legend-item"><span class="legend-icon legend-icon-cwm">CWM</span>Confidence-weighted mean &mdash; <a href="{{ '/methodology/' | relative_url }}#display-price-calculation" class="legend-link">methodology</a></span>
 </div>

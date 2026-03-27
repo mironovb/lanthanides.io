@@ -11,19 +11,30 @@ layout: default
 {% endfor %}
 
 {% assign record_count = 0 %}
+{% assign retail_count = 0 %}
 {% assign latest_date = nil %}
-{% assign latest_price = nil %}
+{% assign weighted_sum = 0 %}
+{% assign weight_total = 0 %}
 {% assign latest_purity = nil %}
 {% for record in site.data.price_records %}
   {% if record.element_symbol == page.symbol %}
     {% assign record_count = record_count | plus: 1 %}
     {% if record.quote_date > latest_date or latest_date == nil %}
       {% assign latest_date = record.quote_date %}
-      {% assign latest_price = record.normalized_usd_per_kg %}
       {% assign latest_purity = record.purity %}
+    {% endif %}
+    {% if record.market_tier == 'retail' %}
+      {% assign retail_count = retail_count | plus: 1 %}
+      {% assign conf_int = record.confidence_score | times: 100 | round %}
+      {% assign wp = record.normalized_usd_per_kg | times: conf_int %}
+      {% assign weighted_sum = weighted_sum | plus: wp %}
+      {% assign weight_total = weight_total | plus: conf_int %}
     {% endif %}
   {% endif %}
 {% endfor %}
+{% if weight_total > 0 %}
+  {% assign cwm_price = weighted_sum | divided_by: weight_total %}
+{% endif %}
 
 <nav class="breadcrumb" aria-label="Breadcrumb">
   <a href="{{ '/' | relative_url }}">Home</a>
@@ -79,16 +90,16 @@ layout: default
     </div>
   </div>
   <div class="element-updated">
-    {% if latest_price %}
+    {% if cwm_price %}
       <div class="element-headline-price">
-        <span class="text-xs text-muted uppercase">Latest</span>
-        <span class="mono fw-bold">${{ latest_price }}<span class="text-sm text-muted fw-normal">/kg</span></span>
+        <span class="text-xs text-muted uppercase">CWM Retail</span>
+        <span class="mono fw-bold">${{ cwm_price }}<span class="text-sm text-muted fw-normal">/kg</span></span>
       </div>
     {% endif %}
     {% if latest_date %}
-      Last price: {{ latest_date }}<br>
+      Last update: {{ latest_date }}<br>
     {% endif %}
-    {{ record_count }} offer{% if record_count != 1 %}s{% endif %}
+    {{ record_count }} record{% if record_count != 1 %}s{% endif %} ({{ retail_count }} retail)
   </div>
 </div>
 

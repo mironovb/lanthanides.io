@@ -386,10 +386,11 @@
     color: $text-muted;
   }
 
-  .tile-purity {
-    font-family: $font-mono;
-    font-size: 10px;
-    color: $text-muted;
+  .tile-price-label {
+    font-size: 9px;
+    color: $text-dim;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
     margin-top: 1px;
   }
 
@@ -461,4 +462,23 @@
     color: $accent-amber;
     letter-spacing: -0.5px;
   }
+
+  &.legend-icon-cwm {
+    font-family: $font-mono;
+    font-size: 9px;
+    font-weight: $fw-semibold;
+    color: $text-secondary;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+    background: $bg-tertiary;
+    padding: 1px 3px;
+    border-radius: 2px;
+  }
+}
+
+.legend-link {
+  color: $text-secondary;
+  text-decoration: none;
+  border-bottom: 1px dotted $border-secondary;
+  &:hover { color: $text-primary; border-bottom-style: solid; }
 }

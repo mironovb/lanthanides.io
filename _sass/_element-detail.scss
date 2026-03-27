@@ -218,12 +218,22 @@
   border-left: 2px solid $border-secondary;
 }
 
-// Market stats
+// Market stats (side-by-side on desktop)
+.market-stats-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: $sp-4;
+  margin-bottom: $sp-4;
+
+  @include bp-md {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
 .market-stats {
   display: flex;
   flex-direction: column;
   gap: $sp-1;
-  margin-bottom: $sp-4;
 }
 
 .stat-row {
@@ -380,6 +390,74 @@
 
 .related-article-title {
   color: $text-primary;
+}
+
+// Academic references
+.ref-link {
+  font-size: $fs-xs;
+  font-weight: $fw-normal;
+  color: $text-dim;
+  text-decoration: none;
+  vertical-align: super;
+  font-size: 9px;
+  margin-left: 2px;
+
+  &:hover { color: $text-primary; }
+}
+
+.references-list {
+  list-style: none;
+  counter-reset: ref-counter;
+  padding: 0;
+  margin: 0;
+
+  li {
+    counter-increment: ref-counter;
+    font-size: $fs-xs;
+    color: $text-muted;
+    line-height: $lh-relaxed;
+    padding: $sp-1 0 $sp-1 $sp-5;
+    position: relative;
+
+    &::before {
+      content: "[" counter(ref-counter) "]";
+      position: absolute;
+      left: 0;
+      font-family: $font-mono;
+      font-size: 10px;
+      color: $text-dim;
+      font-weight: $fw-semibold;
+    }
+
+    a {
+      color: $text-secondary;
+      &:hover { color: $text-primary; }
+    }
+  }
+}
+
+// Supplier links in tables
+.supplier-link {
+  color: $text-primary;
+  text-decoration: none;
+  border-bottom: 1px dotted $border-secondary;
+
+  &:hover {
+    color: $text-primary;
+    border-bottom-style: solid;
+  }
+}
+
+// Stock status
+.stock-in {
+  color: #2e7d32;
+  font-weight: $fw-semibold;
+  font-size: 10px;
+}
+
+.stock-out {
+  color: $accent-red;
+  font-size: 10px;
 }
 
 // Sidebar element nav
