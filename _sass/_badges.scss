@@ -1,76 +1,25 @@
+// Base badge
 .badge {
-  display: inline-flex;
-  align-items: center;
-  gap: $sp-1;
+  display: inline-block;
   font-size: $fs-xs;
   font-weight: $fw-medium;
   padding: 0.15em 0.5em;
   border-radius: $radius-sm;
   white-space: nowrap;
-  line-height: 1.4;
-  vertical-align: middle;
-
-  &::before {
-    content: "";
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    flex-shrink: 0;
-  }
-}
-
-.badge-verified {
-  color: $badge-verified;
-  background: rgba($badge-verified, 0.1);
-  border: 1px solid rgba($badge-verified, 0.2);
-  &::before { background: $badge-verified; }
-}
-
-.badge-corroborated {
-  color: $badge-corroborate;
-  background: rgba($badge-corroborate, 0.1);
-  border: 1px solid rgba($badge-corroborate, 0.2);
-  &::before { background: $badge-corroborate; }
+  color: $text-muted;
+  background: $bg-tertiary;
+  border: 1px solid $border-primary;
 }
 
 .badge-single-source {
-  color: $badge-single;
-  background: rgba($badge-single, 0.1);
-  border: 1px solid rgba($badge-single, 0.2);
-  &::before { background: $badge-single; }
-}
-
-.badge-benchmark {
-  color: $badge-benchmark;
-  background: rgba($badge-benchmark, 0.1);
-  border: 1px solid rgba($badge-benchmark, 0.2);
-  &::before { background: $badge-benchmark; }
-}
-
-.badge-placeholder {
-  color: $badge-placeholder;
-  background: rgba($badge-placeholder, 0.08);
-  border: 1px dashed rgba($badge-placeholder, 0.35);
-  font-style: italic;
-  &::before { background: $badge-placeholder; border-radius: 0; width: 6px; height: 6px; }
-}
-
-.badge-stale {
-  color: $badge-stale;
-  background: rgba($badge-stale, 0.1);
-  border: 1px solid rgba($badge-stale, 0.2);
-  &::before { background: $badge-stale; }
-}
-
-.badge-archived {
-  color: $badge-archived;
-  background: rgba($badge-archived, 0.1);
-  border: 1px solid rgba($badge-archived, 0.2);
-  &::before { background: $badge-archived; }
+  color: $accent-amber;
+  background: rgba($accent-amber, 0.06);
+  border: 1px solid rgba($accent-amber, 0.2);
 }
 
 // Category badges
 .badge-cat {
+  display: inline-block;
   font-size: $fs-xs;
   font-weight: $fw-medium;
   padding: 0.1em 0.5em;
@@ -81,29 +30,30 @@
 .badge-ree-light {
   color: $cat-ree-light;
   border-color: rgba($cat-ree-light, 0.3);
-  background: rgba($cat-ree-light, 0.08);
+  background: rgba($cat-ree-light, 0.06);
 }
 
 .badge-ree-heavy {
   color: $cat-ree-heavy;
   border-color: rgba($cat-ree-heavy, 0.3);
-  background: rgba($cat-ree-heavy, 0.08);
+  background: rgba($cat-ree-heavy, 0.06);
 }
 
 .badge-strategic {
   color: $cat-strategic;
   border-color: rgba($cat-strategic, 0.3);
-  background: rgba($cat-strategic, 0.08);
+  background: rgba($cat-strategic, 0.06);
 }
 
 .badge-semiconductor {
   color: $cat-semiconductor;
   border-color: rgba($cat-semiconductor, 0.3);
-  background: rgba($cat-semiconductor, 0.08);
+  background: rgba($cat-semiconductor, 0.06);
 }
 
 // Export control badges
 .badge-ctrl {
+  display: inline-block;
   font-size: $fs-xs;
   font-weight: $fw-semibold;
   padding: 0.1em 0.5em;
@@ -114,35 +64,18 @@
 
 .badge-restricted {
   color: $ctrl-restricted;
-  background: rgba($ctrl-restricted, 0.1);
-  border: 1px solid rgba($ctrl-restricted, 0.25);
+  background: rgba($ctrl-restricted, 0.06);
+  border: 1px solid rgba($ctrl-restricted, 0.2);
 }
 
 .badge-monitored {
   color: $ctrl-monitored;
-  background: rgba($ctrl-monitored, 0.1);
-  border: 1px solid rgba($ctrl-monitored, 0.25);
+  background: rgba($ctrl-monitored, 0.06);
+  border: 1px solid rgba($ctrl-monitored, 0.2);
 }
 
 .badge-normal {
   color: $ctrl-normal;
-  background: rgba($ctrl-normal, 0.1);
-  border: 1px solid rgba($ctrl-normal, 0.25);
-}
-
-// Confidence dots
-.confidence-dots {
-  display: inline-flex;
-  gap: 2px;
-
-  .dot {
-    width: 5px;
-    height: 5px;
-    border-radius: 50%;
-    background: $border-secondary;
-
-    &.filled {
-      background: $accent-teal;
-    }
-  }
+  background: rgba($ctrl-normal, 0.06);
+  border: 1px solid rgba($ctrl-normal, 0.2);
 }

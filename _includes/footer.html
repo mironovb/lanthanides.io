@@ -1,32 +1,5 @@
 <footer class="site-footer" role="contentinfo">
   <div class="footer-inner">
-    <div class="footer-section">
-      <h4>About</h4>
-      <p class="footer-disclaimer">
-        Strategic Materials Ledger provides price intelligence for rare earth elements and strategic materials.
-        All displayed prices require source provenance. No data is fabricated.
-        This tool is for informational purposes and does not constitute financial or procurement advice.
-      </p>
-    </div>
-    <div class="footer-section">
-      <h4>Navigation</h4>
-      <p><a href="{{ '/' | relative_url }}">Dashboard</a></p>
-      <p><a href="{{ '/elements/' | relative_url }}">Elements</a></p>
-      <p><a href="{{ '/heatmap/' | relative_url }}">Heatmap</a></p>
-      <p><a href="{{ '/supply-risk/' | relative_url }}">Supply Risk</a></p>
-      <p><a href="{{ '/methodology/' | relative_url }}">Methodology</a></p>
-      <p><a href="{{ '/sources/' | relative_url }}">Sources</a></p>
-    </div>
-    <div class="footer-section footer-section-right">
-      <h4>Data</h4>
-      <div class="footer-meta">
-        {% assign record_count = site.data.price_records | size %}
-        <p>{{ record_count }} price record{% if record_count != 1 %}s{% endif %} indexed</p>
-        <p>{{ site.elements | size }} elements tracked</p>
-        <p>{{ site.data.policy_events | size }} policy events</p>
-        <p>{{ site.data.source_registry | size }} registered sources</p>
-        <p class="mt-2">Built {{ site.time | date: "%Y-%m-%d %H:%M UTC" }}</p>
-      </div>
-    </div>
+    <span>{{ site.elements | size }} elements &middot; {{ site.data.price_records | size }} price records &middot; Updated {{ site.time | date: "%Y-%m-%d" }}</span>
   </div>
 </footer>

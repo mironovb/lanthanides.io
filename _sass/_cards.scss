@@ -1,30 +1,17 @@
-.card {
-  @include card;
-  padding: $sp-4;
-  transition: border-color $transition-fast;
-
-  &:hover {
-    border-color: $border-accent;
-  }
-}
-
-.card-compact {
-  @include card;
-  padding: $sp-3;
-}
-
 // Element card (index view)
 .element-card {
-  @include card;
+  background: $bg-card;
+  border: $border-thin;
+  border-radius: $radius-md;
   padding: $sp-3 $sp-4;
   display: flex;
   flex-direction: column;
   gap: $sp-2;
-  transition: border-color $transition-base, transform $transition-base, box-shadow $transition-base;
+  text-decoration: none;
+  transition: border-color $transition-base, box-shadow $transition-base;
 
   &:hover {
-    border-color: $accent-blue-dim;
-    transform: translateY(-2px);
+    border-color: $border-accent;
     box-shadow: $shadow-md;
   }
 
@@ -41,14 +28,14 @@
     align-items: center;
     justify-content: center;
     border-radius: $radius-md;
-    background: $bg-tertiary;
+    background: $bg-secondary;
     border: 1px solid $border-primary;
     flex-shrink: 0;
 
-    &.cat-rare-earth-light { border-left: 3px solid $cat-ree-light; }
-    &.cat-rare-earth-heavy { border-left: 3px solid $cat-ree-heavy; }
-    &.cat-strategic-metal { border-left: 3px solid $cat-strategic; }
-    &.cat-semiconductor-metal { border-left: 3px solid $cat-semiconductor; }
+    &.cat-rare-earth-light { border-top: 3px solid $cat-ree-light; }
+    &.cat-rare-earth-heavy { border-top: 3px solid $cat-ree-heavy; }
+    &.cat-strategic-metal { border-top: 3px solid $cat-strategic; }
+    &.cat-semiconductor-metal { border-top: 3px solid $cat-semiconductor; }
   }
 
   .element-symbol {
@@ -74,19 +61,6 @@
     font-family: $font-mono;
     font-size: $fs-xs;
     color: $text-dim;
-  }
-
-  .element-card-trend {
-    margin-left: auto;
-    font-size: $fs-xs;
-    &.trend-up { color: $accent-red; }
-    &.trend-down { color: $accent-teal; }
-  }
-
-  .element-card-meta {
-    display: flex;
-    flex-wrap: wrap;
-    gap: $sp-1;
   }
 
   .element-card-prices {
@@ -117,21 +91,13 @@
       color: $text-dim;
     }
   }
-
-  .element-card-footer {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-top: auto;
-    padding-top: $sp-2;
-    font-size: $fs-xs;
-    color: $text-dim;
-  }
 }
 
 // Price card (detail view)
 .price-card {
-  @include card;
+  background: $bg-card;
+  border: $border-thin;
+  border-radius: $radius-md;
   padding: $sp-4;
 
   .price-card-header {
@@ -168,14 +134,8 @@
     gap: $sp-1 $sp-3;
     font-size: $fs-sm;
 
-    dt {
-      color: $text-muted;
-    }
-
-    dd {
-      color: $text-secondary;
-      font-family: $font-mono;
-    }
+    dt { color: $text-muted; }
+    dd { color: $text-secondary; font-family: $font-mono; }
   }
 
   .price-card-empty {
@@ -185,13 +145,6 @@
     .empty-label {
       font-size: $fs-sm;
       color: $text-muted;
-      font-style: italic;
-    }
-
-    .empty-note {
-      font-size: $fs-xs;
-      color: $text-dim;
-      margin-top: $sp-2;
     }
   }
 }

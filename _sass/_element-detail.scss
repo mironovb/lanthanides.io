@@ -9,16 +9,10 @@
 
   a {
     color: $text-muted;
-    transition: color $transition-fast;
-
-    &:hover {
-      color: $text-primary;
-    }
+    &:hover { color: $text-primary; }
   }
 
-  .breadcrumb-sep {
-    color: $border-secondary;
-  }
+  .breadcrumb-sep { color: $border-secondary; }
 
   .breadcrumb-current {
     font-family: $font-mono;
@@ -36,9 +30,7 @@
   padding-bottom: $sp-4;
   border-bottom: $border-thin;
 
-  .element-header-left {
-    flex: 1;
-  }
+  .element-header-left { flex: 1; }
 
   .element-identity {
     display: flex;
@@ -53,15 +45,15 @@
     justify-content: center;
     width: 72px;
     height: 72px;
-    background: $bg-tertiary;
-    border: 1px solid $border-secondary;
+    background: $bg-secondary;
+    border: 1px solid $border-primary;
     border-radius: $radius-lg;
     flex-shrink: 0;
 
-    &.cat-rare-earth-light { border-left: 4px solid $cat-ree-light; }
-    &.cat-rare-earth-heavy { border-left: 4px solid $cat-ree-heavy; }
-    &.cat-strategic-metal { border-left: 4px solid $cat-strategic; }
-    &.cat-semiconductor-metal { border-left: 4px solid $cat-semiconductor; }
+    &.cat-rare-earth-light { border-top: 3px solid $cat-ree-light; }
+    &.cat-rare-earth-heavy { border-top: 3px solid $cat-ree-heavy; }
+    &.cat-strategic-metal { border-top: 3px solid $cat-strategic; }
+    &.cat-semiconductor-metal { border-top: 3px solid $cat-semiconductor; }
   }
 
   .element-z-block {
@@ -78,9 +70,7 @@
     line-height: 1;
   }
 
-  .element-identity-text {
-    flex: 1;
-  }
+  .element-identity-text { flex: 1; }
 
   .element-name-large {
     font-size: $fs-xl;
@@ -88,10 +78,6 @@
     color: $text-primary;
     line-height: $lh-tight;
     margin: 0;
-
-    @include bp-md {
-      font-size: $fs-2xl;
-    }
   }
 
   .element-badges {
@@ -162,61 +148,11 @@
   }
 }
 
-// Policy notes section
-.policy-notes {
-  @include card;
-  padding: $sp-4;
-
-  .policy-status {
-    display: flex;
-    align-items: center;
-    gap: $sp-2;
-    margin-bottom: $sp-3;
-  }
-
-  .policy-updated {
-    margin-top: $sp-3;
-    padding-top: $sp-2;
-    border-top: $border-thin;
-    font-size: $fs-xs;
-    color: $text-dim;
-    font-family: $font-mono;
-  }
-}
-
-// Alternative supply section
-.alt-supply {
-  @include card;
-  padding: $sp-4;
-
-  .alt-supply-item {
-    padding: $sp-3 0;
-    border-bottom: $border-thin;
-    font-size: $fs-sm;
-
-    &:last-child { border-bottom: none; }
-
-    .alt-country {
-      font-weight: $fw-semibold;
-      color: $text-primary;
-    }
-
-    .alt-status {
-      font-size: $fs-xs;
-      margin-left: $sp-2;
-    }
-
-    .alt-details {
-      margin-top: $sp-2;
-      color: $text-secondary;
-      line-height: $lh-relaxed;
-    }
-  }
-}
-
 // Sidebar element nav
 .sidebar-nav-card {
-  @include card;
+  background: $bg-card;
+  border: $border-thin;
+  border-radius: $radius-md;
   padding: $sp-4;
 
   .sidebar-element-list {
@@ -241,42 +177,5 @@
     &:hover {
       background: $bg-tertiary;
     }
-
-    &.active {
-      background: rgba($accent-teal, 0.08);
-    }
-  }
-}
-
-// Methodology note on element page
-.methodology-note {
-  @include card;
-  padding: $sp-3;
-  font-size: $fs-xs;
-  color: $text-dim;
-  line-height: $lh-relaxed;
-  border-color: rgba($border-primary, 0.5);
-
-  strong {
-    color: $text-muted;
-  }
-}
-
-// Sparse data disclaimer
-.sparse-data-warning {
-  @include card;
-  padding: $sp-3 $sp-4;
-  border-color: rgba($accent-amber, 0.2);
-  background: rgba($accent-amber, 0.02);
-  font-size: $fs-sm;
-  color: $text-secondary;
-  display: flex;
-  align-items: flex-start;
-  gap: $sp-2;
-
-  .warning-icon {
-    color: $accent-amber;
-    flex-shrink: 0;
-    margin-top: 2px;
   }
 }

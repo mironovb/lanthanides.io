@@ -1,74 +1,58 @@
-// Strategic Materials Ledger — Design Tokens
-// Industrial / laboratory / procurement terminal aesthetic
+// Strategic Materials Ledger — Light Theme
 
 // ── Color Palette ──────────────────────────────────────────
-$bg-primary:       #0c0c14;
-$bg-secondary:     #12121c;
-$bg-tertiary:      #1a1a26;
-$bg-card:          #151520;
-$bg-input:         #10101a;
+$bg-primary:       #ffffff;
+$bg-secondary:     #f7f8fa;
+$bg-tertiary:      #eef0f4;
+$bg-card:          #ffffff;
+$bg-input:         #f2f3f6;
 
-$border-primary:   #252535;
-$border-secondary: #303042;
-$border-accent:    #404055;
+$border-primary:   #e0e3e8;
+$border-secondary: #d0d4db;
+$border-accent:    #b8bdc6;
 
-$text-primary:     #e4e6ec;
-$text-secondary:   #9a9cb0;
-$text-muted:       #6a6c82;
-$text-dim:         #45475a;
+$text-primary:     #1a1d23;
+$text-secondary:   #4a5060;
+$text-muted:       #7a8296;
+$text-dim:         #a0a8b8;
 
-$accent-teal:      #3d9970;
-$accent-teal-dim:  #2a6b4e;
-$accent-blue:      #4a90c4;
-$accent-blue-dim:  #2d5a82;
-$accent-amber:     #d4a017;
-$accent-amber-dim: #8a6a10;
+$accent-teal:      #1a8a5c;
+$accent-teal-dim:  #b6e0ce;
+$accent-blue:      #2b6cb0;
+$accent-blue-dim:  #b8d4f0;
+$accent-amber:     #b8860b;
+$accent-amber-dim: #f0dca0;
 $accent-red:       #c0392b;
-$accent-red-dim:   #7a2218;
-$accent-purple:    #8e6abf;
+$accent-red-dim:   #f0b8b0;
+$accent-purple:    #6b4fa0;
 
-$white:            #f5f6fa;
-$paper:            #e8ecf1;
-
-// ── Verification badge colors ──────────────────────────────
-$badge-verified:   #3d9970;
-$badge-corroborate:#4a90c4;
-$badge-single:     #d4a017;
-$badge-benchmark:  #8e6abf;
-$badge-placeholder:#6a6c82;
-$badge-stale:      #c0392b;
-$badge-archived:   #45475a;
+$white:            #ffffff;
+$paper:            #f7f8fa;
 
 // ── Category colors ────────────────────────────────────────
-$cat-ree-light:    #4a90c4;
-$cat-ree-heavy:    #8e6abf;
-$cat-strategic:    #d4a017;
-$cat-semiconductor:#3d9970;
+$cat-ree-light:    #2b6cb0;
+$cat-ree-heavy:    #6b4fa0;
+$cat-strategic:    #b8860b;
+$cat-semiconductor:#1a8a5c;
 
 // ── Export control colors ──────────────────────────────────
 $ctrl-restricted:  #c0392b;
-$ctrl-monitored:   #d4a017;
-$ctrl-normal:      #3d9970;
-
-// ── Heatmap scale ──────────────────────────────────────────
-$heat-cool:        #2a6b4e;
-$heat-neutral:     #303042;
-$heat-warm:        #8a6a10;
-$heat-hot:         #c0392b;
+$ctrl-monitored:   #b8860b;
+$ctrl-normal:      #1a8a5c;
 
 // ── Typography ─────────────────────────────────────────────
 $font-sans:        "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-$font-mono:        "JetBrains Mono", "Fira Code", "SF Mono", "Cascadia Code", "Consolas", monospace;
+$font-mono:        "JetBrains Mono", "Fira Code", "SF Mono", "Consolas", monospace;
 
-$fs-xs:            0.6875rem;   // 11px
-$fs-sm:            0.75rem;     // 12px
-$fs-base:          0.8125rem;   // 13px
-$fs-md:            0.875rem;    // 14px
-$fs-lg:            1rem;        // 16px
-$fs-xl:            1.25rem;     // 20px
-$fs-2xl:           1.5rem;      // 24px
-$fs-3xl:           2rem;        // 32px
-$fs-4xl:           2.5rem;      // 40px
+$fs-xs:            0.6875rem;
+$fs-sm:            0.75rem;
+$fs-base:          0.8125rem;
+$fs-md:            0.875rem;
+$fs-lg:            1rem;
+$fs-xl:            1.25rem;
+$fs-2xl:           1.5rem;
+$fs-3xl:           2rem;
+$fs-4xl:           2.5rem;
 
 $fw-normal:        400;
 $fw-medium:        500;
@@ -92,19 +76,19 @@ $sp-12:            3rem;
 $sp-16:            4rem;
 
 // ── Layout ─────────────────────────────────────────────────
-$max-width:        1440px;
-$content-width:    1200px;
+$max-width:        1200px;
+$content-width:    1000px;
 $sidebar-width:    340px;
-$header-height:    50px;
+$header-height:    48px;
 
 // ── Borders & Radii ────────────────────────────────────────
-$radius-sm:        3px;
-$radius-md:        6px;
-$radius-lg:        8px;
-$radius-xl:        12px;
+$radius-sm:        4px;
+$radius-md:        8px;
+$radius-lg:        12px;
+$radius-xl:        16px;
 
 $border-thin:      1px solid $border-primary;
-$border-card:      1px solid $border-secondary;
+$border-card:      1px solid $border-primary;
 
 // ── Transitions ────────────────────────────────────────────
 $transition-fast:  120ms ease;
@@ -118,6 +102,6 @@ $bp-lg:            1024px;
 $bp-xl:            1280px;
 
 // ── Shadows ────────────────────────────────────────────────
-$shadow-sm:        0 1px 3px rgba(0, 0, 0, 0.25);
-$shadow-md:        0 2px 8px rgba(0, 0, 0, 0.3);
-$shadow-lg:        0 4px 16px rgba(0, 0, 0, 0.35);
+$shadow-sm:        0 1px 3px rgba(0, 0, 0, 0.06);
+$shadow-md:        0 2px 8px rgba(0, 0, 0, 0.08);
+$shadow-lg:        0 4px 16px rgba(0, 0, 0, 0.10);

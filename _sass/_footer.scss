@@ -1,52 +1,11 @@
 .site-footer {
-  background: $bg-secondary;
   border-top: $border-thin;
-  padding: $sp-8 0;
-  margin-top: $sp-8;
+  padding: $sp-4 0;
+  margin-top: auto;
 
   .footer-inner {
     @include container;
-    display: flex;
-    flex-direction: column;
-    gap: $sp-6;
-
-    @include bp-md {
-      flex-direction: row;
-      justify-content: space-between;
-      align-items: flex-start;
-    }
-  }
-
-  .footer-section {
-    h4 {
-      @include label;
-      margin-bottom: $sp-2;
-    }
-
-    p, a {
-      font-size: $fs-sm;
-      color: $text-secondary;
-    }
-
-    a:hover {
-      color: $text-primary;
-    }
-
-    &.footer-section-right {
-      @include bp-md {
-        text-align: right;
-      }
-    }
-  }
-
-  .footer-disclaimer {
-    font-size: $fs-xs;
-    color: $text-dim;
-    max-width: 60ch;
-    line-height: $lh-relaxed;
-  }
-
-  .footer-meta {
+    text-align: center;
     font-size: $fs-xs;
     color: $text-dim;
     font-family: $font-mono;

@@ -10,12 +10,11 @@ layout: default
   {% endif %}
 {% endfor %}
 
-{% comment %} Compute record stats {% endcomment %}
 {% assign record_count = 0 %}
 {% assign latest_date = nil %}
 {% assign latest_price = nil %}
 {% for record in site.data.price_records %}
-  {% if record.element_symbol == page.symbol and record.verification_status != 'archived' %}
+  {% if record.element_symbol == page.symbol %}
     {% assign record_count = record_count | plus: 1 %}
     {% if record.quote_date > latest_date or latest_date == nil %}
       {% assign latest_date = record.quote_date %}
@@ -25,9 +24,7 @@ layout: default
 {% endfor %}
 
 <nav class="breadcrumb" aria-label="Breadcrumb">
-  <a href="{{ '/' | relative_url }}">Dashboard</a>
-  <span class="breadcrumb-sep">/</span>
-  <a href="{{ '/elements/' | relative_url }}">Elements</a>
+  <a href="{{ '/' | relative_url }}">Home</a>
   <span class="breadcrumb-sep">/</span>
   <span class="breadcrumb-current">{{ page.symbol }}</span>
 </nav>
@@ -52,19 +49,12 @@ layout: default
             {% when 'semiconductor_metal' %}
               <span class="badge-cat badge-semiconductor">Semiconductor Metal</span>
           {% endcase %}
-
           {% case cat_info.export_control_status %}
             {% when 'restricted' %}
               <span class="badge-ctrl badge-restricted">Restricted</span>
             {% when 'monitored' %}
               <span class="badge-ctrl badge-monitored">Monitored</span>
-            {% when 'normal' %}
-              <span class="badge-ctrl badge-normal">Normal</span>
           {% endcase %}
-
-          {% if record_count == 0 %}
-            <span class="badge badge-stale">No Data</span>
-          {% endif %}
         </div>
         {% if cat_info.notes %}
           <p class="element-notes">{{ cat_info.notes }}</p>
@@ -82,37 +72,18 @@ layout: default
     {% if latest_date %}
       Last price: {{ latest_date }}<br>
     {% endif %}
-    {{ record_count }} record{% if record_count != 1 %}s{% endif %} · {{ cat_info.family }}<br>
-    <span class="text-dim">Dominant source: {{ cat_info.dominant_source_country | default: "—" }}</span>
+    {{ record_count }} record{% if record_count != 1 %}s{% endif %}
   </div>
 </div>
-
-{% if record_count == 0 %}
-<div class="sparse-data-warning mb-6">
-  <span class="warning-icon">&#x26A0;</span>
-  <div>
-    <strong>No price data available for {{ page.name }}.</strong>
-    This element is tracked but no price records have been ingested yet.
-    Add data via invoice upload or curated offer ingestion.
-    See <a href="{{ '/methodology/' | relative_url }}">Methodology</a> for how data is collected and verified.
-  </div>
-</div>
-{% endif %}
 
 <div class="layout-with-sidebar">
   <div>
     <div class="element-prices-row">
       {% include price-card.html tier="retail" symbol=page.symbol %}
-      {% include price-card.html tier="bulk" symbol=page.symbol %}
     </div>
 
     <div class="element-section">
-      <h2 class="section-title">Price Trend</h2>
-      {% include sparkline.html symbol=page.symbol %}
-    </div>
-
-    <div class="element-section">
-      <h2 class="section-title">Price History &amp; Provenance</h2>
+      <h2 class="section-title">Price History</h2>
       {% include provenance-table.html symbol=page.symbol %}
     </div>
 
@@ -120,20 +91,14 @@ layout: default
   </div>
 
   <aside class="sidebar-sticky">
-    {% include policy-notes.html symbol=page.symbol %}
-
-    <div class="mt-4">
-      {% include alternative-supply.html symbol=page.symbol %}
-    </div>
-
-    <div class="sidebar-nav-card mt-4">
+    <div class="sidebar-nav-card">
       <div class="panel-header">
         <h3>Other Elements</h3>
       </div>
       <div class="sidebar-element-list">
         {% for elem in site.elements %}
           {% if elem.symbol != page.symbol %}
-            <a href="{{ elem.url | relative_url }}" class="sidebar-element-link {% if elem.symbol == page.symbol %}active{% endif %}">
+            <a href="{{ elem.url | relative_url }}" class="sidebar-element-link">
               <span class="mono fw-bold">{{ elem.symbol }}</span>
               <span class="text-sm text-secondary">{{ elem.name }}</span>
             </a>
@@ -141,15 +106,5 @@ layout: default
         {% endfor %}
       </div>
     </div>
-
-    <div class="methodology-note mt-4">
-      <strong>Data Note:</strong> Prices are normalized to USD/kg.
-      Retail and bulk tiers are tracked separately.
-      Different material forms (oxide, metal, powder, etc.) and purities
-      are not averaged together.
-      <a href="{{ '/methodology/' | relative_url }}">Full methodology &rarr;</a>
-    </div>
   </aside>
 </div>
-
-{% include disclaimer.html %}

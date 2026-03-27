@@ -1,37 +1,9 @@
 ---
 layout: data-page
-title: "Element Index"
-description: "Browse all tracked elements. Filter by category, export controls, and data availability."
+title: "All Elements"
+description: "Browse all tracked elements with current retail prices."
 permalink: /elements/
 ---
-
-{% include search-box.html %}
-
-<div class="filter-bar" id="filter-bar">
-  <div class="filter-group">
-    <span class="filter-label">Category</span>
-    <button class="filter-chip active" data-filter="category" data-value="all">All</button>
-    <button class="filter-chip" data-filter="category" data-value="rare_earth_light">Light REE</button>
-    <button class="filter-chip" data-filter="category" data-value="rare_earth_heavy">Heavy REE</button>
-    <button class="filter-chip" data-filter="category" data-value="strategic_metal">Strategic</button>
-    <button class="filter-chip" data-filter="category" data-value="semiconductor_metal">Semiconductor</button>
-  </div>
-  <div class="filter-group">
-    <span class="filter-label">Controls</span>
-    <button class="filter-chip" data-filter="export" data-value="restricted">Restricted</button>
-    <button class="filter-chip" data-filter="export" data-value="monitored">Monitored</button>
-  </div>
-  <div class="sort-controls">
-    <label for="sort-select">Sort:</label>
-    <select id="sort-select">
-      <option value="symbol">Symbol</option>
-      <option value="name">Name</option>
-      <option value="category">Category</option>
-      <option value="price">Price (high to low)</option>
-      <option value="updated" selected>Last Updated</option>
-    </select>
-  </div>
-</div>
 
 <div class="grid-auto" id="element-grid">
   {% assign sorted_elements = site.elements | sort: 'symbol' %}
@@ -39,9 +11,3 @@ permalink: /elements/
     {% include element-card.html element=elem %}
   {% endfor %}
 </div>
-
-<div class="panel-empty" id="no-results" style="display: none;">
-  No elements match the current filters.
-</div>
-
-{% include disclaimer.html %}

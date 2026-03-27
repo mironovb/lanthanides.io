@@ -6,20 +6,8 @@
     padding-bottom: $sp-6;
   }
 
-  .dashboard-grid {
-    grid-template-columns: 1fr;
-  }
-
   .element-prices-row {
     grid-template-columns: 1fr;
-  }
-
-  .stats-grid {
-    grid-template-columns: repeat(3, 1fr);
-  }
-
-  .heatmap-grid {
-    grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
   }
 
   .layout-with-sidebar {
@@ -39,53 +27,25 @@
     }
   }
 
-  .filter-bar {
-    flex-direction: column;
-    align-items: flex-start;
-
-    .sort-controls {
-      margin-left: 0;
-      width: 100%;
-    }
-  }
-
-  .home-hero {
-    .hero-title {
-      font-size: $fs-xl;
-    }
-  }
-
   .element-header {
     .element-symbol-block {
       width: 56px;
       height: 56px;
     }
   }
+
+  .elements-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 
 @include bp-max-sm {
-  .periodic-grid {
-    grid-template-columns: repeat(auto-fill, minmax(52px, 1fr));
-  }
-
-  .periodic-cell {
-    min-height: 48px;
-    padding: $sp-1;
-
-    .cell-z { display: none; }
-    .cell-symbol { font-size: $fs-sm; }
-    .cell-price { display: none; }
-  }
-
-  .element-card-prices {
-    grid-template-columns: 1fr;
-  }
-
-  .placeholder-banner .placeholder-banner-text {
-    font-size: 0.6rem;
-  }
-
-  .stats-grid {
+  .elements-grid {
     grid-template-columns: repeat(2, 1fr);
+    gap: $sp-2;
+  }
+
+  .element-tile {
+    .tile-symbol { font-size: $fs-xl; }
   }
 }

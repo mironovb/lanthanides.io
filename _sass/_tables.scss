@@ -23,47 +23,29 @@
     text-transform: uppercase;
     letter-spacing: 0.06em;
     color: $text-muted;
-    background: $bg-tertiary;
+    background: $bg-secondary;
     white-space: nowrap;
-    position: sticky;
-    top: 0;
-    z-index: 1;
 
     &[data-sortable] {
       cursor: pointer;
       user-select: none;
 
-      &:hover {
-        color: $text-primary;
-        background: mix($bg-tertiary, #fff, 95%);
-      }
+      &:hover { color: $text-primary; }
 
       &::after {
-        content: " ↕";
+        content: " \2195";
         font-size: 0.75em;
         color: $text-dim;
       }
 
-      &.sort-asc::after {
-        content: " ↑";
-        color: $accent-teal;
-      }
-
-      &.sort-desc::after {
-        content: " ↓";
-        color: $accent-teal;
-      }
+      &.sort-asc::after { content: " \2191"; color: $accent-teal; }
+      &.sort-desc::after { content: " \2193"; color: $accent-teal; }
     }
   }
 
-  td {
-    color: $text-secondary;
-  }
+  td { color: $text-secondary; }
 
-  // Numeric columns
-  .col-price,
-  .col-quantity,
-  .col-numeric {
+  .col-price, .col-quantity, .col-numeric {
     font-family: $font-mono;
     text-align: right;
     white-space: nowrap;
@@ -83,39 +65,13 @@
   tbody tr {
     transition: background $transition-fast;
 
-    &:nth-child(even) {
-      background: rgba($bg-tertiary, 0.3);
-    }
-
-    &:hover {
-      background: rgba($accent-blue, 0.05);
-    }
+    &:nth-child(even) { background: $bg-secondary; }
+    &:hover { background: rgba($accent-blue, 0.04); }
   }
 
-  // Empty table state
-  .table-empty {
-    td {
-      text-align: center;
-      padding: $sp-8 $sp-4;
-      color: $text-dim;
-      font-style: italic;
-    }
-  }
-}
-
-// Compact variant
-.data-table-compact {
-  th, td {
-    padding: $sp-1 $sp-2;
-    font-size: $fs-xs;
-  }
-}
-
-.table-source-link {
-  color: $accent-blue;
-  font-size: $fs-xs;
-
-  &:hover {
-    text-decoration: underline;
+  .table-empty td {
+    text-align: center;
+    padding: $sp-8 $sp-4;
+    color: $text-dim;
   }
 }

@@ -1,108 +1,134 @@
-// Home hero
-.home-hero {
-  margin-bottom: $sp-6;
-  padding-bottom: $sp-6;
-  border-bottom: $border-thin;
+// Home header
+.home-header {
+  text-align: center;
+  padding: $sp-8 0 $sp-6;
 
-  .hero-content {
-    max-width: 720px;
-  }
-
-  .hero-title {
+  .home-title {
     font-size: $fs-2xl;
     font-weight: $fw-bold;
     color: $text-primary;
     letter-spacing: -0.02em;
-
-    @include bp-md {
-      font-size: $fs-3xl;
-    }
-
-    @include bp-lg {
-      font-size: $fs-4xl;
-    }
   }
 
-  .hero-subtitle {
+  .home-subtitle {
     font-size: $fs-md;
-    color: $text-secondary;
-    max-width: 64ch;
-    margin-top: $sp-2;
-    line-height: $lh-relaxed;
-  }
-
-  .hero-meta {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: $sp-2;
-    margin-top: $sp-3;
-    font-size: $fs-xs;
-    color: $text-dim;
-
-    .hero-stat {
-      strong {
-        color: $text-secondary;
-      }
-    }
-
-    .hero-stat-sep {
-      color: $border-secondary;
-    }
+    color: $text-muted;
+    margin-top: $sp-1;
   }
 }
 
-// Dashboard grid
-.dashboard-grid {
+// Element grid — centered
+.elements-grid {
   display: grid;
-  gap: $sp-4;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: $sp-3;
+  max-width: 960px;
+  margin: 0 auto $sp-6;
 
   @include bp-md {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(4, 1fr);
   }
 
   @include bp-lg {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(5, 1fr);
   }
 }
 
-.dashboard-full-width {
-  @include bp-md {
-    grid-column: 1 / -1;
-  }
-}
-
-.dashboard-two-thirds {
-  @include bp-lg {
-    grid-column: span 2;
-  }
-}
-
-// Home search
-.home-search {
-  margin-bottom: $sp-6;
+.element-tile {
   display: flex;
+  flex-direction: column;
   align-items: center;
-  gap: $sp-4;
-
-  .search-wrapper {
-    flex: 1;
-    max-width: 560px;
-  }
-}
-
-// Disclaimer bar
-.disclaimer-bar {
-  margin-top: $sp-8;
-  padding: $sp-3 $sp-4;
-  background: $bg-tertiary;
+  padding: $sp-3 $sp-2;
+  background: $bg-card;
   border: $border-thin;
   border-radius: $radius-md;
-  font-size: $fs-xs;
-  color: $text-dim;
-  line-height: $lh-relaxed;
+  text-decoration: none;
+  transition: box-shadow $transition-base, border-color $transition-base;
+  position: relative;
 
-  strong {
+  &:hover {
+    box-shadow: $shadow-md;
+    border-color: $border-accent;
+  }
+
+  // Category left-border accent
+  &.cat-rare-earth-light { border-top: 3px solid $cat-ree-light; }
+  &.cat-rare-earth-heavy { border-top: 3px solid $cat-ree-heavy; }
+  &.cat-strategic-metal { border-top: 3px solid $cat-strategic; }
+  &.cat-semiconductor-metal { border-top: 3px solid $cat-semiconductor; }
+
+  .tile-z {
+    font-family: $font-mono;
+    font-size: 10px;
+    color: $text-dim;
+    align-self: flex-end;
+    line-height: 1;
+  }
+
+  .tile-symbol {
+    font-family: $font-mono;
+    font-size: $fs-2xl;
+    font-weight: $fw-bold;
+    color: $text-primary;
+    line-height: 1;
+    margin: $sp-1 0;
+  }
+
+  .tile-name {
+    font-size: $fs-xs;
+    color: $text-secondary;
+    margin-bottom: $sp-2;
+  }
+
+  .tile-price {
+    font-family: $font-mono;
+    font-size: $fs-md;
+    font-weight: $fw-semibold;
+    color: $text-primary;
+    line-height: 1;
+
+    &.tile-no-data {
+      color: $text-dim;
+    }
+  }
+
+  .tile-unit {
+    font-size: $fs-xs;
+    font-weight: $fw-normal;
     color: $text-muted;
+  }
+
+  .tile-sources {
+    font-size: $fs-xs;
+    color: $text-muted;
+    margin-top: 2px;
+  }
+}
+
+// Legend
+.home-legend {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: $sp-4;
+  padding: $sp-4 0 $sp-8;
+  font-size: $fs-xs;
+  color: $text-muted;
+
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: $sp-1;
+  }
+
+  .legend-dot {
+    width: 10px;
+    height: 3px;
+    border-radius: 1px;
+
+    &.dot-ree-light { background: $cat-ree-light; }
+    &.dot-ree-heavy { background: $cat-ree-heavy; }
+    &.dot-strategic { background: $cat-strategic; }
+    &.dot-semiconductor { background: $cat-semiconductor; }
   }
 }
