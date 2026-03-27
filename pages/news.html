@@ -1,0 +1,36 @@
+---
+layout: default
+title: News
+permalink: /news/
+---
+
+<h1 class="page-title">Regulatory &amp; Trade Developments</h1>
+<p class="page-description">Export controls, trade policy, and regulatory changes affecting strategic material supply chains.</p>
+
+{% assign sorted_news = site.data.news | sort: "date" | reverse %}
+
+<div class="news-full-list">
+  {% for item in sorted_news %}
+    <article class="news-item">
+      <time class="news-date" datetime="{{ item.date }}">{{ item.date }}</time>
+      <div class="news-body">
+        <h3 class="news-headline">{{ item.headline }}</h3>
+        <p class="news-text">{{ item.body }}</p>
+        {% if item.elements.size > 0 %}
+          <span class="news-elements">
+            {% for sym in item.elements %}
+              <code>{{ sym }}</code>{% unless forloop.last %} {% endunless %}
+            {% endfor %}
+          </span>
+        {% endif %}
+        {% if item.references.size > 0 %}
+          <div class="news-refs">
+            {% for ref in item.references %}
+              <cite>[{{ forloop.index }}] {{ ref.label }}{% if ref.note %} — {{ ref.note }}{% endif %}</cite>
+            {% endfor %}
+          </div>
+        {% endif %}
+      </div>
+    </article>
+  {% endfor %}
+</div>
