@@ -9,64 +9,99 @@ layout: default
 
 {{ content }}
 
-{% comment %} Build category groups in display order {% endcomment %}
-{% assign categories = "rare_earth_light,rare_earth_heavy,strategic_metal,semiconductor_metal" | split: "," %}
-{% assign cat_labels = "Light Rare Earths,Heavy Rare Earths,Strategic Metals,Semiconductor Metals" | split: "," %}
-
-{% for cat in categories %}
-  {% assign cat_index = forloop.index0 %}
-  <div class="category-section">
-    <h2 class="category-heading">{{ cat_labels[cat_index] }}</h2>
-    <div class="elements-grid">
-      {% comment %} Sort elements within category by atomic number {% endcomment %}
-      {% assign cat_elements = "" | split: "" %}
-      {% for c in site.data.element_catalog %}
-        {% if c.category == cat %}
-          {% assign cat_elements = cat_elements | push: c %}
-        {% endif %}
-      {% endfor %}
-      {% assign cat_elements = cat_elements | sort: "atomic_number" %}
-
-      {% for cat_info in cat_elements %}
-        {% assign elem = nil %}
-        {% for e in site.elements %}
-          {% if e.symbol == cat_info.symbol %}
-            {% assign elem = e %}
-            {% break %}
+{% comment %} ── News / Regulatory Developments ── {% endcomment %}
+{% assign sorted_news = site.data.news | sort: "date" | reverse %}
+{% if sorted_news.size > 0 %}
+<section class="news-panel">
+  <h2 class="news-heading">Regulatory &amp; Trade Developments</h2>
+  <div class="news-list">
+    {% for item in sorted_news %}
+      <article class="news-item">
+        <time class="news-date" datetime="{{ item.date }}">{{ item.date }}</time>
+        <div class="news-body">
+          <h3 class="news-headline">{{ item.headline }}</h3>
+          <p class="news-text">{{ item.body }}</p>
+          {% if item.elements.size > 0 %}
+            <span class="news-elements">
+              {% for sym in item.elements %}
+                <code>{{ sym }}</code>{% unless forloop.last %} {% endunless %}
+              {% endfor %}
+            </span>
           {% endif %}
-        {% endfor %}
-
-        {% if elem %}
-          {% assign latest_price = nil %}
-          {% assign source_count = 0 %}
-          {% for record in site.data.price_records %}
-            {% if record.element_symbol == cat_info.symbol and record.market_tier == 'retail' %}
-              {% assign source_count = source_count | plus: 1 %}
-              {% if record.quote_date > latest_price.quote_date or latest_price == nil %}
-                {% assign latest_price = record %}
-              {% endif %}
-            {% endif %}
-          {% endfor %}
-
-          <a href="{{ elem.url | relative_url }}" class="element-tile cat-{{ cat_info.category | replace: '_', '-' }}">
-            <div class="tile-top">
-              <span class="tile-z">{{ cat_info.atomic_number }}</span>
+          {% if item.references.size > 0 %}
+            <div class="news-refs">
+              {% for ref in item.references %}
+                <cite>[{{ forloop.index }}] {{ ref.label }}{% if ref.note %} — {{ ref.note }}{% endif %}</cite>
+              {% endfor %}
             </div>
-            <span class="tile-symbol">{{ cat_info.symbol }}</span>
-            <span class="tile-name">{{ cat_info.name }}</span>
-            {% if latest_price %}
-              <span class="tile-price">${{ latest_price.normalized_usd_per_kg }}<span class="tile-unit">/kg</span></span>
-              <span class="tile-purity">{{ latest_price.purity }}</span>
-              <span class="tile-meta">{{ source_count }} offer{% if source_count != 1 %}s{% endif %} · {{ cat_info.dominant_source_country }}</span>
-            {% else %}
-              <span class="tile-price tile-no-data">&mdash;</span>
-            {% endif %}
-            {% if cat_info.trade_form and cat_info.trade_form != "" %}
-              <span class="tile-form">{{ cat_info.trade_form }}</span>
-            {% endif %}
-          </a>
+          {% endif %}
+        </div>
+      </article>
+    {% endfor %}
+  </div>
+</section>
+{% endif %}
+
+{% comment %} ── Unified Element Grid ── {% endcomment %}
+{% assign display_order = "rare_earth_light,rare_earth_heavy,strategic_metal,semiconductor_metal" | split: "," %}
+{% assign all_sorted = "" | split: "" %}
+{% for cat in display_order %}
+  {% assign cat_elems = "" | split: "" %}
+  {% for c in site.data.element_catalog %}
+    {% if c.category == cat %}
+      {% assign cat_elems = cat_elems | push: c %}
+    {% endif %}
+  {% endfor %}
+  {% assign cat_elems = cat_elems | sort: "atomic_number" %}
+  {% for c in cat_elems %}
+    {% assign all_sorted = all_sorted | push: c %}
+  {% endfor %}
+{% endfor %}
+
+<div class="elements-grid">
+  {% for cat_info in all_sorted %}
+    {% assign elem = nil %}
+    {% for e in site.elements %}
+      {% if e.symbol == cat_info.symbol %}
+        {% assign elem = e %}
+        {% break %}
+      {% endif %}
+    {% endfor %}
+
+    {% if elem %}
+      {% assign latest_price = nil %}
+      {% assign source_count = 0 %}
+      {% for record in site.data.price_records %}
+        {% if record.element_symbol == cat_info.symbol and record.market_tier == 'retail' %}
+          {% assign source_count = source_count | plus: 1 %}
+          {% if record.quote_date > latest_price.quote_date or latest_price == nil %}
+            {% assign latest_price = record %}
+          {% endif %}
         {% endif %}
       {% endfor %}
-    </div>
-  </div>
-{% endfor %}
+
+      <a href="{{ elem.url | relative_url }}" class="element-tile cat-{{ cat_info.category | replace: '_', '-' }}">
+        <div class="tile-top">
+          <span class="tile-z">{{ cat_info.atomic_number }}</span>
+        </div>
+        <span class="tile-symbol">{{ cat_info.symbol }}</span>
+        <span class="tile-name">{{ cat_info.name }}</span>
+        {% if latest_price %}
+          <span class="tile-price">${{ latest_price.normalized_usd_per_kg }}<span class="tile-unit">/kg</span></span>
+          <span class="tile-purity">{{ latest_price.purity }}</span>
+          <span class="tile-meta">{{ source_count }} offer{% if source_count != 1 %}s{% endif %} · {{ cat_info.dominant_source_country }}</span>
+        {% else %}
+          <span class="tile-price tile-no-data">&mdash;</span>
+        {% endif %}
+      </a>
+    {% endif %}
+  {% endfor %}
+</div>
+
+{% comment %} ── Category Color Legend ── {% endcomment %}
+<div class="category-legend">
+  <span class="legend-item"><span class="legend-swatch swatch-ree-light"></span>Light Rare Earths</span>
+  <span class="legend-item"><span class="legend-swatch swatch-ree-heavy"></span>Heavy Rare Earths</span>
+  <span class="legend-item"><span class="legend-swatch swatch-strategic"></span>Strategic Metals</span>
+  <span class="legend-item"><span class="legend-swatch swatch-semiconductor"></span>Semiconductor Metals</span>
+</div>

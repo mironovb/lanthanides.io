@@ -1,0 +1,55 @@
+# Strategic Materials Ledger — Regulatory & Trade Developments
+
+- date: 2025-04-04
+  headline: "China imposes export controls on medium and heavy rare earth materials"
+  body: >-
+    Export licenses now required for samarium, gadolinium, terbium, dysprosium,
+    lutetium, scandium, and yttrium — covering metals, alloys, oxides, compounds,
+    and permanent magnet materials. Announced in retaliation to escalating US tariffs.
+  elements: [Sm, Gd, Tb, Dy, Lu, Sc, Y]
+  references:
+    - label: "MOFCOM/GAC Announcement No. 18 of 2025"
+      note: "商务部 海关总署公告2025年第18号, effective 4 Apr 2025"
+
+- date: 2025-02-04
+  headline: "China extends export controls to tungsten, tellurium, bismuth, molybdenum, and indium"
+  body: >-
+    All five metals now require export licenses. Controls took effect immediately
+    upon publication, citing national security and non-proliferation.
+  elements: [W, Te, Bi, Mo, In]
+  references:
+    - label: "MOFCOM/GAC Announcement No. 10 of 2025"
+      note: "商务部 海关总署公告2025年第10号, effective 4 Feb 2025"
+
+- date: 2024-08-15
+  headline: "China restricts antimony exports"
+  body: >-
+    Export controls imposed on antimony and related items, effective 15 September 2024.
+    Antimony is critical for flame retardants, lead-acid batteries, and military applications.
+  elements: [Sb]
+  references:
+    - label: "MOFCOM/GAC Announcement No. 33 of 2024"
+      note: "商务部 海关总署公告2024年第33号, effective 15 Sep 2024"
+
+- date: 2024-05-23
+  headline: "EU Critical Raw Materials Act enters into force"
+  body: >-
+    Regulation (EU) 2024/1252 establishes benchmarks for domestic extraction,
+    processing, and recycling of critical raw materials including rare earths,
+    gallium, and germanium. Sets targets of 10% extraction, 40% processing,
+    and 25% recycling of annual EU consumption by 2030.
+  elements: []
+  references:
+    - label: "Regulation (EU) 2024/1252"
+      note: "OJ L, 2024/1252, 3 May 2024; entered into force 23 May 2024"
+
+- date: 2023-07-03
+  headline: "China imposes first export controls on gallium and germanium"
+  body: >-
+    China announced export license requirements for gallium and germanium products,
+    effective 1 August 2023. These were the first targeted critical mineral export
+    controls, widely interpreted as a response to US semiconductor restrictions.
+  elements: [Ga, Ge]
+  references:
+    - label: "MOFCOM/GAC Announcement No. 23 of 2023"
+      note: "商务部 海关总署公告2023年第23号, effective 1 Aug 2023"

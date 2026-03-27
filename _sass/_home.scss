@@ -1,7 +1,7 @@
 // Home header
 .home-header {
   text-align: center;
-  padding: $sp-8 0 $sp-4;
+  padding: $sp-6 0 $sp-4;
 
   .home-title {
     font-size: $fs-2xl;
@@ -17,34 +17,114 @@
   }
 }
 
-// Category sections
-.category-section {
+// ── News panel ───────────────────────────────────────────────
+.news-panel {
   margin-bottom: $sp-6;
+  max-width: 820px;
 
-  .category-heading {
-    font-size: $fs-sm;
-    font-weight: $fw-semibold;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    color: $text-muted;
+  .news-heading {
+    @include label;
     margin-bottom: $sp-3;
     padding-bottom: $sp-2;
     border-bottom: $border-thin;
   }
 }
 
-// Element grid
+.news-list {
+  display: flex;
+  flex-direction: column;
+  gap: $sp-3;
+}
+
+.news-item {
+  display: flex;
+  gap: $sp-3;
+  padding: $sp-3;
+  background: $bg-secondary;
+  border-radius: $radius-md;
+  border-left: 3px solid $border-secondary;
+
+  @include bp-max-md {
+    flex-direction: column;
+    gap: $sp-1;
+  }
+}
+
+.news-date {
+  font-family: $font-mono;
+  font-size: $fs-xs;
+  color: $text-dim;
+  white-space: nowrap;
+  flex-shrink: 0;
+  min-width: 80px;
+  padding-top: 2px;
+}
+
+.news-body {
+  flex: 1;
+  min-width: 0;
+}
+
+.news-headline {
+  font-size: $fs-sm;
+  font-weight: $fw-semibold;
+  color: $text-primary;
+  line-height: $lh-tight;
+  margin: 0 0 $sp-1;
+}
+
+.news-text {
+  font-size: $fs-xs;
+  color: $text-secondary;
+  line-height: $lh-relaxed;
+  margin: 0;
+}
+
+.news-elements {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin-top: $sp-1;
+
+  code {
+    font-family: $font-mono;
+    font-size: 10px;
+    font-weight: $fw-semibold;
+    color: $accent-blue;
+    background: $accent-blue-dim;
+    padding: 1px 5px;
+    border-radius: 3px;
+  }
+}
+
+.news-refs {
+  margin-top: $sp-2;
+
+  cite {
+    display: block;
+    font-style: normal;
+    font-size: 10px;
+    color: $text-dim;
+    line-height: $lh-relaxed;
+  }
+}
+
+// ── Element grid (wider, unified) ────────────────────────────
 .elements-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
   gap: $sp-3;
 
   @include bp-md {
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(5, 1fr);
   }
 
   @include bp-lg {
-    grid-template-columns: repeat(5, 1fr);
+    grid-template-columns: repeat(7, 1fr);
+  }
+
+  @include bp-xl {
+    grid-template-columns: repeat(9, 1fr);
   }
 }
 
@@ -126,15 +206,36 @@
     color: $text-dim;
     margin-top: 2px;
   }
+}
 
-  .tile-form {
-    font-size: 9px;
-    color: $text-dim;
-    margin-top: $sp-1;
-    text-align: center;
-    line-height: $lh-tight;
-    border-top: 1px solid $border-primary;
-    padding-top: $sp-1;
-    width: 100%;
-  }
+// ── Category color legend ────────────────────────────────────
+.category-legend {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: $sp-4;
+  margin-top: $sp-6;
+  padding: $sp-3 0;
+  border-top: $border-thin;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: $sp-2;
+  font-size: $fs-xs;
+  color: $text-muted;
+}
+
+.legend-swatch {
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  border-radius: 3px;
+  border: 1px solid $border-primary;
+
+  &.swatch-ree-light { background: $cat-ree-light; border-color: $cat-ree-light; }
+  &.swatch-ree-heavy { background: $cat-ree-heavy; border-color: $cat-ree-heavy; }
+  &.swatch-strategic { background: $cat-strategic; border-color: $cat-strategic; }
+  &.swatch-semiconductor { background: $cat-semiconductor; border-color: $cat-semiconductor; }
 }
