@@ -90,14 +90,18 @@
 }
 
 .section-heading {
-  @include label;
+  font-family: $font-serif;
+  font-size: $fs-md;
+  font-weight: $fw-semibold;
+  color: $text-primary;
   margin-bottom: $sp-3;
   padding-bottom: $sp-2;
-  border-bottom: $border-thin;
+  border-bottom: 1px solid $border-primary;
 }
 
 // Page title (data-page layout)
 .page-title {
+  font-family: $font-serif;
   font-size: $fs-2xl;
   font-weight: $fw-bold;
   color: $text-primary;

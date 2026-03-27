@@ -1,5 +1,5 @@
 .site-footer {
-  border-top: $border-thin;
+  border-top: 1px solid $text-primary;
   padding: $sp-4 0;
   margin-top: auto;
 
@@ -7,7 +7,8 @@
     @include container;
     text-align: center;
     font-size: $fs-xs;
-    color: $text-dim;
+    color: $text-muted;
     font-family: $font-mono;
+    letter-spacing: 0.02em;
   }
 }

@@ -1,28 +1,38 @@
 // Home header
 .home-header {
-  text-align: center;
   padding: $sp-6 0 $sp-4;
+  border-bottom: 2px solid $text-primary;
+  margin-bottom: $sp-6;
 
   .home-title {
-    font-size: $fs-2xl;
+    font-family: $font-serif;
+    font-size: $fs-3xl;
     font-weight: $fw-bold;
     color: $text-primary;
-    letter-spacing: -0.02em;
+    letter-spacing: -0.01em;
+    line-height: 1.1;
   }
 
   .home-subtitle {
     font-size: $fs-md;
-    color: $text-muted;
-    margin-top: $sp-1;
+    color: $text-secondary;
+    margin-top: $sp-2;
+    font-style: italic;
+    font-family: $font-serif;
   }
 }
 
 // ── Shared panel label ────────────────────────────────────────
 .panel-label {
-  @include label;
+  font-family: $font-serif;
+  font-size: $fs-md;
+  font-weight: $fw-semibold;
+  color: $text-primary;
+  letter-spacing: 0;
+  text-transform: none;
   margin-bottom: $sp-3;
   padding-bottom: $sp-2;
-  border-bottom: $border-thin;
+  border-bottom: 1px solid $text-primary;
 }
 
 // ── Home top row: two columns, forced side-by-side ───────────
@@ -126,13 +136,15 @@
 .news-read-more {
   display: inline-block;
   font-size: $fs-xs;
-  font-style: italic;
-  color: $text-dim;
+  font-weight: $fw-medium;
+  color: $text-muted;
   text-decoration: none;
-  margin-top: $sp-1;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-top: $sp-2;
 
   &:hover {
-    color: $text-secondary;
+    color: $text-primary;
   }
 }
 
@@ -211,8 +223,8 @@
     gap: $sp-3;
     padding: $sp-3;
     background: $bg-secondary;
-    border-radius: $radius-md;
-    border-left: 3px solid $border-secondary;
+    border-radius: $radius-sm;
+    border-left: 2px solid $border-secondary;
 
     @include bp-max-md {
       flex-direction: column;
@@ -308,21 +320,20 @@
   align-items: center;
   padding: $sp-3 $sp-2 $sp-2;
   background: $bg-card;
-  border: $border-thin;
-  border-radius: $radius-md;
+  border: 1px solid $border-primary;
+  border-radius: $radius-sm;
   text-decoration: none;
-  transition: box-shadow $transition-base, border-color $transition-base;
+  transition: border-color $transition-fast;
 
   &:hover {
-    box-shadow: $shadow-md;
-    border-color: $border-accent;
+    border-color: $text-muted;
   }
 
   // Category top-border accent
-  &.cat-rare-earth-light { border-top: 3px solid $cat-ree-light; }
-  &.cat-rare-earth-heavy { border-top: 3px solid $cat-ree-heavy; }
-  &.cat-strategic-metal { border-top: 3px solid $cat-strategic; }
-  &.cat-semiconductor-metal { border-top: 3px solid $cat-semiconductor; }
+  &.cat-rare-earth-light { border-top: 2px solid $cat-ree-light; }
+  &.cat-rare-earth-heavy { border-top: 2px solid $cat-ree-heavy; }
+  &.cat-strategic-metal { border-top: 2px solid $cat-strategic; }
+  &.cat-semiconductor-metal { border-top: 2px solid $cat-semiconductor; }
 
   .tile-top {
     display: flex;
@@ -354,7 +365,7 @@
   }
 
   .tile-symbol {
-    font-family: $font-mono;
+    font-family: $font-serif;
     font-size: $fs-2xl;
     font-weight: $fw-bold;
     color: $text-primary;
@@ -366,6 +377,7 @@
     font-size: $fs-xs;
     color: $text-secondary;
     margin-bottom: $sp-2;
+    letter-spacing: 0.02em;
   }
 
   .tile-price {
@@ -431,15 +443,14 @@
 
 .legend-swatch {
   display: inline-block;
-  width: 14px;
-  height: 14px;
-  border-radius: 3px;
-  border: 1px solid $border-primary;
+  width: 12px;
+  height: 3px;
+  border-radius: 0;
 
-  &.swatch-ree-light { background: $cat-ree-light; border-color: $cat-ree-light; }
-  &.swatch-ree-heavy { background: $cat-ree-heavy; border-color: $cat-ree-heavy; }
-  &.swatch-strategic { background: $cat-strategic; border-color: $cat-strategic; }
-  &.swatch-semiconductor { background: $cat-semiconductor; border-color: $cat-semiconductor; }
+  &.swatch-ree-light { background: $cat-ree-light; }
+  &.swatch-ree-heavy { background: $cat-ree-heavy; }
+  &.swatch-strategic { background: $cat-strategic; }
+  &.swatch-semiconductor { background: $cat-semiconductor; }
 }
 
 // ── Indicator legend (below category legend) ────────────────

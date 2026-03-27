@@ -2,7 +2,7 @@
 .site-header {
   height: $header-height;
   background: $bg-primary;
-  border-bottom: $border-thin;
+  border-bottom: 1px solid $border-primary;
   display: flex;
   align-items: center;
 
@@ -22,10 +22,11 @@
   gap: $sp-2;
 
   .brand-name {
+    font-family: $font-serif;
     font-size: $fs-md;
     font-weight: $fw-semibold;
     color: $text-primary;
-    letter-spacing: -0.01em;
+    letter-spacing: 0;
   }
 }
 
@@ -45,7 +46,6 @@
 
     &:hover {
       color: $text-primary;
-      background: $bg-tertiary;
     }
   }
 

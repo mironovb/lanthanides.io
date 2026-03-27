@@ -3,12 +3,14 @@ body {
   font-size: $fs-base;
   color: $text-primary;
   background: $bg-primary;
+  font-feature-settings: "kern" 1, "liga" 1;
+  text-rendering: optimizeLegibility;
 }
 
 .mono { font-family: $font-mono; }
 
-h1 { font-size: $fs-2xl; line-height: $lh-tight; letter-spacing: -0.02em; }
-h2 { font-size: $fs-xl; line-height: $lh-tight; letter-spacing: -0.01em; }
+h1 { font-family: $font-serif; font-size: $fs-2xl; line-height: $lh-tight; letter-spacing: -0.01em; font-weight: $fw-bold; }
+h2 { font-family: $font-serif; font-size: $fs-xl; line-height: $lh-tight; letter-spacing: 0; font-weight: $fw-semibold; }
 h3 { font-size: $fs-lg; line-height: $lh-tight; }
 h4 { font-size: $fs-md; line-height: $lh-normal; }
 
@@ -48,10 +50,11 @@ a {
 
 article {
   h2 {
+    font-family: $font-serif;
     margin-top: $sp-8;
     margin-bottom: $sp-3;
     padding-bottom: $sp-2;
-    border-bottom: $border-thin;
+    border-bottom: 1px solid $text-primary;
   }
 
   h3 {

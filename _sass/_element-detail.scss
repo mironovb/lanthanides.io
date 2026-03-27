@@ -18,7 +18,7 @@
   }
 
   .breadcrumb-current {
-    font-family: $font-mono;
+    font-family: $font-serif;
     font-weight: $fw-bold;
     color: $text-primary;
     font-size: $fs-lg;
@@ -32,7 +32,7 @@
   gap: $sp-6;
   margin-bottom: $sp-8;
   padding-bottom: $sp-6;
-  border-bottom: 2px solid $border-primary;
+  border-bottom: 1px solid $text-primary;
 
   .element-header-left { flex: 1; min-width: 0; }
 
@@ -51,13 +51,13 @@
     height: 80px;
     background: $bg-secondary;
     border: 1px solid $border-primary;
-    border-radius: $radius-lg;
+    border-radius: $radius-sm;
     flex-shrink: 0;
 
-    &.cat-rare-earth-light  { border-top: 4px solid $cat-ree-light; }
-    &.cat-rare-earth-heavy  { border-top: 4px solid $cat-ree-heavy; }
-    &.cat-strategic-metal   { border-top: 4px solid $cat-strategic; }
-    &.cat-semiconductor-metal { border-top: 4px solid $cat-semiconductor; }
+    &.cat-rare-earth-light  { border-top: 3px solid $cat-ree-light; }
+    &.cat-rare-earth-heavy  { border-top: 3px solid $cat-ree-heavy; }
+    &.cat-strategic-metal   { border-top: 3px solid $cat-strategic; }
+    &.cat-semiconductor-metal { border-top: 3px solid $cat-semiconductor; }
   }
 
   .element-z-block {
@@ -67,7 +67,7 @@
   }
 
   .element-symbol-large {
-    font-family: $font-mono;
+    font-family: $font-serif;
     font-size: $fs-3xl;
     font-weight: $fw-bold;
     color: $text-primary;
@@ -77,6 +77,7 @@
   .element-identity-text { flex: 1; min-width: 0; }
 
   .element-name-large {
+    font-family: $font-serif;
     font-size: $fs-2xl;
     font-weight: $fw-semibold;
     color: $text-primary;
@@ -171,11 +172,15 @@
   margin-bottom: $sp-8;
 
   .section-title {
-    @include label;
-    font-size: $fs-sm;
+    font-family: $font-serif;
+    font-size: $fs-md;
+    font-weight: $fw-semibold;
+    color: $text-primary;
+    text-transform: none;
+    letter-spacing: 0;
     margin-bottom: $sp-4;
     padding-bottom: $sp-2;
-    border-bottom: $border-thin;
+    border-bottom: 1px solid $text-primary;
   }
 }
 
@@ -236,9 +241,9 @@
   color: $text-secondary;
   line-height: $lh-relaxed;
   padding: $sp-3;
-  border-left: 3px solid $border-primary;
+  border-left: 2px solid $border-primary;
   background: $bg-secondary;
-  border-radius: 0 $radius-sm $radius-sm 0;
+  border-radius: 0;
 
   strong {
     color: $text-primary;
@@ -353,10 +358,9 @@
   height: 200px;
   background: $bg-tertiary;
   border: 1px dashed $border-secondary;
-  border-radius: $radius-md;
+  border-radius: $radius-sm;
   font-size: $fs-sm;
   color: $text-dim;
-  font-style: italic;
 }
 
 .gallery-figure figcaption {
@@ -381,8 +385,8 @@
   line-height: $lh-relaxed;
   padding: $sp-3 $sp-4;
   background: $bg-secondary;
-  border-radius: $radius-sm;
-  border-left: 3px solid $border-secondary;
+  border-radius: 0;
+  border-left: 2px solid $border-secondary;
 
   strong { color: $text-primary; display: block; margin-bottom: 4px; }
 
@@ -479,7 +483,7 @@
 .element-nav-bar {
   margin-top: $sp-12;
   padding: $sp-4 0;
-  border-top: 2px solid $border-primary;
+  border-top: 1px solid $text-primary;
 }
 
 .element-nav-inner {
@@ -495,7 +499,7 @@
   justify-content: center;
   width: 36px;
   height: 28px;
-  font-family: $font-mono;
+  font-family: $font-serif;
   font-size: $fs-xs;
   font-weight: $fw-bold;
   color: $text-secondary;
