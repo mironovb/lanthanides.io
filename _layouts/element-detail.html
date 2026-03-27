@@ -15,13 +15,11 @@ layout: default
 {% assign latest_date = nil %}
 {% assign weighted_sum = 0 %}
 {% assign weight_total = 0 %}
-{% assign latest_purity = nil %}
 {% for record in site.data.price_records %}
   {% if record.element_symbol == page.symbol %}
     {% assign record_count = record_count | plus: 1 %}
     {% if record.quote_date > latest_date or latest_date == nil %}
       {% assign latest_date = record.quote_date %}
-      {% assign latest_purity = record.purity %}
     {% endif %}
     {% if record.market_tier == 'retail' %}
       {% assign retail_count = retail_count | plus: 1 %}
@@ -39,7 +37,7 @@ layout: default
 <nav class="breadcrumb" aria-label="Breadcrumb">
   <a href="{{ '/' | relative_url }}">Home</a>
   <span class="breadcrumb-sep">/</span>
-  <span class="breadcrumb-current">{{ page.symbol }}</span>
+  <span class="breadcrumb-current">{{ page.symbol }} &mdash; {{ page.name }}</span>
 </nav>
 
 <div class="element-header">
@@ -74,16 +72,16 @@ layout: default
         {% endif %}
         <dl class="element-meta-grid">
           {% if cat_info.trade_form and cat_info.trade_form != "" %}
-            <dt>Trade form</dt>
+            <dt>Main trade forms</dt>
             <dd>{{ cat_info.trade_form }}</dd>
           {% endif %}
           {% if cat_info.origin_countries %}
             <dt>Available from</dt>
             <dd>{{ cat_info.origin_countries | join: ", " }}</dd>
           {% endif %}
-          {% if latest_purity %}
-            <dt>Purity</dt>
-            <dd class="mono">{{ latest_purity }}</dd>
+          {% if cat_info.purity_range %}
+            <dt>Purity range</dt>
+            <dd class="mono">{{ cat_info.purity_range }}</dd>
           {% endif %}
         </dl>
       </div>
@@ -92,7 +90,7 @@ layout: default
   <div class="element-updated">
     {% if cwm_price %}
       <div class="element-headline-price">
-        <span class="text-xs text-muted uppercase">CWM Retail</span>
+        <span class="text-xs text-muted uppercase">Confidence-Weighted Mean</span>
         <span class="mono fw-bold">${{ cwm_price }}<span class="text-sm text-muted fw-normal">/kg</span></span>
       </div>
     {% endif %}
@@ -103,35 +101,27 @@ layout: default
   </div>
 </div>
 
-<div class="layout-with-sidebar">
-  <div>
-    <div class="element-prices-row">
-      {% include price-card.html tier="retail" symbol=page.symbol %}
-    </div>
-
-    <div class="element-section">
-      <h2 class="section-title">All Offers</h2>
-      {% include provenance-table.html symbol=page.symbol %}
-    </div>
-
-    {{ content }}
+<div class="element-main">
+  <div class="element-prices-row">
+    {% include price-card.html tier="retail" symbol=page.symbol %}
   </div>
 
-  <aside class="sidebar-sticky">
-    <div class="sidebar-nav-card">
-      <div class="panel-header">
-        <h3>Other Elements</h3>
-      </div>
-      <div class="sidebar-element-list">
-        {% for elem in site.elements %}
-          {% if elem.symbol != page.symbol %}
-            <a href="{{ elem.url | relative_url }}" class="sidebar-element-link">
-              <span class="mono fw-bold">{{ elem.symbol }}</span>
-              <span class="text-sm text-secondary">{{ elem.name }}</span>
-            </a>
-          {% endif %}
-        {% endfor %}
-      </div>
-    </div>
-  </aside>
+  <div class="element-section">
+    <h2 class="section-title">All Offers</h2>
+    {% include provenance-table.html symbol=page.symbol %}
+  </div>
+
+  {{ content }}
 </div>
+
+<nav class="element-nav-bar">
+  <div class="element-nav-inner">
+    {% for elem in site.elements %}
+      {% if elem.symbol != page.symbol %}
+        <a href="{{ elem.url | relative_url }}" class="element-nav-chip{% for c in site.data.element_catalog %}{% if c.symbol == elem.symbol %} chip-{{ c.category | replace: '_', '-' }}{% endif %}{% endfor %}">{{ elem.symbol }}</a>
+      {% else %}
+        <span class="element-nav-chip element-nav-current">{{ elem.symbol }}</span>
+      {% endif %}
+    {% endfor %}
+  </div>
+</nav>

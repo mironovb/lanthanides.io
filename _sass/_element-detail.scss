@@ -1,36 +1,40 @@
-// Breadcrumb
+// ── Breadcrumb (larger for navigation) ──────────────────────
 .breadcrumb {
   display: flex;
   align-items: center;
-  gap: $sp-1;
-  margin-bottom: $sp-4;
-  font-size: $fs-xs;
-  color: $text-dim;
+  gap: $sp-2;
+  margin-bottom: $sp-6;
+  font-size: $fs-md;
 
   a {
-    color: $text-muted;
+    color: $text-secondary;
+    text-decoration: none;
     &:hover { color: $text-primary; }
   }
 
-  .breadcrumb-sep { color: $border-secondary; }
+  .breadcrumb-sep {
+    color: $border-secondary;
+    font-size: $fs-sm;
+  }
 
   .breadcrumb-current {
     font-family: $font-mono;
-    font-weight: $fw-semibold;
-    color: $text-secondary;
+    font-weight: $fw-bold;
+    color: $text-primary;
+    font-size: $fs-lg;
   }
 }
 
-// Element header
+// ── Element header ──────────────────────────────────────────
 .element-header {
   display: flex;
   align-items: flex-start;
-  gap: $sp-4;
-  margin-bottom: $sp-6;
-  padding-bottom: $sp-4;
-  border-bottom: $border-thin;
+  gap: $sp-6;
+  margin-bottom: $sp-8;
+  padding-bottom: $sp-6;
+  border-bottom: 2px solid $border-primary;
 
-  .element-header-left { flex: 1; }
+  .element-header-left { flex: 1; min-width: 0; }
 
   .element-identity {
     display: flex;
@@ -43,17 +47,17 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    width: 72px;
-    height: 72px;
+    width: 80px;
+    height: 80px;
     background: $bg-secondary;
     border: 1px solid $border-primary;
     border-radius: $radius-lg;
     flex-shrink: 0;
 
-    &.cat-rare-earth-light { border-top: 3px solid $cat-ree-light; }
-    &.cat-rare-earth-heavy { border-top: 3px solid $cat-ree-heavy; }
-    &.cat-strategic-metal { border-top: 3px solid $cat-strategic; }
-    &.cat-semiconductor-metal { border-top: 3px solid $cat-semiconductor; }
+    &.cat-rare-earth-light  { border-top: 4px solid $cat-ree-light; }
+    &.cat-rare-earth-heavy  { border-top: 4px solid $cat-ree-heavy; }
+    &.cat-strategic-metal   { border-top: 4px solid $cat-strategic; }
+    &.cat-semiconductor-metal { border-top: 4px solid $cat-semiconductor; }
   }
 
   .element-z-block {
@@ -64,16 +68,16 @@
 
   .element-symbol-large {
     font-family: $font-mono;
-    font-size: $fs-2xl;
+    font-size: $fs-3xl;
     font-weight: $fw-bold;
     color: $text-primary;
     line-height: 1;
   }
 
-  .element-identity-text { flex: 1; }
+  .element-identity-text { flex: 1; min-width: 0; }
 
   .element-name-large {
-    font-size: $fs-xl;
+    font-size: $fs-2xl;
     font-weight: $fw-semibold;
     color: $text-primary;
     line-height: $lh-tight;
@@ -90,25 +94,29 @@
   .element-notes {
     font-size: $fs-sm;
     color: $text-muted;
-    margin-top: $sp-2;
+    margin-top: $sp-3;
     line-height: $lh-relaxed;
   }
 
   .element-meta-grid {
     display: grid;
     grid-template-columns: auto 1fr;
-    gap: $sp-1 $sp-3;
-    margin-top: $sp-2;
-    font-size: $fs-xs;
+    gap: $sp-1 $sp-4;
+    margin-top: $sp-3;
+    font-size: $fs-sm;
 
-    dt { color: $text-dim; }
+    dt {
+      color: $text-dim;
+      font-weight: $fw-semibold;
+      white-space: nowrap;
+    }
     dd { color: $text-secondary; }
   }
 
   .element-updated {
     margin-left: auto;
     text-align: right;
-    font-size: $fs-xs;
+    font-size: $fs-sm;
     color: $text-dim;
     font-family: $font-mono;
     white-space: nowrap;
@@ -119,71 +127,82 @@
       flex-direction: column;
       align-items: flex-end;
       gap: $sp-1;
-      margin-bottom: $sp-2;
-      padding-bottom: $sp-2;
+      margin-bottom: $sp-3;
+      padding-bottom: $sp-3;
       border-bottom: $border-thin;
-      font-size: $fs-xl;
+      font-size: $fs-2xl;
     }
 
     @include bp-max-md {
       margin-left: 0;
-      margin-top: $sp-2;
+      margin-top: $sp-3;
+      text-align: left;
+
+      .element-headline-price {
+        align-items: flex-start;
+      }
     }
   }
 
   @include bp-max-md {
     flex-direction: column;
+    gap: $sp-3;
   }
 }
 
-// Price row
+// ── Main content (full width, no sidebar) ───────────────────
+.element-main {
+  max-width: $content-width;
+}
+
+// ── Price row ───────────────────────────────────────────────
 .element-prices-row {
   display: grid;
   gap: $sp-4;
-  margin-bottom: $sp-6;
+  margin-bottom: $sp-8;
 
   @include bp-md {
     grid-template-columns: 1fr 1fr;
   }
 }
 
-// Section titles
+// ── Section titles ──────────────────────────────────────────
 .element-section {
-  margin-bottom: $sp-6;
+  margin-bottom: $sp-8;
 
   .section-title {
     @include label;
-    margin-bottom: $sp-3;
+    font-size: $fs-sm;
+    margin-bottom: $sp-4;
     padding-bottom: $sp-2;
     border-bottom: $border-thin;
   }
 }
 
-// ── Info block sections ──────────────────────────────────────
+// ── Info blocks ─────────────────────────────────────────────
 .info-block {
   .section-intro {
     font-size: $fs-sm;
     color: $text-secondary;
     margin-bottom: $sp-4;
     line-height: $lh-relaxed;
+    max-width: 72ch;
   }
 }
 
-// Physical properties grid
+// ── Physical properties ─────────────────────────────────────
 .properties-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: $sp-2;
 
-  @include bp-md {
-    grid-template-columns: repeat(4, 1fr);
-  }
+  @include bp-md { grid-template-columns: repeat(4, 1fr); }
 }
 
 .prop-item {
   display: flex;
   flex-direction: column;
-  padding: $sp-2 $sp-3;
+  padding: $sp-3;
   background: $bg-secondary;
   border-radius: $radius-sm;
   border: 1px solid $border-primary;
@@ -194,66 +213,78 @@
   color: $text-dim;
   text-transform: uppercase;
   letter-spacing: 0.5px;
+  margin-bottom: 2px;
 }
 
 .prop-value {
-  font-size: $fs-sm;
+  font-size: $fs-md;
   font-weight: $fw-semibold;
   color: $text-primary;
-  margin-top: 2px;
 }
 
-// Applications list
+// ── Applications ────────────────────────────────────────────
 .applications-list {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: 1fr;
   gap: $sp-3;
+
+  @include bp-md { grid-template-columns: 1fr 1fr; }
 }
 
 .app-item {
   font-size: $fs-sm;
   color: $text-secondary;
   line-height: $lh-relaxed;
-  padding-left: $sp-3;
-  border-left: 2px solid $border-secondary;
+  padding: $sp-3;
+  border-left: 3px solid $border-primary;
+  background: $bg-secondary;
+  border-radius: 0 $radius-sm $radius-sm 0;
+
+  strong {
+    color: $text-primary;
+    display: block;
+    margin-bottom: 2px;
+  }
 }
 
-// Market stats (side-by-side on desktop)
+// ── Market stats ────────────────────────────────────────────
 .market-stats-grid {
   display: grid;
   grid-template-columns: 1fr;
   gap: $sp-4;
   margin-bottom: $sp-4;
 
-  @include bp-md {
-    grid-template-columns: 1fr 1fr;
-  }
+  @include bp-md { grid-template-columns: 1fr 1fr; }
 }
 
 .market-stats {
   display: flex;
   flex-direction: column;
-  gap: $sp-1;
+  gap: 0;
 }
 
 .stat-row {
   display: flex;
   justify-content: space-between;
   align-items: baseline;
-  padding: $sp-2 0;
-  border-bottom: 1px dotted $border-primary;
+  gap: $sp-3;
+  padding: $sp-2 $sp-3;
   font-size: $fs-sm;
+  border-bottom: 1px dotted $border-primary;
+
+  &:nth-child(odd) { background: $bg-secondary; }
+  &:first-child { border-radius: $radius-sm $radius-sm 0 0; }
+  &:last-child { border-radius: 0 0 $radius-sm $radius-sm; border-bottom: none; }
 }
 
-.stat-label {
-  color: $text-secondary;
-}
+.stat-label { color: $text-secondary; }
 
 .stat-value {
   font-family: $font-mono;
   font-weight: $fw-semibold;
   color: $text-primary;
   text-align: right;
+  white-space: nowrap;
 }
 
 .subsection-title {
@@ -262,18 +293,18 @@
   color: $text-secondary;
   text-transform: uppercase;
   letter-spacing: 0.5px;
-  margin: $sp-4 0 $sp-2;
+  margin: $sp-6 0 $sp-3;
 }
 
-// Data tables
+// ── Data tables ─────────────────────────────────────────────
 .data-table {
   width: 100%;
   border-collapse: collapse;
-  font-size: $fs-xs;
-  margin-bottom: $sp-2;
+  font-size: $fs-sm;
+  margin-bottom: $sp-3;
 
   th, td {
-    padding: $sp-2 $sp-2;
+    padding: $sp-2 $sp-3;
     text-align: left;
     border-bottom: 1px solid $border-primary;
   }
@@ -283,17 +314,16 @@
     color: $text-dim;
     text-transform: uppercase;
     letter-spacing: 0.5px;
-    font-size: 10px;
+    font-size: $fs-xs;
     border-bottom: 2px solid $border-secondary;
-  }
-
-  td {
-    color: $text-secondary;
-  }
-
-  tbody tr:hover {
     background: $bg-secondary;
+    position: sticky;
+    top: 0;
   }
+
+  td { color: $text-secondary; }
+
+  tbody tr:hover { background: rgba($bg-tertiary, 0.5); }
 }
 
 .table-note {
@@ -302,28 +332,25 @@
   font-style: italic;
   margin-top: $sp-2;
   line-height: $lh-relaxed;
+  max-width: 72ch;
 }
 
-// Photo gallery
+// ── Photo gallery ───────────────────────────────────────────
 .photo-gallery {
   display: grid;
   grid-template-columns: 1fr;
   gap: $sp-4;
 
-  @include bp-md {
-    grid-template-columns: repeat(3, 1fr);
-  }
+  @include bp-md { grid-template-columns: repeat(3, 1fr); }
 }
 
-.gallery-figure {
-  margin: 0;
-}
+.gallery-figure { margin: 0; }
 
 .gallery-placeholder {
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 180px;
+  height: 200px;
   background: $bg-tertiary;
   border: 1px dashed $border-secondary;
   border-radius: $radius-md;
@@ -337,38 +364,34 @@
   color: $text-muted;
   line-height: $lh-relaxed;
   margin-top: $sp-2;
-  padding: 0 $sp-1;
 }
 
-// Notes block
+// ── Notes ───────────────────────────────────────────────────
 .notes-block {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: 1fr;
   gap: $sp-3;
+
+  @include bp-md { grid-template-columns: 1fr 1fr; }
 }
 
 .note-item {
   font-size: $fs-sm;
   color: $text-secondary;
   line-height: $lh-relaxed;
-  padding: $sp-3;
+  padding: $sp-3 $sp-4;
   background: $bg-secondary;
   border-radius: $radius-sm;
   border-left: 3px solid $border-secondary;
 
-  &.note-warning {
-    border-left-color: $accent-red;
-  }
+  strong { color: $text-primary; display: block; margin-bottom: 4px; }
 
-  &.note-caution {
-    border-left-color: $accent-amber;
-  }
+  &.note-warning { border-left-color: $accent-red; }
+  &.note-caution { border-left-color: $accent-amber; }
 }
 
-// Related articles
-.related-articles {
-  min-height: $sp-6;
-}
+// ── Related articles ────────────────────────────────────────
+.related-articles { min-height: $sp-4; }
 
 .related-article-link {
   display: flex;
@@ -377,7 +400,6 @@
   border-bottom: 1px solid $border-primary;
   text-decoration: none;
   font-size: $fs-sm;
-
   &:hover { background: $bg-secondary; }
 }
 
@@ -388,20 +410,16 @@
   flex-shrink: 0;
 }
 
-.related-article-title {
-  color: $text-primary;
-}
+.related-article-title { color: $text-primary; }
 
-// Academic references
+// ── Academic references ─────────────────────────────────────
 .ref-link {
-  font-size: $fs-xs;
   font-weight: $fw-normal;
   color: $text-dim;
   text-decoration: none;
   vertical-align: super;
   font-size: 9px;
   margin-left: 2px;
-
   &:hover { color: $text-primary; }
 }
 
@@ -410,6 +428,9 @@
   counter-reset: ref-counter;
   padding: 0;
   margin: 0;
+  columns: 1;
+
+  @include bp-md { columns: 2; column-gap: $sp-8; }
 
   li {
     counter-increment: ref-counter;
@@ -418,6 +439,7 @@
     line-height: $lh-relaxed;
     padding: $sp-1 0 $sp-1 $sp-5;
     position: relative;
+    break-inside: avoid;
 
     &::before {
       content: "[" counter(ref-counter) "]";
@@ -436,58 +458,69 @@
   }
 }
 
-// Supplier links in tables
+// ── Supplier links ──────────────────────────────────────────
 .supplier-link {
   color: $text-primary;
   text-decoration: none;
   border-bottom: 1px dotted $border-secondary;
-
-  &:hover {
-    color: $text-primary;
-    border-bottom-style: solid;
-  }
+  &:hover { border-bottom-style: solid; }
 }
 
-// Stock status
 .stock-in {
   color: #2e7d32;
   font-weight: $fw-semibold;
-  font-size: 10px;
 }
 
 .stock-out {
   color: $accent-red;
-  font-size: 10px;
 }
 
-// Sidebar element nav
-.sidebar-nav-card {
-  background: $bg-card;
-  border: $border-thin;
-  border-radius: $radius-md;
-  padding: $sp-4;
+// ── Element navigation bar (bottom, replaces sidebar) ───────
+.element-nav-bar {
+  margin-top: $sp-12;
+  padding: $sp-4 0;
+  border-top: 2px solid $border-primary;
+}
 
-  .sidebar-element-list {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 2px;
-    max-height: 200px;
-    overflow-y: auto;
+.element-nav-inner {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  justify-content: center;
+}
+
+.element-nav-chip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 28px;
+  font-family: $font-mono;
+  font-size: $fs-xs;
+  font-weight: $fw-bold;
+  color: $text-secondary;
+  background: $bg-secondary;
+  border: 1px solid $border-primary;
+  border-radius: $radius-sm;
+  text-decoration: none;
+  transition: all $transition-fast;
+
+  &:hover {
+    background: $text-primary;
+    color: $bg-primary;
+    border-color: $text-primary;
   }
 
-  .sidebar-element-link {
-    display: flex;
-    align-items: center;
-    gap: $sp-2;
-    padding: $sp-1 $sp-2;
-    font-size: $fs-xs;
-    border-radius: $radius-sm;
-    transition: background $transition-fast;
-    text-decoration: none;
-    flex: 0 0 calc(50% - 1px);
-
-    &:hover {
-      background: $bg-tertiary;
-    }
+  &.element-nav-current {
+    background: $text-primary;
+    color: $bg-primary;
+    border-color: $text-primary;
+    cursor: default;
   }
+
+  // Category accent top border
+  &.chip-rare-earth-light  { border-top: 2px solid $cat-ree-light; }
+  &.chip-rare-earth-heavy  { border-top: 2px solid $cat-ree-heavy; }
+  &.chip-strategic-metal   { border-top: 2px solid $cat-strategic; }
+  &.chip-semiconductor-metal { border-top: 2px solid $cat-semiconductor; }
 }

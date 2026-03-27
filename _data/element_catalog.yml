@@ -101,7 +101,8 @@
   export_control_status: normal
   dominant_source_country: CN
   origin_countries: [CN, AU, PH, RU]
-  trade_form: "Oxide (Sc₂O₃)"
+  trade_form: "Oxide (Sc₂O₃), Metal, Al–Sc alloy"
+  purity_range: "99.5%–99.999%"
   notes: "Used in aluminum-scandium alloys for aerospace."
   price_tier: 4
   high_demand: true
