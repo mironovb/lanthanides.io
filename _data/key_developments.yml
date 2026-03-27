@@ -1,30 +1,24 @@
-# Key Developments — structured highlights shown on homepage
+# Key Developments — 4 items, all China-related
 
-- title: "REE export restriction"
-  detail: "Licenses required for metals, alloys, oxides, compounds, and permanent magnets"
+- title: "China restricts medium & heavy REE exports"
+  detail: "Licenses required for Sm, Gd, Tb, Dy, Lu, Sc, Y — metals, alloys, oxides, compounds, and permanent magnets"
   elements: [Sm, Gd, Tb, Dy, Lu, Sc, Y]
   severity: high
   ref: "MOFCOM/GAC Ann. No. 18/2025"
 
-- title: "End-user certification"
-  detail: "Buyers must certify non-military end-use for scandium and other controlled materials"
-  elements: [Sc]
+- title: "China requires end-use certification; 3–4 month lead time"
+  detail: "Exporters must obtain end-user certificates confirming non-military use. License review takes up to 45 working days"
   severity: high
-  ref: "PRC Export Control Law Art. 16"
+  ref: "PRC Export Control Law Art. 13, 16"
 
-- title: "3–4 month lead time"
-  detail: "License review takes up to 45 working days; effective procurement delay significantly longer"
-  severity: medium
-  ref: "PRC Export Control Law Art. 13"
-
-- title: "Ga & Ge US embargo"
-  detail: "Full export ban to the United States since Dec 2024; per-shipment license elsewhere"
+- title: "China embargoes Ga & Ge exports to the US"
+  detail: "Full ban since Dec 2024; all other destinations require per-shipment licenses"
   elements: [Ga, Ge]
   severity: high
   ref: "MOFCOM Ann. No. 46/2024"
 
-- title: "W, Te, Bi, Mo, In controls"
-  detail: "Added to export control list with immediate effect"
+- title: "China adds W, Te, Bi, Mo, In to export control list"
+  detail: "Controls took immediate effect Feb 2025, citing national security"
   elements: [W, Te, Bi, Mo, In]
   severity: medium
   ref: "MOFCOM/GAC Ann. No. 10/2025"

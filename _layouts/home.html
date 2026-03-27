@@ -9,7 +9,7 @@ layout: default
 
 {{ content }}
 
-{% comment %} ── News (left) + Key Developments (right) ── {% endcomment %}
+{% comment %} ── News (left) + Key Developments (right) — one row ── {% endcomment %}
 {% assign sorted_news = site.data.news | sort: "date" | reverse %}
 <div class="home-top-row">
 
@@ -17,26 +17,26 @@ layout: default
   {% if sorted_news.size > 0 %}
   <section class="news-home">
     <h2 class="panel-label">Recent News</h2>
-    <div class="news-preview">
+    <ul class="news-list">
       {% for item in sorted_news limit:3 %}
-        <div class="news-entry {% if forloop.index == 3 %}news-entry-faded{% endif %}">
-          <time class="news-entry-date" datetime="{{ item.date }}">{{ item.date }}</time>
+        <li class="news-entry {% if forloop.index == 3 %}news-entry-faded{% endif %}">
+          <div class="news-entry-head">
+            <time datetime="{{ item.date }}">{{ item.date }}</time>
+            {% if item.elements.size > 0 %}
+              <span class="news-entry-elements">{{ item.elements | join: "  " }}</span>
+            {% endif %}
+          </div>
           <strong class="news-entry-title">{{ item.headline }}</strong>
           <p class="news-entry-body">{{ item.body }}</p>
-          {% if item.elements.size > 0 %}
-            <span class="news-entry-elements">{{ item.elements | join: " " }}</span>
-          {% endif %}
           {% if item.references.size > 0 %}
             {% for ref in item.references %}
               <cite class="news-entry-ref">{{ ref.label }}</cite>
             {% endfor %}
           {% endif %}
-        </div>
+        </li>
       {% endfor %}
-      <div class="news-more-wrap">
-        <a href="{{ '/news/' | relative_url }}" class="news-read-more">read more &rarr;</a>
-      </div>
-    </div>
+    </ul>
+    <a href="{{ '/news/' | relative_url }}" class="news-read-more">read more &rarr;</a>
   </section>
   {% endif %}
 
@@ -50,7 +50,7 @@ layout: default
           <div class="kd-content">
             <strong class="kd-title">{{ item.title }}</strong>
             <p class="kd-detail">{{ item.detail }}</p>
-            {% if item.elements %}<span class="kd-elements">{{ item.elements | join: " " }}</span>{% endif %}
+            {% if item.elements %}<span class="kd-elements">{{ item.elements | join: "  " }}</span>{% endif %}
             {% if item.ref and item.ref != "" %}<cite class="kd-ref">{{ item.ref }}</cite>{% endif %}
           </div>
         </div>
