@@ -159,6 +159,229 @@
   }
 }
 
+// ── Info block sections ──────────────────────────────────────
+.info-block {
+  .section-intro {
+    font-size: $fs-sm;
+    color: $text-secondary;
+    margin-bottom: $sp-4;
+    line-height: $lh-relaxed;
+  }
+}
+
+// Physical properties grid
+.properties-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: $sp-2;
+
+  @include bp-md {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.prop-item {
+  display: flex;
+  flex-direction: column;
+  padding: $sp-2 $sp-3;
+  background: $bg-secondary;
+  border-radius: $radius-sm;
+  border: 1px solid $border-primary;
+}
+
+.prop-label {
+  font-size: 10px;
+  color: $text-dim;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.prop-value {
+  font-size: $fs-sm;
+  font-weight: $fw-semibold;
+  color: $text-primary;
+  margin-top: 2px;
+}
+
+// Applications list
+.applications-list {
+  display: flex;
+  flex-direction: column;
+  gap: $sp-3;
+}
+
+.app-item {
+  font-size: $fs-sm;
+  color: $text-secondary;
+  line-height: $lh-relaxed;
+  padding-left: $sp-3;
+  border-left: 2px solid $border-secondary;
+}
+
+// Market stats
+.market-stats {
+  display: flex;
+  flex-direction: column;
+  gap: $sp-1;
+  margin-bottom: $sp-4;
+}
+
+.stat-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding: $sp-2 0;
+  border-bottom: 1px dotted $border-primary;
+  font-size: $fs-sm;
+}
+
+.stat-label {
+  color: $text-secondary;
+}
+
+.stat-value {
+  font-family: $font-mono;
+  font-weight: $fw-semibold;
+  color: $text-primary;
+  text-align: right;
+}
+
+.subsection-title {
+  font-size: $fs-sm;
+  font-weight: $fw-semibold;
+  color: $text-secondary;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin: $sp-4 0 $sp-2;
+}
+
+// Data tables
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: $fs-xs;
+  margin-bottom: $sp-2;
+
+  th, td {
+    padding: $sp-2 $sp-2;
+    text-align: left;
+    border-bottom: 1px solid $border-primary;
+  }
+
+  th {
+    font-weight: $fw-semibold;
+    color: $text-dim;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-size: 10px;
+    border-bottom: 2px solid $border-secondary;
+  }
+
+  td {
+    color: $text-secondary;
+  }
+
+  tbody tr:hover {
+    background: $bg-secondary;
+  }
+}
+
+.table-note {
+  font-size: $fs-xs;
+  color: $text-dim;
+  font-style: italic;
+  margin-top: $sp-2;
+  line-height: $lh-relaxed;
+}
+
+// Photo gallery
+.photo-gallery {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: $sp-4;
+
+  @include bp-md {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.gallery-figure {
+  margin: 0;
+}
+
+.gallery-placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 180px;
+  background: $bg-tertiary;
+  border: 1px dashed $border-secondary;
+  border-radius: $radius-md;
+  font-size: $fs-sm;
+  color: $text-dim;
+  font-style: italic;
+}
+
+.gallery-figure figcaption {
+  font-size: $fs-xs;
+  color: $text-muted;
+  line-height: $lh-relaxed;
+  margin-top: $sp-2;
+  padding: 0 $sp-1;
+}
+
+// Notes block
+.notes-block {
+  display: flex;
+  flex-direction: column;
+  gap: $sp-3;
+}
+
+.note-item {
+  font-size: $fs-sm;
+  color: $text-secondary;
+  line-height: $lh-relaxed;
+  padding: $sp-3;
+  background: $bg-secondary;
+  border-radius: $radius-sm;
+  border-left: 3px solid $border-secondary;
+
+  &.note-warning {
+    border-left-color: $accent-red;
+  }
+
+  &.note-caution {
+    border-left-color: $accent-amber;
+  }
+}
+
+// Related articles
+.related-articles {
+  min-height: $sp-6;
+}
+
+.related-article-link {
+  display: flex;
+  gap: $sp-3;
+  padding: $sp-2 0;
+  border-bottom: 1px solid $border-primary;
+  text-decoration: none;
+  font-size: $fs-sm;
+
+  &:hover { background: $bg-secondary; }
+}
+
+.related-article-date {
+  font-family: $font-mono;
+  font-size: $fs-xs;
+  color: $text-dim;
+  flex-shrink: 0;
+}
+
+.related-article-title {
+  color: $text-primary;
+}
+
 // Sidebar element nav
 .sidebar-nav-card {
   background: $bg-card;
