@@ -10,11 +10,12 @@ layout: default
   {% endif %}
 {% endfor %}
 
+{% comment %} ── Collect records & compute robust display price ── {% endcomment %}
 {% assign record_count = 0 %}
 {% assign retail_count = 0 %}
 {% assign latest_date = nil %}
-{% assign weighted_sum = 0 %}
-{% assign weight_total = 0 %}
+{% assign metal_records = "" | split: "" %}
+{% assign all_retail = "" | split: "" %}
 {% for record in site.data.price_records %}
   {% if record.element_symbol == page.symbol %}
     {% assign record_count = record_count | plus: 1 %}
@@ -23,15 +24,58 @@ layout: default
     {% endif %}
     {% if record.market_tier == 'retail' %}
       {% assign retail_count = retail_count | plus: 1 %}
-      {% assign conf_int = record.confidence_score | times: 100 | round %}
-      {% assign wp = record.normalized_usd_per_kg | times: conf_int %}
-      {% assign weighted_sum = weighted_sum | plus: wp %}
-      {% assign weight_total = weight_total | plus: conf_int %}
+      {% assign all_retail = all_retail | push: record %}
+      {% if record.form == 'metal' %}
+        {% assign metal_records = metal_records | push: record %}
+      {% endif %}
     {% endif %}
   {% endif %}
 {% endfor %}
+
+{% comment %} Prefer metal if ≥2, else all retail {% endcomment %}
+{% if metal_records.size >= 2 %}
+  {% assign use_records = metal_records | sort: "normalized_usd_per_kg" %}
+{% else %}
+  {% assign use_records = all_retail | sort: "normalized_usd_per_kg" %}
+{% endif %}
+{% assign n = use_records.size %}
+
+{% comment %} Trim bounds {% endcomment %}
+{% if n >= 5 %}
+  {% assign trim = n | divided_by: 4 %}
+{% else %}
+  {% assign trim = 0 %}
+{% endif %}
+{% assign upper = n | minus: trim %}
+{% assign skip_top_one = false %}
+{% if trim == 0 and n >= 3 %}
+  {% assign skip_top_one = true %}
+  {% assign top_idx = n | minus: 1 %}
+{% endif %}
+
+{% comment %} Trimmed CWM {% endcomment %}
+{% assign weighted_sum = 0 %}
+{% assign weight_total = 0 %}
+{% assign display_price = nil %}
+{% for record in use_records %}
+  {% assign idx = forloop.index0 %}
+  {% assign include = true %}
+  {% if trim > 0 %}
+    {% if idx < trim %}{% assign include = false %}{% endif %}
+    {% if idx >= upper %}{% assign include = false %}{% endif %}
+  {% endif %}
+  {% if skip_top_one and idx == top_idx %}
+    {% assign include = false %}
+  {% endif %}
+  {% if include %}
+    {% assign conf_int = record.confidence_score | times: 100 | round %}
+    {% assign wp = record.normalized_usd_per_kg | times: conf_int %}
+    {% assign weighted_sum = weighted_sum | plus: wp %}
+    {% assign weight_total = weight_total | plus: conf_int %}
+  {% endif %}
+{% endfor %}
 {% if weight_total > 0 %}
-  {% assign cwm_price = weighted_sum | divided_by: weight_total %}
+  {% assign display_price = weighted_sum | divided_by: weight_total %}
 {% endif %}
 
 <nav class="breadcrumb" aria-label="Breadcrumb">
@@ -88,10 +132,10 @@ layout: default
     </div>
   </div>
   <div class="element-updated">
-    {% if cwm_price %}
+    {% if display_price %}
       <div class="element-headline-price">
-        <span class="text-xs text-muted uppercase">Confidence-Weighted Mean</span>
-        <span class="mono fw-bold">${{ cwm_price }}<span class="text-sm text-muted fw-normal">/kg</span></span>
+        <span class="text-xs text-muted uppercase">Typical retail price</span>
+        <span class="mono fw-bold">${{ display_price }}<span class="text-sm text-muted fw-normal">/kg</span></span>
       </div>
     {% endif %}
     {% if latest_date %}
