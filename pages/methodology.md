@@ -13,6 +13,107 @@ All displayed prices require source provenance. No data is fabricated, interpola
 
 ---
 
+## Display Price Calculation {#display-price}
+
+The headline price shown on each element tile is an **estimated typical retail acquisition cost** — the price a knowledgeable retail buyer would likely pay for a practical quantity (roughly 10–100 g) of the element. The estimator is designed to be robust to outliers and to prefer the most directly comparable data.
+
+### Algorithm overview
+
+The display price is computed through a four-step pipeline:
+
+**Step 1 — Form preference.** For each element, retail price records are partitioned by material form. If two or more **metal** records are available, only metal records are used. Otherwise, all retail records (oxide, metal, powder, compound) are pooled. This ensures the displayed price reflects the elemental metal wherever sufficient data exists, and falls back to the most commonly traded form when it does not.
+
+**Step 2 — Sort and count.** The selected records are sorted by normalised price (USD/kg, ascending). Let *n* denote the number of records in the working set.
+
+**Step 3 — Interquartile trimming.** Extreme prices — both high (laboratory small-quantity markups, investment-platform premiums) and low (stale quotes, loss-leader offers) — are excluded:
+
+- If *n* ≥ 5: set *k* = ⌊*n*/4⌋. Discard the *k* lowest-priced and *k* highest-priced records. The remaining *n* − 2*k* records form the **interquartile core**.
+- If *n* = 3 or 4: discard only the single highest-priced record (one-sided trim).
+- If *n* ≤ 2: no trimming; use all records.
+
+**Step 4 — Confidence-weighted mean.** The display price is the weighted average of the surviving records:
+
+*P* = Σ(*p*<sub>*i*</sub> · *c*<sub>*i*</sub>) / Σ(*c*<sub>*i*</sub>)
+
+where *p*<sub>*i*</sub> is the normalised price (USD/kg) and *c*<sub>*i*</sub> is the confidence score (0.0–1.0) of the *i*-th record. Higher-confidence records — those backed by verified invoices or corroborated across multiple sources — exert proportionally greater influence on the estimate.
+
+### Why this approach
+
+| Method | Failure mode |
+|--------|-------------|
+| Latest price only | A single outlier (lab markup, stale quote) dominates |
+| Simple arithmetic mean | Treats a $40,600/kg lab-quantity purchase equally to a $4,680/kg standard retail offer |
+| Unweighted median | Discards magnitude and confidence information; insensitive to genuine price shifts |
+| Confidence-weighted mean (no trim) | Outliers still distort the estimate, especially with small *n* |
+| **Trimmed confidence-weighted mean** | **Removes extreme tails; weights remaining records by data quality** |
+
+The interquartile trim is a standard robust estimation technique (see Wilcox, *Introduction to Robust Estimation and Hypothesis Testing*, 4th ed., Academic Press, 2022). It converges to the population mean for symmetric distributions while bounding the influence of any single observation.
+
+### Worked example: Terbium (Tb)
+
+Terbium has five retail metal records. Sorted by price:
+
+| Record | $/kg | Confidence | Note |
+|--------|------|------------|------|
+| R-0108 | $4,029 | 0.50 | Investment platform |
+| R-0101 | $4,680 | 0.80 | PEGUYS 10 g — lowest $/g |
+| R-0104 | $7,800 | 0.70 | PEGUYS 2 g |
+| R-0102 | $13,800 | 0.75 | Smart-Elements 10 g ampoule |
+| R-0103 | $22,150 | 0.70 | RWMM bullion ingot |
+
+With *n* = 5 and *k* = ⌊5/4⌋ = 1, the bottom record ($4,029) and top record ($22,150) are trimmed. The surviving core {$4,680, $7,800, $13,800} yields:
+
+*P* = (4,680 × 80 + 7,800 × 70 + 13,800 × 75) / (80 + 70 + 75) = 1,955,400 / 225 ≈ **$8,691/kg**
+
+This is approximately $8.69/g — consistent with the middle of the retail range and representative of what a buyer would actually pay for a 10–100 g purchase.
+
+Without trimming, the confidence-weighted mean across all eight retail records (including three oxide records priced at $5,970–$40,600/kg for small laboratory quantities) would have been ~$13,847/kg — misleadingly high because of the Chemsavers 5 g oxide listing at $40,600/kg equivalent.
+
+---
+
+## Oxide-to-Metal Price Conversion {#oxide-to-metal}
+
+Most rare earths are primarily traded in oxide form. When no retail metal records are available, the display price reflects oxide pricing directly. For reference, the theoretical relationship between oxide and metal prices is:
+
+### Stoichiometric mass fraction
+
+For a rare earth oxide RE<sub>*x*</sub>O<sub>*y*</sub>, the mass fraction of the metal is:
+
+*f*<sub>RE</sub> = (*x* · *A*<sub>RE</sub>) / (*x* · *A*<sub>RE</sub> + *y* · *A*<sub>O</sub>)
+
+where *A*<sub>RE</sub> is the atomic mass of the rare earth and *A*<sub>O</sub> = 15.999 u.
+
+### Common rare earth oxides
+
+| Oxide | Formula | Metal fraction | Metal from 1 kg oxide |
+|-------|---------|---------------|----------------------|
+| Scandium oxide | Sc₂O₃ | 0.652 | 652 g |
+| Lanthanum oxide | La₂O₃ | 0.853 | 853 g |
+| Cerium oxide | CeO₂ | 0.814 | 814 g |
+| Neodymium oxide | Nd₂O₃ | 0.857 | 857 g |
+| Terbium oxide | Tb₄O₇ | 0.850 | 850 g |
+| Dysprosium oxide | Dy₂O₃ | 0.871 | 871 g |
+
+### Metal price estimate from oxide
+
+The raw metal content of an oxide is:
+
+*P*<sub>metal,raw</sub> = *P*<sub>oxide</sub> / *f*<sub>RE</sub>
+
+However, reducing an oxide to metal requires energy-intensive processing (typically calcium or lithium reduction under vacuum or inert atmosphere for rare earths). This adds a **processing premium** that varies by element, purity, and market conditions:
+
+*P*<sub>metal,est</sub> = (*P*<sub>oxide</sub> / *f*<sub>RE</sub>) × *m*
+
+where *m* is the metal-over-oxide multiple, typically 1.5–3.0× for rare earths. For example, with Chinese domestic Tb₄O₇ at ~$804/kg:
+
+*P*<sub>Tb metal,est</sub> = ($804 / 0.850) × 2.0 ≈ **$1,891/kg**
+
+This aligns well with observed wholesale metal quotes from Chinese direct sellers (~$2,090/kg), validating the conversion factor. The retail premium above wholesale further widens the gap, as retail metal prices in the West range from ~$4,680 to $22,150/kg depending on quantity and supplier.
+
+**Note:** This conversion is presented for analytical reference. The display prices on the main page are computed directly from available price records and do not apply stoichiometric conversion. Future versions may incorporate automatic oxide-to-metal back-calculation for elements lacking metal retail data.
+
+---
+
 ## Price Tiers
 
 ### Retail
@@ -21,37 +122,7 @@ Small-quantity purchases typically available to individual buyers, laboratories,
 ### Bulk / Industrial / Distributor
 Larger-quantity purchases through industrial distributors, manufacturers, or commodity brokers. Minimum order quantities (MOQ) typically start at 25 kg or higher. These prices often require direct quotation and may include negotiated terms.
 
-**Retail and bulk prices are never merged or averaged.** They represent different market segments with different cost structures.
-
----
-
-## Display Price Calculation {#display-price-calculation}
-
-The headline price shown on the main grid for each element is a **confidence-weighted mean (CWM)** computed across all retail-tier price records:
-
-$$
-P_{\text{CWM}} = \frac{\sum_{i=1}^{n} p_i \cdot c_i}{\sum_{i=1}^{n} c_i}
-$$
-
-Where:
-- *p<sub>i</sub>* is the normalised price (USD/kg) of the *i*-th retail record
-- *c<sub>i</sub>* is the confidence score (0.0–1.0) assigned to that record
-- *n* is the total number of retail records for the element
-
-**Why CWM, not a simple average or latest price?**
-
-| Approach | Problem |
-|----------|---------|
-| Latest price only | A single outlier quote (high or low) misleads; ignores all other data |
-| Simple mean | Treats a low-confidence scrape equally to a verified invoice |
-| Median | Discards magnitude information; less responsive to genuine shifts |
-| **CWM** | **Higher-confidence records pull the average toward the most reliable signal** |
-
-The CWM is labelled on each tile (e.g., "CWM · 3 offers"). It includes all retail records regardless of material form or purity — these are **not** merged with bulk/wholesale records, which remain separate.
-
-For elements with only one retail record, the CWM equals the single available price. As more records are added, the estimate becomes more robust.
-
-Bulk and wholesale prices are displayed separately on individual element pages and are never blended into the CWM.
+**Retail and bulk prices are never merged or averaged.** They represent different market segments with different cost structures. The display price on the main page uses retail records exclusively.
 
 ---
 
@@ -71,16 +142,16 @@ All prices are normalized to **USD per kilogram** for comparability. The normali
 
 ## Material Forms and Purity
 
-Prices for different material forms are **never merged**:
+Prices for different material forms are tracked separately:
 
-- **Oxide** (e.g., Nd₂O₃) — often the most commonly traded form
-- **Metal** (e.g., Nd metal) — typically more expensive than oxide
+- **Oxide** (e.g., Nd₂O₃, Tb₄O₇) — often the most commonly traded form
+- **Metal** (e.g., Nd metal) — typically more expensive than oxide due to reduction processing
 - **Powder** — may vary by particle size and specifications
 - **Alloy** — composition-dependent pricing
 - **Compound** — specific chemical compounds
 - **Carbide**, **Magnet**, and others as applicable
 
-Similarly, different purities (99%, 99.5%, 99.9%, 99.99%) are tracked separately. A 99.9% oxide price is not comparable to a 99.99% metal price.
+Different purities (99%, 99.5%, 99.9%, 99.99%) are tracked separately. The display price on the main page averages across available purities within the selected form, weighted by confidence. The footer notes that displayed prices reflect prevailing purities, generally in the 99–99.99% range for rare earths.
 
 ---
 
@@ -114,6 +185,8 @@ Confidence is assigned during ingestion based on:
 - Parse quality (fully structured data scores higher than OCR-extracted data)
 - Corroboration (multiple aligned sources increase confidence)
 - Recency (older data may be downgraded)
+
+The confidence score directly affects the display price: a record with *c* = 0.8 exerts twice the weight of a record with *c* = 0.4.
 
 ---
 

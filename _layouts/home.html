@@ -90,23 +90,64 @@ layout: default
     {% endfor %}
 
     {% if elem %}
-      {% comment %} ── Confidence-weighted mean (CWM) of retail offers ── {% endcomment %}
-      {% assign weighted_sum = 0 %}
-      {% assign weight_total = 0 %}
-      {% assign source_count = 0 %}
-      {% assign latest_record = nil %}
+      {% comment %} ── Robust retail price: trimmed confidence-weighted mean ── {% endcomment %}
+      {% comment %} Step 1: collect metal and all retail records {% endcomment %}
+      {% assign metal_records = "" | split: "" %}
+      {% assign all_retail = "" | split: "" %}
       {% for record in site.data.price_records %}
         {% if record.element_symbol == cat_info.symbol and record.market_tier == 'retail' %}
-          {% assign source_count = source_count | plus: 1 %}
+          {% assign all_retail = all_retail | push: record %}
+          {% if record.form == 'metal' %}
+            {% assign metal_records = metal_records | push: record %}
+          {% endif %}
+        {% endif %}
+      {% endfor %}
+
+      {% comment %} Step 2: prefer metal records (≥2), else all retail {% endcomment %}
+      {% if metal_records.size >= 2 %}
+        {% assign use_records = metal_records | sort: "normalized_usd_per_kg" %}
+      {% else %}
+        {% assign use_records = all_retail | sort: "normalized_usd_per_kg" %}
+      {% endif %}
+
+      {% assign n = use_records.size %}
+      {% assign source_count = all_retail.size %}
+
+      {% comment %} Step 3: determine trim bounds (IQR trim for n≥5, top-1 for n=3-4) {% endcomment %}
+      {% if n >= 5 %}
+        {% assign trim = n | divided_by: 4 %}
+      {% else %}
+        {% assign trim = 0 %}
+      {% endif %}
+      {% assign upper = n | minus: trim %}
+      {% assign skip_top_one = false %}
+      {% if trim == 0 and n >= 3 %}
+        {% assign skip_top_one = true %}
+        {% assign top_idx = n | minus: 1 %}
+      {% endif %}
+
+      {% comment %} Step 4: compute trimmed CWM {% endcomment %}
+      {% assign weighted_sum = 0 %}
+      {% assign weight_total = 0 %}
+      {% assign display_price = nil %}
+      {% for record in use_records %}
+        {% assign idx = forloop.index0 %}
+        {% assign include = true %}
+        {% if trim > 0 %}
+          {% if idx < trim %}{% assign include = false %}{% endif %}
+          {% if idx >= upper %}{% assign include = false %}{% endif %}
+        {% endif %}
+        {% if skip_top_one and idx == top_idx %}
+          {% assign include = false %}
+        {% endif %}
+        {% if include %}
           {% assign conf_int = record.confidence_score | times: 100 | round %}
           {% assign wp = record.normalized_usd_per_kg | times: conf_int %}
           {% assign weighted_sum = weighted_sum | plus: wp %}
           {% assign weight_total = weight_total | plus: conf_int %}
-          {% if record.quote_date > latest_record.quote_date or latest_record == nil %}
-            {% assign latest_record = record %}
-          {% endif %}
         {% endif %}
       {% endfor %}
+
       {% if weight_total > 0 %}
         {% assign display_price = weighted_sum | divided_by: weight_total %}
       {% endif %}
@@ -123,7 +164,7 @@ layout: default
         <span class="tile-name">{{ cat_info.name }}</span>
         {% if display_price %}
           <span class="tile-price">${{ display_price }}<span class="tile-unit">/kg</span></span>
-          <span class="tile-price-label">CWM · {{ source_count }} offer{% if source_count != 1 %}s{% endif %}</span>
+          <span class="tile-price-label">{{ source_count }} offer{% if source_count != 1 %}s{% endif %}</span>
           <span class="tile-meta">{{ cat_info.dominant_source_country }}</span>
         {% else %}
           <span class="tile-price tile-no-data">&mdash;</span>
@@ -145,5 +186,4 @@ layout: default
   <span class="legend-item"><span class="legend-icon">&#10071;</span>China export control</span>
   <span class="legend-item"><span class="legend-icon">&#128293;</span>High demand</span>
   <span class="legend-item"><span class="legend-icon legend-icon-dollar">$$$$</span>Relative price level ($ to $$$$)</span>
-  <span class="legend-item"><span class="legend-icon legend-icon-cwm">CWM</span>Confidence-weighted mean &mdash; <a href="{{ '/methodology/' | relative_url }}#display-price-calculation" class="legend-link">methodology</a></span>
 </div>
