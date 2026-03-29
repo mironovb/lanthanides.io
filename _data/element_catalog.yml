@@ -149,11 +149,12 @@
   export_control_status: restricted
   dominant_source_country: CN
   origin_countries: [CN, MM]
-  trade_form: "Oxide (Tb₄O₇)"
-  notes: "Used in magnets, phosphors, and solid-state devices."
-  price_tier: 3
+  trade_form: "Oxide (Tb₄O₇), Metal, Terfenol-D alloy"
+  notes: "Critical for NdFeB magnet coercivity at high temperatures. Three-tier pricing: CN domestic, FOB China, Western retail."
+  price_tier: 4
   high_demand: true
   cn_export_control: true
+  purity_range: "99.9%–99.99%"
 
 - symbol: Dy
   name: Dysprosium
