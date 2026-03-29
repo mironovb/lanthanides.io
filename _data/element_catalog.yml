@@ -179,11 +179,12 @@
   default_forms: [oxide, metal]
   export_control_status: monitored
   dominant_source_country: CN
-  origin_countries: [CN]
-  trade_form: "Oxide (Ho₂O₃)"
-  notes: "Used in lasers, magnets, and nuclear control rods."
-  price_tier: 2
-  high_demand: false
+  origin_countries: [CN, AU, MY]
+  trade_form: "Oxide (Ho₂O₃), Metal"
+  purity_range: "99.5%–99.9999%"
+  notes: "Highest magnetic moment of any element. Critical for medical lasers; emerged as Dy/Tb substitute in permanent magnets after April 2025 export controls."
+  price_tier: 3
+  high_demand: true
   cn_export_control: false
 
 - symbol: Er

@@ -7,19 +7,37 @@
   {% endif %}
 {% endfor %}
 
-{% assign latest_retail_price = nil %}
-{% assign latest_retail_date = nil %}
+{% comment %} Retail Reference: lowest retail price (metal preferred, 5g-1kg, conf≥0.5) {% endcomment %}
+{% assign retail_ref_metal = nil %}
+{% assign retail_ref_any = nil %}
 {% assign source_count = 0 %}
 
 {% for record in site.data.price_records %}
   {% if record.element_symbol == el.symbol and record.market_tier == 'retail' %}
     {% assign source_count = source_count | plus: 1 %}
-    {% if record.quote_date > latest_retail_date or latest_retail_date == nil %}
-      {% assign latest_retail_price = record.normalized_usd_per_kg %}
-      {% assign latest_retail_date = record.quote_date %}
+    {% assign conf100 = record.confidence_score | times: 100 | round %}
+    {% if conf100 >= 50 %}
+      {% assign qty_g = record.quoted_quantity_kg | times: 1000 | round %}
+      {% if qty_g >= 5 and record.quoted_quantity_kg <= 1 %}
+        {% if record.form == 'metal' %}
+          {% if retail_ref_metal == nil or record.normalized_usd_per_kg < retail_ref_metal.normalized_usd_per_kg %}
+            {% assign retail_ref_metal = record %}
+          {% endif %}
+        {% endif %}
+        {% if retail_ref_any == nil or record.normalized_usd_per_kg < retail_ref_any.normalized_usd_per_kg %}
+          {% assign retail_ref_any = record %}
+        {% endif %}
+      {% endif %}
     {% endif %}
   {% endif %}
 {% endfor %}
+
+{% assign tile_ref = nil %}
+{% if retail_ref_metal %}
+  {% assign tile_ref = retail_ref_metal %}
+{% else %}
+  {% assign tile_ref = retail_ref_any %}
+{% endif %}
 
 <a href="{{ el.url | relative_url }}" class="element-card"
    data-symbol="{{ el.symbol }}"
@@ -36,15 +54,15 @@
   </div>
   <div class="element-card-prices">
     <div class="price-slot">
-      <div class="price-label">Retail</div>
-      {% if latest_retail_price %}
-        <div class="price-value">${{ latest_retail_price }}<span class="text-xs text-muted">/kg</span></div>
+      <div class="price-label">Retail Ref.</div>
+      {% if tile_ref %}
+        <div class="price-value">${{ tile_ref.normalized_usd_per_kg }}<span class="text-xs text-muted">/kg</span></div>
       {% else %}
         <div class="price-empty">&mdash;</div>
       {% endif %}
     </div>
     <div class="price-slot">
-      <div class="price-label">Sources</div>
+      <div class="price-label">Records</div>
       <div class="price-value">{{ source_count }}</div>
     </div>
   </div>

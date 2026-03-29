@@ -90,66 +90,33 @@ layout: default
     {% endfor %}
 
     {% if elem %}
-      {% comment %} ── Robust retail price: trimmed confidence-weighted mean ── {% endcomment %}
-      {% comment %} Step 1: collect metal and all retail records {% endcomment %}
-      {% assign metal_records = "" | split: "" %}
-      {% assign all_retail = "" | split: "" %}
+      {% comment %} ── Retail Reference: lowest retail price (metal preferred, 5g-1kg, conf≥0.5) ── {% endcomment %}
+      {% assign retail_ref_metal = nil %}
+      {% assign retail_ref_any = nil %}
       {% for record in site.data.price_records %}
         {% if record.element_symbol == cat_info.symbol and record.market_tier == 'retail' %}
-          {% assign all_retail = all_retail | push: record %}
-          {% if record.form == 'metal' %}
-            {% assign metal_records = metal_records | push: record %}
+          {% assign conf100 = record.confidence_score | times: 100 | round %}
+          {% if conf100 >= 50 %}
+            {% assign qty_g = record.quoted_quantity_kg | times: 1000 | round %}
+            {% if qty_g >= 5 and record.quoted_quantity_kg <= 1 %}
+              {% if record.form == 'metal' %}
+                {% if retail_ref_metal == nil or record.normalized_usd_per_kg < retail_ref_metal.normalized_usd_per_kg %}
+                  {% assign retail_ref_metal = record %}
+                {% endif %}
+              {% endif %}
+              {% if retail_ref_any == nil or record.normalized_usd_per_kg < retail_ref_any.normalized_usd_per_kg %}
+                {% assign retail_ref_any = record %}
+              {% endif %}
+            {% endif %}
           {% endif %}
         {% endif %}
       {% endfor %}
 
-      {% comment %} Step 2: prefer metal records (≥2), else all retail {% endcomment %}
-      {% if metal_records.size >= 2 %}
-        {% assign use_records = metal_records | sort: "normalized_usd_per_kg" %}
+      {% assign tile_ref = nil %}
+      {% if retail_ref_metal %}
+        {% assign tile_ref = retail_ref_metal %}
       {% else %}
-        {% assign use_records = all_retail | sort: "normalized_usd_per_kg" %}
-      {% endif %}
-
-      {% assign n = use_records.size %}
-      {% assign source_count = all_retail.size %}
-
-      {% comment %} Step 3: determine trim bounds (IQR trim for n≥5, top-1 for n=3-4) {% endcomment %}
-      {% if n >= 5 %}
-        {% assign trim = n | divided_by: 4 %}
-      {% else %}
-        {% assign trim = 0 %}
-      {% endif %}
-      {% assign upper = n | minus: trim %}
-      {% assign skip_top_one = false %}
-      {% if trim == 0 and n >= 3 %}
-        {% assign skip_top_one = true %}
-        {% assign top_idx = n | minus: 1 %}
-      {% endif %}
-
-      {% comment %} Step 4: compute trimmed CWM {% endcomment %}
-      {% assign weighted_sum = 0 %}
-      {% assign weight_total = 0 %}
-      {% assign display_price = nil %}
-      {% for record in use_records %}
-        {% assign idx = forloop.index0 %}
-        {% assign include = true %}
-        {% if trim > 0 %}
-          {% if idx < trim %}{% assign include = false %}{% endif %}
-          {% if idx >= upper %}{% assign include = false %}{% endif %}
-        {% endif %}
-        {% if skip_top_one and idx == top_idx %}
-          {% assign include = false %}
-        {% endif %}
-        {% if include %}
-          {% assign conf_int = record.confidence_score | times: 100 | round %}
-          {% assign wp = record.normalized_usd_per_kg | times: conf_int %}
-          {% assign weighted_sum = weighted_sum | plus: wp %}
-          {% assign weight_total = weight_total | plus: conf_int %}
-        {% endif %}
-      {% endfor %}
-
-      {% if weight_total > 0 %}
-        {% assign display_price = weighted_sum | divided_by: weight_total %}
+        {% assign tile_ref = retail_ref_any %}
       {% endif %}
 
       <a href="{{ elem.url | relative_url }}" class="element-tile cat-{{ cat_info.category | replace: '_', '-' }}">
@@ -162,9 +129,9 @@ layout: default
         </div>
         <span class="tile-symbol">{{ cat_info.symbol }}</span>
         <span class="tile-name">{{ cat_info.name }}</span>
-        {% if display_price %}
-          <span class="tile-price">${{ display_price }}<span class="tile-unit">/kg</span></span>
-          <span class="tile-price-label">{{ source_count }} offer{% if source_count != 1 %}s{% endif %}</span>
+        {% if tile_ref %}
+          <span class="tile-price">${{ tile_ref.normalized_usd_per_kg }}<span class="tile-unit">/kg</span></span>
+          <span class="tile-price-label">{{ tile_ref.form | capitalize }} &middot; {{ tile_ref.seller_name }}</span>
           <span class="tile-meta">{{ cat_info.dominant_source_country }}</span>
         {% else %}
           <span class="tile-price tile-no-data">&mdash;</span>

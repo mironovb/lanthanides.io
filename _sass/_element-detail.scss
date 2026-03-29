@@ -151,6 +151,174 @@
   }
 }
 
+// ── Reference price cards (two-column) ───────────────────────
+.ref-price-card {
+  background: $bg-card;
+  border: $border-thin;
+  border-radius: $radius-sm;
+  padding: $sp-4;
+
+  .ref-price-label {
+    font-size: $fs-xs;
+    font-weight: $fw-semibold;
+    color: $text-dim;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: $sp-2;
+  }
+
+  .ref-price-value {
+    font-family: $font-mono;
+    font-size: $fs-3xl;
+    font-weight: $fw-bold;
+    color: $text-primary;
+    line-height: 1;
+  }
+
+  .ref-price-unit {
+    font-size: $fs-sm;
+    font-weight: $fw-normal;
+    color: $text-muted;
+  }
+
+  .ref-price-detail {
+    font-size: $fs-sm;
+    color: $text-secondary;
+    margin-top: $sp-2;
+  }
+
+  .ref-price-source {
+    font-size: $fs-xs;
+    font-family: $font-mono;
+    color: $text-dim;
+    margin-top: $sp-1;
+  }
+
+  .ref-price-premium {
+    font-size: $fs-sm;
+    font-family: $font-mono;
+    font-weight: $fw-semibold;
+    color: $accent-amber;
+    margin-top: $sp-3;
+    padding-top: $sp-2;
+    border-top: 1px dotted $border-primary;
+  }
+
+  .ref-price-empty {
+    font-family: $font-mono;
+    font-size: $fs-2xl;
+    color: $text-dim;
+  }
+}
+
+// ── Regulatory banner ─────────────────────────────────────────
+.regulatory-banner {
+  padding: $sp-4;
+  margin-bottom: $sp-6;
+  border-radius: $radius-sm;
+  font-size: $fs-sm;
+  line-height: $lh-relaxed;
+
+  &.banner-active {
+    background: rgba($accent-red, 0.06);
+    border: 1px solid rgba($accent-red, 0.2);
+    border-left: 3px solid $accent-red;
+  }
+
+  &.banner-suspended {
+    background: rgba($accent-amber, 0.06);
+    border: 1px solid rgba($accent-amber, 0.2);
+    border-left: 3px solid $accent-amber;
+  }
+
+  .banner-title {
+    font-weight: $fw-bold;
+    color: $text-primary;
+    margin-bottom: $sp-2;
+    font-size: $fs-md;
+  }
+
+  .banner-body {
+    color: $text-secondary;
+
+    p { margin: $sp-2 0; }
+  }
+
+  .banner-key-date {
+    font-family: $font-mono;
+    font-weight: $fw-semibold;
+    color: $text-primary;
+    margin-top: $sp-3;
+    padding-top: $sp-2;
+    border-top: 1px dotted $border-primary;
+    font-size: $fs-sm;
+  }
+}
+
+// ── Compact physical properties card ──────────────────────────
+.compact-properties {
+  background: $bg-secondary;
+  border: 1px solid $border-primary;
+  border-radius: $radius-sm;
+  padding: $sp-3 $sp-4;
+  margin-bottom: $sp-6;
+  font-family: $font-mono;
+  font-size: $fs-xs;
+  color: $text-muted;
+  line-height: $lh-relaxed;
+
+  .compact-prop-title {
+    font-family: $font-sans;
+    font-size: $fs-xs;
+    font-weight: $fw-semibold;
+    color: $text-dim;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: $sp-1;
+
+    a {
+      color: $text-dim;
+      text-decoration: none;
+      &:hover { color: $text-primary; }
+    }
+  }
+}
+
+// ── Applications table (three-column) ─────────────────────────
+.applications-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: $fs-sm;
+  margin-bottom: $sp-3;
+
+  th, td {
+    padding: $sp-2 $sp-3;
+    text-align: left;
+    border-bottom: 1px solid $border-primary;
+    vertical-align: top;
+  }
+
+  th {
+    font-weight: $fw-semibold;
+    color: $text-dim;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-size: $fs-xs;
+    border-bottom: 2px solid $border-secondary;
+    background: $bg-secondary;
+  }
+
+  td { color: $text-secondary; }
+
+  td:first-child {
+    font-weight: $fw-semibold;
+    color: $text-primary;
+    white-space: nowrap;
+  }
+
+  tbody tr:hover { background: rgba($bg-tertiary, 0.5); }
+}
+
 // ── Main content (full width, no sidebar) ───────────────────
 .element-main {
   max-width: $content-width;
@@ -329,6 +497,7 @@
   td { color: $text-secondary; }
 
   tbody tr:hover { background: rgba($bg-tertiary, 0.5); }
+  tbody tr.table-highlight { background: rgba($accent-teal, 0.04); }
 }
 
 .table-note {
@@ -346,7 +515,7 @@
   grid-template-columns: 1fr;
   gap: $sp-4;
 
-  @include bp-md { grid-template-columns: repeat(3, 1fr); }
+  @include bp-md { grid-template-columns: repeat(2, 1fr); }
 }
 
 .gallery-figure { margin: 0; }
