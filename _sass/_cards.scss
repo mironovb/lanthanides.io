@@ -73,8 +73,9 @@
 
   .price-slot {
     .price-label {
-      @include label;
-      font-size: 0.6rem;
+      font-size: $fs-xs;
+      font-weight: $fw-medium;
+      color: $text-muted;
       margin-bottom: $sp-1;
     }
 

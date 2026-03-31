@@ -184,8 +184,7 @@
   font-family: $font-mono;
   font-size: $fs-xs;
   color: $text-muted;
-  margin-top: 3px;
-  letter-spacing: 0.05em;
+  margin-top: $sp-1;
 }
 
 .kd-ref {
@@ -252,7 +251,7 @@
 .news-elements {
   display: inline-flex;
   flex-wrap: wrap;
-  gap: 3px;
+  gap: $sp-1;
   margin-top: $sp-1;
 
   code {
