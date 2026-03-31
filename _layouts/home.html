@@ -48,8 +48,7 @@ layout: default
     <h2 class="panel-label">Key Developments</h2>
     <div class="kd-list">
       {% for item in site.data.key_developments %}
-        <div class="kd-entry">
-          <span class="kd-dot {% if item.severity == 'high' %}kd-dot-high{% else %}kd-dot-med{% endif %}">{% if item.severity == 'high' %}&#9679;{% else %}&#9675;{% endif %}</span>
+        <div class="kd-entry {% if item.severity == 'high' %}kd-entry-high{% else %}kd-entry-med{% endif %}">
           <div class="kd-content">
             <strong class="kd-title">{{ item.title }}</strong>
             <p class="kd-detail">{{ item.detail }}</p>
@@ -61,6 +60,18 @@ layout: default
     </div>
   </section>
 
+</div>
+
+{% comment %} ── Grid legend ── {% endcomment %}
+<div class="category-legend">
+  <span class="legend-item"><span class="legend-swatch swatch-ree-light"></span>Light Rare Earths</span>
+  <span class="legend-item"><span class="legend-swatch swatch-ree-heavy"></span>Heavy Rare Earths</span>
+  <span class="legend-item"><span class="legend-swatch swatch-strategic"></span>Strategic Metals</span>
+  <span class="legend-item"><span class="legend-swatch swatch-semiconductor"></span>Semiconductor Metals</span>
+</div>
+<div class="indicator-legend">
+  <span class="legend-item"><span class="legend-icon">&#10071;</span>China export control active</span>
+  <span class="legend-item"><span class="legend-icon">&#128293;</span>High demand alert</span>
 </div>
 
 {% comment %} ── Unified Element Grid ── {% endcomment %}
@@ -134,23 +145,10 @@ layout: default
           <span class="tile-price-label">{{ tile_ref.form | capitalize }} &middot; {{ tile_ref.seller_name }}</span>
           <span class="tile-meta">{{ cat_info.dominant_source_country }}</span>
         {% else %}
-          <span class="tile-price tile-no-data">&mdash;</span>
+          <span class="tile-price tile-no-data" title="No price data tracked for this element">&mdash;</span>
         {% endif %}
-        <span class="tile-price-tier">{% for i in (1..cat_info.price_tier) %}${% endfor %}</span>
       </a>
     {% endif %}
   {% endfor %}
 </div>
 
-{% comment %} ── Unified Legend ── {% endcomment %}
-<div class="category-legend">
-  <span class="legend-item"><span class="legend-swatch swatch-ree-light"></span>Light Rare Earths</span>
-  <span class="legend-item"><span class="legend-swatch swatch-ree-heavy"></span>Heavy Rare Earths</span>
-  <span class="legend-item"><span class="legend-swatch swatch-strategic"></span>Strategic Metals</span>
-  <span class="legend-item"><span class="legend-swatch swatch-semiconductor"></span>Semiconductor Metals</span>
-</div>
-<div class="indicator-legend">
-  <span class="legend-item"><span class="legend-icon">&#10071;</span>China export control</span>
-  <span class="legend-item"><span class="legend-icon">&#128293;</span>High demand</span>
-  <span class="legend-item"><span class="legend-icon legend-icon-dollar">$$$$</span>Relative price level ($ to $$$$)</span>
-</div>

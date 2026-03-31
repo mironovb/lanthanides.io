@@ -30,9 +30,7 @@
   color: $text-primary;
   letter-spacing: 0;
   text-transform: none;
-  margin-bottom: $sp-3;
-  padding-bottom: $sp-2;
-  border-bottom: 1px solid $text-primary;
+  margin-bottom: $sp-4;
 }
 
 // ── Home top row: two columns, forced side-by-side ───────────
@@ -136,12 +134,9 @@
 .news-read-more {
   display: inline-block;
   font-size: $fs-xs;
-  font-weight: $fw-medium;
   color: $text-muted;
   text-decoration: none;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  margin-top: $sp-2;
+  margin-top: $sp-3;
 
   &:hover {
     color: $text-primary;
@@ -156,28 +151,18 @@
 .kd-list {
   display: flex;
   flex-direction: column;
-  gap: $sp-3;
+  gap: $sp-4;
 }
 
 .kd-entry {
-  display: flex;
-  gap: $sp-2;
-  align-items: flex-start;
+  border-left: 2px solid $border-secondary;
+  padding: $sp-1 0 $sp-1 $sp-3;
+
+  &.kd-entry-high { border-left-color: $accent-red; }
+  &.kd-entry-med  { border-left-color: $accent-amber; }
 }
 
-.kd-dot {
-  flex-shrink: 0;
-  font-size: 10px;
-  line-height: $lh-tight;
-  margin-top: 2px;
-
-  &.kd-dot-high { color: $accent-red; }
-  &.kd-dot-med  { color: $accent-amber; }
-}
-
-.kd-content {
-  min-width: 0;
-}
+.kd-content {}
 
 .kd-title {
   display: block;
@@ -317,7 +302,7 @@
 .element-tile {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
   padding: $sp-3 $sp-2 $sp-2;
   background: $bg-card;
   border: 1px solid $border-primary;
@@ -382,13 +367,16 @@
 
   .tile-price {
     font-family: $font-mono;
-    font-size: $fs-md;
+    font-size: $fs-lg;
     font-weight: $fw-semibold;
     color: $text-primary;
     line-height: 1;
+    margin-top: 1px;
 
     &.tile-no-data {
       color: $text-dim;
+      font-size: $fs-md;
+      cursor: help;
     }
   }
 
@@ -399,26 +387,16 @@
   }
 
   .tile-price-label {
-    font-size: 9px;
+    font-size: 10px;
     color: $text-dim;
-    text-transform: uppercase;
-    letter-spacing: 0.3px;
-    margin-top: 1px;
+    line-height: 1.3;
+    margin-top: 3px;
   }
 
   .tile-meta {
     font-size: 10px;
     color: $text-dim;
-    margin-top: 2px;
-  }
-
-  .tile-price-tier {
-    font-family: $font-mono;
-    font-size: 10px;
-    font-weight: $fw-semibold;
-    color: $accent-amber;
-    letter-spacing: -0.5px;
-    margin-top: 3px;
+    margin-top: 1px;
   }
 }
 
@@ -426,11 +404,8 @@
 .category-legend {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
   gap: $sp-4;
-  margin-top: $sp-6;
-  padding: $sp-3 0;
-  border-top: $border-thin;
+  padding: $sp-2 0 $sp-1;
 }
 
 .legend-item {
@@ -453,13 +428,14 @@
   &.swatch-semiconductor { background: $cat-semiconductor; }
 }
 
-// ── Indicator legend (below category legend) ────────────────
+// ── Indicator legend (above element grid) ───────────────────
 .indicator-legend {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
   gap: $sp-4;
-  padding: $sp-2 0 $sp-3;
+  padding: $sp-1 0 $sp-4;
+  border-bottom: $border-thin;
+  margin-bottom: $sp-4;
 }
 
 .legend-icon {
