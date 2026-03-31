@@ -210,12 +210,13 @@
   default_forms: [oxide, metal]
   export_control_status: monitored
   dominant_source_country: CN
-  origin_countries: [CN]
-  trade_form: "Oxide (Tm₂O₃)"
-  notes: "Used in portable X-ray sources and lasers."
+  origin_countries: [CN, AU, MY]
+  trade_form: "Oxide (Tm₂O₃), Metal"
+  purity_range: "99.5%–99.99%"
+  notes: "Surgical lasers, S-band telecom amplifiers, portable X-ray sources. Regulated under China's 2025 export controls with current licence suspension."
   price_tier: 4
-  high_demand: false
-  cn_export_control: false
+  high_demand: true
+  cn_export_control: true
 
 - symbol: Yb
   name: Ytterbium
