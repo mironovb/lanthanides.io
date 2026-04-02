@@ -274,10 +274,12 @@
   export_control_status: normal
   dominant_source_country: CN
   origin_countries: [CN, RU, ZA, BR]
-  trade_form: "Pentoxide (V₂O₅)"
-  notes: "Used in high-strength steel alloys and vanadium redox flow batteries."
+  trade_form: "Pentoxide (V₂O₅), Ferrovanadium (FeV), Metal"
+  purity_range: "99.5%–99.995%"
+  notes: "HSLA steel strengthener (~88% of demand), Ti-6Al-4V aerospace alloy (no substitute), and VRFB grid-scale energy storage (fastest-growing segment). Not under Chinese export controls despite 70% production share."
   price_tier: 1
   high_demand: false
+  cn_export_control: false
   cn_export_control: false
 
 - symbol: Sb
