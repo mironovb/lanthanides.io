@@ -1,24 +1,23 @@
 // Home header
 .home-header {
-  padding: $sp-6 0 $sp-4;
-  border-bottom: 2px solid $text-primary;
+  padding: $sp-8 0 $sp-6;
   margin-bottom: $sp-6;
 
   .home-title {
-    font-family: $font-serif;
-    font-size: $fs-3xl;
-    font-weight: $fw-bold;
+    font-family: $font-mono;
+    font-size: $fs-xl;
+    font-weight: $fw-semibold;
     color: $text-primary;
-    letter-spacing: -0.01em;
-    line-height: 1.1;
+    letter-spacing: -0.02em;
+    line-height: 1;
   }
 
   .home-subtitle {
-    font-size: $fs-md;
-    color: $text-secondary;
+    font-size: $fs-sm;
+    color: $text-muted;
     margin-top: $sp-2;
-    font-style: italic;
-    font-family: $font-serif;
+    font-family: $font-sans;
+    letter-spacing: 0.01em;
   }
 }
 
@@ -416,6 +415,13 @@
     color: $text-dim;
     line-height: 1;
     margin-left: auto;
+    white-space: nowrap;
+  }
+
+  .tile-date {
+    font-family: $font-mono;
+    color: $text-dim;
+    margin-left: 2px;
   }
 }
 

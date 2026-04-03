@@ -22,11 +22,11 @@
   gap: $sp-2;
 
   .brand-name {
-    font-family: $font-serif;
-    font-size: $fs-md;
+    font-family: $font-mono;
+    font-size: $fs-sm;
     font-weight: $fw-semibold;
     color: $text-primary;
-    letter-spacing: 0;
+    letter-spacing: -0.02em;
   }
 }
 

@@ -3,8 +3,8 @@ layout: default
 ---
 
 <div class="home-header">
-  <h1 class="home-title">Strategic Materials Ledger</h1>
-  <p class="home-subtitle">Retail prices for rare earths and strategic materials</p>
+  <h1 class="home-title">lanthanides.io</h1>
+  <p class="home-subtitle">Pricing intelligence for rare earths, strategic metals &amp; semiconductor materials</p>
 </div>
 
 {{ content }}
@@ -161,7 +161,7 @@ layout: default
               <span class="tile-price-tag">Retail</span>
               {% if tile_ref %}
                 <span class="tile-price">${{ tile_ref.normalized_usd_per_kg }}<span class="tile-unit">/kg</span></span>
-                <span class="tile-form">{{ tile_ref.form | capitalize }}</span>
+                <span class="tile-form">{{ tile_ref.form | capitalize }} <span class="tile-date">{{ tile_ref.quote_date | truncate: 7, "" }}</span></span>
               {% else %}
                 <span class="tile-price tile-no-data">&mdash;</span>
               {% endif %}
@@ -170,7 +170,7 @@ layout: default
               <span class="tile-price-tag">Bulk</span>
               {% if tile_bulk %}
                 <span class="tile-price tile-price-bulk">${{ tile_bulk.normalized_usd_per_kg }}<span class="tile-unit">/kg</span></span>
-                <span class="tile-form">{{ tile_bulk.form | capitalize }}</span>
+                <span class="tile-form">{{ tile_bulk.form | capitalize }} <span class="tile-date">{{ tile_bulk.quote_date | truncate: 7, "" }}</span></span>
               {% else %}
                 <span class="tile-price tile-price-bulk tile-no-data">&mdash;</span>
               {% endif %}
