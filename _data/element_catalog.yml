@@ -256,11 +256,12 @@
   category: strategic_metal
   family: Metalloid
   default_forms: [metal, powder]
-  export_control_status: normal
+  export_control_status: restricted
   dominant_source_country: CN
-  origin_countries: [CN, JP, CA, SE]
-  trade_form: "Metal ingot"
-  notes: "Critical for CdTe thin-film solar cells and thermoelectrics."
+  origin_countries: [CN, JP, RU, SE, CA]
+  trade_form: "Metal ingot, TeO₂ powder"
+  purity_range: "99.99%–99.9999%"
+  notes: "Critical for CdTe thin-film solar cells (~60% of demand) and Bi₂Te₃ thermoelectrics (~20%). Under active Chinese dual-use export control (Announcement No. 10/2025) since Feb 2025 — never suspended. Byproduct of copper refining; supply cannot scale independently."
   price_tier: 2
   high_demand: true
   cn_export_control: true
