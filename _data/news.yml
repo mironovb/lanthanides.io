@@ -1,6 +1,25 @@
 # Regulatory & Trade Developments — China Export Controls Timeline
 # status: active | suspended | superseded | historic
 
+- date: 2026-04-03
+  headline: "China's invisible rare earth wall: why suspended controls don't mean available supply"
+  body: >-
+    Analysis of the six-layer domestic regulatory architecture — production quotas, SOE
+    duopoly, mandatory traceability, customs enforcement, VAT structure, and regulatory
+    ambiguity — that constrains rare earth trade regardless of whether MOFCOM export controls
+    are formally active. Heavy REE mining quotas frozen at 19,150 t for six years; 80.7% of
+    historical thulium supply was illegally produced; customs enforcement cases up 248% in 2025.
+  status: active
+  article: chinas-invisible-rare-earth-wall
+  elements: [Sm, Gd, Tb, Dy, Lu, Sc, Y, Ho, Tm, Eu, Er, Yb]
+  references:
+    - label: "State Council Order No. 785, Rare Earth Management Regulations"
+      note: "稀土管理条例, effective 1 Oct 2024 — 32-article framework, never suspended"
+    - label: "Zhang et al., Journal of Industrial Ecology, 2024"
+      note: "80.7% of China's Tm production 2011–2020 from illegal mining (1,506 t cumulative)"
+    - label: "MOFCOM/GAC enforcement data, 2025"
+      note: "Administrative cases: 91 (2024) → 317 (2025), +248%; max fine RMB 6.34M"
+
 - date: 2026-02-24
   headline: "China sanctions 15 Japanese defence entities"
   body: >-

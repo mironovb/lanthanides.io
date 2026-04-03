@@ -15,6 +15,9 @@ collections:
   elements:
     output: true
     permalink: /elements/:name/
+  articles:
+    output: true
+    permalink: /news/:name/
 
 defaults:
   - scope:
@@ -22,6 +25,11 @@ defaults:
       type: "elements"
     values:
       layout: "element-detail"
+  - scope:
+      path: ""
+      type: "articles"
+    values:
+      layout: "article"
 
 plugins:
   - jekyll-feed

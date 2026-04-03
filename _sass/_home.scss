@@ -106,6 +106,17 @@
   color: $text-primary;
   line-height: $lh-tight;
   margin-bottom: 2px;
+
+  &.news-entry-link {
+    text-decoration: none;
+    border-bottom: 1px solid $border-secondary;
+    transition: border-color $transition-fast, color $transition-fast;
+
+    &:hover {
+      color: $accent-blue;
+      border-bottom-color: $accent-blue;
+    }
+  }
 }
 
 .news-entry-body {
@@ -282,6 +293,18 @@
   color: $text-primary;
   line-height: $lh-tight;
   margin: 0 0 $sp-1;
+}
+
+.news-headline-link {
+  color: $text-primary;
+  text-decoration: none;
+  border-bottom: 1px solid $border-secondary;
+  transition: border-color $transition-fast, color $transition-fast;
+
+  &:hover {
+    color: $accent-blue;
+    border-bottom-color: $accent-blue;
+  }
 }
 
 .news-text {

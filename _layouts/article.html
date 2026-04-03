@@ -1,0 +1,30 @@
+---
+layout: default
+---
+
+<article class="article-page">
+  <header class="article-header">
+    <div class="article-meta">
+      <time datetime="{{ page.date | date: '%Y-%m-%d' }}">{{ page.date | date: '%B %-d, %Y' }}</time>
+      {% if page.status == 'active' %}<span class="status-badge status-active">In Force</span>{% endif %}
+      {% if page.status == 'suspended' %}<span class="status-badge status-suspended">Suspended</span>{% endif %}
+    </div>
+    <h1 class="article-title">{{ page.title }}</h1>
+    {% if page.subtitle %}<p class="article-subtitle">{{ page.subtitle }}</p>{% endif %}
+    {% if page.elements.size > 0 %}
+      <div class="article-elements">
+        {% for sym in page.elements %}
+          <a href="{{ '/elements/' | append: sym | append: '/' | relative_url }}" class="article-element-tag">{{ sym }}</a>
+        {% endfor %}
+      </div>
+    {% endif %}
+  </header>
+
+  <div class="article-body">
+    {{ content }}
+  </div>
+
+  <footer class="article-footer">
+    <a href="{{ '/news/' | relative_url }}" class="article-back">&larr; All developments</a>
+  </footer>
+</article>

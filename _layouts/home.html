@@ -30,7 +30,14 @@ layout: default
                 <span class="news-entry-elements">{{ item.elements | join: "  " }}</span>
               {% endif %}
             </div>
-            <strong class="news-entry-title">{{ item.headline }}</strong>
+            {% if item.article %}
+              {% assign article_page = nil %}
+              {% for a in site.articles %}{% if a.slug == item.article %}{% assign article_page = a %}{% break %}{% endif %}{% endfor %}
+              {% if article_page %}<a href="{{ article_page.url | relative_url }}" class="news-entry-title news-entry-link">{{ item.headline }}</a>
+              {% else %}<strong class="news-entry-title">{{ item.headline }}</strong>{% endif %}
+            {% else %}
+              <strong class="news-entry-title">{{ item.headline }}</strong>
+            {% endif %}
             <p class="news-entry-body">{{ item.body }}</p>
             {% if item.references.size > 0 %}
               {% for ref in item.references %}

@@ -18,7 +18,14 @@ permalink: /news/
         {% if item.status == 'suspended' %}<span class="status-badge status-suspended">Suspended</span>{% endif %}
       </div>
       <div class="news-body">
-        <h3 class="news-headline">{{ item.headline }}</h3>
+        {% if item.article %}
+          {% assign article_page = nil %}
+          {% for a in site.articles %}{% if a.slug == item.article %}{% assign article_page = a %}{% break %}{% endif %}{% endfor %}
+          {% if article_page %}<h3 class="news-headline"><a href="{{ article_page.url | relative_url }}" class="news-headline-link">{{ item.headline }} &rarr;</a></h3>
+          {% else %}<h3 class="news-headline">{{ item.headline }}</h3>{% endif %}
+        {% else %}
+          <h3 class="news-headline">{{ item.headline }}</h3>
+        {% endif %}
         <p class="news-text">{{ item.body }}</p>
         {% if item.elements.size > 0 %}
           <span class="news-elements">
