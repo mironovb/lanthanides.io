@@ -11,8 +11,12 @@ permalink: /news/
 
 <div class="news-full-list">
   {% for item in sorted_news %}
-    <article class="news-item">
-      <time class="news-date" datetime="{{ item.date }}">{{ item.date }}</time>
+    <article class="news-item {% if item.status == 'active' %}news-item-active{% elsif item.status == 'suspended' %}news-item-suspended{% endif %}">
+      <div class="news-date-col">
+        <time class="news-date" datetime="{{ item.date }}">{{ item.date }}</time>
+        {% if item.status == 'active' %}<span class="status-badge status-active">In Force</span>{% endif %}
+        {% if item.status == 'suspended' %}<span class="status-badge status-suspended">Suspended</span>{% endif %}
+      </div>
       <div class="news-body">
         <h3 class="news-headline">{{ item.headline }}</h3>
         <p class="news-text">{{ item.body }}</p>
@@ -25,8 +29,9 @@ permalink: /news/
         {% endif %}
         {% if item.references.size > 0 %}
           <div class="news-refs">
+            <span class="news-refs-label">References</span>
             {% for ref in item.references %}
-              <cite>[{{ forloop.index }}] {{ ref.label }}{% if ref.note %} — {{ ref.note }}{% endif %}</cite>
+              <cite>[{{ forloop.index }}] {{ ref.label }}{% if ref.note %} — <em>{{ ref.note }}</em>{% endif %}</cite>
             {% endfor %}
           </div>
         {% endif %}

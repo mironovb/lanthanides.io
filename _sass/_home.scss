@@ -123,6 +123,31 @@
   margin-top: 3px;
 }
 
+// ── Status badges (active / suspended) ──────────────────────
+.status-badge {
+  display: inline-block;
+  font-family: $font-mono;
+  font-size: 9px;
+  font-weight: $fw-semibold;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  padding: 1px 5px;
+  border-radius: 2px;
+  line-height: 1.4;
+  vertical-align: middle;
+  white-space: nowrap;
+
+  &.status-active {
+    color: $accent-red;
+    background: $accent-red-dim;
+  }
+
+  &.status-suspended {
+    color: $accent-amber;
+    background: $accent-amber-dim;
+  }
+}
+
 // 3rd entry fades out
 .news-entry-faded {
   border-bottom: none;
@@ -162,6 +187,13 @@
 }
 
 .kd-content {}
+
+.kd-title-row {
+  display: flex;
+  align-items: baseline;
+  gap: $sp-2;
+  flex-wrap: wrap;
+}
 
 .kd-title {
   display: block;
@@ -209,6 +241,9 @@
     border-radius: $radius-sm;
     border-left: 2px solid $border-secondary;
 
+    &.news-item-active   { border-left-color: $accent-red; }
+    &.news-item-suspended { border-left-color: $accent-amber; }
+
     @include bp-max-md {
       flex-direction: column;
       gap: $sp-1;
@@ -217,6 +252,15 @@
 }
 
 // Shared news sub-elements (used on full news page)
+.news-date-col {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+  flex-shrink: 0;
+  min-width: 74px;
+}
+
 .news-date {
   font-family: $font-mono;
   font-size: $fs-xs;
@@ -269,12 +313,27 @@
   padding-top: $sp-1;
   border-top: 1px solid $border-primary;
 
+  .news-refs-label {
+    display: block;
+    font-size: 9px;
+    font-weight: $fw-semibold;
+    color: $text-muted;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-bottom: 2px;
+  }
+
   cite {
     display: block;
     font-style: normal;
     font-size: 10px;
     color: $text-dim;
     line-height: $lh-relaxed;
+
+    em {
+      font-style: normal;
+      color: $text-muted;
+    }
   }
 }
 

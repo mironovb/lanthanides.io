@@ -1,24 +1,44 @@
-# Key Developments — 4 items, all China-related
+# Key Developments — current as of April 2026
+# status: active | suspended
 
-- title: "China restricts medium & heavy REE exports"
-  detail: "Licenses required for Sm, Gd, Tb, Dy, Lu, Sc, Y — metals, alloys, oxides, compounds, and permanent magnets"
+- title: "7 REE export licences required (Sm, Gd, Tb, Dy, Lu, Sc, Y)"
+  detail: "Metals, alloys, oxides, compounds, and permanent magnets all covered. Licence review takes up to 45 working days with end-use certification"
   elements: [Sm, Gd, Tb, Dy, Lu, Sc, Y]
   severity: high
+  status: active
   ref: "MOFCOM/GAC Ann. No. 18/2025"
 
-- title: "China requires end-use certification; 3–4 month lead time"
-  detail: "Exporters must obtain end-user certificates confirming non-military use. License review takes up to 45 working days"
-  severity: high
-  ref: "PRC Export Control Law Art. 13, 16"
-
-- title: "China embargoes Ga & Ge exports to the US"
-  detail: "Full ban since Dec 2024; all other destinations require per-shipment licenses"
-  elements: [Ga, Ge]
-  severity: high
-  ref: "MOFCOM Ann. No. 46/2024"
-
-- title: "China adds W, Te, Bi, Mo, In to export control list"
-  detail: "Controls took immediate effect Feb 2025, citing national security"
+- title: "W, Te, Bi, Mo, In added to dual-use export control list"
+  detail: "Licence required for all exports. Te and W most impacted — Te supply is inelastic (Cu byproduct), W is 82% Chinese production"
   elements: [W, Te, Bi, Mo, In]
-  severity: medium
+  severity: high
+  status: active
   ref: "MOFCOM/GAC Ann. No. 10/2025"
+
+- title: "Ga/Ge/Sb US military end-use ban permanent"
+  detail: "Art. 1 of No. 46/2024 prohibits Ga, Ge, Sb exports for US military end-use. Never suspended. Blanket US ban (Art. 2) suspended until Nov 2026"
+  elements: [Ga, Ge, Sb]
+  severity: high
+  status: active
+  ref: "MOFCOM Ann. No. 46/2024, Art. 1"
+
+- title: "Oct 2025 escalation suspended until 28 Nov 2026"
+  detail: "All six Oct 2025 announcements (Nos. 55–58, 61, 62) paused. Underlying licence requirements remain in force. If not renewed, controls revert to pre-Oct 2025 baseline"
+  elements: [Ga, Ge, Sb, W, Te, Bi, Mo, In, Sm, Gd, Tb, Dy, Lu, Sc, Y]
+  severity: medium
+  status: suspended
+  ref: "MOFCOM Ann. Nos. 70, 72/2025 — expires 28 Nov 2026"
+
+- title: "Japan prohibited from Chinese dual-use exports"
+  detail: "Country-wide prohibition on all controlled dual-use items to Japan, plus entity sanctions on 15 Japanese defence firms"
+  elements: [Ga, Ge, Sb]
+  severity: high
+  status: active
+  ref: "MOFCOM Ann. No. 1/2026 + No. 17/2026"
+
+- title: "Sb controls drove 200%+ price surge"
+  detail: "Antimony price rose from ~$12,000/t to >$38,000/t within 6 months of Aug 2024 controls. China produces ~48% of global supply"
+  elements: [Sb]
+  severity: medium
+  status: active
+  ref: "MOFCOM/GAC Ann. No. 33/2024"

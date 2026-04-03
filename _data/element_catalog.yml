@@ -239,13 +239,14 @@
   category: rare_earth_heavy
   family: Lanthanide
   default_forms: [oxide, metal]
-  export_control_status: monitored
+  export_control_status: restricted
   dominant_source_country: CN
-  origin_countries: [CN]
-  trade_form: "Oxide (Lu₂O₃)"
-  notes: "Used in PET scan detectors and specialty catalysts."
+  origin_countries: [CN, AU]
+  trade_form: "Oxide (Lu₂O₃), Metal, LYSO/LSO crystals"
+  purity_range: "99.9%–99.995%"
+  notes: "Rarest naturally occurring lanthanide (~10 t/yr separated oxide). Underpins $2.1B Lu-177 radiopharmaceutical market (Novartis Pluvicto + Lutathera) and every modern PET scanner (LYSO/LSO crystals). Under active Announcement No. 18/2025 export controls — never suspended."
   price_tier: 4
-  high_demand: false
+  high_demand: true
   cn_export_control: true
 
 # ── Strategic Metals ───────────────────────────────────────

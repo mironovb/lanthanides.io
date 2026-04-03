@@ -24,6 +24,8 @@ layout: default
           <div class="news-entry-content">
             <div class="news-entry-head">
               <time datetime="{{ item.date }}">{{ item.date }}</time>
+              {% if item.status == 'active' %}<span class="status-badge status-active">In Force</span>{% endif %}
+              {% if item.status == 'suspended' %}<span class="status-badge status-suspended">Suspended</span>{% endif %}
               {% if item.elements.size > 0 %}
                 <span class="news-entry-elements">{{ item.elements | join: "  " }}</span>
               {% endif %}
@@ -50,7 +52,11 @@ layout: default
       {% for item in site.data.key_developments %}
         <div class="kd-entry {% if item.severity == 'high' %}kd-entry-high{% else %}kd-entry-med{% endif %}">
           <div class="kd-content">
-            <strong class="kd-title">{{ item.title }}</strong>
+            <div class="kd-title-row">
+              <strong class="kd-title">{{ item.title }}</strong>
+              {% if item.status == 'active' %}<span class="status-badge status-active">In Force</span>{% endif %}
+              {% if item.status == 'suspended' %}<span class="status-badge status-suspended">Suspended</span>{% endif %}
+            </div>
             <p class="kd-detail">{{ item.detail }}</p>
             {% if item.elements %}<span class="kd-elements">{{ item.elements | join: "  " }}</span>{% endif %}
             {% if item.ref and item.ref != "" %}<cite class="kd-ref">{{ item.ref }}</cite>{% endif %}
