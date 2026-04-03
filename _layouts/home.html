@@ -130,6 +130,21 @@ layout: default
         {% assign tile_ref = retail_ref_any %}
       {% endif %}
 
+      {% comment %} ── Bulk Benchmark: most recent bulk/industrial record, conf≥0.6 ── {% endcomment %}
+      {% assign tile_bulk = nil %}
+      {% for record in site.data.price_records %}
+        {% if record.element_symbol == cat_info.symbol %}
+          {% if record.market_tier == 'bulk' or record.market_tier == 'industrial' %}
+            {% assign conf100 = record.confidence_score | times: 100 | round %}
+            {% if conf100 >= 60 %}
+              {% if tile_bulk == nil or record.quote_date > tile_bulk.quote_date %}
+                {% assign tile_bulk = record %}
+              {% endif %}
+            {% endif %}
+          {% endif %}
+        {% endif %}
+      {% endfor %}
+
       <a href="{{ elem.url | relative_url }}" class="element-tile cat-{{ cat_info.category | replace: '_', '-' }}">
         <div class="tile-top">
           <span class="tile-indicators">
@@ -140,12 +155,31 @@ layout: default
         </div>
         <span class="tile-symbol">{{ cat_info.symbol }}</span>
         <span class="tile-name">{{ cat_info.name }}</span>
-        {% if tile_ref %}
-          <span class="tile-price">${{ tile_ref.normalized_usd_per_kg }}<span class="tile-unit">/kg</span></span>
-          <span class="tile-price-label">{{ tile_ref.form | capitalize }} &middot; {{ tile_ref.seller_name }}</span>
-          <span class="tile-meta">{{ cat_info.dominant_source_country }}</span>
+        {% if tile_ref or tile_bulk %}
+          <div class="tile-prices">
+            <div class="tile-price-row">
+              <span class="tile-price-tag">Retail</span>
+              {% if tile_ref %}
+                <span class="tile-price">${{ tile_ref.normalized_usd_per_kg }}<span class="tile-unit">/kg</span></span>
+                <span class="tile-form">{{ tile_ref.form | capitalize }}</span>
+              {% else %}
+                <span class="tile-price tile-no-data">&mdash;</span>
+              {% endif %}
+            </div>
+            <div class="tile-price-row">
+              <span class="tile-price-tag">Bulk</span>
+              {% if tile_bulk %}
+                <span class="tile-price tile-price-bulk">${{ tile_bulk.normalized_usd_per_kg }}<span class="tile-unit">/kg</span></span>
+                <span class="tile-form">{{ tile_bulk.form | capitalize }}</span>
+              {% else %}
+                <span class="tile-price tile-price-bulk tile-no-data">&mdash;</span>
+              {% endif %}
+            </div>
+          </div>
         {% else %}
-          <span class="tile-price tile-no-data" title="No price data tracked for this element">&mdash;</span>
+          <div class="tile-prices">
+            <span class="tile-price tile-no-data" title="No price data tracked for this element">&mdash;</span>
+          </div>
         {% endif %}
       </a>
     {% endif %}

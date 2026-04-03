@@ -282,19 +282,19 @@
 // ── Element grid (wider, unified) ────────────────────────────
 .elements-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(156px, 1fr));
   gap: $sp-3;
 
   @include bp-md {
-    grid-template-columns: repeat(5, 1fr);
+    grid-template-columns: repeat(4, 1fr);
   }
 
   @include bp-lg {
-    grid-template-columns: repeat(7, 1fr);
+    grid-template-columns: repeat(6, 1fr);
   }
 
   @include bp-xl {
-    grid-template-columns: repeat(9, 1fr);
+    grid-template-columns: repeat(7, 1fr);
   }
 }
 
@@ -302,22 +302,23 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  padding: $sp-3 $sp-2 $sp-2;
+  padding: $sp-3 $sp-3 0;
   background: $bg-card;
   border: 1px solid $border-primary;
   border-radius: $radius-sm;
   text-decoration: none;
-  transition: border-color $transition-fast;
+  transition: border-color $transition-fast, box-shadow $transition-fast;
 
   &:hover {
     border-color: $text-muted;
+    box-shadow: $shadow-sm;
   }
 
-  // Category top-border accent
-  &.cat-rare-earth-light { border-top: 2px solid $cat-ree-light; }
-  &.cat-rare-earth-heavy { border-top: 2px solid $cat-ree-heavy; }
-  &.cat-strategic-metal { border-top: 2px solid $cat-strategic; }
-  &.cat-semiconductor-metal { border-top: 2px solid $cat-semiconductor; }
+  // Category left-border accent
+  &.cat-rare-earth-light { border-left: 2px solid $cat-ree-light; }
+  &.cat-rare-earth-heavy { border-left: 2px solid $cat-ree-heavy; }
+  &.cat-strategic-metal { border-left: 2px solid $cat-strategic; }
+  &.cat-semiconductor-metal { border-left: 2px solid $cat-semiconductor; }
 
   .tile-top {
     display: flex;
@@ -334,13 +335,8 @@
     line-height: 1;
   }
 
-  .ind-control {
-    font-size: 11px;
-  }
-
-  .ind-demand {
-    font-size: 11px;
-  }
+  .ind-control { font-size: 11px; }
+  .ind-demand { font-size: 11px; }
 
   .tile-z {
     font-family: $font-mono;
@@ -360,42 +356,66 @@
   .tile-name {
     font-size: $fs-xs;
     color: $text-secondary;
-    margin-bottom: $sp-2;
     letter-spacing: 0.02em;
+  }
+
+  // ── Dual-price section ──
+  .tile-prices {
+    align-self: stretch;
+    margin-top: $sp-2;
+    padding: $sp-2 0;
+    border-top: 1px solid $border-primary;
+    display: flex;
+    flex-direction: column;
+    gap: $sp-1;
+  }
+
+  .tile-price-row {
+    display: flex;
+    align-items: baseline;
+    gap: $sp-1;
+    min-height: 16px;
+  }
+
+  .tile-price-tag {
+    font-size: 9px;
+    color: $text-dim;
+    width: 30px;
+    flex-shrink: 0;
+    line-height: 1;
   }
 
   .tile-price {
     font-family: $font-mono;
-    font-size: $fs-lg;
+    font-size: $fs-sm;
     font-weight: $fw-semibold;
     color: $text-primary;
     line-height: 1;
-    margin-top: 1px;
+    white-space: nowrap;
 
     &.tile-no-data {
       color: $text-dim;
-      font-size: $fs-md;
+      font-weight: $fw-normal;
       cursor: help;
+    }
+
+    &.tile-price-bulk {
+      font-weight: $fw-medium;
+      color: $text-secondary;
     }
   }
 
   .tile-unit {
-    font-size: $fs-xs;
+    font-size: 9px;
     font-weight: $fw-normal;
     color: $text-muted;
   }
 
-  .tile-price-label {
-    font-size: 10px;
+  .tile-form {
+    font-size: 9px;
     color: $text-dim;
-    line-height: 1.3;
-    margin-top: 3px;
-  }
-
-  .tile-meta {
-    font-size: 10px;
-    color: $text-dim;
-    margin-top: 1px;
+    line-height: 1;
+    margin-left: auto;
   }
 }
 
@@ -417,8 +437,8 @@
 
 .legend-swatch {
   display: inline-block;
-  width: 12px;
-  height: 3px;
+  width: 3px;
+  height: 12px;
   border-radius: 0;
 
   &.swatch-ree-light { background: $cat-ree-light; }
@@ -440,15 +460,6 @@
 .legend-icon {
   font-size: 13px;
   line-height: 1;
-
-  &.legend-icon-dollar {
-    font-family: $font-mono;
-    font-size: 11px;
-    font-weight: $fw-semibold;
-    color: $accent-amber;
-    letter-spacing: -0.5px;
-  }
-
 }
 
 .legend-link {
