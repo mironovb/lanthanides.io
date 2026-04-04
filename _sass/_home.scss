@@ -1,6 +1,6 @@
 // Home header
 .home-header {
-  padding: $sp-10 0 $sp-6;
+  padding: $sp-10 0 $sp-5;
   margin-bottom: $sp-6;
 
   .home-title {
@@ -25,21 +25,23 @@
 // ── Shared panel label ────────────────────────────────────────
 .panel-label {
   font-family: $font-serif;
-  font-size: $fs-md;
+  font-size: $fs-base;
   font-weight: $fw-semibold;
   color: $text-primary;
   letter-spacing: 0;
   text-transform: none;
-  margin-bottom: $sp-4;
+  margin-bottom: $sp-3;
+  padding-bottom: $sp-2;
+  border-bottom: 1px solid $border-primary;
 }
 
 // ── Home top row: two columns, forced side-by-side ───────────
 .home-top-row {
   display: grid;
   grid-template-columns: 3fr 2fr;
-  gap: $sp-8;
+  gap: $sp-6;
   align-items: start;
-  margin-bottom: $sp-8;
+  margin-bottom: $sp-6;
 }
 
 // ── Recent News (left column) ────────────────────────────────
@@ -70,7 +72,7 @@
   flex-shrink: 0;
   font-size: $fs-2xs;
   line-height: $lh-tight;
-  margin-top: 3px;
+  margin-top: 4px;
   color: $text-primary;
 }
 
@@ -82,8 +84,8 @@
 .news-entry-head {
   display: flex;
   align-items: baseline;
-  gap: $sp-3;
-  margin-bottom: 4px;
+  gap: $sp-2;
+  margin-bottom: 3px;
 
   time {
     font-family: $font-mono;
@@ -95,19 +97,18 @@
 
 .news-entry-elements {
   font-family: $font-mono;
-  font-size: $fs-xs;
+  font-size: $fs-2xs;
   color: $text-muted;
   letter-spacing: 0.05em;
 }
 
 .news-entry-title {
   display: block;
-  font-family: $font-serif;
-  font-size: $fs-base;
+  font-size: $fs-sm;
   font-weight: $fw-semibold;
   color: $text-primary;
   line-height: $lh-tight;
-  margin-bottom: 4px;
+  margin-bottom: 3px;
 
   &.news-entry-link {
     text-decoration: none;
@@ -122,7 +123,7 @@
 }
 
 .news-entry-body {
-  font-size: $fs-sm;
+  font-size: $fs-xs;
   color: $text-secondary;
   line-height: $lh-relaxed;
   margin: 0;
@@ -133,7 +134,7 @@
   font-style: normal;
   font-size: $fs-2xs;
   color: $text-dim;
-  margin-top: 4px;
+  margin-top: 3px;
 }
 
 // ── Status badges (active / suspended) ──────────────────────
@@ -216,7 +217,7 @@
 }
 
 .kd-title {
-  font-size: $fs-sm;
+  font-size: $fs-xs;
   font-weight: $fw-semibold;
   color: $text-primary;
   line-height: $lh-tight;
@@ -229,7 +230,7 @@
 }
 
 .kd-detail {
-  font-size: $fs-sm;
+  font-size: $fs-xs;
   color: $text-secondary;
   line-height: $lh-relaxed;
   margin: 0;
@@ -251,22 +252,22 @@
   margin-top: 2px;
 }
 
-// ── Element grid (wider, unified) ────────────────────────────
+// ── Element grid ─────────────────────────────────────────────
 .elements-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(156px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(184px, 1fr));
   gap: $sp-3;
 
   @include bp-md {
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(3, 1fr);
   }
 
   @include bp-lg {
-    grid-template-columns: repeat(6, 1fr);
+    grid-template-columns: repeat(5, 1fr);
   }
 
   @include bp-xl {
-    grid-template-columns: repeat(7, 1fr);
+    grid-template-columns: repeat(6, 1fr);
   }
 }
 
@@ -274,12 +275,13 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  padding: $sp-3 $sp-3 0;
+  padding: $sp-3 $sp-4 0;
   background: $bg-card;
   border: 1px solid $border-primary;
   border-radius: $radius-sm;
   text-decoration: none;
   transition: border-color $transition-fast, box-shadow $transition-fast;
+  min-width: 0;
 
   &:hover {
     border-color: $text-muted;
@@ -298,6 +300,7 @@
     align-items: center;
     align-self: stretch;
     line-height: 1;
+    margin-bottom: 2px;
   }
 
   .tile-indicators {
@@ -322,7 +325,7 @@
     font-weight: $fw-bold;
     color: $text-primary;
     line-height: 1;
-    margin: 2px 0;
+    margin: 0 0 2px;
   }
 
   .tile-name {
@@ -340,6 +343,7 @@
     display: flex;
     flex-direction: column;
     gap: $sp-1;
+    min-width: 0;
   }
 
   .tile-price-row {
@@ -347,6 +351,8 @@
     align-items: baseline;
     gap: $sp-1;
     min-height: 18px;
+    min-width: 0;
+    overflow: hidden;
   }
 
   .tile-price-tag {
@@ -359,11 +365,12 @@
 
   .tile-price {
     font-family: $font-mono;
-    font-size: $fs-sm;
+    font-size: $fs-xs;
     font-weight: $fw-semibold;
     color: $text-primary;
     line-height: 1;
     white-space: nowrap;
+    flex-shrink: 0;
 
     &.tile-no-data {
       color: $text-dim;
@@ -389,6 +396,9 @@
     line-height: 1;
     margin-left: auto;
     white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    min-width: 0;
   }
 
   .tile-date {
@@ -402,8 +412,8 @@
 .category-legend {
   display: flex;
   flex-wrap: wrap;
-  gap: $sp-4;
-  padding: $sp-3 0 $sp-2;
+  gap: $sp-3;
+  padding: $sp-4 0 $sp-2;
 }
 
 .legend-item {
@@ -430,14 +440,14 @@
 .indicator-legend {
   display: flex;
   flex-wrap: wrap;
-  gap: $sp-4;
-  padding: $sp-2 0 $sp-4;
+  gap: $sp-3;
+  padding: $sp-1 0 $sp-3;
   border-bottom: $border-thin;
   margin-bottom: $sp-4;
 }
 
 .legend-icon {
-  font-size: $fs-sm;
+  font-size: $fs-xs;
   line-height: 1;
 }
 

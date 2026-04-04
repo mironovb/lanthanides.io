@@ -57,40 +57,40 @@
 
   // ── Home header ──
   .home-header {
-    padding: $sp-6 0 $sp-4;
+    padding: $sp-5 0 $sp-4;
     margin-bottom: $sp-4;
 
     .home-title {
-      font-size: $fs-xl;
+      font-size: $fs-lg;
     }
 
     .home-subtitle {
-      font-size: $fs-sm;
+      font-size: $fs-xs;
     }
   }
 
   // ── Home top row: stack news + KD vertically ──
   .home-top-row {
     grid-template-columns: 1fr;
-    gap: $sp-5;
+    gap: $sp-4;
   }
 
   .panel-label {
-    font-size: $fs-base;
-    margin-bottom: $sp-3;
+    font-size: $fs-sm;
+    margin-bottom: $sp-2;
   }
 
   // ── News entries on home ──
   .news-entry {
-    padding: $sp-3 0;
+    padding: $sp-2 0;
   }
 
   .news-entry-title {
-    font-size: $fs-sm;
+    font-size: $fs-xs;
   }
 
   .news-entry-body {
-    font-size: $fs-xs;
+    font-size: $fs-2xs;
     line-height: $lh-relaxed;
   }
 
@@ -106,11 +106,11 @@
   }
 
   .kd-title {
-    font-size: $fs-xs;
+    font-size: $fs-2xs;
   }
 
   .kd-detail {
-    font-size: $fs-xs;
+    font-size: $fs-2xs;
   }
 
   // ── Element grid ──
@@ -120,10 +120,10 @@
   }
 
   .element-tile {
-    padding: $sp-2 $sp-2 0;
+    padding: $sp-2 $sp-3 0;
 
     .tile-symbol {
-      font-size: $fs-xl;
+      font-size: $fs-lg;
     }
 
     .tile-name {
@@ -131,20 +131,16 @@
     }
 
     .tile-price {
-      font-size: $fs-xs;
+      font-size: $fs-2xs;
     }
 
     .tile-price-tag {
       font-size: $fs-2xs;
-      width: 30px;
+      width: 28px;
     }
 
     .tile-form {
-      font-size: $fs-2xs;
-    }
-
-    .tile-unit {
-      font-size: $fs-2xs;
+      display: none;
     }
   }
 
@@ -358,14 +354,11 @@
 // ── Small phones (< 480px) ──────────────────────────────────
 @include bp-max-sm {
 
-  // Single-column element grid at very small sizes
-  .elements-grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: $sp-2;
-  }
-
+  // Tighten element grid at very small sizes
   .element-tile {
-    .tile-symbol { font-size: $fs-lg; }
+    padding: $sp-2 $sp-2 0;
+
+    .tile-symbol { font-size: $fs-base; }
 
     .tile-prices {
       padding: $sp-1 0;
@@ -376,7 +369,6 @@
       min-height: 14px;
     }
 
-    // Hide date on very small screens to prevent overflow
     .tile-date {
       display: none;
     }
