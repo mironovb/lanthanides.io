@@ -259,15 +259,15 @@
   gap: $sp-3;
 
   @include bp-md {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 
   @include bp-lg {
-    grid-template-columns: repeat(5, 1fr);
+    grid-template-columns: repeat(5, minmax(0, 1fr));
   }
 
   @include bp-xl {
-    grid-template-columns: repeat(6, 1fr);
+    grid-template-columns: repeat(6, minmax(0, 1fr));
   }
 }
 
@@ -282,6 +282,7 @@
   text-decoration: none;
   transition: border-color $transition-fast, box-shadow $transition-fast;
   min-width: 0;
+  overflow: hidden;
 
   &:hover {
     border-color: $text-muted;
@@ -370,7 +371,6 @@
     color: $text-primary;
     line-height: 1;
     white-space: nowrap;
-    flex-shrink: 0;
 
     &.tile-no-data {
       color: $text-dim;
