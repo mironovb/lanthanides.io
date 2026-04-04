@@ -38,7 +38,7 @@
   category: rare_earth_light
   family: Lanthanide
   default_forms: [oxide, metal, alloy]
-  export_control_status: restricted
+  export_control_status: monitored
   dominant_source_country: CN
   origin_countries: [CN, AU, MM]
   trade_form: "Oxide (Pr₆O₁₁)"
@@ -53,7 +53,7 @@
   category: rare_earth_light
   family: Lanthanide
   default_forms: [oxide, metal, powder]
-  export_control_status: restricted
+  export_control_status: monitored
   dominant_source_country: CN
   origin_countries: [CN, AU, MM, US]
   trade_form: "Oxide (Nd₂O₃)"
@@ -68,7 +68,7 @@
   category: rare_earth_light
   family: Lanthanide
   default_forms: [oxide, metal, alloy]
-  export_control_status: monitored
+  export_control_status: restricted
   dominant_source_country: CN
   origin_countries: [CN, AU]
   trade_form: "Oxide (Sm₂O₃)"
@@ -83,7 +83,7 @@
   category: rare_earth_light
   family: Transition metal
   default_forms: [oxide, metal]
-  export_control_status: monitored
+  export_control_status: restricted
   dominant_source_country: CN
   origin_countries: [CN, AU, IN]
   trade_form: "Oxide (Y₂O₃)"
@@ -98,7 +98,7 @@
   category: rare_earth_light
   family: Transition metal
   default_forms: [oxide, metal]
-  export_control_status: normal
+  export_control_status: restricted
   dominant_source_country: CN
   origin_countries: [CN, AU, PH, RU]
   trade_form: "Oxide (Sc₂O₃), Metal, Al–Sc alloy"
@@ -116,7 +116,7 @@
   category: rare_earth_heavy
   family: Lanthanide
   default_forms: [oxide, metal]
-  export_control_status: restricted
+  export_control_status: monitored
   dominant_source_country: CN
   origin_countries: [CN]
   trade_form: "Oxide (Eu₂O₃)"
@@ -131,7 +131,7 @@
   category: rare_earth_heavy
   family: Lanthanide
   default_forms: [oxide, metal]
-  export_control_status: monitored
+  export_control_status: restricted
   dominant_source_country: CN
   origin_countries: [CN, AU]
   trade_form: "Oxide (Gd₂O₃)"
@@ -185,7 +185,7 @@
   notes: "Highest magnetic moment of any element. Critical for medical lasers; emerged as Dy/Tb substitute in permanent magnets after April 2025 export controls."
   price_tier: 3
   high_demand: true
-  cn_export_control: false
+  cn_export_control: true
 
 - symbol: Er
   name: Erbium
@@ -200,7 +200,7 @@
   notes: "Used in fiber optic amplifiers and glass colorant."
   price_tier: 1
   high_demand: false
-  cn_export_control: false
+  cn_export_control: true
 
 - symbol: Tm
   name: Thulium
@@ -231,7 +231,7 @@
   notes: "Used in fiber lasers, metallurgy, and atomic clocks."
   price_tier: 1
   high_demand: false
-  cn_export_control: false
+  cn_export_control: true
 
 - symbol: Lu
   name: Lutetium
@@ -319,7 +319,7 @@
   category: strategic_metal
   family: Post-transition metal
   default_forms: [metal, oxide]
-  export_control_status: normal
+  export_control_status: monitored
   dominant_source_country: CN
   origin_countries: [CN, VN, MX, JP]
   trade_form: "Metal ingot"
@@ -334,7 +334,7 @@
   category: strategic_metal
   family: Transition metal
   default_forms: [metal, oxide, powder]
-  export_control_status: normal
+  export_control_status: restricted
   dominant_source_country: CN
   origin_countries: [CN, US, CL, PE]
   trade_form: "Oxide (MoO₃)"
