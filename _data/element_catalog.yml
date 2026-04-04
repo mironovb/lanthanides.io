@@ -282,7 +282,6 @@
   price_tier: 1
   high_demand: false
   cn_export_control: false
-  cn_export_control: false
 
 - symbol: Sb
   name: Antimony
@@ -357,6 +356,70 @@
   notes: "Used in nuclear fuel cladding, ceramics, and chemical processing."
   price_tier: 2
   high_demand: false
+  cn_export_control: false
+
+- symbol: Ta
+  name: Tantalum
+  atomic_number: 73
+  category: strategic_metal
+  family: Transition metal
+  default_forms: [metal, powder, oxide]
+  export_control_status: normal
+  dominant_source_country: CD
+  origin_countries: [CD, RW, AU, BR, CN]
+  trade_form: "Powder, capacitor-grade wire, metal ingot"
+  purity_range: "99.9%–99.99%"
+  notes: "Critical for capacitors in microelectronics (~60% of demand) and superalloy components. Mined primarily from columbite-tantalite (coltan); 80% of coltan comes from Central Africa. Conflict mineral designation under Dodd-Frank Section 1502."
+  price_tier: 3
+  high_demand: true
+  cn_export_control: false
+
+- symbol: Nb
+  name: Niobium
+  atomic_number: 41
+  category: strategic_metal
+  family: Transition metal
+  default_forms: [metal, oxide, alloy]
+  export_control_status: normal
+  dominant_source_country: BR
+  origin_countries: [BR, CA, AU]
+  trade_form: "Ferroniobium (FeNb), Nb₂O₅, metal"
+  purity_range: "99.5%–99.99%"
+  notes: "~90% of production goes into HSLA steel as ferroniobium. Also used in superconducting magnets (MRI, particle accelerators) and aerospace alloys. Brazil (CBMM) controls ~90% of global supply — the most concentrated critical mineral supply chain."
+  price_tier: 2
+  high_demand: true
+  cn_export_control: false
+
+- symbol: Co
+  name: Cobalt
+  atomic_number: 27
+  category: strategic_metal
+  family: Transition metal
+  default_forms: [metal, oxide, compound]
+  export_control_status: normal
+  dominant_source_country: CD
+  origin_countries: [CD, AU, PH, CU, CN]
+  trade_form: "Metal cathode, Co(OH)₂, CoSO₄"
+  purity_range: "99.3%–99.99%"
+  notes: "Essential for Li-ion battery cathodes (NMC, NCA — ~70% of demand), superalloys for jet engines, and hard metal carbides. ~74% of mine production from DRC; ~80% of refining in China. Subject to artisanal mining human rights concerns."
+  price_tier: 2
+  high_demand: true
+  cn_export_control: false
+
+- symbol: Li
+  name: Lithium
+  atomic_number: 3
+  category: strategic_metal
+  family: Alkali metal
+  default_forms: [compound, metal]
+  export_control_status: normal
+  dominant_source_country: AU
+  origin_countries: [AU, CL, CN, AR, BR]
+  trade_form: "Li₂CO₃ (battery-grade), LiOH·H₂O, spodumene concentrate"
+  purity_range: "99.0%–99.99%"
+  notes: "Lightest solid element. Underpins the entire EV and grid storage revolution — Li-ion batteries represent ~80% of demand. Extracted from hard-rock spodumene (AU) and brine evaporation (CL, AR). Price collapsed ~80% from 2022 peak ($80k/t LCE → ~$10k/t) amid oversupply."
+  price_tier: 2
+  high_demand: true
   cn_export_control: false
 
 # ── Semiconductor Metals ───────────────────────────────────

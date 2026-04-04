@@ -7,9 +7,9 @@ permalink: /methodology/
 
 ## Purpose
 
-Strategic Materials Ledger tracks real-world prices for rare earth elements and strategic
-materials. It is designed for procurement analysis, supply-risk monitoring, and market
-intelligence.
+lanthanides.io tracks real-world prices for rare earths, rare metals (tantalum, niobium,
+cobalt, lithium), strategic metals, and semiconductor materials. It is designed for procurement
+analysis, supply-risk monitoring, and market intelligence.
 
 All displayed prices require source provenance. No data is fabricated, interpolated, or
 synthetically generated.
