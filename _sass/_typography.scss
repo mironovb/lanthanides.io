@@ -1,18 +1,21 @@
 body {
   font-family: $font-sans;
   font-size: $fs-base;
+  line-height: $lh-normal;
   color: $text-primary;
   background: $bg-primary;
   font-feature-settings: "kern" 1, "liga" 1;
   text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 .mono { font-family: $font-mono; }
 
-h1 { font-family: $font-serif; font-size: $fs-2xl; line-height: $lh-tight; letter-spacing: -0.01em; font-weight: $fw-bold; }
-h2 { font-family: $font-serif; font-size: $fs-xl; line-height: $lh-tight; letter-spacing: 0; font-weight: $fw-semibold; }
-h3 { font-size: $fs-lg; line-height: $lh-tight; }
-h4 { font-size: $fs-md; line-height: $lh-normal; }
+h1 { font-family: $font-serif; font-size: $fs-2xl; line-height: $lh-tight; letter-spacing: -0.015em; font-weight: $fw-bold; }
+h2 { font-family: $font-serif; font-size: $fs-xl; line-height: $lh-tight; letter-spacing: -0.01em; font-weight: $fw-semibold; }
+h3 { font-size: $fs-lg; line-height: $lh-tight; font-weight: $fw-semibold; }
+h4 { font-size: $fs-md; line-height: $lh-normal; font-weight: $fw-semibold; }
 
 .text-xs    { font-size: $fs-xs; }
 .text-sm    { font-size: $fs-sm; }

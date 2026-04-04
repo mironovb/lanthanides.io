@@ -35,7 +35,7 @@
   @include focus-ring;
 
   .cell-z {
-    font-size: 8px;
+    font-size: $fs-2xs;
     color: $text-dim;
     font-family: $font-mono;
   }
@@ -50,7 +50,7 @@
 
   .cell-price {
     font-family: $font-mono;
-    font-size: 9px;
+    font-size: $fs-2xs;
     color: $text-muted;
     margin-top: 2px;
   }

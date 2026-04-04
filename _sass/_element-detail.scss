@@ -382,7 +382,7 @@
 }
 
 .prop-label {
-  font-size: 10px;
+  font-size: $fs-2xs;
   color: $text-dim;
   text-transform: uppercase;
   letter-spacing: 0.5px;
@@ -591,7 +591,7 @@
   color: $text-dim;
   text-decoration: none;
   vertical-align: super;
-  font-size: 9px;
+  font-size: $fs-2xs;
   margin-left: 2px;
   &:hover { color: $text-primary; }
 }
@@ -619,7 +619,7 @@
       position: absolute;
       left: 0;
       font-family: $font-mono;
-      font-size: 10px;
+      font-size: $fs-2xs;
       color: $text-dim;
       font-weight: $fw-semibold;
     }

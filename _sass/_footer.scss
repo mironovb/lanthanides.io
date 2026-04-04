@@ -1,6 +1,6 @@
 .site-footer {
   border-top: 1px solid $text-primary;
-  padding: $sp-4 0;
+  padding: $sp-5 0;
   margin-top: auto;
 
   .footer-inner {
@@ -12,12 +12,12 @@
     letter-spacing: 0.02em;
     display: flex;
     flex-direction: column;
-    gap: $sp-2;
+    gap: $sp-3;
   }
 
   .footer-methodology {
     font-family: $font-sans;
-    font-size: $fs-xs;
+    font-size: $fs-sm;
     color: $text-dim;
     line-height: $lh-relaxed;
     max-width: 72ch;

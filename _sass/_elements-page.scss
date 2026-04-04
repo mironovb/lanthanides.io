@@ -53,15 +53,15 @@
 .elements-table {
   width: 100%;
   border-collapse: collapse;
-  font-size: $fs-xs;
+  font-size: $fs-sm;
 
   thead th {
     font-weight: $fw-semibold;
     color: $text-muted;
     text-align: left;
-    padding: $sp-1 $sp-2;
+    padding: $sp-2;
     white-space: nowrap;
-    font-size: 10px;
+    font-size: $fs-2xs;
     text-transform: uppercase;
     letter-spacing: 0.05em;
     border-bottom: 1px solid $border-secondary;
@@ -87,7 +87,7 @@
 .col-z {
   width: 36px;
   color: $text-dim;
-  font-size: 10px;
+  font-size: $fs-2xs;
 }
 
 .col-sym {
@@ -113,7 +113,7 @@
 .col-form {
   min-width: 100px;
   max-width: 200px;
-  font-size: 10px;
+  font-size: $fs-2xs;
   line-height: $lh-tight;
 
   @include bp-max-md {
@@ -129,13 +129,13 @@
 .col-retail, .col-bulk {
   width: 100px;
   white-space: nowrap;
-  font-size: $fs-xs;
+  font-size: $fs-sm;
 }
 
 .col-origin {
   width: 44px;
   text-align: center;
-  font-size: 10px;
+  font-size: $fs-2xs;
   color: $text-dim;
 }
 
@@ -167,7 +167,7 @@
 
 // Indicators inline
 .row-ctrl-icon, .row-demand-icon {
-  font-size: 10px;
+  font-size: $fs-2xs;
   margin-left: 2px;
   vertical-align: middle;
 }
@@ -176,9 +176,9 @@
 .ctrl-tag {
   display: inline-block;
   font-family: $font-mono;
-  font-size: 9px;
+  font-size: $fs-2xs;
   font-weight: $fw-semibold;
-  padding: 1px 4px;
+  padding: 2px 5px;
   border-radius: 2px;
   letter-spacing: 0.02em;
   white-space: nowrap;
@@ -209,7 +209,7 @@
 }
 
 .unit {
-  font-size: 9px;
+  font-size: $fs-2xs;
   font-weight: $fw-normal;
   color: $text-dim;
 }
@@ -236,7 +236,7 @@
   }
 
   .legend-icon {
-    font-size: 11px;
+    font-size: $fs-2xs;
     line-height: 1;
   }
 }

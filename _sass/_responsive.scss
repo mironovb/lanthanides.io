@@ -1,5 +1,6 @@
 // ══════════════════════════════════════════════════════════════
 // Comprehensive mobile responsive overrides
+// Philosophy: text stays readable — only layout adapts
 // ══════════════════════════════════════════════════════════════
 
 // ── Tablet and below (< 768px) ──────────────────────────────
@@ -7,12 +8,12 @@
 
   // ── Global ──
   .site-main {
-    padding-top: $sp-3;
-    padding-bottom: $sp-6;
+    padding-top: $sp-4;
+    padding-bottom: $sp-8;
   }
 
   .page-title {
-    font-size: $fs-xl;
+    font-size: $fs-2xl;
   }
 
   .page-description {
@@ -56,41 +57,41 @@
 
   // ── Home header ──
   .home-header {
-    padding: $sp-4 0 $sp-3;
+    padding: $sp-6 0 $sp-4;
     margin-bottom: $sp-4;
 
     .home-title {
-      font-size: $fs-lg;
+      font-size: $fs-xl;
     }
 
     .home-subtitle {
-      font-size: $fs-xs;
+      font-size: $fs-sm;
     }
   }
 
   // ── Home top row: stack news + KD vertically ──
   .home-top-row {
     grid-template-columns: 1fr;
-    gap: $sp-4;
+    gap: $sp-5;
   }
 
   .panel-label {
-    font-size: $fs-sm;
+    font-size: $fs-base;
     margin-bottom: $sp-3;
   }
 
   // ── News entries on home ──
   .news-entry {
-    padding: $sp-2 0;
+    padding: $sp-3 0;
   }
 
   .news-entry-title {
-    font-size: $fs-xs;
+    font-size: $fs-sm;
   }
 
   .news-entry-body {
-    font-size: 10px;
-    line-height: $lh-normal;
+    font-size: $fs-xs;
+    line-height: $lh-relaxed;
   }
 
   .news-entry-head {
@@ -105,11 +106,11 @@
   }
 
   .kd-title {
-    font-size: 11px;
+    font-size: $fs-xs;
   }
 
   .kd-detail {
-    font-size: 10px;
+    font-size: $fs-xs;
   }
 
   // ── Element grid ──
@@ -126,7 +127,7 @@
     }
 
     .tile-name {
-      font-size: 10px;
+      font-size: $fs-2xs;
     }
 
     .tile-price {
@@ -134,16 +135,16 @@
     }
 
     .tile-price-tag {
-      font-size: 8px;
-      width: 26px;
+      font-size: $fs-2xs;
+      width: 30px;
     }
 
     .tile-form {
-      font-size: 8px;
+      font-size: $fs-2xs;
     }
 
     .tile-unit {
-      font-size: 8px;
+      font-size: $fs-2xs;
     }
   }
 
@@ -151,7 +152,7 @@
   .category-legend,
   .indicator-legend {
     gap: $sp-2 $sp-3;
-    font-size: 10px;
+    font-size: $fs-2xs;
   }
 
   // ── Element detail page ──
@@ -199,82 +200,82 @@
   // ── Footer ──
   .site-footer {
     .footer-inner {
-      font-size: 10px;
+      font-size: $fs-2xs;
       padding: 0 $sp-3;
     }
 
     .footer-methodology {
-      font-size: 10px;
+      font-size: $fs-xs;
     }
 
     .footer-license {
-      font-size: 10px;
+      font-size: $fs-2xs;
     }
   }
 
   // ── Article page ──
   .article-page {
-    padding: $sp-3 0 $sp-6;
+    padding: $sp-5 0 $sp-8;
   }
 
   .article-title {
-    font-size: $fs-lg;
+    font-size: $fs-2xl;
   }
 
   .article-subtitle {
-    font-size: $fs-xs;
+    font-size: $fs-sm;
   }
 
   .article-body {
     h2 {
-      font-size: $fs-md;
-      margin: $sp-4 0 $sp-2;
+      font-size: $fs-lg;
+      margin: $sp-6 0 $sp-3;
     }
 
     h3 {
-      font-size: $fs-sm;
+      font-size: $fs-base;
     }
 
     p {
-      font-size: $fs-xs;
+      font-size: $fs-base;
     }
 
     table {
-      font-size: 10px;
+      font-size: $fs-xs;
       display: block;
       overflow-x: auto;
       -webkit-overflow-scrolling: touch;
     }
 
     blockquote {
-      padding: $sp-2 $sp-3;
-      margin: $sp-2 0;
+      padding: $sp-3 $sp-4;
+      margin: $sp-3 0;
 
       p {
-        font-size: $fs-xs;
+        font-size: $fs-sm;
       }
     }
   }
 
   // ── Elements reference page ──
   .elements-page {
-    padding: $sp-3 0 $sp-6;
+    padding: $sp-4 0 $sp-8;
   }
 
   .elements-category-heading {
-    font-size: $fs-sm;
+    font-size: $fs-base;
   }
 
   .elements-table {
-    font-size: 10px;
+    font-size: $fs-xs;
 
     thead th {
-      font-size: 8px;
+      font-size: $fs-2xs;
       padding: $sp-1;
     }
 
     tbody td {
-      padding: $sp-1;
+      padding: $sp-1 $sp-2;
     }
 
     // Hide less-critical columns on mobile
@@ -294,34 +295,34 @@
 
   .elements-page-legend {
     gap: $sp-2 $sp-3;
-    font-size: 10px;
+    font-size: $fs-2xs;
   }
 
   // ── News page ──
   .np {
-    padding: $sp-3 0 $sp-6;
+    padding: $sp-4 0 $sp-8;
   }
 
   .np-header {
     flex-direction: column;
     align-items: flex-start;
-    gap: $sp-1;
-    padding-bottom: $sp-3;
-    margin-bottom: $sp-4;
+    gap: $sp-2;
+    padding-bottom: $sp-4;
+    margin-bottom: $sp-5;
   }
 
   .np-title {
-    font-size: $fs-xl;
+    font-size: $fs-2xl;
   }
 
   .np-subtitle {
-    font-size: $fs-xs;
+    font-size: $fs-sm;
   }
 
   .np-hero {
     grid-template-columns: 1fr;
-    gap: $sp-3;
-    margin-bottom: $sp-4;
+    gap: $sp-4;
+    margin-bottom: $sp-5;
   }
 
   .np-hero-image {
@@ -329,28 +330,28 @@
   }
 
   .np-hero-headline {
-    font-size: $fs-lg;
+    font-size: $fs-xl;
   }
 
   .np-hero-excerpt {
-    font-size: $fs-xs;
+    font-size: $fs-sm;
   }
 
   .np-grid {
     grid-template-columns: 1fr;
-    gap: $sp-3;
+    gap: $sp-4;
   }
 
   .np-tile-headline {
-    font-size: $fs-xs;
+    font-size: $fs-sm;
   }
 
   .np-tile-excerpt {
-    font-size: 10px;
+    font-size: $fs-xs;
   }
 
   .np-divider {
-    margin-bottom: $sp-3;
+    margin-bottom: $sp-4;
   }
 }
 
@@ -402,13 +403,13 @@
 
   // Home: reduce padding further
   .home-header {
-    padding: $sp-3 0 $sp-2;
+    padding: $sp-4 0 $sp-3;
     margin-bottom: $sp-3;
   }
 
   // News hero: tighter
   .np-hero-headline {
-    font-size: $fs-md;
+    font-size: $fs-lg;
   }
 
   // Elements table: hide even more columns
@@ -424,21 +425,25 @@
     padding: $sp-1 0 $sp-1 $sp-2;
   }
 
-  // Article: tighter margins
+  // Article: keep body text at full size for readability
+  .article-title {
+    font-size: $fs-xl;
+  }
+
   .article-body {
     h2 {
-      font-size: $fs-sm;
+      font-size: $fs-lg;
     }
 
     ul, ol {
-      padding-left: $sp-3;
-      font-size: 11px;
+      padding-left: $sp-4;
+      font-size: $fs-sm;
     }
   }
 
   // Footer
   .site-footer .footer-methodology {
-    font-size: 9px;
+    font-size: $fs-xs;
   }
 }
 
