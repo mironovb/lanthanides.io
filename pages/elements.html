@@ -1,13 +1,145 @@
 ---
-layout: data-page
+layout: default
 title: "All Elements"
 description: "Browse all tracked rare earths, rare metals, and semiconductor materials with current prices."
 permalink: /elements/
 ---
 
-<div class="grid-auto" id="element-grid">
-  {% assign sorted_elements = site.elements | sort: 'symbol' %}
-  {% for elem in sorted_elements %}
-    {% include element-card.html element=elem %}
+<div class="elements-page">
+  <h1 class="page-title">All Elements</h1>
+  <p class="page-description">{{ site.data.element_catalog.size }} elements tracked across four categories, sorted by atomic number within each group.</p>
+
+  {% comment %} ── Build ordered array by category then Z ── {% endcomment %}
+  {% assign cat_order = "rare_earth_light,rare_earth_heavy,strategic_metal,semiconductor_metal" | split: "," %}
+  {% assign cat_labels = "Light Rare Earths,Heavy Rare Earths,Strategic & Rare Metals,Semiconductor Metals" | split: "," %}
+
+  {% for cat in cat_order %}
+    {% assign cat_idx = forloop.index0 %}
+    {% assign cat_elems = "" | split: "" %}
+    {% for c in site.data.element_catalog %}
+      {% if c.category == cat %}
+        {% assign cat_elems = cat_elems | push: c %}
+      {% endif %}
+    {% endfor %}
+    {% assign cat_elems = cat_elems | sort: "atomic_number" %}
+
+    <section class="elements-category-section">
+      <h2 class="elements-category-heading cat-heading-{{ cat | replace: '_', '-' }}">
+        <span class="cat-heading-swatch cat-swatch-{{ cat | replace: '_', '-' }}"></span>
+        {{ cat_labels[cat_idx] }}
+        <span class="cat-heading-count">{{ cat_elems.size }}</span>
+      </h2>
+
+      <div class="elements-table-wrap">
+        <table class="elements-table">
+          <thead>
+            <tr>
+              <th class="col-z">Z</th>
+              <th class="col-sym">Symbol</th>
+              <th class="col-name">Name</th>
+              <th class="col-family">Family</th>
+              <th class="col-form">Trade form</th>
+              <th class="col-ctrl">Export ctl.</th>
+              <th class="col-retail">Retail ref.</th>
+              <th class="col-bulk">Bulk ref.</th>
+              <th class="col-origin">Source</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for cat_info in cat_elems %}
+              {% comment %} ── Find the element page ── {% endcomment %}
+              {% assign elem = nil %}
+              {% for e in site.elements %}
+                {% if e.symbol == cat_info.symbol %}
+                  {% assign elem = e %}
+                  {% break %}
+                {% endif %}
+              {% endfor %}
+
+              {% comment %} ── Retail ref price ── {% endcomment %}
+              {% assign retail_ref_metal = nil %}
+              {% assign retail_ref_any = nil %}
+              {% for record in site.data.price_records %}
+                {% if record.element_symbol == cat_info.symbol and record.market_tier == 'retail' %}
+                  {% assign conf100 = record.confidence_score | times: 100 | round %}
+                  {% if conf100 >= 50 %}
+                    {% assign qty_g = record.quoted_quantity_kg | times: 1000 | round %}
+                    {% if qty_g >= 5 and record.quoted_quantity_kg <= 1 %}
+                      {% if record.form == 'metal' %}
+                        {% if retail_ref_metal == nil or record.normalized_usd_per_kg < retail_ref_metal.normalized_usd_per_kg %}
+                          {% assign retail_ref_metal = record %}
+                        {% endif %}
+                      {% endif %}
+                      {% if retail_ref_any == nil or record.normalized_usd_per_kg < retail_ref_any.normalized_usd_per_kg %}
+                        {% assign retail_ref_any = record %}
+                      {% endif %}
+                    {% endif %}
+                  {% endif %}
+                {% endif %}
+              {% endfor %}
+              {% assign tile_ref = nil %}
+              {% if retail_ref_metal %}{% assign tile_ref = retail_ref_metal %}{% else %}{% assign tile_ref = retail_ref_any %}{% endif %}
+
+              {% comment %} ── Bulk benchmark ── {% endcomment %}
+              {% assign tile_bulk = nil %}
+              {% for record in site.data.price_records %}
+                {% if record.element_symbol == cat_info.symbol %}
+                  {% if record.market_tier == 'bulk' or record.market_tier == 'industrial' %}
+                    {% assign conf100 = record.confidence_score | times: 100 | round %}
+                    {% if conf100 >= 60 %}
+                      {% if tile_bulk == nil or record.quote_date > tile_bulk.quote_date %}
+                        {% assign tile_bulk = record %}
+                      {% endif %}
+                    {% endif %}
+                  {% endif %}
+                {% endif %}
+              {% endfor %}
+
+              <tr class="elements-row">
+                <td class="col-z mono">{{ cat_info.atomic_number }}</td>
+                <td class="col-sym">
+                  {% if elem %}<a href="{{ elem.url | relative_url }}" class="sym-link">{{ cat_info.symbol }}</a>
+                  {% else %}<span class="sym-nolink">{{ cat_info.symbol }}</span>{% endif %}
+                </td>
+                <td class="col-name">
+                  {% if elem %}<a href="{{ elem.url | relative_url }}" class="name-link">{{ cat_info.name }}</a>
+                  {% else %}{{ cat_info.name }}{% endif %}
+                  {% if cat_info.cn_export_control %}<span class="row-ctrl-icon" title="CN export control">&#10071;</span>{% endif %}
+                  {% if cat_info.high_demand %}<span class="row-demand-icon" title="High demand">&#128293;</span>{% endif %}
+                </td>
+                <td class="col-family dim">{{ cat_info.family }}</td>
+                <td class="col-form dim">{{ cat_info.trade_form }}</td>
+                <td class="col-ctrl">
+                  {% if cat_info.export_control_status == 'restricted' %}
+                    <span class="ctrl-tag ctrl-restricted">Restricted</span>
+                  {% elsif cat_info.export_control_status == 'monitored' %}
+                    <span class="ctrl-tag ctrl-monitored">Monitored</span>
+                  {% else %}
+                    <span class="ctrl-tag ctrl-normal">Normal</span>
+                  {% endif %}
+                </td>
+                <td class="col-retail mono">
+                  {% if tile_ref %}${{ tile_ref.normalized_usd_per_kg }}<span class="unit">/kg</span>
+                  {% else %}<span class="no-data">&mdash;</span>{% endif %}
+                </td>
+                <td class="col-bulk mono">
+                  {% if tile_bulk %}${{ tile_bulk.normalized_usd_per_kg }}<span class="unit">/kg</span>
+                  {% else %}<span class="no-data">&mdash;</span>{% endif %}
+                </td>
+                <td class="col-origin mono">{{ cat_info.dominant_source_country }}</td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </section>
   {% endfor %}
+
+  <div class="elements-page-legend">
+    <span class="legend-item"><span class="legend-icon">&#10071;</span> China export control active</span>
+    <span class="legend-item"><span class="legend-icon">&#128293;</span> High demand</span>
+    <span class="legend-item"><span class="ctrl-tag ctrl-restricted">Restricted</span> Export licence required</span>
+    <span class="legend-item"><span class="ctrl-tag ctrl-monitored">Monitored</span> Under surveillance</span>
+    <span class="legend-item"><span class="ctrl-tag ctrl-normal">Normal</span> No restrictions</span>
+  </div>
 </div>

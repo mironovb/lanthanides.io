@@ -1,0 +1,252 @@
+// ── All Elements reference page ──────────────────────────────
+.elements-page {
+  max-width: $content-width;
+  margin: 0 auto;
+  padding: $sp-6 0 $sp-8;
+}
+
+// ── Category sections ──
+.elements-category-section {
+  margin-bottom: $sp-6;
+}
+
+.elements-category-heading {
+  display: flex;
+  align-items: center;
+  gap: $sp-2;
+  font-family: $font-serif;
+  font-size: $fs-md;
+  font-weight: $fw-semibold;
+  color: $text-primary;
+  margin: 0 0 $sp-3;
+  padding-bottom: $sp-2;
+  border-bottom: 1px solid $border-primary;
+}
+
+.cat-heading-swatch {
+  display: inline-block;
+  width: 3px;
+  height: 14px;
+  border-radius: 1px;
+  flex-shrink: 0;
+
+  &.cat-swatch-rare-earth-light { background: $cat-ree-light; }
+  &.cat-swatch-rare-earth-heavy { background: $cat-ree-heavy; }
+  &.cat-swatch-strategic-metal { background: $cat-strategic; }
+  &.cat-swatch-semiconductor-metal { background: $cat-semiconductor; }
+}
+
+.cat-heading-count {
+  font-family: $font-mono;
+  font-size: $fs-xs;
+  font-weight: $fw-normal;
+  color: $text-dim;
+  margin-left: auto;
+}
+
+// ── Table ──
+.elements-table-wrap {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.elements-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: $fs-xs;
+
+  thead th {
+    font-weight: $fw-semibold;
+    color: $text-muted;
+    text-align: left;
+    padding: $sp-1 $sp-2;
+    white-space: nowrap;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    border-bottom: 1px solid $border-secondary;
+  }
+
+  tbody td {
+    padding: $sp-2;
+    border-bottom: 1px solid $border-primary;
+    vertical-align: middle;
+    color: $text-secondary;
+  }
+
+  .elements-row {
+    transition: background $transition-fast;
+
+    &:hover {
+      background: $bg-secondary;
+    }
+  }
+}
+
+// Column-specific styles
+.col-z {
+  width: 36px;
+  color: $text-dim;
+  font-size: 10px;
+}
+
+.col-sym {
+  width: 48px;
+  font-family: $font-serif;
+  font-size: $fs-md;
+  font-weight: $fw-bold;
+}
+
+.col-name {
+  min-width: 100px;
+  font-weight: $fw-medium;
+}
+
+.col-family {
+  min-width: 80px;
+
+  @include bp-max-md {
+    display: none;
+  }
+}
+
+.col-form {
+  min-width: 100px;
+  max-width: 200px;
+  font-size: 10px;
+  line-height: $lh-tight;
+
+  @include bp-max-md {
+    display: none;
+  }
+}
+
+.col-ctrl {
+  width: 80px;
+  white-space: nowrap;
+}
+
+.col-retail, .col-bulk {
+  width: 100px;
+  white-space: nowrap;
+  font-size: $fs-xs;
+}
+
+.col-origin {
+  width: 44px;
+  text-align: center;
+  font-size: 10px;
+  color: $text-dim;
+}
+
+// Links
+.sym-link {
+  color: $text-primary;
+  text-decoration: none;
+
+  &:hover {
+    color: $accent-blue;
+  }
+}
+
+.sym-nolink {
+  color: $text-primary;
+}
+
+.name-link {
+  color: $text-secondary;
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: color $transition-fast, border-color $transition-fast;
+
+  &:hover {
+    color: $accent-blue;
+    border-bottom-color: $accent-blue;
+  }
+}
+
+// Indicators inline
+.row-ctrl-icon, .row-demand-icon {
+  font-size: 10px;
+  margin-left: 2px;
+  vertical-align: middle;
+}
+
+// Control status tags
+.ctrl-tag {
+  display: inline-block;
+  font-family: $font-mono;
+  font-size: 9px;
+  font-weight: $fw-semibold;
+  padding: 1px 4px;
+  border-radius: 2px;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+
+  &.ctrl-restricted {
+    color: $accent-red;
+    background: $accent-red-dim;
+  }
+
+  &.ctrl-monitored {
+    color: $accent-amber;
+    background: $accent-amber-dim;
+  }
+
+  &.ctrl-normal {
+    color: $accent-teal;
+    background: $accent-teal-dim;
+  }
+}
+
+// Helpers
+.mono {
+  font-family: $font-mono;
+}
+
+.dim {
+  color: $text-dim;
+}
+
+.unit {
+  font-size: 9px;
+  font-weight: $fw-normal;
+  color: $text-dim;
+}
+
+.no-data {
+  color: $text-dim;
+}
+
+// ── Page legend ──
+.elements-page-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $sp-3 $sp-5;
+  padding: $sp-3 0;
+  border-top: 1px solid $border-primary;
+  margin-top: $sp-4;
+  font-size: $fs-xs;
+  color: $text-muted;
+
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: $sp-1;
+  }
+
+  .legend-icon {
+    font-size: 11px;
+    line-height: 1;
+  }
+}
+
+// ── Responsive: hide columns on mobile ──
+@include bp-max-md {
+  .elements-table {
+    thead th.col-family,
+    thead th.col-form {
+      display: none;
+    }
+  }
+}
