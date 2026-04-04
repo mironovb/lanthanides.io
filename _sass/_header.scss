@@ -20,6 +20,14 @@
   display: flex;
   align-items: center;
   gap: $sp-2;
+  text-decoration: none;
+
+  .brand-logo {
+    width: 24px;
+    height: 24px;
+    flex-shrink: 0;
+    border-radius: 3px;
+  }
 
   .brand-name {
     font-family: $font-mono;

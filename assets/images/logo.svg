@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+  <rect x="4" y="4" width="56" height="56" rx="6" fill="#1a1d23"/>
+  <rect x="8" y="8" width="48" height="48" rx="3" fill="none" stroke="#4a5060" stroke-width="1"/>
+  <text x="32" y="38" text-anchor="middle" font-family="'Source Serif 4', Georgia, serif" font-size="26" font-weight="700" fill="#ffffff">La</text>
+  <text x="32" y="52" text-anchor="middle" font-family="'IBM Plex Mono', monospace" font-size="7" font-weight="400" fill="#7a8296">.io</text>
+</svg>
