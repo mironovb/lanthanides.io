@@ -20,6 +20,12 @@ layout: default
     {% endif %}
   </header>
 
+  {% if page.image %}
+  <figure class="article-hero-image">
+    <img src="{{ '/assets/images/' | append: page.image | relative_url }}" alt="{{ page.image_alt | default: page.title }}" loading="lazy" width="1200" height="721">
+  </figure>
+  {% endif %}
+
   <div class="article-body">
     {{ content }}
   </div>

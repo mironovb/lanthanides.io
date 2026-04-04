@@ -64,6 +64,20 @@
   }
 }
 
+// ── Article hero image ──
+.article-hero-image {
+  margin: 0 0 $sp-5;
+  border-radius: $radius-md;
+  overflow: hidden;
+  border: 1px solid $border-primary;
+
+  img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+}
+
 // ── Article body ──
 .article-body {
   h2 {

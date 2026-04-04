@@ -22,11 +22,20 @@ permalink: /news/
   </header>
 
   {% comment %} ── Featured / hero story ── {% endcomment %}
+  {% comment %} Look up article to check for image {% endcomment %}
+  {% assign featured_article = nil %}
+  {% if featured.article %}
+    {% for a in site.articles %}{% if a.slug == featured.article %}{% assign featured_article = a %}{% break %}{% endif %}{% endfor %}
+  {% endif %}
   <article class="np-hero">
     <div class="np-hero-image {% if featured.status == 'active' %}np-img-active{% elsif featured.status == 'suspended' %}np-img-suspended{% endif %}">
-      <div class="np-img-placeholder">
-        <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6 38l10-14 8 10 6-8 12 12H6z" fill="currentColor" opacity="0.15"/><circle cx="34" cy="14" r="4" fill="currentColor" opacity="0.15"/><rect x="2" y="2" width="44" height="44" rx="2" stroke="currentColor" opacity="0.2" stroke-width="1.5" fill="none"/></svg>
-      </div>
+      {% if featured_article and featured_article.image %}
+        <img src="{{ '/assets/images/' | append: featured_article.image | relative_url }}" alt="{{ featured_article.image_alt | default: featured.headline }}" class="np-img-real" loading="lazy">
+      {% else %}
+        <div class="np-img-placeholder">
+          <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6 38l10-14 8 10 6-8 12 12H6z" fill="currentColor" opacity="0.15"/><circle cx="34" cy="14" r="4" fill="currentColor" opacity="0.15"/><rect x="2" y="2" width="44" height="44" rx="2" stroke="currentColor" opacity="0.2" stroke-width="1.5" fill="none"/></svg>
+        </div>
+      {% endif %}
       {% if featured.tag %}<span class="np-tag">{{ featured.tag }}</span>{% endif %}
     </div>
     <div class="np-hero-body">
@@ -35,14 +44,8 @@ permalink: /news/
         {% if featured.status == 'active' %}<span class="status-badge status-active">In Force</span>{% endif %}
         {% if featured.status == 'suspended' %}<span class="status-badge status-suspended">Suspended</span>{% endif %}
       </div>
-      {% if featured.article %}
-        {% assign article_page = nil %}
-        {% for a in site.articles %}{% if a.slug == featured.article %}{% assign article_page = a %}{% break %}{% endif %}{% endfor %}
-        {% if article_page %}
-          <h2 class="np-hero-headline"><a href="{{ article_page.url | relative_url }}">{{ featured.headline }}</a></h2>
-        {% else %}
-          <h2 class="np-hero-headline">{{ featured.headline }}</h2>
-        {% endif %}
+      {% if featured_article %}
+        <h2 class="np-hero-headline"><a href="{{ featured_article.url | relative_url }}">{{ featured.headline }}</a></h2>
       {% else %}
         <h2 class="np-hero-headline">{{ featured.headline }}</h2>
       {% endif %}
@@ -70,11 +73,19 @@ permalink: /news/
   {% comment %} ── News tile grid ── {% endcomment %}
   <div class="np-grid">
     {% for item in rest %}
+      {% assign tile_article = nil %}
+      {% if item.article %}
+        {% for a in site.articles %}{% if a.slug == item.article %}{% assign tile_article = a %}{% break %}{% endif %}{% endfor %}
+      {% endif %}
       <article class="np-tile">
         <div class="np-tile-image {% if item.status == 'active' %}np-img-active{% elsif item.status == 'suspended' %}np-img-suspended{% endif %}">
-          <div class="np-img-placeholder np-img-placeholder-sm">
-            <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6 38l10-14 8 10 6-8 12 12H6z" fill="currentColor" opacity="0.15"/><circle cx="34" cy="14" r="4" fill="currentColor" opacity="0.15"/><rect x="2" y="2" width="44" height="44" rx="2" stroke="currentColor" opacity="0.2" stroke-width="1.5" fill="none"/></svg>
-          </div>
+          {% if tile_article and tile_article.image_thumb %}
+            <img src="{{ '/assets/images/' | append: tile_article.image_thumb | relative_url }}" alt="{{ tile_article.image_alt | default: item.headline }}" class="np-img-real" loading="lazy">
+          {% else %}
+            <div class="np-img-placeholder np-img-placeholder-sm">
+              <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6 38l10-14 8 10 6-8 12 12H6z" fill="currentColor" opacity="0.15"/><circle cx="34" cy="14" r="4" fill="currentColor" opacity="0.15"/><rect x="2" y="2" width="44" height="44" rx="2" stroke="currentColor" opacity="0.2" stroke-width="1.5" fill="none"/></svg>
+            </div>
+          {% endif %}
           {% if item.tag %}<span class="np-tag">{{ item.tag }}</span>{% endif %}
         </div>
         <div class="np-tile-body">
@@ -83,14 +94,8 @@ permalink: /news/
             {% if item.status == 'active' %}<span class="status-badge status-active">In Force</span>{% endif %}
             {% if item.status == 'suspended' %}<span class="status-badge status-suspended">Suspended</span>{% endif %}
           </div>
-          {% if item.article %}
-            {% assign article_page = nil %}
-            {% for a in site.articles %}{% if a.slug == item.article %}{% assign article_page = a %}{% break %}{% endif %}{% endfor %}
-            {% if article_page %}
-              <h3 class="np-tile-headline"><a href="{{ article_page.url | relative_url }}">{{ item.headline }}</a></h3>
-            {% else %}
-              <h3 class="np-tile-headline">{{ item.headline }}</h3>
-            {% endif %}
+          {% if tile_article %}
+            <h3 class="np-tile-headline"><a href="{{ tile_article.url | relative_url }}">{{ item.headline }}</a></h3>
           {% else %}
             <h3 class="np-tile-headline">{{ item.headline }}</h3>
           {% endif %}

@@ -4,6 +4,9 @@ subtitle: "The six-layer domestic regulatory architecture that constrains rare e
 date: 2026-04-03
 status: active
 elements: [Sm, Gd, Tb, Dy, Lu, Sc, Y, Ho, Tm, Eu, Er, Yb]
+image: china-rare-earth-controls-1200.jpg
+image_thumb: china-rare-earth-controls-600.jpg
+image_alt: "Periodic table element blocks for rare earth metals displayed against the Chinese flag"
 ---
 
 Chinese rare earth sellers who refuse to quote holmium or describe thulium exports as requiring "complex procedures" are not exaggerating --- they are responding rationally to a **six-layer regulatory architecture** that constrains trade regardless of whether formal export controls are active.
