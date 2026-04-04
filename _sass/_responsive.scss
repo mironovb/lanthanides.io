@@ -1,13 +1,190 @@
-// Mobile-first responsive overrides
+// ══════════════════════════════════════════════════════════════
+// Comprehensive mobile responsive overrides
+// ══════════════════════════════════════════════════════════════
 
+// ── Tablet and below (< 768px) ──────────────────────────────
 @include bp-max-md {
+
+  // ── Global ──
   .site-main {
-    padding-top: $sp-4;
+    padding-top: $sp-3;
     padding-bottom: $sp-6;
+  }
+
+  .page-title {
+    font-size: $fs-xl;
+  }
+
+  .page-description {
+    font-size: $fs-sm;
+    margin-bottom: $sp-4;
+  }
+
+  // ── Header / Nav ──
+  .site-header {
+    height: auto;
+    min-height: $header-height;
+    padding: $sp-2 0;
+
+    .header-inner {
+      flex-wrap: wrap;
+      gap: $sp-1;
+    }
+  }
+
+  .site-brand {
+    .brand-name {
+      font-size: $fs-xs;
+    }
+
+    .brand-logo {
+      width: 20px;
+      height: 20px;
+    }
+  }
+
+  .site-nav {
+    gap: 0;
+    flex-wrap: wrap;
+
+    a {
+      padding: $sp-1 $sp-2;
+      font-size: $fs-xs;
+      white-space: nowrap;
+    }
+  }
+
+  // ── Home header ──
+  .home-header {
+    padding: $sp-4 0 $sp-3;
+    margin-bottom: $sp-4;
+
+    .home-title {
+      font-size: $fs-lg;
+    }
+
+    .home-subtitle {
+      font-size: $fs-xs;
+    }
+  }
+
+  // ── Home top row: stack news + KD vertically ──
+  .home-top-row {
+    grid-template-columns: 1fr;
+    gap: $sp-4;
+  }
+
+  .panel-label {
+    font-size: $fs-sm;
+    margin-bottom: $sp-3;
+  }
+
+  // ── News entries on home ──
+  .news-entry {
+    padding: $sp-2 0;
+  }
+
+  .news-entry-title {
+    font-size: $fs-xs;
+  }
+
+  .news-entry-body {
+    font-size: 10px;
+    line-height: $lh-normal;
+  }
+
+  .news-entry-head {
+    flex-wrap: wrap;
+    gap: $sp-1;
+  }
+
+  // ── KD section ──
+  .kd-summary {
+    flex-wrap: wrap;
+    gap: $sp-1;
+  }
+
+  .kd-title {
+    font-size: 11px;
+  }
+
+  .kd-detail {
+    font-size: 10px;
+  }
+
+  // ── Element grid ──
+  .elements-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: $sp-2;
+  }
+
+  .element-tile {
+    padding: $sp-2 $sp-2 0;
+
+    .tile-symbol {
+      font-size: $fs-xl;
+    }
+
+    .tile-name {
+      font-size: 10px;
+    }
+
+    .tile-price {
+      font-size: $fs-xs;
+    }
+
+    .tile-price-tag {
+      font-size: 8px;
+      width: 26px;
+    }
+
+    .tile-form {
+      font-size: 8px;
+    }
+
+    .tile-unit {
+      font-size: 8px;
+    }
+  }
+
+  // ── Legends ──
+  .category-legend,
+  .indicator-legend {
+    gap: $sp-2 $sp-3;
+    font-size: 10px;
+  }
+
+  // ── Element detail page ──
+  .element-header {
+    flex-direction: column;
+    gap: $sp-3;
+
+    .element-symbol-block {
+      width: 56px;
+      height: 56px;
+    }
   }
 
   .element-prices-row {
     grid-template-columns: 1fr;
+  }
+
+  .market-stats-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .data-table {
+    font-size: $fs-xs;
+
+    th, td {
+      padding: $sp-1 $sp-2;
+    }
+  }
+
+  // ── Tables: horizontal scroll wrapper ──
+  .element-section {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
   }
 
   .layout-with-sidebar {
@@ -19,33 +196,288 @@
     }
   }
 
-  .data-table {
+  // ── Footer ──
+  .site-footer {
+    .footer-inner {
+      font-size: 10px;
+      padding: 0 $sp-3;
+    }
+
+    .footer-methodology {
+      font-size: 10px;
+    }
+
+    .footer-license {
+      font-size: 10px;
+    }
+  }
+
+  // ── Article page ──
+  .article-page {
+    padding: $sp-3 0 $sp-6;
+  }
+
+  .article-title {
+    font-size: $fs-lg;
+  }
+
+  .article-subtitle {
     font-size: $fs-xs;
+  }
 
-    th, td {
-      padding: $sp-1 $sp-2;
+  .article-body {
+    h2 {
+      font-size: $fs-md;
+      margin: $sp-4 0 $sp-2;
+    }
+
+    h3 {
+      font-size: $fs-sm;
+    }
+
+    p {
+      font-size: $fs-xs;
+    }
+
+    table {
+      font-size: 10px;
+      display: block;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    blockquote {
+      padding: $sp-2 $sp-3;
+      margin: $sp-2 0;
+
+      p {
+        font-size: $fs-xs;
+      }
     }
   }
 
-  .element-header {
-    .element-symbol-block {
-      width: 56px;
-      height: 56px;
+  // ── Elements reference page ──
+  .elements-page {
+    padding: $sp-3 0 $sp-6;
+  }
+
+  .elements-category-heading {
+    font-size: $fs-sm;
+  }
+
+  .elements-table {
+    font-size: 10px;
+
+    thead th {
+      font-size: 8px;
+      padding: $sp-1;
+    }
+
+    tbody td {
+      padding: $sp-1;
+    }
+
+    // Hide less-critical columns on mobile
+    thead th.col-family,
+    thead th.col-form,
+    thead th.col-origin,
+    tbody td.col-family,
+    tbody td.col-form,
+    tbody td.col-origin {
+      display: none;
     }
   }
 
-  .elements-grid {
-    grid-template-columns: repeat(2, 1fr);
+  .col-sym {
+    font-size: $fs-sm;
+  }
+
+  .elements-page-legend {
+    gap: $sp-2 $sp-3;
+    font-size: 10px;
+  }
+
+  // ── News page ──
+  .np {
+    padding: $sp-3 0 $sp-6;
+  }
+
+  .np-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: $sp-1;
+    padding-bottom: $sp-3;
+    margin-bottom: $sp-4;
+  }
+
+  .np-title {
+    font-size: $fs-xl;
+  }
+
+  .np-subtitle {
+    font-size: $fs-xs;
+  }
+
+  .np-hero {
+    grid-template-columns: 1fr;
+    gap: $sp-3;
+    margin-bottom: $sp-4;
+  }
+
+  .np-hero-image {
+    aspect-ratio: 16 / 9;
+  }
+
+  .np-hero-headline {
+    font-size: $fs-lg;
+  }
+
+  .np-hero-excerpt {
+    font-size: $fs-xs;
+  }
+
+  .np-grid {
+    grid-template-columns: 1fr;
+    gap: $sp-3;
+  }
+
+  .np-tile-headline {
+    font-size: $fs-xs;
+  }
+
+  .np-tile-excerpt {
+    font-size: 10px;
+  }
+
+  .np-divider {
+    margin-bottom: $sp-3;
   }
 }
 
+// ── Small phones (< 480px) ──────────────────────────────────
 @include bp-max-sm {
+
+  // Single-column element grid at very small sizes
   .elements-grid {
     grid-template-columns: repeat(2, 1fr);
     gap: $sp-2;
   }
 
   .element-tile {
-    .tile-symbol { font-size: $fs-xl; }
+    .tile-symbol { font-size: $fs-lg; }
+
+    .tile-prices {
+      padding: $sp-1 0;
+      gap: 2px;
+    }
+
+    .tile-price-row {
+      min-height: 14px;
+    }
+
+    // Hide date on very small screens to prevent overflow
+    .tile-date {
+      display: none;
+    }
   }
+
+  // Stack nav fully
+  .site-header .header-inner {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: $sp-1;
+  }
+
+  .site-nav {
+    width: 100%;
+    justify-content: flex-start;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+
+  // Home: reduce padding further
+  .home-header {
+    padding: $sp-3 0 $sp-2;
+    margin-bottom: $sp-3;
+  }
+
+  // News hero: tighter
+  .np-hero-headline {
+    font-size: $fs-md;
+  }
+
+  // Elements table: hide even more columns
+  .elements-table {
+    thead th.col-ctrl,
+    tbody td.col-ctrl {
+      display: none;
+    }
+  }
+
+  // KD: full width
+  .kd-entry {
+    padding: $sp-1 0 $sp-1 $sp-2;
+  }
+
+  // Article: tighter margins
+  .article-body {
+    h2 {
+      font-size: $fs-sm;
+    }
+
+    ul, ol {
+      padding-left: $sp-3;
+      font-size: 11px;
+    }
+  }
+
+  // Footer
+  .site-footer .footer-methodology {
+    font-size: 9px;
+  }
+}
+
+// ── Ensure touch targets are adequate ───────────────────────
+@media (pointer: coarse) {
+  .site-nav a {
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+  }
+
+  .element-tile {
+    min-height: 44px;
+  }
+
+  .kd-summary {
+    min-height: 44px;
+    padding: $sp-2 0;
+  }
+
+  .np-tile {
+    min-height: 44px;
+  }
+
+  .news-entry a,
+  .news-headline-link,
+  .np-hero-headline a,
+  .np-tile-headline a {
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+  }
+}
+
+// ── Prevent horizontal overflow globally ────────────────────
+html {
+  overflow-x: hidden;
+}
+
+.site-wrapper {
+  overflow-x: hidden;
 }
