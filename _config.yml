@@ -1,7 +1,7 @@
 title: "lanthanides.io"
 description: "Pricing intelligence for rare earths, rare metals, strategic metals & semiconductor materials"
-url: "https://mironovb.github.io"
-baseurl: "/periodicpricing"
+url: "https://www.lanthanides.io"
+baseurl: ""
 
 markdown: kramdown
 highlighter: rouge
