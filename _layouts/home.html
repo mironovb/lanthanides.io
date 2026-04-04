@@ -57,18 +57,18 @@ layout: default
     <h2 class="panel-label">Key Developments</h2>
     <div class="kd-list">
       {% for item in site.data.key_developments %}
-        <div class="kd-entry {% if item.severity == 'high' %}kd-entry-high{% else %}kd-entry-med{% endif %}">
-          <div class="kd-content">
-            <div class="kd-title-row">
-              <strong class="kd-title">{{ item.title }}</strong>
-              {% if item.status == 'active' %}<span class="status-badge status-active">In Force</span>{% endif %}
-              {% if item.status == 'suspended' %}<span class="status-badge status-suspended">Suspended</span>{% endif %}
-            </div>
+        <details class="kd-entry {% if item.severity == 'high' %}kd-entry-high{% else %}kd-entry-med{% endif %}">
+          <summary class="kd-summary">
+            <span class="kd-title">{{ item.title }}</span>
+            {% if item.status == 'active' %}<span class="status-badge status-active">In Force</span>{% endif %}
+            {% if item.status == 'suspended' %}<span class="status-badge status-suspended">Suspended</span>{% endif %}
+          </summary>
+          <div class="kd-detail-body">
             <p class="kd-detail">{{ item.detail }}</p>
             {% if item.elements %}<span class="kd-elements">{{ item.elements | join: "  " }}</span>{% endif %}
             {% if item.ref and item.ref != "" %}<cite class="kd-ref">{{ item.ref }}</cite>{% endif %}
           </div>
-        </div>
+        </details>
       {% endfor %}
     </div>
   </section>

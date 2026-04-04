@@ -178,7 +178,7 @@
   }
 }
 
-// ── Key Developments (right column) ──────────────────────────
+// ── Key Developments (right column, collapsible) ─────────────
 .kd-section {
   min-width: 0;
 }
@@ -186,45 +186,57 @@
 .kd-list {
   display: flex;
   flex-direction: column;
-  gap: $sp-4;
+  gap: 0;
 }
 
 .kd-entry {
   border-left: 2px solid $border-secondary;
-  padding: $sp-1 0 $sp-1 $sp-3;
+  padding: $sp-2 0 $sp-2 $sp-3;
+  border-bottom: 1px solid $border-primary;
+
+  &:last-child { border-bottom: none; }
 
   &.kd-entry-high { border-left-color: $accent-red; }
   &.kd-entry-med  { border-left-color: $accent-amber; }
 }
 
-.kd-content {}
-
-.kd-title-row {
+.kd-summary {
   display: flex;
   align-items: baseline;
   gap: $sp-2;
-  flex-wrap: wrap;
+  cursor: pointer;
+  list-style: none;
+
+  &::-webkit-details-marker { display: none; }
+  &::marker { display: none; content: ""; }
+
+  &:hover .kd-title { color: $text-primary; }
 }
 
 .kd-title {
-  display: block;
   font-size: $fs-xs;
   font-weight: $fw-semibold;
   color: $text-primary;
   line-height: $lh-tight;
+  flex: 1;
+  min-width: 0;
+}
+
+.kd-detail-body {
+  padding-top: $sp-2;
 }
 
 .kd-detail {
   font-size: $fs-xs;
   color: $text-secondary;
   line-height: $lh-relaxed;
-  margin: 2px 0 0;
+  margin: 0;
 }
 
 .kd-elements {
   display: block;
   font-family: $font-mono;
-  font-size: $fs-xs;
+  font-size: 10px;
   color: $text-muted;
   margin-top: $sp-1;
 }
