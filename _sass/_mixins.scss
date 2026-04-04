@@ -5,6 +5,7 @@
 @mixin bp-xl { @media (min-width: $bp-xl) { @content; } }
 @mixin bp-max-sm { @media (max-width: #{$bp-sm - 1}) { @content; } }
 @mixin bp-max-md { @media (max-width: #{$bp-md - 1}) { @content; } }
+@mixin bp-max-lg { @media (max-width: #{$bp-lg - 1}) { @content; } }
 
 // Card surface
 @mixin card {
