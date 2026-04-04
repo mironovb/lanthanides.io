@@ -31,4 +31,18 @@
       &:hover { color: $text-primary; border-bottom-style: solid; }
     }
   }
+
+  .footer-license {
+    font-family: $font-sans;
+    font-size: $fs-xs;
+    color: $text-dim;
+    letter-spacing: 0;
+
+    a {
+      color: $text-muted;
+      text-decoration: none;
+      border-bottom: 1px dotted $border-secondary;
+      &:hover { color: $text-primary; border-bottom-style: solid; }
+    }
+  }
 }
