@@ -1,0 +1,42 @@
+{% comment %}
+  JSON-LD structured data for element detail pages.
+  Expects: page.symbol, page.name, page.description, cat_info, retail_ref, bulk_ref
+{% endcomment %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Product",
+  "name": "{{ page.name }} ({{ page.symbol }})",
+  "description": "{{ page.description | escape }}",
+  "url": "{{ site.url }}{{ page.url }}",
+  "category": "{% case cat_info.category %}{% when 'rare_earth_light' %}Light Rare Earth Element{% when 'rare_earth_heavy' %}Heavy Rare Earth Element{% when 'strategic_metal' %}Strategic Metal{% when 'semiconductor_metal' %}Semiconductor Metal{% endcase %}"{% if retail_ref or bulk_ref %},
+  "offers": [{% if retail_ref %}
+    {
+      "@type": "Offer",
+      "name": "Retail Reference",
+      "priceCurrency": "USD",
+      "price": "{{ retail_ref.normalized_usd_per_kg }}",
+      "unitCode": "KGM",
+      "priceValidUntil": "{{ retail_ref.quote_date }}",
+      "availability": "https://schema.org/InStock",
+      "seller": {
+        "@type": "Organization",
+        "name": "{{ retail_ref.seller_name | escape }}"
+      }
+    }{% if bulk_ref %},{% endif %}{% endif %}{% if bulk_ref %}
+    {
+      "@type": "Offer",
+      "name": "Bulk Benchmark",
+      "priceCurrency": "USD",
+      "price": "{{ bulk_ref.normalized_usd_per_kg }}",
+      "unitCode": "KGM",
+      "priceValidUntil": "{{ bulk_ref.quote_date }}",
+      "availability": "https://schema.org/InStock",
+      "seller": {
+        "@type": "Organization",
+        "name": "{{ bulk_ref.seller_name | escape }}"
+      }
+    }{% endif %}
+  ]{% endif %}
+}
+</script>

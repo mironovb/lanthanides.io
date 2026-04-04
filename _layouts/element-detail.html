@@ -79,6 +79,10 @@ layout: default
   {% endif %}
 {% endif %}
 
+{% include structured-data-element.html %}
+{% assign breadcrumb_current = page.symbol | append: " — " | append: page.name %}
+{% include structured-data-breadcrumb.html %}
+
 <nav class="breadcrumb" aria-label="Breadcrumb">
   <a href="{{ '/' | relative_url }}">Home</a>
   <span class="breadcrumb-sep">/</span>

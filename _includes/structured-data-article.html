@@ -1,0 +1,22 @@
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "{{ page.title | escape }}",
+  "description": "{{ page.subtitle | default: page.description | escape }}",
+  "url": "{{ site.url }}{{ page.url }}",
+  "datePublished": "{{ page.date | date_to_xmlschema }}",
+  "dateModified": "{{ page.last_modified_at | default: page.date | date_to_xmlschema }}",
+  "author": {
+    "@type": "Organization",
+    "name": "{{ site.title | escape }}",
+    "url": "{{ site.url }}{{ site.baseurl }}/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "{{ site.title | escape }}",
+    "url": "{{ site.url }}{{ site.baseurl }}/"
+  }{% if page.image %},
+  "image": "{{ site.url }}/assets/images/{{ page.image }}"{% endif %}
+}
+</script>

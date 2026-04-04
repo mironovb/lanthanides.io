@@ -2,6 +2,13 @@ title: "lanthanides.io"
 description: "Pricing intelligence for rare earths, rare metals, strategic metals & semiconductor materials"
 url: "https://www.lanthanides.io"
 baseurl: ""
+lang: "en"
+
+author:
+  name: "Bogdan Mironov"
+
+twitter:
+  card: summary_large_image
 
 markdown: kramdown
 highlighter: rouge

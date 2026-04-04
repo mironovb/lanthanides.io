@@ -1,0 +1,12 @@
+---
+layout: null
+---
+/* TEAM */
+Creator: Bogdan Mironov
+Site: {{ site.url }}
+
+/* SITE */
+Standards: HTML5, CSS3
+Software: Jekyll {{ jekyll.version }}
+Components: jekyll-seo-tag, jekyll-sitemap, jekyll-feed
+Fonts: IBM Plex Sans, IBM Plex Mono, Source Serif 4
