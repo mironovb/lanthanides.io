@@ -1,6 +1,21 @@
 # Regulatory & Trade Developments — China Export Controls Timeline
 # status: active | suspended | superseded | historic
 
+- date: 2026-04-04
+  headline: "eBay rare earth market research: who sells what, and at what price"
+  body: >-
+    Multi-platform survey of retail rare earth and strategic metal pricing across eBay,
+    Alibaba, and Amazon — April 2026. Documents every qualifying listing for 25+ elements,
+    mapping the seller landscape from European specialists to Chinese industrial wholesalers.
+    Retail premiums range from 1–2x (gallium) to over 100x (yttrium) versus bulk benchmarks.
+  status: active
+  tag: Market Research
+  article: ebay-rare-earth-market-research-april-2026
+  elements: [La, Ce, Nd, Pr, Dy, Tb, Gd, Ho, Tm, Sc, Eu, Er, Y, Sm, Yb, Te, Ga, Ge, In, Co, Bi, W, Zr, V, Nb]
+  references:
+    - label: "Primary survey data: eBay (US-shipping & global), Alibaba, Amazon"
+      note: "Survey date 4 Apr 2026; excludes bogmir-71 (KZ) and natsh5543 (US) seller accounts"
+
 - date: 2026-04-03
   headline: "China's invisible rare earth wall: why suspended controls don't mean available supply"
   body: >-
