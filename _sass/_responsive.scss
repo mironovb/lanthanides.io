@@ -212,6 +212,7 @@
   // ── Article page ──
   .article-page {
     padding: $sp-5 0 $sp-8;
+    overflow-x: hidden;
   }
 
   .article-title {
@@ -223,6 +224,10 @@
   }
 
   .article-body {
+    overflow-wrap: break-word;
+    word-break: break-word;
+    min-width: 0;
+
     h2 {
       font-size: $fs-lg;
       margin: $sp-6 0 $sp-3;
@@ -241,6 +246,7 @@
       display: block;
       overflow-x: auto;
       -webkit-overflow-scrolling: touch;
+      width: 100%;
     }
 
     blockquote {
