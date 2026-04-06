@@ -1,13 +1,16 @@
 ---
 layout: default
-title: "All Elements"
-description: "Browse all tracked rare earths, rare metals, and semiconductor materials with current prices."
+title: "All Rare Earth & Strategic Metal Prices — Element Directory"
+description: "Compare current prices per kilogram for all 31 tracked rare earth elements, strategic metals, and semiconductor materials. Retail and bulk benchmarks with export control status."
 permalink: /elements/
 ---
 
+{% assign breadcrumb_current = "All Elements" %}
+{% include structured-data-breadcrumb.html %}
+
 <div class="elements-page">
-  <h1 class="page-title">All Elements</h1>
-  <p class="page-description">{{ site.data.element_catalog.size }} elements tracked across four categories, sorted by atomic number within each group.</p>
+  <h1 class="page-title">All Rare Earth & Strategic Metal Prices</h1>
+  <p class="page-description">Current prices per kilogram for {{ site.data.element_catalog.size }} rare earth elements, strategic metals, and semiconductor materials. Each element shows retail reference and bulk benchmark pricing with export control status. Prices are normalised to USD/kg from verified, in-stock listings.</p>
 
   {% comment %} ── Build ordered array by category then Z ── {% endcomment %}
   {% assign cat_order = "rare_earth_light,rare_earth_heavy,strategic_metal,semiconductor_metal" | split: "," %}

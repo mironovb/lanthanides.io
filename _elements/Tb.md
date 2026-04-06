@@ -4,8 +4,8 @@ symbol: Tb
 name: Terbium
 atomic_number: 65
 category: rare_earth_heavy
-title: "Terbium (Tb)"
-description: "Price tracking, provenance, and supply intelligence for Terbium (Tb)."
+title: "Terbium Price per kg — Current Tb Rare Earth Pricing"
+description: "Current terbium (Tb) price per kilogram — retail, FOB China, and domestic benchmarks. Track Tb pricing for terbium oxide and NdFeB magnet dopant. Under active Chinese export control."
 permalink: /elements/Tb/
 ---
 

@@ -4,8 +4,8 @@ symbol: Lu
 name: Lutetium
 atomic_number: 71
 category: rare_earth_heavy
-title: "Lutetium (Lu)"
-description: "Price tracking, provenance, and supply intelligence for Lutetium (Lu). LYSO/LSO PET crystals, Lu-177 radiopharmaceuticals, and Chinese export controls."
+title: "Lutetium Price per kg — Current Lu Rare Earth Pricing"
+description: "Current lutetium (Lu) price per kilogram with retail and bulk benchmarks. Track Lu pricing for lutetium oxide, LYSO PET scanner crystals, and Lu-177 radiopharmaceuticals. Under active Chinese export control."
 permalink: /elements/Lu/
 ---
 

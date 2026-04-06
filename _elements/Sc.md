@@ -4,8 +4,8 @@ symbol: Sc
 name: Scandium
 atomic_number: 21
 category: rare_earth_light
-title: "Scandium (Sc)"
-description: "Price tracking, provenance, and supply intelligence for Scandium (Sc)."
+title: "Scandium Price per kg — Current Sc Pricing & Export Controls"
+description: "Current scandium (Sc) price per kilogram with retail and bulk benchmarks. Track Sc pricing for scandium oxide, metal, and Al-Sc aerospace alloys. Under active Chinese export control."
 permalink: /elements/Sc/
 ---
 

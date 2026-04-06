@@ -69,6 +69,10 @@
     }
   }
 
+  .home-seo-intro p {
+    font-size: $fs-xs;
+  }
+
   // ── Home top row: stack news + KD vertically ──
   .home-top-row {
     grid-template-columns: 1fr;

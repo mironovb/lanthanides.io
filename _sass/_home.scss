@@ -4,12 +4,12 @@
   margin-bottom: $sp-6;
 
   .home-title {
-    font-family: $font-mono;
+    font-family: $font-sans;
     font-size: $fs-xl;
-    font-weight: $fw-semibold;
+    font-weight: $fw-bold;
     color: $text-primary;
     letter-spacing: -0.02em;
-    line-height: 1;
+    line-height: $lh-tight;
   }
 
   .home-subtitle {
@@ -456,4 +456,25 @@
   text-decoration: none;
   border-bottom: 1px dotted $border-secondary;
   &:hover { color: $text-primary; border-bottom-style: solid; }
+}
+
+// ── SEO intro paragraph ─────────────────────────────────────
+.home-seo-intro {
+  margin-bottom: $sp-6;
+  padding: $sp-4 0;
+  border-top: 1px solid $border-primary;
+
+  p {
+    font-size: $fs-sm;
+    color: $text-secondary;
+    line-height: $lh-relaxed;
+    margin: 0 0 $sp-3;
+
+    &:last-child { margin-bottom: 0; }
+  }
+
+  strong {
+    color: $text-primary;
+    font-weight: $fw-semibold;
+  }
 }

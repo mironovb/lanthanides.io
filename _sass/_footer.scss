@@ -15,6 +15,22 @@
     gap: $sp-3;
   }
 
+  .footer-nav {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: $sp-2 $sp-4;
+    margin-bottom: $sp-2;
+
+    a {
+      font-family: $font-sans;
+      font-size: $fs-xs;
+      color: $text-muted;
+      text-decoration: none;
+      &:hover { color: $text-primary; }
+    }
+  }
+
   .footer-methodology {
     font-family: $font-sans;
     font-size: $fs-sm;

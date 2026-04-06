@@ -4,8 +4,8 @@ symbol: Ho
 name: Holmium
 atomic_number: 67
 category: rare_earth_heavy
-title: "Holmium (Ho)"
-description: "Price tracking, provenance, and supply intelligence for Holmium (Ho)."
+title: "Holmium Price per kg — Current Ho Rare Earth Pricing"
+description: "Current holmium (Ho) price per kilogram with retail and bulk benchmarks. Track Ho heavy rare earth pricing for holmium oxide and metal. Suspended Chinese export control reactivates Nov 2026."
 permalink: /elements/Ho/
 ---
 

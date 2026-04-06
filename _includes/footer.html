@@ -1,5 +1,13 @@
 <footer class="site-footer" role="contentinfo">
   <div class="footer-inner">
+    <nav class="footer-nav" aria-label="Footer navigation">
+      <a href="{{ '/' | relative_url }}">Rare Earth Prices</a>
+      <a href="{{ '/elements/' | relative_url }}">All Elements</a>
+      <a href="{{ '/news/' | relative_url }}">News &amp; Analysis</a>
+      <a href="{{ '/methodology/' | relative_url }}">Methodology</a>
+      <a href="{{ '/heatmap/' | relative_url }}">Price Heatmap</a>
+      <a href="{{ '/supply-risk/' | relative_url }}">Supply Risk</a>
+    </nav>
     <span>{{ site.elements | size }} elements &middot; {{ site.data.price_records | size }} price records &middot; Updated {{ site.time | date: "%Y-%m-%d" }}</span>
     <span class="footer-methodology">Prices shown are retail reference prices &mdash; the lowest verified, in-stock price from an established retailer for a practical quantity. Metal form is preferred where available; form and source are stated with each price. Bulk benchmarks from recognised pricing agencies are shown separately. <a href="{{ '/methodology/' | relative_url }}#display-price">Methodology</a></span>
     <span class="footer-license">&copy; {{ site.time | date: "%Y" }} lanthanides.io &middot; Content &amp; data: <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener license">CC BY 4.0</a> &middot; Code: <a href="https://opensource.org/licenses/MIT" target="_blank" rel="noopener">MIT</a></span>

@@ -4,8 +4,8 @@ symbol: V
 name: Vanadium
 atomic_number: 23
 category: strategic_metal
-title: "Vanadium (V)"
-description: "Price tracking, provenance, and supply intelligence for Vanadium (V). Steel alloys, Ti-6Al-4V aerospace, and VRFB energy storage."
+title: "Vanadium Price per kg — Current V Strategic Metal Pricing"
+description: "Current vanadium (V) price per kilogram with retail metal and V2O5 commodity benchmarks. Track V pricing for steel alloys, Ti-6Al-4V aerospace, and VRFB energy storage."
 permalink: /elements/V/
 ---
 

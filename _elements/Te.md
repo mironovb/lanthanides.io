@@ -4,8 +4,8 @@ symbol: Te
 name: Tellurium
 atomic_number: 52
 category: strategic_metal
-title: "Tellurium (Te)"
-description: "Price tracking, provenance, and supply intelligence for Tellurium (Te). CdTe solar cells, thermoelectrics, and Chinese export controls."
+title: "Tellurium Price per kg — Current Te Strategic Metal Pricing"
+description: "Current tellurium (Te) price per kilogram with retail and commodity benchmarks. Track Te pricing for CdTe solar cells, thermoelectrics, and infrared optics. Under permanent Chinese export control."
 permalink: /elements/Te/
 ---
 

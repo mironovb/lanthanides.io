@@ -16,7 +16,16 @@
     "@type": "Organization",
     "name": "{{ site.title | escape }}",
     "url": "{{ site.url }}{{ site.baseurl }}/"
-  }{% if page.image %},
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "{{ site.url }}{{ page.url }}"
+  },
+  "inLanguage": "en",
+  "about": [
+    {"@type": "Thing", "name": "Rare earth prices"},
+    {"@type": "Thing", "name": "Strategic metal market"}
+  ]{% if page.image %},
   "image": "{{ site.url }}/assets/images/{{ page.image }}"{% endif %}
 }
 </script>

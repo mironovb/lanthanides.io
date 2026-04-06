@@ -4,8 +4,8 @@ symbol: Tm
 name: Thulium
 atomic_number: 69
 category: rare_earth_heavy
-title: "Thulium (Tm)"
-description: "Price tracking, provenance, and supply intelligence for Thulium (Tm). Surgical lasers, S-band telecom amplifiers, and portable X-ray sources."
+title: "Thulium Price per kg — Current Tm Rare Earth Pricing"
+description: "Current thulium (Tm) price per kilogram with retail and bulk benchmarks. Track Tm heavy rare earth pricing for thulium metal and oxide used in surgical lasers and telecom amplifiers."
 permalink: /elements/Tm/
 ---
 

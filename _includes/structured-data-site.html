@@ -3,12 +3,63 @@
   "@context": "https://schema.org",
   "@type": "WebSite",
   "name": "{{ site.title | escape }}",
+  "alternateName": "Lanthanides.io",
   "url": "{{ site.url }}{{ site.baseurl }}/",
   "description": "{{ site.description | escape }}",
   "publisher": {
     "@type": "Organization",
     "name": "{{ site.title | escape }}",
     "url": "{{ site.url }}{{ site.baseurl }}/"
-  }
+  },
+  "inLanguage": "en",
+  "about": [
+    {"@type": "Thing", "name": "Rare earth element prices"},
+    {"@type": "Thing", "name": "Strategic metal pricing"},
+    {"@type": "Thing", "name": "Neodymium price"},
+    {"@type": "Thing", "name": "Dysprosium price"},
+    {"@type": "Thing", "name": "Terbium price"},
+    {"@type": "Thing", "name": "Gallium price"},
+    {"@type": "Thing", "name": "Germanium price"}
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What is the current price of rare earth elements?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Rare earth prices vary widely by element, form, and market tier. Light rare earths like lanthanum and cerium trade at $30-200/kg for oxide, while heavy rare earths like terbium ($800-1,200/kg oxide) and dysprosium ($280-350/kg oxide) command higher prices due to scarcity and export controls. Retail metal prices carry a 5-100x premium over bulk benchmarks. lanthanides.io tracks {{ site.data.price_records | size }} price records across {{ site.elements | size }} elements with both retail and bulk pricing."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How much does neodymium cost per kilogram?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Neodymium metal costs approximately $70-120/kg at bulk/industrial benchmark pricing for 99% oxide. Retail neodymium metal from established suppliers ranges from $1,200-20,000/kg depending on form, purity, and quantity. The wide spread reflects the difference between commodity-scale FOB China pricing and small-lot Western retail. NdFeB permanent magnet materials trade at different prices. See our neodymium page for current verified prices with full provenance."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Why are rare earth prices increasing?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Rare earth prices have been driven higher by Chinese export controls introduced since April 2025 (MOFCOM Announcement No. 18/2025), which restrict seven medium and heavy rare earths including samarium, gadolinium, terbium, dysprosium, lutetium, scandium, and yttrium. These controls created a two-tier pricing structure where FOB China export prices trade 30-50% above domestic Chinese levels, and Western retail prices are 3-8x higher. Additional controls on gallium, germanium, tungsten, tellurium, and other strategic metals further tightened supply."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What are China's rare earth export controls?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "China has implemented multiple layers of rare earth export controls since 2023: Announcement No. 23/2023 (gallium and germanium), No. 33/2024 (antimony), No. 46/2024 (Ga/Ge/Sb US ban), No. 10/2025 (tungsten, tellurium, bismuth, molybdenum, indium), and No. 18/2025 (seven heavy rare earths). The October 2025 escalation measures (Nos. 55-58, 61, 62) adding five more elements were suspended until November 2026. These controls require MOFCOM export licences with 4-6 month processing times."
+      }
+    }
+  ]
 }
 </script>

@@ -4,7 +4,7 @@ symbol: Bi
 name: Bismuth
 atomic_number: 83
 category: strategic_metal
-title: "Bismuth (Bi)"
-description: "Price tracking, provenance, and supply intelligence for Bismuth (Bi)."
+title: "Bismuth Price per kg — Current Bi Strategic Metal Pricing"
+description: "Current bismuth (Bi) price per kilogram with retail and bulk benchmarks. Track Bi pricing for bismuth metal ingot used in lead-free solder and pharmaceuticals."
 permalink: /elements/Bi/
 ---

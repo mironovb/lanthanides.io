@@ -1,8 +1,12 @@
 ---
 layout: default
-title: News
+title: "Rare Earth News — Export Controls, Trade Policy & Market Developments"
+description: "Latest developments in rare earth and strategic metal markets — Chinese export controls, MOFCOM announcements, trade policy changes, and supply chain analysis."
 permalink: /news/
 ---
+
+{% assign breadcrumb_current = "News" %}
+{% include structured-data-breadcrumb.html %}
 
 {% assign sorted_news = site.data.news | sort: "date" | reverse %}
 {% assign featured = sorted_news | first %}
@@ -13,8 +17,8 @@ permalink: /news/
   {% comment %} ── Page header ── {% endcomment %}
   <header class="np-header">
     <div class="np-header-inner">
-      <h1 class="np-title">Developments</h1>
-      <p class="np-subtitle">Export controls, trade policy, and regulatory changes affecting strategic material supply chains</p>
+      <h1 class="np-title">Rare Earth & Strategic Metal News</h1>
+      <p class="np-subtitle">Chinese export controls, MOFCOM announcements, trade policy changes, and market analysis affecting rare earth and strategic metal supply chains</p>
     </div>
     <div class="np-header-meta">
       <span class="np-count">{{ sorted_news.size }} articles</span>
