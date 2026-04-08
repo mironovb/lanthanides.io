@@ -1,5 +1,3 @@
-@use "sass:color";
-
 // ── Article page styles ──────────────────────────────────────
 .article-page {
   max-width: 780px;
@@ -63,7 +61,7 @@
     transition: background $transition-fast;
 
     &:hover {
-      background: color.adjust($accent-blue-dim, $lightness: -8%);
+      background: darken($accent-blue-dim, 8%);
     }
   }
 }
