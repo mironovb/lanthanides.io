@@ -1,5 +1,3 @@
-@use "sass:color";
-
 body {
   font-family: $font-sans;
   font-size: $fs-base;
@@ -44,7 +42,7 @@ a {
   color: $accent-blue;
   transition: color $transition-fast;
 
-  &:hover { color: color.adjust($accent-blue, $lightness: -10%); }
+  &:hover { color: darken($accent-blue, 10%); }
   &:focus-visible { outline: 2px solid $accent-blue; outline-offset: 2px; }
 }
 
