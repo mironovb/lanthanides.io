@@ -9,7 +9,6 @@ description: "Thulium metal at $1,750/kg EXW China. 19 retailers surveyed. Chine
 keywords: "thulium price, thulium price per kg, thulium metal price, thulium oxide price, Tm2O3 price, thulium export controls, buy thulium"
 element_name: "Thulium"
 element_symbol: "Tm"
-regulatory_status: "suspended"
 permalink: /elements/Tm/
 ---
 

@@ -9,7 +9,6 @@ description: "Tellurium at $110–120/kg, up 50% from 2024. Chinese sellers refu
 keywords: "tellurium price, tellurium price per kg, tellurium metal price, CdTe price, tellurium export controls, buy tellurium, First Solar tellurium"
 element_name: "Tellurium"
 element_symbol: "Te"
-regulatory_status: "active"
 permalink: /elements/Te/
 ---
 

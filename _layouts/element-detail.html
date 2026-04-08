@@ -26,48 +26,8 @@ layout: default
   {% endif %}
 {% endfor %}
 
-{% comment %} ── Retail Reference: lowest retail metal (5g-1kg, conf≥0.5), fallback to any form ── {% endcomment %}
-{% assign retail_ref = nil %}
-{% assign retail_ref_metal = nil %}
-{% assign retail_ref_any = nil %}
-{% for record in site.data.price_records %}
-  {% if record.element_symbol == page.symbol and record.market_tier == 'retail' %}
-    {% assign conf100 = record.confidence_score | times: 100 | round %}
-    {% if conf100 >= 50 %}
-      {% assign qty_g = record.quoted_quantity_kg | times: 1000 | round %}
-      {% if qty_g >= 5 and record.quoted_quantity_kg <= 1 %}
-        {% if record.form == 'metal' %}
-          {% if retail_ref_metal == nil or record.normalized_usd_per_kg < retail_ref_metal.normalized_usd_per_kg %}
-            {% assign retail_ref_metal = record %}
-          {% endif %}
-        {% endif %}
-        {% if retail_ref_any == nil or record.normalized_usd_per_kg < retail_ref_any.normalized_usd_per_kg %}
-          {% assign retail_ref_any = record %}
-        {% endif %}
-      {% endif %}
-    {% endif %}
-  {% endif %}
-{% endfor %}
-{% if retail_ref_metal %}
-  {% assign retail_ref = retail_ref_metal %}
-{% else %}
-  {% assign retail_ref = retail_ref_any %}
-{% endif %}
-
-{% comment %} ── Bulk Benchmark: most recent bulk/industrial record, conf≥0.6 ── {% endcomment %}
-{% assign bulk_ref = nil %}
-{% for record in site.data.price_records %}
-  {% if record.element_symbol == page.symbol %}
-    {% if record.market_tier == 'bulk' or record.market_tier == 'industrial' %}
-      {% assign conf100 = record.confidence_score | times: 100 | round %}
-      {% if conf100 >= 60 %}
-        {% if bulk_ref == nil or record.quote_date > bulk_ref.quote_date %}
-          {% assign bulk_ref = record %}
-        {% endif %}
-      {% endif %}
-    {% endif %}
-  {% endif %}
-{% endfor %}
+{% comment %} ── Retail + Bulk reference selection (shared logic) ── {% endcomment %}
+{% include price-selection.html symbol=page.symbol %}
 
 {% comment %} ── Retail Premium ratio ── {% endcomment %}
 {% assign retail_premium = nil %}

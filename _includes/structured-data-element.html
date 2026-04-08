@@ -38,7 +38,7 @@
       "priceCurrency": "USD",
       "price": "{{ retail_ref.normalized_usd_per_kg }}",
       "unitCode": "KGM",
-      "priceValidUntil": "{{ retail_ref.quote_date }}",
+      "priceValidUntil": "{{ retail_ref.quote_date | date: '%s' | plus: 7776000 | date: '%Y-%m-%d' }}",
       "availability": "https://schema.org/InStock",
       "seller": {
         "@type": "Organization",
@@ -52,7 +52,7 @@
       "priceCurrency": "USD",
       "price": "{{ bulk_ref.normalized_usd_per_kg }}",
       "unitCode": "KGM",
-      "priceValidUntil": "{{ bulk_ref.quote_date }}",
+      "priceValidUntil": "{{ bulk_ref.quote_date | date: '%s' | plus: 7776000 | date: '%Y-%m-%d' }}",
       "availability": "https://schema.org/InStock",
       "seller": {
         "@type": "Organization",

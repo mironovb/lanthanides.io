@@ -9,6 +9,5 @@ description: "Bismuth metal ingot retail and bulk benchmarks per kg. Lead-free s
 keywords: "bismuth price, bismuth price per kg, bismuth metal price, bismuth ingot price, Bi2O3 price, bismuth export controls, buy bismuth"
 element_name: "Bismuth"
 element_symbol: "Bi"
-regulatory_status: "active"
 permalink: /elements/Bi/
 ---

@@ -9,6 +9,7 @@
   family: Lanthanide
   default_forms: [oxide, metal]
   export_control_status: monitored
+  regulatory_status: none
   dominant_source_country: CN
   origin_countries: [CN, US, AU]
   trade_form: "Oxide (La₂O₃)"
@@ -24,6 +25,7 @@
   family: Lanthanide
   default_forms: [oxide, metal, compound]
   export_control_status: monitored
+  regulatory_status: none
   dominant_source_country: CN
   origin_countries: [CN, US, AU]
   trade_form: "Oxide (CeO₂)"
@@ -39,6 +41,7 @@
   family: Lanthanide
   default_forms: [oxide, metal, alloy]
   export_control_status: monitored
+  regulatory_status: none
   dominant_source_country: CN
   origin_countries: [CN, AU, MM]
   trade_form: "Oxide (Pr₆O₁₁)"
@@ -54,6 +57,7 @@
   family: Lanthanide
   default_forms: [oxide, metal, powder]
   export_control_status: monitored
+  regulatory_status: none
   dominant_source_country: CN
   origin_countries: [CN, AU, MM, US]
   trade_form: "Oxide (Nd₂O₃)"
@@ -69,6 +73,7 @@
   family: Lanthanide
   default_forms: [oxide, metal, alloy]
   export_control_status: restricted
+  regulatory_status: active
   dominant_source_country: CN
   origin_countries: [CN, AU]
   trade_form: "Oxide (Sm₂O₃)"
@@ -84,6 +89,7 @@
   family: Transition metal
   default_forms: [oxide, metal]
   export_control_status: restricted
+  regulatory_status: active
   dominant_source_country: CN
   origin_countries: [CN, AU, IN]
   trade_form: "Oxide (Y₂O₃)"
@@ -99,6 +105,7 @@
   family: Transition metal
   default_forms: [oxide, metal]
   export_control_status: restricted
+  regulatory_status: active
   dominant_source_country: CN
   origin_countries: [CN, AU, PH, RU]
   trade_form: "Oxide (Sc₂O₃), Metal, Al–Sc alloy"
@@ -117,6 +124,7 @@
   family: Lanthanide
   default_forms: [oxide, metal]
   export_control_status: monitored
+  regulatory_status: suspended
   dominant_source_country: CN
   origin_countries: [CN]
   trade_form: "Oxide (Eu₂O₃)"
@@ -132,6 +140,7 @@
   family: Lanthanide
   default_forms: [oxide, metal]
   export_control_status: restricted
+  regulatory_status: active
   dominant_source_country: CN
   origin_countries: [CN, AU]
   trade_form: "Oxide (Gd₂O₃)"
@@ -147,6 +156,7 @@
   family: Lanthanide
   default_forms: [oxide, metal]
   export_control_status: restricted
+  regulatory_status: active
   dominant_source_country: CN
   origin_countries: [CN, MM]
   trade_form: "Oxide (Tb₄O₇), Metal, Terfenol-D alloy"
@@ -163,6 +173,7 @@
   family: Lanthanide
   default_forms: [oxide, metal]
   export_control_status: restricted
+  regulatory_status: active
   dominant_source_country: CN
   origin_countries: [CN, MM, AU]
   trade_form: "Oxide (Dy₂O₃)"
@@ -178,6 +189,7 @@
   family: Lanthanide
   default_forms: [oxide, metal]
   export_control_status: monitored
+  regulatory_status: suspended
   dominant_source_country: CN
   origin_countries: [CN, AU, MY]
   trade_form: "Oxide (Ho₂O₃), Metal"
@@ -194,6 +206,7 @@
   family: Lanthanide
   default_forms: [oxide, metal]
   export_control_status: monitored
+  regulatory_status: suspended
   dominant_source_country: CN
   origin_countries: [CN, AU]
   trade_form: "Oxide (Er₂O₃)"
@@ -209,6 +222,7 @@
   family: Lanthanide
   default_forms: [oxide, metal]
   export_control_status: monitored
+  regulatory_status: suspended
   dominant_source_country: CN
   origin_countries: [CN, AU, MY]
   trade_form: "Oxide (Tm₂O₃), Metal"
@@ -225,6 +239,7 @@
   family: Lanthanide
   default_forms: [oxide, metal]
   export_control_status: monitored
+  regulatory_status: suspended
   dominant_source_country: CN
   origin_countries: [CN]
   trade_form: "Oxide (Yb₂O₃)"
@@ -240,6 +255,7 @@
   family: Lanthanide
   default_forms: [oxide, metal]
   export_control_status: restricted
+  regulatory_status: active
   dominant_source_country: CN
   origin_countries: [CN, AU]
   trade_form: "Oxide (Lu₂O₃), Metal, LYSO/LSO crystals"
@@ -258,6 +274,7 @@
   family: Metalloid
   default_forms: [metal, powder]
   export_control_status: restricted
+  regulatory_status: active
   dominant_source_country: CN
   origin_countries: [CN, JP, RU, SE, CA]
   trade_form: "Metal ingot, TeO₂ powder"
@@ -274,6 +291,7 @@
   family: Transition metal
   default_forms: [oxide, metal, alloy]
   export_control_status: normal
+  regulatory_status: none
   dominant_source_country: CN
   origin_countries: [CN, RU, ZA, BR]
   trade_form: "Pentoxide (V₂O₅), Ferrovanadium (FeV), Metal"
@@ -290,6 +308,7 @@
   family: Metalloid
   default_forms: [metal, oxide]
   export_control_status: restricted
+  regulatory_status: active
   dominant_source_country: CN
   origin_countries: [CN, TJ, RU, AU]
   trade_form: "Metal ingot"
@@ -305,6 +324,7 @@
   family: Transition metal
   default_forms: [metal, oxide, powder, carbide]
   export_control_status: restricted
+  regulatory_status: active
   dominant_source_country: CN
   origin_countries: [CN, VN, RU, AT]
   trade_form: "Powder / APT"
@@ -320,6 +340,7 @@
   family: Post-transition metal
   default_forms: [metal, oxide]
   export_control_status: monitored
+  regulatory_status: active
   dominant_source_country: CN
   origin_countries: [CN, VN, MX, JP]
   trade_form: "Metal ingot"
@@ -335,6 +356,7 @@
   family: Transition metal
   default_forms: [metal, oxide, powder]
   export_control_status: restricted
+  regulatory_status: active
   dominant_source_country: CN
   origin_countries: [CN, US, CL, PE]
   trade_form: "Oxide (MoO₃)"
@@ -350,6 +372,7 @@
   family: Transition metal
   default_forms: [metal, oxide, sponge]
   export_control_status: normal
+  regulatory_status: none
   dominant_source_country: AU
   origin_countries: [AU, ZA, CN, US]
   trade_form: "Sponge / oxide"
@@ -365,6 +388,7 @@
   family: Transition metal
   default_forms: [metal, powder, oxide]
   export_control_status: normal
+  regulatory_status: none
   dominant_source_country: CD
   origin_countries: [CD, RW, AU, BR, CN]
   trade_form: "Powder, capacitor-grade wire, metal ingot"
@@ -381,6 +405,7 @@
   family: Transition metal
   default_forms: [metal, oxide, alloy]
   export_control_status: normal
+  regulatory_status: none
   dominant_source_country: BR
   origin_countries: [BR, CA, AU]
   trade_form: "Ferroniobium (FeNb), Nb₂O₅, metal"
@@ -397,6 +422,7 @@
   family: Transition metal
   default_forms: [metal, oxide, compound]
   export_control_status: normal
+  regulatory_status: none
   dominant_source_country: CD
   origin_countries: [CD, AU, PH, CU, CN]
   trade_form: "Metal cathode, Co(OH)₂, CoSO₄"
@@ -413,6 +439,7 @@
   family: Alkali metal
   default_forms: [compound, metal]
   export_control_status: normal
+  regulatory_status: none
   dominant_source_country: AU
   origin_countries: [AU, CL, CN, AR, BR]
   trade_form: "Li₂CO₃ (battery-grade), LiOH·H₂O, spodumene concentrate"
@@ -431,6 +458,7 @@
   family: Post-transition metal
   default_forms: [metal, compound]
   export_control_status: restricted
+  regulatory_status: active
   dominant_source_country: CN
   origin_countries: [CN, JP, KR, DE]
   trade_form: "Metal (liquid/solid)"
@@ -446,6 +474,7 @@
   family: Metalloid
   default_forms: [metal, oxide]
   export_control_status: restricted
+  regulatory_status: active
   dominant_source_country: CN
   origin_countries: [CN, BE, CA, RU]
   trade_form: "Metal ingot / dioxide"
@@ -461,6 +490,7 @@
   family: Metalloid
   default_forms: [metal, powder]
   export_control_status: normal
+  regulatory_status: none
   dominant_source_country: CN
   origin_countries: [CN, JP, BE, DE]
   trade_form: "Powder / shot"
@@ -476,6 +506,7 @@
   family: Post-transition metal
   default_forms: [metal, oxide]
   export_control_status: monitored
+  regulatory_status: active
   dominant_source_country: CN
   origin_countries: [CN, KR, JP, CA]
   trade_form: "Metal ingot"

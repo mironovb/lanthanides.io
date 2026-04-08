@@ -121,49 +121,10 @@ layout: default
     {% endfor %}
 
     {% if elem %}
-      {% comment %} ── Retail Reference: lowest retail price (metal preferred, 5g-1kg, conf≥0.5) ── {% endcomment %}
-      {% assign retail_ref_metal = nil %}
-      {% assign retail_ref_any = nil %}
-      {% for record in site.data.price_records %}
-        {% if record.element_symbol == cat_info.symbol and record.market_tier == 'retail' %}
-          {% assign conf100 = record.confidence_score | times: 100 | round %}
-          {% if conf100 >= 50 %}
-            {% assign qty_g = record.quoted_quantity_kg | times: 1000 | round %}
-            {% if qty_g >= 5 and record.quoted_quantity_kg <= 1 %}
-              {% if record.form == 'metal' %}
-                {% if retail_ref_metal == nil or record.normalized_usd_per_kg < retail_ref_metal.normalized_usd_per_kg %}
-                  {% assign retail_ref_metal = record %}
-                {% endif %}
-              {% endif %}
-              {% if retail_ref_any == nil or record.normalized_usd_per_kg < retail_ref_any.normalized_usd_per_kg %}
-                {% assign retail_ref_any = record %}
-              {% endif %}
-            {% endif %}
-          {% endif %}
-        {% endif %}
-      {% endfor %}
-
-      {% assign tile_ref = nil %}
-      {% if retail_ref_metal %}
-        {% assign tile_ref = retail_ref_metal %}
-      {% else %}
-        {% assign tile_ref = retail_ref_any %}
-      {% endif %}
-
-      {% comment %} ── Bulk Benchmark: most recent bulk/industrial record, conf≥0.6 ── {% endcomment %}
-      {% assign tile_bulk = nil %}
-      {% for record in site.data.price_records %}
-        {% if record.element_symbol == cat_info.symbol %}
-          {% if record.market_tier == 'bulk' or record.market_tier == 'industrial' %}
-            {% assign conf100 = record.confidence_score | times: 100 | round %}
-            {% if conf100 >= 60 %}
-              {% if tile_bulk == nil or record.quote_date > tile_bulk.quote_date %}
-                {% assign tile_bulk = record %}
-              {% endif %}
-            {% endif %}
-          {% endif %}
-        {% endif %}
-      {% endfor %}
+      {% comment %} ── Retail + Bulk reference selection (shared logic) ── {% endcomment %}
+      {% include price-selection.html symbol=cat_info.symbol %}
+      {% assign tile_ref = retail_ref %}
+      {% assign tile_bulk = bulk_ref %}
 
       <a href="{{ elem.url | relative_url }}" class="element-tile cat-{{ cat_info.category | replace: '_', '-' }}">
         <div class="tile-top">

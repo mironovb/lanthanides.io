@@ -9,6 +9,5 @@ description: "Neodymium metal and oxide price per kg with retail and bulk benchm
 keywords: "neodymium price, neodymium price per kg, neodymium metal price, neodymium oxide price, Nd2O3 price, NdFeB magnet price, buy neodymium"
 element_name: "Neodymium"
 element_symbol: "Nd"
-regulatory_status: "none"
 permalink: /elements/Nd/
 ---

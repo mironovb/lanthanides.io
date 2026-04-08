@@ -9,7 +9,6 @@ description: "Scandium metal at $5,250/kg EXW China. 14+ retail sources surveyed
 keywords: "scandium price, scandium price per kg, scandium metal price, scandium oxide price, Sc2O3 price, scandium export controls, buy scandium"
 element_name: "Scandium"
 element_symbol: "Sc"
-regulatory_status: "active"
 permalink: /elements/Sc/
 ---
 

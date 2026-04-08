@@ -1,0 +1,89 @@
+---
+layout: data-page
+title: "China Rare Earth Export Controls Tracker 2026"
+description: "MOFCOM rare earth and strategic metal export-control timeline 2023–2026: announcement numbers, effective dates, affected elements, and current status."
+permalink: /regulatory/
+---
+
+{% assign breadcrumb_current = "Regulatory Tracker" %}
+{% include structured-data-breadcrumb.html %}
+
+<div class="element-section">
+  <h2 class="section-title">Active Controls by Element</h2>
+  <p class="text-sm text-secondary mb-4">
+    Status reflects whether export licences are currently required (active),
+    whether controls are paused under a suspension order (suspended), or whether no
+    Chinese export-control regime currently applies (none). Click any symbol to see the
+    element's full price page.
+  </p>
+  <div class="risk-overview-grid">
+    {% assign cat_sorted = site.data.element_catalog | sort: "atomic_number" %}
+    {% for cat in cat_sorted %}
+      {% if cat.regulatory_status and cat.regulatory_status != 'none' %}
+        <div class="risk-card">
+          <div class="risk-card-header">
+            <h3>
+              <a href="{{ '/elements/' | append: cat.symbol | append: '/' | relative_url }}">{{ cat.symbol }}</a>
+              <span class="risk-card-name">{{ cat.name }}</span>
+            </h3>
+            {% if cat.regulatory_status == 'active' %}
+              <span class="badge-ctrl badge-restricted">Active</span>
+            {% elsif cat.regulatory_status == 'suspended' %}
+              <span class="badge-ctrl badge-monitored">Suspended</span>
+            {% endif %}
+          </div>
+          <div class="risk-factors">
+            <div class="risk-factor">
+              <span class="risk-dot {% if cat.regulatory_status == 'active' %}risk-high{% else %}risk-medium{% endif %}"></span>
+              {% if cat.regulatory_status == 'active' %}
+                Export licence required
+              {% else %}
+                Licence regime paused under suspension order
+              {% endif %}
+            </div>
+            {% if cat.notes %}
+              <div class="risk-factor"><span class="risk-dot risk-low"></span>{{ cat.notes | truncatewords: 20 }}</div>
+            {% endif %}
+          </div>
+        </div>
+      {% endif %}
+    {% endfor %}
+  </div>
+</div>
+
+<div class="element-section mt-6">
+  <h2 class="section-title">MOFCOM Announcement Timeline</h2>
+  <p class="text-sm text-secondary mb-4">
+    All published Chinese export-control announcements affecting rare earth elements,
+    strategic metals, and semiconductor materials. Sourced from MOFCOM, the General
+    Administration of Customs (GAC), and State Council publications.
+  </p>
+  <div class="policy-timeline">
+    {% assign sorted_events = site.data.policy_events | sort: 'date' | reverse %}
+    {% for event in sorted_events %}
+      <div class="timeline-item">
+        <div class="timeline-date">{{ event.date }}</div>
+        <div class="timeline-content">
+          <div class="flex-row" style="gap: 0.5rem; margin-bottom: 0.25rem;">
+            <span class="timeline-type type-{{ event.event_type | replace: '_', '-' }}">{{ event.event_type | replace: '_', ' ' }}</span>
+            <span class="text-xs text-dim">{{ event.source_country }}</span>
+          </div>
+          <div class="timeline-title">{{ event.title }}</div>
+          <div class="timeline-description">{{ event.description }}</div>
+          {% if event.source_name %}
+            <div class="text-xs text-dim mt-2"><strong>{{ event.source_name }}</strong>{% if event.notes %} — {{ event.notes }}{% endif %}</div>
+          {% endif %}
+          {% if event.affected_elements.size > 0 %}
+            <div class="timeline-affected">
+              {% for elem in event.affected_elements %}
+                <a href="{{ '/elements/' | append: elem | append: '/' | relative_url }}" class="timeline-element-tag">{{ elem }}</a>
+              {% endfor %}
+            </div>
+          {% endif %}
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+</div>
+
+{% include disclaimer.html %}

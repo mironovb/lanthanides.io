@@ -1,3 +1,17 @@
+.freshness-badge {
+  display: inline-block;
+  padding: 0 0.4em;
+  margin-left: 0.3em;
+  border-radius: 3px;
+  font-size: 0.9em;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+
+  &.freshness-fresh  { background: #1a4d1a; color: #b9f5b9; }
+  &.freshness-recent { background: #4d3a1a; color: #f5d7b9; }
+  &.freshness-stale  { background: #4d1a1a; color: #f5b9b9; }
+}
+
 .site-footer {
   border-top: 1px solid $text-primary;
   padding: $sp-5 0;

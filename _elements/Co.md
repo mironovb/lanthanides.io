@@ -9,6 +9,5 @@ description: "Cobalt metal price per kg with LME and retail benchmarks. Track Co
 keywords: "cobalt price, cobalt price per kg, cobalt metal price, cobalt sulfate price, LME cobalt, buy cobalt, cobalt battery materials"
 element_name: "Cobalt"
 element_symbol: "Co"
-regulatory_status: "none"
 permalink: /elements/Co/
 ---

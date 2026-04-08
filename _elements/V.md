@@ -9,7 +9,6 @@ description: "Vanadium metal from $402/kg retail (Metallos.de). V₂O₅ at $5.4
 keywords: "vanadium price, vanadium price per kg, vanadium metal price, V2O5 price, ferrovanadium price, vanadium pentoxide price, buy vanadium, VRFB"
 element_name: "Vanadium"
 element_symbol: "V"
-regulatory_status: "none"
 permalink: /elements/V/
 ---
 

@@ -4,9 +4,10 @@
   {% include head.html %}
 </head>
 <body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
   <div class="site-wrapper">
     {% include header.html %}
-    <main class="site-main" role="main">
+    <main class="site-main" role="main" id="main-content">
       {{ content }}
     </main>
     {% include footer.html %}

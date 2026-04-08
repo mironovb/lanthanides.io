@@ -9,6 +9,5 @@ description: "Zirconium sponge and oxide price per kg. Critical for nuclear fuel
 keywords: "zirconium price, zirconium price per kg, zirconium sponge price, zirconium oxide price, ZrO2 price, zircaloy price, buy zirconium, nuclear fuel cladding"
 element_name: "Zirconium"
 element_symbol: "Zr"
-regulatory_status: "none"
 permalink: /elements/Zr/
 ---

@@ -9,7 +9,6 @@ description: "Terbium at $2,090/kg EXW China. SMM benchmark $804/kg oxide domest
 keywords: "terbium price, terbium price per kg, terbium metal price, terbium oxide price, Tb4O7 price, terbium export controls, buy terbium"
 element_name: "Terbium"
 element_symbol: "Tb"
-regulatory_status: "active"
 permalink: /elements/Tb/
 ---
 

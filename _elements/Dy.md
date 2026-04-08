@@ -9,6 +9,5 @@ description: "Dysprosium oxide and metal price per kg with retail and bulk bench
 keywords: "dysprosium price, dysprosium price per kg, dysprosium metal price, dysprosium oxide price, Dy2O3 price, dysprosium export controls, NdFeB magnet"
 element_name: "Dysprosium"
 element_symbol: "Dy"
-regulatory_status: "active"
 permalink: /elements/Dy/
 ---

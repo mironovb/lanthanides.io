@@ -1,3 +1,22 @@
+.skip-link {
+  position: absolute;
+  top: -40px;
+  left: 0;
+  background: $accent-blue;
+  color: #fff;
+  padding: $sp-2 $sp-3;
+  z-index: 10000;
+  text-decoration: none;
+  font-size: $fs-sm;
+  border-radius: 0 0 4px 0;
+
+  &:focus {
+    top: 0;
+    outline: 2px solid #fff;
+    outline-offset: -4px;
+  }
+}
+
 .site-wrapper {
   display: flex;
   flex-direction: column;

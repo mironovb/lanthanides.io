@@ -9,6 +9,5 @@ description: "Antimony metal and trioxide price per kg. Used in flame retardants
 keywords: "antimony price, antimony price per kg, antimony metal price, antimony trioxide price, Sb2O3 price, antimony export controls, buy antimony, flame retardant"
 element_name: "Antimony"
 element_symbol: "Sb"
-regulatory_status: "active"
 permalink: /elements/Sb/
 ---

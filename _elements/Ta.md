@@ -9,6 +9,5 @@ description: "Tantalum metal price per kg with retail and bulk benchmarks. Capac
 keywords: "tantalum price, tantalum price per kg, tantalum metal price, tantalum powder price, tantalum capacitor price, buy tantalum, conflict mineral, 3TG"
 element_name: "Tantalum"
 element_symbol: "Ta"
-regulatory_status: "none"
 permalink: /elements/Ta/
 ---

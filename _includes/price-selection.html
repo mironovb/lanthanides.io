@@ -1,0 +1,46 @@
+{% comment %}
+  Shared price-selection logic for an element symbol.
+  Usage: {% include price-selection.html symbol=page.symbol %}
+  Outputs (assigned in caller scope):
+    retail_ref  — lowest retail price (metal preferred, 5g–1kg, conf ≥ 0.5)
+    bulk_ref    — most recent bulk/industrial record, conf ≥ 0.6
+{% endcomment %}
+
+{% assign retail_ref = nil %}
+{% assign retail_ref_metal = nil %}
+{% assign retail_ref_any = nil %}
+{% assign bulk_ref = nil %}
+
+{% for record in site.data.price_records %}
+  {% if record.element_symbol == include.symbol %}
+    {% assign conf100 = record.confidence_score | times: 100 | round %}
+
+    {% if record.market_tier == 'retail' and conf100 >= 50 %}
+      {% assign qty_g = record.quoted_quantity_kg | times: 1000 | round %}
+      {% if qty_g >= 5 and record.quoted_quantity_kg <= 1 %}
+        {% if record.form == 'metal' %}
+          {% if retail_ref_metal == nil or record.normalized_usd_per_kg < retail_ref_metal.normalized_usd_per_kg %}
+            {% assign retail_ref_metal = record %}
+          {% endif %}
+        {% endif %}
+        {% if retail_ref_any == nil or record.normalized_usd_per_kg < retail_ref_any.normalized_usd_per_kg %}
+          {% assign retail_ref_any = record %}
+        {% endif %}
+      {% endif %}
+    {% endif %}
+
+    {% if record.market_tier == 'bulk' or record.market_tier == 'industrial' %}
+      {% if conf100 >= 60 %}
+        {% if bulk_ref == nil or record.quote_date > bulk_ref.quote_date %}
+          {% assign bulk_ref = record %}
+        {% endif %}
+      {% endif %}
+    {% endif %}
+  {% endif %}
+{% endfor %}
+
+{% if retail_ref_metal %}
+  {% assign retail_ref = retail_ref_metal %}
+{% else %}
+  {% assign retail_ref = retail_ref_any %}
+{% endif %}

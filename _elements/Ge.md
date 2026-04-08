@@ -9,6 +9,5 @@ description: "Germanium metal and dioxide price per kg. Used in fiber-optic glas
 keywords: "germanium price, germanium price per kg, germanium metal price, germanium dioxide price, GeO2 price, germanium export controls, buy germanium"
 element_name: "Germanium"
 element_symbol: "Ge"
-regulatory_status: "active"
 permalink: /elements/Ge/
 ---

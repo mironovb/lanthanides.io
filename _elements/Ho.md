@@ -9,7 +9,6 @@ description: "Holmium metal retail at $2,420/kg (Smart-Elements). Chinese seller
 keywords: "holmium price, holmium price per kg, holmium metal price, holmium oxide price, Ho2O3 price, holmium export controls, buy holmium"
 element_name: "Holmium"
 element_symbol: "Ho"
-regulatory_status: "suspended"
 permalink: /elements/Ho/
 ---
 

@@ -9,6 +9,5 @@ description: "Lithium carbonate, hydroxide, and metal price per kg. Track Li pri
 keywords: "lithium price, lithium price per kg, lithium carbonate price, lithium hydroxide price, Li2CO3 price, spodumene price, battery lithium"
 element_name: "Lithium"
 element_symbol: "Li"
-regulatory_status: "none"
 permalink: /elements/Li/
 ---

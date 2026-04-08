@@ -9,6 +9,5 @@ description: "Molybdenum metal and oxide price per kg with retail and commodity 
 keywords: "molybdenum price, molybdenum price per kg, molybdenum metal price, MoO3 price, ferromolybdenum price, buy molybdenum, moly export controls"
 element_name: "Molybdenum"
 element_symbol: "Mo"
-regulatory_status: "active"
 permalink: /elements/Mo/
 ---

@@ -9,6 +9,5 @@ description: "Lanthanum metal and oxide price per kg with retail and bulk benchm
 keywords: "lanthanum price, lanthanum price per kg, lanthanum metal price, lanthanum oxide price, La2O3 price, FCC catalyst, buy lanthanum"
 element_name: "Lanthanum"
 element_symbol: "La"
-regulatory_status: "none"
 permalink: /elements/La/
 ---

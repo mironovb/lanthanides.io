@@ -9,6 +9,5 @@ description: "Praseodymium metal and oxide price per kg. Used in NdPr magnet all
 keywords: "praseodymium price, praseodymium price per kg, praseodymium metal price, praseodymium oxide price, Pr6O11 price, NdPr magnet, didymium, buy praseodymium"
 element_name: "Praseodymium"
 element_symbol: "Pr"
-regulatory_status: "none"
 permalink: /elements/Pr/
 ---

@@ -9,7 +9,6 @@ description: "Lutetium oxide at $650–740/kg (SMM). Widespread retail stockouts
 keywords: "lutetium price, lutetium price per kg, lutetium metal price, lutetium oxide price, Lu2O3 price, lutetium export controls, buy lutetium, Lu-177"
 element_name: "Lutetium"
 element_symbol: "Lu"
-regulatory_status: "active"
 permalink: /elements/Lu/
 ---
 

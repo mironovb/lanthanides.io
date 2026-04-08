@@ -9,6 +9,5 @@ description: "Cerium oxide and metal price per kg with retail and bulk benchmark
 keywords: "cerium price, cerium price per kg, cerium oxide price, CeO2 price, cerium metal price, cerium polishing, buy cerium, light rare earth"
 element_name: "Cerium"
 element_symbol: "Ce"
-regulatory_status: "none"
 permalink: /elements/Ce/
 ---

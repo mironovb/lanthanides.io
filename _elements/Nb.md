@@ -9,6 +9,5 @@ description: "Niobium metal, ferroniobium, and oxide price per kg. Used in HSLA 
 keywords: "niobium price, niobium price per kg, niobium metal price, ferroniobium price, FeNb price, Nb2O5 price, niobium superconductor, buy niobium"
 element_name: "Niobium"
 element_symbol: "Nb"
-regulatory_status: "none"
 permalink: /elements/Nb/
 ---

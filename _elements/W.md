@@ -9,6 +9,5 @@ description: "Tungsten metal, APT, and carbide price per kg. Critical for cement
 keywords: "tungsten price, tungsten price per kg, tungsten metal price, APT price, ammonium paratungstate, tungsten carbide price, tungsten export controls, buy tungsten"
 element_name: "Tungsten"
 element_symbol: "W"
-regulatory_status: "active"
 permalink: /elements/W/
 ---

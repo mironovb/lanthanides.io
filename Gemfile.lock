@@ -79,6 +79,7 @@ GEM
     webrick (1.9.2)
 
 PLATFORMS
+  arm64-darwin
   x86_64-linux-gnu
 
 DEPENDENCIES
@@ -129,4 +130,4 @@ CHECKSUMS
   webrick (1.9.2)
 
 BUNDLED WITH
-  4.0.6
+   2.5.23

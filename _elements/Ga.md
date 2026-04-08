@@ -9,6 +9,5 @@ description: "Gallium metal price per kg with retail and bulk benchmarks. Used i
 keywords: "gallium price, gallium price per kg, gallium metal price, GaAs price, GaN price, gallium export controls, buy gallium, semiconductor metals"
 element_name: "Gallium"
 element_symbol: "Ga"
-regulatory_status: "active"
 permalink: /elements/Ga/
 ---
