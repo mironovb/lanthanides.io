@@ -1,11 +1,9 @@
-title: "lanthanides.io"
-description: "Current rare earth prices per kilogram — track neodymium, dysprosium, terbium, gallium, germanium and 25+ strategic metals with retail and bulk pricing, export control status, and supplier provenance"
+title: "lanthanides.io — Rare Earth Prices, Export Controls & Strategic Materials Intelligence"
+description: "Real-time rare earth element prices with source provenance. Retail pricing surveys across 20+ suppliers, bulk commodity benchmarks, Chinese export control tracking by MOFCOM announcement number, and original market intelligence from direct seller contacts."
 url: "https://www.lanthanides.io"
 baseurl: ""
 lang: "en"
-
-author:
-  name: "Bogdan Mironov"
+author: "Bogdan Mironov"
 
 twitter:
   card: summary_large_image

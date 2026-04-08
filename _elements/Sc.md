@@ -4,8 +4,12 @@ symbol: Sc
 name: Scandium
 atomic_number: 21
 category: rare_earth_light
-title: "Scandium Price per kg — Current Sc Pricing & Export Controls"
-description: "Current scandium (Sc) price per kilogram with retail and bulk benchmarks. Track Sc pricing for scandium oxide, metal, and Al-Sc aerospace alloys. Under active Chinese export control."
+title: "Scandium Price 2026 — Metal & Oxide (Sc₂O₃) per kg"
+description: "Scandium metal at $5,250/kg EXW China. 14+ retail sources surveyed. Active export controls under MOFCOM No. 18/2025. Rio Tinto sole non-Chinese source."
+keywords: "scandium price, scandium price per kg, scandium metal price, scandium oxide price, Sc2O3 price, scandium export controls, buy scandium"
+element_name: "Scandium"
+element_symbol: "Sc"
+regulatory_status: "active"
 permalink: /elements/Sc/
 ---
 

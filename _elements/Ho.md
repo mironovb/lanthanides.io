@@ -4,8 +4,12 @@ symbol: Ho
 name: Holmium
 atomic_number: 67
 category: rare_earth_heavy
-title: "Holmium Price per kg — Current Ho Rare Earth Pricing"
-description: "Current holmium (Ho) price per kilogram with retail and bulk benchmarks. Track Ho heavy rare earth pricing for holmium oxide and metal. Suspended Chinese export control reactivates Nov 2026."
+title: "Holmium Price 2026 — Metal & Oxide (Ho₂O₃) per kg"
+description: "Holmium metal retail at $2,420/kg (Smart-Elements). Chinese sellers refuse to quote despite suspended controls. MOFCOM No. 57 suspended until Nov 2026."
+keywords: "holmium price, holmium price per kg, holmium metal price, holmium oxide price, Ho2O3 price, holmium export controls, buy holmium"
+element_name: "Holmium"
+element_symbol: "Ho"
+regulatory_status: "suspended"
 permalink: /elements/Ho/
 ---
 

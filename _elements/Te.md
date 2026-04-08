@@ -4,8 +4,12 @@ symbol: Te
 name: Tellurium
 atomic_number: 52
 category: strategic_metal
-title: "Tellurium Price per kg — Current Te Strategic Metal Pricing"
-description: "Current tellurium (Te) price per kilogram with retail and commodity benchmarks. Track Te pricing for CdTe solar cells, thermoelectrics, and infrared optics. Under permanent Chinese export control."
+title: "Tellurium Price 2026 — Metal & CdTe per kg"
+description: "Tellurium at $110–120/kg, up 50% from 2024. Chinese sellers refuse to quote — MOFCOM No. 10/2025 NEVER suspended. CdTe solar demand drives market."
+keywords: "tellurium price, tellurium price per kg, tellurium metal price, CdTe price, tellurium export controls, buy tellurium, First Solar tellurium"
+element_name: "Tellurium"
+element_symbol: "Te"
+regulatory_status: "active"
 permalink: /elements/Te/
 ---
 

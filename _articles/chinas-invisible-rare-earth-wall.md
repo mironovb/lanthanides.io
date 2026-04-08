@@ -1,6 +1,8 @@
 ---
-title: "China's invisible rare earth wall: why suspended export controls do not mean available supply"
+title: "Why Suspended Export Controls Don't Mean Available Supply"
 subtitle: "The six-layer domestic regulatory architecture that constrains rare earth trade regardless of MOFCOM announcements"
+description: "China's four-layer rare earth regime: production quotas, traceability, export licensing, and customs enforcement. Domestic rules never suspended."
+keywords: "China rare earth regulations, rare earth management regulations 2024, rare earth production quotas, China rare earth domestic controls, why Chinese sellers refuse"
 date: 2026-04-03
 status: active
 elements: [Sm, Gd, Tb, Dy, Lu, Sc, Y, Ho, Tm, Eu, Er, Yb]

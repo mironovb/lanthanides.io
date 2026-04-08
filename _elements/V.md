@@ -4,8 +4,12 @@ symbol: V
 name: Vanadium
 atomic_number: 23
 category: strategic_metal
-title: "Vanadium Price per kg — Current V Strategic Metal Pricing"
-description: "Current vanadium (V) price per kilogram with retail metal and V2O5 commodity benchmarks. Track V pricing for steel alloys, Ti-6Al-4V aerospace, and VRFB energy storage."
+title: "Vanadium Price 2026 — Metal, V₂O₅ & FeV per kg"
+description: "Vanadium metal from $402/kg retail (Metallos.de). V₂O₅ at $5.43/lb near multi-year lows. No Chinese export controls. VRFB demand rising."
+keywords: "vanadium price, vanadium price per kg, vanadium metal price, V2O5 price, ferrovanadium price, vanadium pentoxide price, buy vanadium, VRFB"
+element_name: "Vanadium"
+element_symbol: "V"
+regulatory_status: "none"
 permalink: /elements/V/
 ---
 

@@ -4,7 +4,11 @@ symbol: Zr
 name: Zirconium
 atomic_number: 40
 category: strategic_metal
-title: "Zirconium Price per kg — Current Zr Strategic Metal Pricing"
-description: "Current zirconium (Zr) price per kilogram with retail and bulk benchmarks. Track Zr pricing for zirconium sponge and oxide used in nuclear fuel cladding and ceramics."
+title: "Zirconium Price 2026 — Sponge, Metal & ZrO₂ per kg"
+description: "Zirconium sponge and oxide price per kg. Critical for nuclear fuel cladding (zircaloy), hafnium-free reactor grade, and advanced structural ceramics."
+keywords: "zirconium price, zirconium price per kg, zirconium sponge price, zirconium oxide price, ZrO2 price, zircaloy price, buy zirconium, nuclear fuel cladding"
+element_name: "Zirconium"
+element_symbol: "Zr"
+regulatory_status: "none"
 permalink: /elements/Zr/
 ---

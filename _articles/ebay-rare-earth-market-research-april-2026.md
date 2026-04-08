@@ -1,6 +1,8 @@
 ---
-title: "eBay rare earth market research: who sells what, and at what price"
+title: "eBay Rare Earth Market Research — April 2026 Survey"
 subtitle: "A multi-platform survey of retail rare earth and strategic metal pricing across eBay, Alibaba, and Amazon --- April 2026"
+description: "Retail rare earth pricing survey across eBay, Alibaba, and Amazon for 25+ elements. Retail premiums of 15× to 100× over Chinese FOB benchmarks."
+keywords: "eBay rare earth prices, Alibaba rare earth, retail rare earth pricing, rare earth market research 2026, neodymium price eBay, rare earth retail premium"
 date: 2026-04-04
 status: active
 elements: [La, Ce, Nd, Pr, Dy, Tb, Gd, Ho, Tm, Sc, Eu, Er, Y, Sm, Yb, Te, Ga, Ge, In, Co, Bi, W, Zr, V, Nb]

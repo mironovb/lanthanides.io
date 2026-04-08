@@ -4,7 +4,11 @@ symbol: Ge
 name: Germanium
 atomic_number: 32
 category: semiconductor_metal
-title: "Germanium Price per kg — Current Ge Semiconductor Metal Pricing"
-description: "Current germanium (Ge) price per kilogram with retail and bulk benchmarks. Track Ge pricing for germanium metal and dioxide used in fiber optics and infrared optics. Under Chinese export control."
+title: "Germanium Price 2026 — Metal & GeO₂ per kg"
+description: "Germanium metal and dioxide price per kg. Used in fiber-optic glass, infrared lenses, and PET catalysts. Active Chinese export controls."
+keywords: "germanium price, germanium price per kg, germanium metal price, germanium dioxide price, GeO2 price, germanium export controls, buy germanium"
+element_name: "Germanium"
+element_symbol: "Ge"
+regulatory_status: "active"
 permalink: /elements/Ge/
 ---

@@ -4,8 +4,12 @@ symbol: Tb
 name: Terbium
 atomic_number: 65
 category: rare_earth_heavy
-title: "Terbium Price per kg — Current Tb Rare Earth Pricing"
-description: "Current terbium (Tb) price per kilogram — retail, FOB China, and domestic benchmarks. Track Tb pricing for terbium oxide and NdFeB magnet dopant. Under active Chinese export control."
+title: "Terbium Price 2026 — Metal & Oxide (Tb₄O₇) per kg"
+description: "Terbium at $2,090/kg EXW China. SMM benchmark $804/kg oxide domestic. Active export controls MOFCOM No. 18/2025. Lynas first non-Chinese HREE producer."
+keywords: "terbium price, terbium price per kg, terbium metal price, terbium oxide price, Tb4O7 price, terbium export controls, buy terbium"
+element_name: "Terbium"
+element_symbol: "Tb"
+regulatory_status: "active"
 permalink: /elements/Tb/
 ---
 

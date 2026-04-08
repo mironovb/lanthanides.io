@@ -4,8 +4,12 @@ symbol: Lu
 name: Lutetium
 atomic_number: 71
 category: rare_earth_heavy
-title: "Lutetium Price per kg — Current Lu Rare Earth Pricing"
-description: "Current lutetium (Lu) price per kilogram with retail and bulk benchmarks. Track Lu pricing for lutetium oxide, LYSO PET scanner crystals, and Lu-177 radiopharmaceuticals. Under active Chinese export control."
+title: "Lutetium Price 2026 — Metal & Oxide (Lu₂O₃) per kg"
+description: "Lutetium oxide at $650–740/kg (SMM). Widespread retail stockouts. Active controls MOFCOM No. 18. Drives $2.1B Lu-177 radiopharmaceutical market."
+keywords: "lutetium price, lutetium price per kg, lutetium metal price, lutetium oxide price, Lu2O3 price, lutetium export controls, buy lutetium, Lu-177"
+element_name: "Lutetium"
+element_symbol: "Lu"
+regulatory_status: "active"
 permalink: /elements/Lu/
 ---
 

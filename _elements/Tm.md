@@ -4,8 +4,12 @@ symbol: Tm
 name: Thulium
 atomic_number: 69
 category: rare_earth_heavy
-title: "Thulium Price per kg — Current Tm Rare Earth Pricing"
-description: "Current thulium (Tm) price per kilogram with retail and bulk benchmarks. Track Tm heavy rare earth pricing for thulium metal and oxide used in surgical lasers and telecom amplifiers."
+title: "Thulium Price 2026 — Metal & Oxide (Tm₂O₃) per kg"
+description: "Thulium metal at $1,750/kg EXW China. 19 retailers surveyed. Chinese production cannot reach 4N purity. Suspended controls, 3-week export licence."
+keywords: "thulium price, thulium price per kg, thulium metal price, thulium oxide price, Tm2O3 price, thulium export controls, buy thulium"
+element_name: "Thulium"
+element_symbol: "Tm"
+regulatory_status: "suspended"
 permalink: /elements/Tm/
 ---
 
