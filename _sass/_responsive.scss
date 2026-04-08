@@ -159,33 +159,178 @@
   .element-header {
     flex-direction: column;
     gap: $sp-3;
+    margin-bottom: $sp-5;
+    padding-bottom: $sp-4;
 
     .element-symbol-block {
       width: 56px;
       height: 56px;
     }
+
+    .element-name-large {
+      font-size: $fs-xl;
+      overflow-wrap: break-word;
+      word-break: break-word;
+    }
+
+    .element-notes {
+      font-size: $fs-xs;
+    }
+
+    .element-meta-grid {
+      font-size: $fs-xs;
+      gap: $sp-1 $sp-3;
+
+      dt { white-space: normal; }
+    }
   }
 
   .element-prices-row {
     grid-template-columns: 1fr;
+    gap: $sp-3;
+    margin-bottom: $sp-5;
+  }
+
+  .ref-price-card {
+    padding: $sp-3;
+
+    .ref-price-value { font-size: $fs-2xl; }
+    .ref-price-detail { font-size: $fs-xs; }
+    .ref-price-source {
+      font-size: $fs-2xs;
+      overflow-wrap: break-word;
+      word-break: break-word;
+    }
   }
 
   .market-stats-grid {
     grid-template-columns: 1fr;
   }
 
-  .data-table {
-    font-size: $fs-xs;
+  // ── Element sections: ensure text wraps, no horizontal cut-off ──
+  .element-section {
+    min-width: 0;
+    overflow-wrap: break-word;
+    word-break: break-word;
+
+    .section-title {
+      font-size: $fs-base;
+      overflow-wrap: break-word;
+      word-break: break-word;
+    }
+
+    .section-intro,
+    p {
+      font-size: $fs-sm;
+      line-height: $lh-relaxed;
+      overflow-wrap: break-word;
+      word-break: break-word;
+    }
+
+    h3.subsection-title {
+      font-size: $fs-2xs;
+    }
+  }
+
+  // ── Tables: each table is its own horizontal scroll container ──
+  .data-table,
+  .applications-table {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    font-size: $fs-2xs;
+    white-space: nowrap;
 
     th, td {
       padding: $sp-1 $sp-2;
     }
   }
 
-  // ── Tables: horizontal scroll wrapper ──
-  .element-section {
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
+  // Applications table first column was nowrap globally — allow wrap inside scroll
+  .applications-table td:first-child {
+    white-space: normal;
+    min-width: 8rem;
+  }
+
+  // Stat rows: keep label + value on one line but allow long values to wrap
+  .stat-row {
+    padding: $sp-2;
+    font-size: $fs-xs;
+    gap: $sp-2;
+  }
+
+  .stat-value {
+    white-space: normal;
+    overflow-wrap: break-word;
+    word-break: break-word;
+    text-align: right;
+    min-width: 0;
+  }
+
+  .stat-label {
+    min-width: 0;
+    overflow-wrap: break-word;
+  }
+
+  // Regulatory banner: ensure long mono dates and links wrap
+  .regulatory-banner {
+    padding: $sp-3;
+    font-size: $fs-xs;
+
+    .banner-title { font-size: $fs-sm; }
+
+    .banner-body,
+    .banner-key-date {
+      overflow-wrap: break-word;
+      word-break: break-word;
+    }
+  }
+
+  // Compact properties strip: allow the inline mono content to wrap
+  .compact-properties {
+    padding: $sp-3;
+    font-size: $fs-2xs;
+    line-height: $lh-relaxed;
+    overflow-wrap: break-word;
+    word-break: break-word;
+  }
+
+  // Notes block: tighter padding, ensure wrap
+  .note-item {
+    font-size: $fs-xs;
+    padding: $sp-3;
+    overflow-wrap: break-word;
+    word-break: break-word;
+  }
+
+  // References list: tighter
+  .references-list li {
+    font-size: $fs-2xs;
+    padding-left: $sp-4;
+    overflow-wrap: break-word;
+    word-break: break-word;
+
+    a { word-break: break-all; }
+  }
+
+  // Breadcrumb: smaller and wrap
+  .breadcrumb {
+    font-size: $fs-sm;
+    margin-bottom: $sp-4;
+    flex-wrap: wrap;
+
+    .breadcrumb-current { font-size: $fs-base; }
+  }
+
+  // Element nav chip strip
+  .element-nav-bar { margin-top: $sp-8; }
+
+  .element-nav-chip {
+    width: 32px;
+    height: 26px;
+    font-size: $fs-2xs;
   }
 
   .layout-with-sidebar {
@@ -363,6 +508,26 @@
 
 // ── Small phones (< 480px) ──────────────────────────────────
 @include bp-max-sm {
+
+  // Reclaim a few pixels of horizontal space for content
+  .site-main {
+    padding-left: $sp-3;
+    padding-right: $sp-3;
+  }
+
+  // Element detail page tightening on small phones
+  .element-header .element-symbol-block {
+    width: 48px;
+    height: 48px;
+
+    .element-symbol-large { font-size: $fs-2xl; }
+  }
+
+  .element-header .element-name-large { font-size: $fs-lg; }
+
+  .ref-price-card .ref-price-value { font-size: $fs-xl; }
+
+  .element-section .section-title { font-size: $fs-sm; }
 
   // Tighten element grid at very small sizes
   .element-tile {
