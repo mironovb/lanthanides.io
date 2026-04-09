@@ -509,18 +509,6 @@
     margin-bottom: $sp-4;
   }
 
-  // ── Market Pulse ──
-  .market-pulse {
-    margin: -$sp-4 calc(-1 * $sp-3) $sp-3;
-  }
-
-  .pulse-label {
-    padding: 0 $sp-3;
-    font-size: $fs-2xs;
-  }
-
-  .pulse-strip { gap: $sp-3; }
-
   // ── Regulatory banner ──
   .reg-alert-inner {
     flex-wrap: wrap;
