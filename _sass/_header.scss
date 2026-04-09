@@ -66,14 +66,6 @@
     }
   }
 
-  @include bp-max-md {
-    gap: 0;
-
-    a {
-      padding: $sp-1 $sp-2;
-      font-size: $fs-xs;
-    }
-  }
 }
 
 // Mobile nav toggle
@@ -95,12 +87,12 @@
     transition: transform $transition-base;
   }
 
-  @include bp-max-sm {
+  @include bp-max-md {
     display: flex;
   }
 }
 
-@include bp-max-sm {
+@include bp-max-md {
   .site-nav {
     display: none;
 

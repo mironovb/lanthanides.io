@@ -19,11 +19,23 @@ body {
   line-height: $lh-normal;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  overflow-wrap: break-word;
+  word-break: break-word;
 }
 
 img, picture, video, canvas, svg {
   display: block;
   max-width: 100%;
+  height: auto;
+}
+
+code, pre, kbd, samp {
+  font-family: $font-mono;
+}
+
+pre {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
 }
 
 input, button, textarea, select {

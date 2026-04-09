@@ -21,7 +21,7 @@
     margin-bottom: $sp-4;
   }
 
-  // ── Header / Nav ──
+  // ── Header / Nav (hamburger handles nav at this breakpoint) ──
   .site-header {
     height: auto;
     min-height: $header-height;
@@ -44,17 +44,6 @@
     }
   }
 
-  .site-nav {
-    gap: 0;
-    flex-wrap: wrap;
-
-    a {
-      padding: $sp-1 $sp-2;
-      font-size: $fs-xs;
-      white-space: nowrap;
-    }
-  }
-
   // ── Home header ──
   .home-header {
     padding: $sp-5 0 $sp-4;
@@ -70,7 +59,7 @@
   }
 
   .home-seo-intro p {
-    font-size: $fs-xs;
+    font-size: $fs-sm;
   }
 
   // ── Home top row: stack news + KD vertically ──
@@ -90,11 +79,11 @@
   }
 
   .news-entry-title {
-    font-size: $fs-xs;
+    font-size: $fs-sm;
   }
 
   .news-entry-body {
-    font-size: $fs-2xs;
+    font-size: $fs-xs;
     line-height: $lh-relaxed;
   }
 
@@ -110,11 +99,11 @@
   }
 
   .kd-title {
-    font-size: $fs-2xs;
+    font-size: $fs-xs;
   }
 
   .kd-detail {
-    font-size: $fs-2xs;
+    font-size: $fs-xs;
   }
 
   // ── Element grid ──
@@ -228,11 +217,11 @@
     }
 
     h3.subsection-title {
-      font-size: $fs-2xs;
+      font-size: $fs-xs;
     }
   }
 
-  // ── Tables: each table is its own horizontal scroll container ──
+  // ── Tables: horizontal scroll container ──
   .data-table,
   .applications-table {
     display: block;
@@ -240,7 +229,7 @@
     max-width: 100%;
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
-    font-size: $fs-2xs;
+    font-size: $fs-xs;
     white-space: nowrap;
 
     th, td {
@@ -248,10 +237,25 @@
     }
   }
 
-  // Applications table first column was nowrap globally — allow wrap inside scroll
+  // Applications table first column: allow wrap inside scroll
   .applications-table td:first-child {
     white-space: normal;
     min-width: 8rem;
+  }
+
+  // Generic markdown tables in content areas (data-page, element-main)
+  article > table,
+  .element-main > table {
+    display: block;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    max-width: 100%;
+    font-size: $fs-xs;
+    white-space: nowrap;
+
+    th, td {
+      padding: $sp-1 $sp-2;
+    }
   }
 
   // Stat rows: keep label + value on one line but allow long values to wrap
@@ -291,7 +295,7 @@
   // Compact properties strip: allow the inline mono content to wrap
   .compact-properties {
     padding: $sp-3;
-    font-size: $fs-2xs;
+    font-size: $fs-xs;
     line-height: $lh-relaxed;
     overflow-wrap: break-word;
     word-break: break-word;
@@ -305,9 +309,9 @@
     word-break: break-word;
   }
 
-  // References list: tighter
+  // References list
   .references-list li {
-    font-size: $fs-2xs;
+    font-size: $fs-xs;
     padding-left: $sp-4;
     overflow-wrap: break-word;
     word-break: break-word;
@@ -345,7 +349,7 @@
   // ── Footer ──
   .site-footer {
     .footer-inner {
-      font-size: $fs-2xs;
+      font-size: $fs-xs;
       padding: 0 $sp-3;
     }
 
@@ -354,7 +358,7 @@
     }
 
     .footer-license {
-      font-size: $fs-2xs;
+      font-size: $fs-xs;
     }
   }
 
@@ -446,7 +450,7 @@
 
   .elements-page-legend {
     gap: $sp-2 $sp-3;
-    font-size: $fs-2xs;
+    font-size: $fs-xs;
   }
 
   // ── News page ──
@@ -547,12 +551,29 @@
   .reg-element-grid {
     grid-template-columns: 1fr;
   }
+
+  // ── Supply risk page ──
+  .policy-timeline .timeline-item {
+    flex-direction: column;
+    gap: $sp-2;
+  }
+
+  .policy-timeline .timeline-date {
+    min-width: 0;
+  }
+
+  // ── iOS zoom prevention: inputs must be 16px ──
+  input,
+  select,
+  textarea {
+    font-size: $fs-base;
+  }
 }
 
 // ── Small phones (< 480px) ──────────────────────────────────
 @include bp-max-sm {
 
-  // Reclaim a few pixels of horizontal space for content
+  // Reclaim horizontal space for content
   .site-main {
     padding-left: $sp-3;
     padding-right: $sp-3;
@@ -630,6 +651,11 @@
       padding-left: $sp-4;
       font-size: $fs-sm;
     }
+  }
+
+  // About stats: single column on very small screens
+  .about-stats {
+    grid-template-columns: 1fr;
   }
 
   // Footer
