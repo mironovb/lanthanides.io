@@ -74,12 +74,6 @@
     color: #000;
   }
 
-  .heatmap-cell {
-    border: 1px solid #ccc;
-    background: white;
-    color: #000;
-  }
-
   // Show URLs for links
   a[href^="http"]::after {
     content: " [" attr(href) "]";

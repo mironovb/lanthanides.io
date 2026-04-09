@@ -13,8 +13,6 @@
     // Interactive components
     if (typeof SML_Ledger !== 'undefined') SML_Ledger.init();
     if (typeof SML_RegTimeline !== 'undefined') SML_RegTimeline.init();
-    if (typeof SML_ElementGrid !== 'undefined') SML_ElementGrid.init();
-
     // Mobile nav toggle
     var toggle = document.querySelector('.nav-toggle');
     var nav = document.querySelector('.site-nav');

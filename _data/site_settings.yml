@@ -13,23 +13,6 @@ default_unit: kg
 high_confidence_minimum: 0.8
 medium_confidence_minimum: 0.5
 
-# Heatmap baselines
-heatmap_baselines:
-  - id: rolling_30d
-    label: "Rolling 30-day median"
-    days: 30
-  - id: rolling_180d
-    label: "Rolling 180-day median"
-    days: 180
-  - id: pre_policy
-    label: "Pre-policy baseline"
-    description: "Manually configured reference date for policy-shock analysis"
-    reference_date: null
-  - id: custom
-    label: "Custom date range"
-    start_date: null
-    end_date: null
-
 # Verification status labels
 verification_labels:
   verified_invoice: "Verified Invoice"

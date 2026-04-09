@@ -575,16 +575,6 @@
     padding: $sp-3 $sp-4;
   }
 
-  // ── Supply risk page ──
-  .policy-timeline .timeline-item {
-    flex-direction: column;
-    gap: $sp-2;
-  }
-
-  .policy-timeline .timeline-date {
-    min-width: 0;
-  }
-
   // ── iOS zoom prevention: inputs must be 16px ──
   input,
   select,
