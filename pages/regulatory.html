@@ -8,63 +8,118 @@ permalink: /regulatory/
 {% assign breadcrumb_current = "Regulatory Tracker" %}
 {% include structured-data-breadcrumb.html %}
 
-<div class="element-section">
-  <h2 class="section-title">Active Controls by Element</h2>
-  <p class="text-sm text-secondary mb-4">
-    Status reflects whether export licences are currently required (active),
-    whether controls are paused under a suspension order (suspended), or whether no
-    Chinese export-control regime currently applies (none). Click any symbol to see the
-    element's full price page.
-  </p>
-  <div class="reg-element-grid">
-    {% assign cat_sorted = site.data.element_catalog | sort: "atomic_number" %}
-    {% for cat in cat_sorted %}
-      {% if cat.regulatory_status and cat.regulatory_status != 'none' %}
-        <div class="reg-element-card">
-          <div class="reg-element-header">
-            <a href="{{ '/elements/' | append: cat.symbol | append: '/' | relative_url }}" class="reg-element-sym">{{ cat.symbol }}</a>
-            <span class="reg-element-name">{{ cat.name }}</span>
-            {% if cat.regulatory_status == 'active' %}
-              <span class="reg-badge reg-export">Export Licence</span>
-            {% elsif cat.regulatory_status == 'suspended' %}
-              <span class="reg-badge reg-suspended">Suspended</span>
-            {% endif %}
-          </div>
-          {% if cat.notes %}
-            <p class="reg-element-note">{{ cat.notes | truncatewords: 25 }}</p>
-          {% endif %}
-        </div>
-      {% endif %}
+{% comment %}
+  Collect all regulated elements (active + suspended) in atomic-number order.
+{% endcomment %}
+{% assign reg_elements = "" | split: "" %}
+{% assign cat_sorted = site.data.element_catalog | sort: "atomic_number" %}
+{% for cat in cat_sorted %}
+  {% if cat.regulatory_status and cat.regulatory_status != 'none' %}
+    {% assign reg_elements = reg_elements | push: cat.symbol %}
+  {% endif %}
+{% endfor %}
+
+{% comment %}
+  Collect and sort notices by effective date (newest first).
+{% endcomment %}
+{% assign notices = "" | split: "" %}
+{% for entry in site.data.regulatory %}
+  {% assign notices = notices | push: entry[1] %}
+{% endfor %}
+{% assign sorted_notices = notices | sort: "date_effective" | reverse %}
+
+<!-- ═══ Element Filter ═══ -->
+<div class="reg-filter-strip" id="reg-filter-strip">
+  <span class="reg-filter-label">Filter by element</span>
+  <div class="reg-filter-chips">
+    <button class="reg-filter-chip active" data-element="all">All</button>
+    {% for elem in reg_elements %}
+      <button class="reg-filter-chip" data-element="{{ elem }}">{{ elem }}</button>
     {% endfor %}
   </div>
 </div>
 
-<div class="element-section mt-6">
-  <h2 class="section-title">MOFCOM Announcement Timeline</h2>
+<!-- ═══ Status Overview Cards ═══ -->
+<div class="element-section">
+  <h2 class="section-title">Active Control Regimes</h2>
   <p class="text-sm text-secondary mb-4">
-    All published Chinese export-control announcements affecting rare earth elements,
-    strategic metals, and semiconductor materials. Sourced from MOFCOM, the General
-    Administration of Customs (GAC), and State Council publications.
+    Each card represents a distinct regulatory action. Status reflects the
+    current state of each control regime.
   </p>
-  <div class="policy-timeline">
+
+  <div class="reg-notices-grid" id="reg-notices">
+    {% for notice in sorted_notices %}
+      {% if notice.target_country == "JP" %}
+        {% assign n_class = "japan" %}
+        {% assign n_label = "Country Prohibition" %}
+      {% elsif notice.status == "suspended" %}
+        {% assign n_class = "suspended" %}
+        {% assign n_label = "Suspended" %}
+      {% elsif notice.measure_type == "presumptive_denial" %}
+        {% assign n_class = "denial" %}
+        {% assign n_label = "Presumptive Denial" %}
+      {% else %}
+        {% assign n_class = "export" %}
+        {% assign n_label = "Export Licence Required" %}
+      {% endif %}
+
+      <div class="reg-notice-card reg-notice--{{ n_class }}" data-elements="{{ notice.affected_elements | join: ',' }}">
+        <div class="reg-notice-header">
+          <span class="reg-notice-id">{{ notice.notice_id }}</span>
+          <span class="reg-notice-issuer">{{ notice.issuing_authority }}</span>
+        </div>
+        <div class="reg-notice-status">
+          <span class="reg-status-dot reg-dot--{{ n_class }}"></span>
+          <span class="reg-status-label">{{ n_label }}</span>
+        </div>
+        <div class="reg-notice-elements">
+          {% for elem in notice.affected_elements %}
+            <a href="{{ '/elements/' | append: elem | append: '/' | relative_url }}" class="reg-elem-chip">{{ elem }}</a>
+          {% endfor %}
+        </div>
+        <div class="reg-notice-meta">
+          <span class="reg-notice-date">Effective {{ notice.date_effective | date: "%-d %b %Y" }}</span>
+          {% if notice.target_country %}
+            <span class="reg-notice-target">Target: {{ notice.target_country }}</span>
+          {% endif %}
+        </div>
+        {% if notice.suspension %}
+          <div class="reg-notice-suspension">
+            Suspended until {{ notice.suspension.suspension_expires | date: "%-d %b %Y" }}
+          </div>
+        {% endif %}
+      </div>
+    {% endfor %}
+  </div>
+</div>
+
+<!-- ═══ Timeline ═══ -->
+<div class="element-section mt-6">
+  <h2 class="section-title">Announcement Timeline</h2>
+  <p class="text-sm text-secondary mb-4">
+    All published Chinese export-control announcements affecting rare earths,
+    strategic metals, and semiconductor materials — newest first.
+  </p>
+
+  <div class="reg-timeline" id="reg-timeline">
     {% assign sorted_events = site.data.policy_events | sort: 'date' | reverse %}
     {% for event in sorted_events %}
-      <div class="timeline-item">
-        <div class="timeline-date">{{ event.date }}</div>
-        <div class="timeline-content">
-          <div class="flex-row" style="gap: 0.5rem; margin-bottom: 0.25rem;">
-            <span class="timeline-type type-{{ event.event_type | replace: '_', '-' }}">{{ event.event_type | replace: '_', ' ' }}</span>
-            <span class="text-xs text-dim">{{ event.source_country }}</span>
+      <div class="reg-tl-entry" data-elements="{{ event.affected_elements | join: ',' }}">
+        <time class="reg-tl-date" datetime="{{ event.date }}">{{ event.date | date: "%-d %b %Y" }}</time>
+        <div class="reg-tl-stem" aria-hidden="true"></div>
+        <div class="reg-tl-card">
+          <div class="reg-tl-head">
+            <span class="reg-tl-type type-{{ event.event_type | replace: '_', '-' }}">{{ event.event_type | replace: '_', ' ' }}</span>
           </div>
-          <div class="timeline-title">{{ event.title }}</div>
-          <div class="timeline-description">{{ event.description }}</div>
+          <div class="reg-tl-title">{{ event.title }}</div>
+          <p class="reg-tl-desc">{{ event.description }}</p>
           {% if event.source_name %}
-            <div class="text-xs text-dim mt-2"><strong>{{ event.source_name }}</strong>{% if event.notes %} — {{ event.notes }}{% endif %}</div>
+            <div class="reg-tl-source">{{ event.source_name }}</div>
           {% endif %}
           {% if event.affected_elements.size > 0 %}
-            <div class="timeline-affected">
+            <div class="reg-tl-chips">
               {% for elem in event.affected_elements %}
-                <a href="{{ '/elements/' | append: elem | append: '/' | relative_url }}" class="timeline-element-tag">{{ elem }}</a>
+                <a href="{{ '/elements/' | append: elem | append: '/' | relative_url }}" class="reg-elem-chip">{{ elem }}</a>
               {% endfor %}
             </div>
           {% endif %}
@@ -73,5 +128,27 @@ permalink: /regulatory/
     {% endfor %}
   </div>
 </div>
+
+<!-- ═══ Legal References ═══ -->
+<aside class="reg-legal-ref">
+  <h3 class="reg-legal-title">Key Legal References</h3>
+  <dl class="reg-legal-list">
+    <dt>End-user certificate requirement</dt>
+    <dd>Article 15 of the Export Control Law of the PRC requires exporters to
+      submit an end-user certificate (最终用户证明) identifying the consignee,
+      end user, and end use for all controlled items.</dd>
+
+    <dt>Review period</dt>
+    <dd>MOFCOM has up to 45 working days from acceptance of a complete
+      application to issue or deny an export licence, per the 2024 Dual-Use
+      Items Export Control Regulations.</dd>
+
+    <dt>Presumptive denial</dt>
+    <dd>Licence applications subject to presumptive denial are refused absent
+      extraordinary circumstances. This standard currently applies to
+      Ga/Ge/Sb exports to US military end-users under Article 1 of MOFCOM
+      No. 46/2024.</dd>
+  </dl>
+</aside>
 
 {% include disclaimer.html %}

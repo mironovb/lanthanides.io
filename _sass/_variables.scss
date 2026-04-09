@@ -49,8 +49,10 @@ $ctrl-normal:      #3A8A5C;
 // ── Regulatory status badges ──────────────────────────────
 $reg-none:         #3A8A5C;  // green
 $reg-export:       $brand-secondary;  // amber
-$reg-denial:       $accent-red;  // red
+$reg-denial:       #B5342B;  // red — presumptive denial
 $reg-suspended:    #888888;  // gray
+$reg-suspended-border: #ADB5BD; // gray — card left border
+$reg-japan:        #5B6ABF;  // blue — Japan-targeted
 
 // ── Typography ─────────────────────────────────────────────
 $font-sans:        "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;

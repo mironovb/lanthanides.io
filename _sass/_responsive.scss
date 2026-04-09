@@ -536,8 +536,43 @@
   }
 
   // ── Regulatory page ──
-  .reg-element-grid {
+  .reg-filter-strip {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: $sp-2 $sp-3;
+  }
+
+  .reg-notices-grid {
     grid-template-columns: 1fr;
+  }
+
+  .reg-tl-entry {
+    flex-direction: column;
+    padding-left: $sp-4;
+    border-left: 2px solid $border-primary;
+    margin-left: $sp-2;
+  }
+
+  .reg-tl-entry:last-child {
+    border-left-color: transparent;
+  }
+
+  .reg-tl-date {
+    width: auto;
+    text-align: left;
+    padding: 0 0 $sp-1 0;
+  }
+
+  .reg-tl-stem {
+    display: none;
+  }
+
+  .reg-tl-card {
+    margin-left: 0;
+  }
+
+  .reg-legal-ref {
+    padding: $sp-3 $sp-4;
   }
 
   // ── Supply risk page ──

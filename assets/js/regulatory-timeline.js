@@ -1,154 +1,91 @@
 /**
- * Strategic Materials Ledger — Regulatory Timeline Filters
- * Adds element and event-type filtering to the server-rendered MOFCOM timeline.
- * Progressive enhancement: timeline is fully readable without JS.
+ * Strategic Materials Ledger — Regulatory Page Filters
+ * Element-based filtering for notice cards and timeline entries.
+ * Progressive enhancement: page is fully readable without JS.
  */
 var SML_RegTimeline = (function () {
   'use strict';
 
-  var timeline, items;
-  var allElements = [];
-  var allTypes = [];
-  var activeElement = null;
-  var activeType = null;
+  var chips, cards, entries, timeline;
 
   function init() {
-    timeline = document.querySelector('.policy-timeline');
+    var strip = document.getElementById('reg-filter-strip');
+    if (!strip) return;
+
+    chips = toArray(strip.querySelectorAll('.reg-filter-chip'));
+    cards = toArray(document.querySelectorAll('.reg-notice-card'));
+    entries = toArray(document.querySelectorAll('.reg-tl-entry'));
+    timeline = document.getElementById('reg-timeline');
+
+    for (var i = 0; i < chips.length; i++) {
+      chips[i].addEventListener('click', handleClick);
+    }
+  }
+
+  function handleClick(e) {
+    var selected = e.currentTarget.getAttribute('data-element');
+    var isAll = selected === 'all';
+
+    // Determine new active element
+    var activeElement = null;
+    if (!isAll) {
+      // Toggle: clicking active chip deselects it
+      var wasActive = e.currentTarget.classList.contains('active');
+      activeElement = wasActive ? null : selected;
+    }
+
+    // Update chip states
+    for (var i = 0; i < chips.length; i++) {
+      var val = chips[i].getAttribute('data-element');
+      if (activeElement === null) {
+        chips[i].classList.toggle('active', val === 'all');
+      } else {
+        chips[i].classList.toggle('active', val === activeElement);
+      }
+    }
+
+    // Filter notice cards
+    for (var c = 0; c < cards.length; c++) {
+      var cardElems = (cards[c].getAttribute('data-elements') || '').split(',');
+      var show = !activeElement || cardElems.indexOf(activeElement) !== -1;
+      cards[c].classList.toggle('reg-notice-hidden', !show);
+    }
+
+    // Filter timeline entries
+    for (var t = 0; t < entries.length; t++) {
+      var entryElems = (entries[t].getAttribute('data-elements') || '').split(',');
+      var showEntry = !activeElement || entryElems.indexOf(activeElement) !== -1;
+      entries[t].classList.toggle('reg-tl-hidden', !showEntry);
+    }
+
+    // Update timeline line clipping for first/last visible entries
+    updateTimelineClipping(activeElement !== null);
+  }
+
+  function updateTimelineClipping(isFiltered) {
     if (!timeline) return;
 
-    items = Array.prototype.slice.call(timeline.querySelectorAll('.timeline-item'));
-    if (items.length === 0) return;
-
-    // Extract unique elements and event types from the DOM
-    var elemSet = {};
-    var typeSet = {};
-    for (var i = 0; i < items.length; i++) {
-      // Element tags
-      var tags = items[i].querySelectorAll('.timeline-element-tag');
-      for (var t = 0; t < tags.length; t++) {
-        var sym = tags[t].textContent.trim();
-        if (sym) elemSet[sym] = true;
-      }
-      // Event type badge
-      var typeBadge = items[i].querySelector('[class*="timeline-type"]');
-      if (typeBadge) {
-        typeSet[typeBadge.textContent.trim()] = true;
-      }
+    // Remove old markers
+    for (var i = 0; i < entries.length; i++) {
+      entries[i].classList.remove('reg-tl-first', 'reg-tl-last');
     }
 
-    allElements = Object.keys(elemSet).sort();
-    allTypes = Object.keys(typeSet).sort();
-    if (allElements.length === 0 && allTypes.length === 0) return;
-
-    buildControls();
-  }
-
-  function buildControls() {
-    var controls = document.createElement('div');
-    controls.className = 'reg-timeline-controls';
-
-    // Event type filter
-    if (allTypes.length > 0) {
-      var typeRow = document.createElement('div');
-      typeRow.className = 'reg-tl-filter-row';
-
-      var typeLabel = document.createElement('span');
-      typeLabel.className = 'reg-tl-label';
-      typeLabel.textContent = 'Type:';
-      typeRow.appendChild(typeLabel);
-
-      appendBtn(typeRow, 'All', null, 'reg-tl-btn active', function () {
-        activeType = null;
-        refreshBtns(typeRow, 'reg-tl-btn', 'data-type', activeType);
-        applyFilters();
+    if (isFiltered) {
+      timeline.classList.add('reg-timeline--filtered');
+      var visible = entries.filter(function (e) {
+        return !e.classList.contains('reg-tl-hidden');
       });
-
-      for (var s = 0; s < allTypes.length; s++) {
-        (function (type) {
-          appendBtn(typeRow, type, type, 'reg-tl-btn', function () {
-            activeType = activeType === type ? null : type;
-            refreshBtns(typeRow, 'reg-tl-btn', 'data-type', activeType);
-            applyFilters();
-          });
-        })(allTypes[s]);
+      if (visible.length > 0) {
+        visible[0].classList.add('reg-tl-first');
+        visible[visible.length - 1].classList.add('reg-tl-last');
       }
-      controls.appendChild(typeRow);
-    }
-
-    // Element filter
-    if (allElements.length > 0) {
-      var elemRow = document.createElement('div');
-      elemRow.className = 'reg-tl-filter-row';
-
-      var elemLabel = document.createElement('span');
-      elemLabel.className = 'reg-tl-label';
-      elemLabel.textContent = 'Element:';
-      elemRow.appendChild(elemLabel);
-
-      appendBtn(elemRow, 'All', null, 'reg-tl-chip active', function () {
-        activeElement = null;
-        refreshBtns(elemRow, 'reg-tl-chip', 'data-element', activeElement);
-        applyFilters();
-      });
-
-      for (var e = 0; e < allElements.length; e++) {
-        (function (sym) {
-          appendBtn(elemRow, sym, sym, 'reg-tl-chip', function () {
-            activeElement = activeElement === sym ? null : sym;
-            refreshBtns(elemRow, 'reg-tl-chip', 'data-element', activeElement);
-            applyFilters();
-          });
-        })(allElements[e]);
-      }
-      controls.appendChild(elemRow);
-    }
-
-    timeline.parentNode.insertBefore(controls, timeline);
-  }
-
-  function appendBtn(parent, text, dataVal, cls, handler) {
-    var btn = document.createElement('button');
-    btn.className = cls;
-    btn.textContent = text;
-    if (dataVal != null) {
-      var attr = cls.indexOf('chip') !== -1 ? 'data-element' : 'data-type';
-      btn.setAttribute(attr, dataVal);
-    }
-    btn.addEventListener('click', handler);
-    parent.appendChild(btn);
-  }
-
-  function refreshBtns(row, baseCls, dataAttr, activeVal) {
-    var btns = row.querySelectorAll('.' + baseCls.split(' ')[0]);
-    for (var i = 0; i < btns.length; i++) {
-      var val = btns[i].getAttribute(dataAttr);
-      var isAll = val === null;
-      btns[i].classList.toggle('active', isAll ? !activeVal : val === activeVal);
+    } else {
+      timeline.classList.remove('reg-timeline--filtered');
     }
   }
 
-  function applyFilters() {
-    for (var i = 0; i < items.length; i++) {
-      var show = true;
-
-      // Type filter
-      if (activeType) {
-        var typeBadge = items[i].querySelector('[class*="timeline-type"]');
-        if (!typeBadge || typeBadge.textContent.trim() !== activeType) show = false;
-      }
-
-      // Element filter
-      if (show && activeElement) {
-        var tags = items[i].querySelectorAll('.timeline-element-tag');
-        var found = false;
-        for (var t = 0; t < tags.length; t++) {
-          if (tags[t].textContent.trim() === activeElement) { found = true; break; }
-        }
-        if (!found) show = false;
-      }
-
-      items[i].style.display = show ? '' : 'none';
-    }
+  function toArray(nodeList) {
+    return Array.prototype.slice.call(nodeList);
   }
 
   return { init: init };

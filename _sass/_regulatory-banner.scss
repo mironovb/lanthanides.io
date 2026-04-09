@@ -60,46 +60,376 @@
   &:hover { color: $text-primary; }
 }
 
-// ── Regulatory page element grid ────────────────────────────
-.reg-element-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+// ── Element filter strip ────────────────────────────────────
+.reg-filter-strip {
+  display: flex;
+  align-items: baseline;
   gap: $sp-3;
   margin-bottom: $sp-6;
-}
-
-.reg-element-card {
-  background: $bg-card;
+  padding: $sp-3 $sp-4;
+  background: $bg-secondary;
   border: 1px solid $border-primary;
   border-radius: $radius-sm;
-  padding: $sp-3 $sp-4;
 }
 
-.reg-element-header {
+.reg-filter-label {
+  @include label;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.reg-filter-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $sp-1;
+}
+
+.reg-filter-chip {
+  font-family: $font-mono;
+  font-size: $fs-2xs;
+  font-weight: $fw-semibold;
+  padding: 3px $sp-2;
+  border: 1px solid $border-primary;
+  border-radius: $radius-sm;
+  background: $bg-card;
+  color: $text-secondary;
+  cursor: pointer;
+  transition: all $transition-fast;
+
+  &:hover {
+    border-color: $brand-primary;
+    color: $brand-primary;
+  }
+
+  &.active {
+    background: $brand-primary;
+    border-color: $brand-primary;
+    color: $white;
+  }
+}
+
+// ── Notice cards grid ───────────────────────────────────────
+.reg-notices-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  gap: $sp-4;
+}
+
+.reg-notice-card {
+  background: $bg-card;
+  border: 1px solid $border-primary;
+  border-left: 3px solid $border-secondary;
+  border-radius: $radius-sm;
+  padding: $sp-4;
+  transition: opacity $transition-fast, box-shadow $transition-fast;
+
+  &:hover { box-shadow: $shadow-sm; }
+
+  &.reg-notice--export   { border-left-color: $reg-export; }
+  &.reg-notice--denial   { border-left-color: $reg-denial; }
+
+  &.reg-notice--suspended {
+    border-left-color: $reg-suspended-border;
+    .reg-notice-id,
+    .reg-notice-issuer,
+    .reg-status-label { color: $text-muted; }
+  }
+
+  &.reg-notice--japan { border-left-color: $reg-japan; }
+
+  &.reg-notice-hidden { display: none; }
+}
+
+.reg-notice-header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: $sp-2;
+  margin-bottom: $sp-2;
+}
+
+.reg-notice-id {
+  font-family: $font-mono;
+  font-size: $fs-sm;
+  font-weight: $fw-bold;
+  color: $text-primary;
+}
+
+.reg-notice-issuer {
+  font-size: $fs-2xs;
+  font-weight: $fw-medium;
+  color: $text-dim;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.reg-notice-status {
   display: flex;
   align-items: center;
   gap: $sp-2;
-  flex-wrap: wrap;
+  margin-bottom: $sp-3;
 }
 
-.reg-element-sym {
-  font-family: $font-mono;
-  font-size: $fs-lg;
-  font-weight: $fw-bold;
-  color: $text-primary;
-  text-decoration: none;
-  &:hover { color: $brand-primary; }
+.reg-status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+
+  &.reg-dot--export    { background: $reg-export; }
+  &.reg-dot--denial    { background: $reg-denial; }
+  &.reg-dot--suspended { background: $reg-suspended-border; }
+  &.reg-dot--japan     { background: $reg-japan; }
 }
 
-.reg-element-name {
-  font-size: $fs-sm;
+.reg-status-label {
+  font-size: $fs-xs;
+  font-weight: $fw-semibold;
   color: $text-secondary;
-  flex: 1;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
 }
 
-.reg-element-note {
+.reg-notice-elements {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $sp-1;
+  margin-bottom: $sp-3;
+}
+
+.reg-elem-chip {
+  font-family: $font-mono;
+  font-size: $fs-2xs;
+  font-weight: $fw-semibold;
+  padding: 1px 6px;
+  background: $bg-tertiary;
+  border: 1px solid $border-primary;
+  border-radius: $radius-sm;
+  color: $text-secondary;
+  text-decoration: none;
+
+  &:hover {
+    border-color: $brand-primary;
+    color: $brand-primary;
+  }
+}
+
+.reg-notice-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $sp-1 $sp-4;
+  font-size: $fs-xs;
+  color: $text-dim;
+}
+
+.reg-notice-date {
+  font-family: $font-mono;
+}
+
+.reg-notice-target {
+  font-weight: $fw-semibold;
+}
+
+.reg-notice-suspension {
+  margin-top: $sp-2;
+  padding-top: $sp-2;
+  border-top: 1px solid $border-primary;
   font-size: $fs-xs;
   color: $text-muted;
-  margin: $sp-2 0 0;
+  font-style: italic;
+}
+
+// ── Timeline ────────────────────────────────────────────────
+.reg-timeline {
+  padding-top: $sp-2;
+}
+
+.reg-tl-entry {
+  display: flex;
+  padding-bottom: $sp-5;
+
+  &:last-child { padding-bottom: 0; }
+  &.reg-tl-hidden { display: none; }
+}
+
+.reg-tl-date {
+  width: 100px;
+  flex-shrink: 0;
+  text-align: right;
+  padding: 16px $sp-3 0 0;
+  font-family: $font-mono;
+  font-size: $fs-xs;
+  color: $text-dim;
+  line-height: $lh-normal;
+}
+
+.reg-tl-stem {
+  width: 24px;
+  flex-shrink: 0;
+  position: relative;
+
+  // Dot
+  &::before {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 18px;
+    width: 12px;
+    height: 12px;
+    margin-left: -6px;
+    border-radius: 50%;
+    background: $brand-primary;
+    border: 2px solid $white;
+    box-shadow: 0 0 0 2px $border-primary;
+    z-index: 1;
+  }
+
+  // Vertical line
+  &::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 0;
+    bottom: -$sp-5;
+    width: 2px;
+    margin-left: -1px;
+    background: $border-primary;
+  }
+}
+
+// Line clipping — default (no filtering)
+.reg-tl-entry:first-child .reg-tl-stem::after { top: 24px; }
+.reg-tl-entry:last-child .reg-tl-stem::after  { bottom: auto; height: 24px; }
+
+// Line clipping — filtered state (JS-managed classes)
+.reg-timeline--filtered {
+  .reg-tl-first .reg-tl-stem::after { top: 24px; }
+  .reg-tl-last .reg-tl-stem::after  { bottom: auto; height: 24px; }
+}
+
+.reg-tl-card {
+  flex: 1;
+  padding: $sp-3 $sp-4;
+  margin-left: $sp-2;
+  background: $bg-card;
+  border: 1px solid $border-primary;
+  border-radius: $radius-sm;
+  transition: box-shadow $transition-fast;
+
+  &:hover { box-shadow: $shadow-sm; }
+}
+
+.reg-tl-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: $sp-2;
+  margin-bottom: $sp-1;
+}
+
+.reg-tl-type {
+  font-size: $fs-2xs;
+  font-weight: $fw-semibold;
+  padding: 2px 6px;
+  border-radius: $radius-sm;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+
+  &.type-export-control {
+    color: darken($reg-export, 10%);
+    background: rgba($reg-export, 0.1);
+    border: 1px solid rgba($reg-export, 0.25);
+  }
+
+  &.type-export-ban {
+    color: $reg-denial;
+    background: rgba($reg-denial, 0.08);
+    border: 1px solid rgba($reg-denial, 0.2);
+  }
+
+  &.type-sanction {
+    color: $reg-denial;
+    background: rgba($reg-denial, 0.08);
+    border: 1px solid rgba($reg-denial, 0.2);
+  }
+
+  &.type-suspension {
+    color: $reg-suspended;
+    background: rgba($reg-suspended, 0.1);
+    border: 1px solid rgba($reg-suspended, 0.2);
+  }
+
+  &.type-regulation {
+    color: $brand-primary;
+    background: rgba($brand-primary, 0.08);
+    border: 1px solid rgba($brand-primary, 0.2);
+  }
+}
+
+.reg-tl-title {
+  font-weight: $fw-semibold;
+  font-size: $fs-md;
+  color: $text-primary;
+  margin-bottom: $sp-1;
+  line-height: $lh-normal;
+}
+
+.reg-tl-desc {
+  font-size: $fs-sm;
+  color: $text-secondary;
   line-height: $lh-relaxed;
+  margin: 0 0 $sp-2;
+}
+
+.reg-tl-source {
+  font-size: $fs-2xs;
+  color: $text-dim;
+  font-weight: $fw-medium;
+  margin-bottom: $sp-2;
+}
+
+.reg-tl-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $sp-1;
+}
+
+// ── Legal references ────────────────────────────────────────
+.reg-legal-ref {
+  margin-top: $sp-8;
+  padding: $sp-4 $sp-5;
+  background: $bg-secondary;
+  border: 1px solid $border-primary;
+  border-left: 3px solid $brand-primary;
+  border-radius: $radius-sm;
+}
+
+.reg-legal-title {
+  font-size: $fs-sm;
+  font-weight: $fw-bold;
+  color: $text-primary;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: $sp-4;
+}
+
+.reg-legal-list {
+  dt {
+    font-size: $fs-sm;
+    font-weight: $fw-semibold;
+    color: $text-primary;
+    margin-bottom: $sp-1;
+
+    &:not(:first-of-type) {
+      margin-top: $sp-3;
+    }
+  }
+
+  dd {
+    font-size: $fs-sm;
+    color: $text-secondary;
+    line-height: $lh-relaxed;
+    margin: 0;
+    padding-left: 0;
+  }
 }
