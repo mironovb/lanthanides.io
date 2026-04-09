@@ -1,35 +1,35 @@
-// Strategic Materials Ledger — Light Theme
+// Strategic Materials Ledger — Clean Minimal
 
 // ── Brand Tokens ───────────────────────────────────────────
 $brand-primary:    #1A5C6B;  // deep teal
-$brand-secondary:  #D4A847;  // amber/gold
-$brand-bg:         #F5F2EC;  // warm paper
+$brand-secondary:  #D4A847;  // amber/gold — regulatory warnings only
+$brand-bg:         #FFFFFF;  // white
 $brand-text:       #1A1A1A;  // near-black
 
 // ── Color Palette ──────────────────────────────────────────
 $bg-primary:       $brand-bg;
-$bg-secondary:     #EDE9E1;
-$bg-tertiary:      #E4E0D8;
+$bg-secondary:     #F8F9FA;
+$bg-tertiary:      #E9ECEF;
 $bg-card:          #ffffff;
-$bg-input:         #EDE9E1;
+$bg-input:         #F8F9FA;
 
-$border-primary:   #D6D1C7;
-$border-secondary: #C4BFB5;
-$border-accent:    #B0AA9E;
+$border-primary:   #DEE2E6;
+$border-secondary: #CED4DA;
+$border-accent:    #ADB5BD;
 
 $text-primary:     $brand-text;
 $text-secondary:   #3D3D3D;
-$text-muted:       #6B6B6B;
-$text-dim:         #999690;
+$text-muted:       #6C757D;
+$text-dim:         #999999;
 
 $accent-teal:      $brand-primary;
-$accent-teal-dim:  #C8DFE3;
+$accent-teal-dim:  #D4EAF0;
 $accent-blue:      $brand-primary;
-$accent-blue-dim:  #C8DFE3;
+$accent-blue-dim:  #D4EAF0;
 $accent-amber:     $brand-secondary;
-$accent-amber-dim: #F5EBD0;
+$accent-amber-dim: #FFF3CD;
 $accent-red:       #B83A2E;
-$accent-red-dim:   #F0C4BE;
+$accent-red-dim:   #F8D7DA;
 $accent-purple:    #6b4fa0;
 
 $white:            #ffffff;
