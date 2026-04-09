@@ -28,8 +28,8 @@
   min-height: 60px;
 
   &:hover {
-    background: rgba($accent-blue, 0.06);
-    border-color: $accent-blue-dim;
+    background: rgba($brand-primary, 0.06);
+    border-color: $accent-teal-dim;
   }
 
   @include focus-ring;
@@ -41,7 +41,7 @@
   }
 
   .cell-symbol {
-    font-family: $font-serif;
+    font-family: $font-sans;
     font-size: $fs-md;
     font-weight: $fw-bold;
     color: $text-primary;

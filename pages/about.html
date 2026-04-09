@@ -1,0 +1,69 @@
+---
+layout: default
+title: "About lanthanides.io"
+description: "Independent, open-access strategic materials intelligence. No subscriptions, no paywalls. Real prices with source provenance."
+permalink: /about/
+---
+
+{% assign breadcrumb_current = "About" %}
+{% include structured-data-breadcrumb.html %}
+
+<div class="about-page">
+  <h1 class="page-title">About</h1>
+
+  <div class="about-content">
+    <section class="about-section">
+      <h2>What This Is</h2>
+      <p><strong>lanthanides.io</strong> is an independent, open-access platform for rare earth element and strategic metal pricing intelligence. It tracks real-world prices with full source provenance &mdash; every price is tied to a specific seller, date, quantity, and verification status.</p>
+      <p>The site covers {{ site.elements | size }} elements across four categories: light rare earths, heavy rare earths, strategic metals, and semiconductor metals. Price data is sourced from retail distributors, industrial wholesalers, and commodity benchmarks, then normalised to USD per kilogram.</p>
+    </section>
+
+    <section class="about-section">
+      <h2>Motivation</h2>
+      <p>Rare earth pricing is opaque. Commodity benchmarks from major reporting agencies are paywalled. Retail prices vary by orders of magnitude depending on form, purity, and quantity. Export controls add regulatory complexity that changes monthly.</p>
+      <p>This project exists because procurement analysts, researchers, and supply chain professionals need a single reference point that is transparent about what it shows, where it comes from, and what it doesn't know.</p>
+    </section>
+
+    <section class="about-section">
+      <h2>Principles</h2>
+      <dl class="about-principles">
+        <dt>No fabricated data</dt>
+        <dd>Every price in the database has a source. Empty fields mean "not yet collected," never "estimated."</dd>
+        <dt>Two-tier pricing</dt>
+        <dd>Retail reference prices and bulk commodity benchmarks are tracked separately. They represent structurally different markets and are never averaged together.</dd>
+        <dt>Source provenance</dt>
+        <dd>Each price record includes the seller, country, date, form, purity, quantity, confidence score, and verification status. The full data is visible on every element page.</dd>
+        <dt>Open access</dt>
+        <dd>No subscriptions, no paywalls. Content is licensed under <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a>. Code is <a href="https://opensource.org/licenses/MIT" target="_blank" rel="noopener">MIT</a>.</dd>
+      </dl>
+    </section>
+
+    <section class="about-section">
+      <h2>Data Coverage</h2>
+      <div class="about-stats">
+        <div class="about-stat">
+          <span class="about-stat-value">{{ site.elements | size }}</span>
+          <span class="about-stat-label">Elements tracked</span>
+        </div>
+        <div class="about-stat">
+          <span class="about-stat-value">{{ site.data.price_records | size }}</span>
+          <span class="about-stat-label">Price records</span>
+        </div>
+        <div class="about-stat">
+          <span class="about-stat-value">{{ site.data.source_registry | size }}</span>
+          <span class="about-stat-label">Data sources</span>
+        </div>
+        <div class="about-stat">
+          <span class="about-stat-value">{{ site.data.policy_events | size }}</span>
+          <span class="about-stat-label">Policy events</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="about-section">
+      <h2>Contact</h2>
+      <p>For data corrections, source submissions, or questions: <strong>bogdan@lanthanides.io</strong></p>
+      <p>To contribute price data, see the <a href="{{ '/sources/' | relative_url }}">Sources</a> page for the current registry and submission process. To understand how data is processed, see <a href="{{ '/methodology/' | relative_url }}">Methodology</a>.</p>
+    </section>
+  </div>
+</div>

@@ -4,26 +4,27 @@ layout: default
 
 {% include structured-data-site.html %}
 
+{% comment %} ── Market Pulse Strip ── {% endcomment %}
+{% include market-pulse.html %}
+
+{% comment %} ── Regulatory Alert Banner ── {% endcomment %}
+{% include regulatory-banner.html %}
+
 <div class="home-header">
-  <h1 class="home-title">Rare Earth Prices &amp; Strategic Metal Pricing</h1>
-  <p class="home-subtitle">Current prices per kilogram for rare earth elements, strategic metals &amp; semiconductor materials — retail reference and bulk benchmark pricing with full provenance</p>
+  <h1 class="home-title">Strategic Materials Ledger</h1>
+  <p class="home-subtitle">Real-time rare earth and strategic metal pricing with full source provenance. {{ site.elements | size }} elements, {{ site.data.price_records | size }} price records.</p>
 </div>
 
 {{ content }}
 
-<div class="home-seo-intro">
-  <p><strong>lanthanides.io</strong> tracks real-world prices for <strong>rare earth elements</strong>, <strong>strategic metals</strong>, and <strong>semiconductor materials</strong>. Each price is sourced from verified, in-stock listings across retail suppliers, industrial wholesalers, and commodity benchmarks — then normalised to <strong>USD per kilogram</strong> for direct comparison.</p>
-  <p>We cover {{ site.elements | size }} elements across four categories: <strong>light rare earths</strong> (lanthanum, cerium, neodymium, praseodymium), <strong>heavy rare earths</strong> (dysprosium, terbium, gadolinium, yttrium, europium, erbium), <strong>strategic metals</strong> (tungsten, cobalt, bismuth, tellurium, niobium, tantalum, vanadium, zirconium), and <strong>semiconductor metals</strong> (gallium, germanium, indium, selenium). Prices are tracked at both retail and bulk tiers, with {{ site.data.price_records | size }} price records currently in the database.</p>
-</div>
-
-{% comment %} ── News (left) + Key Developments (right) — one row ── {% endcomment %}
+{% comment %} ── Two-column: Latest Dispatch + Key Developments ── {% endcomment %}
 {% assign sorted_news = site.data.news | sort: "date" | reverse %}
 <div class="home-top-row">
 
-  {% comment %} ── Recent News (left) ── {% endcomment %}
+  {% comment %} ── Latest Dispatch (left) ── {% endcomment %}
   {% if sorted_news.size > 0 %}
   <section class="news-home">
-    <h2 class="panel-label">Recent News</h2>
+    <h2 class="panel-label">Latest Dispatches</h2>
     <ul class="news-list">
       {% for item in sorted_news limit:3 %}
         <li class="news-entry {% if forloop.index == 3 %}news-entry-faded{% endif %}">
@@ -45,17 +46,12 @@ layout: default
             {% else %}
               <strong class="news-entry-title">{{ item.headline }}</strong>
             {% endif %}
-            <p class="news-entry-body">{{ item.body }}</p>
-            {% if item.references.size > 0 %}
-              {% for ref in item.references %}
-                <cite class="news-entry-ref">{{ ref.label }}</cite>
-              {% endfor %}
-            {% endif %}
+            <p class="news-entry-body">{{ item.body | truncatewords: 25 }}</p>
           </div>
         </li>
       {% endfor %}
     </ul>
-    <a href="{{ '/news/' | relative_url }}" class="news-read-more">read more &rarr;</a>
+    <a href="{{ '/dispatches/' | relative_url }}" class="news-read-more">all dispatches &rarr;</a>
   </section>
   {% endif %}
 
@@ -86,84 +82,13 @@ layout: default
 <div class="category-legend">
   <span class="legend-item"><span class="legend-swatch swatch-ree-light"></span>Light Rare Earths</span>
   <span class="legend-item"><span class="legend-swatch swatch-ree-heavy"></span>Heavy Rare Earths</span>
-  <span class="legend-item"><span class="legend-swatch swatch-strategic"></span>Strategic &amp; Rare Metals</span>
+  <span class="legend-item"><span class="legend-swatch swatch-strategic"></span>Strategic Metals</span>
   <span class="legend-item"><span class="legend-swatch swatch-semiconductor"></span>Semiconductor Metals</span>
 </div>
-<div class="indicator-legend">
-  <span class="legend-item"><span class="legend-icon">&#10071;</span>China export control active</span>
-  <span class="legend-item"><span class="legend-icon">&#128293;</span>High demand alert</span>
+
+{% comment %} ── Compact Element Grid ── {% endcomment %}
+{% include element-grid.html %}
+
+<div class="home-seo-intro">
+  <p><strong>lanthanides.io</strong> tracks real-world prices for <strong>rare earth elements</strong>, <strong>strategic metals</strong>, and <strong>semiconductor materials</strong>. Each price is sourced from verified, in-stock listings across retail suppliers, industrial wholesalers, and commodity benchmarks &mdash; then normalised to <strong>USD per kilogram</strong> for direct comparison.</p>
 </div>
-
-{% comment %} ── Unified Element Grid ── {% endcomment %}
-{% assign display_order = "rare_earth_light,rare_earth_heavy,strategic_metal,semiconductor_metal" | split: "," %}
-{% assign all_sorted = "" | split: "" %}
-{% for cat in display_order %}
-  {% assign cat_elems = "" | split: "" %}
-  {% for c in site.data.element_catalog %}
-    {% if c.category == cat %}
-      {% assign cat_elems = cat_elems | push: c %}
-    {% endif %}
-  {% endfor %}
-  {% assign cat_elems = cat_elems | sort: "atomic_number" %}
-  {% for c in cat_elems %}
-    {% assign all_sorted = all_sorted | push: c %}
-  {% endfor %}
-{% endfor %}
-
-<div class="elements-grid">
-  {% for cat_info in all_sorted %}
-    {% assign elem = nil %}
-    {% for e in site.elements %}
-      {% if e.symbol == cat_info.symbol %}
-        {% assign elem = e %}
-        {% break %}
-      {% endif %}
-    {% endfor %}
-
-    {% if elem %}
-      {% comment %} ── Retail + Bulk reference selection (shared logic) ── {% endcomment %}
-      {% include price-selection.html symbol=cat_info.symbol %}
-      {% assign tile_ref = retail_ref %}
-      {% assign tile_bulk = bulk_ref %}
-
-      <a href="{{ elem.url | relative_url }}" class="element-tile cat-{{ cat_info.category | replace: '_', '-' }}">
-        <div class="tile-top">
-          <span class="tile-indicators">
-            {% if cat_info.cn_export_control %}<span class="ind-control" title="CN export control">&#10071;</span>{% endif %}
-            {% if cat_info.high_demand %}<span class="ind-demand" title="High demand">&#128293;</span>{% endif %}
-          </span>
-          <span class="tile-z">{{ cat_info.atomic_number }}</span>
-        </div>
-        <span class="tile-symbol">{{ cat_info.symbol }}</span>
-        <span class="tile-name">{{ cat_info.name }}</span>
-        {% if tile_ref or tile_bulk %}
-          <div class="tile-prices">
-            <div class="tile-price-row">
-              <span class="tile-price-tag">Retail</span>
-              {% if tile_ref %}
-                <span class="tile-price">${{ tile_ref.normalized_usd_per_kg }}<span class="tile-unit">/kg</span></span>
-                <span class="tile-form">{{ tile_ref.form | capitalize }} <span class="tile-date">{{ tile_ref.quote_date | truncate: 7, "" }}</span></span>
-              {% else %}
-                <span class="tile-price tile-no-data">&mdash;</span>
-              {% endif %}
-            </div>
-            <div class="tile-price-row">
-              <span class="tile-price-tag">Bulk</span>
-              {% if tile_bulk %}
-                <span class="tile-price tile-price-bulk">${{ tile_bulk.normalized_usd_per_kg }}<span class="tile-unit">/kg</span></span>
-                <span class="tile-form">{{ tile_bulk.form | capitalize }} <span class="tile-date">{{ tile_bulk.quote_date | truncate: 7, "" }}</span></span>
-              {% else %}
-                <span class="tile-price tile-price-bulk tile-no-data">&mdash;</span>
-              {% endif %}
-            </div>
-          </div>
-        {% else %}
-          <div class="tile-prices">
-            <span class="tile-price tile-no-data" title="No price data tracked for this element">&mdash;</span>
-          </div>
-        {% endif %}
-      </a>
-    {% endif %}
-  {% endfor %}
-</div>
-

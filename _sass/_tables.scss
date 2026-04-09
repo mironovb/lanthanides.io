@@ -38,8 +38,8 @@
         color: $text-dim;
       }
 
-      &.sort-asc::after { content: " \2191"; color: $accent-teal; }
-      &.sort-desc::after { content: " \2193"; color: $accent-teal; }
+      &.sort-asc::after { content: " \2191"; color: $brand-primary; }
+      &.sort-desc::after { content: " \2193"; color: $brand-primary; }
     }
   }
 
@@ -65,8 +65,8 @@
   tbody tr {
     transition: background $transition-fast;
 
-    &:nth-child(even) { background: $bg-secondary; }
-    &:hover { background: rgba($accent-blue, 0.04); }
+    &:nth-child(even) { background: rgba($bg-secondary, 0.6); }
+    &:hover { background: rgba($brand-primary, 0.05); }
   }
 
   .table-empty td {

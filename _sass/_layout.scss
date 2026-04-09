@@ -2,7 +2,7 @@
   position: absolute;
   top: -40px;
   left: 0;
-  background: $accent-blue;
+  background: $brand-primary;
   color: #fff;
   padding: $sp-2 $sp-3;
   z-index: 10000;
@@ -109,7 +109,7 @@
 }
 
 .section-heading {
-  font-family: $font-serif;
+  font-family: $font-sans;
   font-size: $fs-md;
   font-weight: $fw-semibold;
   color: $text-primary;
@@ -120,7 +120,7 @@
 
 // Page title (data-page layout)
 .page-title {
-  font-family: $font-serif;
+  font-family: $font-sans;
   font-size: $fs-2xl;
   font-weight: $fw-bold;
   color: $text-primary;
@@ -151,7 +151,7 @@
 }
 
 .error-message {
-  font-family: $font-serif;
+  font-family: $font-sans;
   font-size: $fs-xl;
   color: $text-primary;
   margin-bottom: $sp-2;

@@ -1,0 +1,105 @@
+// ══════════════════════════════════════════════════════════════
+// Regulatory alert banner + regulatory page grid
+// ══════════════════════════════════════════════════════════════
+
+// ── Alert banner (homepage) ─────────────────────────────────
+.reg-alert-banner {
+  background: rgba($accent-red, 0.06);
+  border: 1px solid rgba($accent-red, 0.15);
+  border-left: 3px solid $accent-red;
+  border-radius: $radius-sm;
+  margin-bottom: $sp-5;
+}
+
+.reg-alert-inner {
+  display: flex;
+  align-items: center;
+  gap: $sp-3;
+  padding: $sp-3 $sp-4;
+}
+
+.reg-alert-icon {
+  font-size: $fs-lg;
+  flex-shrink: 0;
+  line-height: 1;
+}
+
+.reg-alert-content {
+  flex: 1;
+  font-size: $fs-sm;
+  line-height: $lh-normal;
+
+  strong {
+    color: $text-primary;
+    display: block;
+    font-size: $fs-sm;
+    margin-bottom: 2px;
+  }
+}
+
+.reg-alert-text {
+  color: $text-secondary;
+  font-size: $fs-xs;
+}
+
+.reg-alert-sym {
+  font-family: $font-mono;
+  font-weight: $fw-semibold;
+  color: $accent-red;
+  text-decoration: none;
+  &:hover { text-decoration: underline; }
+}
+
+.reg-alert-link {
+  font-size: $fs-xs;
+  color: $text-muted;
+  text-decoration: none;
+  white-space: nowrap;
+  flex-shrink: 0;
+
+  &:hover { color: $text-primary; }
+}
+
+// ── Regulatory page element grid ────────────────────────────
+.reg-element-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: $sp-3;
+  margin-bottom: $sp-6;
+}
+
+.reg-element-card {
+  background: $bg-card;
+  border: 1px solid $border-primary;
+  border-radius: $radius-sm;
+  padding: $sp-3 $sp-4;
+}
+
+.reg-element-header {
+  display: flex;
+  align-items: center;
+  gap: $sp-2;
+  flex-wrap: wrap;
+}
+
+.reg-element-sym {
+  font-family: $font-mono;
+  font-size: $fs-lg;
+  font-weight: $fw-bold;
+  color: $text-primary;
+  text-decoration: none;
+  &:hover { color: $brand-primary; }
+}
+
+.reg-element-name {
+  font-size: $fs-sm;
+  color: $text-secondary;
+  flex: 1;
+}
+
+.reg-element-note {
+  font-size: $fs-xs;
+  color: $text-muted;
+  margin: $sp-2 0 0;
+  line-height: $lh-relaxed;
+}

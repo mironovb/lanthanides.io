@@ -17,3 +17,8 @@ invoices/*.pdf
 invoices/*.xlsx
 invoices/*.csv
 !invoices/.gitkeep
+
+# Redesign tooling — do not push
+prompts/
+logs/
+run-all.sh

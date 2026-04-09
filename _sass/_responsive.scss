@@ -504,6 +504,63 @@
   .np-divider {
     margin-bottom: $sp-4;
   }
+
+  // ── Market Pulse ──
+  .market-pulse {
+    margin: -$sp-4 calc(-1 * $sp-3) $sp-3;
+  }
+
+  .pulse-label {
+    padding: 0 $sp-3;
+    font-size: $fs-2xs;
+  }
+
+  .pulse-strip { gap: $sp-3; }
+
+  // ── Regulatory banner ──
+  .reg-alert-inner {
+    flex-wrap: wrap;
+    padding: $sp-2 $sp-3;
+  }
+
+  .reg-alert-link {
+    width: 100%;
+    margin-top: $sp-1;
+  }
+
+  // ── Dispatches page ──
+  .dispatch-featured {
+    padding: $sp-3;
+  }
+
+  .dispatch-featured-title {
+    font-size: $fs-xl;
+  }
+
+  .dispatch-item {
+    grid-template-columns: 60px 1fr;
+    gap: $sp-3;
+  }
+
+  // ── About page ──
+  .about-stats {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  // ── Prices page ──
+  .price-ledger-table {
+    thead th.col-form,
+    thead th.col-origin,
+    tbody td.col-form,
+    tbody td.col-origin {
+      display: none;
+    }
+  }
+
+  // ── Regulatory page ──
+  .reg-element-grid {
+    grid-template-columns: 1fr;
+  }
 }
 
 // ── Small phones (< 480px) ──────────────────────────────────
@@ -545,25 +602,6 @@
     }
 
     .tile-date {
-      display: none;
-    }
-  }
-
-  // Stack nav fully
-  .site-header .header-inner {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: $sp-1;
-  }
-
-  .site-nav {
-    width: 100%;
-    justify-content: flex-start;
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: none;
-
-    &::-webkit-scrollbar {
       display: none;
     }
   }

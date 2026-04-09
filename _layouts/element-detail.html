@@ -69,12 +69,13 @@ layout: default
             {% when 'semiconductor_metal' %}
               <span class="badge-cat badge-semiconductor">Semiconductor Metal</span>
           {% endcase %}
-          {% case cat_info.export_control_status %}
-            {% when 'restricted' %}
-              <span class="badge-ctrl badge-restricted">Restricted</span>
-            {% when 'monitored' %}
-              <span class="badge-ctrl badge-monitored">Monitored</span>
-          {% endcase %}
+          {% if cat_info.regulatory_status == 'active' %}
+            <span class="reg-badge reg-export">Export Licence</span>
+          {% elsif cat_info.regulatory_status == 'suspended' %}
+            <span class="reg-badge reg-suspended">Suspended</span>
+          {% else %}
+            <span class="reg-badge reg-none">None</span>
+          {% endif %}
         </div>
         {% if cat_info.notes %}
           <p class="element-notes">{{ cat_info.notes }}</p>

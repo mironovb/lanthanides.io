@@ -1,0 +1,152 @@
+// ══════════════════════════════════════════════════════════════
+// About page + Prices page (the Ledger)
+// ══════════════════════════════════════════════════════════════
+
+// ── About page ──────────────────────────────────────────────
+.about-page {
+  max-width: $content-width;
+  margin: 0 auto;
+  padding: $sp-6 0 $sp-12;
+}
+
+.about-content {
+  max-width: 72ch;
+}
+
+.about-section {
+  margin-bottom: $sp-8;
+
+  h2 {
+    font-size: $fs-lg;
+    font-weight: $fw-bold;
+    color: $text-primary;
+    margin-bottom: $sp-3;
+    padding-bottom: $sp-2;
+    border-bottom: 1px solid $border-primary;
+  }
+
+  p {
+    font-size: $fs-base;
+    color: $text-secondary;
+    line-height: $lh-relaxed;
+    margin-bottom: $sp-3;
+
+    &:last-child { margin-bottom: 0; }
+  }
+}
+
+.about-principles {
+  dt {
+    font-weight: $fw-semibold;
+    color: $text-primary;
+    margin-top: $sp-4;
+    margin-bottom: $sp-1;
+
+    &:first-child { margin-top: 0; }
+  }
+
+  dd {
+    font-size: $fs-sm;
+    color: $text-secondary;
+    line-height: $lh-relaxed;
+    margin: 0;
+    padding-left: $sp-4;
+    border-left: 2px solid $brand-primary;
+  }
+}
+
+.about-stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: $sp-4;
+  margin-top: $sp-4;
+
+  @media (max-width: $bp-md) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.about-stat {
+  text-align: center;
+  padding: $sp-4 $sp-2;
+  background: $bg-card;
+  border: 1px solid $border-primary;
+  border-radius: $radius-sm;
+}
+
+.about-stat-value {
+  display: block;
+  font-family: $font-mono;
+  font-size: $fs-2xl;
+  font-weight: $fw-bold;
+  color: $brand-primary;
+  line-height: 1;
+  margin-bottom: $sp-1;
+}
+
+.about-stat-label {
+  font-size: $fs-xs;
+  color: $text-muted;
+}
+
+// ── Prices page (the Ledger) ────────────────────────────────
+.prices-page {
+  max-width: $content-width;
+  margin: 0 auto;
+  padding: $sp-6 0 $sp-8;
+}
+
+.price-table-section {
+  margin-bottom: $sp-6;
+}
+
+.price-table-heading {
+  display: flex;
+  align-items: center;
+  gap: $sp-2;
+  font-family: $font-sans;
+  font-size: $fs-md;
+  font-weight: $fw-semibold;
+  color: $text-primary;
+  margin: 0 0 $sp-3;
+  padding-bottom: $sp-2;
+  border-bottom: 1px solid $border-primary;
+}
+
+.price-ledger-table {
+  .col-retail,
+  .col-bulk {
+    font-family: $font-mono;
+    text-align: right;
+    white-space: nowrap;
+  }
+
+  .col-date {
+    font-family: $font-mono;
+    white-space: nowrap;
+    font-size: $fs-xs;
+  }
+}
+
+.price-legend {
+  margin-top: $sp-6;
+  padding: $sp-4;
+  background: $bg-secondary;
+  border-radius: $radius-sm;
+
+  .legend-heading {
+    font-size: $fs-sm;
+    font-weight: $fw-semibold;
+    color: $text-primary;
+    margin-bottom: $sp-3;
+  }
+
+  .legend-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: $sp-3;
+    align-items: center;
+    font-size: $fs-xs;
+    color: $text-secondary;
+  }
+}

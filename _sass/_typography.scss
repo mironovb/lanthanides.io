@@ -12,8 +12,8 @@ body {
 
 .mono { font-family: $font-mono; }
 
-h1 { font-family: $font-serif; font-size: $fs-2xl; line-height: $lh-tight; letter-spacing: -0.015em; font-weight: $fw-bold; }
-h2 { font-family: $font-serif; font-size: $fs-xl; line-height: $lh-tight; letter-spacing: -0.01em; font-weight: $fw-semibold; }
+h1 { font-family: $font-sans; font-size: $fs-2xl; line-height: $lh-tight; letter-spacing: -0.02em; font-weight: $fw-bold; }
+h2 { font-family: $font-sans; font-size: $fs-xl; line-height: $lh-tight; letter-spacing: -0.01em; font-weight: $fw-semibold; }
 h3 { font-size: $fs-lg; line-height: $lh-tight; font-weight: $fw-semibold; }
 h4 { font-size: $fs-md; line-height: $lh-normal; font-weight: $fw-semibold; }
 
@@ -39,21 +39,21 @@ h4 { font-size: $fs-md; line-height: $lh-normal; font-weight: $fw-semibold; }
 }
 
 a {
-  color: $accent-blue;
+  color: $brand-primary;
   transition: color $transition-fast;
 
-  &:hover { color: darken($accent-blue, 10%); }
-  &:focus-visible { outline: 2px solid $accent-blue; outline-offset: 2px; }
+  &:hover { color: darken($brand-primary, 10%); }
+  &:focus-visible { outline: 2px solid $brand-primary; outline-offset: 2px; }
 }
 
 ::selection {
-  background: rgba($accent-blue, 0.15);
+  background: rgba($brand-primary, 0.18);
   color: $text-primary;
 }
 
 article {
   h2 {
-    font-family: $font-serif;
+    font-family: $font-sans;
     margin-top: $sp-8;
     margin-bottom: $sp-3;
     padding-bottom: $sp-2;

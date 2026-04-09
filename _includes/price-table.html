@@ -1,0 +1,101 @@
+{% comment %}
+  Master price table: shows all elements with retail/bulk prices.
+  Used on the /prices/ page (the Ledger).
+  Uses the shared price-selection.html logic per element.
+{% endcomment %}
+
+{% assign cat_order = "rare_earth_light,rare_earth_heavy,strategic_metal,semiconductor_metal" | split: "," %}
+{% assign cat_labels = "Light Rare Earths,Heavy Rare Earths,Strategic Metals,Semiconductor Metals" | split: "," %}
+
+{% for cat in cat_order %}
+  {% assign cat_idx = forloop.index0 %}
+  {% assign cat_elems = "" | split: "" %}
+  {% for c in site.data.element_catalog %}
+    {% if c.category == cat %}
+      {% assign cat_elems = cat_elems | push: c %}
+    {% endif %}
+  {% endfor %}
+  {% assign cat_elems = cat_elems | sort: "atomic_number" %}
+
+  <section class="price-table-section">
+    <h2 class="price-table-heading">
+      <span class="cat-heading-swatch cat-swatch-{{ cat | replace: '_', '-' }}"></span>
+      {{ cat_labels[cat_idx] }}
+      <span class="cat-heading-count">{{ cat_elems.size }}</span>
+    </h2>
+
+    <div class="elements-table-wrap">
+      <table class="data-table price-ledger-table">
+        <thead>
+          <tr>
+            <th class="col-z" data-sortable data-sort-key="z">Z</th>
+            <th class="col-sym">Symbol</th>
+            <th class="col-name">Name</th>
+            <th class="col-ctrl">Status</th>
+            <th class="col-retail" data-sortable data-sort-key="price">Retail Ref</th>
+            <th class="col-bulk" data-sortable data-sort-key="price">Bulk Bench</th>
+            <th class="col-form">Form</th>
+            <th class="col-date" data-sortable data-sort-key="date">Updated</th>
+            <th class="col-origin">Origin</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for cat_info in cat_elems %}
+            {% assign elem = nil %}
+            {% for e in site.elements %}
+              {% if e.symbol == cat_info.symbol %}
+                {% assign elem = e %}
+                {% break %}
+              {% endif %}
+            {% endfor %}
+
+            {% include price-selection.html symbol=cat_info.symbol %}
+
+            <tr class="elements-row"
+                data-z="{{ cat_info.atomic_number }}"
+                data-price="{% if retail_ref %}{{ retail_ref.normalized_usd_per_kg }}{% endif %}"
+                data-date="{% if retail_ref %}{{ retail_ref.quote_date }}{% elsif bulk_ref %}{{ bulk_ref.quote_date }}{% endif %}">
+              <td class="col-z mono">{{ cat_info.atomic_number }}</td>
+              <td class="col-sym">
+                {% if elem %}<a href="{{ elem.url | relative_url }}" class="sym-link">{{ cat_info.symbol }}</a>
+                {% else %}<span class="sym-nolink">{{ cat_info.symbol }}</span>{% endif %}
+              </td>
+              <td class="col-name">
+                {% if elem %}<a href="{{ elem.url | relative_url }}" class="name-link">{{ cat_info.name }}</a>
+                {% else %}{{ cat_info.name }}{% endif %}
+              </td>
+              <td class="col-ctrl">
+                {% if cat_info.regulatory_status == 'active' %}
+                  <span class="reg-badge reg-export">Export Licence</span>
+                {% elsif cat_info.regulatory_status == 'suspended' %}
+                  <span class="reg-badge reg-suspended">Suspended</span>
+                {% else %}
+                  <span class="reg-badge reg-none">None</span>
+                {% endif %}
+              </td>
+              <td class="col-retail col-price">
+                {% if retail_ref %}${{ retail_ref.normalized_usd_per_kg }}<span class="unit">/kg</span>
+                {% else %}<span class="no-data">&mdash;</span>{% endif %}
+              </td>
+              <td class="col-bulk col-price">
+                {% if bulk_ref %}${{ bulk_ref.normalized_usd_per_kg }}<span class="unit">/kg</span>
+                {% else %}<span class="no-data">&mdash;</span>{% endif %}
+              </td>
+              <td class="col-form dim">
+                {% if retail_ref %}{{ retail_ref.form | capitalize }}
+                {% elsif bulk_ref %}{{ bulk_ref.form | capitalize }}
+                {% else %}&mdash;{% endif %}
+              </td>
+              <td class="col-date mono">
+                {% if retail_ref %}{{ retail_ref.quote_date | truncate: 10, "" }}
+                {% elsif bulk_ref %}{{ bulk_ref.quote_date | truncate: 10, "" }}
+                {% else %}&mdash;{% endif %}
+              </td>
+              <td class="col-origin mono">{{ cat_info.dominant_source_country }}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </section>
+{% endfor %}

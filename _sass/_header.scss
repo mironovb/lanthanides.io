@@ -1,10 +1,13 @@
 // Site header
 .site-header {
   height: $header-height;
-  background: $bg-primary;
+  background: $bg-card;
   border-bottom: 1px solid $border-primary;
   display: flex;
   align-items: center;
+  position: sticky;
+  top: 0;
+  z-index: 100;
 
   .header-inner {
     @include container;
@@ -54,6 +57,12 @@
 
     &:hover {
       color: $text-primary;
+      background: $bg-secondary;
+    }
+
+    &.nav-active {
+      color: $brand-primary;
+      font-weight: $fw-semibold;
     }
   }
 
@@ -63,6 +72,55 @@
     a {
       padding: $sp-1 $sp-2;
       font-size: $fs-xs;
+    }
+  }
+}
+
+// Mobile nav toggle
+.nav-toggle {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: $sp-2;
+  flex-direction: column;
+  gap: 5px;
+
+  .nav-toggle-bar {
+    display: block;
+    width: 18px;
+    height: 2px;
+    background: $text-primary;
+    border-radius: 1px;
+    transition: transform $transition-base;
+  }
+
+  @include bp-max-sm {
+    display: flex;
+  }
+}
+
+@include bp-max-sm {
+  .site-nav {
+    display: none;
+
+    &.nav-open {
+      display: flex;
+      flex-direction: column;
+      position: absolute;
+      top: $header-height;
+      left: 0;
+      right: 0;
+      background: $bg-card;
+      border-bottom: 1px solid $border-primary;
+      padding: $sp-2 $sp-4;
+      z-index: 99;
+
+      a {
+        padding: $sp-2 $sp-3;
+        font-size: $fs-sm;
+        width: 100%;
+      }
     }
   }
 }

@@ -79,3 +79,40 @@
   background: rgba($ctrl-normal, 0.06);
   border: 1px solid rgba($ctrl-normal, 0.2);
 }
+
+// Regulatory status badges (used on element pages, price table)
+.reg-badge {
+  display: inline-block;
+  font-family: $font-mono;
+  font-size: $fs-2xs;
+  font-weight: $fw-semibold;
+  padding: 2px 6px;
+  border-radius: $radius-sm;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+
+  &.reg-none {
+    color: $reg-none;
+    background: rgba($reg-none, 0.08);
+    border: 1px solid rgba($reg-none, 0.2);
+  }
+
+  &.reg-export {
+    color: darken($reg-export, 10%);
+    background: rgba($reg-export, 0.1);
+    border: 1px solid rgba($reg-export, 0.25);
+  }
+
+  &.reg-denial {
+    color: $reg-denial;
+    background: rgba($reg-denial, 0.08);
+    border: 1px solid rgba($reg-denial, 0.2);
+  }
+
+  &.reg-suspended {
+    color: $reg-suspended;
+    background: rgba($reg-suspended, 0.08);
+    border: 1px solid rgba($reg-suspended, 0.2);
+  }
+}

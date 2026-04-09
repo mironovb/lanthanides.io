@@ -1,0 +1,29 @@
+{% comment %}
+  Regulatory alert banner: shows active export controls if any exist.
+  Scans element_catalog for elements with active regulatory status.
+{% endcomment %}
+
+{% assign controlled_elements = "" | split: "" %}
+{% for cat in site.data.element_catalog %}
+  {% if cat.regulatory_status == 'active' %}
+    {% assign controlled_elements = controlled_elements | push: cat %}
+  {% endif %}
+{% endfor %}
+
+{% if controlled_elements.size > 0 %}
+<div class="reg-alert-banner">
+  <div class="reg-alert-inner">
+    <span class="reg-alert-icon">&#9888;</span>
+    <div class="reg-alert-content">
+      <strong>Active Export Controls</strong>
+      <span class="reg-alert-text">
+        {{ controlled_elements.size }} element{% if controlled_elements.size != 1 %}s{% endif %} currently under Chinese export licence requirements:
+        {% for el in controlled_elements %}
+          <a href="{{ '/elements/' | append: el.symbol | append: '/' | relative_url }}" class="reg-alert-sym">{{ el.symbol }}</a>{% unless forloop.last %} {% endunless %}
+        {% endfor %}
+      </span>
+    </div>
+    <a href="{{ '/regulatory/' | relative_url }}" class="reg-alert-link">Details &rarr;</a>
+  </div>
+</div>
+{% endif %}

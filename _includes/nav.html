@@ -1,0 +1,19 @@
+<header class="site-header" role="banner">
+  <div class="header-inner">
+    <a href="{{ '/' | relative_url }}" class="site-brand">
+      <img src="{{ '/assets/images/logo-48.png' | relative_url }}" alt="lanthanides.io" class="brand-logo" width="24" height="24">
+      <span class="brand-name">lanthanides.io</span>
+    </a>
+    <nav class="site-nav" aria-label="Main navigation">
+      <a href="{{ '/prices/' | relative_url }}"{% if page.url == '/prices/' %} class="nav-active"{% endif %}>Prices</a>
+      <a href="{{ '/regulatory/' | relative_url }}"{% if page.url == '/regulatory/' %} class="nav-active"{% endif %}>Regulatory</a>
+      <a href="{{ '/dispatches/' | relative_url }}"{% if page.url == '/dispatches/' %} class="nav-active"{% endif %}>Dispatches</a>
+      <a href="{{ '/methodology/' | relative_url }}"{% if page.url == '/methodology/' %} class="nav-active"{% endif %}>Methodology</a>
+      <a href="{{ '/about/' | relative_url }}"{% if page.url == '/about/' %} class="nav-active"{% endif %}>About</a>
+    </nav>
+    <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
+      <span class="nav-toggle-bar"></span>
+      <span class="nav-toggle-bar"></span>
+    </button>
+  </div>
+</header>

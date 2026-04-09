@@ -1,0 +1,38 @@
+{% comment %}
+  Market pulse strip: shows top elements with existing price data.
+  Used on the homepage as a ticker-style summary.
+{% endcomment %}
+
+{% assign pulse_elements = "Nd,Dy,Tb,Ga,Ge,W,Co,Li" | split: "," %}
+
+<div class="market-pulse">
+  <span class="pulse-label">Market Pulse</span>
+  <div class="pulse-strip">
+    {% for sym in pulse_elements %}
+      {% include price-selection.html symbol=sym %}
+      {% assign cat_info = nil %}
+      {% for c in site.data.element_catalog %}
+        {% if c.symbol == sym %}{% assign cat_info = c %}{% break %}{% endif %}
+      {% endfor %}
+      {% if cat_info %}
+        {% assign elem_page = nil %}
+        {% for e in site.elements %}
+          {% if e.symbol == sym %}{% assign elem_page = e %}{% break %}{% endif %}
+        {% endfor %}
+        <a href="{% if elem_page %}{{ elem_page.url | relative_url }}{% else %}#{% endif %}" class="pulse-item">
+          <span class="pulse-sym">{{ sym }}</span>
+          {% if retail_ref %}
+            <span class="pulse-price">${{ retail_ref.normalized_usd_per_kg }}/kg</span>
+          {% elsif bulk_ref %}
+            <span class="pulse-price">${{ bulk_ref.normalized_usd_per_kg }}/kg</span>
+          {% else %}
+            <span class="pulse-price pulse-no-data">&mdash;</span>
+          {% endif %}
+          {% if cat_info.cn_export_control %}
+            <span class="pulse-ctrl" title="Export control active">&#9679;</span>
+          {% endif %}
+        </a>
+      {% endif %}
+    {% endfor %}
+  </div>
+</div>

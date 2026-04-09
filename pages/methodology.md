@@ -1,7 +1,7 @@
 ---
-layout: page
+layout: data-page
 title: "Methodology"
-description: "How price data is collected, normalised, verified, and displayed."
+description: "How price data is collected, normalised, verified, and displayed on lanthanides.io."
 permalink: /methodology/
 ---
 

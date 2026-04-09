@@ -16,35 +16,23 @@ permalink: /regulatory/
     Chinese export-control regime currently applies (none). Click any symbol to see the
     element's full price page.
   </p>
-  <div class="risk-overview-grid">
+  <div class="reg-element-grid">
     {% assign cat_sorted = site.data.element_catalog | sort: "atomic_number" %}
     {% for cat in cat_sorted %}
       {% if cat.regulatory_status and cat.regulatory_status != 'none' %}
-        <div class="risk-card">
-          <div class="risk-card-header">
-            <h3>
-              <a href="{{ '/elements/' | append: cat.symbol | append: '/' | relative_url }}">{{ cat.symbol }}</a>
-              <span class="risk-card-name">{{ cat.name }}</span>
-            </h3>
+        <div class="reg-element-card">
+          <div class="reg-element-header">
+            <a href="{{ '/elements/' | append: cat.symbol | append: '/' | relative_url }}" class="reg-element-sym">{{ cat.symbol }}</a>
+            <span class="reg-element-name">{{ cat.name }}</span>
             {% if cat.regulatory_status == 'active' %}
-              <span class="badge-ctrl badge-restricted">Active</span>
+              <span class="reg-badge reg-export">Export Licence</span>
             {% elsif cat.regulatory_status == 'suspended' %}
-              <span class="badge-ctrl badge-monitored">Suspended</span>
+              <span class="reg-badge reg-suspended">Suspended</span>
             {% endif %}
           </div>
-          <div class="risk-factors">
-            <div class="risk-factor">
-              <span class="risk-dot {% if cat.regulatory_status == 'active' %}risk-high{% else %}risk-medium{% endif %}"></span>
-              {% if cat.regulatory_status == 'active' %}
-                Export licence required
-              {% else %}
-                Licence regime paused under suspension order
-              {% endif %}
-            </div>
-            {% if cat.notes %}
-              <div class="risk-factor"><span class="risk-dot risk-low"></span>{{ cat.notes | truncatewords: 20 }}</div>
-            {% endif %}
-          </div>
+          {% if cat.notes %}
+            <p class="reg-element-note">{{ cat.notes | truncatewords: 25 }}</p>
+          {% endif %}
         </div>
       {% endif %}
     {% endfor %}

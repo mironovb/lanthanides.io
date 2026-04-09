@@ -14,7 +14,7 @@
   display: flex;
   align-items: center;
   gap: $sp-2;
-  font-family: $font-serif;
+  font-family: $font-sans;
   font-size: $fs-md;
   font-weight: $fw-semibold;
   color: $text-primary;
@@ -92,7 +92,7 @@
 
 .col-sym {
   width: 48px;
-  font-family: $font-serif;
+  font-family: $font-sans;
   font-size: $fs-md;
   font-weight: $fw-bold;
 }

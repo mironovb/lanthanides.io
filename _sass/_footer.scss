@@ -7,9 +7,9 @@
   font-weight: 600;
   letter-spacing: 0.04em;
 
-  &.freshness-fresh  { background: #1a4d1a; color: #b9f5b9; }
-  &.freshness-recent { background: #4d3a1a; color: #f5d7b9; }
-  &.freshness-stale  { background: #4d1a1a; color: #f5b9b9; }
+  &.freshness-fresh  { background: rgba($reg-none, 0.15); color: darken($reg-none, 10%); }
+  &.freshness-recent { background: rgba($brand-secondary, 0.15); color: darken($brand-secondary, 15%); }
+  &.freshness-stale  { background: rgba($accent-red, 0.15); color: darken($accent-red, 5%); }
 }
 
 .site-footer {
@@ -74,5 +74,26 @@
       border-bottom: 1px dotted $border-secondary;
       &:hover { color: $text-primary; border-bottom-style: solid; }
     }
+  }
+
+  .footer-stats {
+    font-family: $font-mono;
+    font-size: $fs-xs;
+    color: $text-muted;
+    letter-spacing: 0.02em;
+  }
+
+  .footer-bottom {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: $sp-2 $sp-4;
+    align-items: baseline;
+  }
+
+  .footer-updated {
+    font-family: $font-mono;
+    font-size: $fs-2xs;
+    color: $text-dim;
   }
 }

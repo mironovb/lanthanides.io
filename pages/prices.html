@@ -1,0 +1,27 @@
+---
+layout: default
+title: "The Ledger — All Rare Earth & Strategic Metal Prices"
+description: "Master price table for all rare earth elements, strategic metals, and semiconductor materials. Retail reference and bulk benchmark pricing with regulatory status."
+permalink: /prices/
+---
+
+{% assign breadcrumb_current = "Prices" %}
+{% include structured-data-breadcrumb.html %}
+
+<div class="prices-page">
+  <h1 class="page-title">The Ledger</h1>
+  <p class="page-description">Current prices per kilogram for {{ site.data.element_catalog.size }} elements. Each row shows the retail reference (lowest verified in-stock price for a practical quantity) and bulk benchmark (most recent commodity-scale price). All prices normalised to USD/kg.</p>
+
+  {% include price-table.html %}
+
+  <div class="price-legend">
+    <h3 class="legend-heading">Regulatory Status</h3>
+    <div class="legend-row">
+      <span class="reg-badge reg-none">None</span> No restrictions
+      <span class="reg-badge reg-export">Export Licence</span> Chinese export licence required
+      <span class="reg-badge reg-suspended">Suspended</span> Controls paused under suspension order
+    </div>
+  </div>
+
+  {% include disclaimer.html %}
+</div>
