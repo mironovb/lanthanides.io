@@ -140,4 +140,3 @@ permalink: /elements/Sb/
   </ol>
 </div>
 
-**Related:** [Tungsten](/elements/W/) &middot; [Bismuth](/elements/Bi/) &middot; [Tellurium](/elements/Te/) &middot; [Regulatory Tracker](/regulatory/)

@@ -129,4 +129,3 @@ permalink: /elements/Co/
   </ol>
 </div>
 
-**Related:** [Lithium](/elements/Li/) &middot; [Vanadium](/elements/V/) &middot; [Molybdenum](/elements/Mo/) &middot; [Regulatory Tracker](/regulatory/)

@@ -139,4 +139,3 @@ permalink: /elements/Bi/
   </ol>
 </div>
 
-**Related:** [Tellurium](/elements/Te/) &middot; [Antimony](/elements/Sb/) &middot; [Indium](/elements/In/) &middot; [Regulatory Tracker](/regulatory/)

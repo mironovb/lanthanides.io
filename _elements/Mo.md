@@ -139,4 +139,3 @@ permalink: /elements/Mo/
   </ol>
 </div>
 
-**Related:** [Tungsten](/elements/W/) &middot; [Niobium](/elements/Nb/) &middot; [Vanadium](/elements/V/) &middot; [Regulatory Tracker](/regulatory/)

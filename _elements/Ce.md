@@ -128,4 +128,3 @@ permalink: /elements/Ce/
   </ol>
 </div>
 
-**Related:** [Lanthanum](/elements/La/) &middot; [Praseodymium](/elements/Pr/) &middot; [Neodymium](/elements/Nd/) &middot; [Regulatory Tracker](/regulatory/)

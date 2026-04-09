@@ -81,6 +81,11 @@
 }
 
 // Regulatory status badges (used on element pages, price table)
+a.reg-badge {
+  text-decoration: none;
+  &:hover { opacity: 0.8; }
+}
+
 .reg-badge {
   display: inline-block;
   font-family: $font-mono;

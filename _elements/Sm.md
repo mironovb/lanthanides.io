@@ -139,4 +139,3 @@ permalink: /elements/Sm/
   </ol>
 </div>
 
-**Related:** [Gadolinium](/elements/Gd/) &middot; [Terbium](/elements/Tb/) &middot; [Dysprosium](/elements/Dy/) &middot; [Regulatory Tracker](/regulatory/)

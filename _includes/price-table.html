@@ -34,6 +34,7 @@
             <th class="col-ctrl">Status</th>
             <th class="col-retail" data-sortable data-sort-key="price">Retail Ref</th>
             <th class="col-bulk" data-sortable data-sort-key="price">Bulk Bench</th>
+            <th class="col-premium" data-sortable data-sort-key="premium">Premium</th>
             <th class="col-form">Form</th>
             <th class="col-date" data-sortable data-sort-key="date">Updated</th>
             <th class="col-origin">Origin</th>
@@ -70,7 +71,7 @@
                 {% elsif cat_info.regulatory_status == 'suspended' %}
                   <span class="reg-badge reg-suspended">Suspended</span>
                 {% else %}
-                  <span class="reg-badge reg-none">None</span>
+                  <span class="no-data">&mdash;</span>
                 {% endif %}
               </td>
               <td class="col-retail col-price">
@@ -79,6 +80,14 @@
               </td>
               <td class="col-bulk col-price">
                 {% if bulk_ref %}${{ bulk_ref.normalized_usd_per_kg }}<span class="unit">/kg</span>
+                {% else %}<span class="no-data">&mdash;</span>{% endif %}
+              </td>
+              <td class="col-premium col-price">
+                {% if retail_ref and bulk_ref and bulk_ref.normalized_usd_per_kg > 0 %}
+                  {% assign pt_x10 = retail_ref.normalized_usd_per_kg | times: 10 | divided_by: bulk_ref.normalized_usd_per_kg %}
+                  {% assign pt_whole = pt_x10 | divided_by: 10 %}
+                  {% assign pt_frac = pt_x10 | modulo: 10 %}
+                  {{ pt_whole }}.{{ pt_frac }}&times;
                 {% else %}<span class="no-data">&mdash;</span>{% endif %}
               </td>
               <td class="col-form dim">

@@ -129,4 +129,3 @@ permalink: /elements/Nb/
   </ol>
 </div>
 
-**Related:** [Tantalum](/elements/Ta/) &middot; [Vanadium](/elements/V/) &middot; [Molybdenum](/elements/Mo/) &middot; [Regulatory Tracker](/regulatory/)

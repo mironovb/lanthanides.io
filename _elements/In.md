@@ -139,4 +139,3 @@ permalink: /elements/In/
   </ol>
 </div>
 
-**Related:** [Gallium](/elements/Ga/) &middot; [Germanium](/elements/Ge/) &middot; [Tellurium](/elements/Te/) &middot; [Regulatory Tracker](/regulatory/)

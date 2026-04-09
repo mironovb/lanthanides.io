@@ -138,4 +138,3 @@ permalink: /elements/Yb/
   </ol>
 </div>
 
-**Related:** [Lutetium](/elements/Lu/) &middot; [Thulium](/elements/Tm/) &middot; [Erbium](/elements/Er/) &middot; [Regulatory Tracker](/regulatory/)

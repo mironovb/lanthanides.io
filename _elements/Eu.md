@@ -138,4 +138,3 @@ permalink: /elements/Eu/
   </ol>
 </div>
 
-**Related:** [Yttrium](/elements/Y/) &middot; [Gadolinium](/elements/Gd/) &middot; [Samarium](/elements/Sm/) &middot; [Regulatory Tracker](/regulatory/)

@@ -139,4 +139,3 @@ permalink: /elements/W/
   </ol>
 </div>
 
-**Related:** [Molybdenum](/elements/Mo/) &middot; [Tellurium](/elements/Te/) &middot; [Antimony](/elements/Sb/) &middot; [Regulatory Tracker](/regulatory/)

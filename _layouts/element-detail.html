@@ -70,11 +70,9 @@ layout: default
               <span class="badge-cat badge-semiconductor">Semiconductor Metal</span>
           {% endcase %}
           {% if cat_info.regulatory_status == 'active' %}
-            <span class="reg-badge reg-export">Export Licence</span>
+            <a href="{{ '/regulatory/' | relative_url }}" class="reg-badge reg-export">Export Licence</a>
           {% elsif cat_info.regulatory_status == 'suspended' %}
-            <span class="reg-badge reg-suspended">Suspended</span>
-          {% else %}
-            <span class="reg-badge reg-none">None</span>
+            <a href="{{ '/regulatory/' | relative_url }}" class="reg-badge reg-suspended">Suspended</a>
           {% endif %}
         </div>
         {% if cat_info.notes %}
@@ -125,7 +123,7 @@ layout: default
       <div class="ref-price-source">
         {{ retail_ref.seller_name }}
         {% if retail_ref.seller_country %}&middot; {{ retail_ref.seller_country }}{% endif %}
-        &middot; {{ retail_ref.quote_date | truncate: 7, "" }}
+        &middot; {{ retail_ref.quote_date | truncate: 10, "" }}
       </div>
       {% if retail_ref and bulk_ref and bulk_ref.normalized_usd_per_kg > 0 %}
         <div class="ref-price-premium">Retail Premium: {{ premium_whole }}.{{ premium_frac }}&times;</div>
@@ -146,7 +144,7 @@ layout: default
       <div class="ref-price-source">
         {{ bulk_ref.seller_name }}
         {% if bulk_ref.incoterm %}&middot; {{ bulk_ref.incoterm }}{% endif %}
-        &middot; {{ bulk_ref.quote_date | truncate: 7, "" }}
+        &middot; {{ bulk_ref.quote_date | truncate: 10, "" }}
       </div>
     {% else %}
       <div class="ref-price-empty">&mdash;</div>
@@ -154,6 +152,21 @@ layout: default
     {% endif %}
   </div>
 </div>
+
+{% comment %} ── Regulatory inline notice (auto-generated for controlled elements) ── {% endcomment %}
+{% if cat_info.regulatory_status == 'active' %}
+<div class="reg-notice-inline">
+  <a href="{{ '/regulatory/' | relative_url }}" class="reg-badge reg-export">Export Licence</a>
+  <span class="reg-notice-inline-text">Chinese export licence required for {{ page.name }} in all controlled forms.</span>
+  <a href="{{ '/regulatory/' | relative_url }}" class="reg-notice-inline-link">Regulatory Tracker &rarr;</a>
+</div>
+{% elsif cat_info.regulatory_status == 'suspended' %}
+<div class="reg-notice-inline reg-notice-inline-suspended">
+  <a href="{{ '/regulatory/' | relative_url }}" class="reg-badge reg-suspended">Suspended</a>
+  <span class="reg-notice-inline-text">Export controls paused under November 2025 suspension orders.</span>
+  <a href="{{ '/regulatory/' | relative_url }}" class="reg-notice-inline-link">Regulatory Tracker &rarr;</a>
+</div>
+{% endif %}
 
 <div class="element-main">
   {{ content }}
@@ -166,6 +179,115 @@ layout: default
     </div>
   {% endif %}
 </div>
+
+{% comment %} ── Related elements (same category, nearest by atomic number) ── {% endcomment %}
+{% assign related_all = "" | split: "" %}
+{% for c in site.data.element_catalog %}
+  {% if c.category == cat_info.category and c.symbol != page.symbol %}
+    {% assign related_all = related_all | push: c %}
+  {% endif %}
+{% endfor %}
+{% assign related_all = related_all | sort: "atomic_number" %}
+
+{% assign before_rel = "" | split: "" %}
+{% assign after_rel = "" | split: "" %}
+{% for c in related_all %}
+  {% if c.atomic_number < cat_info.atomic_number %}
+    {% assign before_rel = before_rel | push: c %}
+  {% elsif c.atomic_number > cat_info.atomic_number %}
+    {% assign after_rel = after_rel | push: c %}
+  {% endif %}
+{% endfor %}
+
+{% assign related_pick = "" | split: "" %}
+{% assign bsize = before_rel.size %}
+{% if bsize > 2 %}
+  {% assign bstart = bsize | minus: 2 %}
+{% else %}
+  {% assign bstart = 0 %}
+{% endif %}
+{% for c in before_rel %}
+  {% if forloop.index0 >= bstart %}
+    {% assign related_pick = related_pick | push: c %}
+  {% endif %}
+{% endfor %}
+{% assign amax = 4 | minus: related_pick.size %}
+{% for c in after_rel %}
+  {% if forloop.index0 < amax %}
+    {% assign related_pick = related_pick | push: c %}
+  {% endif %}
+{% endfor %}
+
+{% if related_pick.size > 0 %}
+<div class="related-elements">
+  <span class="related-label">Related elements:</span>
+  {% for rel in related_pick %}
+    {% for e in site.elements %}
+      {% if e.symbol == rel.symbol %}
+        <a href="{{ e.url | relative_url }}" class="related-link">{{ rel.name }}</a>
+        {% break %}
+      {% endif %}
+    {% endfor %}
+    {% unless forloop.last %}<span class="related-sep">&middot;</span>{% endunless %}
+  {% endfor %}
+</div>
+{% endif %}
+
+{% comment %} ── Previous / Next navigation (by atomic number within category order) ── {% endcomment %}
+{% assign nav_cat_order = "rare_earth_light,rare_earth_heavy,strategic_metal,semiconductor_metal" | split: "," %}
+{% assign nav_ordered = "" | split: "" %}
+{% for cat in nav_cat_order %}
+  {% assign nav_cat_elems = "" | split: "" %}
+  {% for c in site.data.element_catalog %}
+    {% if c.category == cat %}
+      {% assign nav_cat_elems = nav_cat_elems | push: c %}
+    {% endif %}
+  {% endfor %}
+  {% assign nav_cat_elems = nav_cat_elems | sort: "atomic_number" %}
+  {% for c in nav_cat_elems %}
+    {% assign nav_ordered = nav_ordered | push: c %}
+  {% endfor %}
+{% endfor %}
+
+{% assign prev_elem = nil %}
+{% assign next_elem = nil %}
+{% assign found_current = false %}
+{% for c in nav_ordered %}
+  {% if found_current and next_elem == nil %}
+    {% assign next_elem = c %}
+  {% endif %}
+  {% if c.symbol == page.symbol %}
+    {% assign found_current = true %}
+  {% endif %}
+  {% unless found_current %}
+    {% assign prev_elem = c %}
+  {% endunless %}
+{% endfor %}
+
+{% if prev_elem or next_elem %}
+<nav class="element-prev-next" aria-label="Element navigation">
+  {% if prev_elem %}
+    {% for e in site.elements %}
+      {% if e.symbol == prev_elem.symbol %}
+        <a href="{{ e.url | relative_url }}" class="prev-next-link prev-link">&larr; {{ prev_elem.name }}</a>
+        {% break %}
+      {% endif %}
+    {% endfor %}
+  {% else %}
+    <span class="prev-next-placeholder"></span>
+  {% endif %}
+  {% if next_elem %}
+    {% for e in site.elements %}
+      {% if e.symbol == next_elem.symbol %}
+        <a href="{{ e.url | relative_url }}" class="prev-next-link next-link">{{ next_elem.name }} &rarr;</a>
+        {% break %}
+      {% endif %}
+    {% endfor %}
+  {% else %}
+    <span class="prev-next-placeholder"></span>
+  {% endif %}
+</nav>
+{% endif %}
 
 <nav class="element-nav-bar">
   <div class="element-nav-inner">

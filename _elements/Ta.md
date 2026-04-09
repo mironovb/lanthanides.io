@@ -129,4 +129,3 @@ permalink: /elements/Ta/
   </ol>
 </div>
 
-**Related:** [Niobium](/elements/Nb/) &middot; [Tungsten](/elements/W/) &middot; [Tellurium](/elements/Te/) &middot; [Regulatory Tracker](/regulatory/)

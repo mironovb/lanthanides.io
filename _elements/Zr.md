@@ -129,4 +129,3 @@ permalink: /elements/Zr/
   </ol>
 </div>
 
-**Related:** [Niobium](/elements/Nb/) &middot; [Tantalum](/elements/Ta/) &middot; [Vanadium](/elements/V/) &middot; [Regulatory Tracker](/regulatory/)

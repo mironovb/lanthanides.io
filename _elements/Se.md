@@ -129,4 +129,3 @@ permalink: /elements/Se/
   </ol>
 </div>
 
-**Related:** [Tellurium](/elements/Te/) &middot; [Bismuth](/elements/Bi/) &middot; [Germanium](/elements/Ge/) &middot; [Regulatory Tracker](/regulatory/)
