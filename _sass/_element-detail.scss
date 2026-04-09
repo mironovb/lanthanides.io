@@ -469,34 +469,13 @@
   margin: $sp-6 0 $sp-3;
 }
 
-// ── Data tables ─────────────────────────────────────────────
-.data-table {
-  width: 100%;
-  border-collapse: collapse;
-  font-size: $fs-sm;
-  margin-bottom: $sp-3;
-
-  th, td {
-    padding: $sp-2 $sp-3;
-    text-align: left;
-    border-bottom: 1px solid $border-primary;
-  }
-
+// ── Data tables (element-detail overrides) ──────────────────
+.element-section .data-table {
   th {
-    font-weight: $fw-semibold;
-    color: $text-dim;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    font-size: $fs-xs;
-    border-bottom: 2px solid $border-secondary;
-    background: $bg-secondary;
     position: sticky;
     top: 0;
   }
 
-  td { color: $text-secondary; }
-
-  tbody tr:hover { background: rgba($bg-tertiary, 0.5); }
   tbody tr.table-highlight { background: rgba($accent-teal, 0.04); }
 }
 

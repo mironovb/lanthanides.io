@@ -61,7 +61,7 @@
   gap: $sp-4;
   margin-top: $sp-4;
 
-  @media (max-width: $bp-md) {
+  @include bp-max-md {
     grid-template-columns: repeat(2, 1fr);
   }
 }
