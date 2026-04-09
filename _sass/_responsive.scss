@@ -528,20 +528,6 @@
     margin-top: $sp-1;
   }
 
-  // ── Dispatches page ──
-  .dispatch-featured {
-    padding: $sp-3;
-  }
-
-  .dispatch-featured-title {
-    font-size: $fs-xl;
-  }
-
-  .dispatch-item {
-    grid-template-columns: 60px 1fr;
-    gap: $sp-3;
-  }
-
   // ── About page ──
   .about-stats {
     grid-template-columns: repeat(2, 1fr);

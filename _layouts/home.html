@@ -11,20 +11,25 @@ layout: default
 {% include regulatory-banner.html %}
 
 <div class="home-header">
-  <h1 class="home-title">Strategic Materials Ledger</h1>
-  <p class="home-subtitle">Real-time rare earth and strategic metal pricing with full source provenance. {{ site.elements | size }} elements, {{ site.data.price_records | size }} price records.</p>
+  <h1 class="home-title">Rare Earth Prices &amp; Strategic Metal Pricing</h1>
+  <p class="home-subtitle">Current prices per kilogram for rare earth elements, strategic metals &amp; semiconductor materials — retail reference and bulk benchmark pricing with full provenance</p>
 </div>
 
 {{ content }}
 
-{% comment %} ── Two-column: Latest Dispatch + Key Developments ── {% endcomment %}
+<div class="home-seo-intro">
+  <p><strong>lanthanides.io</strong> tracks real-world prices for <strong>rare earth elements</strong>, <strong>strategic metals</strong>, and <strong>semiconductor materials</strong>. Each price is sourced from verified, in-stock listings across retail suppliers, industrial wholesalers, and commodity benchmarks — then normalised to <strong>USD per kilogram</strong> for direct comparison.</p>
+  <p>We cover {{ site.elements | size }} elements across four categories: <strong>light rare earths</strong> (lanthanum, cerium, neodymium, praseodymium), <strong>heavy rare earths</strong> (dysprosium, terbium, gadolinium, yttrium, europium, erbium), <strong>strategic metals</strong> (tungsten, cobalt, bismuth, tellurium, niobium, tantalum, vanadium, zirconium), and <strong>semiconductor metals</strong> (gallium, germanium, indium, selenium). Prices are tracked at both retail and bulk tiers, with {{ site.data.price_records | size }} price records currently in the database.</p>
+</div>
+
+{% comment %} ── News (left) + Key Developments (right) — one row ── {% endcomment %}
 {% assign sorted_news = site.data.news | sort: "date" | reverse %}
 <div class="home-top-row">
 
-  {% comment %} ── Latest Dispatch (left) ── {% endcomment %}
+  {% comment %} ── Recent News (left) ── {% endcomment %}
   {% if sorted_news.size > 0 %}
   <section class="news-home">
-    <h2 class="panel-label">Latest Dispatches</h2>
+    <h2 class="panel-label">Recent News</h2>
     <ul class="news-list">
       {% for item in sorted_news limit:3 %}
         <li class="news-entry {% if forloop.index == 3 %}news-entry-faded{% endif %}">
@@ -46,12 +51,17 @@ layout: default
             {% else %}
               <strong class="news-entry-title">{{ item.headline }}</strong>
             {% endif %}
-            <p class="news-entry-body">{{ item.body | truncatewords: 25 }}</p>
+            <p class="news-entry-body">{{ item.body }}</p>
+            {% if item.references.size > 0 %}
+              {% for ref in item.references %}
+                <cite class="news-entry-ref">{{ ref.label }}</cite>
+              {% endfor %}
+            {% endif %}
           </div>
         </li>
       {% endfor %}
     </ul>
-    <a href="{{ '/dispatches/' | relative_url }}" class="news-read-more">all dispatches &rarr;</a>
+    <a href="{{ '/news/' | relative_url }}" class="news-read-more">read more &rarr;</a>
   </section>
   {% endif %}
 
@@ -82,13 +92,13 @@ layout: default
 <div class="category-legend">
   <span class="legend-item"><span class="legend-swatch swatch-ree-light"></span>Light Rare Earths</span>
   <span class="legend-item"><span class="legend-swatch swatch-ree-heavy"></span>Heavy Rare Earths</span>
-  <span class="legend-item"><span class="legend-swatch swatch-strategic"></span>Strategic Metals</span>
+  <span class="legend-item"><span class="legend-swatch swatch-strategic"></span>Strategic &amp; Rare Metals</span>
   <span class="legend-item"><span class="legend-swatch swatch-semiconductor"></span>Semiconductor Metals</span>
+</div>
+<div class="indicator-legend">
+  <span class="legend-item"><span class="legend-icon">&#10071;</span>China export control active</span>
+  <span class="legend-item"><span class="legend-icon">&#128293;</span>High demand alert</span>
 </div>
 
 {% comment %} ── Compact Element Grid ── {% endcomment %}
 {% include element-grid.html %}
-
-<div class="home-seo-intro">
-  <p><strong>lanthanides.io</strong> tracks real-world prices for <strong>rare earth elements</strong>, <strong>strategic metals</strong>, and <strong>semiconductor materials</strong>. Each price is sourced from verified, in-stock listings across retail suppliers, industrial wholesalers, and commodity benchmarks &mdash; then normalised to <strong>USD per kilogram</strong> for direct comparison.</p>
-</div>

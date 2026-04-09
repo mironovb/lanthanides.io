@@ -24,7 +24,7 @@
 
 // ── Shared panel label ────────────────────────────────────────
 .panel-label {
-  font-family: $font-sans;
+  font-family: $font-serif;
   font-size: $fs-base;
   font-weight: $fw-semibold;
   color: $text-primary;
@@ -321,7 +321,7 @@
   }
 
   .tile-symbol {
-    font-family: $font-sans;
+    font-family: $font-serif;
     font-size: $fs-xl;
     font-weight: $fw-bold;
     color: $text-primary;
