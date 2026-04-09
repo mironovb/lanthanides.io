@@ -1,0 +1,101 @@
+// ══════════════════════════════════════════════════════════════
+// Print stylesheet
+// ══════════════════════════════════════════════════════════════
+
+@media print {
+
+  // ── Hide non-content chrome ──
+  .site-header,
+  .site-footer,
+  .hamburger,
+  .mobile-nav,
+  .reg-alert,
+  .regulatory-banner,
+  .element-nav-bar,
+  .breadcrumb,
+  .skip-link,
+  .error-nav,
+  .article-back,
+  .article-elements {
+    display: none !important;
+  }
+
+  // ── Full-width content, no sidebar ──
+  .layout-with-sidebar {
+    display: block;
+
+    .sidebar-sticky { display: none; }
+  }
+
+  .site-main {
+    padding: 0;
+    max-width: 100%;
+  }
+
+  .site-wrapper {
+    max-width: 100%;
+    overflow: visible;
+  }
+
+  // ── Black text on white background ──
+  body,
+  .site-wrapper {
+    background: #fff !important;
+    color: #000 !important;
+  }
+
+  * {
+    color: #000 !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+  }
+
+  // ── Show URLs after links ──
+  a[href]::after {
+    content: " (" attr(href) ")";
+    font-size: 0.8em;
+    font-weight: normal;
+    word-break: break-all;
+  }
+
+  // Don't show URLs for anchors or JS links
+  a[href^="#"]::after,
+  a[href^="javascript"]::after {
+    content: "";
+  }
+
+  // ── Price tables: clean borders ──
+  table,
+  .data-table,
+  .price-ledger-table,
+  .applications-table {
+    border-collapse: collapse;
+    width: 100%;
+
+    th, td {
+      border: 1px solid #000 !important;
+      padding: 4px 8px;
+    }
+  }
+
+  // ── Page-break control ──
+  .element-tile,
+  .ref-price-card,
+  table,
+  .data-table,
+  .price-ledger-table {
+    page-break-inside: avoid;
+    break-inside: avoid;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    page-break-after: avoid;
+    break-after: avoid;
+  }
+
+  img {
+    max-width: 100% !important;
+    page-break-inside: avoid;
+  }
+}
