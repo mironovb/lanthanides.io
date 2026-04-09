@@ -10,13 +10,13 @@ elements: [La, Ce, Nd, Pr, Dy, Tb, Gd, Ho, Tm, Sc, Eu, Er, Y, Sm, Yb, Te, Ga, Ge
 
 Rare earths are not hard to find on eBay. They are hard to find *cheaply*. A 10mm neodymium cube from a US collector seller costs $19,857 per kilogram. The same metal in 2 kg ingot form from a German industrial supplier costs $1,231/kg. On Alibaba, the FOB China price for 99.9% neodymium ingot is $80--380/kg. The retail premium ranges from **15x to over 100x** depending on element, form, and platform.
 
-This report documents every qualifying listing found across eBay (US-shipping and global), Alibaba industrial, and Amazon retail for 25+ elements, surveyed April 4, 2026. It excludes the two dominant eBay rare earth sellers --- bogmir-71 (Kazakhstan) and natsh5543 (USA) --- to focus on the broader market of European specialists, US niche sellers, oxide suppliers, and industrial wholesalers that collectively define the true pricing landscape beyond the KZ/US duopoly.
+This report documents every qualifying listing found across eBay (US-shipping and global), Alibaba industrial, and Amazon retail for 25+ elements, surveyed April 4, 2026. It excludes the two dominant eBay rare earth sellers --- one based in Kazakhstan, one in the USA --- to focus on the broader market of European specialists, US niche sellers, oxide suppliers, and industrial wholesalers that collectively define the true pricing landscape beyond the KZ/US duopoly.
 
 ---
 
 ## Methodology
 
-**eBay US-shipping survey.** Buy It Now listings, ships to United States, collected April 4, 2026. Focus on all sellers except bogmir-71 and natsh5543.
+**eBay US-shipping survey.** Buy It Now listings, ships to United States, collected April 4, 2026. The two dominant KZ/US sellers are excluded to isolate the broader market.
 
 **eBay global survey.** Same date, US-only filter removed. Targeted elements that were thin or absent in the US survey: gadolinium, erbium, yttrium, gallium, samarium. Captured European and Chinese sellers; Chinese eBay cube resellers excluded from this analysis.
 
@@ -30,7 +30,7 @@ Per-kilogram pricing calculated from listed price divided by quantity, excluding
 
 ## The seller landscape
 
-The eBay rare earth market outside the bogmir-71/natsh5543 duopoly segments cleanly into four tiers.
+The eBay rare earth market outside the KZ/US duopoly segments cleanly into four tiers.
 
 ### Tier 1 --- European element specialists
 
@@ -136,7 +136,7 @@ Dysprosium oxide on Alibaba at $110--210/kg appears to represent extraordinary v
 |:--|:--|:--|:--|--:|:--|
 | Ganzhou Wanfeng | Nitrate | 99.9% | 1kg | $600 | China |
 
-No terbium metal listings were found outside the bogmir-71/natsh5543 duopoly. Ganzhou Wanfeng's Alibaba listing for Tb nitrate at $600/kg is the only non-duopoly data point, and it is subject to MOFCOM No. 18 export controls. Terbium remains one of the most supply-constrained elements on the market.
+No terbium metal listings were found outside the KZ/US duopoly. Ganzhou Wanfeng's Alibaba listing for Tb nitrate at $600/kg is the only non-duopoly data point, and it is subject to MOFCOM No. 18 export controls. Terbium remains one of the most supply-constrained elements on the market.
 
 ### Gadolinium (Gd) --- MOFCOM No. 18 controlled
 

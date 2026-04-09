@@ -30,7 +30,7 @@
   elements: [La, Ce, Nd, Pr, Dy, Tb, Gd, Ho, Tm, Sc, Eu, Er, Y, Sm, Yb, Te, Ga, Ge, In, Co, Bi, W, Zr, V, Nb]
   references:
     - label: "Primary survey data: eBay (US-shipping & global), Alibaba, Amazon"
-      note: "Survey date 4 Apr 2026; excludes bogmir-71 (KZ) and natsh5543 (US) seller accounts"
+      note: "Survey date 4 Apr 2026; two dominant KZ/US seller accounts excluded"
 
 - date: 2026-04-03
   headline: "China's invisible rare earth wall: why suspended controls don't mean available supply"
