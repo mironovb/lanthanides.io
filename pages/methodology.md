@@ -2,6 +2,7 @@
 layout: data-page
 title: "Methodology"
 description: "How price data is collected, normalised, verified, and displayed on lanthanides.io."
+keywords: "rare earth pricing methodology, price data sources, rare earth data collection, bulk benchmark methodology, retail reference price, rare earth price verification"
 permalink: /methodology/
 ---
 
@@ -198,6 +199,44 @@ but does not affect a weighted average — there is no weighted average.
 
 ---
 
+## Source Categories
+
+Price data is collected from four principal source categories.
+
+### Specialty element retailers
+Established Western retailers with public storefronts selling individual elements
+in collector, educational, and laboratory quantities. Includes dedicated element
+shops, eBay sellers with multi-year track records and verifiable feedback histories,
+and bullion dealers. These provide retail reference prices.
+
+### Chemical and laboratory suppliers
+Companies selling reagent-grade, research-grade, or industrial chemical products.
+Includes both large catalogues (Sigma-Aldrich, Alfa Aesar, MSE Supplies) and
+smaller specialty chemical distributors (Chemsavers). These records are included
+in offers tables for completeness but are generally not selected as the retail
+reference due to extreme per-kilogram rates at laboratory scale.
+
+### Chinese trading platforms and manufacturers
+Alibaba-verified suppliers, direct manufacturer quotes, and Chinese commodity
+indices. These sources provide bulk benchmark pricing. For export-controlled
+elements, listed prices may not reflect obtainable export pricing — the applicable
+regulatory status is always noted alongside.
+
+### Direct quotes and invoices
+Quotations solicited directly from distributors, manufacturers, or trading companies,
+plus uploaded purchase invoices. These carry the highest trust tier and are the
+preferred source for both retail and bulk reference prices.
+
+### Permanently excluded sources
+Certain sources are permanently excluded from the database regardless of apparent
+pricing. Exclusion criteria include: sellers with documented patterns of misrepresenting
+purity or origin; platforms where provenance cannot be independently established;
+aggregator sites that republish prices without source attribution; and any source
+where repeated verification attempts have produced inconsistent or fabricated data.
+Excluded sources are not named publicly but are tracked internally.
+
+---
+
 ## Source Trust Tiers
 
 1. Uploaded invoices — direct transactional evidence
@@ -213,6 +252,25 @@ but does not affect a weighted average — there is no weighted average.
 - **Fresh:** Quoted within 90 days
 - **Stale:** 90–180 days old; flagged visually
 - **Archived:** Older than 180 days or manually archived
+
+---
+
+## Update Frequency and Timestamps
+
+Price records carry two timestamps:
+
+- **Quote date:** The date the price was observed, quoted, or invoiced. This is the
+  authoritative date for freshness calculations.
+- **Ingestion timestamp:** When the record was added to the database.
+
+The database is updated on a rolling basis as new quotes are collected, invoices are
+processed, or benchmark updates are published. There is no fixed update schedule.
+Freshness is determined per-record, not per-page: an element page may display a fresh
+retail reference alongside a stale bulk benchmark if one has been updated more recently
+than the other.
+
+Build timestamps in the site footer indicate when the static site was last regenerated,
+not when data was last collected.
 
 ---
 

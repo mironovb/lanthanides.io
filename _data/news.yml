@@ -1,6 +1,22 @@
 # Regulatory & Trade Developments — China Export Controls Timeline
 # status: active | suspended | superseded | historic
 
+- date: 2026-04-05
+  headline: "The retail premium puzzle: why collector-grade rare earths cost multiples of wholesale"
+  body: >-
+    Structural economics behind retail-to-bulk price ratios of 5x to 100x: small lot
+    processing, reactive metal handling, argon packaging, niche demand economics,
+    and the widening gap driven by Chinese export controls. The retail premium is
+    not a market inefficiency — it is the equilibrium price of serving a market at
+    1/1,000,000th the scale of industrial consumption.
+  status: active
+  tag: Analysis
+  article: retail-premium-puzzle
+  elements: [La, Ce, Nd, Pr, Dy, Tb, Gd, Ho, Er, Tm, Sc, Y, Eu, Sm, Yb]
+  references:
+    - label: "Multi-platform pricing data from eBay, Alibaba, and Amazon surveys"
+      note: "Retail premiums range from 1–2x (gallium) to 100x+ (yttrium) versus bulk benchmarks"
+
 - date: 2026-04-04
   headline: "eBay rare earth market research: who sells what, and at what price"
   body: >-
@@ -35,6 +51,22 @@
       note: "80.7% of China's Tm production 2011–2020 from illegal mining (1,506 t cumulative)"
     - label: "MOFCOM/GAC enforcement data, 2025"
       note: "Administrative cases: 91 (2024) → 317 (2025), +248%; max fine RMB 6.34M"
+
+- date: 2026-03-10
+  headline: "Chinese export licence timelines: what February 2026 quotes reveal"
+  body: >-
+    Direct quotation requests to Chinese manufacturers reveal the real mechanics of
+    export licensing: thulium metal in ~3 weeks (during suspension window, 3N purity
+    ceiling), scandium oxide in ~4 months (under never-suspended No. 18 controls).
+    Purity constraints and certification timelines shape what non-Chinese buyers can
+    actually obtain.
+  status: active
+  tag: Analysis
+  article: chinese-export-licence-timelines
+  elements: [Tm, Sc, Ho, Er, Eu, Yb, Sm, Gd, Tb, Dy, Lu, Y]
+  references:
+    - label: "Direct supplier quotation requests, February 2026"
+      note: "Timelines: ~3 weeks (Tm, during suspension), ~4 months (Sc, under No. 18 controls)"
 
 - date: 2026-02-24
   headline: "China sanctions 15 Japanese defence entities"
@@ -79,6 +111,22 @@
     - label: "MOFCOM Announcements No. 70 and No. 72 of 2025"
       note: "商务部公告2025年第70号 and 第72号, effective 7–9 Nov 2025"
     - label: "Suspension expires 28 November 2026 — controls revert to pre-Oct 2025 baseline unless renewed"
+
+- date: 2025-11-20
+  headline: "MOFCOM October 2025 suspension: what Nos. 55–62 mean for Ho, Er, Tm"
+  body: >-
+    Analysis of the six October 2025 announcements that expanded export controls to
+    holmium, erbium, thulium, europium, and ytterbium — and their suspension one month
+    later until November 28, 2026. The suspension is a diplomatic pause, not a policy
+    reversal. Default outcome at expiry: controls reimpose automatically. Procurement
+    window analysis for the suspension period.
+  status: active
+  tag: Analysis
+  article: mofcom-october-2025-suspension
+  elements: [Ho, Er, Tm, Eu, Yb, Ga, Ge, Sb]
+  references:
+    - label: "MOFCOM Announcements Nos. 55–58, 61, 62 of 2025"
+      note: "Issued 9 Oct 2025, suspended by Nos. 70/72 on 7–9 Nov 2025 until 28 Nov 2026"
 
 - date: 2025-10-09
   headline: "China escalates: six announcements tighten controls and ban US exports"
