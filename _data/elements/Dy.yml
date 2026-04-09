@@ -1,0 +1,32 @@
+# Dysprosium (Dy) — Element Data
+# Auto-generated from existing price records and catalog data
+
+symbol: Dy
+name: Dysprosium
+atomic_number: 66
+category: rare_earth_heavy
+
+retail_reference:
+  price_per_kg: 380
+  source: "Median of 9 retail offers (ALB Materials, American Elements, Edgetech Industries, Goodfellow + 5 more)"
+  date: 2026-04-04
+  form: "metal, oxide"
+  quantity_basis: "1 kg MOQ, retail"
+
+bulk_benchmark:
+  price_per_kg: 110
+  source: Median of 1 bulk offers (Hebei Saiweisi (Alibaba))
+  date: 2026-04-04
+  terms: FOB
+
+retail_premium_ratio: 3.45
+
+regulatory_status:
+  status_code: active
+  active_notices: 
+    - MOFCOM/GAC No. 18/2025
+  last_updated: 2025-04-04
+
+applications_summary: Essential additive for high-temperature NdFeB magnets.
+
+supply_chain_notes: "Myanmar supplies ~40% of China's ionic clay feedstock (disrupted since late 2025). Northern Minerals (AU) pre-commercial. Grain boundary diffusion reduces Dy content by 30-50%."

@@ -1,0 +1,31 @@
+# Vanadium (V) — Element Data
+# Auto-generated from existing price records and catalog data
+
+symbol: V
+name: Vanadium
+atomic_number: 23
+category: strategic_metal
+
+retail_reference:
+  price_per_kg: 1530
+  source: "Median of 13 retail offers (ALB Materials, Alfa Aesar, Chemsavers, Edgetech Industries + 6 more)"
+  date: 2026-03-29
+  form: "metal, oxide"
+  quantity_basis: "1 kg MOQ, retail"
+
+bulk_benchmark:
+  price_per_kg: 24
+  source: "Median of 3 bulk offers (Alibaba (multiple CN suppliers), Fastmarkets (Europe), Fastmarkets (Rotterdam))"
+  date: 2026-03-30
+  terms: FOB
+
+retail_premium_ratio: 63.75
+
+regulatory_status:
+  status_code: none
+  active_notices: []
+  last_updated: null
+
+applications_summary: "HSLA steel strengthener, Ti-6Al-4V aerospace alloy, and VRFB grid-scale energy storage."
+
+supply_chain_notes: null

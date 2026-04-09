@@ -1,0 +1,27 @@
+# Zirconium (Zr) — Element Data
+# Auto-generated from existing price records and catalog data
+
+symbol: Zr
+name: Zirconium
+atomic_number: 40
+category: strategic_metal
+
+retail_reference:
+  price_per_kg: 150
+  source: "Median of 3 retail offers (American Elements, Edgetech Industries, Stanford Advanced Materials)"
+  date: 2026-03-15
+  form: metal
+  quantity_basis: "1 kg MOQ, retail"
+
+bulk_benchmark: null
+
+retail_premium_ratio: null
+
+regulatory_status:
+  status_code: none
+  active_notices: []
+  last_updated: null
+
+applications_summary: "Used in nuclear fuel cladding, ceramics, and chemical processing."
+
+supply_chain_notes: null

@@ -1,0 +1,63 @@
+name: Weekly Price Update
+
+on:
+  schedule:
+    - cron: '0 6 * * 0'  # Every Sunday at 06:00 UTC
+  workflow_dispatch:       # Allow manual trigger
+
+permissions:
+  contents: write
+
+jobs:
+  collect-and-update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: 'pip'
+          cache-dependency-path: scripts/requirements.txt
+
+      - name: Install dependencies
+        run: pip install -r scripts/requirements.txt
+
+      - name: Run data collection pipeline
+        run: python scripts/reex_collector.py --verbose
+        env:
+          REEX_RUN_DATE: ${{ github.event.schedule && 'scheduled' || 'manual' }}
+
+      - name: Validate data integrity
+        run: |
+          python -c "
+          import json, sys
+          with open('_data/price_records.json') as f:
+              data = json.load(f)
+          print(f'Validation passed: {len(data)} records')
+          if not isinstance(data, list):
+              print('ERROR: price_records.json is not a list')
+              sys.exit(1)
+          "
+
+      - name: Check for changes
+        id: changes
+        run: |
+          if git diff --quiet _data/; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Commit and push updates
+        if: steps.changes.outputs.changed == 'true'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add _data/price_records.json _data/snapshots/
+          git commit -m "data: weekly price update $(date -u +%Y-%m-%d)"
+          git push

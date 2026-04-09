@@ -1,0 +1,32 @@
+# Lutetium (Lu) — Element Data
+# Auto-generated from existing price records and catalog data
+
+symbol: Lu
+name: Lutetium
+atomic_number: 71
+category: rare_earth_heavy
+
+retail_reference:
+  price_per_kg: 16800
+  source: "Median of 9 retail offers (American Elements, Chemsavers, Edgetech Industries, PEGUYS + 4 more)"
+  date: 2026-03-29
+  form: "metal, oxide"
+  quantity_basis: "1 kg MOQ, retail"
+
+bulk_benchmark:
+  price_per_kg: 707
+  source: "Median of 3 bulk offers (BusinessAnalytiq (NE Asia), Ganzhou Wanfeng (Made-in-China), SMM (Shanghai Metals Market))"
+  date: 2026-03-30
+  terms: Domestic
+
+retail_premium_ratio: 23.76
+
+regulatory_status:
+  status_code: active
+  active_notices: 
+    - MOFCOM/GAC No. 18/2025
+  last_updated: 2025-04-04
+
+applications_summary: Rarest naturally occurring lanthanide. Underpins Lu-177 radiopharmaceuticals and PET scanner crystals (LYSO/LSO).
+
+supply_chain_notes: null

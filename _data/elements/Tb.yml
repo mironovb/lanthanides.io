@@ -1,0 +1,32 @@
+# Terbium (Tb) — Element Data
+# Auto-generated from existing price records and catalog data
+
+symbol: Tb
+name: Terbium
+atomic_number: 65
+category: rare_earth_heavy
+
+retail_reference:
+  price_per_kg: 10800.0
+  source: "Median of 8 retail offers (Chemsavers, MSE Supplies (eBay), PEGUYS, RWMM + 2 more)"
+  date: 2026-03-22
+  form: "metal, oxide"
+  quantity_basis: "1 kg MOQ, retail"
+
+bulk_benchmark:
+  price_per_kg: 600
+  source: Median of 1 bulk offers (Ganzhou Wanfeng (Alibaba))
+  date: 2026-04-04
+  terms: FOB
+
+retail_premium_ratio: 18.0
+
+regulatory_status:
+  status_code: active
+  active_notices: 
+    - MOFCOM/GAC No. 18/2025
+  last_updated: 2025-04-04
+
+applications_summary: Critical for NdFeB magnet coercivity at high temperatures.
+
+supply_chain_notes: null

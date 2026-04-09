@@ -1,0 +1,31 @@
+# Niobium (Nb) — Element Data
+# Auto-generated from existing price records and catalog data
+
+symbol: Nb
+name: Niobium
+atomic_number: 41
+category: strategic_metal
+
+retail_reference:
+  price_per_kg: 925.5
+  source: "Median of 2 retail offers (Smart-Elements, navycbmichael (eBay))"
+  date: 2026-04-04
+  form: metal
+  quantity_basis: "1 kg MOQ, retail"
+
+bulk_benchmark:
+  price_per_kg: 71.5
+  source: "Median of 2 bulk offers (Fastmarkets / CBMM benchmark, Tianjin Chengmai (Alibaba))"
+  date: 2026-04-04
+  terms: CIF
+
+retail_premium_ratio: 12.94
+
+regulatory_status:
+  status_code: none
+  active_notices: []
+  last_updated: null
+
+applications_summary: "~90% goes into HSLA steel. Also used in superconducting magnets and aerospace alloys. Brazil (CBMM) controls ~90% of supply."
+
+supply_chain_notes: null

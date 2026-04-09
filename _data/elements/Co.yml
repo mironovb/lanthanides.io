@@ -1,0 +1,31 @@
+# Cobalt (Co) — Element Data
+# Auto-generated from existing price records and catalog data
+
+symbol: Co
+name: Cobalt
+atomic_number: 27
+category: strategic_metal
+
+retail_reference:
+  price_per_kg: 540
+  source: "Median of 3 retail offers (Metallos.de, discountelements (eBay), emovendo (eBay))"
+  date: 2026-04-04
+  form: metal
+  quantity_basis: "1 kg MOQ, retail"
+
+bulk_benchmark:
+  price_per_kg: 24
+  source: Median of 1 bulk offers (LME / Fastmarkets)
+  date: 2026-03-15
+  terms: CIF
+
+retail_premium_ratio: 22.5
+
+regulatory_status:
+  status_code: none
+  active_notices: []
+  last_updated: null
+
+applications_summary: "Essential for Li-ion battery cathodes (NMC, NCA). ~74% mined in DRC; ~80% refined in China."
+
+supply_chain_notes: null

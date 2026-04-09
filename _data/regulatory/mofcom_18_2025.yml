@@ -1,0 +1,57 @@
+# MOFCOM/GAC Announcement No. 18 of 2025
+# Export licence requirements for seven medium and heavy rare earths
+# Effective: 4 April 2025
+# Status: ACTIVE — never suspended
+
+notice_id: "MOFCOM/GAC No. 18/2025"
+chinese_ref: "商务部 海关总署公告2025年第18号"
+issuing_authority: MOFCOM/GAC
+date_issued: "2025-04-04"
+date_effective: "2025-04-04"
+status: active
+
+affected_elements:
+  - Sm   # Samarium
+  - Gd   # Gadolinium
+  - Tb   # Terbium
+  - Dy   # Dysprosium
+  - Lu   # Lutetium
+  - Sc   # Scandium
+  - Y    # Yttrium
+
+controlled_forms:
+  - metal
+  - alloy
+  - oxide
+  - compound
+  - permanent magnet materials
+
+measure_type: export_licence_required
+
+description: >-
+  Export licences required for samarium, gadolinium, terbium, dysprosium,
+  lutetium, scandium, and yttrium — covering metals, alloys, oxides, compounds,
+  and permanent magnet materials. Targets the materials most critical for NdFeB
+  magnets and defence applications.
+
+# Per 2024 Dual-Use Items Export Control Regulations (出口管制法)
+compliance_requirements:
+  end_user_certificate:
+    required: true
+    legal_basis: "Article 15, Export Control Law of the PRC (2024 Dual-Use Items Regulations)"
+    description: >-
+      Exporters must submit an end-user certificate (最终用户证明) identifying the
+      consignee, end user, and end use. The certificate must be issued or verified
+      by the government authority of the importing country where applicable.
+  review_period:
+    duration_working_days: 45
+    legal_basis: "2024 Dual-Use Items Export Control Regulations"
+    description: >-
+      MOFCOM has up to 45 working days from acceptance of a complete application
+      to issue or deny an export licence. In practice, processing times vary and
+      may extend if additional documentation is requested.
+
+notes:
+  - "This announcement has NEVER been suspended — it remains in full force."
+  - "The Oct 2025 escalation (Nos. 55-62) added further restrictions but was subsequently suspended; No. 18 itself was not affected."
+  - "Covers all seven elements regardless of destination country."

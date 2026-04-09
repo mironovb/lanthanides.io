@@ -1,0 +1,32 @@
+# Tellurium (Te) — Element Data
+# Auto-generated from existing price records and catalog data
+
+symbol: Te
+name: Tellurium
+atomic_number: 52
+category: strategic_metal
+
+retail_reference:
+  price_per_kg: 629.0
+  source: "Median of 12 retail offers (ALB Materials, American Elements, Chemsavers, Edgetech Industries + 7 more)"
+  date: 2026-03-29
+  form: "metal, oxide"
+  quantity_basis: "1 kg MOQ, retail"
+
+bulk_benchmark:
+  price_per_kg: 112
+  source: "Median of 5 bulk offers (BusinessAnalytiq, IMARC Group, Multiple CN/FR suppliers (Alibaba))"
+  date: 2026-04-04
+  terms: Domestic
+
+retail_premium_ratio: 5.62
+
+regulatory_status:
+  status_code: active
+  active_notices: 
+    - MOFCOM/GAC No. 10/2025
+  last_updated: 2025-02-04
+
+applications_summary: Critical for CdTe thin-film solar cells and thermoelectrics. Byproduct of copper refining; supply cannot scale independently.
+
+supply_chain_notes: null

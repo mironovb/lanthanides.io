@@ -1,0 +1,28 @@
+# Erbium (Er) — Element Data
+# Auto-generated from existing price records and catalog data
+
+symbol: Er
+name: Erbium
+atomic_number: 68
+category: rare_earth_heavy
+
+retail_reference:
+  price_per_kg: 1887.0
+  source: "Median of 6 retail offers (ALB Materials, Edgetech Industries, Luciteria, Stanford Advanced Materials + 2 more)"
+  date: 2026-04-04
+  form: "metal, oxide"
+  quantity_basis: "1 kg MOQ, retail"
+
+bulk_benchmark: null
+
+retail_premium_ratio: null
+
+regulatory_status:
+  status_code: suspended
+  active_notices: 
+    - "MOFCOM Nos. 55-62/2025 (suspended by Nos. 70, 72/2025)"
+  last_updated: 2025-11-09
+
+applications_summary: Used in fiber optic amplifiers and glass colorant.
+
+supply_chain_notes: null

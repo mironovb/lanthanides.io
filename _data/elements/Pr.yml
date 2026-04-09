@@ -1,0 +1,27 @@
+# Praseodymium (Pr) — Element Data
+# Auto-generated from existing price records and catalog data
+
+symbol: Pr
+name: Praseodymium
+atomic_number: 59
+category: rare_earth_light
+
+retail_reference:
+  price_per_kg: 90
+  source: "Median of 5 retail offers (ALB Materials, Edgetech Industries, Luciteria, Stanford Advanced Materials)"
+  date: 2026-04-04
+  form: "metal, oxide"
+  quantity_basis: "1 kg MOQ, retail"
+
+bulk_benchmark: null
+
+retail_premium_ratio: null
+
+regulatory_status:
+  status_code: none
+  active_notices: []
+  last_updated: null
+
+applications_summary: Co-produced with neodymium; used in magnets and ceramics.
+
+supply_chain_notes: null

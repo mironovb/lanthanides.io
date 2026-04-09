@@ -1,0 +1,31 @@
+# Lithium (Li) — Element Data
+# Auto-generated from existing price records and catalog data
+
+symbol: Li
+name: Lithium
+atomic_number: 3
+category: strategic_metal
+
+retail_reference:
+  price_per_kg: 6500
+  source: Median of 1 retail offers (Smart-Elements)
+  date: 2026-03-15
+  form: metal
+  quantity_basis: "1 kg MOQ, retail"
+
+bulk_benchmark:
+  price_per_kg: 10
+  source: Median of 1 bulk offers (Fastmarkets / SMM)
+  date: 2026-03-15
+  terms: CIF
+
+retail_premium_ratio: 650.0
+
+regulatory_status:
+  status_code: none
+  active_notices: []
+  last_updated: null
+
+applications_summary: "Underpins EV and grid storage — Li-ion batteries ~80% of demand. Price collapsed ~80% from 2022 peak."
+
+supply_chain_notes: null

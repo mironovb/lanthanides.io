@@ -1,0 +1,31 @@
+# Tantalum (Ta) — Element Data
+# Auto-generated from existing price records and catalog data
+
+symbol: Ta
+name: Tantalum
+atomic_number: 73
+category: strategic_metal
+
+retail_reference:
+  price_per_kg: 2800
+  source: Median of 1 retail offers (Metallium / Element Collectors)
+  date: 2026-03-15
+  form: metal
+  quantity_basis: "1 kg MOQ, retail"
+
+bulk_benchmark:
+  price_per_kg: 280
+  source: Median of 1 bulk offers (Mining.com / LME benchmark)
+  date: 2026-03-15
+  terms: null
+
+retail_premium_ratio: 10.0
+
+regulatory_status:
+  status_code: none
+  active_notices: []
+  last_updated: null
+
+applications_summary: Critical for capacitors in microelectronics and superalloy components. Conflict mineral under Dodd-Frank Section 1502.
+
+supply_chain_notes: null

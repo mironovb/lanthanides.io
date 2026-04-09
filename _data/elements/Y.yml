@@ -1,0 +1,28 @@
+# Yttrium (Y) — Element Data
+# Auto-generated from existing price records and catalog data
+
+symbol: Y
+name: Yttrium
+atomic_number: 39
+category: rare_earth_light
+
+retail_reference:
+  price_per_kg: 10
+  source: "Median of 5 retail offers (ALB Materials, Edgetech Industries, Stanford Advanced Materials, novaelements (eBay) + 1 more)"
+  date: 2026-04-04
+  form: "metal, oxide"
+  quantity_basis: "1 kg MOQ, retail"
+
+bulk_benchmark: null
+
+retail_premium_ratio: null
+
+regulatory_status:
+  status_code: active
+  active_notices: 
+    - MOFCOM/GAC No. 18/2025
+  last_updated: 2025-04-04
+
+applications_summary: "Used in ceramics, phosphors, and superconductors."
+
+supply_chain_notes: null

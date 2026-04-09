@@ -1,0 +1,42 @@
+---
+layout: null
+permalink: /assets/data/elements.json
+sitemap: false
+---
+{% assign elements = "" | split: "" %}
+{% for entry in site.data.elements %}
+  {% assign el = entry[1] %}
+  {% if el.symbol %}
+    {% assign elements = elements | push: el %}
+  {% endif %}
+{% endfor %}
+[
+{% for el in elements %}  {
+    "symbol": {{ el.symbol | jsonify }},
+    "name": {{ el.name | jsonify }},
+    "atomic_number": {{ el.atomic_number | jsonify }},
+    "category": {{ el.category | jsonify }},
+    {% if el.retail_reference %}"retail_reference": {
+      "price_per_kg": {{ el.retail_reference.price_per_kg | jsonify }},
+      "source": {{ el.retail_reference.source | jsonify }},
+      "date": {{ el.retail_reference.date | jsonify }},
+      "form": {{ el.retail_reference.form | jsonify }},
+      "quantity_basis": {{ el.retail_reference.quantity_basis | jsonify }}
+    },{% else %}"retail_reference": null,{% endif %}
+    {% if el.bulk_benchmark %}"bulk_benchmark": {
+      "price_per_kg": {{ el.bulk_benchmark.price_per_kg | jsonify }},
+      "source": {{ el.bulk_benchmark.source | jsonify }},
+      "date": {{ el.bulk_benchmark.date | jsonify }},
+      "terms": {{ el.bulk_benchmark.terms | jsonify }}
+    },{% else %}"bulk_benchmark": null,{% endif %}
+    "retail_premium_ratio": {{ el.retail_premium_ratio | jsonify }},
+    "regulatory_status": {
+      "status_code": {{ el.regulatory_status.status_code | jsonify }},
+      "active_notices": {{ el.regulatory_status.active_notices | jsonify }},
+      "last_updated": {{ el.regulatory_status.last_updated | jsonify }}
+    },
+    "applications_summary": {{ el.applications_summary | jsonify }},
+    "supply_chain_notes": {{ el.supply_chain_notes | jsonify }}
+  }{% unless forloop.last %},{% endunless %}
+{% endfor %}
+]

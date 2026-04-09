@@ -1,0 +1,27 @@
+# Lanthanum (La) — Element Data
+# Auto-generated from existing price records and catalog data
+
+symbol: La
+name: Lanthanum
+atomic_number: 57
+category: rare_earth_light
+
+retail_reference:
+  price_per_kg: 685.0
+  source: "Median of 8 retail offers (ALB Materials, Edgetech Industries, Luciteria, Stanford Advanced Materials + 4 more)"
+  date: 2026-04-04
+  form: "metal, oxide"
+  quantity_basis: "1 kg MOQ, retail"
+
+bulk_benchmark: null
+
+retail_premium_ratio: null
+
+regulatory_status:
+  status_code: none
+  active_notices: []
+  last_updated: null
+
+applications_summary: "Used in catalysts, optics, and battery electrodes."
+
+supply_chain_notes: null

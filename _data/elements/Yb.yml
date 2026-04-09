@@ -1,0 +1,32 @@
+# Ytterbium (Yb) — Element Data
+# Auto-generated from existing price records and catalog data
+
+symbol: Yb
+name: Ytterbium
+atomic_number: 70
+category: rare_earth_heavy
+
+retail_reference:
+  price_per_kg: 36
+  source: "Median of 3 retail offers (ALB Materials, Edgetech Industries, Stanford Advanced Materials)"
+  date: 2026-03-15
+  form: oxide
+  quantity_basis: "1 kg MOQ, retail"
+
+bulk_benchmark:
+  price_per_kg: 185
+  source: Median of 1 bulk offers (Changsha Xinkang (Alibaba))
+  date: 2026-04-04
+  terms: FOB
+
+retail_premium_ratio: 0.19
+
+regulatory_status:
+  status_code: suspended
+  active_notices: 
+    - "MOFCOM Nos. 55-62/2025 (suspended by Nos. 70, 72/2025)"
+  last_updated: 2025-11-09
+
+applications_summary: "Used in fiber lasers, metallurgy, and atomic clocks."
+
+supply_chain_notes: null

@@ -1,0 +1,29 @@
+# Germanium (Ge) — Element Data
+# Auto-generated from existing price records and catalog data
+
+symbol: Ge
+name: Germanium
+atomic_number: 32
+category: semiconductor_metal
+
+retail_reference:
+  price_per_kg: 1450
+  source: "Median of 5 retail offers (ALB Materials, American Elements, Edgetech Industries, Luciteria + 1 more)"
+  date: 2026-04-04
+  form: metal
+  quantity_basis: "1 kg MOQ, retail"
+
+bulk_benchmark: null
+
+retail_premium_ratio: null
+
+regulatory_status:
+  status_code: active
+  active_notices: 
+    - MOFCOM No. 46/2024
+    - MOFCOM/GAC No. 23/2023
+  last_updated: 2024-12-03
+
+applications_summary: "Used in fiber optics, infrared optics, and semiconductors."
+
+supply_chain_notes: "Umicore (Belgium) significant recycling capacity. Teck Resources (Canada) zinc by-product. Recycling provides ~30% of refined supply. Si replacing Ge in some IR optics."

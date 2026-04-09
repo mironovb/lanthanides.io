@@ -1,0 +1,55 @@
+# MOFCOM/GAC Announcement No. 10 of 2025
+# Export controls on tungsten, tellurium, bismuth, molybdenum, and indium
+# Effective: 4 February 2025
+# Status: ACTIVE
+
+notice_id: "MOFCOM/GAC No. 10/2025"
+chinese_ref: "商务部 海关总署公告2025年第10号"
+issuing_authority: MOFCOM/GAC
+date_issued: "2025-02-04"
+date_effective: "2025-02-04"
+status: active
+
+affected_elements:
+  - W    # Tungsten
+  - Te   # Tellurium
+  - Bi   # Bismuth
+  - Mo   # Molybdenum
+  - In   # Indium
+
+controlled_forms:
+  - metal
+  - oxide
+  - powder
+  - carbide
+  - compound
+
+measure_type: export_licence_required
+
+description: >-
+  All five metals added to the dual-use export control list, requiring export
+  licences for all exports. Tellurium controls are particularly impactful as Te
+  is critical for CdTe thin-film solar cells (~60% of demand) and is a
+  byproduct of copper refining with inelastic supply. Tungsten is ~82% Chinese
+  production.
+
+# Per 2024 Dual-Use Items Export Control Regulations (出口管制法)
+compliance_requirements:
+  end_user_certificate:
+    required: true
+    legal_basis: "Article 15, Export Control Law of the PRC (2024 Dual-Use Items Regulations)"
+    description: >-
+      Exporters must submit an end-user certificate (最终用户证明) identifying the
+      consignee, end user, and end use. The certificate must be issued or verified
+      by the government authority of the importing country where applicable.
+  review_period:
+    duration_working_days: 45
+    legal_basis: "2024 Dual-Use Items Export Control Regulations"
+    description: >-
+      MOFCOM has up to 45 working days from acceptance of a complete application
+      to issue or deny an export licence.
+
+notes:
+  - "Underlying licence requirements remain in force even during the Oct 2025 suspension period."
+  - "Te supply is structurally inelastic — produced only as a byproduct of copper refining."
+  - "W controls affect ~82% of global production capacity."

@@ -1,0 +1,27 @@
+# Selenium (Se) — Element Data
+# Auto-generated from existing price records and catalog data
+
+symbol: Se
+name: Selenium
+atomic_number: 34
+category: semiconductor_metal
+
+retail_reference:
+  price_per_kg: 22
+  source: "Median of 3 retail offers (ALB Materials, Edgetech Industries, Stanford Advanced Materials)"
+  date: 2026-03-15
+  form: powder
+  quantity_basis: "1 kg MOQ, retail"
+
+bulk_benchmark: null
+
+retail_premium_ratio: null
+
+regulatory_status:
+  status_code: none
+  active_notices: []
+  last_updated: null
+
+applications_summary: "Used in glass manufacturing, electronics, and solar cells."
+
+supply_chain_notes: null

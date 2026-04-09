@@ -1,0 +1,72 @@
+# MOFCOM Announcement No. 46 of 2024
+# Ban on gallium, germanium, and antimony exports to the United States
+# Effective: 3 December 2024
+# Status: ACTIVE (Art. 1 permanent; Art. 2 suspended until Nov 2026)
+
+notice_id: "MOFCOM No. 46/2024"
+chinese_ref: "商务部公告2024年第46号"
+issuing_authority: MOFCOM
+date_issued: "2024-12-03"
+date_effective: "2024-12-03"
+status: active
+
+affected_elements:
+  - Ga   # Gallium
+  - Ge   # Germanium
+  - Sb   # Antimony
+
+controlled_forms:
+  - metal
+  - compound
+  - oxide
+
+measure_type: presumptive_denial
+
+description: >-
+  Article 1 prohibits Ga/Ge/Sb exports to any US military end-user — this
+  remains permanently active and has never been suspended. Article 2 imposed a
+  blanket ban on all Ga/Ge/Sb exports to the United States; Art. 2 was
+  suspended by MOFCOM Nos. 70 and 72 of 2025 until 28 November 2026.
+  Presumptive denial means licence applications for these elements to US
+  military end-users will be denied absent extraordinary circumstances.
+
+articles:
+  - article: 1
+    scope: "US military end-use"
+    status: active
+    description: "Permanent prohibition on Ga/Ge/Sb exports to US military end-users."
+    suspended: false
+  - article: 2
+    scope: "All US-destined exports"
+    status: suspended
+    description: "Blanket ban on Ga/Ge/Sb exports to the United States."
+    suspended: true
+    suspension_notice: "MOFCOM Nos. 70, 72/2025"
+    suspension_expires: "2026-11-28"
+
+related_notices:
+  - "MOFCOM/GAC No. 23/2023 — original Ga/Ge export licence requirement (1 Aug 2023)"
+  - "MOFCOM/GAC No. 33/2024 — Sb export controls (15 Sep 2024)"
+
+# Per 2024 Dual-Use Items Export Control Regulations (出口管制法)
+compliance_requirements:
+  end_user_certificate:
+    required: true
+    legal_basis: "Article 15, Export Control Law of the PRC (2024 Dual-Use Items Regulations)"
+    description: >-
+      Exporters must submit an end-user certificate (最终用户证明) identifying the
+      consignee, end user, and end use. For US-destined shipments under Art. 1,
+      the end-user certificate must demonstrate non-military end use.
+  review_period:
+    duration_working_days: 45
+    legal_basis: "2024 Dual-Use Items Export Control Regulations"
+    description: >-
+      MOFCOM has up to 45 working days from acceptance of a complete application
+      to issue or deny an export licence. For Art. 1 covered shipments,
+      applications face presumptive denial.
+
+notes:
+  - "Art. 1 (military end-use ban) has NEVER been suspended."
+  - "Art. 2 (blanket US ban) suspended until 28 Nov 2026 by Nos. 70/72 of 2025."
+  - "Ga/Ge were first controlled under No. 23/2023; Sb under No. 33/2024."
+  - "Sb price rose from ~$12,000/t to >$38,000/t within 6 months of initial controls."

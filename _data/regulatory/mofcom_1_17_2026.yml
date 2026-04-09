@@ -1,0 +1,84 @@
+# MOFCOM Announcements No. 1 and No. 17 of 2026
+# Japan-targeted export controls and entity sanctions
+# Status: ACTIVE
+
+notice_id: "MOFCOM Nos. 1 and 17/2026"
+chinese_ref: "商务部公告2026年第1号 and 商务部公告2026年第17号"
+issuing_authority: MOFCOM
+date_issued: "2026-01-06"
+date_effective: "2026-01-06"
+status: active
+
+target_country: JP
+
+affected_elements:
+  - Ga
+  - Ge
+  - Sb
+  - W
+  - Te
+  - Bi
+  - Mo
+  - In
+  - Sm
+  - Gd
+  - Tb
+  - Dy
+  - Lu
+  - Sc
+  - Y
+
+controlled_forms:
+  - metal
+  - oxide
+  - alloy
+  - compound
+
+measure_type: country_prohibition_and_entity_sanctions
+
+description: >-
+  No. 1/2026 (6 Jan 2026): China prohibits dual-use exports to Japan, citing
+  Japan's restrictions on semiconductor equipment to China. First country-wide
+  prohibition order since the US ban in December 2024.
+  No. 17/2026 (24 Feb 2026): MOFCOM designates 15 Japanese companies as
+  "unreliable entities," prohibiting export of controlled items (including all
+  dual-use minerals) to these entities.
+
+individual_announcements:
+  - number: "1/2026"
+    date_effective: "2026-01-06"
+    scope: "Country-wide prohibition on all controlled dual-use items to Japan"
+    status: active
+  - number: "17/2026"
+    date_effective: "2026-02-24"
+    scope: "Entity sanctions — 15 Japanese defence companies designated as unreliable entities"
+    status: active
+
+sanctioned_entities:
+  count: 15
+  designation: "unreliable entities (不可靠实体清单)"
+  effect: "Prohibited from receiving any Chinese controlled exports"
+  note: "Retaliation for Japan's semiconductor equipment restrictions targeting China"
+
+# Per 2024 Dual-Use Items Export Control Regulations (出口管制法)
+compliance_requirements:
+  end_user_certificate:
+    required: true
+    legal_basis: "Article 15, Export Control Law of the PRC (2024 Dual-Use Items Regulations)"
+    description: >-
+      Exporters must submit an end-user certificate (最终用户证明). For
+      Japan-destined shipments, all dual-use export applications face
+      prohibition. For sanctioned entities, export is outright banned.
+  review_period:
+    duration_working_days: 45
+    legal_basis: "2024 Dual-Use Items Export Control Regulations"
+    description: >-
+      MOFCOM has up to 45 working days from acceptance of a complete application.
+      Japan-destined applications are subject to prohibition; sanctioned entity
+      applications are automatically denied.
+
+notes:
+  - "Country-wide prohibition — affects ALL controlled dual-use items to Japan."
+  - "15 Japanese defence entities are individually sanctioned under the Unreliable Entity List."
+  - "Triggered by Japan's January 2026 semiconductor equipment export restrictions."
+  - "First country-wide dual-use prohibition since the US ban (No. 46/2024, Dec 2024)."

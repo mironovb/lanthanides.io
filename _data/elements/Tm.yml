@@ -1,0 +1,32 @@
+# Thulium (Tm) — Element Data
+# Auto-generated from existing price records and catalog data
+
+symbol: Tm
+name: Thulium
+atomic_number: 69
+category: rare_earth_heavy
+
+retail_reference:
+  price_per_kg: 10959.5
+  source: "Median of 12 retail offers (Alfa Aesar, Chemsavers, Edgetech Industries, MSE Supplies + 4 more)"
+  date: 2026-03-29
+  form: "metal, oxide"
+  quantity_basis: "1 kg MOQ, retail"
+
+bulk_benchmark:
+  price_per_kg: 965.0
+  source: "Median of 2 bulk offers (Chinese Direct Seller, Ganzhou Zhanhai)"
+  date: 2026-03-30
+  terms: EXW
+
+retail_premium_ratio: 11.36
+
+regulatory_status:
+  status_code: suspended
+  active_notices: 
+    - "MOFCOM Nos. 55-62/2025 (suspended by Nos. 70, 72/2025)"
+  last_updated: 2025-11-09
+
+applications_summary: "Surgical lasers, S-band telecom amplifiers, portable X-ray sources."
+
+supply_chain_notes: null

@@ -1,0 +1,28 @@
+# Samarium (Sm) — Element Data
+# Auto-generated from existing price records and catalog data
+
+symbol: Sm
+name: Samarium
+atomic_number: 62
+category: rare_earth_light
+
+retail_reference:
+  price_per_kg: 1936.0
+  source: "Median of 6 retail offers (ALB Materials, Edgetech Industries, Luciteria, Stanford Advanced Materials + 2 more)"
+  date: 2026-04-04
+  form: "metal, oxide"
+  quantity_basis: "1 kg MOQ, retail"
+
+bulk_benchmark: null
+
+retail_premium_ratio: null
+
+regulatory_status:
+  status_code: active
+  active_notices: 
+    - MOFCOM/GAC No. 18/2025
+  last_updated: 2025-04-04
+
+applications_summary: Key component of SmCo permanent magnets.
+
+supply_chain_notes: null

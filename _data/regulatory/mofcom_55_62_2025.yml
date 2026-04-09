@@ -1,0 +1,106 @@
+# MOFCOM Announcements Nos. 55–58, 61, 62 of 2025
+# Escalation of export controls — subsequently SUSPENDED
+# Effective: 9 October 2025
+# Suspended: 7–9 November 2025 (by Nos. 70, 72/2025)
+# Suspension expires: 28 November 2026
+# Status: SUSPENDED
+
+notice_id: "MOFCOM Nos. 55-62/2025"
+chinese_ref: "商务部公告2025年第55–58号、第61–62号"
+issuing_authority: MOFCOM
+date_issued: "2025-10-09"
+date_effective: "2025-10-09"
+status: suspended
+
+suspension:
+  suspended_by: "MOFCOM Nos. 70 and 72 of 2025"
+  suspension_ref: "商务部公告2025年第70号 and 第72号"
+  suspension_effective: "2025-11-09"
+  suspension_expires: "2026-11-28"
+  notes: >-
+    If suspension is not renewed by 28 November 2026, controls revert to
+    pre-October 2025 baseline. Underlying licence requirements from earlier
+    announcements (No. 18/2025, No. 10/2025, No. 46/2024) remain in force.
+
+affected_elements:
+  - Ho   # Holmium — newly targeted
+  - Er   # Erbium — newly targeted
+  - Tm   # Thulium — newly targeted
+  - Eu   # Europium — newly targeted
+  - Yb   # Ytterbium — newly targeted
+  # Also affected existing controlled elements:
+  - Ga
+  - Ge
+  - Sb
+  - W
+  - Te
+  - Bi
+  - Mo
+  - In
+  - Sm
+  - Gd
+  - Tb
+  - Dy
+  - Lu
+  - Sc
+  - Y
+
+newly_controlled_elements:
+  - Ho   # Holmium
+  - Er   # Erbium
+  - Tm   # Thulium
+  - Eu   # Europium
+  - Yb   # Ytterbium
+
+controlled_forms:
+  - metal
+  - oxide
+  - alloy
+  - compound
+  - supply chain intermediates
+
+measure_type: export_licence_suspension_and_escalation
+
+description: >-
+  Six simultaneous announcements suspended pending licence applications, halted
+  new applications for US-destined shipments, added end-user verification
+  requirements, and expanded the scope of controlled items. Ho, Er, Tm, Eu, and
+  Yb were newly added to the controlled list. Article 2 of No. 46/2024
+  (Ga/Ge/Sb blanket US ban) was reactivated. All six announcements were
+  subsequently suspended by Nos. 70 and 72 of 2025 until 28 November 2026.
+
+individual_announcements:
+  - number: 55
+    scope: "Suspended pending Ga/Ge/Sb licence applications"
+  - number: 56
+    scope: "Halted new Ga/Ge/Sb applications to US"
+  - number: 57
+    scope: "Expanded controlled items scope for strategic metals"
+  - number: 58
+    scope: "Added end-user verification for REE exports"
+  - number: 61
+    scope: "Extended controls to Ho, Er, Tm, Eu, Yb"
+  - number: 62
+    scope: "Supply chain intermediates added to controlled list"
+
+# Per 2024 Dual-Use Items Export Control Regulations (出口管制法)
+compliance_requirements:
+  end_user_certificate:
+    required: true
+    legal_basis: "Article 15, Export Control Law of the PRC (2024 Dual-Use Items Regulations)"
+    description: >-
+      Exporters must submit an end-user certificate (最终用户证明) identifying the
+      consignee, end user, and end use. Enhanced verification was required under
+      these announcements before suspension.
+  review_period:
+    duration_working_days: 45
+    legal_basis: "2024 Dual-Use Items Export Control Regulations"
+    description: >-
+      MOFCOM has up to 45 working days from acceptance of a complete application
+      to issue or deny an export licence.
+
+notes:
+  - "ALL six announcements are currently SUSPENDED until 28 Nov 2026."
+  - "Ho, Er, Tm, Eu, Yb were the newly controlled elements in this escalation."
+  - "Underlying controls from No. 18/2025, No. 10/2025, No. 46/2024 remain active."
+  - "If suspension lapses without renewal, the pre-Oct 2025 baseline resumes."

@@ -1,0 +1,28 @@
+# Europium (Eu) — Element Data
+# Auto-generated from existing price records and catalog data
+
+symbol: Eu
+name: Europium
+atomic_number: 63
+category: rare_earth_heavy
+
+retail_reference:
+  price_per_kg: 32.5
+  source: "Median of 4 retail offers (ALB Materials, Edgetech Industries, Luciteria, Stanford Advanced Materials)"
+  date: 2026-04-04
+  form: "metal, oxide"
+  quantity_basis: "1 kg MOQ, retail"
+
+bulk_benchmark: null
+
+retail_premium_ratio: null
+
+regulatory_status:
+  status_code: suspended
+  active_notices: 
+    - "MOFCOM Nos. 55-62/2025 (suspended by Nos. 70, 72/2025)"
+  last_updated: 2025-11-09
+
+applications_summary: Used in phosphors for displays and lighting.
+
+supply_chain_notes: null

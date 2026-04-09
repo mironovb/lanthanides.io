@@ -1,0 +1,29 @@
+# Antimony (Sb) — Element Data
+# Auto-generated from existing price records and catalog data
+
+symbol: Sb
+name: Antimony
+atomic_number: 51
+category: strategic_metal
+
+retail_reference:
+  price_per_kg: 21.0
+  source: "Median of 4 retail offers (ALB Materials, Edgetech Industries, Goodfellow, Stanford Advanced Materials)"
+  date: 2026-03-15
+  form: metal
+  quantity_basis: "1 kg MOQ, retail"
+
+bulk_benchmark: null
+
+retail_premium_ratio: null
+
+regulatory_status:
+  status_code: active
+  active_notices: 
+    - MOFCOM No. 46/2024
+    - MOFCOM/GAC No. 33/2024
+  last_updated: 2024-12-03
+
+applications_summary: "Used in flame retardants, lead-acid batteries, and ammunition."
+
+supply_chain_notes: null

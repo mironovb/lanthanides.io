@@ -1,0 +1,31 @@
+# Cerium (Ce) — Element Data
+# Auto-generated from existing price records and catalog data
+
+symbol: Ce
+name: Cerium
+atomic_number: 58
+category: rare_earth_light
+
+retail_reference:
+  price_per_kg: 28
+  source: "Median of 7 retail offers (ALB Materials, Edgetech Industries, Luciteria, Stanford Advanced Materials + 2 more)"
+  date: 2026-04-04
+  form: "metal, oxide"
+  quantity_basis: "1 kg MOQ, retail"
+
+bulk_benchmark:
+  price_per_kg: 2.7
+  source: "Median of 2 bulk offers (Changzhou Geoquin (Alibaba), Star Earth Minerals (Alibaba))"
+  date: 2026-04-04
+  terms: FOB
+
+retail_premium_ratio: 10.37
+
+regulatory_status:
+  status_code: none
+  active_notices: []
+  last_updated: null
+
+applications_summary: "Most abundant REE. Used in catalytic converters, polishing powders, and glass."
+
+supply_chain_notes: null

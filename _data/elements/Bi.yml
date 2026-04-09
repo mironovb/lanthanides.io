@@ -1,0 +1,28 @@
+# Bismuth (Bi) — Element Data
+# Auto-generated from existing price records and catalog data
+
+symbol: Bi
+name: Bismuth
+atomic_number: 83
+category: strategic_metal
+
+retail_reference:
+  price_per_kg: 13
+  source: "Median of 3 retail offers (ALB Materials, Edgetech Industries, Stanford Advanced Materials)"
+  date: 2026-03-15
+  form: metal
+  quantity_basis: "1 kg MOQ, retail"
+
+bulk_benchmark: null
+
+retail_premium_ratio: null
+
+regulatory_status:
+  status_code: active
+  active_notices: 
+    - MOFCOM/GAC No. 10/2025
+  last_updated: 2025-02-04
+
+applications_summary: Lead-free solder alternative; used in pharmaceuticals and cosmetics.
+
+supply_chain_notes: null

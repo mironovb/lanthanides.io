@@ -1,0 +1,31 @@
+# Neodymium (Nd) — Element Data
+# Auto-generated from existing price records and catalog data
+
+symbol: Nd
+name: Neodymium
+atomic_number: 60
+category: rare_earth_light
+
+retail_reference:
+  price_per_kg: 600
+  source: "Median of 9 retail offers (ALB Materials, American Elements, Edgetech Industries, Luciteria + 5 more)"
+  date: 2026-04-04
+  form: "metal, oxide"
+  quantity_basis: "1 kg MOQ, retail"
+
+bulk_benchmark:
+  price_per_kg: 80
+  source: Median of 1 bulk offers (Ganzhou Wanfeng (Alibaba))
+  date: 2026-04-04
+  terms: FOB
+
+retail_premium_ratio: 7.5
+
+regulatory_status:
+  status_code: none
+  active_notices: []
+  last_updated: null
+
+applications_summary: Critical for NdFeB permanent magnets.
+
+supply_chain_notes: "Non-China supply <15% of global. Lynas (AU, ~10kt/yr REO), MP Materials (US, restarting). No NdFeB substitute. Ferrite magnets offer inferior performance."

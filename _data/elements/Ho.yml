@@ -1,0 +1,32 @@
+# Holmium (Ho) — Element Data
+# Auto-generated from existing price records and catalog data
+
+symbol: Ho
+name: Holmium
+atomic_number: 67
+category: rare_earth_heavy
+
+retail_reference:
+  price_per_kg: 4864.5
+  source: "Median of 18 retail offers (ALB Materials, Alfa Aesar, Alfa Aesar (Acros), Alfa Aesar / Thermo Fisher + 8 more)"
+  date: 2026-03-29
+  form: "metal, oxide"
+  quantity_basis: "1 kg MOQ, retail"
+
+bulk_benchmark:
+  price_per_kg: 106
+  source: "Median of 5 bulk offers (BusinessAnalytiq, IMARC, Made-in-China.com (Ganzhou Wanfeng))"
+  date: 2026-03-29
+  terms: DDP
+
+retail_premium_ratio: 45.89
+
+regulatory_status:
+  status_code: suspended
+  active_notices: 
+    - "MOFCOM Nos. 55-62/2025 (suspended by Nos. 70, 72/2025)"
+  last_updated: 2025-11-09
+
+applications_summary: Highest magnetic moment of any element. Critical for medical lasers; emerged as Dy/Tb substitute in permanent magnets.
+
+supply_chain_notes: null

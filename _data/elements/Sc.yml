@@ -1,0 +1,32 @@
+# Scandium (Sc) — Element Data
+# Auto-generated from existing price records and catalog data
+
+symbol: Sc
+name: Scandium
+atomic_number: 21
+category: rare_earth_light
+
+retail_reference:
+  price_per_kg: 10200
+  source: "Median of 7 retail offers (Luciteria, MSE Supplies, PEGUYS, RWMM + 1 more)"
+  date: 2026-04-04
+  form: "metal, oxide"
+  quantity_basis: "1 kg MOQ, retail"
+
+bulk_benchmark:
+  price_per_kg: 1000
+  source: Median of 1 bulk offers (Ganzhou Wanfeng (Alibaba))
+  date: 2026-04-04
+  terms: FOB
+
+retail_premium_ratio: 10.2
+
+regulatory_status:
+  status_code: active
+  active_notices: 
+    - MOFCOM/GAC No. 18/2025
+  last_updated: 2025-04-04
+
+applications_summary: Used in aluminum-scandium alloys for aerospace.
+
+supply_chain_notes: null

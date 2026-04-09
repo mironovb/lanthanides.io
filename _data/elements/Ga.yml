@@ -1,0 +1,33 @@
+# Gallium (Ga) — Element Data
+# Auto-generated from existing price records and catalog data
+
+symbol: Ga
+name: Gallium
+atomic_number: 31
+category: semiconductor_metal
+
+retail_reference:
+  price_per_kg: 410.0
+  source: "Median of 8 retail offers (ALB Materials, American Elements, Edgetech Industries, Goodfellow + 3 more)"
+  date: 2026-04-04
+  form: metal
+  quantity_basis: "1 kg MOQ, retail"
+
+bulk_benchmark:
+  price_per_kg: 200
+  source: Median of 1 bulk offers (Multiple CN/DE/PH suppliers (Alibaba))
+  date: 2026-04-04
+  terms: FOB
+
+retail_premium_ratio: 2.05
+
+regulatory_status:
+  status_code: active
+  active_notices: 
+    - MOFCOM No. 46/2024
+    - MOFCOM/GAC No. 23/2023
+  last_updated: 2024-12-03
+
+applications_summary: Essential for GaAs and GaN semiconductors.
+
+supply_chain_notes: "Japan (Dowa, Mitsubishi Chemical) ~10% of global via zinc recovery. South Korea emerging. Si can replace GaAs in some RF; no GaN substitute. China controls ~80% primary production."

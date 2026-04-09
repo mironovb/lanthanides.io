@@ -1,0 +1,28 @@
+# Indium (In) — Element Data
+# Auto-generated from existing price records and catalog data
+
+symbol: In
+name: Indium
+atomic_number: 49
+category: semiconductor_metal
+
+retail_reference:
+  price_per_kg: 320
+  source: "Median of 5 retail offers (ALB Materials, American Elements, Edgetech Industries, Luciteria + 1 more)"
+  date: 2026-04-04
+  form: metal
+  quantity_basis: "1 kg MOQ, retail"
+
+bulk_benchmark: null
+
+retail_premium_ratio: null
+
+regulatory_status:
+  status_code: active
+  active_notices: 
+    - MOFCOM/GAC No. 10/2025
+  last_updated: 2025-02-04
+
+applications_summary: Critical for ITO coatings in displays and touchscreens.
+
+supply_chain_notes: null
