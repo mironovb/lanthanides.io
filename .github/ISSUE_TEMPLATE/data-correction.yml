@@ -1,0 +1,100 @@
+name: Data Correction
+description: Report incorrect data on lanthanides.io
+title: "[Correction] "
+labels: ["data-correction", "data"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Report data that appears to be wrong. Please include what it should be
+        and a source supporting the correction.
+
+  - type: dropdown
+    id: element
+    attributes:
+      label: Element
+      description: Which element is affected?
+      options:
+        - Sc (Scandium)
+        - Y (Yttrium)
+        - La (Lanthanum)
+        - Ce (Cerium)
+        - Pr (Praseodymium)
+        - Nd (Neodymium)
+        - Pm (Promethium)
+        - Sm (Samarium)
+        - Eu (Europium)
+        - Gd (Gadolinium)
+        - Tb (Terbium)
+        - Dy (Dysprosium)
+        - Ho (Holmium)
+        - Er (Erbium)
+        - Tm (Thulium)
+        - Yb (Ytterbium)
+        - Lu (Lutetium)
+        - Ta (Tantalum)
+        - Nb (Niobium)
+        - Co (Cobalt)
+        - Li (Lithium)
+        - Ga (Gallium)
+        - Ge (Germanium)
+        - In (Indium)
+        - Hf (Hafnium)
+        - Re (Rhenium)
+        - Te (Tellurium)
+        - Se (Selenium)
+        - Bi (Bismuth)
+        - W (Tungsten)
+        - Sb (Antimony)
+    validations:
+      required: true
+
+  - type: dropdown
+    id: data_type
+    attributes:
+      label: What type of data is incorrect?
+      options:
+        - Retail reference price
+        - Bulk benchmark price
+        - Regulatory status
+        - Applications or supply chain description
+        - Element properties (atomic number, category)
+        - Source attribution
+        - Other
+    validations:
+      required: true
+
+  - type: textarea
+    id: current_value
+    attributes:
+      label: What the site currently shows
+      description: "Copy or describe the incorrect data"
+      placeholder: "Retail reference for Nd shows $600/kg dated 2026-04-04"
+    validations:
+      required: true
+
+  - type: textarea
+    id: correct_value
+    attributes:
+      label: What it should be
+      description: "The correct value, with as much specificity as possible"
+      placeholder: "Should be $650/kg based on current listing"
+    validations:
+      required: true
+
+  - type: input
+    id: source
+    attributes:
+      label: Source
+      description: "URL or reference supporting the correction"
+      placeholder: "https://example.com/current-listing"
+    validations:
+      required: true
+
+  - type: textarea
+    id: notes
+    attributes:
+      label: Additional Context
+      description: "Anything else that would help us verify and apply the correction"
+    validations:
+      required: false

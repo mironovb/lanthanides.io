@@ -1,0 +1,82 @@
+name: Market Note
+description: Submit market intelligence, supply chain news, or regulatory developments
+title: "[Market] "
+labels: ["market-note", "news"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Submit market intelligence, news, or regulatory developments relevant
+        to rare earths and strategic metals. Notes should be factual and sourced.
+
+  - type: input
+    id: headline
+    attributes:
+      label: Headline
+      description: "Short headline summarising the development"
+      placeholder: "China announces new export controls on heavy rare earths"
+    validations:
+      required: true
+
+  - type: textarea
+    id: summary
+    attributes:
+      label: Summary
+      description: "2-5 sentence summary of the development and its significance"
+      placeholder: |
+        On April 4, 2025, MOFCOM and GAC jointly issued Notice No. 18/2025 adding
+        samarium, gadolinium, terbium, dysprosium, lutetium, scandium, and yttrium
+        to export license requirements. This expands the scope of China's rare earth
+        export controls beyond the existing regime covering...
+    validations:
+      required: true
+
+  - type: input
+    id: elements
+    attributes:
+      label: Relevant Elements
+      description: "Comma-separated element symbols affected by this development"
+      placeholder: "Sm, Gd, Tb, Dy, Lu, Sc, Y"
+    validations:
+      required: true
+
+  - type: input
+    id: source
+    attributes:
+      label: Source URL
+      description: "Primary source for this information"
+      placeholder: "https://example.gov/notice-18-2025"
+    validations:
+      required: true
+
+  - type: input
+    id: date
+    attributes:
+      label: Date of Development
+      description: "When did this occur or get announced? (YYYY-MM-DD)"
+      placeholder: "2025-04-04"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: category
+    attributes:
+      label: Category
+      options:
+        - Regulatory / Trade policy
+        - Supply disruption
+        - New production / Mine development
+        - Demand signal
+        - Price movement
+        - Technology / Substitution
+        - Other
+    validations:
+      required: true
+
+  - type: textarea
+    id: notes
+    attributes:
+      label: Additional Context
+      description: "Supporting details, secondary sources, or analytical commentary (clearly label opinion vs. fact)"
+    validations:
+      required: false

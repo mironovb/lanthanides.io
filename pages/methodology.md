@@ -290,6 +290,15 @@ than fabricated data. Empty fields mean "not yet collected," not "does not exist
 
 ## How to Contribute Data
 
+Community contributions are welcome. There are several ways to submit data:
+
+- **Submit a price observation:** [Open a GitHub issue](https://github.com/mironovb/lanthanides.io/issues/new?template=price-update.yml) using the price update template
+- **Report a data error:** [Open a correction issue](https://github.com/mironovb/lanthanides.io/issues/new?template=data-correction.yml)
+- **Submit a market note:** [Open a market note issue](https://github.com/mironovb/lanthanides.io/issues/new?template=market-note.yml)
+- **Submit a pull request:** Edit `_data/price_records.json` or `_data/elements/` files directly
+
+For developers and analysts who want to contribute via PR:
+
 - **Upload invoices:** Place PDF, CSV, or XLSX files in `invoices/` and run the
   import script
 - **Add curated offers:** Register a source in `_data/source_registry.yml` and run
@@ -297,4 +306,4 @@ than fabricated data. Empty fields mean "not yet collected," not "does not exist
 - **Manual entry:** Add records directly to `_data/price_records.json` following
   the schema
 
-All contributions must include source provenance. See the [Sources](/sources/) page for the current source registry.
+All contributions must include source provenance. See the full [contribution guide](https://github.com/mironovb/lanthanides.io/blob/main/CONTRIBUTING.md) for data formats, source requirements, and local setup instructions. See the [Sources](/sources/) page for the current source registry.

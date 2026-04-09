@@ -1,0 +1,125 @@
+name: Price Update
+description: Submit a price observation for a rare earth or strategic metal
+title: "[Price] "
+labels: ["price-update", "data"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Submit a price you have observed from a specific seller or source.
+        All fields marked with * are required.
+
+  - type: dropdown
+    id: element
+    attributes:
+      label: Element
+      description: Which element is this price for?
+      options:
+        - Sc (Scandium)
+        - Y (Yttrium)
+        - La (Lanthanum)
+        - Ce (Cerium)
+        - Pr (Praseodymium)
+        - Nd (Neodymium)
+        - Pm (Promethium)
+        - Sm (Samarium)
+        - Eu (Europium)
+        - Gd (Gadolinium)
+        - Tb (Terbium)
+        - Dy (Dysprosium)
+        - Ho (Holmium)
+        - Er (Erbium)
+        - Tm (Thulium)
+        - Yb (Ytterbium)
+        - Lu (Lutetium)
+        - Ta (Tantalum)
+        - Nb (Niobium)
+        - Co (Cobalt)
+        - Li (Lithium)
+        - Ga (Gallium)
+        - Ge (Germanium)
+        - In (Indium)
+        - Hf (Hafnium)
+        - Re (Rhenium)
+        - Te (Tellurium)
+        - Se (Selenium)
+        - Bi (Bismuth)
+        - W (Tungsten)
+        - Sb (Antimony)
+    validations:
+      required: true
+
+  - type: input
+    id: price
+    attributes:
+      label: Price
+      description: "The price you observed (e.g., 60 USD/kg, 5.50 EUR/g)"
+      placeholder: "60 USD/kg"
+    validations:
+      required: true
+
+  - type: input
+    id: form
+    attributes:
+      label: Form
+      description: "What form is the material in? (e.g., metal, oxide, powder, ingot, foil)"
+      placeholder: "metal"
+    validations:
+      required: true
+
+  - type: input
+    id: purity
+    attributes:
+      label: Purity
+      description: "Stated purity (e.g., 99.9%, 99.99%, 3N, 4N)"
+      placeholder: "99.9%"
+    validations:
+      required: true
+
+  - type: input
+    id: quantity
+    attributes:
+      label: Quantity / MOQ
+      description: "What quantity is this price for? (e.g., 1 kg, 100 g, 25 kg MOQ)"
+      placeholder: "1 kg"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: tier
+    attributes:
+      label: Market Tier
+      description: What type of purchase does this represent?
+      options:
+        - "Retail (small quantity, public storefront)"
+        - "Bulk / Industrial (large quantity, trade terms)"
+        - "Lab-grade (research supplier, certified reagent)"
+    validations:
+      required: true
+
+  - type: input
+    id: source
+    attributes:
+      label: Source
+      description: "Seller name and/or URL where you observed this price"
+      placeholder: "https://example-materials.com/neodymium-metal"
+    validations:
+      required: true
+
+  - type: input
+    id: date_observed
+    attributes:
+      label: Date Observed
+      description: "When did you observe this price? (YYYY-MM-DD)"
+      placeholder: "2026-04-09"
+    validations:
+      required: true
+
+  - type: textarea
+    id: notes
+    attributes:
+      label: Additional Notes
+      description: "Any other relevant context (delivery terms, stock status, special conditions)"
+      placeholder: "In stock, ships from US warehouse. Price includes certificate of analysis."
+    validations:
+      required: false
