@@ -1,120 +1,49 @@
 ---
 layout: default
-title: "Rare Earth News 2026 — Export Controls & Trade Policy"
-description: "Latest rare earth and strategic metal market news: Chinese export controls, MOFCOM announcements, trade policy, and supply chain analysis."
+title: "Rare Earth News & Analysis"
+description: "Export controls, market research, and supply chain analysis for rare earth and strategic metals."
 permalink: /news/
 ---
 
 {% assign breadcrumb_current = "News" %}
 {% include structured-data-breadcrumb.html %}
 
-{% assign sorted_news = site.data.news | sort: "date" | reverse %}
-{% assign featured = sorted_news | first %}
-{% assign rest = sorted_news | slice: 1, 100 %}
+{% assign sorted_articles = site.articles | sort: "date" | reverse %}
 
 <div class="np">
 
-  {% comment %} ── Page header ── {% endcomment %}
   <header class="np-header">
     <div class="np-header-inner">
-      <h1 class="np-title">Rare Earth & Strategic Metal News</h1>
-      <p class="np-subtitle">Chinese export controls, MOFCOM announcements, trade policy changes, and market analysis affecting rare earth and strategic metal supply chains</p>
+      <h1 class="np-title">News &amp; Analysis</h1>
+      <p class="np-subtitle">Export controls, market research, and supply chain intelligence for rare earth and strategic metals</p>
     </div>
     <div class="np-header-meta">
-      <span class="np-count">{{ sorted_news.size }} articles</span>
+      <span class="np-count">{{ sorted_articles.size }} articles</span>
     </div>
   </header>
 
-  {% comment %} ── Featured / hero story ── {% endcomment %}
-  {% comment %} Look up article to check for image {% endcomment %}
-  {% assign featured_article = nil %}
-  {% if featured.article %}
-    {% for a in site.articles %}{% if a.slug == featured.article %}{% assign featured_article = a %}{% break %}{% endif %}{% endfor %}
-  {% endif %}
-  <article class="np-hero">
-    <div class="np-hero-image {% if featured.status == 'active' %}np-img-active{% elsif featured.status == 'suspended' %}np-img-suspended{% endif %}">
-      {% if featured_article and featured_article.image %}
-        <img src="{{ '/assets/images/' | append: featured_article.image | relative_url }}" alt="{{ featured_article.image_alt | default: featured.headline }}" class="np-img-real" loading="lazy">
-      {% else %}
-        <div class="np-img-placeholder">
-          <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6 38l10-14 8 10 6-8 12 12H6z" fill="currentColor" opacity="0.15"/><circle cx="34" cy="14" r="4" fill="currentColor" opacity="0.15"/><rect x="2" y="2" width="44" height="44" rx="2" stroke="currentColor" opacity="0.2" stroke-width="1.5" fill="none"/></svg>
-        </div>
-      {% endif %}
-      {% if featured.tag %}<span class="np-tag">{{ featured.tag }}</span>{% endif %}
-    </div>
-    <div class="np-hero-body">
-      <div class="np-hero-meta">
-        <time datetime="{{ featured.date }}">{{ featured.date | date: "%B %-d, %Y" }}</time>
-        {% if featured.status == 'active' %}<span class="status-badge status-active">In Force</span>{% endif %}
-        {% if featured.status == 'suspended' %}<span class="status-badge status-suspended">Suspended</span>{% endif %}
-      </div>
-      {% if featured_article %}
-        <h2 class="np-hero-headline"><a href="{{ featured_article.url | relative_url }}">{{ featured.headline }}</a></h2>
-      {% else %}
-        <h2 class="np-hero-headline">{{ featured.headline }}</h2>
-      {% endif %}
-      <p class="np-hero-excerpt">{{ featured.body }}</p>
-      {% if featured.elements.size > 0 %}
-        <div class="np-elements">
-          {% for sym in featured.elements %}<code>{{ sym }}</code>{% endfor %}
-        </div>
-      {% endif %}
-      {% if featured.references.size > 0 %}
-        <div class="np-refs">
-          {% for ref in featured.references %}
-            <cite>[{{ forloop.index }}] {{ ref.label }}{% if ref.note %} &mdash; <em>{{ ref.note }}</em>{% endif %}</cite>
-          {% endfor %}
-        </div>
-      {% endif %}
-    </div>
-  </article>
-
-  {% comment %} ── Divider ── {% endcomment %}
-  <div class="np-divider">
-    <span class="np-divider-label">Timeline</span>
-  </div>
-
-  {% comment %} ── News tile grid ── {% endcomment %}
   <div class="np-grid">
-    {% for item in rest %}
-      {% assign tile_article = nil %}
-      {% if item.article %}
-        {% for a in site.articles %}{% if a.slug == item.article %}{% assign tile_article = a %}{% break %}{% endif %}{% endfor %}
-      {% endif %}
+    {% for article in sorted_articles %}
       <article class="np-tile">
-        <div class="np-tile-image {% if item.status == 'active' %}np-img-active{% elsif item.status == 'suspended' %}np-img-suspended{% endif %}">
-          {% if tile_article and tile_article.image_thumb %}
-            <img src="{{ '/assets/images/' | append: tile_article.image_thumb | relative_url }}" alt="{{ tile_article.image_alt | default: item.headline }}" class="np-img-real" loading="lazy">
+        <div class="np-tile-image {% if article.status == 'active' %}np-img-active{% endif %}{% if article.status == 'suspended' %} np-img-suspended{% endif %}">
+          {% if article.image_thumb %}
+            <img src="{{ '/assets/images/' | append: article.image_thumb | relative_url }}" alt="{{ article.image_alt | default: article.title }}" class="np-img-real" loading="lazy">
           {% else %}
             <div class="np-img-placeholder np-img-placeholder-sm">
               <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6 38l10-14 8 10 6-8 12 12H6z" fill="currentColor" opacity="0.15"/><circle cx="34" cy="14" r="4" fill="currentColor" opacity="0.15"/><rect x="2" y="2" width="44" height="44" rx="2" stroke="currentColor" opacity="0.2" stroke-width="1.5" fill="none"/></svg>
             </div>
           {% endif %}
-          {% if item.tag %}<span class="np-tag">{{ item.tag }}</span>{% endif %}
         </div>
         <div class="np-tile-body">
           <div class="np-tile-meta">
-            <time datetime="{{ item.date }}">{{ item.date | date: "%b %-d, %Y" }}</time>
-            {% if item.status == 'active' %}<span class="status-badge status-active">In Force</span>{% endif %}
-            {% if item.status == 'suspended' %}<span class="status-badge status-suspended">Suspended</span>{% endif %}
+            <time datetime="{{ article.date | date: '%Y-%m-%d' }}">{{ article.date | date: '%b %-d, %Y' }}</time>
           </div>
-          {% if tile_article %}
-            <h3 class="np-tile-headline"><a href="{{ tile_article.url | relative_url }}">{{ item.headline }}</a></h3>
-          {% else %}
-            <h3 class="np-tile-headline">{{ item.headline }}</h3>
-          {% endif %}
-          <p class="np-tile-excerpt">{{ item.body | truncatewords: 30 }}</p>
-          {% if item.elements.size > 0 %}
+          <h3 class="np-tile-headline"><a href="{{ article.url | relative_url }}">{{ article.title }}</a></h3>
+          <p class="np-tile-excerpt">{{ article.description | truncate: 120 }}</p>
+          {% if article.elements.size > 0 %}
             <div class="np-elements np-elements-sm">
-              {% for sym in item.elements limit:6 %}<code>{{ sym }}</code>{% endfor %}
-              {% if item.elements.size > 6 %}<code class="np-more">+{{ item.elements.size | minus: 6 }}</code>{% endif %}
-            </div>
-          {% endif %}
-          {% if item.references.size > 0 %}
-            <div class="np-refs np-refs-sm">
-              {% for ref in item.references limit:1 %}
-                <cite>{{ ref.label }}</cite>
-              {% endfor %}
+              {% for sym in article.elements limit:6 %}<code>{{ sym }}</code>{% endfor %}
+              {% if article.elements.size > 6 %}<code class="np-more">+{{ article.elements.size | minus: 6 }}</code>{% endif %}
             </div>
           {% endif %}
         </div>

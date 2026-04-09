@@ -44,42 +44,14 @@
     }
   }
 
-  // ── Home header ──
-  .home-header {
-    padding: $sp-5 0 $sp-4;
-    margin-bottom: $sp-4;
-
-    .home-title {
-      font-size: $fs-lg;
-    }
-
-    .home-subtitle {
-      font-size: $fs-xs;
-    }
-  }
-
-  .home-seo-intro p {
-    font-size: $fs-sm;
-  }
-
-  // ── Home top row: stack news + KD vertically ──
-  .home-top-row {
-    grid-template-columns: 1fr;
-    gap: $sp-4;
+  // ── Home tagline ──
+  .home-tagline {
+    margin: $sp-4 0 $sp-1;
   }
 
   .panel-label {
     font-size: $fs-sm;
     margin-bottom: $sp-2;
-  }
-
-  // ── News entries on home ──
-  .news-entry {
-    padding: $sp-2 0;
-  }
-
-  .news-entry-title {
-    font-size: $fs-sm;
   }
 
   .news-entry-body {
@@ -626,28 +598,12 @@
     }
   }
 
-  // Home: reduce padding further
-  .home-header {
-    padding: $sp-4 0 $sp-3;
-    margin-bottom: $sp-3;
-  }
-
-  // News hero: tighter
-  .np-hero-headline {
-    font-size: $fs-lg;
-  }
-
   // Elements table: hide even more columns
   .elements-table {
     thead th.col-ctrl,
     tbody td.col-ctrl {
       display: none;
     }
-  }
-
-  // KD: full width
-  .kd-entry {
-    padding: $sp-1 0 $sp-1 $sp-2;
   }
 
   // Article: keep body text at full size for readability

@@ -1,25 +1,10 @@
-// Home header
-.home-header {
-  padding: $sp-10 0 $sp-5;
-  margin-bottom: $sp-6;
-
-  .home-title {
-    font-family: $font-sans;
-    font-size: $fs-xl;
-    font-weight: $fw-bold;
-    color: $text-primary;
-    letter-spacing: -0.02em;
-    line-height: $lh-tight;
-  }
-
-  .home-subtitle {
-    font-size: $fs-sm;
-    color: $text-muted;
-    margin-top: $sp-2;
-    font-family: $font-sans;
-    letter-spacing: 0.01em;
-    line-height: $lh-relaxed;
-  }
+// Home tagline — single line below nav
+.home-tagline {
+  font-family: $font-sans;
+  font-size: $fs-sm;
+  color: $text-muted;
+  letter-spacing: 0.02em;
+  margin: $sp-6 0 $sp-2;
 }
 
 // ── Shared panel label ────────────────────────────────────────
@@ -33,108 +18,6 @@
   margin-bottom: $sp-3;
   padding-bottom: $sp-2;
   border-bottom: 1px solid $border-primary;
-}
-
-// ── Home top row: two columns, forced side-by-side ───────────
-.home-top-row {
-  display: grid;
-  grid-template-columns: 3fr 2fr;
-  gap: $sp-6;
-  align-items: start;
-  margin-bottom: $sp-6;
-}
-
-// ── Recent News (left column) ────────────────────────────────
-.news-home {
-  min-width: 0;
-}
-
-.news-list {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 0;
-}
-
-.news-entry {
-  display: flex;
-  gap: $sp-3;
-  align-items: flex-start;
-  padding: $sp-3 0;
-  border-bottom: 1px solid $border-primary;
-
-  &:first-child { padding-top: 0; }
-}
-
-.news-dot {
-  flex-shrink: 0;
-  font-size: $fs-2xs;
-  line-height: $lh-tight;
-  margin-top: 4px;
-  color: $text-primary;
-}
-
-.news-entry-content {
-  min-width: 0;
-  flex: 1;
-}
-
-.news-entry-head {
-  display: flex;
-  align-items: baseline;
-  gap: $sp-2;
-  margin-bottom: 3px;
-
-  time {
-    font-family: $font-mono;
-    font-size: $fs-2xs;
-    color: $text-dim;
-    white-space: nowrap;
-  }
-}
-
-.news-entry-elements {
-  font-family: $font-mono;
-  font-size: $fs-2xs;
-  color: $text-muted;
-  letter-spacing: 0.05em;
-}
-
-.news-entry-title {
-  display: block;
-  font-size: $fs-sm;
-  font-weight: $fw-semibold;
-  color: $text-primary;
-  line-height: $lh-tight;
-  margin-bottom: 3px;
-
-  &.news-entry-link {
-    text-decoration: none;
-    border-bottom: 1px solid $border-secondary;
-    transition: border-color $transition-fast, color $transition-fast;
-
-    &:hover {
-      color: $accent-blue;
-      border-bottom-color: $accent-blue;
-    }
-  }
-}
-
-.news-entry-body {
-  font-size: $fs-xs;
-  color: $text-secondary;
-  line-height: $lh-relaxed;
-  margin: 0;
-}
-
-.news-entry-ref {
-  display: block;
-  font-style: normal;
-  font-size: $fs-2xs;
-  color: $text-dim;
-  margin-top: 3px;
 }
 
 // ── Status badges (active / suspended) ──────────────────────
@@ -162,94 +45,83 @@
   }
 }
 
-// 3rd entry fades out
-.news-entry-faded {
-  border-bottom: none;
-  mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 30%, rgba(0,0,0,0));
-  -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 30%, rgba(0,0,0,0));
+// ── Recent Articles (homepage) ───────────────────────────────
+.home-articles {
+  margin-top: $sp-8;
+  padding-top: $sp-6;
+  border-top: 1px solid $border-primary;
 }
 
-.news-read-more {
-  display: inline-block;
-  font-size: $fs-sm;
-  color: $text-muted;
-  text-decoration: none;
-  margin-top: $sp-3;
+.home-articles-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: $sp-5;
 
-  &:hover {
-    color: $text-primary;
+  @include bp-max-lg {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @include bp-max-md {
+    grid-template-columns: 1fr;
+    gap: $sp-4;
   }
 }
 
-// ── Key Developments (right column, collapsible) ─────────────
-.kd-section {
-  min-width: 0;
-}
-
-.kd-list {
+.home-article-card {
   display: flex;
   flex-direction: column;
-  gap: 0;
-}
 
-.kd-entry {
-  border-left: 2px solid $border-secondary;
-  padding: $sp-2 0 $sp-2 $sp-3;
-  border-bottom: 1px solid $border-primary;
+  .home-article-img {
+    display: block;
+    aspect-ratio: 16 / 9;
+    background: $bg-tertiary;
+    border-radius: $radius-sm;
+    overflow: hidden;
+    border: 1px solid $border-primary;
+    margin-bottom: $sp-3;
 
-  &:last-child { border-bottom: none; }
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+  }
 
-  &.kd-entry-high { border-left-color: $accent-red; }
-  &.kd-entry-med  { border-left-color: $accent-amber; }
-}
+  .home-article-body {
+    time {
+      font-family: $font-mono;
+      font-size: $fs-2xs;
+      color: $text-dim;
+      display: block;
+      margin-bottom: $sp-1;
+    }
 
-.kd-summary {
-  display: flex;
-  align-items: baseline;
-  gap: $sp-2;
-  cursor: pointer;
-  list-style: none;
+    h3 {
+      font-family: $font-sans;
+      font-size: $fs-base;
+      font-weight: $fw-semibold;
+      line-height: $lh-tight;
+      margin: 0 0 $sp-2;
 
-  &::-webkit-details-marker { display: none; }
-  &::marker { display: none; content: ""; }
+      a {
+        color: $text-primary;
+        text-decoration: none;
+        transition: color $transition-fast;
 
-  &:hover .kd-title { color: $text-primary; }
-}
+        &:hover {
+          color: $accent-blue;
+        }
+      }
+    }
 
-.kd-title {
-  font-size: $fs-xs;
-  font-weight: $fw-semibold;
-  color: $text-primary;
-  line-height: $lh-tight;
-  flex: 1;
-  min-width: 0;
-}
-
-.kd-detail-body {
-  padding-top: $sp-2;
-}
-
-.kd-detail {
-  font-size: $fs-xs;
-  color: $text-secondary;
-  line-height: $lh-relaxed;
-  margin: 0;
-}
-
-.kd-elements {
-  display: block;
-  font-family: $font-mono;
-  font-size: $fs-2xs;
-  color: $text-muted;
-  margin-top: $sp-1;
-}
-
-.kd-ref {
-  display: block;
-  font-style: normal;
-  font-size: $fs-2xs;
-  color: $text-dim;
-  margin-top: 2px;
+    p {
+      font-size: $fs-sm;
+      color: $text-secondary;
+      line-height: $lh-relaxed;
+      margin: 0;
+    }
+  }
 }
 
 // ── Element grid ─────────────────────────────────────────────
@@ -458,23 +330,3 @@
   &:hover { color: $text-primary; border-bottom-style: solid; }
 }
 
-// ── SEO intro paragraph ─────────────────────────────────────
-.home-seo-intro {
-  margin-bottom: $sp-6;
-  padding: $sp-4 0;
-  border-top: 1px solid $border-primary;
-
-  p {
-    font-size: $fs-sm;
-    color: $text-secondary;
-    line-height: $lh-relaxed;
-    margin: 0 0 $sp-3;
-
-    &:last-child { margin-bottom: 0; }
-  }
-
-  strong {
-    color: $text-primary;
-    font-weight: $fw-semibold;
-  }
-}
