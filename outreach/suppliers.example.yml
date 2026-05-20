@@ -1,0 +1,73 @@
+# Outreach Supplier Registry — EXAMPLE / TEMPLATE
+#
+# This file is committed and documents the schema. The real registry lives at
+# outreach/suppliers.yml (gitignored) and contains actual contact details.
+#
+# Hard rule enforced by registry.py: a supplier is NEVER eligible for outreach
+# unless consent.opted_in is true. There is no override flag.
+#
+# Schema (per entry):
+#   id                       string, unique, kebab-case
+#   name                     human-readable supplier name
+#   website                  homepage URL
+#   contact_method           one of: email | web_form | none
+#   contact_value            REDACTED in this example. In the real file:
+#                            - email address when contact_method is "email"
+#                            - public quote-form URL when "web_form"
+#                            - empty/null when "none"
+#   consent:
+#     opted_in               REQUIRED true before any outreach is drafted
+#     opt_in_date            ISO 8601 date the supplier opted in
+#     opt_in_source          short note: where/how consent was recorded
+#                            (e.g. "email reply 2026-01-15", "trade-show signup")
+#   elements_supplied        list of element symbols (e.g. [Nd, Dy, Tb])
+#   tiers                    list, subset of [retail, lab, bulk]
+#   contact_frequency_days   minimum days between contacts (rate limit, default 30)
+#   last_contacted           ISO 8601 date of the most recent outreach, or null
+#   notes                    free-form
+
+suppliers:
+  - id: example-distributor-opted-in
+    name: "Example Distributor (template)"
+    website: "https://example.com"
+    contact_method: email
+    contact_value: "REDACTED — see outreach/suppliers.yml (gitignored)"
+    consent:
+      opted_in: true
+      opt_in_date: 2026-01-15
+      opt_in_source: "email reply confirming interest in quarterly quote requests"
+    elements_supplied: [Nd, Dy, Tb, Pr]
+    tiers: [lab, bulk]
+    contact_frequency_days: 90
+    last_contacted: 2026-03-01
+    notes: "Template entry. Replace with real suppliers in outreach/suppliers.yml."
+
+  - id: example-webform-opted-in
+    name: "Example Web-Form Supplier (template)"
+    website: "https://example.org"
+    contact_method: web_form
+    contact_value: "https://example.org/request-a-quote"
+    consent:
+      opted_in: true
+      opt_in_date: 2026-02-10
+      opt_in_source: "supplier's own quote-form page invites repeat inquiries"
+    elements_supplied: [La, Ce, Y]
+    tiers: [retail, lab]
+    contact_frequency_days: 30
+    last_contacted: null
+    notes: "Contact only via their published quote form."
+
+  - id: example-not-opted-in
+    name: "Example Supplier Without Consent (template)"
+    website: "https://example.net"
+    contact_method: none
+    contact_value: null
+    consent:
+      opted_in: false
+      opt_in_date: null
+      opt_in_source: null
+    elements_supplied: [Sc]
+    tiers: [retail]
+    contact_frequency_days: 30
+    last_contacted: null
+    notes: "Shown to demonstrate that entries without opted_in:true are filtered out by registry.eligible_for_contact()."

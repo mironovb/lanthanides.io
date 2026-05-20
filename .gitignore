@@ -22,3 +22,7 @@ invoices/*.csv
 prompts/
 logs/
 run-all.sh
+
+# Outreach — never commit real supplier contacts or local scratch files
+outreach/suppliers.yml
+outreach/*.local.*

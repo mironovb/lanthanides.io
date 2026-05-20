@@ -46,6 +46,7 @@ exclude:
   - Gemfile.lock
   - scripts/
   - invoices/
+  - outreach/
   - node_modules/
   - vendor/
   - README.md
