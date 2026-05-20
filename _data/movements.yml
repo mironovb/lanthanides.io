@@ -1,0 +1,1214 @@
+# Auto-generated price-movement and regulatory-change events.
+# Regenerate via scripts/detect_movements.py — do not edit by hand.
+# Editorial articles stay in _data/news.yml; this file is the factual,
+# data-driven feed.
+config:
+  threshold_pct: 10.0
+  window: 30d
+  tiers:
+  - retail
+  - bulk
+  - lab
+state:
+  regulatory:
+    Bi: active|controlled=yes|monitored
+    Ce: none|controlled=no|monitored
+    Co: none|controlled=no|normal
+    Dy: active|controlled=yes|restricted
+    Er: suspended|controlled=yes|monitored
+    Eu: suspended|controlled=yes|monitored
+    Ga: active|controlled=yes|restricted
+    Gd: active|controlled=yes|restricted
+    Ge: active|controlled=yes|restricted
+    Ho: suspended|controlled=yes|monitored
+    In: active|controlled=yes|monitored
+    La: none|controlled=no|monitored
+    Li: none|controlled=no|normal
+    Lu: active|controlled=yes|restricted
+    Mo: active|controlled=yes|restricted
+    Nb: none|controlled=no|normal
+    Nd: none|controlled=yes|monitored
+    Pr: none|controlled=yes|monitored
+    Sb: active|controlled=yes|restricted
+    Sc: active|controlled=yes|restricted
+    Se: none|controlled=no|normal
+    Sm: active|controlled=yes|restricted
+    Ta: none|controlled=no|normal
+    Tb: active|controlled=yes|restricted
+    Te: active|controlled=yes|restricted
+    Tm: suspended|controlled=yes|monitored
+    V: none|controlled=no|normal
+    W: active|controlled=yes|restricted
+    Y: active|controlled=yes|restricted
+    Yb: suspended|controlled=yes|monitored
+    Zr: none|controlled=no|normal
+  last_run: '2026-05-20T21:51:23Z'
+events:
+- id: Y-retail-30d-2026-04-04
+  date: '2026-04-04'
+  element: Y
+  element_name: Yttrium
+  element_url: /elements/Y/
+  type: price_spike
+  tier: retail
+  tier_label: retail
+  window: 30d
+  direction: up
+  magnitude_pct: 115837.5
+  abs_magnitude_pct: 115837.5
+  start_date: '2026-03-15'
+  end_date: '2026-04-04'
+  start_price_per_kg: 8.0
+  end_price_per_kg: 9275.0
+  currency: USD
+  confidence: low
+  observation_count: 5
+  distinct_days: 2
+  actual_span_days: 20
+  description: Yttrium retail price rose 115,838% over 20 days (window 30d), from $8.000/kg to $9,275/kg
+    (5 observations across 2 days).
+  source: fluctuations.json
+  sparkline:
+    width: 120
+    height: 28
+    path: M3.0,25.0 L117.0,3.0
+    point_count: 2
+    min_price: 8.0
+    max_price: 9275.0
+    last_x: 117.0
+    last_y: 3.0
+- id: Te-bulk-30d-2026-04-04
+  date: '2026-04-04'
+  element: Te
+  element_name: Tellurium
+  element_url: /elements/Te/
+  type: price_spike
+  tier: bulk
+  tier_label: bulk
+  window: 30d
+  direction: up
+  magnitude_pct: 446.3
+  abs_magnitude_pct: 446.3
+  start_date: '2026-03-25'
+  end_date: '2026-04-04'
+  start_price_per_kg: 108.0
+  end_price_per_kg: 590.0
+  currency: USD
+  confidence: medium
+  observation_count: 4
+  distinct_days: 3
+  actual_span_days: 10
+  description: Tellurium bulk price rose 446% over 10 days (window 30d), from $108/kg to $590/kg (4 observations
+    across 3 days).
+  source: fluctuations.json
+  sparkline:
+    width: 120
+    height: 28
+    path: M3.0,25.0 L60.0,24.82 L117.0,3.0
+    point_count: 3
+    min_price: 108.0
+    max_price: 590.0
+    last_x: 117.0
+    last_y: 3.0
+- id: Tb-bulk-30d-2026-04-04
+  date: '2026-04-04'
+  element: Tb
+  element_name: Terbium
+  element_url: /elements/Tb/
+  type: price_drop
+  tier: bulk
+  tier_label: bulk
+  window: 30d
+  direction: down
+  magnitude_pct: -39.58
+  abs_magnitude_pct: 39.58
+  start_date: '2026-03-20'
+  end_date: '2026-04-04'
+  start_price_per_kg: 993.0
+  end_price_per_kg: 600.0
+  currency: USD
+  confidence: low
+  observation_count: 3
+  distinct_days: 2
+  actual_span_days: 15
+  description: Terbium bulk price fell 39.6% over 15 days (window 30d), from $993/kg to $600/kg (3 observations
+    across 2 days).
+  source: fluctuations.json
+  sparkline:
+    width: 120
+    height: 28
+    path: M3.0,3.0 L117.0,25.0
+    point_count: 2
+    min_price: 600.0
+    max_price: 993.0
+    last_x: 117.0
+    last_y: 25.0
+- id: Sm-retail-30d-2026-04-04
+  date: '2026-04-04'
+  element: Sm
+  element_name: Samarium
+  element_url: /elements/Sm/
+  type: price_spike
+  tier: retail
+  tier_label: retail
+  window: 30d
+  direction: up
+  magnitude_pct: 224900.0
+  abs_magnitude_pct: 224900.0
+  start_date: '2026-03-15'
+  end_date: '2026-04-04'
+  start_price_per_kg: 4.0
+  end_price_per_kg: 9000.0
+  currency: USD
+  confidence: low
+  observation_count: 6
+  distinct_days: 2
+  actual_span_days: 20
+  description: Samarium retail price rose 224,900% over 20 days (window 30d), from $4.000/kg to $9,000/kg
+    (6 observations across 2 days).
+  source: fluctuations.json
+  sparkline:
+    width: 120
+    height: 28
+    path: M3.0,25.0 L117.0,3.0
+    point_count: 2
+    min_price: 4.0
+    max_price: 9000.0
+    last_x: 117.0
+    last_y: 3.0
+- id: Sc-retail-30d-2026-04-04
+  date: '2026-04-04'
+  element: Sc
+  element_name: Scandium
+  element_url: /elements/Sc/
+  type: price_spike
+  tier: retail
+  tier_label: retail
+  window: 30d
+  direction: up
+  magnitude_pct: 207.19
+  abs_magnitude_pct: 207.19
+  start_date: '2026-03-20'
+  end_date: '2026-04-04'
+  start_price_per_kg: 10200.0
+  end_price_per_kg: 31333.0
+  currency: USD
+  confidence: medium
+  observation_count: 7
+  distinct_days: 3
+  actual_span_days: 15
+  description: Scandium retail price rose 207% over 15 days (window 30d), from $10,200/kg to $31,333/kg
+    (7 observations across 3 days).
+  source: fluctuations.json
+  sparkline:
+    width: 120
+    height: 28
+    path: M3.0,24.5 L18.2,25.0 L117.0,3.0
+    point_count: 3
+    min_price: 9705.0
+    max_price: 31333.0
+    last_x: 117.0
+    last_y: 3.0
+- id: Sc-bulk-30d-2026-04-04
+  date: '2026-04-04'
+  element: Sc
+  element_name: Scandium
+  element_url: /elements/Sc/
+  type: price_drop
+  tier: bulk
+  tier_label: bulk
+  window: 30d
+  direction: down
+  magnitude_pct: -79.65
+  abs_magnitude_pct: 79.65
+  start_date: '2026-03-15'
+  end_date: '2026-04-04'
+  start_price_per_kg: 4913.0
+  end_price_per_kg: 1000.0
+  currency: USD
+  confidence: low
+  observation_count: 3
+  distinct_days: 2
+  actual_span_days: 20
+  description: Scandium bulk price fell 79.7% over 20 days (window 30d), from $4,913/kg to $1,000/kg (3
+    observations across 2 days).
+  source: fluctuations.json
+  sparkline:
+    width: 120
+    height: 28
+    path: M3.0,3.0 L117.0,25.0
+    point_count: 2
+    min_price: 1000.0
+    max_price: 4913.0
+    last_x: 117.0
+    last_y: 25.0
+- id: Pr-retail-30d-2026-04-04
+  date: '2026-04-04'
+  element: Pr
+  element_name: Praseodymium
+  element_url: /elements/Pr/
+  type: price_spike
+  tier: retail
+  tier_label: retail
+  window: 30d
+  direction: up
+  magnitude_pct: 17747.65
+  abs_magnitude_pct: 17747.65
+  start_date: '2026-03-15'
+  end_date: '2026-04-04'
+  start_price_per_kg: 85.0
+  end_price_per_kg: 15170.5
+  currency: USD
+  confidence: low
+  observation_count: 5
+  distinct_days: 2
+  actual_span_days: 20
+  description: Praseodymium retail price rose 17,748% over 20 days (window 30d), from $85.00/kg to $15,170/kg
+    (5 observations across 2 days).
+  source: fluctuations.json
+  sparkline:
+    width: 120
+    height: 28
+    path: M3.0,25.0 L117.0,3.0
+    point_count: 2
+    min_price: 85.0
+    max_price: 15170.5
+    last_x: 117.0
+    last_y: 3.0
+- id: Nd-retail-30d-2026-04-04
+  date: '2026-04-04'
+  element: Nd
+  element_name: Neodymium
+  element_url: /elements/Nd/
+  type: price_spike
+  tier: retail
+  tier_label: retail
+  window: 30d
+  direction: up
+  magnitude_pct: 12741.53
+  abs_magnitude_pct: 12741.53
+  start_date: '2026-03-15'
+  end_date: '2026-04-04'
+  start_price_per_kg: 91.5
+  end_price_per_kg: 11750.0
+  currency: USD
+  confidence: low
+  observation_count: 9
+  distinct_days: 2
+  actual_span_days: 20
+  description: Neodymium retail price rose 12,742% over 20 days (window 30d), from $91.50/kg to $11,750/kg
+    (9 observations across 2 days).
+  source: fluctuations.json
+  sparkline:
+    width: 120
+    height: 28
+    path: M3.0,25.0 L117.0,3.0
+    point_count: 2
+    min_price: 91.5
+    max_price: 11750.0
+    last_x: 117.0
+    last_y: 3.0
+- id: Nb-retail-30d-2026-04-04
+  date: '2026-04-04'
+  element: Nb
+  element_name: Niobium
+  element_url: /elements/Nb/
+  type: price_drop
+  tier: retail
+  tier_label: retail
+  window: 30d
+  direction: down
+  magnitude_pct: -76.6
+  abs_magnitude_pct: 76.6
+  start_date: '2026-03-15'
+  end_date: '2026-04-04'
+  start_price_per_kg: 1500.0
+  end_price_per_kg: 351.0
+  currency: USD
+  confidence: low
+  observation_count: 2
+  distinct_days: 2
+  actual_span_days: 20
+  description: Niobium retail price fell 76.6% over 20 days (window 30d), from $1,500/kg to $351/kg (2
+    observations across 2 days).
+  source: fluctuations.json
+  sparkline:
+    width: 120
+    height: 28
+    path: M3.0,3.0 L117.0,25.0
+    point_count: 2
+    min_price: 351.0
+    max_price: 1500.0
+    last_x: 117.0
+    last_y: 25.0
+- id: La-retail-30d-2026-04-04
+  date: '2026-04-04'
+  element: La
+  element_name: Lanthanum
+  element_url: /elements/La/
+  type: price_spike
+  tier: retail
+  tier_label: retail
+  window: 30d
+  direction: up
+  magnitude_pct: 761400.0
+  abs_magnitude_pct: 761400.0
+  start_date: '2026-03-15'
+  end_date: '2026-04-04'
+  start_price_per_kg: 2.0
+  end_price_per_kg: 15230.0
+  currency: USD
+  confidence: low
+  observation_count: 8
+  distinct_days: 2
+  actual_span_days: 20
+  description: Lanthanum retail price rose 761,400% over 20 days (window 30d), from $2.000/kg to $15,230/kg
+    (8 observations across 2 days).
+  source: fluctuations.json
+  sparkline:
+    width: 120
+    height: 28
+    path: M3.0,25.0 L117.0,3.0
+    point_count: 2
+    min_price: 2.0
+    max_price: 15230.0
+    last_x: 117.0
+    last_y: 3.0
+- id: In-retail-30d-2026-04-04
+  date: '2026-04-04'
+  element: In
+  element_name: Indium
+  element_url: /elements/In/
+  type: price_spike
+  tier: retail
+  tier_label: retail
+  window: 30d
+  direction: up
+  magnitude_pct: 390.0
+  abs_magnitude_pct: 390.0
+  start_date: '2026-03-15'
+  end_date: '2026-04-04'
+  start_price_per_kg: 300.0
+  end_price_per_kg: 1470.0
+  currency: USD
+  confidence: low
+  observation_count: 5
+  distinct_days: 2
+  actual_span_days: 20
+  description: Indium retail price rose 390% over 20 days (window 30d), from $300/kg to $1,470/kg (5 observations
+    across 2 days).
+  source: fluctuations.json
+  sparkline:
+    width: 120
+    height: 28
+    path: M3.0,25.0 L117.0,3.0
+    point_count: 2
+    min_price: 300.0
+    max_price: 1470.0
+    last_x: 117.0
+    last_y: 3.0
+- id: Ge-retail-30d-2026-04-04
+  date: '2026-04-04'
+  element: Ge
+  element_name: Germanium
+  element_url: /elements/Ge/
+  type: price_spike
+  tier: retail
+  tier_label: retail
+  window: 30d
+  direction: up
+  magnitude_pct: 1066.4
+  abs_magnitude_pct: 1066.4
+  start_date: '2026-03-15'
+  end_date: '2026-04-04'
+  start_price_per_kg: 1375.0
+  end_price_per_kg: 16038.0
+  currency: USD
+  confidence: low
+  observation_count: 5
+  distinct_days: 2
+  actual_span_days: 20
+  description: Germanium retail price rose 1,066% over 20 days (window 30d), from $1,375/kg to $16,038/kg
+    (5 observations across 2 days).
+  source: fluctuations.json
+  sparkline:
+    width: 120
+    height: 28
+    path: M3.0,25.0 L117.0,3.0
+    point_count: 2
+    min_price: 1375.0
+    max_price: 16038.0
+    last_x: 117.0
+    last_y: 3.0
+- id: Gd-retail-30d-2026-04-04
+  date: '2026-04-04'
+  element: Gd
+  element_name: Gadolinium
+  element_url: /elements/Gd/
+  type: price_spike
+  tier: retail
+  tier_label: retail
+  window: 30d
+  direction: up
+  magnitude_pct: 2477.78
+  abs_magnitude_pct: 2477.78
+  start_date: '2026-03-15'
+  end_date: '2026-04-04'
+  start_price_per_kg: 45.0
+  end_price_per_kg: 1160.0
+  currency: USD
+  confidence: low
+  observation_count: 13
+  distinct_days: 2
+  actual_span_days: 20
+  description: Gadolinium retail price rose 2,478% over 20 days (window 30d), from $45.00/kg to $1,160/kg
+    (13 observations across 2 days).
+  source: fluctuations.json
+  sparkline:
+    width: 120
+    height: 28
+    path: M3.0,25.0 L117.0,3.0
+    point_count: 2
+    min_price: 45.0
+    max_price: 1160.0
+    last_x: 117.0
+    last_y: 3.0
+- id: Eu-retail-30d-2026-04-04
+  date: '2026-04-04'
+  element: Eu
+  element_name: Europium
+  element_url: /elements/Eu/
+  type: price_spike
+  tier: retail
+  tier_label: retail
+  window: 30d
+  direction: up
+  magnitude_pct: 12566.67
+  abs_magnitude_pct: 12566.67
+  start_date: '2026-03-15'
+  end_date: '2026-04-04'
+  start_price_per_kg: 30.0
+  end_price_per_kg: 3800.0
+  currency: USD
+  confidence: low
+  observation_count: 4
+  distinct_days: 2
+  actual_span_days: 20
+  description: Europium retail price rose 12,567% over 20 days (window 30d), from $30.00/kg to $3,800/kg
+    (4 observations across 2 days).
+  source: fluctuations.json
+  sparkline:
+    width: 120
+    height: 28
+    path: M3.0,25.0 L117.0,3.0
+    point_count: 2
+    min_price: 30.0
+    max_price: 3800.0
+    last_x: 117.0
+    last_y: 3.0
+- id: Er-retail-30d-2026-04-04
+  date: '2026-04-04'
+  element: Er
+  element_name: Erbium
+  element_url: /elements/Er/
+  type: price_spike
+  tier: retail
+  tier_label: retail
+  window: 30d
+  direction: up
+  magnitude_pct: 34118.75
+  abs_magnitude_pct: 34118.75
+  start_date: '2026-03-15'
+  end_date: '2026-04-04'
+  start_price_per_kg: 32.0
+  end_price_per_kg: 10950.0
+  currency: USD
+  confidence: low
+  observation_count: 6
+  distinct_days: 2
+  actual_span_days: 20
+  description: Erbium retail price rose 34,119% over 20 days (window 30d), from $32.00/kg to $10,950/kg
+    (6 observations across 2 days).
+  source: fluctuations.json
+  sparkline:
+    width: 120
+    height: 28
+    path: M3.0,25.0 L117.0,3.0
+    point_count: 2
+    min_price: 32.0
+    max_price: 10950.0
+    last_x: 117.0
+    last_y: 3.0
+- id: Dy-retail-30d-2026-04-04
+  date: '2026-04-04'
+  element: Dy
+  element_name: Dysprosium
+  element_url: /elements/Dy/
+  type: price_spike
+  tier: retail
+  tier_label: retail
+  window: 30d
+  direction: up
+  magnitude_pct: 1435.0
+  abs_magnitude_pct: 1435.0
+  start_date: '2026-03-15'
+  end_date: '2026-04-04'
+  start_price_per_kg: 340.0
+  end_price_per_kg: 5219.0
+  currency: USD
+  confidence: low
+  observation_count: 9
+  distinct_days: 2
+  actual_span_days: 20
+  description: Dysprosium retail price rose 1,435% over 20 days (window 30d), from $340/kg to $5,219/kg
+    (9 observations across 2 days).
+  source: fluctuations.json
+  sparkline:
+    width: 120
+    height: 28
+    path: M3.0,25.0 L117.0,3.0
+    point_count: 2
+    min_price: 340.0
+    max_price: 5219.0
+    last_x: 117.0
+    last_y: 3.0
+- id: Co-retail-30d-2026-04-04
+  date: '2026-04-04'
+  element: Co
+  element_name: Cobalt
+  element_url: /elements/Co/
+  type: price_spike
+  tier: retail
+  tier_label: retail
+  window: 30d
+  direction: up
+  magnitude_pct: 174.17
+  abs_magnitude_pct: 174.17
+  start_date: '2026-03-15'
+  end_date: '2026-04-04'
+  start_price_per_kg: 540.0
+  end_price_per_kg: 1480.5
+  currency: USD
+  confidence: low
+  observation_count: 3
+  distinct_days: 2
+  actual_span_days: 20
+  description: Cobalt retail price rose 174% over 20 days (window 30d), from $540/kg to $1,480/kg (3 observations
+    across 2 days).
+  source: fluctuations.json
+  sparkline:
+    width: 120
+    height: 28
+    path: M3.0,25.0 L117.0,3.0
+    point_count: 2
+    min_price: 540.0
+    max_price: 1480.5
+    last_x: 117.0
+    last_y: 3.0
+- id: Ce-retail-30d-2026-04-04
+  date: '2026-04-04'
+  element: Ce
+  element_name: Cerium
+  element_url: /elements/Ce/
+  type: price_spike
+  tier: retail
+  tier_label: retail
+  window: 30d
+  direction: up
+  magnitude_pct: 10450.0
+  abs_magnitude_pct: 10450.0
+  start_date: '2026-03-15'
+  end_date: '2026-04-04'
+  start_price_per_kg: 2.0
+  end_price_per_kg: 211.0
+  currency: USD
+  confidence: low
+  observation_count: 7
+  distinct_days: 2
+  actual_span_days: 20
+  description: Cerium retail price rose 10,450% over 20 days (window 30d), from $2.000/kg to $211/kg (7
+    observations across 2 days).
+  source: fluctuations.json
+  sparkline:
+    width: 120
+    height: 28
+    path: M3.0,25.0 L117.0,3.0
+    point_count: 2
+    min_price: 2.0
+    max_price: 211.0
+    last_x: 117.0
+    last_y: 3.0
+- id: V-bulk-30d-2026-03-30
+  date: '2026-03-30'
+  element: V
+  element_name: Vanadium
+  element_url: /elements/V/
+  type: price_drop
+  tier: bulk
+  tier_label: bulk
+  window: 30d
+  direction: down
+  magnitude_pct: -96.09
+  abs_magnitude_pct: 96.09
+  start_date: '2026-03-29'
+  end_date: '2026-03-30'
+  start_price_per_kg: 307.0
+  end_price_per_kg: 12.0
+  currency: USD
+  confidence: low
+  observation_count: 3
+  distinct_days: 2
+  actual_span_days: 1
+  description: Vanadium bulk price fell 96.1% over 1 day (window 30d), from $307/kg to $12.00/kg (3 observations
+    across 2 days).
+  source: fluctuations.json
+  sparkline:
+    width: 120
+    height: 28
+    path: M3.0,3.0 L117.0,25.0
+    point_count: 2
+    min_price: 12.0
+    max_price: 307.0
+    last_x: 117.0
+    last_y: 25.0
+- id: Tm-bulk-30d-2026-03-30
+  date: '2026-03-30'
+  element: Tm
+  element_name: Thulium
+  element_url: /elements/Tm/
+  type: price_drop
+  tier: bulk
+  tier_label: bulk
+  window: 30d
+  direction: down
+  magnitude_pct: -89.71
+  abs_magnitude_pct: 89.71
+  start_date: '2026-03-29'
+  end_date: '2026-03-30'
+  start_price_per_kg: 1750.0
+  end_price_per_kg: 180.0
+  currency: USD
+  confidence: low
+  observation_count: 2
+  distinct_days: 2
+  actual_span_days: 1
+  description: Thulium bulk price fell 89.7% over 1 day (window 30d), from $1,750/kg to $180/kg (2 observations
+    across 2 days).
+  source: fluctuations.json
+  sparkline:
+    width: 120
+    height: 28
+    path: M3.0,3.0 L117.0,25.0
+    point_count: 2
+    min_price: 180.0
+    max_price: 1750.0
+    last_x: 117.0
+    last_y: 25.0
+- id: Lu-bulk-30d-2026-03-30
+  date: '2026-03-30'
+  element: Lu
+  element_name: Lutetium
+  element_url: /elements/Lu/
+  type: price_drop
+  tier: bulk
+  tier_label: bulk
+  window: 30d
+  direction: down
+  magnitude_pct: -11.62
+  abs_magnitude_pct: 11.62
+  start_date: '2026-03-29'
+  end_date: '2026-03-30'
+  start_price_per_kg: 800.0
+  end_price_per_kg: 707.0
+  currency: USD
+  confidence: low
+  observation_count: 2
+  distinct_days: 2
+  actual_span_days: 1
+  description: Lutetium bulk price fell 11.6% over 1 day (window 30d), from $800/kg to $707/kg (2 observations
+    across 2 days).
+  source: fluctuations.json
+  sparkline:
+    width: 120
+    height: 28
+    path: M3.0,3.0 L117.0,25.0
+    point_count: 2
+    min_price: 707.0
+    max_price: 800.0
+    last_x: 117.0
+    last_y: 25.0
+- id: V-retail-30d-2026-03-29
+  date: '2026-03-29'
+  element: V
+  element_name: Vanadium
+  element_url: /elements/V/
+  type: price_spike
+  tier: retail
+  tier_label: retail
+  window: 30d
+  direction: up
+  magnitude_pct: 16650.0
+  abs_magnitude_pct: 16650.0
+  start_date: '2026-03-15'
+  end_date: '2026-03-29'
+  start_price_per_kg: 14.0
+  end_price_per_kg: 2345.0
+  currency: USD
+  confidence: low
+  observation_count: 13
+  distinct_days: 2
+  actual_span_days: 14
+  description: Vanadium retail price rose 16,650% over 14 days (window 30d), from $14.00/kg to $2,345/kg
+    (13 observations across 2 days).
+  source: fluctuations.json
+  sparkline:
+    width: 120
+    height: 28
+    path: M3.0,25.0 L117.0,3.0
+    point_count: 2
+    min_price: 14.0
+    max_price: 2345.0
+    last_x: 117.0
+    last_y: 3.0
+- id: Tm-retail-30d-2026-03-29
+  date: '2026-03-29'
+  element: Tm
+  element_name: Thulium
+  element_url: /elements/Tm/
+  type: price_spike
+  tier: retail
+  tier_label: retail
+  window: 30d
+  direction: up
+  magnitude_pct: 510.0
+  abs_magnitude_pct: 510.0
+  start_date: '2026-03-15'
+  end_date: '2026-03-29'
+  start_price_per_kg: 3000.0
+  end_price_per_kg: 18300.0
+  currency: USD
+  confidence: low
+  observation_count: 12
+  distinct_days: 2
+  actual_span_days: 14
+  description: Thulium retail price rose 510% over 14 days (window 30d), from $3,000/kg to $18,300/kg
+    (12 observations across 2 days).
+  source: fluctuations.json
+  sparkline:
+    width: 120
+    height: 28
+    path: M3.0,25.0 L117.0,3.0
+    point_count: 2
+    min_price: 3000.0
+    max_price: 18300.0
+    last_x: 117.0
+    last_y: 3.0
+- id: Te-retail-30d-2026-03-29
+  date: '2026-03-29'
+  element: Te
+  element_name: Tellurium
+  element_url: /elements/Te/
+  type: price_spike
+  tier: retail
+  tier_label: retail
+  window: 30d
+  direction: up
+  magnitude_pct: 1173.02
+  abs_magnitude_pct: 1173.02
+  start_date: '2026-03-15'
+  end_date: '2026-03-29'
+  start_price_per_kg: 107.5
+  end_price_per_kg: 1368.5
+  currency: USD
+  confidence: low
+  observation_count: 12
+  distinct_days: 2
+  actual_span_days: 14
+  description: Tellurium retail price rose 1,173% over 14 days (window 30d), from $108/kg to $1,368/kg
+    (12 observations across 2 days).
+  source: fluctuations.json
+  sparkline:
+    width: 120
+    height: 28
+    path: M3.0,25.0 L117.0,3.0
+    point_count: 2
+    min_price: 107.5
+    max_price: 1368.5
+    last_x: 117.0
+    last_y: 3.0
+- id: Lu-retail-30d-2026-03-29
+  date: '2026-03-29'
+  element: Lu
+  element_name: Lutetium
+  element_url: /elements/Lu/
+  type: price_spike
+  tier: retail
+  tier_label: retail
+  window: 30d
+  direction: up
+  magnitude_pct: 440.12
+  abs_magnitude_pct: 440.12
+  start_date: '2026-03-15'
+  end_date: '2026-03-29'
+  start_price_per_kg: 8500.0
+  end_price_per_kg: 45910.0
+  currency: USD
+  confidence: low
+  observation_count: 9
+  distinct_days: 2
+  actual_span_days: 14
+  description: Lutetium retail price rose 440% over 14 days (window 30d), from $8,500/kg to $45,910/kg
+    (9 observations across 2 days).
+  source: fluctuations.json
+  sparkline:
+    width: 120
+    height: 28
+    path: M3.0,25.0 L117.0,3.0
+    point_count: 2
+    min_price: 8500.0
+    max_price: 45910.0
+    last_x: 117.0
+    last_y: 3.0
+- id: Ho-retail-30d-2026-03-29
+  date: '2026-03-29'
+  element: Ho
+  element_name: Holmium
+  element_url: /elements/Ho/
+  type: price_spike
+  tier: retail
+  tier_label: retail
+  window: 30d
+  direction: up
+  magnitude_pct: 6592.31
+  abs_magnitude_pct: 6592.31
+  start_date: '2026-03-15'
+  end_date: '2026-03-29'
+  start_price_per_kg: 65.0
+  end_price_per_kg: 4350.0
+  currency: USD
+  confidence: low
+  observation_count: 10
+  distinct_days: 2
+  actual_span_days: 14
+  description: Holmium retail price rose 6,592% over 14 days (window 30d), from $65.00/kg to $4,350/kg
+    (10 observations across 2 days).
+  source: fluctuations.json
+  sparkline:
+    width: 120
+    height: 28
+    path: M3.0,25.0 L117.0,3.0
+    point_count: 2
+    min_price: 65.0
+    max_price: 4350.0
+    last_x: 117.0
+    last_y: 3.0
+- id: new-Zr-2026-03-15
+  date: '2026-03-15'
+  element: Zr
+  element_name: Zirconium
+  element_url: /elements/Zr/
+  type: new_data
+  description: 'Zirconium (Zr) now tracked: 3 observations across 1 day starting 2026-03-15.'
+  observation_count: 3
+  distinct_days: 1
+  source: fluctuations.json
+- id: new-Yb-2026-03-15
+  date: '2026-03-15'
+  element: Yb
+  element_name: Ytterbium
+  element_url: /elements/Yb/
+  type: new_data
+  description: 'Ytterbium (Yb) now tracked: 4 observations across 2 days starting 2026-03-15.'
+  observation_count: 4
+  distinct_days: 2
+  source: fluctuations.json
+- id: new-Y-2026-03-15
+  date: '2026-03-15'
+  element: Y
+  element_name: Yttrium
+  element_url: /elements/Y/
+  type: new_data
+  description: 'Yttrium (Y) now tracked: 5 observations across 2 days starting 2026-03-15.'
+  observation_count: 5
+  distinct_days: 2
+  source: fluctuations.json
+- id: new-W-2026-03-15
+  date: '2026-03-15'
+  element: W
+  element_name: Tungsten
+  element_url: /elements/W/
+  type: new_data
+  description: 'Tungsten (W) now tracked: 4 observations across 1 day starting 2026-03-15.'
+  observation_count: 4
+  distinct_days: 1
+  source: fluctuations.json
+- id: new-V-2026-03-15
+  date: '2026-03-15'
+  element: V
+  element_name: Vanadium
+  element_url: /elements/V/
+  type: new_data
+  description: 'Vanadium (V) now tracked: 16 observations across 3 days starting 2026-03-15.'
+  observation_count: 16
+  distinct_days: 3
+  source: fluctuations.json
+- id: new-Tm-2026-03-15
+  date: '2026-03-15'
+  element: Tm
+  element_name: Thulium
+  element_url: /elements/Tm/
+  type: new_data
+  description: 'Thulium (Tm) now tracked: 14 observations across 3 days starting 2026-03-15.'
+  observation_count: 14
+  distinct_days: 3
+  source: fluctuations.json
+- id: new-Ta-2026-03-15
+  date: '2026-03-15'
+  element: Ta
+  element_name: Tantalum
+  element_url: /elements/Ta/
+  type: new_data
+  description: 'Tantalum (Ta) now tracked: 2 observations across 1 day starting 2026-03-15.'
+  observation_count: 2
+  distinct_days: 1
+  source: fluctuations.json
+- id: new-Sm-2026-03-15
+  date: '2026-03-15'
+  element: Sm
+  element_name: Samarium
+  element_url: /elements/Sm/
+  type: new_data
+  description: 'Samarium (Sm) now tracked: 6 observations across 2 days starting 2026-03-15.'
+  observation_count: 6
+  distinct_days: 2
+  source: fluctuations.json
+- id: new-Se-2026-03-15
+  date: '2026-03-15'
+  element: Se
+  element_name: Selenium
+  element_url: /elements/Se/
+  type: new_data
+  description: 'Selenium (Se) now tracked: 3 observations across 1 day starting 2026-03-15.'
+  observation_count: 3
+  distinct_days: 1
+  source: fluctuations.json
+- id: new-Sb-2026-03-15
+  date: '2026-03-15'
+  element: Sb
+  element_name: Antimony
+  element_url: /elements/Sb/
+  type: new_data
+  description: 'Antimony (Sb) now tracked: 4 observations across 1 day starting 2026-03-15.'
+  observation_count: 4
+  distinct_days: 1
+  source: fluctuations.json
+- id: new-Pr-2026-03-15
+  date: '2026-03-15'
+  element: Pr
+  element_name: Praseodymium
+  element_url: /elements/Pr/
+  type: new_data
+  description: 'Praseodymium (Pr) now tracked: 5 observations across 2 days starting 2026-03-15.'
+  observation_count: 5
+  distinct_days: 2
+  source: fluctuations.json
+- id: new-Nd-2026-03-15
+  date: '2026-03-15'
+  element: Nd
+  element_name: Neodymium
+  element_url: /elements/Nd/
+  type: new_data
+  description: 'Neodymium (Nd) now tracked: 10 observations across 2 days starting 2026-03-15.'
+  observation_count: 10
+  distinct_days: 2
+  source: fluctuations.json
+- id: new-Nb-2026-03-15
+  date: '2026-03-15'
+  element: Nb
+  element_name: Niobium
+  element_url: /elements/Nb/
+  type: new_data
+  description: 'Niobium (Nb) now tracked: 4 observations across 2 days starting 2026-03-15.'
+  observation_count: 4
+  distinct_days: 2
+  source: fluctuations.json
+- id: new-Mo-2026-03-15
+  date: '2026-03-15'
+  element: Mo
+  element_name: Molybdenum
+  element_url: /elements/Mo/
+  type: new_data
+  description: 'Molybdenum (Mo) now tracked: 4 observations across 1 day starting 2026-03-15.'
+  observation_count: 4
+  distinct_days: 1
+  source: fluctuations.json
+- id: new-Li-2026-03-15
+  date: '2026-03-15'
+  element: Li
+  element_name: Lithium
+  element_url: /elements/Li/
+  type: new_data
+  description: 'Lithium (Li) now tracked: 2 observations across 1 day starting 2026-03-15.'
+  observation_count: 2
+  distinct_days: 1
+  source: fluctuations.json
+- id: new-La-2026-03-15
+  date: '2026-03-15'
+  element: La
+  element_name: Lanthanum
+  element_url: /elements/La/
+  type: new_data
+  description: 'Lanthanum (La) now tracked: 8 observations across 2 days starting 2026-03-15.'
+  observation_count: 8
+  distinct_days: 2
+  source: fluctuations.json
+- id: new-In-2026-03-15
+  date: '2026-03-15'
+  element: In
+  element_name: Indium
+  element_url: /elements/In/
+  type: new_data
+  description: 'Indium (In) now tracked: 5 observations across 2 days starting 2026-03-15.'
+  observation_count: 5
+  distinct_days: 2
+  source: fluctuations.json
+- id: new-Ge-2026-03-15
+  date: '2026-03-15'
+  element: Ge
+  element_name: Germanium
+  element_url: /elements/Ge/
+  type: new_data
+  description: 'Germanium (Ge) now tracked: 5 observations across 2 days starting 2026-03-15.'
+  observation_count: 5
+  distinct_days: 2
+  source: fluctuations.json
+- id: new-Gd-2026-03-15
+  date: '2026-03-15'
+  element: Gd
+  element_name: Gadolinium
+  element_url: /elements/Gd/
+  type: new_data
+  description: 'Gadolinium (Gd) now tracked: 13 observations across 2 days starting 2026-03-15.'
+  observation_count: 13
+  distinct_days: 2
+  source: fluctuations.json
+- id: new-Ga-2026-03-15
+  date: '2026-03-15'
+  element: Ga
+  element_name: Gallium
+  element_url: /elements/Ga/
+  type: new_data
+  description: 'Gallium (Ga) now tracked: 9 observations across 2 days starting 2026-03-15.'
+  observation_count: 9
+  distinct_days: 2
+  source: fluctuations.json
+- id: new-Eu-2026-03-15
+  date: '2026-03-15'
+  element: Eu
+  element_name: Europium
+  element_url: /elements/Eu/
+  type: new_data
+  description: 'Europium (Eu) now tracked: 4 observations across 2 days starting 2026-03-15.'
+  observation_count: 4
+  distinct_days: 2
+  source: fluctuations.json
+- id: new-Er-2026-03-15
+  date: '2026-03-15'
+  element: Er
+  element_name: Erbium
+  element_url: /elements/Er/
+  type: new_data
+  description: 'Erbium (Er) now tracked: 6 observations across 2 days starting 2026-03-15.'
+  observation_count: 6
+  distinct_days: 2
+  source: fluctuations.json
+- id: new-Dy-2026-03-15
+  date: '2026-03-15'
+  element: Dy
+  element_name: Dysprosium
+  element_url: /elements/Dy/
+  type: new_data
+  description: 'Dysprosium (Dy) now tracked: 10 observations across 2 days starting 2026-03-15.'
+  observation_count: 10
+  distinct_days: 2
+  source: fluctuations.json
+- id: new-Co-2026-03-15
+  date: '2026-03-15'
+  element: Co
+  element_name: Cobalt
+  element_url: /elements/Co/
+  type: new_data
+  description: 'Cobalt (Co) now tracked: 4 observations across 2 days starting 2026-03-15.'
+  observation_count: 4
+  distinct_days: 2
+  source: fluctuations.json
+- id: new-Ce-2026-03-15
+  date: '2026-03-15'
+  element: Ce
+  element_name: Cerium
+  element_url: /elements/Ce/
+  type: new_data
+  description: 'Cerium (Ce) now tracked: 9 observations across 2 days starting 2026-03-15.'
+  observation_count: 9
+  distinct_days: 2
+  source: fluctuations.json
+- id: new-Bi-2026-03-15
+  date: '2026-03-15'
+  element: Bi
+  element_name: Bismuth
+  element_url: /elements/Bi/
+  type: new_data
+  description: 'Bismuth (Bi) now tracked: 3 observations across 1 day starting 2026-03-15.'
+  observation_count: 3
+  distinct_days: 1
+  source: fluctuations.json
+- id: new-Te-2026-02-28
+  date: '2026-02-28'
+  element: Te
+  element_name: Tellurium
+  element_url: /elements/Te/
+  type: new_data
+  description: 'Tellurium (Te) now tracked: 17 observations across 6 days starting 2026-02-28.'
+  observation_count: 17
+  distinct_days: 6
+  source: fluctuations.json
+- id: new-Ho-2026-02-28
+  date: '2026-02-28'
+  element: Ho
+  element_name: Holmium
+  element_url: /elements/Ho/
+  type: new_data
+  description: 'Holmium (Ho) now tracked: 23 observations across 3 days starting 2026-02-28.'
+  observation_count: 23
+  distinct_days: 3
+  source: fluctuations.json
+- id: new-Tb-2026-02-26
+  date: '2026-02-26'
+  element: Tb
+  element_name: Terbium
+  element_url: /elements/Tb/
+  type: new_data
+  description: 'Terbium (Tb) now tracked: 12 observations across 4 days starting 2026-02-26.'
+  observation_count: 12
+  distinct_days: 4
+  source: fluctuations.json
+- id: new-Lu-2026-01-31
+  date: '2026-01-31'
+  element: Lu
+  element_name: Lutetium
+  element_url: /elements/Lu/
+  type: new_data
+  description: 'Lutetium (Lu) now tracked: 12 observations across 4 days starting 2026-01-31.'
+  observation_count: 12
+  distinct_days: 4
+  source: fluctuations.json
+- id: new-Sc-2024-12-15
+  date: '2024-12-15'
+  element: Sc
+  element_name: Scandium
+  element_url: /elements/Sc/
+  type: new_data
+  description: 'Scandium (Sc) now tracked: 12 observations across 6 days starting 2024-12-15.'
+  observation_count: 12
+  distinct_days: 6
+  source: fluctuations.json

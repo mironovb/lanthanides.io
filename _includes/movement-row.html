@@ -1,0 +1,82 @@
+{% comment %}
+  Render one row in the Market Movements feed.
+
+  Inputs:
+    include.event   — the movement event dict (from _data/movements.yml)
+    include.compact — when true, render the slim home-widget variant (no
+                      sparkline, no metadata block).
+{% endcomment %}
+
+{% assign mv = include.event %}
+{% if mv %}
+  {% assign mv_type = mv.type | default: "price_spike" %}
+  {% case mv_type %}
+    {% when "price_spike" %}{% assign mv_chip = "Spike" %}{% assign mv_chip_class = "mv-chip-up" %}
+    {% when "price_drop" %}{% assign mv_chip = "Drop" %}{% assign mv_chip_class = "mv-chip-down" %}
+    {% when "regulatory_change" %}{% assign mv_chip = "Regulatory" %}{% assign mv_chip_class = "mv-chip-reg" %}
+    {% when "new_data" %}{% assign mv_chip = "New data" %}{% assign mv_chip_class = "mv-chip-new" %}
+    {% else %}{% assign mv_chip = "Movement" %}{% assign mv_chip_class = "mv-chip-flat" %}
+  {% endcase %}
+
+  {% if include.compact %}
+    {% capture mv_short %}{% if mv.abs_magnitude_pct %}{% if mv.direction == 'up' %}+{% elsif mv.direction == 'down' %}&minus;{% endif %}{{ mv.abs_magnitude_pct }}% over {{ mv.actual_span_days }}d: {{ mv.start_price_per_kg }} &rarr; {{ mv.end_price_per_kg }} USD/kg{% else %}{{ mv.description | truncate: 110 }}{% endif %}{% endcapture %}
+    <li class="mv-row mv-row-compact mv-row-{{ mv_type | replace: '_', '-' }}">
+      <time class="mv-date" datetime="{{ mv.date }}">{{ mv.date | date: "%b %-d" }}</time>
+      <span class="mv-chip {{ mv_chip_class }}">{{ mv_chip }}</span>
+      <a class="mv-element" href="{{ mv.element_url | relative_url }}"><code>{{ mv.element }}</code> {{ mv.element_name }}</a>
+      <span class="mv-line">{{ mv_short }}</span>
+    </li>
+  {% else %}
+    <li class="mv-row mv-row-{{ mv_type | replace: '_', '-' }}" id="mv-{{ mv.id }}">
+      <div class="mv-row-head">
+        <time class="mv-date" datetime="{{ mv.date }}">{{ mv.date | date: "%Y-%m-%d" }}</time>
+        <span class="mv-chip {{ mv_chip_class }}">{{ mv_chip }}</span>
+        {% if mv.tier_label %}<span class="mv-tier">{{ mv.tier_label }}</span>{% endif %}
+        {% if mv.window %}<span class="mv-window">{{ mv.window }}</span>{% endif %}
+        {% if mv.confidence %}<span class="mv-confidence mv-confidence-{{ mv.confidence }}" title="Confidence: based on {{ mv.observation_count }} observation(s) across {{ mv.distinct_days }} day(s)">{{ mv.confidence }} confidence</span>{% endif %}
+        <a class="mv-element" href="{{ mv.element_url | relative_url }}"><code>{{ mv.element }}</code> {{ mv.element_name }}</a>
+        <a class="mv-permalink" href="#mv-{{ mv.id }}" aria-label="Link to this movement">#</a>
+      </div>
+
+      <p class="mv-description">{{ mv.description }}</p>
+
+      {% if mv.sparkline and mv.sparkline.path %}
+        {% assign sp = mv.sparkline %}
+        <div class="mv-sparkline-wrap" aria-hidden="true">
+          <svg class="mv-sparkline mv-sparkline-{{ mv.direction | default: 'flat' }}"
+               viewBox="0 0 {{ sp.width }} {{ sp.height }}"
+               width="{{ sp.width }}"
+               height="{{ sp.height }}"
+               role="img"
+               aria-label="Sparkline for {{ mv.element_name }} {{ mv.tier_label }} between {{ mv.start_date }} and {{ mv.end_date }}">
+            <path d="{{ sp.path }}" fill="none" />
+            <circle class="mv-sparkline-end" cx="{{ sp.last_x }}" cy="{{ sp.last_y }}" r="2.5" />
+          </svg>
+          <span class="mv-sparkline-meta">
+            {{ sp.point_count }} pts · {% if mv.start_price_per_kg %}${{ mv.start_price_per_kg }} → ${{ mv.end_price_per_kg }}{% else %}${{ sp.min_price }}–${{ sp.max_price }}{% endif %}
+          </span>
+        </div>
+      {% endif %}
+
+      {% if mv.type == "price_spike" or mv.type == "price_drop" %}
+        <dl class="mv-meta">
+          <div><dt>Window</dt><dd>{{ mv.start_date }} → {{ mv.end_date }} ({{ mv.actual_span_days }}d)</dd></div>
+          <div><dt>Change</dt><dd class="mv-meta-pct mv-meta-pct-{{ mv.direction }}">{% if mv.direction == 'up' %}+{% elsif mv.direction == 'down' %}&minus;{% endif %}{{ mv.abs_magnitude_pct }}%</dd></div>
+          <div><dt>From</dt><dd>${{ mv.start_price_per_kg }} <span class="mv-meta-unit">/kg</span></dd></div>
+          <div><dt>To</dt><dd>${{ mv.end_price_per_kg }} <span class="mv-meta-unit">/kg</span></dd></div>
+          <div><dt>Observations</dt><dd>{{ mv.observation_count }} across {{ mv.distinct_days }} day{% if mv.distinct_days != 1 %}s{% endif %}</dd></div>
+        </dl>
+      {% elsif mv.type == "regulatory_change" %}
+        <dl class="mv-meta">
+          {% if mv.prior_signature %}<div><dt>From</dt><dd>{{ mv.prior_signature | replace: "|", " · " }}</dd></div>{% endif %}
+          <div><dt>To</dt><dd>{{ mv.current_signature | replace: "|", " · " }}</dd></div>
+        </dl>
+      {% elsif mv.type == "new_data" %}
+        <dl class="mv-meta">
+          <div><dt>Observations</dt><dd>{{ mv.observation_count }}</dd></div>
+          <div><dt>Distinct days</dt><dd>{{ mv.distinct_days }}</dd></div>
+        </dl>
+      {% endif %}
+    </li>
+  {% endif %}
+{% endif %}

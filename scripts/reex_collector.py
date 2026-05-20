@@ -434,6 +434,30 @@ def run_pipeline(args: argparse.Namespace, logger: logging.Logger) -> int:
     elif args.dry_run:
         logger.info("[DRY RUN] Would regenerate assets/data/fluctuations.json")
 
+    # Step 5b: Append/dedupe Market Movements feed (auto-generated factual
+    # price-spike / price-drop / regulatory_change / new_data events).
+    movements_script = SCRIPT_DIR / "detect_movements.py"
+    if movements_script.exists() and not args.dry_run:
+        logger.info("Updating _data/movements.yml from fluctuations and catalog...")
+        try:
+            result = subprocess.run(
+                [sys.executable, str(movements_script)],
+                capture_output=True, text=True, timeout=120,
+            )
+            if result.returncode == 0:
+                logger.info("Movements updated")
+                if result.stdout.strip():
+                    logger.debug("movements stdout: %s", result.stdout.strip())
+            else:
+                logger.warning(
+                    "Movements detector exited with code %d: %s",
+                    result.returncode, result.stderr.strip(),
+                )
+        except Exception:
+            logger.exception("Movements detector failed — continuing")
+    elif args.dry_run:
+        logger.info("[DRY RUN] Would append to _data/movements.yml")
+
     # Step 6: Create timestamped snapshot
     if not args.dry_run:
         create_snapshot(args.output_file, logger, dry_run=args.dry_run)

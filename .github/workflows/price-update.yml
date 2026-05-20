@@ -50,6 +50,10 @@ jobs:
         # assets/data/fluctuations.json from the current price_history files.
         run: python scripts/fluctuations.py --verbose
 
+      - name: Update Market Movements feed
+        # Append + dedupe factual price-spike / regulatory-change events.
+        run: python scripts/detect_movements.py --verbose
+
       - name: Check for changes
         id: changes
         run: |
@@ -64,6 +68,6 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add _data/price_records.json _data/price_history/ _data/snapshots/ _data/fluctuations.json assets/data/fluctuations.json
+          git add _data/price_records.json _data/price_history/ _data/snapshots/ _data/fluctuations.json _data/movements.yml assets/data/fluctuations.json
           git commit -m "data: weekly price update $(date -u +%Y-%m-%d)"
           git push

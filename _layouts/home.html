@@ -49,3 +49,22 @@ layout: default
   </div>
 </section>
 {% endif %}
+
+{% comment %} ── Recent Movements (compact widget) ── {% endcomment %}
+{% assign mv_doc = site.data.movements %}
+{% assign mv_events = mv_doc.events %}
+{% if mv_events == nil %}{% assign mv_events = "" | split: "" %}{% endif %}
+{% assign mv_events_size = mv_events | size %}
+{% if mv_events_size > 0 %}
+<section class="home-movements">
+  <div class="home-movements-head">
+    <h2 class="panel-label">Recent Movements</h2>
+    <a class="home-movements-more" href="{{ '/movements/' | relative_url }}">All movements &rarr;</a>
+  </div>
+  <ul class="mv-list mv-list-compact">
+    {% for event in mv_events limit:5 %}
+      {% include movement-row.html event=event compact=true %}
+    {% endfor %}
+  </ul>
+</section>
+{% endif %}
