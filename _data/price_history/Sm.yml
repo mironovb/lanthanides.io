@@ -1,0 +1,61 @@
+symbol: Sm
+observations:
+- date: '2026-03-15'
+  tier: retail
+  price_per_kg: 4.0
+  currency: USD
+  source: alb-materials-01
+  record_id: R-0016
+  form: oxide
+  purity: 99.9% (3N)
+  seller: ALB Materials
+- date: '2026-03-15'
+  tier: retail
+  price_per_kg: 3.0
+  currency: USD
+  source: edgetech-industries-01
+  record_id: R-0015
+  form: oxide
+  purity: 99.9% (3N)
+  seller: Edgetech Industries
+- date: '2026-03-15'
+  tier: retail
+  price_per_kg: 5.0
+  currency: USD
+  source: stanford-advanced-materials-01
+  record_id: R-0014
+  form: oxide
+  purity: 99.9% (3N)
+  seller: Stanford Advanced Materials
+- date: '2026-04-04'
+  tier: retail
+  price_per_kg: 3867.0
+  currency: USD
+  source: Luciteria
+  record_id: R-0225
+  form: metal
+  purity: 99.5%
+- date: '2026-04-04'
+  tier: retail
+  price_per_kg: 1936.0
+  currency: USD
+  source: median_aggregate
+  form: metal, oxide
+  notes: Median of 6 retail offers (ALB Materials, Edgetech Industries, Luciteria,
+    Stanford Advanced Materials + 2 more)
+- date: '2026-04-04'
+  tier: retail
+  price_per_kg: 10000.0
+  currency: USD
+  source: novaelements (eBay)
+  record_id: R-0224
+  form: metal
+  purity: 99.95%
+- date: '2026-04-04'
+  tier: retail
+  price_per_kg: 9000.0
+  currency: USD
+  source: snaucke-elements (eBay)
+  record_id: R-0223
+  form: metal
+  purity: 99.9% (3N)

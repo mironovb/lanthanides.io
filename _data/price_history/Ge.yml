@@ -1,0 +1,54 @@
+symbol: Ge
+observations:
+- date: '2026-03-15'
+  tier: retail
+  price_per_kg: 1300.0
+  currency: USD
+  source: alb-materials-01
+  record_id: R-0086
+  form: metal
+  purity: 99.999% (5N)
+  seller: ALB Materials
+- date: '2026-03-15'
+  tier: retail
+  price_per_kg: 1750.0
+  currency: USD
+  source: american-elements-01
+  record_id: R-0085
+  form: metal
+  purity: 99.999% (5N)
+  seller: American Elements
+- date: '2026-03-15'
+  tier: retail
+  price_per_kg: 1200.0
+  currency: USD
+  source: edgetech-industries-01
+  record_id: R-0084
+  form: metal
+  purity: 99.999% (5N)
+  seller: Edgetech Industries
+- date: '2026-03-15'
+  tier: retail
+  price_per_kg: 1450.0
+  currency: USD
+  source: stanford-advanced-materials-01
+  record_id: R-0083
+  form: metal
+  purity: 99.999% (5N)
+  seller: Stanford Advanced Materials
+- date: '2026-04-04'
+  tier: retail
+  price_per_kg: 16038.0
+  currency: USD
+  source: Luciteria
+  record_id: R-0201
+  form: metal
+  purity: 99.999% (5N)
+- date: '2026-04-04'
+  tier: retail
+  price_per_kg: 1450.0
+  currency: USD
+  source: median_aggregate
+  form: metal
+  notes: Median of 5 retail offers (ALB Materials, American Elements, Edgetech Industries,
+    Luciteria + 1 more)

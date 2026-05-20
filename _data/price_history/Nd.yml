@@ -1,0 +1,99 @@
+symbol: Nd
+observations:
+- date: '2026-03-15'
+  tier: retail
+  price_per_kg: 88.0
+  currency: USD
+  source: alb-materials-01
+  record_id: R-0012
+  form: oxide
+  purity: 99.9% (3N)
+  seller: ALB Materials
+- date: '2026-03-15'
+  tier: retail
+  price_per_kg: 120.0
+  currency: USD
+  source: american-elements-01
+  record_id: R-0013
+  form: oxide
+  purity: 99.9% (3N)
+  seller: American Elements
+- date: '2026-03-15'
+  tier: retail
+  price_per_kg: 82.0
+  currency: USD
+  source: edgetech-industries-01
+  record_id: R-0011
+  form: oxide
+  purity: 99.9% (3N)
+  seller: Edgetech Industries
+- date: '2026-03-15'
+  tier: retail
+  price_per_kg: 95.0
+  currency: USD
+  source: stanford-advanced-materials-01
+  record_id: R-0010
+  form: oxide
+  purity: 99.9% (3N)
+  seller: Stanford Advanced Materials
+- date: '2026-04-04'
+  tier: bulk
+  price_per_kg: 80.0
+  currency: USD
+  source: Ganzhou Wanfeng (Alibaba)
+  record_id: R-0228
+  form: metal
+  purity: 99.9% (3N)
+- date: '2026-04-04'
+  tier: bulk
+  price_per_kg: 80.0
+  currency: USD
+  source: median_aggregate
+  notes: Median of 1 bulk offers (Ganzhou Wanfeng (Alibaba))
+- date: '2026-04-04'
+  tier: retail
+  price_per_kg: 19857.0
+  currency: USD
+  source: Luciteria
+  record_id: R-0191
+  form: metal
+  purity: 99.5%
+- date: '2026-04-04'
+  tier: retail
+  price_per_kg: 1231.0
+  currency: USD
+  source: auremo-eu (eBay)
+  record_id: R-0194
+  form: metal
+  purity: 99.5-99.9%
+- date: '2026-04-04'
+  tier: retail
+  price_per_kg: 600.0
+  currency: USD
+  source: chemsaversinc1 (eBay)
+  record_id: R-0193
+  form: oxide
+  purity: 99.3%
+- date: '2026-04-04'
+  tier: retail
+  price_per_kg: 13054.0
+  currency: USD
+  source: engineeredlab (eBay)
+  record_id: R-0192
+  form: metal
+- date: '2026-04-04'
+  tier: retail
+  price_per_kg: 600.0
+  currency: USD
+  source: median_aggregate
+  form: metal, oxide
+  notes: Median of 9 retail offers (ALB Materials, American Elements, Edgetech Industries,
+    Luciteria + 5 more)
+- date: '2026-04-04'
+  tier: retail
+  price_per_kg: 11750.0
+  currency: USD
+  source: novaelements (eBay)
+  record_id: R-0227
+  form: metal
+  purity: 99.9% (3N)

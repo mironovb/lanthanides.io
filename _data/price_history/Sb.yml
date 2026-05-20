@@ -1,0 +1,46 @@
+symbol: Sb
+observations:
+- date: '2026-03-15'
+  tier: retail
+  price_per_kg: 20.0
+  currency: USD
+  source: alb-materials-01
+  record_id: R-0062
+  form: metal
+  purity: 99.9% (3N)
+  seller: ALB Materials
+- date: '2026-03-15'
+  tier: retail
+  price_per_kg: 18.0
+  currency: USD
+  source: edgetech-industries-01
+  record_id: R-0061
+  form: metal
+  purity: 99.9% (3N)
+  seller: Edgetech Industries
+- date: '2026-03-15'
+  tier: retail
+  price_per_kg: 28.0
+  currency: USD
+  source: goodfellow-01
+  record_id: R-0063
+  form: metal
+  purity: 99.9% (3N)
+  seller: Goodfellow
+- date: '2026-03-15'
+  tier: retail
+  price_per_kg: 21.0
+  currency: USD
+  source: median_aggregate
+  form: metal
+  notes: Median of 4 retail offers (ALB Materials, Edgetech Industries, Goodfellow,
+    Stanford Advanced Materials)
+- date: '2026-03-15'
+  tier: retail
+  price_per_kg: 22.0
+  currency: USD
+  source: stanford-advanced-materials-01
+  record_id: R-0060
+  form: metal
+  purity: 99.9% (3N)
+  seller: Stanford Advanced Materials

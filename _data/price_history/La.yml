@@ -1,0 +1,76 @@
+symbol: La
+observations:
+- date: '2026-03-15'
+  tier: retail
+  price_per_kg: 2.0
+  currency: USD
+  source: alb-materials-01
+  record_id: R-0003
+  form: oxide
+  purity: 99.9% (3N)
+  seller: ALB Materials
+- date: '2026-03-15'
+  tier: retail
+  price_per_kg: 2.0
+  currency: USD
+  source: edgetech-industries-01
+  record_id: R-0002
+  form: oxide
+  purity: 99.9% (3N)
+  seller: Edgetech Industries
+- date: '2026-03-15'
+  tier: retail
+  price_per_kg: 3.0
+  currency: USD
+  source: stanford-advanced-materials-01
+  record_id: R-0001
+  form: oxide
+  purity: 99.9% (3N)
+  seller: Stanford Advanced Materials
+- date: '2026-04-04'
+  tier: retail
+  price_per_kg: 21148.0
+  currency: USD
+  source: Luciteria
+  record_id: R-0182
+  form: metal
+  purity: 99.5%
+- date: '2026-04-04'
+  tier: retail
+  price_per_kg: 920.0
+  currency: USD
+  source: chemstore2017 (eBay)
+  record_id: R-0186
+  form: oxide
+  purity: 99.9% (3N)
+- date: '2026-04-04'
+  tier: retail
+  price_per_kg: 15230.0
+  currency: USD
+  source: engineeredlab (eBay)
+  record_id: R-0184
+  form: metal
+- date: '2026-04-04'
+  tier: retail
+  price_per_kg: 18310.0
+  currency: USD
+  source: joenicks (eBay)
+  record_id: R-0183
+  form: metal
+  purity: 99.9%
+- date: '2026-04-04'
+  tier: retail
+  price_per_kg: 450.0
+  currency: USD
+  source: leroy500 (eBay)
+  record_id: R-0185
+  form: oxide
+  purity: 99.9% (3N)
+- date: '2026-04-04'
+  tier: retail
+  price_per_kg: 685.0
+  currency: USD
+  source: median_aggregate
+  form: metal, oxide
+  notes: Median of 8 retail offers (ALB Materials, Edgetech Industries, Luciteria,
+    Stanford Advanced Materials + 4 more)

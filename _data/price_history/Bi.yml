@@ -1,0 +1,37 @@
+symbol: Bi
+observations:
+- date: '2026-03-15'
+  tier: retail
+  price_per_kg: 13.0
+  currency: USD
+  source: alb-materials-01
+  record_id: R-0070
+  form: metal
+  purity: 99.99% (4N)
+  seller: ALB Materials
+- date: '2026-03-15'
+  tier: retail
+  price_per_kg: 11.0
+  currency: USD
+  source: edgetech-industries-01
+  record_id: R-0069
+  form: metal
+  purity: 99.99% (4N)
+  seller: Edgetech Industries
+- date: '2026-03-15'
+  tier: retail
+  price_per_kg: 13.0
+  currency: USD
+  source: median_aggregate
+  form: metal
+  notes: Median of 3 retail offers (ALB Materials, Edgetech Industries, Stanford Advanced
+    Materials)
+- date: '2026-03-15'
+  tier: retail
+  price_per_kg: 16.0
+  currency: USD
+  source: stanford-advanced-materials-01
+  record_id: R-0068
+  form: metal
+  purity: 99.99% (4N)
+  seller: Stanford Advanced Materials

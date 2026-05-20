@@ -1,0 +1,148 @@
+symbol: V
+observations:
+- date: '2026-03-15'
+  tier: retail
+  price_per_kg: 14.0
+  currency: USD
+  source: alb-materials-01
+  record_id: R-0059
+  form: oxide
+  purity: 99% (2N)
+  seller: ALB Materials
+- date: '2026-03-15'
+  tier: retail
+  price_per_kg: 12.0
+  currency: USD
+  source: edgetech-industries-01
+  record_id: R-0058
+  form: oxide
+  purity: 99% (2N)
+  seller: Edgetech Industries
+- date: '2026-03-15'
+  tier: retail
+  price_per_kg: 16.0
+  currency: USD
+  source: stanford-advanced-materials-01
+  record_id: R-0057
+  form: oxide
+  purity: 99% (2N)
+  seller: Stanford Advanced Materials
+- date: '2026-03-29'
+  tier: bulk
+  price_per_kg: 590.0
+  currency: USD
+  source: Alibaba (multiple CN suppliers)
+  record_id: R-0151
+  form: metal
+  purity: 99.9% (3N)
+- date: '2026-03-29'
+  tier: bulk
+  price_per_kg: 24.0
+  currency: USD
+  source: Fastmarkets (Europe)
+  record_id: R-0153
+  form: alloy
+  purity: 78-82% V (FeV80)
+- date: '2026-03-29'
+  tier: retail
+  price_per_kg: 2720.0
+  currency: USD
+  source: Alfa Aesar
+  record_id: R-0147
+  form: metal
+  purity: 99.7%
+- date: '2026-03-29'
+  tier: retail
+  price_per_kg: 7600.0
+  currency: USD
+  source: Chemsavers
+  record_id: R-0149
+  form: metal
+  purity: 99.5%
+- date: '2026-03-29'
+  tier: retail
+  price_per_kg: 4319.0
+  currency: USD
+  source: MSE Supplies
+  record_id: R-0148
+  form: metal
+  purity: 99.7%
+- date: '2026-03-29'
+  tier: retail
+  price_per_kg: 402.0
+  currency: USD
+  source: Metallos.de
+  record_id: R-0141
+  form: metal
+  purity: 99.9% (3N)
+- date: '2026-03-29'
+  tier: retail
+  price_per_kg: 544.0
+  currency: USD
+  source: Metallos.de
+  record_id: R-0142
+  form: metal
+  purity: 99.995% (4N5)
+- date: '2026-03-29'
+  tier: retail
+  price_per_kg: 534.0
+  currency: USD
+  source: Metallos.de
+  record_id: R-0143
+  form: metal
+  purity: 99.9% (3N)
+- date: '2026-03-29'
+  tier: retail
+  price_per_kg: 2724.0
+  currency: USD
+  source: Metallos.de
+  record_id: R-0150
+  form: metal
+  purity: 99.995% (4N5)
+- date: '2026-03-29'
+  tier: retail
+  price_per_kg: 2100.0
+  currency: USD
+  source: PEGUYS
+  record_id: R-0145
+  form: metal
+  purity: 99.99% (4N)
+- date: '2026-03-29'
+  tier: retail
+  price_per_kg: 1530.0
+  currency: USD
+  source: RWMM
+  record_id: R-0144
+  form: metal
+  purity: 99.9% (3N)
+- date: '2026-03-29'
+  tier: retail
+  price_per_kg: 2590.0
+  currency: USD
+  source: Smart-Elements
+  record_id: R-0146
+  form: metal
+  purity: 99.93%
+- date: '2026-03-29'
+  tier: retail
+  price_per_kg: 1530.0
+  currency: USD
+  source: median_aggregate
+  form: metal, oxide
+  notes: Median of 13 retail offers (ALB Materials, Alfa Aesar, Chemsavers, Edgetech
+    Industries + 6 more)
+- date: '2026-03-30'
+  tier: bulk
+  price_per_kg: 12.0
+  currency: USD
+  source: Fastmarkets (Rotterdam)
+  record_id: R-0152
+  form: oxide
+  purity: 98%
+- date: '2026-03-30'
+  tier: bulk
+  price_per_kg: 24.0
+  currency: USD
+  source: median_aggregate
+  notes: Median of 3 bulk offers (Alibaba (multiple CN suppliers), Fastmarkets (Europe),
+    Fastmarkets (Rotterdam))

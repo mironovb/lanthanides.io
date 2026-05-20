@@ -1,0 +1,37 @@
+symbol: Zr
+observations:
+- date: '2026-03-15'
+  tier: retail
+  price_per_kg: 180.0
+  currency: USD
+  source: american-elements-01
+  record_id: R-0077
+  form: metal
+  purity: 99.5% (2N)
+  seller: American Elements
+- date: '2026-03-15'
+  tier: retail
+  price_per_kg: 120.0
+  currency: USD
+  source: edgetech-industries-01
+  record_id: R-0076
+  form: metal
+  purity: 99.5% (2N)
+  seller: Edgetech Industries
+- date: '2026-03-15'
+  tier: retail
+  price_per_kg: 150.0
+  currency: USD
+  source: median_aggregate
+  form: metal
+  notes: Median of 3 retail offers (American Elements, Edgetech Industries, Stanford
+    Advanced Materials)
+- date: '2026-03-15'
+  tier: retail
+  price_per_kg: 150.0
+  currency: USD
+  source: stanford-advanced-materials-01
+  record_id: R-0075
+  form: metal
+  purity: 99.5% (2N)
+  seller: Stanford Advanced Materials

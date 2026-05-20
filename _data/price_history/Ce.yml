@@ -1,0 +1,92 @@
+symbol: Ce
+observations:
+- date: '2026-03-15'
+  tier: retail
+  price_per_kg: 2.0
+  currency: USD
+  source: alb-materials-01
+  record_id: R-0006
+  form: oxide
+  purity: 99.9% (3N)
+  seller: ALB Materials
+- date: '2026-03-15'
+  tier: retail
+  price_per_kg: 2.0
+  currency: USD
+  source: edgetech-industries-01
+  record_id: R-0005
+  form: oxide
+  purity: 99.9% (3N)
+  seller: Edgetech Industries
+- date: '2026-03-15'
+  tier: retail
+  price_per_kg: 3.0
+  currency: USD
+  source: stanford-advanced-materials-01
+  record_id: R-0004
+  form: oxide
+  purity: 99.9% (3N)
+  seller: Stanford Advanced Materials
+- date: '2026-04-04'
+  tier: bulk
+  price_per_kg: 2.4
+  currency: USD
+  source: Changzhou Geoquin (Alibaba)
+  record_id: R-0236
+  form: oxide
+  purity: 99.95%
+- date: '2026-04-04'
+  tier: bulk
+  price_per_kg: 3.0
+  currency: USD
+  source: Star Earth Minerals (Alibaba)
+  record_id: R-0235
+  form: oxide
+  purity: 99.9% (3N)
+- date: '2026-04-04'
+  tier: bulk
+  price_per_kg: 2.7
+  currency: USD
+  source: median_aggregate
+  notes: Median of 2 bulk offers (Changzhou Geoquin (Alibaba), Star Earth Minerals
+    (Alibaba))
+- date: '2026-04-04'
+  tier: retail
+  price_per_kg: 18382.0
+  currency: USD
+  source: Luciteria
+  record_id: R-0187
+  form: metal
+  purity: 99.9% (3N)
+- date: '2026-04-04'
+  tier: retail
+  price_per_kg: 86.0
+  currency: USD
+  source: Various polishing sellers (eBay)
+  record_id: R-0189
+  form: oxide
+  purity: 85-99%
+- date: '2026-04-04'
+  tier: retail
+  price_per_kg: 28.0
+  currency: USD
+  source: Various polishing sellers (eBay)
+  record_id: R-0190
+  form: oxide
+  purity: 85-99%
+- date: '2026-04-04'
+  tier: retail
+  price_per_kg: 336.0
+  currency: USD
+  source: leroy500 (eBay)
+  record_id: R-0188
+  form: oxide
+  purity: 99.99% (4N)
+- date: '2026-04-04'
+  tier: retail
+  price_per_kg: 28.0
+  currency: USD
+  source: median_aggregate
+  form: metal, oxide
+  notes: Median of 7 retail offers (ALB Materials, Edgetech Industries, Luciteria,
+    Stanford Advanced Materials + 2 more)

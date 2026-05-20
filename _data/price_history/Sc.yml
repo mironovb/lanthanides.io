@@ -1,0 +1,125 @@
+symbol: Sc
+observations:
+- date: '2024-12-15'
+  tier: bulk
+  price_per_kg: 1200.0
+  currency: USD
+  source: usgs-sam-2024
+  record_id: R-0022
+  form: oxide
+  purity: 99.99% (4N)
+  seller: Stanford Advanced Materials
+  original_tier: wholesale
+- date: '2025-08-15'
+  tier: bulk
+  price_per_kg: 3850.0
+  currency: USD
+  source: discovery-alert-2025
+  record_id: R-0100
+  form: oxide
+  purity: 99.9% (3N)
+  seller: International market (est.)
+  original_tier: wholesale
+- date: '2026-03-15'
+  tier: bulk
+  price_per_kg: 5250.0
+  currency: USD
+  source: cn-seller-01
+  record_id: R-0097
+  form: metal
+  purity: 99.9% (3N)
+  seller: CN Direct Seller 1
+  original_tier: wholesale
+- date: '2026-03-15'
+  tier: bulk
+  price_per_kg: 4576.0
+  currency: USD
+  source: cn-seller-02
+  record_id: R-0098
+  form: metal
+  purity: 99.5%
+  seller: CN Direct Seller 2
+  original_tier: wholesale
+- date: '2026-03-20'
+  tier: retail
+  price_per_kg: 686.0
+  currency: USD
+  source: mse-supplies-01
+  record_id: R-0021
+  form: oxide
+  purity: 99.999% (5N)
+  seller: MSE Supplies
+- date: '2026-03-20'
+  tier: retail
+  price_per_kg: 10200.0
+  currency: USD
+  source: peguys-01
+  record_id: R-0095
+  form: metal
+  purity: 99.99% (4N)
+  seller: PEGUYS
+- date: '2026-03-20'
+  tier: retail
+  price_per_kg: 24600.0
+  currency: USD
+  source: rwmm-01
+  record_id: R-0099
+  form: metal
+  purity: 99.50%
+  seller: RWMM
+- date: '2026-03-20'
+  tier: retail
+  price_per_kg: 4370.0
+  currency: USD
+  source: smart-elements-01
+  record_id: R-0020
+  form: oxide
+  purity: 99.99% (4N)
+  seller: Smart-Elements
+- date: '2026-03-20'
+  tier: retail
+  price_per_kg: 12500.0
+  currency: USD
+  source: smart-elements-03
+  record_id: R-0096
+  form: metal
+  purity: 99.99% (4N)
+  seller: Smart-Elements
+- date: '2026-03-22'
+  tier: retail
+  price_per_kg: 9705.0
+  currency: USD
+  source: smart-elements-02
+  record_id: R-0094
+  form: metal
+  purity: 99.99% (4N)
+  seller: Smart-Elements
+- date: '2026-04-04'
+  tier: bulk
+  price_per_kg: 1000.0
+  currency: USD
+  source: Ganzhou Wanfeng (Alibaba)
+  record_id: R-0237
+  form: compound
+  purity: 99.9% (3N)
+- date: '2026-04-04'
+  tier: bulk
+  price_per_kg: 1000.0
+  currency: USD
+  source: median_aggregate
+  notes: Median of 1 bulk offers (Ganzhou Wanfeng (Alibaba))
+- date: '2026-04-04'
+  tier: retail
+  price_per_kg: 31333.0
+  currency: USD
+  source: Luciteria
+  record_id: R-0205
+  form: metal
+  purity: 99.99% (4N)
+- date: '2026-04-04'
+  tier: retail
+  price_per_kg: 10200.0
+  currency: USD
+  source: median_aggregate
+  form: metal, oxide
+  notes: Median of 7 retail offers (Luciteria, MSE Supplies, PEGUYS, RWMM + 1 more)

@@ -1,0 +1,157 @@
+symbol: Te
+observations:
+- date: '2026-02-28'
+  tier: bulk
+  price_per_kg: 117.0
+  currency: USD
+  source: IMARC Group
+  record_id: R-0155
+  form: metal
+  purity: 99.99% (4N)
+- date: '2026-03-15'
+  tier: retail
+  price_per_kg: 95.0
+  currency: USD
+  source: alb-materials-01
+  record_id: R-0056
+  form: metal
+  purity: 99.99% (4N)
+  seller: ALB Materials
+- date: '2026-03-15'
+  tier: retail
+  price_per_kg: 145.0
+  currency: USD
+  source: american-elements-01
+  record_id: R-0055
+  form: metal
+  purity: 99.99% (4N)
+  seller: American Elements
+- date: '2026-03-15'
+  tier: retail
+  price_per_kg: 85.0
+  currency: USD
+  source: edgetech-industries-01
+  record_id: R-0054
+  form: metal
+  purity: 99.99% (4N)
+  seller: Edgetech Industries
+- date: '2026-03-15'
+  tier: retail
+  price_per_kg: 120.0
+  currency: USD
+  source: stanford-advanced-materials-01
+  record_id: R-0053
+  form: metal
+  purity: 99.99% (4N)
+  seller: Stanford Advanced Materials
+- date: '2026-03-25'
+  tier: bulk
+  price_per_kg: 108.0
+  currency: USD
+  source: BusinessAnalytiq
+  record_id: R-0156
+  form: metal
+  purity: 99.99% (4N)
+- date: '2026-03-29'
+  tier: retail
+  price_per_kg: 243.0
+  currency: USD
+  source: Chemsavers
+  record_id: R-0157
+  form: metal
+  purity: 99.99% (4N)
+- date: '2026-03-29'
+  tier: retail
+  price_per_kg: 1587.0
+  currency: USD
+  source: Luciteria
+  record_id: R-0161
+  form: metal
+  purity: 99.9% (3N)
+- date: '2026-03-29'
+  tier: retail
+  price_per_kg: 2710.0
+  currency: USD
+  source: MSE Supplies
+  record_id: R-0164
+  form: oxide
+  purity: 99.9999% (6N)
+- date: '2026-03-29'
+  tier: retail
+  price_per_kg: 1770.0
+  currency: USD
+  source: PEGUYS
+  record_id: R-0159
+  form: metal
+  purity: 99.999% (5N)
+- date: '2026-03-29'
+  tier: retail
+  price_per_kg: 1887.0
+  currency: USD
+  source: RWMM
+  record_id: R-0160
+  form: metal
+  purity: 99.99% (4N)
+- date: '2026-03-29'
+  tier: retail
+  price_per_kg: 1015.0
+  currency: USD
+  source: Smart-Elements
+  record_id: R-0162
+  form: oxide
+  purity: 99.999% (5N)
+- date: '2026-03-29'
+  tier: retail
+  price_per_kg: 1150.0
+  currency: USD
+  source: Smart-Elements
+  record_id: R-0163
+  form: oxide
+  purity: 99.999% (5N)
+- date: '2026-03-29'
+  tier: retail
+  price_per_kg: 243.0
+  currency: USD
+  source: Strategic Metals Invest
+  record_id: R-0158
+  form: metal
+  purity: 99.99% (4N)
+- date: '2026-03-29'
+  tier: retail
+  price_per_kg: 629.0
+  currency: USD
+  source: median_aggregate
+  form: metal, oxide
+  notes: Median of 12 retail offers (ALB Materials, American Elements, Chemsavers,
+    Edgetech Industries + 7 more)
+- date: '2026-03-30'
+  tier: bulk
+  price_per_kg: 112.0
+  currency: USD
+  source: Trading Economics (SMM)
+  record_id: R-0154
+  form: metal
+  purity: 99.99% (4N)
+- date: '2026-04-04'
+  tier: bulk
+  price_per_kg: 80.0
+  currency: USD
+  source: Multiple CN/FR suppliers (Alibaba)
+  record_id: R-0233
+  form: metal
+  purity: 99.99% (4N)
+- date: '2026-04-04'
+  tier: bulk
+  price_per_kg: 1100.0
+  currency: USD
+  source: SARL ISLO (Alibaba)
+  record_id: R-0232
+  form: metal
+  purity: 99.99% (4N)
+- date: '2026-04-04'
+  tier: bulk
+  price_per_kg: 112.0
+  currency: USD
+  source: median_aggregate
+  notes: Median of 5 bulk offers (BusinessAnalytiq, IMARC Group, Multiple CN/FR suppliers
+    (Alibaba))

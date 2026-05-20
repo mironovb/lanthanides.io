@@ -1,0 +1,130 @@
+symbol: Tm
+observations:
+- date: '2026-03-15'
+  tier: retail
+  price_per_kg: 2800.0
+  currency: USD
+  source: edgetech-industries-01
+  record_id: R-0046
+  form: oxide
+  purity: 99.9% (3N)
+  seller: Edgetech Industries
+- date: '2026-03-15'
+  tier: retail
+  price_per_kg: 3200.0
+  currency: USD
+  source: stanford-advanced-materials-01
+  record_id: R-0045
+  form: oxide
+  purity: 99.9% (3N)
+  seller: Stanford Advanced Materials
+- date: '2026-03-29'
+  tier: bulk
+  price_per_kg: 1750.0
+  currency: USD
+  source: Chinese Direct Seller
+  record_id: R-0136
+  form: metal
+  purity: 99.9% (3N)
+- date: '2026-03-29'
+  tier: retail
+  price_per_kg: 17600.0
+  currency: USD
+  source: Alfa Aesar
+  record_id: R-0135
+  form: metal
+  purity: 99.9% (3N)
+- date: '2026-03-29'
+  tier: retail
+  price_per_kg: 49565.0
+  currency: USD
+  source: Alfa Aesar
+  record_id: R-0139
+  form: oxide
+  purity: 99.9% (3N)
+- date: '2026-03-29'
+  tier: retail
+  price_per_kg: 19000.0
+  currency: USD
+  source: Chemsavers
+  record_id: R-0134
+  form: metal
+  purity: 99.9% (3N)
+- date: '2026-03-29'
+  tier: retail
+  price_per_kg: 68990.0
+  currency: USD
+  source: Chemsavers
+  record_id: R-0140
+  form: oxide
+  purity: 99.99% (4N)
+- date: '2026-03-29'
+  tier: retail
+  price_per_kg: 1796.0
+  currency: USD
+  source: MSE Supplies
+  record_id: R-0129
+  form: metal
+  purity: 99.9% (3N)
+- date: '2026-03-29'
+  tier: retail
+  price_per_kg: 4319.0
+  currency: USD
+  source: MSE Supplies
+  record_id: R-0138
+  form: oxide
+  purity: 99.9% (3N)
+- date: '2026-03-29'
+  tier: retail
+  price_per_kg: 3300.0
+  currency: USD
+  source: PEGUYS
+  record_id: R-0130
+  form: metal
+  purity: 99.9% (3N)
+- date: '2026-03-29'
+  tier: retail
+  price_per_kg: 2670.0
+  currency: USD
+  source: RWMM
+  record_id: R-0131
+  form: metal
+  purity: 99.9% (3N)
+- date: '2026-03-29'
+  tier: retail
+  price_per_kg: 54200.0
+  currency: USD
+  source: Smart-Elements
+  record_id: R-0132
+  form: metal
+  purity: 99.99% (4N)
+- date: '2026-03-29'
+  tier: retail
+  price_per_kg: 71000.0
+  currency: USD
+  source: Smart-Elements
+  record_id: R-0133
+  form: metal
+  purity: 99.99% (4N)
+- date: '2026-03-29'
+  tier: retail
+  price_per_kg: 10959.5
+  currency: USD
+  source: median_aggregate
+  form: metal, oxide
+  notes: Median of 12 retail offers (Alfa Aesar, Chemsavers, Edgetech Industries,
+    MSE Supplies + 4 more)
+- date: '2026-03-30'
+  tier: bulk
+  price_per_kg: 180.0
+  currency: USD
+  source: Ganzhou Zhanhai
+  record_id: R-0137
+  form: oxide
+  purity: 99.9% (3N)
+- date: '2026-03-30'
+  tier: bulk
+  price_per_kg: 965.0
+  currency: USD
+  source: median_aggregate
+  notes: Median of 2 bulk offers (Chinese Direct Seller, Ganzhou Zhanhai)

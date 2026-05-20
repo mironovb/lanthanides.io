@@ -1,0 +1,31 @@
+symbol: Ta
+observations:
+- date: '2026-03-15'
+  tier: bulk
+  price_per_kg: 280.0
+  currency: USD
+  source: Mining.com / LME benchmark
+  record_id: R-0174
+  form: metal
+  purity: 99.95%
+- date: '2026-03-15'
+  tier: bulk
+  price_per_kg: 280.0
+  currency: USD
+  source: median_aggregate
+  notes: Median of 1 bulk offers (Mining.com / LME benchmark)
+- date: '2026-03-15'
+  tier: retail
+  price_per_kg: 2800.0
+  currency: USD
+  source: Metallium / Element Collectors
+  record_id: R-0175
+  form: metal
+  purity: 99.9% (3N)
+- date: '2026-03-15'
+  tier: retail
+  price_per_kg: 2800.0
+  currency: USD
+  source: median_aggregate
+  form: metal
+  notes: Median of 1 retail offers (Metallium / Element Collectors)

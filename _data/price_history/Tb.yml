@@ -1,0 +1,126 @@
+symbol: Tb
+observations:
+- date: '2026-02-26'
+  tier: bulk
+  price_per_kg: 2090.0
+  currency: USD
+  source: cn-direct-seller-tb-01
+  record_id: R-0107
+  form: metal
+  purity: 99.9% (3N)
+  seller: China Direct Seller
+  original_tier: wholesale
+- date: '2026-03-20'
+  tier: bulk
+  price_per_kg: 804.0
+  currency: USD
+  source: smm-tb-domestic
+  record_id: R-0105
+  form: oxide
+  purity: 99.99% (4N)
+  seller: SMM domestic benchmark (China)
+  original_tier: wholesale
+- date: '2026-03-20'
+  tier: bulk
+  price_per_kg: 1182.0
+  currency: USD
+  source: smm-tb-fob-china
+  record_id: R-0106
+  form: oxide
+  purity: 99.99% (4N)
+  seller: SMM FOB China
+  original_tier: wholesale
+- date: '2026-03-20'
+  tier: retail
+  price_per_kg: 40600.0
+  currency: USD
+  source: chemsavers-tb-01
+  record_id: R-0030
+  form: oxide
+  purity: 99.99% (4N)
+  seller: Chemsavers
+- date: '2026-03-20'
+  tier: retail
+  price_per_kg: 5970.0
+  currency: USD
+  source: mse-supplies-tb-oxide-ebay
+  record_id: R-0032
+  form: oxide
+  purity: 99.995% (4N5)
+  seller: MSE Supplies (eBay)
+- date: '2026-03-20'
+  tier: retail
+  price_per_kg: 17340.0
+  currency: USD
+  source: smart-elements-tb-oxide-01
+  record_id: R-0031
+  form: oxide
+  purity: 99.99% TREO
+  seller: Smart Elements
+- date: '2026-03-20'
+  tier: retail
+  price_per_kg: 4029.0
+  currency: USD
+  source: smi-tb-01
+  record_id: R-0108
+  form: metal
+  purity: various
+  seller: Strategic Metals Invest
+- date: '2026-03-22'
+  tier: retail
+  price_per_kg: 10800.0
+  currency: USD
+  source: median_aggregate
+  form: metal, oxide
+  notes: Median of 8 retail offers (Chemsavers, MSE Supplies (eBay), PEGUYS, RWMM
+    + 2 more)
+- date: '2026-03-22'
+  tier: retail
+  price_per_kg: 4680.0
+  currency: USD
+  source: peguys-tb-metal-01
+  record_id: R-0101
+  form: metal
+  purity: 99.9% (3N)
+  seller: PEGUYS
+- date: '2026-03-22'
+  tier: retail
+  price_per_kg: 7800.0
+  currency: USD
+  source: peguys-tb-metal-02
+  record_id: R-0104
+  form: metal
+  purity: 99.9% (3N)
+  seller: PEGUYS
+- date: '2026-03-22'
+  tier: retail
+  price_per_kg: 22150.0
+  currency: USD
+  source: rwmm-tb-01
+  record_id: R-0103
+  form: metal
+  purity: 99.5%
+  seller: RWMM
+- date: '2026-03-22'
+  tier: retail
+  price_per_kg: 13800.0
+  currency: USD
+  source: smart-elements-tb-metal-01
+  record_id: R-0102
+  form: metal
+  purity: 99.95% (3N5)
+  seller: Smart Elements
+- date: '2026-04-04'
+  tier: bulk
+  price_per_kg: 600.0
+  currency: USD
+  source: Ganzhou Wanfeng (Alibaba)
+  record_id: R-0238
+  form: compound
+  purity: 99.9% (3N)
+- date: '2026-04-04'
+  tier: bulk
+  price_per_kg: 600.0
+  currency: USD
+  source: median_aggregate
+  notes: Median of 1 bulk offers (Ganzhou Wanfeng (Alibaba))

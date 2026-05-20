@@ -1,0 +1,101 @@
+symbol: Dy
+observations:
+- date: '2026-03-15'
+  tier: retail
+  price_per_kg: 310.0
+  currency: USD
+  source: alb-materials-01
+  record_id: R-0036
+  form: oxide
+  purity: 99.9% (3N)
+  seller: ALB Materials
+- date: '2026-03-15'
+  tier: retail
+  price_per_kg: 380.0
+  currency: USD
+  source: american-elements-01
+  record_id: R-0037
+  form: oxide
+  purity: 99.9% (3N)
+  seller: American Elements
+- date: '2026-03-15'
+  tier: retail
+  price_per_kg: 295.0
+  currency: USD
+  source: edgetech-industries-01
+  record_id: R-0035
+  form: oxide
+  purity: 99.9% (3N)
+  seller: Edgetech Industries
+- date: '2026-03-15'
+  tier: retail
+  price_per_kg: 365.0
+  currency: USD
+  source: goodfellow-01
+  record_id: R-0038
+  form: oxide
+  purity: 99.9% (3N)
+  seller: Goodfellow
+- date: '2026-03-15'
+  tier: retail
+  price_per_kg: 340.0
+  currency: USD
+  source: stanford-advanced-materials-01
+  record_id: R-0034
+  form: oxide
+  purity: 99.9% (3N)
+  seller: Stanford Advanced Materials
+- date: '2026-04-04'
+  tier: bulk
+  price_per_kg: 110.0
+  currency: USD
+  source: Hebei Saiweisi (Alibaba)
+  record_id: R-0229
+  form: oxide
+  purity: 99.9% (3N)
+- date: '2026-04-04'
+  tier: bulk
+  price_per_kg: 110.0
+  currency: USD
+  source: median_aggregate
+  notes: Median of 1 bulk offers (Hebei Saiweisi (Alibaba))
+- date: '2026-04-04'
+  tier: retail
+  price_per_kg: 5698.0
+  currency: USD
+  source: Luciteria
+  record_id: R-0195
+  form: metal
+  purity: 99.5%
+- date: '2026-04-04'
+  tier: retail
+  price_per_kg: 2550.0
+  currency: USD
+  source: leroy500 (eBay)
+  record_id: R-0196
+  form: oxide
+  purity: 99.99% (4N)
+- date: '2026-04-04'
+  tier: retail
+  price_per_kg: 380.0
+  currency: USD
+  source: median_aggregate
+  form: metal, oxide
+  notes: Median of 9 retail offers (ALB Materials, American Elements, Edgetech Industries,
+    Goodfellow + 5 more)
+- date: '2026-04-04'
+  tier: retail
+  price_per_kg: 12990.0
+  currency: USD
+  source: novaelements (eBay)
+  record_id: R-0226
+  form: metal
+  purity: 99.95%
+- date: '2026-04-04'
+  tier: retail
+  price_per_kg: 4740.0
+  currency: USD
+  source: the_periodic_guy (eBay)
+  record_id: R-0197
+  form: metal
+  purity: 99.9% (3N)

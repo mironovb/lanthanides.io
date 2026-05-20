@@ -1,0 +1,48 @@
+symbol: Co
+observations:
+- date: '2026-03-15'
+  tier: bulk
+  price_per_kg: 24.0
+  currency: USD
+  source: LME / Fastmarkets
+  record_id: R-0178
+  form: metal
+  purity: 99.3%+
+- date: '2026-03-15'
+  tier: bulk
+  price_per_kg: 24.0
+  currency: USD
+  source: median_aggregate
+  notes: Median of 1 bulk offers (LME / Fastmarkets)
+- date: '2026-03-15'
+  tier: retail
+  price_per_kg: 540.0
+  currency: USD
+  source: Metallos.de
+  record_id: R-0179
+  form: metal
+  purity: 99.9% (3N)
+- date: '2026-04-04'
+  tier: retail
+  price_per_kg: 146.0
+  currency: USD
+  source: discountelements (eBay)
+  record_id: R-0203
+  form: metal
+  purity: 99.98%
+- date: '2026-04-04'
+  tier: retail
+  price_per_kg: 2815.0
+  currency: USD
+  source: emovendo (eBay)
+  record_id: R-0239
+  form: metal
+  purity: 99.95%
+- date: '2026-04-04'
+  tier: retail
+  price_per_kg: 540.0
+  currency: USD
+  source: median_aggregate
+  form: metal
+  notes: Median of 3 retail offers (Metallos.de, discountelements (eBay), emovendo
+    (eBay))

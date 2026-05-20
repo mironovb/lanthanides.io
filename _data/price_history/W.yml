@@ -1,0 +1,46 @@
+symbol: W
+observations:
+- date: '2026-03-15'
+  tier: retail
+  price_per_kg: 50.0
+  currency: USD
+  source: alb-materials-01
+  record_id: R-0066
+  form: powder
+  purity: 99.9% (3N)
+  seller: ALB Materials
+- date: '2026-03-15'
+  tier: retail
+  price_per_kg: 72.0
+  currency: USD
+  source: american-elements-01
+  record_id: R-0067
+  form: powder
+  purity: 99.9% (3N)
+  seller: American Elements
+- date: '2026-03-15'
+  tier: retail
+  price_per_kg: 45.0
+  currency: USD
+  source: edgetech-industries-01
+  record_id: R-0065
+  form: powder
+  purity: 99.9% (3N)
+  seller: Edgetech Industries
+- date: '2026-03-15'
+  tier: retail
+  price_per_kg: 54.0
+  currency: USD
+  source: median_aggregate
+  form: powder
+  notes: Median of 4 retail offers (ALB Materials, American Elements, Edgetech Industries,
+    Stanford Advanced Materials)
+- date: '2026-03-15'
+  tier: retail
+  price_per_kg: 58.0
+  currency: USD
+  source: stanford-advanced-materials-01
+  record_id: R-0064
+  form: powder
+  purity: 99.9% (3N)
+  seller: Stanford Advanced Materials
