@@ -1,0 +1,31 @@
+Subject: Current pricing reference for {elements}
+
+Hello {supplier_name},
+
+I'm {sender_name}, and I maintain {site_url} — a publicly readable
+reference for rare-earth element pricing. The site exists so that
+researchers, journalists, small buyers, and curious readers can see what
+these materials actually cost across different suppliers, in different
+forms, at different scales, rather than relying on a single benchmark.
+
+I'm getting in touch because your business is in our registry as a
+supplier who is open to occasional pricing inquiries. Specifically, the
+registry has you listed for: {elements}.
+
+When you have a moment, would you be willing to share current pricing for
+any of those elements, in whichever physical forms (oxide, metal, salts,
+etc.) and quantities you typically supply? Even a rough range, with a
+"valid as of" date, is genuinely useful — we publish prices alongside the
+date they were shared, so nothing gets misattributed as more current than
+it is. If you'd rather just point me at a public price list or your own
+quote-form URL, that works just as well.
+
+If you would prefer not to receive these inquiries — now or ever — just
+reply with "STOP", or any short note saying so, and we will remove you
+from the registry immediately and never contact you again. There is no
+list to unsubscribe from beyond this one note.
+
+Thank you for your time.
+
+— {sender_name}
+  {site_url}

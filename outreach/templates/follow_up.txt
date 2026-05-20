@@ -1,0 +1,22 @@
+Subject: Re: Current pricing reference for {elements}
+
+Hello {supplier_name},
+
+I wanted to send a single, gentle follow-up to the note I sent a little
+while ago. No pressure at all if now isn't a good time, or if pricing
+isn't something you can share publicly — I completely understand.
+
+Whenever it's convenient, even a rough current price range for any of
+{elements}, in the forms and quantities you typically supply, would
+genuinely help me keep the public reference at {site_url} honest. A
+public price-list URL or quote-form link is equally welcome if that's
+easier on your end.
+
+This is the only follow-up I'll send. If you'd prefer not to be contacted
+again, just reply "STOP" or any short note saying so, and I will remove
+you from the registry immediately and never reach out again.
+
+Thanks again for your time.
+
+— {sender_name}
+  {site_url}

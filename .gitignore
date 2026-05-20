@@ -23,6 +23,7 @@ prompts/
 logs/
 run-all.sh
 
-# Outreach — never commit real supplier contacts or local scratch files
+# Outreach — never commit real supplier contacts, local scratch files, or drafts
 outreach/suppliers.yml
 outreach/*.local.*
+outreach/drafts/
