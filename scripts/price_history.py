@@ -11,6 +11,11 @@ Observation schema (per entry in the ``observations`` list):
     price_per_kg    positive number (USD by default), required
     currency        ISO 4217 string (defaults to "USD" if absent)
     source          non-empty string identifier, required
+    source_type     optional; when present, one of
+                    {"supplier_quote", "public_listing", "benchmark",
+                    "invoice", "aggregate"}. Tags the provenance category
+                    so the front-end and downstream consumers can tell
+                    maintainer-collected quotes apart from public listings.
     form            optional ("metal", "oxide", ...)
     purity          optional ("99.9% (3N)", ...)
     estimated_date  optional bool; true when the date was inferred rather than
@@ -34,6 +39,9 @@ PROJECT_ROOT = Path(__file__).resolve().parent.parent
 HISTORY_DIR = PROJECT_ROOT / "_data" / "price_history"
 
 VALID_TIERS: frozenset[str] = frozenset({"retail", "lab", "bulk"})
+VALID_SOURCE_TYPES: frozenset[str] = frozenset(
+    {"supplier_quote", "public_listing", "benchmark", "invoice", "aggregate"}
+)
 REQUIRED_FIELDS: frozenset[str] = frozenset({"date", "tier", "price_per_kg", "source"})
 
 logger = logging.getLogger(__name__)
@@ -102,6 +110,13 @@ def validate_observation(obs: dict) -> tuple[bool, str]:
     source = str(obs["source"]).strip()
     if not source:
         return False, "source is empty"
+
+    source_type = obs.get("source_type")
+    if source_type is not None and source_type not in VALID_SOURCE_TYPES:
+        return False, (
+            f"invalid source_type: {source_type!r} "
+            f"(expected one of {sorted(VALID_SOURCE_TYPES)})"
+        )
 
     return True, ""
 

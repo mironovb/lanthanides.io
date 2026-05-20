@@ -222,10 +222,37 @@ indices. These sources provide bulk benchmark pricing. For export-controlled
 elements, listed prices may not reflect obtainable export pricing — the applicable
 regulatory status is always noted alongside.
 
-### Direct quotes and invoices
+### Direct supplier quotes and invoices
 Quotations solicited directly from distributors, manufacturers, or trading companies,
 plus uploaded purchase invoices. These carry the highest trust tier and are the
 preferred source for both retail and bulk reference prices.
+
+Solicited supplier quotes are collected through a **consent-gated workflow**.
+A supplier appears in the outreach registry only after explicit opt-in
+(`consent.opted_in: true`), with a dated note recording where the consent came
+from, and contact is rate-limited per supplier. When a supplier replies with a
+price, the maintainer enters the structured fields through `outreach/intake.py`,
+which:
+
+- validates the input (rejecting non-positive prices, future dates, unknown
+  tiers, or missing required fields),
+- converts non-USD prices using a manually maintained FX table at
+  `outreach/fx.yml`; no live FX API is called, and a currency missing from
+  that table is refused rather than guessed,
+- preserves the original quoted price, original currency, and FX rate used
+  alongside the USD-normalised value,
+- appends a dated observation to the element's price history with
+  `source_type: supplier_quote` and the supplier id as the source,
+- and records the contact in the registry so the per-supplier rate limit is
+  honoured on the next outreach run.
+
+The `source_type` tag lets the front end and downstream analysis distinguish
+maintainer-collected quotes from public-listing prices. If a supplier omits
+a value (purity, form, exchange-rate context), the corresponding field is
+left blank rather than guessed — no prices are invented. Suppliers can
+withdraw consent at any time and are removed from outreach immediately; the
+observations they previously contributed remain in place, attributed to them
+by id and dated as of the original reply.
 
 ### Permanently excluded sources
 Certain sources are permanently excluded from the database regardless of apparent
