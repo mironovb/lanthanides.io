@@ -9,6 +9,7 @@ observations:
   form: oxide
   purity: 99.9% (3N)
   seller: ALB Materials
+  source_type: public_listing
 - date: '2026-03-15'
   tier: retail
   price_per_kg: 32.0
@@ -18,6 +19,7 @@ observations:
   form: oxide
   purity: 99.9% (3N)
   seller: Edgetech Industries
+  source_type: public_listing
 - date: '2026-03-15'
   tier: retail
   price_per_kg: 36.0
@@ -26,6 +28,7 @@ observations:
   form: oxide
   notes: Median of 3 retail offers (ALB Materials, Edgetech Industries, Stanford Advanced
     Materials)
+  source_type: aggregate
 - date: '2026-03-15'
   tier: retail
   price_per_kg: 42.0
@@ -35,6 +38,7 @@ observations:
   form: oxide
   purity: 99.9% (3N)
   seller: Stanford Advanced Materials
+  source_type: public_listing
 - date: '2026-04-04'
   tier: bulk
   price_per_kg: 185.0
@@ -43,9 +47,11 @@ observations:
   record_id: R-0230
   form: metal
   purity: 99.9-99.99%
+  source_type: public_listing
 - date: '2026-04-04'
   tier: bulk
   price_per_kg: 185.0
   currency: USD
   source: median_aggregate
   notes: Median of 1 bulk offers (Changsha Xinkang (Alibaba))
+  source_type: aggregate

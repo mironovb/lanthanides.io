@@ -9,6 +9,7 @@ observations:
   form: metal
   purity: 99.9% (3N)
   seller: ALB Materials
+  source_type: public_listing
 - date: '2026-03-15'
   tier: retail
   price_per_kg: 18.0
@@ -18,6 +19,7 @@ observations:
   form: metal
   purity: 99.9% (3N)
   seller: Edgetech Industries
+  source_type: public_listing
 - date: '2026-03-15'
   tier: retail
   price_per_kg: 28.0
@@ -27,6 +29,7 @@ observations:
   form: metal
   purity: 99.9% (3N)
   seller: Goodfellow
+  source_type: public_listing
 - date: '2026-03-15'
   tier: retail
   price_per_kg: 21.0
@@ -35,6 +38,7 @@ observations:
   form: metal
   notes: Median of 4 retail offers (ALB Materials, Edgetech Industries, Goodfellow,
     Stanford Advanced Materials)
+  source_type: aggregate
 - date: '2026-03-15'
   tier: retail
   price_per_kg: 22.0
@@ -44,3 +48,4 @@ observations:
   form: metal
   purity: 99.9% (3N)
   seller: Stanford Advanced Materials
+  source_type: public_listing

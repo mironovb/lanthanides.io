@@ -13,9 +13,10 @@ Observation schema (per entry in the ``observations`` list):
     source          non-empty string identifier, required
     source_type     optional; when present, one of
                     {"supplier_quote", "public_listing", "benchmark",
-                    "invoice", "aggregate"}. Tags the provenance category
-                    so the front-end and downstream consumers can tell
-                    maintainer-collected quotes apart from public listings.
+                    "invoice", "aggregate", "community_submission"}. Tags
+                    the provenance category so the front-end and downstream
+                    consumers can tell maintainer-collected quotes, public
+                    listings, and reviewed community submissions apart.
     form            optional ("metal", "oxide", ...)
     purity          optional ("99.9% (3N)", ...)
     estimated_date  optional bool; true when the date was inferred rather than
@@ -40,7 +41,14 @@ HISTORY_DIR = PROJECT_ROOT / "_data" / "price_history"
 
 VALID_TIERS: frozenset[str] = frozenset({"retail", "lab", "bulk"})
 VALID_SOURCE_TYPES: frozenset[str] = frozenset(
-    {"supplier_quote", "public_listing", "benchmark", "invoice", "aggregate"}
+    {
+        "supplier_quote",
+        "public_listing",
+        "benchmark",
+        "invoice",
+        "aggregate",
+        "community_submission",
+    }
 )
 REQUIRED_FIELDS: frozenset[str] = frozenset({"date", "tier", "price_per_kg", "source"})
 

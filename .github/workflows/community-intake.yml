@@ -1,0 +1,183 @@
+name: Community Submission Intake
+
+# Manual trigger ONLY. There is no `issues:` event here on purpose — an
+# unreviewed price-update issue must never make it into the price history.
+# The maintainer reads the issue, decides it is trustworthy, then comes
+# here and runs this workflow with the issue number. The workflow opens a
+# pull request rather than committing directly so the data change still
+# passes a second human review before it appears on the public site.
+
+on:
+  workflow_dispatch:
+    inputs:
+      issue_number:
+        description: 'Issue number to ingest (e.g. 42). The issue must be a price-update template and must already carry the `approved` label, applied by the maintainer after review.'
+        required: true
+        type: string
+      dry_run:
+        description: 'If true, parse and validate but do not open a PR.'
+        required: false
+        default: 'false'
+        type: string
+
+permissions:
+  contents: write
+  pull-requests: write
+  issues: read
+
+jobs:
+  intake:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Validate issue number
+        id: parse
+        env:
+          ISSUE_NUMBER: ${{ inputs.issue_number }}
+        run: |
+          set -euo pipefail
+          if ! [[ "$ISSUE_NUMBER" =~ ^[1-9][0-9]*$ ]]; then
+            echo "::error::issue_number must be a positive integer (got '$ISSUE_NUMBER')"
+            exit 1
+          fi
+          echo "issue=$ISSUE_NUMBER" >> "$GITHUB_OUTPUT"
+
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Fetch issue body and verify approval
+        id: fetch
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          ISSUE: ${{ steps.parse.outputs.issue }}
+          REPO: ${{ github.repository }}
+        run: |
+          set -euo pipefail
+          mkdir -p .intake
+          gh issue view "$ISSUE" --repo "$REPO" \
+            --json number,title,state,labels,body,author > .intake/issue.json
+
+          state=$(jq -r '.state' .intake/issue.json)
+          if [[ "$state" != "OPEN" && "$state" != "CLOSED" ]]; then
+            echo "::error::unexpected issue state: $state"
+            exit 1
+          fi
+
+          # Hard gate: require an explicit `approved` label. The maintainer
+          # adds this label only after reviewing the submission. The
+          # workflow refuses to proceed without it — this is the first of
+          # the two human checkpoints.
+          has_approved=$(jq -r '[.labels[].name] | index("approved") | tostring' .intake/issue.json)
+          if [[ "$has_approved" == "null" ]]; then
+            echo "::error::issue #$ISSUE does not carry the 'approved' label. Apply it after reviewing the submission, then re-run this workflow."
+            exit 1
+          fi
+
+          has_template=$(jq -r '[.labels[].name] | index("price-update") | tostring' .intake/issue.json)
+          if [[ "$has_template" == "null" ]]; then
+            echo "::error::issue #$ISSUE was not opened with the price-update template (missing label 'price-update')."
+            exit 1
+          fi
+
+          jq -r '.body' .intake/issue.json > .intake/body.md
+          jq -r '.author.login' .intake/issue.json > .intake/author.txt
+          jq -r '.title' .intake/issue.json > .intake/title.txt
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: pip install pyyaml
+
+      - name: Dry-run validation
+        env:
+          ISSUE: ${{ steps.parse.outputs.issue }}
+        run: |
+          python outreach/community_intake.py \
+            --issue-body-file .intake/body.md \
+            --issue-number "$ISSUE" \
+            --dry-run
+
+      - name: Stop here if dry_run requested
+        if: ${{ inputs.dry_run == 'true' }}
+        run: |
+          echo "dry_run=true — exiting before write/PR."
+
+      - name: Apply submission and open PR
+        if: ${{ inputs.dry_run != 'true' }}
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          ISSUE: ${{ steps.parse.outputs.issue }}
+          REPO: ${{ github.repository }}
+        run: |
+          set -euo pipefail
+
+          branch="community-intake/issue-$ISSUE"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          # Branch may already exist if a prior run partially succeeded.
+          git fetch origin "$branch" 2>/dev/null || true
+          if git rev-parse --verify "origin/$branch" >/dev/null 2>&1; then
+            git checkout -B "$branch" "origin/$branch"
+          else
+            git checkout -B "$branch"
+          fi
+
+          python outreach/community_intake.py \
+            --issue-body-file .intake/body.md \
+            --issue-number "$ISSUE"
+
+          if git diff --quiet _data/price_history/; then
+            echo "::error::no change to _data/price_history/ — observation may already exist (same date+tier+source)."
+            exit 1
+          fi
+
+          git add _data/price_history/
+          author=$(cat .intake/author.txt)
+          title=$(cat .intake/title.txt)
+          git commit -m "data: ingest community submission from issue #$ISSUE
+
+          Source: GitHub issue #$ISSUE by @$author
+          Title: $title
+
+          This commit was produced by .github/workflows/community-intake.yml
+          after the issue was reviewed and labelled 'approved' by the
+          maintainer. The PR opened from this branch is the second human
+          checkpoint before the data appears on the public site."
+
+          git push --set-upstream origin "$branch"
+
+          pr_body=$(cat <<EOF
+          Ingests the community price submission from issue #$ISSUE.
+
+          - **Submitter:** @$author
+          - **Issue:** #$ISSUE — $title
+          - **Approval label:** present (\`approved\`)
+          - **Validation:** passed against the same rules used for
+            public listings and supplier quotes (positive price, non-future
+            date, known tier, known element, FX rate present for non-USD).
+          - **Source type:** \`community_submission\`
+          - **Issue reference:** stored as \`issue_number\` on the observation.
+
+          Reviewer checklist (this is the second human checkpoint):
+
+          - [ ] The diff matches what the issue actually says.
+          - [ ] The cited URL or seller still looks legitimate.
+          - [ ] No private contact information appears in the diff.
+          - [ ] Date is within the freshness window we care about.
+
+          Merging this PR is what publishes the observation. Closing it
+          without merging discards the submission cleanly.
+          EOF
+          )
+
+          gh pr create \
+            --repo "$REPO" \
+            --base main \
+            --head "$branch" \
+            --title "data: community submission from issue #$ISSUE" \
+            --body "$pr_body"

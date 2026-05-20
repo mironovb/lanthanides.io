@@ -8,12 +8,14 @@ observations:
   record_id: R-0178
   form: metal
   purity: 99.3%+
+  source_type: benchmark
 - date: '2026-03-15'
   tier: bulk
   price_per_kg: 24.0
   currency: USD
   source: median_aggregate
   notes: Median of 1 bulk offers (LME / Fastmarkets)
+  source_type: aggregate
 - date: '2026-03-15'
   tier: retail
   price_per_kg: 540.0
@@ -22,6 +24,7 @@ observations:
   record_id: R-0179
   form: metal
   purity: 99.9% (3N)
+  source_type: public_listing
 - date: '2026-04-04'
   tier: retail
   price_per_kg: 146.0
@@ -30,6 +33,7 @@ observations:
   record_id: R-0203
   form: metal
   purity: 99.98%
+  source_type: public_listing
 - date: '2026-04-04'
   tier: retail
   price_per_kg: 2815.0
@@ -38,6 +42,7 @@ observations:
   record_id: R-0239
   form: metal
   purity: 99.95%
+  source_type: public_listing
 - date: '2026-04-04'
   tier: retail
   price_per_kg: 540.0
@@ -46,3 +51,4 @@ observations:
   form: metal
   notes: Median of 3 retail offers (Metallos.de, discountelements (eBay), emovendo
     (eBay))
+  source_type: aggregate

@@ -9,6 +9,7 @@ observations:
   form: metal
   purity: 99.99% (4N)
   seller: ALB Materials
+  source_type: public_listing
 - date: '2026-03-15'
   tier: retail
   price_per_kg: 390.0
@@ -18,6 +19,7 @@ observations:
   form: metal
   purity: 99.99% (4N)
   seller: American Elements
+  source_type: public_listing
 - date: '2026-03-15'
   tier: retail
   price_per_kg: 260.0
@@ -27,6 +29,7 @@ observations:
   form: metal
   purity: 99.99% (4N)
   seller: Edgetech Industries
+  source_type: public_listing
 - date: '2026-03-15'
   tier: retail
   price_per_kg: 320.0
@@ -36,6 +39,7 @@ observations:
   form: metal
   purity: 99.99% (4N)
   seller: Stanford Advanced Materials
+  source_type: public_listing
 - date: '2026-04-04'
   tier: retail
   price_per_kg: 1470.0
@@ -44,6 +48,7 @@ observations:
   record_id: R-0202
   form: metal
   purity: 99.995%
+  source_type: public_listing
 - date: '2026-04-04'
   tier: retail
   price_per_kg: 320.0
@@ -52,3 +57,4 @@ observations:
   form: metal
   notes: Median of 5 retail offers (ALB Materials, American Elements, Edgetech Industries,
     Luciteria + 1 more)
+  source_type: aggregate

@@ -8,6 +8,7 @@ observations:
   record_id: R-0155
   form: metal
   purity: 99.99% (4N)
+  source_type: benchmark
 - date: '2026-03-15'
   tier: retail
   price_per_kg: 95.0
@@ -17,6 +18,7 @@ observations:
   form: metal
   purity: 99.99% (4N)
   seller: ALB Materials
+  source_type: public_listing
 - date: '2026-03-15'
   tier: retail
   price_per_kg: 145.0
@@ -26,6 +28,7 @@ observations:
   form: metal
   purity: 99.99% (4N)
   seller: American Elements
+  source_type: public_listing
 - date: '2026-03-15'
   tier: retail
   price_per_kg: 85.0
@@ -35,6 +38,7 @@ observations:
   form: metal
   purity: 99.99% (4N)
   seller: Edgetech Industries
+  source_type: public_listing
 - date: '2026-03-15'
   tier: retail
   price_per_kg: 120.0
@@ -44,6 +48,7 @@ observations:
   form: metal
   purity: 99.99% (4N)
   seller: Stanford Advanced Materials
+  source_type: public_listing
 - date: '2026-03-25'
   tier: bulk
   price_per_kg: 108.0
@@ -52,6 +57,7 @@ observations:
   record_id: R-0156
   form: metal
   purity: 99.99% (4N)
+  source_type: benchmark
 - date: '2026-03-29'
   tier: retail
   price_per_kg: 243.0
@@ -60,6 +66,7 @@ observations:
   record_id: R-0157
   form: metal
   purity: 99.99% (4N)
+  source_type: public_listing
 - date: '2026-03-29'
   tier: retail
   price_per_kg: 1587.0
@@ -68,6 +75,7 @@ observations:
   record_id: R-0161
   form: metal
   purity: 99.9% (3N)
+  source_type: public_listing
 - date: '2026-03-29'
   tier: retail
   price_per_kg: 2710.0
@@ -76,6 +84,7 @@ observations:
   record_id: R-0164
   form: oxide
   purity: 99.9999% (6N)
+  source_type: public_listing
 - date: '2026-03-29'
   tier: retail
   price_per_kg: 1770.0
@@ -84,6 +93,7 @@ observations:
   record_id: R-0159
   form: metal
   purity: 99.999% (5N)
+  source_type: public_listing
 - date: '2026-03-29'
   tier: retail
   price_per_kg: 1887.0
@@ -92,6 +102,7 @@ observations:
   record_id: R-0160
   form: metal
   purity: 99.99% (4N)
+  source_type: public_listing
 - date: '2026-03-29'
   tier: retail
   price_per_kg: 1015.0
@@ -100,6 +111,7 @@ observations:
   record_id: R-0162
   form: oxide
   purity: 99.999% (5N)
+  source_type: public_listing
 - date: '2026-03-29'
   tier: retail
   price_per_kg: 1150.0
@@ -108,6 +120,7 @@ observations:
   record_id: R-0163
   form: oxide
   purity: 99.999% (5N)
+  source_type: public_listing
 - date: '2026-03-29'
   tier: retail
   price_per_kg: 243.0
@@ -116,6 +129,7 @@ observations:
   record_id: R-0158
   form: metal
   purity: 99.99% (4N)
+  source_type: public_listing
 - date: '2026-03-29'
   tier: retail
   price_per_kg: 629.0
@@ -124,6 +138,7 @@ observations:
   form: metal, oxide
   notes: Median of 12 retail offers (ALB Materials, American Elements, Chemsavers,
     Edgetech Industries + 7 more)
+  source_type: aggregate
 - date: '2026-03-30'
   tier: bulk
   price_per_kg: 112.0
@@ -132,6 +147,7 @@ observations:
   record_id: R-0154
   form: metal
   purity: 99.99% (4N)
+  source_type: benchmark
 - date: '2026-04-04'
   tier: bulk
   price_per_kg: 80.0
@@ -140,6 +156,7 @@ observations:
   record_id: R-0233
   form: metal
   purity: 99.99% (4N)
+  source_type: public_listing
 - date: '2026-04-04'
   tier: bulk
   price_per_kg: 1100.0
@@ -148,6 +165,7 @@ observations:
   record_id: R-0232
   form: metal
   purity: 99.99% (4N)
+  source_type: public_listing
 - date: '2026-04-04'
   tier: bulk
   price_per_kg: 112.0
@@ -155,3 +173,4 @@ observations:
   source: median_aggregate
   notes: Median of 5 bulk offers (BusinessAnalytiq, IMARC Group, Multiple CN/FR suppliers
     (Alibaba))
+  source_type: aggregate

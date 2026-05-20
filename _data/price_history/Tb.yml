@@ -10,6 +10,7 @@ observations:
   purity: 99.9% (3N)
   seller: China Direct Seller
   original_tier: wholesale
+  source_type: public_listing
 - date: '2026-03-20'
   tier: bulk
   price_per_kg: 804.0
@@ -20,6 +21,7 @@ observations:
   purity: 99.99% (4N)
   seller: SMM domestic benchmark (China)
   original_tier: wholesale
+  source_type: benchmark
 - date: '2026-03-20'
   tier: bulk
   price_per_kg: 1182.0
@@ -30,6 +32,7 @@ observations:
   purity: 99.99% (4N)
   seller: SMM FOB China
   original_tier: wholesale
+  source_type: benchmark
 - date: '2026-03-20'
   tier: retail
   price_per_kg: 40600.0
@@ -39,6 +42,7 @@ observations:
   form: oxide
   purity: 99.99% (4N)
   seller: Chemsavers
+  source_type: public_listing
 - date: '2026-03-20'
   tier: retail
   price_per_kg: 5970.0
@@ -48,6 +52,7 @@ observations:
   form: oxide
   purity: 99.995% (4N5)
   seller: MSE Supplies (eBay)
+  source_type: public_listing
 - date: '2026-03-20'
   tier: retail
   price_per_kg: 17340.0
@@ -57,6 +62,7 @@ observations:
   form: oxide
   purity: 99.99% TREO
   seller: Smart Elements
+  source_type: public_listing
 - date: '2026-03-20'
   tier: retail
   price_per_kg: 4029.0
@@ -66,6 +72,7 @@ observations:
   form: metal
   purity: various
   seller: Strategic Metals Invest
+  source_type: public_listing
 - date: '2026-03-22'
   tier: retail
   price_per_kg: 10800.0
@@ -74,6 +81,7 @@ observations:
   form: metal, oxide
   notes: Median of 8 retail offers (Chemsavers, MSE Supplies (eBay), PEGUYS, RWMM
     + 2 more)
+  source_type: aggregate
 - date: '2026-03-22'
   tier: retail
   price_per_kg: 4680.0
@@ -83,6 +91,7 @@ observations:
   form: metal
   purity: 99.9% (3N)
   seller: PEGUYS
+  source_type: public_listing
 - date: '2026-03-22'
   tier: retail
   price_per_kg: 7800.0
@@ -92,6 +101,7 @@ observations:
   form: metal
   purity: 99.9% (3N)
   seller: PEGUYS
+  source_type: public_listing
 - date: '2026-03-22'
   tier: retail
   price_per_kg: 22150.0
@@ -101,6 +111,7 @@ observations:
   form: metal
   purity: 99.5%
   seller: RWMM
+  source_type: public_listing
 - date: '2026-03-22'
   tier: retail
   price_per_kg: 13800.0
@@ -110,6 +121,7 @@ observations:
   form: metal
   purity: 99.95% (3N5)
   seller: Smart Elements
+  source_type: public_listing
 - date: '2026-04-04'
   tier: bulk
   price_per_kg: 600.0
@@ -118,9 +130,11 @@ observations:
   record_id: R-0238
   form: compound
   purity: 99.9% (3N)
+  source_type: public_listing
 - date: '2026-04-04'
   tier: bulk
   price_per_kg: 600.0
   currency: USD
   source: median_aggregate
   notes: Median of 1 bulk offers (Ganzhou Wanfeng (Alibaba))
+  source_type: aggregate

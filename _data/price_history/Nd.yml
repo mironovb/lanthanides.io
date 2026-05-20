@@ -9,6 +9,7 @@ observations:
   form: oxide
   purity: 99.9% (3N)
   seller: ALB Materials
+  source_type: public_listing
 - date: '2026-03-15'
   tier: retail
   price_per_kg: 120.0
@@ -18,6 +19,7 @@ observations:
   form: oxide
   purity: 99.9% (3N)
   seller: American Elements
+  source_type: public_listing
 - date: '2026-03-15'
   tier: retail
   price_per_kg: 82.0
@@ -27,6 +29,7 @@ observations:
   form: oxide
   purity: 99.9% (3N)
   seller: Edgetech Industries
+  source_type: public_listing
 - date: '2026-03-15'
   tier: retail
   price_per_kg: 95.0
@@ -36,6 +39,7 @@ observations:
   form: oxide
   purity: 99.9% (3N)
   seller: Stanford Advanced Materials
+  source_type: public_listing
 - date: '2026-04-04'
   tier: bulk
   price_per_kg: 80.0
@@ -44,12 +48,14 @@ observations:
   record_id: R-0228
   form: metal
   purity: 99.9% (3N)
+  source_type: public_listing
 - date: '2026-04-04'
   tier: bulk
   price_per_kg: 80.0
   currency: USD
   source: median_aggregate
   notes: Median of 1 bulk offers (Ganzhou Wanfeng (Alibaba))
+  source_type: aggregate
 - date: '2026-04-04'
   tier: retail
   price_per_kg: 19857.0
@@ -58,6 +64,7 @@ observations:
   record_id: R-0191
   form: metal
   purity: 99.5%
+  source_type: public_listing
 - date: '2026-04-04'
   tier: retail
   price_per_kg: 1231.0
@@ -66,6 +73,7 @@ observations:
   record_id: R-0194
   form: metal
   purity: 99.5-99.9%
+  source_type: public_listing
 - date: '2026-04-04'
   tier: retail
   price_per_kg: 600.0
@@ -74,6 +82,7 @@ observations:
   record_id: R-0193
   form: oxide
   purity: 99.3%
+  source_type: public_listing
 - date: '2026-04-04'
   tier: retail
   price_per_kg: 13054.0
@@ -81,6 +90,7 @@ observations:
   source: engineeredlab (eBay)
   record_id: R-0192
   form: metal
+  source_type: public_listing
 - date: '2026-04-04'
   tier: retail
   price_per_kg: 600.0
@@ -89,6 +99,7 @@ observations:
   form: metal, oxide
   notes: Median of 9 retail offers (ALB Materials, American Elements, Edgetech Industries,
     Luciteria + 5 more)
+  source_type: aggregate
 - date: '2026-04-04'
   tier: retail
   price_per_kg: 11750.0
@@ -97,3 +108,4 @@ observations:
   record_id: R-0227
   form: metal
   purity: 99.9% (3N)
+  source_type: public_listing

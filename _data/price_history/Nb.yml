@@ -8,6 +8,7 @@ observations:
   record_id: R-0176
   form: alloy
   purity: FeNb 65%
+  source_type: benchmark
 - date: '2026-03-15'
   tier: retail
   price_per_kg: 1500.0
@@ -16,6 +17,7 @@ observations:
   record_id: R-0177
   form: metal
   purity: 99.9% (3N)
+  source_type: public_listing
 - date: '2026-04-04'
   tier: bulk
   price_per_kg: 70.0
@@ -24,12 +26,14 @@ observations:
   record_id: R-0231
   form: metal
   purity: 99.9% (3N)
+  source_type: public_listing
 - date: '2026-04-04'
   tier: bulk
   price_per_kg: 71.5
   currency: USD
   source: median_aggregate
   notes: Median of 2 bulk offers (Fastmarkets / CBMM benchmark, Tianjin Chengmai (Alibaba))
+  source_type: aggregate
 - date: '2026-04-04'
   tier: retail
   price_per_kg: 925.5
@@ -37,6 +41,7 @@ observations:
   source: median_aggregate
   form: metal
   notes: Median of 2 retail offers (Smart-Elements, navycbmichael (eBay))
+  source_type: aggregate
 - date: '2026-04-04'
   tier: retail
   price_per_kg: 351.0
@@ -45,3 +50,4 @@ observations:
   record_id: R-0204
   form: metal
   purity: High purity
+  source_type: public_listing
