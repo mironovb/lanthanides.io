@@ -829,3 +829,252 @@
   &.chip-strategic-metal   { border-top: 2px solid $cat-strategic; }
   &.chip-semiconductor-metal { border-top: 2px solid $cat-semiconductor; }
 }
+
+// ── Price Movement panel ────────────────────────────────────
+.price-movement-panel {
+  background: $bg-card;
+  border: $border-thin;
+  border-radius: $radius-sm;
+  padding: $sp-4;
+  margin-bottom: $sp-6;
+
+  .pm-header {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: $sp-3;
+    margin-bottom: $sp-3;
+    padding-bottom: $sp-2;
+    border-bottom: 1px solid $border-primary;
+  }
+
+  .pm-title {
+    font-family: $font-sans;
+    font-size: $fs-md;
+    font-weight: $fw-semibold;
+    color: $text-primary;
+    margin: 0;
+  }
+
+  .pm-quality {
+    display: inline-flex;
+    align-items: center;
+    gap: $sp-2;
+    font-size: $fs-xs;
+    font-weight: $fw-semibold;
+    color: $text-muted;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    white-space: nowrap;
+  }
+
+  .pm-quality-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: $text-dim;
+    display: inline-block;
+  }
+
+  .pm-quality-sparse   .pm-quality-dot { background: $accent-red; }
+  .pm-quality-moderate .pm-quality-dot { background: $accent-amber; }
+  .pm-quality-rich     .pm-quality-dot { background: $ctrl-normal; }
+
+  .pm-table-wrap {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .pm-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: $fs-sm;
+  }
+
+  .pm-table thead th {
+    font-family: $font-mono;
+    font-size: $fs-xs;
+    font-weight: $fw-semibold;
+    color: $text-dim;
+    text-align: right;
+    padding: $sp-2 $sp-3;
+    border-bottom: 1px solid $border-primary;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .pm-th-tier { text-align: left; }
+
+  .pm-sr-only {
+    @include sr-only;
+  }
+
+  .pm-tier-label {
+    text-align: left;
+    font-weight: $fw-semibold;
+    color: $text-primary;
+    padding: $sp-3;
+    white-space: nowrap;
+    width: 1%;
+  }
+
+  .pm-cell {
+    font-family: $font-mono;
+    font-size: $fs-sm;
+    font-weight: $fw-semibold;
+    text-align: right;
+    padding: $sp-3;
+    white-space: nowrap;
+    border-bottom: 1px dotted $border-primary;
+  }
+
+  .pm-row:last-child .pm-cell,
+  .pm-row:last-child .pm-tier-label { border-bottom: none; }
+
+  .pm-arrow {
+    display: inline-block;
+    margin-right: 2px;
+    font-size: $fs-xs;
+    line-height: 1;
+  }
+
+  .pm-cell-up   { color: $ctrl-normal; }
+  .pm-cell-down { color: $accent-red; }
+  .pm-cell-flat { color: $text-muted; .pm-arrow { color: $text-dim; } }
+  .pm-cell-empty {
+    color: $text-dim;
+    font-weight: $fw-normal;
+  }
+
+  .pm-footnote {
+    margin: $sp-3 0 0;
+    font-size: $fs-xs;
+    color: $text-muted;
+    line-height: $lh-relaxed;
+  }
+
+  @include bp-max-md {
+    .pm-tier-label,
+    .pm-cell,
+    .pm-table thead th { padding: $sp-2; }
+  }
+}
+
+// ── Price History chart ─────────────────────────────────────
+.price-chart-section {
+  background: $bg-card;
+  border: $border-thin;
+  border-radius: $radius-sm;
+  padding: $sp-4;
+  margin-bottom: $sp-8;
+
+  .pc-header {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: $sp-2 $sp-3;
+    margin-bottom: $sp-3;
+    padding-bottom: $sp-2;
+    border-bottom: 1px solid $border-primary;
+  }
+
+  .pc-title {
+    font-family: $font-sans;
+    font-size: $fs-md;
+    font-weight: $fw-semibold;
+    color: $text-primary;
+    margin: 0;
+  }
+
+  .pc-title-unit {
+    font-family: $font-mono;
+    font-size: $fs-xs;
+    font-weight: $fw-normal;
+    color: $text-dim;
+    margin-left: $sp-2;
+    text-transform: none;
+    letter-spacing: 0;
+  }
+
+  .pc-legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: $sp-3;
+  }
+
+  .pc-legend-item {
+    display: inline-flex;
+    align-items: center;
+    gap: $sp-2;
+    font-size: $fs-xs;
+    color: $text-secondary;
+    font-family: $font-sans;
+  }
+
+  .pc-legend-swatch {
+    width: 12px;
+    height: 12px;
+    border-radius: 2px;
+    display: inline-block;
+  }
+
+  .pc-swatch-retail { background: $accent-teal; }
+  .pc-swatch-bulk   { background: $accent-purple; }
+
+  .pc-scroll {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .pc-chart {
+    min-width: 320px;
+    width: 100%;
+  }
+
+  .pc-placeholder,
+  .pc-empty {
+    margin: 0;
+    padding: $sp-4 0;
+    font-size: $fs-sm;
+    color: $text-muted;
+    font-style: italic;
+    text-align: center;
+  }
+
+  .pc-svg {
+    display: block;
+    width: 100%;
+    height: auto;
+    max-height: 320px;
+  }
+
+  .pc-axis { stroke: $border-secondary; stroke-width: 1; }
+  .pc-grid { stroke: $border-primary; stroke-width: 1; stroke-dasharray: 2 3; }
+
+  .pc-label {
+    font-family: $font-mono;
+    font-size: 11px;
+    fill: $text-muted;
+  }
+
+  .pc-line {
+    fill: none;
+    stroke-width: 2;
+    stroke-linejoin: round;
+    stroke-linecap: round;
+  }
+  .pc-line-retail { stroke: $accent-teal; }
+  .pc-line-bulk   { stroke: $accent-purple; }
+
+  .pc-dot {
+    stroke: $bg-card;
+    stroke-width: 1.5;
+  }
+  .pc-dot-retail { fill: $accent-teal; }
+  .pc-dot-bulk   { fill: $accent-purple; }
+
+  @include bp-max-md {
+    .pc-chart { min-width: 480px; }
+  }
+}

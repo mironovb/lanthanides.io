@@ -1,0 +1,91 @@
+{% comment %}
+  Server-rendered Price Movement panel for one element.
+
+  Reads site.data.fluctuations.elements[include.symbol] and renders the
+  rolling-window percent changes for retail and bulk tiers across the
+  standard 7d / 30d / 90d / 1y windows. Missing windows render as "—"
+  rather than a fabricated zero. The panel renders nothing at all when
+  no fluctuations entry exists for the symbol.
+
+  Usage:
+    {% include price-movement-panel.html symbol=page.symbol %}
+{% endcomment %}
+
+{% assign pm_data = site.data.fluctuations.elements[include.symbol] %}
+{% if pm_data %}
+
+  {% assign pm_quality = pm_data.data_quality | default: "sparse" %}
+  {% assign pm_tier_keys = "retail,bulk" | split: "," %}
+  {% assign pm_tier_labels = "Retail,Bulk" | split: "," %}
+  {% assign pm_window_keys = "7d,30d,90d,1y" | split: "," %}
+
+  <section class="price-movement-panel" aria-labelledby="pm-title-{{ include.symbol }}">
+    <div class="pm-header">
+      <h2 class="pm-title" id="pm-title-{{ include.symbol }}">Price Movement</h2>
+      <span class="pm-quality pm-quality-{{ pm_quality }}" title="Coverage classification: {{ pm_data.observation_count }} observation(s) across {{ pm_data.distinct_days }} day(s)">
+        <span class="pm-quality-dot" aria-hidden="true"></span>
+        <span class="pm-quality-text">{{ pm_quality | capitalize }} data</span>
+      </span>
+    </div>
+
+    <div class="pm-table-wrap">
+      <table class="pm-table">
+        <thead>
+          <tr>
+            <th scope="col" class="pm-th-tier"><span class="pm-sr-only">Tier</span></th>
+            {% for w in pm_window_keys %}
+              <th scope="col" class="pm-th-window">{{ w }}</th>
+            {% endfor %}
+          </tr>
+        </thead>
+        <tbody>
+          {% for tier_key in pm_tier_keys %}
+            {% assign tier_label = pm_tier_labels[forloop.index0] %}
+            {% assign tier_block = pm_data.tiers[tier_key] %}
+            <tr class="pm-row pm-row-{{ tier_key }}">
+              <th scope="row" class="pm-tier-label">{{ tier_label }}</th>
+              {% for w in pm_window_keys %}
+                {% assign window = tier_block.windows[w] %}
+                {% if window %}
+                  {% assign dir = window.direction %}
+                  {% assign pct = window.pct_change %}
+                  {% assign abs_pct = pct %}
+                  {% if pct < 0 %}{% assign abs_pct = pct | times: -1 %}{% endif %}
+                  {% assign tip = window.start_date | append: " → " | append: window.end_date | append: " · " | append: window.confidence | append: " confidence" %}
+                  {% if dir == "up" %}
+                    <td class="pm-cell pm-cell-up" title="{{ tip }}">
+                      <span class="pm-arrow" aria-hidden="true">&#9650;</span>
+                      <span class="pm-pct">+{{ abs_pct | round: 1 }}%</span>
+                    </td>
+                  {% elsif dir == "down" %}
+                    <td class="pm-cell pm-cell-down" title="{{ tip }}">
+                      <span class="pm-arrow" aria-hidden="true">&#9660;</span>
+                      <span class="pm-pct">&minus;{{ abs_pct | round: 1 }}%</span>
+                    </td>
+                  {% else %}
+                    <td class="pm-cell pm-cell-flat" title="{{ tip }}">
+                      <span class="pm-arrow" aria-hidden="true">&mdash;</span>
+                      <span class="pm-pct">flat</span>
+                    </td>
+                  {% endif %}
+                {% else %}
+                  <td class="pm-cell pm-cell-empty" title="No qualifying observation in this window">&mdash;</td>
+                {% endif %}
+              {% endfor %}
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+
+    <p class="pm-footnote">
+      {% if pm_data.data_since %}
+        Data available since <time datetime="{{ pm_data.data_since }}">{{ pm_data.data_since }}</time>{% if pm_data.data_until and pm_data.data_until != pm_data.data_since %} through <time datetime="{{ pm_data.data_until }}">{{ pm_data.data_until }}</time>{% endif %}.
+      {% endif %}
+      {% if pm_data.observation_count and pm_data.observation_count > 0 %}
+        Based on {{ pm_data.observation_count }} observation{% if pm_data.observation_count != 1 %}s{% endif %} across {{ pm_data.distinct_days }} day{% if pm_data.distinct_days != 1 %}s{% endif %}.
+      {% endif %}
+    </p>
+  </section>
+
+{% endif %}

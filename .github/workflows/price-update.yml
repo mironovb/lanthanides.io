@@ -64,6 +64,6 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add _data/price_records.json _data/price_history/ _data/snapshots/ assets/data/fluctuations.json
+          git add _data/price_records.json _data/price_history/ _data/snapshots/ _data/fluctuations.json assets/data/fluctuations.json
           git commit -m "data: weekly price update $(date -u +%Y-%m-%d)"
           git push

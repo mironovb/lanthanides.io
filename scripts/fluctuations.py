@@ -44,6 +44,7 @@ from price_history import (
 
 PROJECT_ROOT = SCRIPT_DIR.parent
 OUTPUT_PATH = PROJECT_ROOT / "assets" / "data" / "fluctuations.json"
+DATA_OUTPUT_PATH = PROJECT_ROOT / "_data" / "fluctuations.json"
 
 # Rolling windows. ``None`` means "all-time" (earliest to latest).
 STANDARD_WINDOWS: list[tuple[str, int | None]] = [
@@ -372,12 +373,18 @@ def main() -> int:
         logger.info("Dry run — not writing to %s", args.output)
         return 0
 
-    output_path: Path = args.output.resolve()
-    output_path.parent.mkdir(parents=True, exist_ok=True)
-    with open(output_path, "w", encoding="utf-8") as f:
-        json.dump(payload, f, indent=2, ensure_ascii=False, sort_keys=True)
-        f.write("\n")
-    logger.info("Wrote %s (%d elements).", output_path, len(elements))
+    def _dump(path: Path) -> None:
+        path = path.resolve()
+        path.parent.mkdir(parents=True, exist_ok=True)
+        with open(path, "w", encoding="utf-8") as f:
+            json.dump(payload, f, indent=2, ensure_ascii=False, sort_keys=True)
+            f.write("\n")
+        logger.info("Wrote %s (%d elements).", path, len(elements))
+
+    _dump(args.output)
+    # Mirror into _data/ so Jekyll can render server-side via site.data.fluctuations.
+    if args.output.resolve() != DATA_OUTPUT_PATH.resolve():
+        _dump(DATA_OUTPUT_PATH)
     return 0
 
 

@@ -153,6 +153,10 @@ layout: default
   </div>
 </div>
 
+{% comment %} ── Price Movement panel + history chart ── {% endcomment %}
+{% include price-movement-panel.html symbol=page.symbol %}
+{% include price-chart.html symbol=page.symbol %}
+
 {% comment %} ── Regulatory inline notice (auto-generated for controlled elements) ── {% endcomment %}
 {% if cat_info.regulatory_status == 'active' %}
 <div class="reg-notice-inline">

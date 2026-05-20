@@ -1,0 +1,59 @@
+{% comment %}
+  Price-history chart for one element.
+
+  Emits a chart container plus a JSON script block containing the raw
+  retail and bulk observations (median_aggregate rows are excluded so the
+  client computes its own per-day median without double-counting). The
+  no-JS path renders nothing visible beyond the heading + a short note,
+  because the Price Movement panel above already shows the change
+  summary. JavaScript replaces the placeholder with an inline SVG line
+  chart.
+
+  Usage:
+    {% include price-chart.html symbol=page.symbol %}
+{% endcomment %}
+
+{% assign pc_hist = site.data.price_history[include.symbol] %}
+{% if pc_hist and pc_hist.observations and pc_hist.observations.size > 0 %}
+
+  {% assign pc_rows = "" | split: "" %}
+  {% for o in pc_hist.observations %}
+    {% if o.source != "median_aggregate" %}
+      {% if o.tier == "retail" or o.tier == "bulk" %}
+        {%- capture _pc_row -%}{"d":"{{ o.date }}","t":"{{ o.tier }}","p":{{ o.price_per_kg }}}{%- endcapture -%}
+        {% assign pc_rows = pc_rows | push: _pc_row %}
+      {% endif %}
+    {% endif %}
+  {% endfor %}
+
+  {% if pc_rows.size > 0 %}
+    {% assign pc_joined = pc_rows | join: "," %}
+    {% assign pc_json = "[" | append: pc_joined | append: "]" %}
+
+    <section class="price-chart-section" aria-labelledby="pc-title-{{ include.symbol }}">
+      <div class="pc-header">
+        <h2 class="pc-title" id="pc-title-{{ include.symbol }}">
+          Price History <span class="pc-title-unit">(USD/kg)</span>
+        </h2>
+        <div class="pc-legend" role="list">
+          <span class="pc-legend-item" role="listitem">
+            <span class="pc-legend-swatch pc-swatch-retail" aria-hidden="true"></span>Retail
+          </span>
+          <span class="pc-legend-item" role="listitem">
+            <span class="pc-legend-swatch pc-swatch-bulk" aria-hidden="true"></span>Bulk
+          </span>
+        </div>
+      </div>
+
+      <div class="pc-scroll">
+        <div class="pc-chart"
+             data-chart="price-history"
+             data-symbol="{{ include.symbol }}">
+          <p class="pc-placeholder">Chart requires JavaScript. The Price Movement panel above summarises the same trend.</p>
+          <script type="application/json" class="pc-data">{{ pc_json }}</script>
+        </div>
+      </div>
+    </section>
+  {% endif %}
+
+{% endif %}
