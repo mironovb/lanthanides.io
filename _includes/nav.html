@@ -5,6 +5,7 @@
       <span class="brand-name">lanthanides.io</span>
     </a>
     <nav class="site-nav" aria-label="Main navigation">
+      <a href="{{ '/dashboard/' | relative_url }}"{% if page.url == '/dashboard/' %} class="nav-active"{% endif %}>Dashboard</a>
       <a href="{{ '/prices/' | relative_url }}"{% if page.url == '/prices/' %} class="nav-active"{% endif %}>Prices</a>
       <a href="{{ '/regulatory/' | relative_url }}"{% if page.url == '/regulatory/' %} class="nav-active"{% endif %}>Regulatory</a>
       <a href="{{ '/movements/' | relative_url }}"{% if page.url == '/movements/' %} class="nav-active"{% endif %}>Movements</a>

@@ -1,0 +1,109 @@
+{% comment %}
+  Render one row in the dashboard's top-movers list.
+
+  Inputs:
+    include.symbol     — element symbol (e.g. "Nd")
+    include.name       — full element name
+    include.category   — catalog category slug (rare_earth_light, etc.)
+    include.tier       — "retail" or "bulk" (the tier we picked the window from)
+    include.pct        — signed % change (number)
+    include.direction  — "up" / "down" / "flat"
+    include.cur_price  — latest observed median price for the chosen tier
+    include.confidence — "low" / "medium" / "high"
+    include.obs        — total observations in window
+    include.days       — distinct days in window
+    include.start_date / end_date — window endpoints
+
+  Format helpers:
+    * Percentages are rendered compactly so very large (low-confidence)
+      numbers don't blow up the layout: <1k → 1 dp; <10k → 0 dp; ≥10k → "k%".
+    * Sparkline is a 2-point directional slope. With only two distinct
+      observation days in most windows there is no honest intermediate
+      shape to draw; the slope shows direction, the magnitude lives in
+      the % label.
+    * Liquid filter chains apply left-to-right, so we must `round` numeric
+      values BEFORE `append`-ing strings — otherwise `round` operates on a
+      string and silently returns 0.
+{% endcomment %}
+
+{% assign dmr_pct = include.pct | times: 1.0 %}
+{% assign dmr_abs = dmr_pct %}
+{% if dmr_abs < 0 %}{% assign dmr_abs = dmr_abs | times: -1 %}{% endif %}
+
+{% comment %} Compact pct label — round first, then append units {% endcomment %}
+{% if dmr_abs < 1000 %}
+  {% assign dmr_pct_r = dmr_abs | round: 1 %}
+  {% assign dmr_pct_label = dmr_pct_r | append: "%" %}
+{% elsif dmr_abs < 10000 %}
+  {% assign dmr_pct_r = dmr_abs | round: 0 %}
+  {% assign dmr_pct_label = dmr_pct_r | append: "%" %}
+{% else %}
+  {% assign dmr_pct_kilo = dmr_abs | divided_by: 1000.0 %}
+  {% if dmr_pct_kilo < 100 %}
+    {% assign dmr_pct_kr = dmr_pct_kilo | round: 1 %}
+  {% else %}
+    {% assign dmr_pct_kr = dmr_pct_kilo | round: 0 %}
+  {% endif %}
+  {% assign dmr_pct_label = dmr_pct_kr | append: "k%" %}
+{% endif %}
+
+{% comment %} Compact price label — round first, then append units {% endcomment %}
+{% assign dmr_cur = include.cur_price | times: 1.0 %}
+{% if dmr_cur >= 10000 %}
+  {% assign dmr_cur_k = dmr_cur | divided_by: 1000.0 | round: 1 %}
+  {% assign dmr_price_label = "$" | append: dmr_cur_k | append: "k" %}
+{% elsif dmr_cur >= 1000 %}
+  {% assign dmr_cur_r = dmr_cur | round: 0 %}
+  {% assign dmr_price_label = "$" | append: dmr_cur_r %}
+{% elsif dmr_cur >= 10 %}
+  {% assign dmr_cur_r = dmr_cur | round: 1 %}
+  {% assign dmr_price_label = "$" | append: dmr_cur_r %}
+{% elsif dmr_cur >= 1 %}
+  {% assign dmr_cur_r = dmr_cur | round: 2 %}
+  {% assign dmr_price_label = "$" | append: dmr_cur_r %}
+{% else %}
+  {% assign dmr_cur_r = dmr_cur | round: 3 %}
+  {% assign dmr_price_label = "$" | append: dmr_cur_r %}
+{% endif %}
+
+{% comment %} Sparkline path by direction (2-point slope) {% endcomment %}
+{% if include.direction == "up" %}
+  {% assign dmr_spark_path = "M3,18 L77,4" %}
+  {% assign dmr_spark_cx = 77 %}{% assign dmr_spark_cy = 4 %}
+{% elsif include.direction == "down" %}
+  {% assign dmr_spark_path = "M3,4 L77,18" %}
+  {% assign dmr_spark_cx = 77 %}{% assign dmr_spark_cy = 18 %}
+{% else %}
+  {% assign dmr_spark_path = "M3,11 L77,11" %}
+  {% assign dmr_spark_cx = 77 %}{% assign dmr_spark_cy = 11 %}
+{% endif %}
+
+<li class="dash-mover-row dash-mover-{{ include.direction }}">
+  <a href="{{ '/elements/' | append: include.symbol | append: '/' | relative_url }}"
+     class="dash-mover-elem dash-cat-{{ include.category | replace: '_', '-' }}">
+    <code class="dash-mover-sym">{{ include.symbol }}</code>
+    <span class="dash-mover-name">{{ include.name }}</span>
+  </a>
+
+  <span class="dash-mover-price" title="Latest {{ include.tier }} median price">
+    {{ dmr_price_label }}<span class="dash-mover-unit">/kg</span>
+  </span>
+
+  <span class="dash-mover-pct dash-mover-pct-{{ include.direction }}"
+        title="30d window: {{ include.start_date }} → {{ include.end_date }} · {{ include.tier }} tier · {{ include.confidence }} confidence">
+    {% if include.direction == "up" %}+{% elsif include.direction == "down" %}&minus;{% endif %}{{ dmr_pct_label }}
+  </span>
+
+  <svg class="dash-mover-spark dash-mover-spark-{{ include.direction }}"
+       viewBox="0 0 80 22" width="80" height="22"
+       role="img"
+       aria-label="{{ include.tier }} {{ include.direction }} sparkline from {{ include.start_date }} to {{ include.end_date }}">
+    <path d="{{ dmr_spark_path }}" fill="none" />
+    <circle cx="{{ dmr_spark_cx }}" cy="{{ dmr_spark_cy }}" r="2" />
+  </svg>
+
+  <span class="dash-mover-conf dash-mover-conf-{{ include.confidence }}"
+        title="{{ include.obs }} observation{% if include.obs != '1' %}s{% endif %} across {{ include.days }} day{% if include.days != '1' %}s{% endif %} · {{ include.tier }}">
+    {{ include.confidence }} · {{ include.tier }}
+  </span>
+</li>
