@@ -1,0 +1,86 @@
+{% comment %}
+  Server-rendered fallback for one (symbol, tier) — shows the latest
+  observed price and the 30-day change directly from site.data.price_history.
+  Used when assets/data/fluctuations.json hasn't been built yet, or as the
+  no-JS baseline beneath any client-side enhancement.
+
+  Computes nothing the data can't justify:
+    * "Latest" = the most recent same-day observation (any source); preference
+      goes to a curator's median_aggregate when one is dated on that day.
+    * "30d change" = compared against the earliest non-aggregate observation
+      that falls inside the 30-day window before the latest date. If no such
+      observation exists, the change panel is omitted entirely (n/a).
+    * median_aggregate observations are skipped when picking the comparison
+      point, so the change isn't double-counted against a derived value.
+
+  Usage:
+    {% include fluctuation-fallback.html symbol=page.symbol tier="retail" %}
+{% endcomment %}
+
+{% assign _hist = site.data.price_history[include.symbol] %}
+{% if _hist and _hist.observations and _hist.observations.size > 0 %}
+
+  {%- comment -%} Latest observation in this tier, prefer median_aggregate on same day {%- endcomment -%}
+  {% assign _latest_unix = 0 %}
+  {% assign _latest = nil %}
+  {% assign _latest_is_aggregate = false %}
+  {% for _obs in _hist.observations %}
+    {% if _obs.tier == include.tier %}
+      {% assign _u = _obs.date | date: "%s" | plus: 0 %}
+      {% if _u > _latest_unix %}
+        {% assign _latest_unix = _u %}
+        {% assign _latest = _obs %}
+        {% if _obs.source == "median_aggregate" %}
+          {% assign _latest_is_aggregate = true %}
+        {% else %}
+          {% assign _latest_is_aggregate = false %}
+        {% endif %}
+      {% elsif _u == _latest_unix and _obs.source == "median_aggregate" %}
+        {% assign _latest = _obs %}
+        {% assign _latest_is_aggregate = true %}
+      {% endif %}
+    {% endif %}
+  {% endfor %}
+
+  {% if _latest %}
+    {%- comment -%} 30-day cutoff (2,592,000 seconds = 30 * 86400) {%- endcomment -%}
+    {% assign _cutoff_unix = _latest_unix | minus: 2592000 %}
+    {% assign _earlier = nil %}
+    {% assign _earlier_unix = 0 %}
+    {% for _obs in _hist.observations %}
+      {% if _obs.tier == include.tier and _obs.source != "median_aggregate" %}
+        {% assign _u = _obs.date | date: "%s" | plus: 0 %}
+        {% if _u < _latest_unix and _u >= _cutoff_unix %}
+          {% if _earlier == nil or _u < _earlier_unix %}
+            {% assign _earlier_unix = _u %}
+            {% assign _earlier = _obs %}
+          {% endif %}
+        {% endif %}
+      {% endif %}
+    {% endfor %}
+
+    <div class="fluct-fallback" data-tier="{{ include.tier }}" data-symbol="{{ include.symbol }}">
+      <span class="fluct-fallback-label">Latest {{ include.tier }}</span>
+      <span class="fluct-fallback-price">${{ _latest.price_per_kg }}<span class="fluct-fallback-unit">/kg</span></span>
+      <span class="fluct-fallback-date">as of {{ _latest.date | date: "%Y-%m-%d" }}</span>
+
+      {% if _earlier %}
+        {% assign _delta = _latest.price_per_kg | minus: _earlier.price_per_kg %}
+        {% assign _pct = _delta | times: 100.0 | divided_by: _earlier.price_per_kg %}
+        {% assign _abs_pct = _pct %}
+        {% if _pct < 0 %}{% assign _abs_pct = _pct | times: -1 %}{% endif %}
+
+        {% if _abs_pct < 1 %}
+          <span class="fluct-fallback-change fluct-flat" title="Change since {{ _earlier.date }}">30d: flat</span>
+        {% elsif _pct > 0 %}
+          <span class="fluct-fallback-change fluct-up" title="Change since {{ _earlier.date }}">30d: +{{ _pct | round: 1 }}%</span>
+        {% else %}
+          <span class="fluct-fallback-change fluct-down" title="Change since {{ _earlier.date }}">30d: {{ _pct | round: 1 }}%</span>
+        {% endif %}
+      {% else %}
+        <span class="fluct-fallback-change fluct-na" title="No comparable observation within 30 days">30d: n/a</span>
+      {% endif %}
+    </div>
+  {% endif %}
+
+{% endif %}

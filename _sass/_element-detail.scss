@@ -335,6 +335,58 @@
   }
 }
 
+// ── Fluctuation fallback (server-side, no-JS baseline) ──────
+.fluct-fallback {
+  display: inline-flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: $sp-2 $sp-3;
+  padding: $sp-2 $sp-3;
+  background: $bg-secondary;
+  border: $border-thin;
+  border-radius: $radius-sm;
+  font-size: $fs-sm;
+
+  .fluct-fallback-label {
+    font-size: $fs-xs;
+    font-weight: $fw-semibold;
+    color: $text-dim;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .fluct-fallback-price {
+    font-family: $font-mono;
+    font-weight: $fw-bold;
+    color: $text-primary;
+  }
+
+  .fluct-fallback-unit {
+    font-weight: $fw-normal;
+    color: $text-muted;
+    font-size: $fs-xs;
+  }
+
+  .fluct-fallback-date {
+    font-family: $font-mono;
+    font-size: $fs-xs;
+    color: $text-dim;
+  }
+
+  .fluct-fallback-change {
+    font-family: $font-mono;
+    font-size: $fs-xs;
+    font-weight: $fw-semibold;
+    padding: 1px $sp-2;
+    border-radius: $radius-sm;
+
+    &.fluct-up   { color: $ctrl-normal; background: rgba($ctrl-normal, 0.08); }
+    &.fluct-down { color: $accent-red;  background: rgba($accent-red, 0.08); }
+    &.fluct-flat { color: $text-muted;  background: $bg-tertiary; }
+    &.fluct-na   { color: $text-dim;    background: transparent; font-style: italic; }
+  }
+}
+
 // ── Section titles ──────────────────────────────────────────
 .element-section {
   margin-bottom: $sp-8;

@@ -410,7 +410,31 @@ def run_pipeline(args: argparse.Namespace, logger: logging.Logger) -> int:
         except Exception:
             logger.exception("Normalization script failed — continuing")
 
-    # Step 5: Create timestamped snapshot
+    # Step 5: Regenerate the fluctuations build artifact from price_history.
+    # Idempotent and cheap, so run every time regardless of new-record count.
+    fluctuations_script = SCRIPT_DIR / "fluctuations.py"
+    if fluctuations_script.exists() and not args.dry_run:
+        logger.info("Regenerating fluctuations.json from price history...")
+        try:
+            result = subprocess.run(
+                [sys.executable, str(fluctuations_script)],
+                capture_output=True, text=True, timeout=120,
+            )
+            if result.returncode == 0:
+                logger.info("Fluctuations regenerated")
+                if result.stdout.strip():
+                    logger.debug("fluctuations stdout: %s", result.stdout.strip())
+            else:
+                logger.warning(
+                    "Fluctuations exited with code %d: %s",
+                    result.returncode, result.stderr.strip(),
+                )
+        except Exception:
+            logger.exception("Fluctuations script failed — continuing")
+    elif args.dry_run:
+        logger.info("[DRY RUN] Would regenerate assets/data/fluctuations.json")
+
+    # Step 6: Create timestamped snapshot
     if not args.dry_run:
         create_snapshot(args.output_file, logger, dry_run=args.dry_run)
     else:

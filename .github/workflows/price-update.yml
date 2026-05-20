@@ -44,10 +44,16 @@ jobs:
               sys.exit(1)
           "
 
+      - name: Regenerate fluctuations artifact
+        # reex_collector already does this, but run it explicitly so a manual
+        # workflow_dispatch (with no new records to collect) still refreshes
+        # assets/data/fluctuations.json from the current price_history files.
+        run: python scripts/fluctuations.py --verbose
+
       - name: Check for changes
         id: changes
         run: |
-          if git diff --quiet _data/; then
+          if git diff --quiet _data/ assets/data/; then
             echo "changed=false" >> "$GITHUB_OUTPUT"
           else
             echo "changed=true" >> "$GITHUB_OUTPUT"
@@ -58,6 +64,6 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add _data/price_records.json _data/snapshots/
+          git add _data/price_records.json _data/price_history/ _data/snapshots/ assets/data/fluctuations.json
           git commit -m "data: weekly price update $(date -u +%Y-%m-%d)"
           git push
