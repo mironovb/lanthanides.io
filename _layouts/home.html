@@ -4,20 +4,45 @@ layout: default
 
 {% include structured-data-site.html %}
 
-<p class="home-tagline">Strategic materials pricing and regulatory intelligence</p>
+{% assign cnt_light = 0 %}
+{% assign cnt_heavy = 0 %}
+{% assign cnt_strat = 0 %}
+{% assign cnt_semi  = 0 %}
+{% assign cnt_ctrl  = 0 %}
+{% for c in site.data.element_catalog %}
+  {% case c.category %}
+    {% when 'rare_earth_light' %}{% assign cnt_light = cnt_light | plus: 1 %}
+    {% when 'rare_earth_heavy' %}{% assign cnt_heavy = cnt_heavy | plus: 1 %}
+    {% when 'strategic_metal' %}{% assign cnt_strat = cnt_strat | plus: 1 %}
+    {% when 'semiconductor_metal' %}{% assign cnt_semi  = cnt_semi  | plus: 1 %}
+  {% endcase %}
+  {% if c.cn_export_control %}{% assign cnt_ctrl = cnt_ctrl | plus: 1 %}{% endif %}
+{% endfor %}
 
-{{ content }}
+<section class="home-hero" aria-label="Strategic Materials Ledger">
+  <p class="home-eyebrow">Strategic Materials Ledger</p>
+  <h1 class="home-headline">Rare earth &amp; critical metal prices, with provenance.</h1>
+  <p class="home-lede">{{ site.elements | size }} elements across four categories. Retail surveys and bulk benchmarks tracked separately. Every record carries a seller, date, quantity, and verification status.</p>
+  <ul class="home-stats">
+    <li><span class="home-stat-num">{{ site.elements | size }}</span><span class="home-stat-label">elements</span></li>
+    <li><span class="home-stat-num">{{ site.data.price_records | size }}</span><span class="home-stat-label">price records</span></li>
+    <li><span class="home-stat-num">{{ cnt_ctrl }}</span><span class="home-stat-label">CN-controlled</span></li>
+    <li><span class="home-stat-num">{{ site.data.source_registry | size }}</span><span class="home-stat-label">data sources</span></li>
+  </ul>
+</section>
 
 {% comment %} ── Grid legend ── {% endcomment %}
-<div class="category-legend">
-  <span class="legend-item"><span class="legend-swatch swatch-ree-light"></span>Light Rare Earths</span>
-  <span class="legend-item"><span class="legend-swatch swatch-ree-heavy"></span>Heavy Rare Earths</span>
-  <span class="legend-item"><span class="legend-swatch swatch-strategic"></span>Strategic &amp; Rare Metals</span>
-  <span class="legend-item"><span class="legend-swatch swatch-semiconductor"></span>Semiconductor Metals</span>
-</div>
-<div class="indicator-legend">
-  <span class="legend-item"><span class="legend-icon">&#10071;</span>China export control active</span>
-  <span class="legend-item"><span class="legend-icon">&#128293;</span>High demand alert</span>
+<div class="grid-legend">
+  <div class="grid-legend-row category-legend">
+    <span class="legend-item legend-cat-ree-light"><span class="legend-swatch"></span>Light REE<span class="legend-count">{{ cnt_light }}</span></span>
+    <span class="legend-item legend-cat-ree-heavy"><span class="legend-swatch"></span>Heavy REE<span class="legend-count">{{ cnt_heavy }}</span></span>
+    <span class="legend-item legend-cat-strategic"><span class="legend-swatch"></span>Strategic metals<span class="legend-count">{{ cnt_strat }}</span></span>
+    <span class="legend-item legend-cat-semi"><span class="legend-swatch"></span>Semiconductor metals<span class="legend-count">{{ cnt_semi }}</span></span>
+  </div>
+  <div class="grid-legend-row indicator-legend">
+    <span class="legend-item"><span class="legend-icon">&#10071;</span>China export control</span>
+    <span class="legend-item"><span class="legend-icon">&#128293;</span>High demand</span>
+  </div>
 </div>
 
 {% comment %} ── Compact Element Grid (hero) ── {% endcomment %}
@@ -25,6 +50,8 @@ layout: default
 
 {% comment %} ── Regulatory Alert Banner ── {% endcomment %}
 {% include regulatory-banner.html %}
+
+{{ content }}
 
 {% comment %} ── Recent Articles ── {% endcomment %}
 {% assign sorted_articles = site.articles | sort: "date" | reverse %}

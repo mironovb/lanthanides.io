@@ -36,10 +36,20 @@ $white:            #ffffff;
 $paper:            $brand-bg;
 
 // ── Category colors ────────────────────────────────────────
-$cat-ree-light:    #2b6cb0;
-$cat-ree-heavy:    #6b4fa0;
-$cat-strategic:    $brand-secondary;
-$cat-semiconductor:$brand-primary;
+// Tuned for clear light/heavy REE distinction and to avoid clashing
+// with brand-primary teal and brand-secondary gold (regulatory warnings).
+$cat-ree-light:        #2563EB;  // azure — abundant LREE
+$cat-ree-light-dim:    #DBEAFE;
+$cat-ree-light-tint:   #EFF6FF;
+$cat-ree-heavy:        #7C3AED;  // vivid violet — scarce HREE
+$cat-ree-heavy-dim:    #EDE9FE;
+$cat-ree-heavy-tint:   #F5F3FF;
+$cat-strategic:        #B45309;  // copper — industrial strategic metals
+$cat-strategic-dim:    #FEF3C7;
+$cat-strategic-tint:   #FFFBEB;
+$cat-semiconductor:    #047857;  // emerald — chip-fab semiconductor metals
+$cat-semiconductor-dim:#D1FAE5;
+$cat-semiconductor-tint:#ECFDF5;
 
 // ── Export control colors ──────────────────────────────────
 $ctrl-restricted:  $accent-red;

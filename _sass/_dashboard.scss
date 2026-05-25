@@ -477,10 +477,10 @@
     border-radius: 3px;
   }
 
-  &.dash-cat-rare-earth-light code { color: $cat-ree-light; background: lighten($cat-ree-light, 45%); }
-  &.dash-cat-rare-earth-heavy code { color: $cat-ree-heavy; background: lighten($cat-ree-heavy, 42%); }
-  &.dash-cat-strategic-metal code { color: darken($cat-strategic, 18%); background: $accent-amber-dim; }
-  &.dash-cat-semiconductor-metal code { color: $cat-semiconductor; background: $accent-teal-dim; }
+  &.dash-cat-rare-earth-light code { color: $cat-ree-light; background: $cat-ree-light-dim; }
+  &.dash-cat-rare-earth-heavy code { color: $cat-ree-heavy; background: $cat-ree-heavy-dim; }
+  &.dash-cat-strategic-metal code { color: $cat-strategic; background: $cat-strategic-dim; }
+  &.dash-cat-semiconductor-metal code { color: $cat-semiconductor; background: $cat-semiconductor-dim; }
 }
 
 .dash-prem-name {
@@ -511,10 +511,10 @@
 }
 
 .dash-prem-row.dash-prem-inverse {
-  background: lighten($cat-ree-light, 50%);
+  background: $cat-ree-light-tint;
 
   .dash-prem-ratio { color: $cat-ree-light; }
-  &:hover { background: lighten($cat-ree-light, 47%); }
+  &:hover { background: $cat-ree-light-dim; }
 }
 
 // ═══════════════════════════════════════════════════════════
