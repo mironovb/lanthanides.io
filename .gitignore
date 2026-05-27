@@ -18,12 +18,19 @@ invoices/*.xlsx
 invoices/*.csv
 !invoices/.gitkeep
 
-# Redesign tooling — do not push
-prompts/
-logs/
-run-all.sh
+# Redesign tooling — do not push. Anchored to repo root so these only ignore
+# top-level tooling dirs, not similarly-named nested dirs elsewhere.
+/prompts/
+/logs/
+/run-all.sh
 
 # Outreach — never commit real supplier contacts, local scratch files, or drafts
 outreach/suppliers.yml
 outreach/*.local.*
 outreach/drafts/
+
+# Regulatory monitor — commit the dedup DB (seen.sqlite) and run_state.json so
+# cloud runs start warm, but never the scraped article bodies or run logs
+# (transient; rebuilt each run, and third-party content doesn't belong here).
+scripts/scraper/data/articles/
+scripts/scraper/scraper.log

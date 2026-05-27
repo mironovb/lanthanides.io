@@ -1,0 +1,123 @@
+# Sources to poll. Each source has a `type` of either:
+#   html_list: a list page with article links matching `link_pattern` (regex)
+#   rss: an RSS/Atom feed at `feed_url`
+#
+# To add a source: copy a similar block and edit. Test with:
+#   python scraper.py --debug --source <id>
+#
+# To DISABLE a source: set `enabled: false` or comment out the block.
+
+sources:
+
+  # ============================================================
+  # CHINESE GOVERNMENT — VERIFIED WORKING (zh, translated if key set)
+  #
+  # NOTE: MOFCOM section indexes (zwgk/zcfb, xwfb/xwfyrth, etc.) are
+  # JavaScript-rendered shells with no article links in the HTML.
+  # The MOFCOM homepage IS server-rendered and lists the most-recent
+  # ~10-20 articles across all categories — so we poll the homepage
+  # as a catch-all. The keyword filter narrows to REE-relevant items.
+  # ============================================================
+
+  - id: mofcom_homepage
+    name: "MOFCOM Homepage (商务部 — all sections via homepage)"
+    language: zh
+    type: html_list
+    list_url: "https://www.mofcom.gov.cn/"
+    link_pattern: '/[a-z]+/[a-z]+/art/\d{4}/art_[a-f0-9]+\.html'
+    link_base: "https://www.mofcom.gov.cn"
+
+  - id: gov_cn_homepage
+    name: "State Council Homepage (国务院 — policy releases via homepage)"
+    language: zh
+    type: html_list
+    list_url: "https://www.gov.cn/"
+    link_pattern: 'gov\.cn/zhengce/(content|zhengceku|jiedu/tujie)/\d{6}/content_\d+\.htm'
+    link_base: "https://www.gov.cn"
+
+  # ============================================================
+  # CHINESE GOVERNMENT — DISABLED (JS-rendered; need Playwright)
+  # Re-enable after switching to a headless-browser fetcher.
+  # ============================================================
+
+  - id: miit_announcements
+    enabled: false
+    name: "MIIT Raw Materials Department (工信部 原材料工业司) — JS-RENDERED"
+    language: zh
+    type: html_list
+    list_url: "https://www.miit.gov.cn/jgsj/ycls/wjfb/index.html"
+    link_pattern: 'art/\d{4}/\d{1,2}/\d{1,2}/art_[^"]+\.html'
+    link_base: "https://www.miit.gov.cn"
+
+  - id: mof_policy
+    enabled: false
+    name: "Ministry of Finance Policy (财政部) — JS-RENDERED"
+    language: zh
+    type: html_list
+    list_url: "http://www.mof.gov.cn/zhengwuxinxi/zhengcefabu/"
+    link_pattern: '/zhengwuxinxi/zhengcefabu/[^"]+\.htm'
+    link_base: "http://www.mof.gov.cn"
+
+  - id: acrei_index
+    enabled: false
+    name: "ACREI (中国稀土行业协会) — JS-RENDERED; use Sina mirror instead"
+    language: zh
+    type: html_list
+    list_url: "https://www.ac-rei.org.cn/portal/list/index/id/3.html"
+    link_pattern: '/article/[a-f0-9\-]+'
+    link_base: "https://www.ac-rei.org.cn"
+
+  # ============================================================
+  # US GOVERNMENT — VERIFIED WORKING (English, no translation needed)
+  # ============================================================
+
+  - id: federal_register_ustr
+    name: "Federal Register — USTR"
+    language: en
+    type: rss
+    feed_url: "https://www.federalregister.gov/api/v1/documents.rss?conditions[agencies][]=trade-representative-office-of-united-states"
+
+  - id: federal_register_bis
+    name: "Federal Register — Bureau of Industry & Security"
+    language: en
+    type: rss
+    feed_url: "https://www.federalregister.gov/api/v1/documents.rss?conditions[agencies][]=industry-and-security-bureau"
+
+  - id: federal_register_commerce
+    name: "Federal Register — Department of Commerce"
+    language: en
+    type: rss
+    feed_url: "https://www.federalregister.gov/api/v1/documents.rss?conditions[agencies][]=commerce-department"
+
+  - id: federal_register_treasury
+    name: "Federal Register — Treasury (sanctions/OFAC)"
+    language: en
+    type: rss
+    feed_url: "https://www.federalregister.gov/api/v1/documents.rss?conditions[agencies][]=treasury-department"
+
+  - id: cbp_csms
+    enabled: false
+    # The govdelivery RSS endpoint returns HTTP 406 as of May 2026 —
+    # CBP appears to have decommissioned the RSS feed. To monitor CSMS,
+    # subscribe by email at https://public.govdelivery.com/accounts/USDHSCBP
+    # or add a custom scraper for https://www.cbp.gov/trade/automated/cargo-systems-messaging-service
+    name: "CBP CSMS Bulletins — RSS feed dead (May 2026), disabled"
+    language: en
+    type: rss
+    feed_url: "https://content.govdelivery.com/accounts/USDHSCBP/bulletins.rss"
+
+  - id: ustr_press
+    name: "USTR Press Releases"
+    language: en
+    type: html_list
+    list_url: "https://ustr.gov/about-us/policy-offices/press-office/press-releases"
+    link_pattern: '/about-us/policy-offices/press-office/press-releases/\d{4}/[^"]+'
+    link_base: "https://ustr.gov"
+
+  - id: white_house_actions
+    name: "White House Presidential Actions"
+    language: en
+    type: html_list
+    list_url: "https://www.whitehouse.gov/presidential-actions/"
+    link_pattern: '/presidential-actions/\d{4}/\d{2}/[^"]+/'
+    link_base: "https://www.whitehouse.gov"

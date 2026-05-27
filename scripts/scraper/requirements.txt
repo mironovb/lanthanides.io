@@ -1,0 +1,8 @@
+requests>=2.31
+beautifulsoup4>=4.12
+trafilatura>=1.9
+feedparser>=6.0
+pyyaml>=6.0
+python-dotenv>=1.0
+deepl>=1.18
+lxml>=5.0
