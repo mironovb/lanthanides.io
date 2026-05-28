@@ -35,6 +35,12 @@ sys.path.insert(0, str(ROOT))
 
 from notify.telegram import send_digest as send_telegram_digest, send_health  # noqa: E402
 from notify.email import send_digest_email  # noqa: E402
+from triage import appraise  # noqa: E402
+
+# Articles scoring ≥ CRITICAL_THRESHOLD trigger a Telegram alert; below this
+# they're still triaged and recorded in run_state.json under `appraisals`,
+# just silently — no alert. Tune via env without a code change.
+CRITICAL_THRESHOLD = int(os.getenv("CRITICAL_THRESHOLD", "7"))
 
 # Path to the scraper script — invoked as a subprocess to keep its state
 # self-contained, OR import its main() if we want shared process.
@@ -163,6 +169,31 @@ def _parse_article_md(path: Path, url: str) -> dict:
     return frontmatter
 
 
+def triage_article(art: dict) -> dict:
+    """Read the article's full body and run the rule-based appraiser.
+
+    Falls back to the short summary if the file isn't on disk for any
+    reason — never blocks the pipeline on a triage glitch."""
+    title = art.get("title", "")
+    body = ""
+    fp = art.get("_file_path")
+    if fp and Path(fp).exists():
+        try:
+            txt = Path(fp).read_text(encoding="utf-8")
+            # Strip YAML frontmatter if present so the scorer sees the article
+            if txt.startswith("---"):
+                end = txt.find("---", 3)
+                if end > 0:
+                    txt = txt[end + 3:]
+            body = txt
+        except Exception as e:
+            log.warning("triage body-read failed for %s: %s", art.get("url"), e)
+            body = art.get("summary", "")
+    else:
+        body = art.get("summary", "")
+    return appraise(title, body).to_dict()
+
+
 # ---------------------------------------------------------------
 # Main
 # ---------------------------------------------------------------
@@ -212,20 +243,49 @@ def main():
         save_run_state(state)
         return 0
 
-    # 3. Dispatch notifications
-    if args.dry_run:
-        log.info("--dry-run — skipping Telegram dispatch")
-        for art in new_articles[:5]:
-            log.info("  %s — %s", art.get("source_id"), art.get("title", "")[:80])
-    else:
-        send_telegram_digest(new_articles, scraper_run_timestamp=now)
-        send_digest_email(new_articles, scraper_run_timestamp=now)  # stub for now
+    # 3. Triage every new article (rule-based, no LLM)
+    for art in new_articles:
+        art["triage"] = triage_article(art)
+    critical = [a for a in new_articles if a["triage"]["sensitivity"] >= CRITICAL_THRESHOLD]
+    non_critical = [a for a in new_articles if a["triage"]["sensitivity"] < CRITICAL_THRESHOLD]
+    log.info("triage: %d new → %d critical (≥%d), %d below threshold",
+             len(new_articles), len(critical), CRITICAL_THRESHOLD, len(non_critical))
 
-    # 4. Update state
+    # 4. Dispatch — Telegram fires ONLY for critical
+    if args.dry_run:
+        log.info("--dry-run — would dispatch %d critical (Telegram silent on the other %d)",
+                 len(critical), len(non_critical))
+        for art in critical[:10]:
+            t = art["triage"]
+            log.info("  [sens %d/%s] %s — %s", t["sensitivity"], t["category"],
+                     art.get("source_id"), art.get("title", "")[:80])
+    else:
+        if critical:
+            send_telegram_digest(critical, scraper_run_timestamp=now)
+            send_digest_email(critical, scraper_run_timestamp=now)  # stub for now
+        else:
+            log.info("no critical articles this run — Telegram silent")
+
+    # 5. Update state — mark ALL new as notified (no re-processing) AND
+    # record every triage outcome so non-critical items aren't silently lost.
     state["last_run"] = now
-    state["notified_urls"] = list(notified_urls.union(a["url"] for a in new_articles))
-    # Keep state file bounded — only retain the last 1000 URLs
-    state["notified_urls"] = state["notified_urls"][-1000:]
+    state["notified_urls"] = list(notified_urls.union(a["url"] for a in new_articles))[-1000:]
+
+    recent_appraisals = state.get("appraisals", [])
+    for art in new_articles:
+        t = art["triage"]
+        recent_appraisals.append({
+            "url":          art.get("url"),
+            "source_id":    art.get("source_id"),
+            "scored_at":    now,
+            "sensitivity":  t["sensitivity"],
+            "category":     t["category"],
+            "headline":     t["headline"],
+            "elements":     t["elements_affected"],
+            "instruments":  t["instruments_mentioned"],
+            "alerted":      t["sensitivity"] >= CRITICAL_THRESHOLD,
+        })
+    state["appraisals"] = recent_appraisals[-200:]   # cap history
     save_run_state(state)
     log.info("state saved; run complete")
     return 0

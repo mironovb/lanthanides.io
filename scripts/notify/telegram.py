@@ -182,17 +182,19 @@ def _build_messages(articles: list[dict], timestamp: str) -> list[str]:
     digest. Uses HTML formatting.
     """
     header = (
-        f"🔔 <b>REE regulatory monitor</b>\n"
-        f"<i>{len(articles)} new article{'s' if len(articles) != 1 else ''} detected at "
+        f"🚨 <b>REE CRITICAL ALERT</b>\n"
+        f"<i>{len(articles)} critical item{'s' if len(articles) != 1 else ''} flagged at "
         f"{timestamp[:19].replace('T', ' ')} UTC</i>\n"
         f"\n"
-        f"Full text of each is attached below as a Markdown file — run it through "
-        f"the analysis runbook to triage and update the framework.\n"
+        f"Each item passed the automatic appraiser at the critical threshold. "
+        f"Full text of each is attached below as a Markdown file — feed to "
+        f"the analysis runbook to update the framework / data files.\n"
         f"\n"
     )
     footer = (
         f"\n"
-        f"<i>Run the analysis runbook to triage and update the framework.</i>"
+        f"<i>Non-critical items from this run were triaged silently and recorded "
+        f"in scripts/run_state.json under `appraisals`.</i>"
     )
 
     messages = []
@@ -230,6 +232,18 @@ def _format_article(art: dict) -> str:
     if pub_date:
         block += f" · <i>{pub_date}</i>"
     block += "\n"
+
+    triage = art.get("triage") or {}
+    if triage:
+        sens = triage.get("sensitivity", "?")
+        cat = triage.get("category", "")
+        block += f"🎯 <b>sensitivity {sens}/10</b> · <i>{_escape(str(cat))}</i>\n"
+        insts = triage.get("instruments_mentioned") or []
+        if insts:
+            block += f"📜 <i>instruments:</i> {_escape(', '.join(insts))}\n"
+        elems = triage.get("elements_affected") or []
+        if elems:
+            block += f"🧪 <i>elements:</i> {_escape(', '.join(elems))}\n"
 
     if summary:
         if len(summary) > 350:

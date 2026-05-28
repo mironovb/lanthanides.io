@@ -50,6 +50,9 @@ jobs:
           # Non-secret: narrows the scrape to REE-relevant items so the digest isn't flooded.
           # Without it, passes_keyword_filter() returns True for everything. EN + 中文 terms.
           KEYWORD_FILTER: "rare earth,REE,稀土,permanent magnet,永磁,neodymium,praseodymium,dysprosium,terbium,yttrium,samarium,gadolinium,lutetium,scandium,镨,钕,镝,铽,钇,钐,钆,镥,钪,export control,出口管制,critical mineral,关键矿产,quota,配额,稀土配额,license,许可证,MOFCOM,商务部,MIIT,工信部,tariff,关税,Section 301,Section 232,IEEPA,NdFeB,SmCo"
+          # Articles scoring ≥ this trigger a Telegram alert; below this they're
+          # appraised silently and recorded in run_state.json under `appraisals`.
+          CRITICAL_THRESHOLD: "7"
         run: python scripts/run_monitor.py
 
       - name: Commit state changes (if any)
