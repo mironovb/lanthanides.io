@@ -1,12 +1,22 @@
 # lanthanides.io — Site Audit & Investment-Readiness Gaps
 
-> Audit date: 2026-05-31 · Branch: `main` · Audited at commit `56e980f`
+> Audit date: 2026-05-31 · Branch: `main` · Audited against current `main` (HEAD `2a0a1b9`; a prior pass mis-stated its base as `56e980f`, which predated `/framework/`)
 > Scope: the current static **Jekyll** repo (no Next.js yet). Read-only inventory.
 > This document is the reference that later migration prompts read. It is factual and
 > cites file paths. Where the older `docs/improvement-plan.md` (dated 2026-04-08)
 > disagrees with the repo, the repo wins — that plan is **stale** (it references
 > `supply-risk.html`, `heatmap.html`, `search.js`, `heatmap.js`, `_sass/_heatmap.scss`,
 > `alternative_supply.yml`, `header.html`, all of which no longer exist).
+>
+> **Re-evaluation note (2026-05-31):** a prior pass of this audit was written against the
+> stale base commit `56e980f`, which predates `d55ad05` ("feat: add `/framework/` — REE
+> import/export operational reference") and `0628880`/`44fdc1d` (the regulatory-monitor
+> automation). That pass omitted **(a)** the served **`/framework/` page** from the
+> inventory (§1.4), the permalink contract (§2), the navigation (§1.3), and the crown-jewel
+> discussion (§6); and **(b)** the **regulatory-monitor pipeline** (`.github/workflows/regulatory-monitor.yml`
+> + `scripts/scraper|triage|notify`) that keeps the regulatory data fresh. This revision
+> adds both and corrects the nav link count (8 → 9). Every other count and claim below was
+> re-verified against the working tree and stands unchanged.
 
 ---
 
@@ -16,7 +26,7 @@
 
 | File | What it does |
 |:--|:--|
-| `_config.yml` | Jekyll config. Collections `elements` (`/elements/:name/`) and `articles` (`/news/:name/`); plugins `jekyll-feed`, `jekyll-seo-tag`, `jekyll-sitemap`; kramdown + rouge; `permalink: pretty`; compressed Sass. Excludes `scripts/`, `invoices/`, `outreach/`, `_data/demo/`, `*.py`, `README.md`, `LICENSE` from the build. |
+| `_config.yml` | Jekyll config. Collections `elements` (`/elements/:name/`) and `articles` (`/news/:name/`); plugins `jekyll-feed`, `jekyll-seo-tag`, `jekyll-sitemap`; kramdown + rouge; `permalink: pretty`; compressed Sass. Excludes `Gemfile`, `Gemfile.lock`, `scripts/`, `invoices/`, `outreach/`, `node_modules/`, `vendor/`, `README.md`, `LICENSE`, `*.py`, `requirements.txt`, `_data/demo/` from the build. **`pages/framework.md` is NOT excluded → it builds and serves at `/framework/`.** |
 | `Gemfile` / `Gemfile.lock` | Jekyll `~> 4.4`, `webrick ~> 1.9`, plugins feed/seo-tag/sitemap. No framework. |
 | `CNAME` | `www.lanthanides.io` (root-domain GitHub Pages; **no** `/project/` base path). |
 | `.gitignore` | Ignores `_site/`, caches, `invoices/*` (except `.gitkeep`), `.env`, **`prompts/`**, **`logs/`**, `run-all.sh`, `outreach/suppliers.yml`, `outreach/drafts/`. (So `prompts/` being untracked is expected.) |
@@ -32,6 +42,7 @@
 | `.github/PULL_REQUEST_TEMPLATE.md` | PR template. |
 | `.github/workflows/community-intake.yml` | **Manual-dispatch-only** workflow: ingests an `approved`-labelled price-update issue → opens a PR (two human checkpoints; never auto-runs on issue creation). |
 | `.github/workflows/price-update.yml` | Scheduled/again-manual price refresh workflow. |
+| `.github/workflows/regulatory-monitor.yml` | **Regulatory-monitor automation** (added `0628880`, refined `44fdc1d`): cron every 6h (+ manual dispatch) → runs `scripts/run_monitor.py` (polls Chinese-gov sources via `scripts/scraper/`, scores significance via `scripts/triage.py`, alerts via `scripts/notify/{telegram,email}.py`), commits `scripts/run_state.json` back as the **`regulatory-monitor` bot** (the frequent "monitor: state update" commits). Keeps the crown-jewel regulatory data current; see §1.9, §5, §6. |
 
 ### 1.2 Layouts (`_layouts/`)
 
@@ -42,14 +53,14 @@
 | `element-detail.html` | Element page: identity block, two-price cards (retail/bulk), **Price Movement panel + Price History chart**, inline regulatory notice, body content, related elements, prev/next, full element nav bar. | `element_catalog`, `price_records`, `price_history`, `fluctuations` (via includes) |
 | `article.html` | Long-form article: meta, status badge, element tags, hero image, body, back link. | front-matter |
 | `page.html` | Minimal `<h1>` + content wrapper (currently unused by any page). | — |
-| `data-page.html` | Title + description + content wrapper. Used by `methodology`, `regulatory`, `sources`. | — |
+| `data-page.html` | Title + description + content wrapper. Used by `methodology`, `regulatory`, `sources`, **`framework`**. | — |
 
 ### 1.3 Includes (`_includes/`)
 
 | File | What it does | Reads | Mounted by |
 |:--|:--|:--|:--|
 | `head.html` | `<head>`: favicons, manifest, `theme-color #1A5C6B`, **Inter + JetBrains Mono** Google Fonts, SEO/OG/Twitter meta, canonical, `{% feed_meta %}`, movements.xml `<link>`. | `site`, `page` | `default.html` |
-| `nav.html` | Fixed header: logo + 8 links (Dashboard, Prices, Regulatory, Movements, News, Methodology, About, Contribute) + mobile toggle. | `page.url` | `default.html` |
+| `nav.html` | Fixed header: logo + **9 links** (Dashboard, Prices, Regulatory, **Framework**, Movements, News, Methodology, About, Contribute) + mobile toggle. Framework sits immediately after Regulatory (header-only — **not** in the footer, mirroring how Sources is footer-only). | `page.url` | `default.html` |
 | `footer.html` | Footer nav (8 links incl. **Sources**, not in header), live freshness badge computed from newest `quote_date`, license/build stamp. | `price_records`, `site.elements`, `site.time` | `default.html` |
 | `element-grid.html` | Compact tile grid of all 31 elements (category color, retail/bulk price, indicators). | `element_catalog`, `price_records` (via `price-selection`) | `home.html` |
 | `price-selection.html` | **Shared selection logic**: `retail_ref` (metal-preferred, 5 g–1 kg, conf ≥ 0.5, lowest) + `bulk_ref` (most recent bulk/industrial, conf ≥ 0.6). | `price_records` | element-detail, element-grid, price-table |
@@ -77,6 +88,7 @@
 | `pages/prices.html` | `/prices/` | "The Ledger" — server `price-table.html`, then **`ledger.js` replaces it** with an interactive table fetched from `elements.json`. | `element_catalog`, `price_records`; JS reads `assets/data/elements.json` |
 | `pages/elements.html` | `/elements/` | Full directory, 4 category tables. **Duplicates** the retail/bulk selection algorithm inline (lines 62-99) instead of using `price-selection.html`. | `element_catalog`, `price_records`, `site.elements` |
 | `pages/regulatory.html` | `/regulatory/` | **Export-control tracker**: filter chips, notice cards (per `_data/regulatory/*.yml`), announcement timeline (per `policy_events.yml`), legal references. | `element_catalog`, `regulatory`, `policy_events` |
+| `pages/framework.md` | `/framework/` | **REE import/export operational framework** (`data-page` layout): quick-start decision tree, 3-tier regulatory classification (uncontrolled / general-licence / case-by-case), post-IEEPA US tariff stack, China-side control summary + per-element licence-status table, multiplicative realised-price model, four-axis landed-cost decomposition with worked examples + lot-size sensitivity, buyer playbook, channels/counterparties, 2026 decision-trigger calendar. ~450 lines, heavily sourced, **table-driven (no charts)**; reconciles against `_data/regulatory/mofcom_18_2025.yml` + `mofcom_55_62_2025.yml`. | static prose; deep-links `/regulatory/`, `/methodology/`, `/elements/*` |
 | `pages/movements.html` | `/movements/` | Auto-generated movements feed (>10% / 30d + regulatory changes) + Atom link. | `movements` |
 | `pages/news.html` | `/news/` | Article tile grid. **Uses the `articles` collection, NOT `_data/news.yml`.** | `site.articles` |
 | `pages/methodology.md` | `/methodology/` | Full methodology: two-price rationale, normalization, provenance chain, trust tiers, **live source-breakdown table** from `source_breakdown.yml`. | `source_breakdown` |
@@ -130,6 +142,8 @@
 
 `scripts/*.py` (validate, normalize, generate, import invoices/offers, detect movements, build snapshots, fluctuations, source breakdown, placeholder generator), `outreach/*.py` (consent-gated supplier intake), `invoices/`, `logs/`, `prompts/`. Excluded via `_config.yml`/`.gitignore`.
 
+**Regulatory-monitor pipeline** (out-of-build, but a real asset — see §5/§6): `scripts/run_monitor.py` + `scripts/run_state.json` (orchestrator + dedup/seen state), `scripts/scraper/monitor.py` + `scripts/scraper/sources.yaml` (polls MOFCOM homepage, gov.cn, and RSS/Atom feeds for REE-relevant announcements), `scripts/triage.py` (rule-based 1–10 significance scorer, biased low to avoid false-positive alerts), `scripts/notify/{telegram,email}.py` (alert channels). Driven by `.github/workflows/regulatory-monitor.yml`; its automated commits are authored by the `regulatory-monitor` bot.
+
 ---
 
 ## 2. Routing / permalinks (MUST be preserved by the migration)
@@ -142,6 +156,7 @@ Every public URL the current site serves. This is the contract the Next.js migra
 - `/prices/`
 - `/elements/`
 - `/regulatory/`
+- `/framework/` — **served page (`pages/framework.md`); was missing from the prior pass. Part of the contract.**
 - `/movements/`
 - `/news/`
 - `/methodology/`
@@ -169,7 +184,7 @@ Every public URL the current site serves. This is the contract the Next.js migra
 - `/humans.txt`
 - `/assets/images/site.webmanifest`
 
-> ⚠️ Migration note: `/elements/<Sym>/` uses **case-sensitive** symbols. Several pages also deep-link `/methodology/#display-price`, `/methodology/#provenance-chain`, `/methodology/#data-sources-breakdown`, `/methodology/#oxide-to-metal` — preserve those anchors.
+> ⚠️ Migration note: `/elements/<Sym>/` uses **case-sensitive** symbols. Several pages also deep-link `/methodology/#display-price`, `/methodology/#provenance-chain`, `/methodology/#data-sources-breakdown`, `/methodology/#oxide-to-metal` — preserve those anchors. The `/framework/` page also exposes in-page anchors (`#pricing`, `#us-side-tariff-stack-may-14-2026`) for its own internal navigation — preserve them too.
 
 ---
 
@@ -219,7 +234,7 @@ Untracked junk in the working tree: `chat.md`, `combined.txt`, `combined 2.txt`,
 
 ### 4.5 Apologetic "sparse data" framing (positioning)
 The site repeatedly apologizes for thin coverage: `methodology.md:406` "## Why Some Pages Show Sparse Data," dashboard copy "We don't hide thin coverage," "Insufficient data yet," "confidence is generally low." Honesty is good; *apology* is not — it reads as a student hedging.
-**Fix:** reframe transparency as a *feature* ("provenance-first; we show our work") and lead with the regulatory intelligence that **is** deep, rather than foregrounding what's missing. → *content/positioning phase.*
+**Fix:** reframe transparency as a *feature* ("provenance-first; we show our work") and lead with the regulatory intelligence that **is** deep, rather than foregrounding what's missing. The existing `/framework/` page already models this confident, declarative, decision-oriented voice — use it as the in-repo tone reference. → *content/positioning phase.*
 
 ### 4.6 No clear value proposition / "who is this for" above the fold (positioning)
 The home hero ("Rare earth & critical metal prices, with provenance.") states *what* but not *for whom* or *why now*. `.impeccable.md` names the audience (investors, journalists, analysts) but the page never does. There is no above-the-fold hook tying the (world-class) export-control tracking to a decision a reader is trying to make.
@@ -267,9 +282,13 @@ These are real, hard-won, and differentiating. Carry every one forward.
 - `.github/ISSUE_TEMPLATE/{price-update,data-correction,market-note}.yml` + `PULL_REQUEST_TEMPLATE.md`.
 - `.github/workflows/community-intake.yml` — the manual-dispatch, `approved`-label-gated, PR-opening "two human checkpoints" flow (and the matching `outreach/community_intake.py`). This consent-/review-gated provenance model is itself a credibility asset and is documented on `/methodology/`.
 
+**Regulatory-monitoring automation** (the freshness engine behind the crown jewel)
+- `.github/workflows/regulatory-monitor.yml` + `scripts/scraper/` (`monitor.py`, `sources.yaml` — Chinese-gov + RSS pollers), `scripts/triage.py` (rule-based significance scorer), `scripts/notify/{telegram,email}.py`, `scripts/run_monitor.py` + `run_state.json` (dedup state). Runs every 6h and alerts only on critical announcements. This is what makes "updated as announcements land" literally true; carry the pipeline (and its bot-commit cadence) into the migration's ops story even though `scripts/` itself isn't served.
+
 **Content (the substance)**
 - All **31 element pages** (`_elements/*.md`) — sourced applications, market/supply stats, notes, properties, references.
 - All **5 articles** (`_articles/*.md`) — footnoted, publication-quality.
+- The **`/framework/` operational reference** (`pages/framework.md`) — ~450 lines of sourced import/export decision support (regulatory tiering, US tariff stack, realised-price model, landed-cost decomposition, channels, 2026 trigger calendar). A near-unique companion to the regulatory tracker; preserve verbatim and keep the `/framework/` URL.
 - `element_catalog.yml`, `price_records.json`, `policy_events.yml`, `regulatory/*.yml`, `source_registry.yml`, `site_settings.yml`, `methodology.md` — the data and the rules that govern it.
 - The two-price (Retail Reference / Bulk Benchmark) model and the `price-selection.html` logic.
 
@@ -277,12 +296,13 @@ These are real, hard-won, and differentiating. Carry every one forward.
 
 ## 6. Crown jewel — the MOFCOM/GAC regulatory tracker
 
-**The strongest, least-replicable asset on the site is the Chinese export-control tracker** (`pages/regulatory.html`, `_data/regulatory/*.yml`, `_data/policy_events.yml`), and the migration should make it the centerpiece — not a tab buried mid-nav.
+**The strongest, least-replicable asset on the site is the Chinese export-control tracker** (`pages/regulatory.html`, `_data/regulatory/*.yml`, `_data/policy_events.yml`) — now a *cluster* with its operational companion `/framework/` and an automated monitoring pipeline (fourth bullet below) — and the migration should make it the centerpiece, not a tab buried mid-nav.
 
 Why it's the differentiator:
 - **Depth and primary sourcing.** `_data/regulatory/mofcom_18_2025.yml` (and siblings) carry the **announcement number**, the **Chinese reference** (`商务部 海关总署公告2025年第18号`), issuing authority, issue/effective dates, exact affected elements and controlled forms, the **legal basis** (Article 15, Export Control Law of the PRC; 2024 Dual-Use Items Regulations), the **45-working-day** review period, and **suspension state** (e.g. "No. 18 was never suspended; Oct-2025 Nos. 55–62 suspended until 28 Nov 2026"). `policy_events.yml` strings 11 events from the July-2023 Ga/Ge controls through the Feb-2026 Japan sanctions into one coherent timeline.
 - **It answers the question the audience actually has.** The brief's primary user (investor/journalist/analyst) needs "is this element controlled, by which announcement, since when, and is it suspended?" — and almost no English-language source assembles this with citations. The element pages already reflect it inline (`Dy.md` banner cites No. 18/2025 + the 28-Nov-2026 suspension key date), and the dashboard/regulatory snapshot quantify it.
 - **It's defensible.** Prices are thin and will always be contestable; the regulatory corpus is deep, dated, sourced, and updated as announcements land. It is the thing a funder can verify in five minutes and not find elsewhere.
+- **It now ships with two force-multipliers the prior pass missed.** (1) The **`/framework/` operational reference** (`pages/framework.md`) converts the tracker's *what/when* into procurement *how* — three-tier classification (uncontrolled / general-licence / case-by-case), the live post-IEEPA US tariff stack, a multiplicative realised-price model, four-axis landed-cost decomposition with worked examples, and a 2026 decision-trigger calendar — all reconciled against the same `_data/regulatory/*.yml` corpus, in ~450 lines of confident, sourced, decision-oriented prose (the clearest in-repo counter-example to the apologetic voice of §4.5). (2) An **automated monitoring pipeline** (`.github/workflows/regulatory-monitor.yml` → `scripts/scraper/` → `scripts/triage.py` → `scripts/notify/`) polls Chinese-government sources every six hours, scores each item's regulatory significance, and fires Telegram/email alerts only on critical announcements — the machinery that makes "updated as announcements land" literally true. Treat tracker + framework + monitor as one crown-jewel cluster; nav already keeps the first two adjacent (Regulatory → Framework).
 
 **Implication for the migration:** elevate the tracker to a hero position (home above-the-fold + a first-class destination), keep its data model intact, and let the (transparent) thin price data play a *supporting* role behind the regulatory intelligence rather than leading with apologies about sparse coverage (§4.5).
 
