@@ -21,6 +21,7 @@ import {
   loadPolicyEvents,
   loadPriceRecords,
   loadRegulatoryNotices,
+  loadSiteSettings,
   loadSourceBreakdown,
   loadSources,
 } from './load';
@@ -37,6 +38,7 @@ import type {
   PriceRecord,
   ReferencePrices,
   RegulatoryNotice,
+  SiteSettings,
   Source,
   SourceBreakdown,
 } from './types';
@@ -176,6 +178,12 @@ export function getSources(): Source[] {
 export function getSourceBreakdown(): SourceBreakdown {
   ensureVerified();
   return loadSourceBreakdown();
+}
+
+/** Configurable thresholds + display labels (source_trust_tiers, etc.). */
+export function getSiteSettings(): SiteSettings {
+  ensureVerified();
+  return loadSiteSettings();
 }
 
 // ── News ─────────────────────────────────────────────────────────────────────

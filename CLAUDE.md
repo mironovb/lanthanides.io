@@ -171,8 +171,18 @@ Each prompt must leave `npm run build` green. Later prompts tick these off.
   resolved to the live table; front-matter `title`/`description`/`keywords` drive
   metadata), related + prev/next nav. New: `components/elements/*`, `lib/content.ts`,
   `components/elements/element-body.css`. `/regulatory` landed in P7 (below).
-  **Remaining:** `/`, `/framework`, `/methodology`, `/sources`, `/about`, `/news`,
-  `/news/[slug]`.
+  **Content pages DONE** (the "Prompt 8" task in the local prompt sequence):
+  SSG `/methodology` (prose relocated to `app/methodology/methodology.md` so the
+  build never reads `legacy/`; live "Data sources breakdown" table from
+  `source_breakdown.yml`; deep-link anchors preserved via a heading-id renderer),
+  `/sources` (trust tiers from `site_settings.yml` + the source registry),
+  `/about` (live coverage counts; `TODO(P15)` marker for the investor reframe),
+  `/news` (the `_articles` collection as feature cards + the `news.yml` developments
+  timeline), and `/news/[slug]` (SSG over the 5 `_articles/*.md`,
+  `generateStaticParams`/`dynamicParams=false`, front-matter metadata + OG). New:
+  `lib/content.ts` article loaders, `lib/data` `getSiteSettings`,
+  `components/content/*` (`Markdown`, `SourceBreakdownTable`, `content-body.css`),
+  `components/news/*`. **Remaining:** `/`, `/framework`.
 - [ ] **7 — Data exports, feeds & dashboard.** `/dashboard`, `/movements`,
   `movements.xml`, `feed.xml`, `sitemap.ts`, `robots.ts`, `/data` landing, and the
   preserved `/assets/data/*.json` exports (build-generated). **Regulatory tracker
@@ -188,16 +198,22 @@ Each prompt must leave `npm run build` green. Later prompts tick these off.
   preserved no-trailing-slash URL). New: `components/regulatory/*`,
   `components/movements/*`; `lib/data` gains the movements reader (`getMovements`,
   `MovementEvent`/`MovementsFile` types, build-time smoke-parse) and
-  `getRegulatedAndSuspendedElements`. **Remaining:** `/dashboard`, `feed.xml`,
-  `sitemap.ts`, `robots.ts`, `/data` landing, and the preserved
-  `/assets/data/*.json` exports.
+  `getRegulatedAndSuspendedElements`. **Open-data `/data` + exports DONE** (the
+  "Prompt 8" task in the local prompt sequence): the `/data` landing page
+  (dataset description, provenance, CC BY 4.0, download links) and the preserved
+  `/assets/data/*.json` exports — `fluctuations.json` copied into `public/`
+  verbatim; `elements.json` 301→`/api/export/json/` (MIGRATION §3.4.1).
+  **Remaining:** `/dashboard`, `feed.xml`, `sitemap.ts`, `robots.ts`.
 - [ ] **8 — Commercial stubs & API.** **Prisma models (`Listing`,
   `Subscription`, `ScreenedOffer`) + seed: DONE** — the dynamic data model and the
   dataset-seeded `ScreenedOffer` feed (220 rows, `origin:"seed"`, SQLite dev /
   Postgres prod, ARCHITECTURE §5) landed early as the "Prompt 5" task in the local
-  prompt sequence (which the checklist numbers as part of P8, not P5/Design). **Remaining:**
+  prompt sequence (which the checklist numbers as part of P8, not P5/Design).
+  **`/api/export/[format]` DONE** (the "Prompt 8" task in the local prompt
+  sequence): json/csv open-data export of the 238 price records from `lib/data`,
+  CC BY 4.0 headers, both formats build-time static. **Remaining:**
   stub routes `/tools/price-gauge`, `/sell`, `/offers`, `/alerts`; handlers
-  `/api/price-gauge`, `/api/listings`, `/api/subscribe`, `/api/export/[format]`.
+  `/api/price-gauge`, `/api/listings`, `/api/subscribe`.
 - [ ] **9–24 — Polish & rebuilds** (MIGRATION §4): visualization rebuilds
   (AUDIT §3), content/positioning (§4.5–§4.6), design polish (Prompt 11 = full
   design system), PWA/manifest fixes (§4.8, incl. `/periodicpricing/…` →

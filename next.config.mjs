@@ -4,9 +4,27 @@ const nextConfig = {
   // trailing slash. See docs/MIGRATION.md §3 (the hard URL contract).
   trailingSlash: true,
 
-  // Redirects (notably /prices/ → 301 → /elements/, MIGRATION §3.5) and any
-  // rewrites are added alongside the routes they target in later prompts, once
-  // those destination routes actually exist.
+  async redirects() {
+    return [
+      // MIGRATION §3.5 — the one page URL that changes. The legacy interactive
+      // "Ledger" (/prices/) is merged into the canonical /elements/ directory.
+      // statusCode: 301 (not `permanent: true`, which emits 308) to honour the
+      // documented 301 contract verbatim.
+      {
+        source: '/prices',
+        destination: '/elements/',
+        statusCode: 301,
+      },
+      // The legacy Jekyll-generated per-element export (/assets/data/elements.json)
+      // is superseded by the canonical, always-fresh price-records export. Its
+      // only consumer was the retired interactive ledger JS. See MIGRATION §3.4.
+      {
+        source: '/assets/data/elements.json',
+        destination: '/api/export/json/',
+        statusCode: 301,
+      },
+    ];
+  },
 };
 
 export default nextConfig;

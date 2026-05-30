@@ -398,6 +398,24 @@ export interface NewsItem {
   article?: string; // slug → _articles/<slug>.md (present on the long-form items)
 }
 
+// ── SiteSettings  (from _data/site_settings.yml) ─────────────────────────────
+// Configurable thresholds and display labels. Field names verbatim; the trust
+// tiers / label maps are keyed exactly as authored (numeric keys parse to JS
+// number keys via YAML).
+
+export interface SiteSettings {
+  freshness_threshold_days: number;
+  stale_threshold_days: number;
+  default_currency: string;
+  default_unit: string;
+  high_confidence_minimum: number;
+  medium_confidence_minimum: number;
+  verification_labels: Record<string, string>;
+  source_trust_tiers: Record<number, string>; // 1 (highest) .. 5
+  category_labels: Record<ElementCategory, string>;
+  export_control_labels: Record<ExportControlStatus, string>;
+}
+
 // ── Derived / aggregate result shapes (computed by lib/data/index.ts) ────────
 
 /** Output of the ported reference-price selection (lib/price-gauge.ts). */

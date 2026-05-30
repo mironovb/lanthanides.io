@@ -163,13 +163,32 @@ emitting the exact 31 symbols from `element_catalog.yml`:
 | `/robots.txt` | `app/robots.ts` | Next robots (sitemap pointer preserved) |
 | `/humans.txt` | `public/humans.txt` | static file |
 | `/assets/images/site.webmanifest` | `public/assets/images/site.webmanifest` | static file — **fix the `/periodicpricing/...` icon paths (§4.8) → `/assets/images/...`** and align theme/background colors to brand tokens |
-| `/assets/data/elements.json` | `public/assets/data/elements.json` | **open-data export — URL preserved**, regenerated at build from the canonical store |
-| `/assets/data/fluctuations.json` | `public/assets/data/fluctuations.json` | **open-data export — URL preserved** |
+| `/assets/data/elements.json` | **301 → `/api/export/json/`** (P8) | superseded by the canonical price-records export — see §3.4.1 |
+| `/assets/data/fluctuations.json` | `public/assets/data/fluctuations.json` | **open-data export — URL preserved** (P8: copied from canonical `_data/fluctuations.json`) |
 | `/assets/images/*` (favicons, og-default.png, logos) | `public/assets/images/*` | static files (binaries carried over verbatim) |
 
 > Anchors to preserve (deep-linked from multiple pages): `/methodology/#display-price`, `#provenance-chain`,
 > `#data-sources-breakdown`, `#oxide-to-metal`; and on `/framework/`: `#pricing`, `#us-side-tariff-stack-may-14-2026`.
 > Section `id`s must match so existing inbound links and in-page navigation keep working.
+
+#### 3.4.1 Open-data export — decisions taken in Prompt 8
+
+The canonical open-data export is now the route handler **`/api/export/[format]`** (`format` ∈ `json` | `csv`),
+generated from the price-records dataset via `lib/data` so a download can never drift from what the site renders.
+Both formats are pre-rendered at build (`generateStaticParams` + `dynamicParams=false`) and carry CC BY 4.0 headers
+(`X-License`, `Link: …; rel="license"`) plus `Access-Control-Allow-Origin: *`. The `/data` landing page documents the
+dataset, provenance, licence, and every download link.
+
+The two legacy `/assets/data/*.json` URLs are handled as follows so every old URL keeps resolving:
+
+- **`/assets/data/elements.json` → 301 → `/api/export/json/`.** The legacy file was a *Jekyll template* (not a committed
+  static JSON), produced a per-element retail/bulk **summary**, and its only consumer was the retired interactive ledger
+  JS (`legacy/assets/js/ledger.js`, replaced by the server-rendered `/elements`). The canonical price-records export is a
+  superset, so the URL redirects there rather than reproducing a thinner shape.
+- **`/assets/data/fluctuations.json` → preserved as a static file** at `public/assets/data/fluctuations.json`. It is real
+  pre-computed data (byte-identical to canonical `_data/fluctuations.json`), so Prompt 8 copies it into `public/` to keep
+  the exact URL serving the exact shape. (Prompt 7 wires build-time regeneration from the canonical store; until then the
+  copy is refreshed per build.)
 
 ### 3.5 The one URL that changes
 
@@ -177,6 +196,12 @@ emitting the exact 31 symbols from `element_catalog.yml`:
 interactive) and `/elements/` (the directory, 4 category tables). They are merged into a single canonical price
 directory at `/elements/` (resolving `AUDIT.md` §4.3 / viz item #11 — two stores, one truth). `/prices/` becomes a
 permanent redirect to `/elements/` so no inbound link breaks. This is the only public page URL that changes.
+
+> **Wired in Prompt 8.** `next.config.mjs` now serves this as an explicit `statusCode: 301` redirect (not Next's
+> `permanent: true`, which emits 308) to honour the "301" contract verbatim. Chosen over adding a thin `/prices` page:
+> the merge into `/elements/` is the documented intent, and a second near-duplicate table would re-introduce the very
+> two-stores problem this resolves. (`trailingSlash: true` first normalises a slashless `/prices` → `/prices/`, which
+> then 301s to `/elements/`.)
 
 > New routes introduced by the commercial direction have **no** old equivalent and therefore need no redirect:
 > `/data`, `/tools/price-gauge`, `/sell`, `/offers`, `/alerts`, and all `/api/*`. The nav label "Prices" repoints to
@@ -220,7 +245,7 @@ Every must-preserve asset from `AUDIT.md` §5, with its new home. Nothing on thi
 | ☐ **Custom movements Atom feed** (`/movements.xml`, category-tagged) | `app/movements.xml/route.ts` |
 | ☐ **robots** (`/robots.txt` + sitemap pointer) | `app/robots.ts` |
 | ☐ **Favicons / manifest** (ico/16/32/svg/apple-touch/android-chrome 192+512, `site.webmanifest`) | `public/assets/images/*`; **fix `/periodicpricing/...`→`/assets/images/...` paths and align colors (§4.8)** |
-| ☐ **Open-data export** (`/assets/data/elements.json`, `/assets/data/fluctuations.json`) | `public/assets/data/*.json` (generated at build) + new `/api/export/[format]`; URLs preserved |
+| ◑ **Open-data export** (`/assets/data/elements.json`, `/assets/data/fluctuations.json`) | P8: `/api/export/[format]` (json/csv) is canonical; `fluctuations.json` preserved as a static file in `public/`; `elements.json` 301s to the export. See §3.4.1. |
 | ☐ **CC BY 4.0 + MIT dual license** | `LICENSE` unchanged; surfaced in footer, `<head>` `rel="license"`, and Atom `<rights>` |
 | ☐ **Contributor pipeline** (issue templates, PR template, `community-intake.yml`, two-human-checkpoint flow) | unchanged — data stays in `_data/`, flow stays a git-PR flow |
 | ☐ **Regulatory-monitor pipeline** (`regulatory-monitor.yml`, `scripts/scraper/`, `triage.py`, `notify/`, `run_monitor.py`, `run_state.json`) | `scripts/` unchanged; still commits to `_data/` on its 6-hour cadence |

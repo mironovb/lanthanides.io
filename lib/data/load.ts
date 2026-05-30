@@ -23,6 +23,7 @@ import type {
   PriceHistory,
   PriceRecord,
   RegulatoryNotice,
+  SiteSettings,
   Source,
   SourceBreakdown,
 } from './types';
@@ -252,4 +253,15 @@ export const loadSourceBreakdown = once<SourceBreakdown>(() => {
     fail(file, 'expected a mapping with a "by_source_type" list');
   }
   return data as unknown as SourceBreakdown;
+});
+
+// ── Site settings ──────────────────────────────────────────────────────────
+
+export const loadSiteSettings = once<SiteSettings>(() => {
+  const file = 'site_settings.yml';
+  const data = readYaml<unknown>(file);
+  if (!isObject(data) || !isObject(data.source_trust_tiers)) {
+    fail(file, 'expected a mapping with a "source_trust_tiers" map');
+  }
+  return data as unknown as SiteSettings;
 });

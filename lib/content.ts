@@ -1,7 +1,7 @@
 /**
  * Markdown-body loader for the in-place Jekyll content collections
- * (`_elements/*.md` now; `_articles/*.md` joins in the news prompt — see
- * docs/ARCHITECTURE.md §1, "keep in place").
+ * (`_elements/*.md` and `_articles/*.md` — see docs/ARCHITECTURE.md §1,
+ * "keep in place").
  *
  * The element/article markdown carries Jekyll-era YAML front matter plus an
  * HTML-rich body (tables, `<div>` blocks, `&thinsp;` entities, and embedded
@@ -13,11 +13,12 @@
  * handlers, never from a Client Component. Each file is parsed at most once per
  * process.
  */
-import { readFileSync } from 'node:fs';
+import { readdirSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import matter from 'gray-matter';
 
 const ELEMENTS_DIR = join(process.cwd(), '_elements');
+const ARTICLES_DIR = join(process.cwd(), '_articles');
 
 /** Front matter authored on every `_elements/<Symbol>.md` (verbatim keys). */
 export interface ElementFrontMatter {
@@ -65,4 +66,92 @@ export function getElementContent(symbol: string): ElementContent | null {
 
   elementCache.set(symbol, result);
   return result;
+}
+
+// ── Articles (_articles/*.md) ────────────────────────────────────────────────
+
+/**
+ * Front matter authored on every `_articles/<slug>.md` (verbatim keys). Mirrors
+ * the fields the legacy `_layouts/article.html` and `pages/news.html` consume.
+ * `date` is normalised to an ISO `YYYY-MM-DD` string in the loader (gray-matter
+ * parses an unquoted YAML date into a JS `Date`).
+ */
+export interface ArticleFrontMatter {
+  title: string;
+  subtitle?: string;
+  description?: string;
+  keywords?: string;
+  date: string; // 'YYYY-MM-DD' (normalised)
+  status?: string; // 'active' | 'suspended' | ...
+  elements?: string[]; // related element symbols
+  image?: string; // hero image filename under /assets/images/
+  image_thumb?: string; // card thumbnail filename
+  image_alt?: string;
+}
+
+export interface ArticleContent {
+  slug: string;
+  frontMatter: ArticleFrontMatter;
+  /** Markdown body (GFM + occasional inline HTML); rendered by the page. */
+  body: string;
+}
+
+/** Normalise a front-matter date (string or gray-matter `Date`) to 'YYYY-MM-DD'. */
+function toISODate(value: unknown): string {
+  if (value instanceof Date) return value.toISOString().slice(0, 10);
+  return String(value ?? '').slice(0, 10);
+}
+
+let slugCache: string[] | undefined;
+
+/** All article slugs (filenames without `.md`), discovered from `_articles/`. */
+export function getArticleSlugs(): string[] {
+  if (slugCache) return slugCache;
+  let files: string[];
+  try {
+    files = readdirSync(ARTICLES_DIR).filter((f) => f.endsWith('.md'));
+  } catch (err) {
+    throw new Error(
+      `[lib/content] could not list _articles: ${(err as Error).message}`,
+    );
+  }
+  slugCache = files.map((f) => f.replace(/\.md$/, '')).sort();
+  return slugCache;
+}
+
+const articleCache = new Map<string, ArticleContent | null>();
+
+/**
+ * Load an article's front matter + body by slug. Returns `null` when no
+ * `_articles/<slug>.md` exists (the `/news/[slug]` page then 404s). Slug is
+ * validated to a plain article slug (defence-in-depth against path traversal).
+ */
+export function getArticleContent(slug: string): ArticleContent | null {
+  if (articleCache.has(slug)) return articleCache.get(slug) ?? null;
+
+  let result: ArticleContent | null = null;
+  if (/^[A-Za-z0-9-]+$/.test(slug)) {
+    try {
+      const raw = readFileSync(join(ARTICLES_DIR, `${slug}.md`), 'utf8');
+      const { data, content } = matter(raw);
+      result = {
+        slug,
+        frontMatter: { ...(data as ArticleFrontMatter), date: toISODate(data.date) },
+        body: content,
+      };
+    } catch {
+      result = null;
+    }
+  }
+
+  articleCache.set(slug, result);
+  return result;
+}
+
+/** Every article, newest first by `date` — the source for the `/news` index. */
+export function getAllArticles(): ArticleContent[] {
+  return getArticleSlugs()
+    .map((slug) => getArticleContent(slug))
+    .filter((a): a is ArticleContent => a !== null)
+    .sort((a, b) => b.frontMatter.date.localeCompare(a.frontMatter.date));
 }

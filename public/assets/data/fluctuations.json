@@ -1,0 +1,3772 @@
+{
+  "elements": {
+    "Bi": {
+      "data_quality": "sparse",
+      "data_since": "2026-03-15",
+      "data_until": "2026-03-15",
+      "distinct_days": 1,
+      "latest_bulk_price": null,
+      "latest_lab_price": null,
+      "latest_retail_price": {
+        "contributing_observations": 3,
+        "currency": "USD",
+        "date": "2026-03-15",
+        "form_summary": "metal",
+        "notes": "Median of 3 retail offers (ALB Materials, Edgetech Industries, Stanford Advanced Materials)",
+        "price_per_kg": 13.0,
+        "source_type": "median_aggregate",
+        "sources": [
+          "alb-materials-01",
+          "edgetech-industries-01",
+          "stanford-advanced-materials-01"
+        ]
+      },
+      "observation_count": 3,
+      "tiers": {
+        "bulk": {
+          "distinct_days": 0,
+          "observation_count": 0,
+          "windows": {
+            "1y": null,
+            "30d": null,
+            "7d": null,
+            "90d": null,
+            "all_time": null
+          }
+        },
+        "lab": {
+          "distinct_days": 0,
+          "observation_count": 0,
+          "windows": {
+            "1y": null,
+            "30d": null,
+            "7d": null,
+            "90d": null,
+            "all_time": null
+          }
+        },
+        "retail": {
+          "distinct_days": 1,
+          "observation_count": 3,
+          "windows": {
+            "1y": null,
+            "30d": null,
+            "7d": null,
+            "90d": null,
+            "all_time": null
+          }
+        }
+      }
+    },
+    "Ce": {
+      "data_quality": "moderate",
+      "data_since": "2026-03-15",
+      "data_until": "2026-04-04",
+      "distinct_days": 2,
+      "latest_bulk_price": {
+        "contributing_observations": 2,
+        "currency": "USD",
+        "date": "2026-04-04",
+        "form_summary": "oxide",
+        "notes": "Median of 2 bulk offers (Changzhou Geoquin (Alibaba), Star Earth Minerals (Alibaba))",
+        "price_per_kg": 2.7,
+        "source_type": "median_aggregate",
+        "sources": [
+          "Changzhou Geoquin (Alibaba)",
+          "Star Earth Minerals (Alibaba)"
+        ]
+      },
+      "latest_lab_price": null,
+      "latest_retail_price": {
+        "contributing_observations": 4,
+        "currency": "USD",
+        "date": "2026-04-04",
+        "form_summary": "metal, oxide",
+        "notes": "Median of 7 retail offers (ALB Materials, Edgetech Industries, Luciteria, Stanford Advanced Materials + 2 more)",
+        "price_per_kg": 28.0,
+        "source_type": "median_aggregate",
+        "sources": [
+          "Luciteria",
+          "Various polishing sellers (eBay)",
+          "leroy500 (eBay)"
+        ]
+      },
+      "observation_count": 9,
+      "tiers": {
+        "bulk": {
+          "distinct_days": 1,
+          "observation_count": 2,
+          "windows": {
+            "1y": null,
+            "30d": null,
+            "7d": null,
+            "90d": null,
+            "all_time": null
+          }
+        },
+        "lab": {
+          "distinct_days": 0,
+          "observation_count": 0,
+          "windows": {
+            "1y": null,
+            "30d": null,
+            "7d": null,
+            "90d": null,
+            "all_time": null
+          }
+        },
+        "retail": {
+          "distinct_days": 2,
+          "observation_count": 7,
+          "windows": {
+            "1y": {
+              "abs_change": 209.0,
+              "actual_span_days": 20,
+              "confidence": "low",
+              "confidence_note": "Based on 7 observation(s) across 2 distinct day(s), spanning 20 day(s).",
+              "direction": "up",
+              "distinct_days_in_window": 2,
+              "end_date": "2026-04-04",
+              "end_price": 211.0,
+              "observations_in_window": 7,
+              "pct_change": 10450.0,
+              "start_date": "2026-03-15",
+              "start_price": 2.0,
+              "window_days": 365
+            },
+            "30d": {
+              "abs_change": 209.0,
+              "actual_span_days": 20,
+              "confidence": "low",
+              "confidence_note": "Based on 7 observation(s) across 2 distinct day(s), spanning 20 day(s).",
+              "direction": "up",
+              "distinct_days_in_window": 2,
+              "end_date": "2026-04-04",
+              "end_price": 211.0,
+              "observations_in_window": 7,
+              "pct_change": 10450.0,
+              "start_date": "2026-03-15",
+              "start_price": 2.0,
+              "window_days": 30
+            },
+            "7d": null,
+            "90d": {
+              "abs_change": 209.0,
+              "actual_span_days": 20,
+              "confidence": "low",
+              "confidence_note": "Based on 7 observation(s) across 2 distinct day(s), spanning 20 day(s).",
+              "direction": "up",
+              "distinct_days_in_window": 2,
+              "end_date": "2026-04-04",
+              "end_price": 211.0,
+              "observations_in_window": 7,
+              "pct_change": 10450.0,
+              "start_date": "2026-03-15",
+              "start_price": 2.0,
+              "window_days": 90
+            },
+            "all_time": {
+              "abs_change": 209.0,
+              "actual_span_days": 20,
+              "confidence": "low",
+              "confidence_note": "Based on 7 observation(s) across 2 distinct day(s), spanning 20 day(s).",
+              "direction": "up",
+              "distinct_days_in_window": 2,
+              "end_date": "2026-04-04",
+              "end_price": 211.0,
+              "observations_in_window": 7,
+              "pct_change": 10450.0,
+              "start_date": "2026-03-15",
+              "start_price": 2.0,
+              "window_days": null
+            }
+          }
+        }
+      }
+    },
+    "Co": {
+      "data_quality": "moderate",
+      "data_since": "2026-03-15",
+      "data_until": "2026-04-04",
+      "distinct_days": 2,
+      "latest_bulk_price": {
+        "contributing_observations": 1,
+        "currency": "USD",
+        "date": "2026-03-15",
+        "form_summary": "metal",
+        "notes": "Median of 1 bulk offers (LME / Fastmarkets)",
+        "price_per_kg": 24.0,
+        "source_type": "median_aggregate",
+        "sources": [
+          "LME / Fastmarkets"
+        ]
+      },
+      "latest_lab_price": null,
+      "latest_retail_price": {
+        "contributing_observations": 2,
+        "currency": "USD",
+        "date": "2026-04-04",
+        "form_summary": "metal",
+        "notes": "Median of 3 retail offers (Metallos.de, discountelements (eBay), emovendo (eBay))",
+        "price_per_kg": 540.0,
+        "source_type": "median_aggregate",
+        "sources": [
+          "discountelements (eBay)",
+          "emovendo (eBay)"
+        ]
+      },
+      "observation_count": 4,
+      "tiers": {
+        "bulk": {
+          "distinct_days": 1,
+          "observation_count": 1,
+          "windows": {
+            "1y": null,
+            "30d": null,
+            "7d": null,
+            "90d": null,
+            "all_time": null
+          }
+        },
+        "lab": {
+          "distinct_days": 0,
+          "observation_count": 0,
+          "windows": {
+            "1y": null,
+            "30d": null,
+            "7d": null,
+            "90d": null,
+            "all_time": null
+          }
+        },
+        "retail": {
+          "distinct_days": 2,
+          "observation_count": 3,
+          "windows": {
+            "1y": {
+              "abs_change": 940.5,
+              "actual_span_days": 20,
+              "confidence": "low",
+              "confidence_note": "Based on 3 observation(s) across 2 distinct day(s), spanning 20 day(s).",
+              "direction": "up",
+              "distinct_days_in_window": 2,
+              "end_date": "2026-04-04",
+              "end_price": 1480.5,
+              "observations_in_window": 3,
+              "pct_change": 174.17,
+              "start_date": "2026-03-15",
+              "start_price": 540.0,
+              "window_days": 365
+            },
+            "30d": {
+              "abs_change": 940.5,
+              "actual_span_days": 20,
+              "confidence": "low",
+              "confidence_note": "Based on 3 observation(s) across 2 distinct day(s), spanning 20 day(s).",
+              "direction": "up",
+              "distinct_days_in_window": 2,
+              "end_date": "2026-04-04",
+              "end_price": 1480.5,
+              "observations_in_window": 3,
+              "pct_change": 174.17,
+              "start_date": "2026-03-15",
+              "start_price": 540.0,
+              "window_days": 30
+            },
+            "7d": null,
+            "90d": {
+              "abs_change": 940.5,
+              "actual_span_days": 20,
+              "confidence": "low",
+              "confidence_note": "Based on 3 observation(s) across 2 distinct day(s), spanning 20 day(s).",
+              "direction": "up",
+              "distinct_days_in_window": 2,
+              "end_date": "2026-04-04",
+              "end_price": 1480.5,
+              "observations_in_window": 3,
+              "pct_change": 174.17,
+              "start_date": "2026-03-15",
+              "start_price": 540.0,
+              "window_days": 90
+            },
+            "all_time": {
+              "abs_change": 940.5,
+              "actual_span_days": 20,
+              "confidence": "low",
+              "confidence_note": "Based on 3 observation(s) across 2 distinct day(s), spanning 20 day(s).",
+              "direction": "up",
+              "distinct_days_in_window": 2,
+              "end_date": "2026-04-04",
+              "end_price": 1480.5,
+              "observations_in_window": 3,
+              "pct_change": 174.17,
+              "start_date": "2026-03-15",
+              "start_price": 540.0,
+              "window_days": null
+            }
+          }
+        }
+      }
+    },
+    "Dy": {
+      "data_quality": "moderate",
+      "data_since": "2026-03-15",
+      "data_until": "2026-04-04",
+      "distinct_days": 2,
+      "latest_bulk_price": {
+        "contributing_observations": 1,
+        "currency": "USD",
+        "date": "2026-04-04",
+        "form_summary": "oxide",
+        "notes": "Median of 1 bulk offers (Hebei Saiweisi (Alibaba))",
+        "price_per_kg": 110.0,
+        "source_type": "median_aggregate",
+        "sources": [
+          "Hebei Saiweisi (Alibaba)"
+        ]
+      },
+      "latest_lab_price": null,
+      "latest_retail_price": {
+        "contributing_observations": 4,
+        "currency": "USD",
+        "date": "2026-04-04",
+        "form_summary": "metal, oxide",
+        "notes": "Median of 9 retail offers (ALB Materials, American Elements, Edgetech Industries, Goodfellow + 5 more)",
+        "price_per_kg": 380.0,
+        "source_type": "median_aggregate",
+        "sources": [
+          "Luciteria",
+          "leroy500 (eBay)",
+          "novaelements (eBay)",
+          "the_periodic_guy (eBay)"
+        ]
+      },
+      "observation_count": 10,
+      "tiers": {
+        "bulk": {
+          "distinct_days": 1,
+          "observation_count": 1,
+          "windows": {
+            "1y": null,
+            "30d": null,
+            "7d": null,
+            "90d": null,
+            "all_time": null
+          }
+        },
+        "lab": {
+          "distinct_days": 0,
+          "observation_count": 0,
+          "windows": {
+            "1y": null,
+            "30d": null,
+            "7d": null,
+            "90d": null,
+            "all_time": null
+          }
+        },
+        "retail": {
+          "distinct_days": 2,
+          "observation_count": 9,
+          "windows": {
+            "1y": {
+              "abs_change": 4879.0,
+              "actual_span_days": 20,
+              "confidence": "low",
+              "confidence_note": "Based on 9 observation(s) across 2 distinct day(s), spanning 20 day(s).",
+              "direction": "up",
+              "distinct_days_in_window": 2,
+              "end_date": "2026-04-04",
+              "end_price": 5219.0,
+              "observations_in_window": 9,
+              "pct_change": 1435.0,
+              "start_date": "2026-03-15",
+              "start_price": 340.0,
+              "window_days": 365
+            },
+            "30d": {
+              "abs_change": 4879.0,
+              "actual_span_days": 20,
+              "confidence": "low",
+              "confidence_note": "Based on 9 observation(s) across 2 distinct day(s), spanning 20 day(s).",
+              "direction": "up",
+              "distinct_days_in_window": 2,
+              "end_date": "2026-04-04",
+              "end_price": 5219.0,
+              "observations_in_window": 9,
+              "pct_change": 1435.0,
+              "start_date": "2026-03-15",
+              "start_price": 340.0,
+              "window_days": 30
+            },
+            "7d": null,
+            "90d": {
+              "abs_change": 4879.0,
+              "actual_span_days": 20,
+              "confidence": "low",
+              "confidence_note": "Based on 9 observation(s) across 2 distinct day(s), spanning 20 day(s).",
+              "direction": "up",
+              "distinct_days_in_window": 2,
+              "end_date": "2026-04-04",
+              "end_price": 5219.0,
+              "observations_in_window": 9,
+              "pct_change": 1435.0,
+              "start_date": "2026-03-15",
+              "start_price": 340.0,
+              "window_days": 90
+            },
+            "all_time": {
+              "abs_change": 4879.0,
+              "actual_span_days": 20,
+              "confidence": "low",
+              "confidence_note": "Based on 9 observation(s) across 2 distinct day(s), spanning 20 day(s).",
+              "direction": "up",
+              "distinct_days_in_window": 2,
+              "end_date": "2026-04-04",
+              "end_price": 5219.0,
+              "observations_in_window": 9,
+              "pct_change": 1435.0,
+              "start_date": "2026-03-15",
+              "start_price": 340.0,
+              "window_days": null
+            }
+          }
+        }
+      }
+    },
+    "Er": {
+      "data_quality": "moderate",
+      "data_since": "2026-03-15",
+      "data_until": "2026-04-04",
+      "distinct_days": 2,
+      "latest_bulk_price": null,
+      "latest_lab_price": null,
+      "latest_retail_price": {
+        "contributing_observations": 3,
+        "currency": "USD",
+        "date": "2026-04-04",
+        "form_summary": "metal, oxide",
+        "notes": "Median of 6 retail offers (ALB Materials, Edgetech Industries, Luciteria, Stanford Advanced Materials + 2 more)",
+        "price_per_kg": 1887.0,
+        "source_type": "median_aggregate",
+        "sources": [
+          "Luciteria",
+          "novaelements (eBay)",
+          "snaucke-elements (eBay)"
+        ]
+      },
+      "observation_count": 6,
+      "tiers": {
+        "bulk": {
+          "distinct_days": 0,
+          "observation_count": 0,
+          "windows": {
+            "1y": null,
+            "30d": null,
+            "7d": null,
+            "90d": null,
+            "all_time": null
+          }
+        },
+        "lab": {
+          "distinct_days": 0,
+          "observation_count": 0,
+          "windows": {
+            "1y": null,
+            "30d": null,
+            "7d": null,
+            "90d": null,
+            "all_time": null
+          }
+        },
+        "retail": {
+          "distinct_days": 2,
+          "observation_count": 6,
+          "windows": {
+            "1y": {
+              "abs_change": 10918.0,
+              "actual_span_days": 20,
+              "confidence": "low",
+              "confidence_note": "Based on 6 observation(s) across 2 distinct day(s), spanning 20 day(s).",
+              "direction": "up",
+              "distinct_days_in_window": 2,
+              "end_date": "2026-04-04",
+              "end_price": 10950.0,
+              "observations_in_window": 6,
+              "pct_change": 34118.75,
+              "start_date": "2026-03-15",
+              "start_price": 32.0,
+              "window_days": 365
+            },
+            "30d": {
+              "abs_change": 10918.0,
+              "actual_span_days": 20,
+              "confidence": "low",
+              "confidence_note": "Based on 6 observation(s) across 2 distinct day(s), spanning 20 day(s).",
+              "direction": "up",
+              "distinct_days_in_window": 2,
+              "end_date": "2026-04-04",
+              "end_price": 10950.0,
+              "observations_in_window": 6,
+              "pct_change": 34118.75,
+              "start_date": "2026-03-15",
+              "start_price": 32.0,
+              "window_days": 30
+            },
+            "7d": null,
+            "90d": {
+              "abs_change": 10918.0,
+              "actual_span_days": 20,
+              "confidence": "low",
+              "confidence_note": "Based on 6 observation(s) across 2 distinct day(s), spanning 20 day(s).",
+              "direction": "up",
+              "distinct_days_in_window": 2,
+              "end_date": "2026-04-04",
+              "end_price": 10950.0,
+              "observations_in_window": 6,
+              "pct_change": 34118.75,
+              "start_date": "2026-03-15",
+              "start_price": 32.0,
+              "window_days": 90
+            },
+            "all_time": {
+              "abs_change": 10918.0,
+              "actual_span_days": 20,
+              "confidence": "low",
+              "confidence_note": "Based on 6 observation(s) across 2 distinct day(s), spanning 20 day(s).",
+              "direction": "up",
+              "distinct_days_in_window": 2,
+              "end_date": "2026-04-04",
+              "end_price": 10950.0,
+              "observations_in_window": 6,
+              "pct_change": 34118.75,
+              "start_date": "2026-03-15",
+              "start_price": 32.0,
+              "window_days": null
+            }
+          }
+        }
+      }
+    },
+    "Eu": {
+      "data_quality": "moderate",
+      "data_since": "2026-03-15",
+      "data_until": "2026-04-04",
+      "distinct_days": 2,
+      "latest_bulk_price": null,
+      "latest_lab_price": null,
+      "latest_retail_price": {
+        "contributing_observations": 1,
+        "currency": "USD",
+        "date": "2026-04-04",
+        "form_summary": "metal, oxide",
+        "notes": "Median of 4 retail offers (ALB Materials, Edgetech Industries, Luciteria, Stanford Advanced Materials)",
+        "price_per_kg": 32.5,
+        "source_type": "median_aggregate",
+        "sources": [
+          "Luciteria"
+        ]
+      },
+      "observation_count": 4,
+      "tiers": {
+        "bulk": {
+          "distinct_days": 0,
+          "observation_count": 0,
+          "windows": {
+            "1y": null,
+            "30d": null,
+            "7d": null,
+            "90d": null,
+            "all_time": null
+          }
+        },
+        "lab": {
+          "distinct_days": 0,
+          "observation_count": 0,
+          "windows": {
+            "1y": null,
+            "30d": null,
+            "7d": null,
+            "90d": null,
+            "all_time": null
+          }
+        },
+        "retail": {
+          "distinct_days": 2,
+          "observation_count": 4,
+          "windows": {
+            "1y": {
+              "abs_change": 3770.0,
+              "actual_span_days": 20,
+              "confidence": "low",
+              "confidence_note": "Based on 4 observation(s) across 2 distinct day(s), spanning 20 day(s).",
+              "direction": "up",
+              "distinct_days_in_window": 2,
+              "end_date": "2026-04-04",
+              "end_price": 3800.0,
+              "observations_in_window": 4,
+              "pct_change": 12566.67,
+              "start_date": "2026-03-15",
+              "start_price": 30.0,
+              "window_days": 365
+            },
+            "30d": {
+              "abs_change": 3770.0,
+              "actual_span_days": 20,
+              "confidence": "low",
+              "confidence_note": "Based on 4 observation(s) across 2 distinct day(s), spanning 20 day(s).",
+              "direction": "up",
+              "distinct_days_in_window": 2,
+              "end_date": "2026-04-04",
+              "end_price": 3800.0,
+              "observations_in_window": 4,
+              "pct_change": 12566.67,
+              "start_date": "2026-03-15",
+              "start_price": 30.0,
+              "window_days": 30
+            },
+            "7d": null,
+            "90d": {
+              "abs_change": 3770.0,
+              "actual_span_days": 20,
+              "confidence": "low",
+              "confidence_note": "Based on 4 observation(s) across 2 distinct day(s), spanning 20 day(s).",
+              "direction": "up",
+              "distinct_days_in_window": 2,
+              "end_date": "2026-04-04",
+              "end_price": 3800.0,
+              "observations_in_window": 4,
+              "pct_change": 12566.67,
+              "start_date": "2026-03-15",
+              "start_price": 30.0,
+              "window_days": 90
+            },
+            "all_time": {
+              "abs_change": 3770.0,
+              "actual_span_days": 20,
+              "confidence": "low",
+              "confidence_note": "Based on 4 observation(s) across 2 distinct day(s), spanning 20 day(s).",
+              "direction": "up",
+              "distinct_days_in_window": 2,
+              "end_date": "2026-04-04",
+              "end_price": 3800.0,
+              "observations_in_window": 4,
+              "pct_change": 12566.67,
+              "start_date": "2026-03-15",
+              "start_price": 30.0,
+              "window_days": null
+            }
+          }
+        }
+      }
+    },
+    "Ga": {
+      "data_quality": "moderate",
+      "data_since": "2026-03-15",
+      "data_until": "2026-04-04",
+      "distinct_days": 2,
+      "latest_bulk_price": {
+        "contributing_observations": 1,
+        "currency": "USD",
+        "date": "2026-04-04",
+        "form_summary": "metal",
+        "notes": "Median of 1 bulk offers (Multiple CN/DE/PH suppliers (Alibaba))",
+        "price_per_kg": 200.0,
+        "source_type": "median_aggregate",
+        "sources": [
+          "Multiple CN/DE/PH suppliers (Alibaba)"
+        ]
+      },
+      "latest_lab_price": null,
+      "latest_retail_price": {
+        "contributing_observations": 3,
+        "currency": "USD",
+        "date": "2026-04-04",
+        "form_summary": "metal",
+        "notes": "Median of 8 retail offers (ALB Materials, American Elements, Edgetech Industries, Goodfellow + 3 more)",
+        "price_per_kg": 410.0,
+        "source_type": "median_aggregate",
+        "sources": [
+          "Luciteria",
+          "Multiple toy sellers (eBay)"
+        ]
+      },
+      "observation_count": 9,
+      "tiers": {
+        "bulk": {
+          "distinct_days": 1,
+          "observation_count": 1,
+          "windows": {
+            "1y": null,
+            "30d": null,
+            "7d": null,
+            "90d": null,
+            "all_time": null
+          }
+        },
+        "lab": {
+          "distinct_days": 0,
+          "observation_count": 0,
+          "windows": {
+            "1y": null,
+            "30d": null,
+            "7d": null,
+            "90d": null,
+            "all_time": null
+          }
+        },
+        "retail": {
+          "distinct_days": 2,
+          "observation_count": 8,
+          "windows": {
+            "1y": {
+              "abs_change": -20.0,
+              "actual_span_days": 20,
+              "confidence": "low",
+              "confidence_note": "Based on 8 observation(s) across 2 distinct day(s), spanning 20 day(s).",
+              "direction": "down",
+              "distinct_days_in_window": 2,
+              "end_date": "2026-04-04",
+              "end_price": 400.0,
+              "observations_in_window": 8,
+              "pct_change": -4.76,
+              "start_date": "2026-03-15",
+              "start_price": 420.0,
+              "window_days": 365
+            },
+            "30d": {
+              "abs_change": -20.0,
+              "actual_span_days": 20,
+              "confidence": "low",
+              "confidence_note": "Based on 8 observation(s) across 2 distinct day(s), spanning 20 day(s).",
+              "direction": "down",
+              "distinct_days_in_window": 2,
+              "end_date": "2026-04-04",
+              "end_price": 400.0,
+              "observations_in_window": 8,
+              "pct_change": -4.76,
+              "start_date": "2026-03-15",
+              "start_price": 420.0,
+              "window_days": 30
+            },
+            "7d": null,
+            "90d": {
+              "abs_change": -20.0,
+              "actual_span_days": 20,
+              "confidence": "low",
+              "confidence_note": "Based on 8 observation(s) across 2 distinct day(s), spanning 20 day(s).",
+              "direction": "down",
+              "distinct_days_in_window": 2,
+              "end_date": "2026-04-04",
+              "end_price": 400.0,
+              "observations_in_window": 8,
+              "pct_change": -4.76,
+              "start_date": "2026-03-15",
+              "start_price": 420.0,
+              "window_days": 90
+            },
+            "all_time": {
+              "abs_change": -20.0,
+              "actual_span_days": 20,
+              "confidence": "low",
+              "confidence_note": "Based on 8 observation(s) across 2 distinct day(s), spanning 20 day(s).",
+              "direction": "down",
+              "distinct_days_in_window": 2,
+              "end_date": "2026-04-04",
+              "end_price": 400.0,
+              "observations_in_window": 8,
+              "pct_change": -4.76,
+              "start_date": "2026-03-15",
+              "start_price": 420.0,
+              "window_days": null
+            }
+          }
+        }
+      }
+    },
+    "Gd": {
+      "data_quality": "moderate",
+      "data_since": "2026-03-15",
+      "data_until": "2026-04-04",
+      "distinct_days": 2,
+      "latest_bulk_price": null,
+      "latest_lab_price": null,
+      "latest_retail_price": {
+        "contributing_observations": 9,
+        "currency": "USD",
+        "date": "2026-04-04",
+        "form_summary": "metal, oxide",
+        "notes": "Median of 13 retail offers (ALB Materials, Edgetech Industries, Goodfellow, Luciteria + 8 more)",
+        "price_per_kg": 507.0,
+        "source_type": "median_aggregate",
+        "sources": [
+          "Luciteria",
+          "auremo-eu (eBay)",
+          "chemstore2017 (eBay)",
+          "evek-gmbh (eBay)",
+          "leroy500 (eBay)",
+          "novaelements (eBay)",
+          "snaucke-elements (eBay)",
+          "vkris_1 (eBay)"
+        ]
+      },
+      "observation_count": 13,
+      "tiers": {
+        "bulk": {
+          "distinct_days": 0,
+          "observation_count": 0,
+          "windows": {
+            "1y": null,
+            "30d": null,
+            "7d": null,
+            "90d": null,
+            "all_time": null
+          }
+        },
+        "lab": {
+          "distinct_days": 0,
+          "observation_count": 0,
+          "windows": {
+            "1y": null,
+            "30d": null,
+            "7d": null,
+            "90d": null,
+            "all_time": null
+          }
+        },
+        "retail": {
+          "distinct_days": 2,
+          "observation_count": 13,
+          "windows": {
+            "1y": {
+              "abs_change": 1115.0,
+              "actual_span_days": 20,
+              "confidence": "low",
+              "confidence_note": "Based on 13 observation(s) across 2 distinct day(s), spanning 20 day(s).",
+              "direction": "up",
+              "distinct_days_in_window": 2,
+              "end_date": "2026-04-04",
+              "end_price": 1160.0,
+              "observations_in_window": 13,
+              "pct_change": 2477.78,
+              "start_date": "2026-03-15",
+              "start_price": 45.0,
+              "window_days": 365
+            },
+            "30d": {
+              "abs_change": 1115.0,
+              "actual_span_days": 20,
+              "confidence": "low",
+              "confidence_note": "Based on 13 observation(s) across 2 distinct day(s), spanning 20 day(s).",
+              "direction": "up",
+              "distinct_days_in_window": 2,
+              "end_date": "2026-04-04",
+              "end_price": 1160.0,
+              "observations_in_window": 13,
+              "pct_change": 2477.78,
+              "start_date": "2026-03-15",
+              "start_price": 45.0,
+              "window_days": 30
+            },
+            "7d": null,
+            "90d": {
+              "abs_change": 1115.0,
+              "actual_span_days": 20,
+              "confidence": "low",
+              "confidence_note": "Based on 13 observation(s) across 2 distinct day(s), spanning 20 day(s).",
+              "direction": "up",
+              "distinct_days_in_window": 2,
+              "end_date": "2026-04-04",
+              "end_price": 1160.0,
+              "observations_in_window": 13,
+              "pct_change": 2477.78,
+              "start_date": "2026-03-15",
+              "start_price": 45.0,
+              "window_days": 90
+            },
+            "all_time": {
+              "abs_change": 1115.0,
+              "actual_span_days": 20,
+              "confidence": "low",
+              "confidence_note": "Based on 13 observation(s) across 2 distinct day(s), spanning 20 day(s).",
+              "direction": "up",
+              "distinct_days_in_window": 2,
+              "end_date": "2026-04-04",
+              "end_price": 1160.0,
+              "observations_in_window": 13,
+              "pct_change": 2477.78,
+              "start_date": "2026-03-15",
+              "start_price": 45.0,
+              "window_days": null
+            }
+          }
+        }
+      }
+    },
+    "Ge": {
+      "data_quality": "moderate",
+      "data_since": "2026-03-15",
+      "data_until": "2026-04-04",
+      "distinct_days": 2,
+      "latest_bulk_price": null,
+      "latest_lab_price": null,
+      "latest_retail_price": {
+        "contributing_observations": 1,
+        "currency": "USD",
+        "date": "2026-04-04",
+        "form_summary": "metal",
+        "notes": "Median of 5 retail offers (ALB Materials, American Elements, Edgetech Industries, Luciteria + 1 more)",
+        "price_per_kg": 1450.0,
+        "source_type": "median_aggregate",
+        "sources": [
+          "Luciteria"
+        ]
+      },
+      "observation_count": 5,
+      "tiers": {
+        "bulk": {
+          "distinct_days": 0,
+          "observation_count": 0,
+          "windows": {
+            "1y": null,
+            "30d": null,
+            "7d": null,
+            "90d": null,
+            "all_time": null
+          }
+        },
+        "lab": {
+          "distinct_days": 0,
+          "observation_count": 0,
+          "windows": {
+            "1y": null,
+            "30d": null,
+            "7d": null,
+            "90d": null,
+            "all_time": null
+          }
+        },
+        "retail": {
+          "distinct_days": 2,
+          "observation_count": 5,
+          "windows": {
+            "1y": {
+              "abs_change": 14663.0,
+              "actual_span_days": 20,
+              "confidence": "low",
+              "confidence_note": "Based on 5 observation(s) across 2 distinct day(s), spanning 20 day(s).",
+              "direction": "up",
+              "distinct_days_in_window": 2,
+              "end_date": "2026-04-04",
+              "end_price": 16038.0,
+              "observations_in_window": 5,
+              "pct_change": 1066.4,
+              "start_date": "2026-03-15",
+              "start_price": 1375.0,
+              "window_days": 365
+            },
+            "30d": {
+              "abs_change": 14663.0,
+              "actual_span_days": 20,
+              "confidence": "low",
+              "confidence_note": "Based on 5 observation(s) across 2 distinct day(s), spanning 20 day(s).",
+              "direction": "up",
+              "distinct_days_in_window": 2,
+              "end_date": "2026-04-04",
+              "end_price": 16038.0,
+              "observations_in_window": 5,
+              "pct_change": 1066.4,
+              "start_date": "2026-03-15",
+              "start_price": 1375.0,
+              "window_days": 30
+            },
+            "7d": null,
+            "90d": {
+              "abs_change": 14663.0,
+              "actual_span_days": 20,
+              "confidence": "low",
+              "confidence_note": "Based on 5 observation(s) across 2 distinct day(s), spanning 20 day(s).",
+              "direction": "up",
+              "distinct_days_in_window": 2,
+              "end_date": "2026-04-04",
+              "end_price": 16038.0,
+              "observations_in_window": 5,
+              "pct_change": 1066.4,
+              "start_date": "2026-03-15",
+              "start_price": 1375.0,
+              "window_days": 90
+            },
+            "all_time": {
+              "abs_change": 14663.0,
+              "actual_span_days": 20,
+              "confidence": "low",
+              "confidence_note": "Based on 5 observation(s) across 2 distinct day(s), spanning 20 day(s).",
+              "direction": "up",
+              "distinct_days_in_window": 2,
+              "end_date": "2026-04-04",
+              "end_price": 16038.0,
+              "observations_in_window": 5,
+              "pct_change": 1066.4,
+              "start_date": "2026-03-15",
+              "start_price": 1375.0,
+              "window_days": null
+            }
+          }
+        }
+      }
+    },
+    "Ho": {
+      "data_quality": "moderate",
+      "data_since": "2026-02-28",
+      "data_until": "2026-03-29",
+      "distinct_days": 3,
+      "latest_bulk_price": {
+        "contributing_observations": 4,
+        "currency": "USD",
+        "date": "2026-03-29",
+        "form_summary": "metal, oxide",
+        "notes": "Median of 5 bulk offers (BusinessAnalytiq, IMARC, Made-in-China.com (Ganzhou Wanfeng))",
+        "price_per_kg": 106.0,
+        "source_type": "median_aggregate",
+        "sources": [
+          "businessanalytiq-ho-01",
+          "metallos-ho-01",
+          "mic-ho-01",
+          "smm-earthrarest-ho-01"
+        ]
+      },
+      "latest_lab_price": {
+        "contributing_observations": 8,
+        "currency": "USD",
+        "date": "2026-03-29",
+        "form_summary": "metal, oxide",
+        "notes": null,
+        "price_per_kg": 18420.0,
+        "source_type": "individual_median",
+        "sources": [
+          "alfa-aesar-ho-01",
+          "alfa-aesar-ho-02",
+          "alfa-aesar-ho-oxide-01",
+          "alfa-aesar-ho-oxide-02",
+          "chemsavers-ho-01",
+          "mse-ho-01",
+          "mse-ho-02",
+          "sigma-ho-01"
+        ]
+      },
+      "latest_retail_price": {
+        "contributing_observations": 7,
+        "currency": "USD",
+        "date": "2026-03-29",
+        "form_summary": "metal, oxide",
+        "notes": "Median of 18 retail offers (ALB Materials, Alfa Aesar, Alfa Aesar (Acros), Alfa Aesar / Thermo Fisher + 8 more)",
+        "price_per_kg": 4864.5,
+        "source_type": "median_aggregate",
+        "sources": [
+          "luciteria-ho-01",
+          "rwmm-ho-01",
+          "smart-elements-ho-01",
+          "smart-elements-ho-02",
+          "smart-elements-ho-03",
+          "smart-elements-ho-04",
+          "smart-elements-ho-05"
+        ]
+      },
+      "observation_count": 23,
+      "tiers": {
+        "bulk": {
+          "distinct_days": 2,
+          "observation_count": 5,
+          "windows": {
+            "1y": {
+              "abs_change": 9.0,
+              "actual_span_days": 29,
+              "confidence": "low",
+              "confidence_note": "Based on 5 observation(s) across 2 distinct day(s), spanning 29 day(s).",
+              "direction": "up",
+              "distinct_days_in_window": 2,
+              "end_date": "2026-03-29",
+              "end_price": 115.0,
+              "observations_in_window": 5,
+              "pct_change": 8.49,
+              "start_date": "2026-02-28",
+              "start_price": 106.0,
+              "window_days": 365
+            },
+            "30d": {
+              "abs_change": 9.0,
+              "actual_span_days": 29,
+              "confidence": "low",
+              "confidence_note": "Based on 5 observation(s) across 2 distinct day(s), spanning 29 day(s).",
+              "direction": "up",
+              "distinct_days_in_window": 2,
+              "end_date": "2026-03-29",
+              "end_price": 115.0,
+              "observations_in_window": 5,
+              "pct_change": 8.49,
+              "start_date": "2026-02-28",
+              "start_price": 106.0,
+              "window_days": 30
+            },
+            "7d": null,
+            "90d": {
+              "abs_change": 9.0,
+              "actual_span_days": 29,
+              "confidence": "low",
+              "confidence_note": "Based on 5 observation(s) across 2 distinct day(s), spanning 29 day(s).",
+              "direction": "up",
+              "distinct_days_in_window": 2,
+              "end_date": "2026-03-29",
+              "end_price": 115.0,
+              "observations_in_window": 5,
+              "pct_change": 8.49,
+              "start_date": "2026-02-28",
+              "start_price": 106.0,
+              "window_days": 90
+            },
+            "all_time": {
+              "abs_change": 9.0,
+              "actual_span_days": 29,
+              "confidence": "low",
+              "confidence_note": "Based on 5 observation(s) across 2 distinct day(s), spanning 29 day(s).",
+              "direction": "up",
+              "distinct_days_in_window": 2,
+              "end_date": "2026-03-29",
+              "end_price": 115.0,
+              "observations_in_window": 5,
+              "pct_change": 8.49,
+              "start_date": "2026-02-28",
+              "start_price": 106.0,
+              "window_days": null
+            }
+          }
+        },
+        "lab": {
+          "distinct_days": 1,
+          "observation_count": 8,
+          "windows": {
+            "1y": null,
+            "30d": null,
+            "7d": null,
+            "90d": null,
+            "all_time": null
+          }
+        },
+        "retail": {
+          "distinct_days": 2,
+          "observation_count": 10,
+          "windows": {
+            "1y": {
+              "abs_change": 4285.0,
+              "actual_span_days": 14,
+              "confidence": "low",
+              "confidence_note": "Based on 10 observation(s) across 2 distinct day(s), spanning 14 day(s).",
+              "direction": "up",
+              "distinct_days_in_window": 2,
+              "end_date": "2026-03-29",
+              "end_price": 4350.0,
+              "observations_in_window": 10,
+              "pct_change": 6592.31,
+              "start_date": "2026-03-15",
+              "start_price": 65.0,
+              "window_days": 365
+            },
+            "30d": {
+              "abs_change": 4285.0,
+              "actual_span_days": 14,
+              "confidence": "low",
+              "confidence_note": "Based on 10 observation(s) across 2 distinct day(s), spanning 14 day(s).",
+              "direction": "up",
+              "distinct_days_in_window": 2,
+              "end_date": "2026-03-29",
+              "end_price": 4350.0,
+              "observations_in_window": 10,
+              "pct_change": 6592.31,
+              "start_date": "2026-03-15",
+              "start_price": 65.0,
+              "window_days": 30
+            },
+            "7d": null,
+            "90d": {
+              "abs_change": 4285.0,
+              "actual_span_days": 14,
+              "confidence": "low",
+              "confidence_note": "Based on 10 observation(s) across 2 distinct day(s), spanning 14 day(s).",
+              "direction": "up",
+              "distinct_days_in_window": 2,
+              "end_date": "2026-03-29",
+              "end_price": 4350.0,
+              "observations_in_window": 10,
+              "pct_change": 6592.31,
+              "start_date": "2026-03-15",
+              "start_price": 65.0,
+              "window_days": 90
+            },
+            "all_time": {
+              "abs_change": 4285.0,
+              "actual_span_days": 14,
+              "confidence": "low",
+              "confidence_note": "Based on 10 observation(s) across 2 distinct day(s), spanning 14 day(s).",
+              "direction": "up",
+              "distinct_days_in_window": 2,
+              "end_date": "2026-03-29",
+              "end_price": 4350.0,
+              "observations_in_window": 10,
+              "pct_change": 6592.31,
+              "start_date": "2026-03-15",
+              "start_price": 65.0,
+              "window_days": null
+            }
+          }
+        }
+      }
+    },
+    "In": {
+      "data_quality": "moderate",
+      "data_since": "2026-03-15",
+      "data_until": "2026-04-04",
+      "distinct_days": 2,
+      "latest_bulk_price": null,
+      "latest_lab_price": null,
+      "latest_retail_price": {
+        "contributing_observations": 1,
+        "currency": "USD",
+        "date": "2026-04-04",
+        "form_summary": "metal",
+        "notes": "Median of 5 retail offers (ALB Materials, American Elements, Edgetech Industries, Luciteria + 1 more)",
+        "price_per_kg": 320.0,
+        "source_type": "median_aggregate",
+        "sources": [
+          "Luciteria"
+        ]
+      },
+      "observation_count": 5,
+      "tiers": {
+        "bulk": {
+          "distinct_days": 0,
+          "observation_count": 0,
+          "windows": {
+            "1y": null,
+            "30d": null,
+            "7d": null,
+            "90d": null,
+            "all_time": null
+          }
+        },
+        "lab": {
+          "distinct_days": 0,
+          "observation_count": 0,
+          "windows": {
+            "1y": null,
+            "30d": null,
+            "7d": null,
+            "90d": null,
+            "all_time": null
+          }
+        },
+        "retail": {
+          "distinct_days": 2,
+          "observation_count": 5,
+          "windows": {
+            "1y": {
+              "abs_change": 1170.0,
+              "actual_span_days": 20,
+              "confidence": "low",
+              "confidence_note": "Based on 5 observation(s) across 2 distinct day(s), spanning 20 day(s).",
+              "direction": "up",
+              "distinct_days_in_window": 2,
+              "end_date": "2026-04-04",
+              "end_price": 1470.0,
+              "observations_in_window": 5,
+              "pct_change": 390.0,
+              "start_date": "2026-03-15",
+              "start_price": 300.0,
+              "window_days": 365
+            },
+            "30d": {
+              "abs_change": 1170.0,
+              "actual_span_days": 20,
+              "confidence": "low",
+              "confidence_note": "Based on 5 observation(s) across 2 distinct day(s), spanning 20 day(s).",
+              "direction": "up",
+              "distinct_days_in_window": 2,
+              "end_date": "2026-04-04",
+              "end_price": 1470.0,
+              "observations_in_window": 5,
+              "pct_change": 390.0,
+              "start_date": "2026-03-15",
+              "start_price": 300.0,
+              "window_days": 30
+            },
+            "7d": null,
+            "90d": {
+              "abs_change": 1170.0,
+              "actual_span_days": 20,
+              "confidence": "low",
+              "confidence_note": "Based on 5 observation(s) across 2 distinct day(s), spanning 20 day(s).",
+              "direction": "up",
+              "distinct_days_in_window": 2,
+              "end_date": "2026-04-04",
+              "end_price": 1470.0,
+              "observations_in_window": 5,
+              "pct_change": 390.0,
+              "start_date": "2026-03-15",
+              "start_price": 300.0,
+              "window_days": 90
+            },
+            "all_time": {
+              "abs_change": 1170.0,
+              "actual_span_days": 20,
+              "confidence": "low",
+              "confidence_note": "Based on 5 observation(s) across 2 distinct day(s), spanning 20 day(s).",
+              "direction": "up",
+              "distinct_days_in_window": 2,
+              "end_date": "2026-04-04",
+              "end_price": 1470.0,
+              "observations_in_window": 5,
+              "pct_change": 390.0,
+              "start_date": "2026-03-15",
+              "start_price": 300.0,
+              "window_days": null
+            }
+          }
+        }
+      }
+    },
+    "La": {
+      "data_quality": "moderate",
+      "data_since": "2026-03-15",
+      "data_until": "2026-04-04",
+      "distinct_days": 2,
+      "latest_bulk_price": null,
+      "latest_lab_price": null,
+      "latest_retail_price": {
+        "contributing_observations": 5,
+        "currency": "USD",
+        "date": "2026-04-04",
+        "form_summary": "metal, oxide",
+        "notes": "Median of 8 retail offers (ALB Materials, Edgetech Industries, Luciteria, Stanford Advanced Materials + 4 more)",
+        "price_per_kg": 685.0,
+        "source_type": "median_aggregate",
+        "sources": [
+          "Luciteria",
+          "chemstore2017 (eBay)",
+          "engineeredlab (eBay)",
+          "joenicks (eBay)",
+          "leroy500 (eBay)"
+        ]
+      },
+      "observation_count": 8,
+      "tiers": {
+        "bulk": {
+          "distinct_days": 0,
+          "observation_count": 0,
+          "windows": {
+            "1y": null,
+            "30d": null,
+            "7d": null,
+            "90d": null,
+            "all_time": null
+          }
+        },
+        "lab": {
+          "distinct_days": 0,
+          "observation_count": 0,
+          "windows": {
+            "1y": null,
+            "30d": null,
+            "7d": null,
+            "90d": null,
+            "all_time": null
+          }
+        },
+        "retail": {
+          "distinct_days": 2,
+          "observation_count": 8,
+          "windows": {
+            "1y": {
+              "abs_change": 15228.0,
+              "actual_span_days": 20,
+              "confidence": "low",
+              "confidence_note": "Based on 8 observation(s) across 2 distinct day(s), spanning 20 day(s).",
+              "direction": "up",
+              "distinct_days_in_window": 2,
+              "end_date": "2026-04-04",
+              "end_price": 15230.0,
+              "observations_in_window": 8,
+              "pct_change": 761400.0,
+              "start_date": "2026-03-15",
+              "start_price": 2.0,
+              "window_days": 365
+            },
+            "30d": {
+              "abs_change": 15228.0,
+              "actual_span_days": 20,
+              "confidence": "low",
+              "confidence_note": "Based on 8 observation(s) across 2 distinct day(s), spanning 20 day(s).",
+              "direction": "up",
+              "distinct_days_in_window": 2,
+              "end_date": "2026-04-04",
+              "end_price": 15230.0,
+              "observations_in_window": 8,
+              "pct_change": 761400.0,
+              "start_date": "2026-03-15",
+              "start_price": 2.0,
+              "window_days": 30
+            },
+            "7d": null,
+            "90d": {
+              "abs_change": 15228.0,
+              "actual_span_days": 20,
+              "confidence": "low",
+              "confidence_note": "Based on 8 observation(s) across 2 distinct day(s), spanning 20 day(s).",
+              "direction": "up",
+              "distinct_days_in_window": 2,
+              "end_date": "2026-04-04",
+              "end_price": 15230.0,
+              "observations_in_window": 8,
+              "pct_change": 761400.0,
+              "start_date": "2026-03-15",
+              "start_price": 2.0,
+              "window_days": 90
+            },
+            "all_time": {
+              "abs_change": 15228.0,
+              "actual_span_days": 20,
+              "confidence": "low",
+              "confidence_note": "Based on 8 observation(s) across 2 distinct day(s), spanning 20 day(s).",
+              "direction": "up",
+              "distinct_days_in_window": 2,
+              "end_date": "2026-04-04",
+              "end_price": 15230.0,
+              "observations_in_window": 8,
+              "pct_change": 761400.0,
+              "start_date": "2026-03-15",
+              "start_price": 2.0,
+              "window_days": null
+            }
+          }
+        }
+      }
+    },
+    "Li": {
+      "data_quality": "sparse",
+      "data_since": "2026-03-15",
+      "data_until": "2026-03-15",
+      "distinct_days": 1,
+      "latest_bulk_price": {
+        "contributing_observations": 1,
+        "currency": "USD",
+        "date": "2026-03-15",
+        "form_summary": "compound",
+        "notes": "Median of 1 bulk offers (Fastmarkets / SMM)",
+        "price_per_kg": 10.0,
+        "source_type": "median_aggregate",
+        "sources": [
+          "Fastmarkets / SMM"
+        ]
+      },
+      "latest_lab_price": null,
+      "latest_retail_price": {
+        "contributing_observations": 1,
+        "currency": "USD",
+        "date": "2026-03-15",
+        "form_summary": "metal",
+        "notes": "Median of 1 retail offers (Smart-Elements)",
+        "price_per_kg": 6500.0,
+        "source_type": "median_aggregate",
+        "sources": [
+          "Smart-Elements"
+        ]
+      },
+      "observation_count": 2,
+      "tiers": {
+        "bulk": {
+          "distinct_days": 1,
+          "observation_count": 1,
+          "windows": {
+            "1y": null,
+            "30d": null,
+            "7d": null,
+            "90d": null,
+            "all_time": null
+          }
+        },
+        "lab": {
+          "distinct_days": 0,
+          "observation_count": 0,
+          "windows": {
+            "1y": null,
+            "30d": null,
+            "7d": null,
+            "90d": null,
+            "all_time": null
+          }
+        },
+        "retail": {
+          "distinct_days": 1,
+          "observation_count": 1,
+          "windows": {
+            "1y": null,
+            "30d": null,
+            "7d": null,
+            "90d": null,
+            "all_time": null
+          }
+        }
+      }
+    },
+    "Lu": {
+      "data_quality": "rich",
+      "data_since": "2026-01-31",
+      "data_until": "2026-03-30",
+      "distinct_days": 4,
+      "latest_bulk_price": {
+        "contributing_observations": 1,
+        "currency": "USD",
+        "date": "2026-03-30",
+        "form_summary": "oxide",
+        "notes": "Median of 3 bulk offers (BusinessAnalytiq (NE Asia), Ganzhou Wanfeng (Made-in-China), SMM (Shanghai Metals Market))",
+        "price_per_kg": 707.0,
+        "source_type": "median_aggregate",
+        "sources": [
+          "BusinessAnalytiq (NE Asia)"
+        ]
+      },
+      "latest_lab_price": null,
+      "latest_retail_price": {
+        "contributing_observations": 6,
+        "currency": "USD",
+        "date": "2026-03-29",
+        "form_summary": "metal, oxide",
+        "notes": "Median of 9 retail offers (American Elements, Chemsavers, Edgetech Industries, PEGUYS + 4 more)",
+        "price_per_kg": 16800.0,
+        "source_type": "median_aggregate",
+        "sources": [
+          "Chemsavers",
+          "PEGUYS",
+          "Smart-Elements",
+          "Thermo Fisher (Alfa Aesar)",
+          "chineseelements (eBay)"
+        ]
+      },
+      "observation_count": 12,
+      "tiers": {
+        "bulk": {
+          "distinct_days": 3,
+          "observation_count": 3,
+          "windows": {
+            "1y": {
+              "abs_change": 54.0,
+              "actual_span_days": 58,
+              "confidence": "medium",
+              "confidence_note": "Based on 3 observation(s) across 3 distinct day(s), spanning 58 day(s).",
+              "direction": "up",
+              "distinct_days_in_window": 3,
+              "end_date": "2026-03-30",
+              "end_price": 707.0,
+              "observations_in_window": 3,
+              "pct_change": 8.27,
+              "start_date": "2026-01-31",
+              "start_price": 653.0,
+              "window_days": 365
+            },
+            "30d": {
+              "abs_change": -93.0,
+              "actual_span_days": 1,
+              "confidence": "low",
+              "confidence_note": "Based on 2 observation(s) across 2 distinct day(s), spanning 1 day(s).",
+              "direction": "down",
+              "distinct_days_in_window": 2,
+              "end_date": "2026-03-30",
+              "end_price": 707.0,
+              "observations_in_window": 2,
+              "pct_change": -11.62,
+              "start_date": "2026-03-29",
+              "start_price": 800.0,
+              "window_days": 30
+            },
+            "7d": {
+              "abs_change": -93.0,
+              "actual_span_days": 1,
+              "confidence": "low",
+              "confidence_note": "Based on 2 observation(s) across 2 distinct day(s), spanning 1 day(s).",
+              "direction": "down",
+              "distinct_days_in_window": 2,
+              "end_date": "2026-03-30",
+              "end_price": 707.0,
+              "observations_in_window": 2,
+              "pct_change": -11.62,
+              "start_date": "2026-03-29",
+              "start_price": 800.0,
+              "window_days": 7
+            },
+            "90d": {
+              "abs_change": 54.0,
+              "actual_span_days": 58,
+              "confidence": "medium",
+              "confidence_note": "Based on 3 observation(s) across 3 distinct day(s), spanning 58 day(s).",
+              "direction": "up",
+              "distinct_days_in_window": 3,
+              "end_date": "2026-03-30",
+              "end_price": 707.0,
+              "observations_in_window": 3,
+              "pct_change": 8.27,
+              "start_date": "2026-01-31",
+              "start_price": 653.0,
+              "window_days": 90
+            },
+            "all_time": {
+              "abs_change": 54.0,
+              "actual_span_days": 58,
+              "confidence": "medium",
+              "confidence_note": "Based on 3 observation(s) across 3 distinct day(s), spanning 58 day(s).",
+              "direction": "up",
+              "distinct_days_in_window": 3,
+              "end_date": "2026-03-30",
+              "end_price": 707.0,
+              "observations_in_window": 3,
+              "pct_change": 8.27,
+              "start_date": "2026-01-31",
+              "start_price": 653.0,
+              "window_days": null
+            }
+          }
+        },
+        "lab": {
+          "distinct_days": 0,
+          "observation_count": 0,
+          "windows": {
+            "1y": null,
+            "30d": null,
+            "7d": null,
+            "90d": null,
+            "all_time": null
+          }
+        },
+        "retail": {
+          "distinct_days": 2,
+          "observation_count": 9,
+          "windows": {
+            "1y": {
+              "abs_change": 37410.0,
+              "actual_span_days": 14,
+              "confidence": "low",
+              "confidence_note": "Based on 9 observation(s) across 2 distinct day(s), spanning 14 day(s).",
+              "direction": "up",
+              "distinct_days_in_window": 2,
+              "end_date": "2026-03-29",
+              "end_price": 45910.0,
+              "observations_in_window": 9,
+              "pct_change": 440.12,
+              "start_date": "2026-03-15",
+              "start_price": 8500.0,
+              "window_days": 365
+            },
+            "30d": {
+              "abs_change": 37410.0,
+              "actual_span_days": 14,
+              "confidence": "low",
+              "confidence_note": "Based on 9 observation(s) across 2 distinct day(s), spanning 14 day(s).",
+              "direction": "up",
+              "distinct_days_in_window": 2,
+              "end_date": "2026-03-29",
+              "end_price": 45910.0,
+              "observations_in_window": 9,
+              "pct_change": 440.12,
+              "start_date": "2026-03-15",
+              "start_price": 8500.0,
+              "window_days": 30
+            },
+            "7d": null,
+            "90d": {
+              "abs_change": 37410.0,
+              "actual_span_days": 14,
+              "confidence": "low",
+              "confidence_note": "Based on 9 observation(s) across 2 distinct day(s), spanning 14 day(s).",
+              "direction": "up",
+              "distinct_days_in_window": 2,
+              "end_date": "2026-03-29",
+              "end_price": 45910.0,
+              "observations_in_window": 9,
+              "pct_change": 440.12,
+              "start_date": "2026-03-15",
+              "start_price": 8500.0,
+              "window_days": 90
+            },
+            "all_time": {
+              "abs_change": 37410.0,
+              "actual_span_days": 14,
+              "confidence": "low",
+              "confidence_note": "Based on 9 observation(s) across 2 distinct day(s), spanning 14 day(s).",
+              "direction": "up",
+              "distinct_days_in_window": 2,
+              "end_date": "2026-03-29",
+              "end_price": 45910.0,
+              "observations_in_window": 9,
+              "pct_change": 440.12,
+              "start_date": "2026-03-15",
+              "start_price": 8500.0,
+              "window_days": null
+            }
+          }
+        }
+      }
+    },
+    "Mo": {
+      "data_quality": "sparse",
+      "data_since": "2026-03-15",
+      "data_until": "2026-03-15",
+      "distinct_days": 1,
+      "latest_bulk_price": null,
+      "latest_lab_price": null,
+      "latest_retail_price": {
+        "contributing_observations": 4,
+        "currency": "USD",
+        "date": "2026-03-15",
+        "form_summary": "powder",
+        "notes": "Median of 4 retail offers (ALB Materials, American Elements, Edgetech Industries, Stanford Advanced Materials)",
+        "price_per_kg": 64.0,
+        "source_type": "median_aggregate",
+        "sources": [
+          "alb-materials-01",
+          "american-elements-01",
+          "edgetech-industries-01",
+          "stanford-advanced-materials-01"
+        ]
+      },
+      "observation_count": 4,
+      "tiers": {
+        "bulk": {
+          "distinct_days": 0,
+          "observation_count": 0,
+          "windows": {
+            "1y": null,
+            "30d": null,
+            "7d": null,
+            "90d": null,
+            "all_time": null
+          }
+        },
+        "lab": {
+          "distinct_days": 0,
+          "observation_count": 0,
+          "windows": {
+            "1y": null,
+            "30d": null,
+            "7d": null,
+            "90d": null,
+            "all_time": null
+          }
+        },
+        "retail": {
+          "distinct_days": 1,
+          "observation_count": 4,
+          "windows": {
+            "1y": null,
+            "30d": null,
+            "7d": null,
+            "90d": null,
+            "all_time": null
+          }
+        }
+      }
+    },
+    "Nb": {
+      "data_quality": "moderate",
+      "data_since": "2026-03-15",
+      "data_until": "2026-04-04",
+      "distinct_days": 2,
+      "latest_bulk_price": {
+        "contributing_observations": 1,
+        "currency": "USD",
+        "date": "2026-04-04",
+        "form_summary": "metal",
+        "notes": "Median of 2 bulk offers (Fastmarkets / CBMM benchmark, Tianjin Chengmai (Alibaba))",
+        "price_per_kg": 71.5,
+        "source_type": "median_aggregate",
+        "sources": [
+          "Tianjin Chengmai (Alibaba)"
+        ]
+      },
+      "latest_lab_price": null,
+      "latest_retail_price": {
+        "contributing_observations": 1,
+        "currency": "USD",
+        "date": "2026-04-04",
+        "form_summary": "metal",
+        "notes": "Median of 2 retail offers (Smart-Elements, navycbmichael (eBay))",
+        "price_per_kg": 925.5,
+        "source_type": "median_aggregate",
+        "sources": [
+          "navycbmichael (eBay)"
+        ]
+      },
+      "observation_count": 4,
+      "tiers": {
+        "bulk": {
+          "distinct_days": 2,
+          "observation_count": 2,
+          "windows": {
+            "1y": {
+              "abs_change": -3.0,
+              "actual_span_days": 20,
+              "confidence": "low",
+              "confidence_note": "Based on 2 observation(s) across 2 distinct day(s), spanning 20 day(s).",
+              "direction": "down",
+              "distinct_days_in_window": 2,
+              "end_date": "2026-04-04",
+              "end_price": 70.0,
+              "observations_in_window": 2,
+              "pct_change": -4.11,
+              "start_date": "2026-03-15",
+              "start_price": 73.0,
+              "window_days": 365
+            },
+            "30d": {
+              "abs_change": -3.0,
+              "actual_span_days": 20,
+              "confidence": "low",
+              "confidence_note": "Based on 2 observation(s) across 2 distinct day(s), spanning 20 day(s).",
+              "direction": "down",
+              "distinct_days_in_window": 2,
+              "end_date": "2026-04-04",
+              "end_price": 70.0,
+              "observations_in_window": 2,
+              "pct_change": -4.11,
+              "start_date": "2026-03-15",
+              "start_price": 73.0,
+              "window_days": 30
+            },
+            "7d": null,
+            "90d": {
+              "abs_change": -3.0,
+              "actual_span_days": 20,
+              "confidence": "low",
+              "confidence_note": "Based on 2 observation(s) across 2 distinct day(s), spanning 20 day(s).",
+              "direction": "down",
+              "distinct_days_in_window": 2,
+              "end_date": "2026-04-04",
+              "end_price": 70.0,
+              "observations_in_window": 2,
+              "pct_change": -4.11,
+              "start_date": "2026-03-15",
+              "start_price": 73.0,
+              "window_days": 90
+            },
+            "all_time": {
+              "abs_change": -3.0,
+              "actual_span_days": 20,
+              "confidence": "low",
+              "confidence_note": "Based on 2 observation(s) across 2 distinct day(s), spanning 20 day(s).",
+              "direction": "down",
+              "distinct_days_in_window": 2,
+              "end_date": "2026-04-04",
+              "end_price": 70.0,
+              "observations_in_window": 2,
+              "pct_change": -4.11,
+              "start_date": "2026-03-15",
+              "start_price": 73.0,
+              "window_days": null
+            }
+          }
+        },
+        "lab": {
+          "distinct_days": 0,
+          "observation_count": 0,
+          "windows": {
+            "1y": null,
+            "30d": null,
+            "7d": null,
+            "90d": null,
+            "all_time": null
+          }
+        },
+        "retail": {
+          "distinct_days": 2,
+          "observation_count": 2,
+          "windows": {
+            "1y": {
+              "abs_change": -1149.0,
+              "actual_span_days": 20,
+              "confidence": "low",
+              "confidence_note": "Based on 2 observation(s) across 2 distinct day(s), spanning 20 day(s).",
+              "direction": "down",
+              "distinct_days_in_window": 2,
+              "end_date": "2026-04-04",
+              "end_price": 351.0,
+              "observations_in_window": 2,
+              "pct_change": -76.6,
+              "start_date": "2026-03-15",
+              "start_price": 1500.0,
+              "window_days": 365
+            },
+            "30d": {
+              "abs_change": -1149.0,
+              "actual_span_days": 20,
+              "confidence": "low",
+              "confidence_note": "Based on 2 observation(s) across 2 distinct day(s), spanning 20 day(s).",
+              "direction": "down",
+              "distinct_days_in_window": 2,
+              "end_date": "2026-04-04",
+              "end_price": 351.0,
+              "observations_in_window": 2,
+              "pct_change": -76.6,
+              "start_date": "2026-03-15",
+              "start_price": 1500.0,
+              "window_days": 30
+            },
+            "7d": null,
+            "90d": {
+              "abs_change": -1149.0,
+              "actual_span_days": 20,
+              "confidence": "low",
+              "confidence_note": "Based on 2 observation(s) across 2 distinct day(s), spanning 20 day(s).",
+              "direction": "down",
+              "distinct_days_in_window": 2,
+              "end_date": "2026-04-04",
+              "end_price": 351.0,
+              "observations_in_window": 2,
+              "pct_change": -76.6,
+              "start_date": "2026-03-15",
+              "start_price": 1500.0,
+              "window_days": 90
+            },
+            "all_time": {
+              "abs_change": -1149.0,
+              "actual_span_days": 20,
+              "confidence": "low",
+              "confidence_note": "Based on 2 observation(s) across 2 distinct day(s), spanning 20 day(s).",
+              "direction": "down",
+              "distinct_days_in_window": 2,
+              "end_date": "2026-04-04",
+              "end_price": 351.0,
+              "observations_in_window": 2,
+              "pct_change": -76.6,
+              "start_date": "2026-03-15",
+              "start_price": 1500.0,
+              "window_days": null
+            }
+          }
+        }
+      }
+    },
+    "Nd": {
+      "data_quality": "moderate",
+      "data_since": "2026-03-15",
+      "data_until": "2026-04-04",
+      "distinct_days": 2,
+      "latest_bulk_price": {
+        "contributing_observations": 1,
+        "currency": "USD",
+        "date": "2026-04-04",
+        "form_summary": "metal",
+        "notes": "Median of 1 bulk offers (Ganzhou Wanfeng (Alibaba))",
+        "price_per_kg": 80.0,
+        "source_type": "median_aggregate",
+        "sources": [
+          "Ganzhou Wanfeng (Alibaba)"
+        ]
+      },
+      "latest_lab_price": null,
+      "latest_retail_price": {
+        "contributing_observations": 5,
+        "currency": "USD",
+        "date": "2026-04-04",
+        "form_summary": "metal, oxide",
+        "notes": "Median of 9 retail offers (ALB Materials, American Elements, Edgetech Industries, Luciteria + 5 more)",
+        "price_per_kg": 600.0,
+        "source_type": "median_aggregate",
+        "sources": [
+          "Luciteria",
+          "auremo-eu (eBay)",
+          "chemsaversinc1 (eBay)",
+          "engineeredlab (eBay)",
+          "novaelements (eBay)"
+        ]
+      },
+      "observation_count": 10,
+      "tiers": {
+        "bulk": {
+          "distinct_days": 1,
+          "observation_count": 1,
+          "windows": {
+            "1y": null,
+            "30d": null,
+            "7d": null,
+            "90d": null,
+            "all_time": null
+          }
+        },
+        "lab": {
+          "distinct_days": 0,
+          "observation_count": 0,
+          "windows": {
+            "1y": null,
+            "30d": null,
+            "7d": null,
+            "90d": null,
+            "all_time": null
+          }
+        },
+        "retail": {
+          "distinct_days": 2,
+          "observation_count": 9,
+          "windows": {
+            "1y": {
+              "abs_change": 11658.5,
+              "actual_span_days": 20,
+              "confidence": "low",
+              "confidence_note": "Based on 9 observation(s) across 2 distinct day(s), spanning 20 day(s).",
+              "direction": "up",
+              "distinct_days_in_window": 2,
+              "end_date": "2026-04-04",
+              "end_price": 11750.0,
+              "observations_in_window": 9,
+              "pct_change": 12741.53,
+              "start_date": "2026-03-15",
+              "start_price": 91.5,
+              "window_days": 365
+            },
+            "30d": {
+              "abs_change": 11658.5,
+              "actual_span_days": 20,
+              "confidence": "low",
+              "confidence_note": "Based on 9 observation(s) across 2 distinct day(s), spanning 20 day(s).",
+              "direction": "up",
+              "distinct_days_in_window": 2,
+              "end_date": "2026-04-04",
+              "end_price": 11750.0,
+              "observations_in_window": 9,
+              "pct_change": 12741.53,
+              "start_date": "2026-03-15",
+              "start_price": 91.5,
+              "window_days": 30
+            },
+            "7d": null,
+            "90d": {
+              "abs_change": 11658.5,
+              "actual_span_days": 20,
+              "confidence": "low",
+              "confidence_note": "Based on 9 observation(s) across 2 distinct day(s), spanning 20 day(s).",
+              "direction": "up",
+              "distinct_days_in_window": 2,
+              "end_date": "2026-04-04",
+              "end_price": 11750.0,
+              "observations_in_window": 9,
+              "pct_change": 12741.53,
+              "start_date": "2026-03-15",
+              "start_price": 91.5,
+              "window_days": 90
+            },
+            "all_time": {
+              "abs_change": 11658.5,
+              "actual_span_days": 20,
+              "confidence": "low",
+              "confidence_note": "Based on 9 observation(s) across 2 distinct day(s), spanning 20 day(s).",
+              "direction": "up",
+              "distinct_days_in_window": 2,
+              "end_date": "2026-04-04",
+              "end_price": 11750.0,
+              "observations_in_window": 9,
+              "pct_change": 12741.53,
+              "start_date": "2026-03-15",
+              "start_price": 91.5,
+              "window_days": null
+            }
+          }
+        }
+      }
+    },
+    "Pr": {
+      "data_quality": "moderate",
+      "data_since": "2026-03-15",
+      "data_until": "2026-04-04",
+      "distinct_days": 2,
+      "latest_bulk_price": null,
+      "latest_lab_price": null,
+      "latest_retail_price": {
+        "contributing_observations": 2,
+        "currency": "USD",
+        "date": "2026-04-04",
+        "form_summary": "metal, oxide",
+        "notes": "Median of 5 retail offers (ALB Materials, Edgetech Industries, Luciteria, Stanford Advanced Materials)",
+        "price_per_kg": 90.0,
+        "source_type": "median_aggregate",
+        "sources": [
+          "Luciteria"
+        ]
+      },
+      "observation_count": 5,
+      "tiers": {
+        "bulk": {
+          "distinct_days": 0,
+          "observation_count": 0,
+          "windows": {
+            "1y": null,
+            "30d": null,
+            "7d": null,
+            "90d": null,
+            "all_time": null
+          }
+        },
+        "lab": {
+          "distinct_days": 0,
+          "observation_count": 0,
+          "windows": {
+            "1y": null,
+            "30d": null,
+            "7d": null,
+            "90d": null,
+            "all_time": null
+          }
+        },
+        "retail": {
+          "distinct_days": 2,
+          "observation_count": 5,
+          "windows": {
+            "1y": {
+              "abs_change": 15085.5,
+              "actual_span_days": 20,
+              "confidence": "low",
+              "confidence_note": "Based on 5 observation(s) across 2 distinct day(s), spanning 20 day(s).",
+              "direction": "up",
+              "distinct_days_in_window": 2,
+              "end_date": "2026-04-04",
+              "end_price": 15170.5,
+              "observations_in_window": 5,
+              "pct_change": 17747.65,
+              "start_date": "2026-03-15",
+              "start_price": 85.0,
+              "window_days": 365
+            },
+            "30d": {
+              "abs_change": 15085.5,
+              "actual_span_days": 20,
+              "confidence": "low",
+              "confidence_note": "Based on 5 observation(s) across 2 distinct day(s), spanning 20 day(s).",
+              "direction": "up",
+              "distinct_days_in_window": 2,
+              "end_date": "2026-04-04",
+              "end_price": 15170.5,
+              "observations_in_window": 5,
+              "pct_change": 17747.65,
+              "start_date": "2026-03-15",
+              "start_price": 85.0,
+              "window_days": 30
+            },
+            "7d": null,
+            "90d": {
+              "abs_change": 15085.5,
+              "actual_span_days": 20,
+              "confidence": "low",
+              "confidence_note": "Based on 5 observation(s) across 2 distinct day(s), spanning 20 day(s).",
+              "direction": "up",
+              "distinct_days_in_window": 2,
+              "end_date": "2026-04-04",
+              "end_price": 15170.5,
+              "observations_in_window": 5,
+              "pct_change": 17747.65,
+              "start_date": "2026-03-15",
+              "start_price": 85.0,
+              "window_days": 90
+            },
+            "all_time": {
+              "abs_change": 15085.5,
+              "actual_span_days": 20,
+              "confidence": "low",
+              "confidence_note": "Based on 5 observation(s) across 2 distinct day(s), spanning 20 day(s).",
+              "direction": "up",
+              "distinct_days_in_window": 2,
+              "end_date": "2026-04-04",
+              "end_price": 15170.5,
+              "observations_in_window": 5,
+              "pct_change": 17747.65,
+              "start_date": "2026-03-15",
+              "start_price": 85.0,
+              "window_days": null
+            }
+          }
+        }
+      }
+    },
+    "Sb": {
+      "data_quality": "sparse",
+      "data_since": "2026-03-15",
+      "data_until": "2026-03-15",
+      "distinct_days": 1,
+      "latest_bulk_price": null,
+      "latest_lab_price": null,
+      "latest_retail_price": {
+        "contributing_observations": 4,
+        "currency": "USD",
+        "date": "2026-03-15",
+        "form_summary": "metal",
+        "notes": "Median of 4 retail offers (ALB Materials, Edgetech Industries, Goodfellow, Stanford Advanced Materials)",
+        "price_per_kg": 21.0,
+        "source_type": "median_aggregate",
+        "sources": [
+          "alb-materials-01",
+          "edgetech-industries-01",
+          "goodfellow-01",
+          "stanford-advanced-materials-01"
+        ]
+      },
+      "observation_count": 4,
+      "tiers": {
+        "bulk": {
+          "distinct_days": 0,
+          "observation_count": 0,
+          "windows": {
+            "1y": null,
+            "30d": null,
+            "7d": null,
+            "90d": null,
+            "all_time": null
+          }
+        },
+        "lab": {
+          "distinct_days": 0,
+          "observation_count": 0,
+          "windows": {
+            "1y": null,
+            "30d": null,
+            "7d": null,
+            "90d": null,
+            "all_time": null
+          }
+        },
+        "retail": {
+          "distinct_days": 1,
+          "observation_count": 4,
+          "windows": {
+            "1y": null,
+            "30d": null,
+            "7d": null,
+            "90d": null,
+            "all_time": null
+          }
+        }
+      }
+    },
+    "Sc": {
+      "data_quality": "rich",
+      "data_since": "2024-12-15",
+      "data_until": "2026-04-04",
+      "distinct_days": 6,
+      "latest_bulk_price": {
+        "contributing_observations": 1,
+        "currency": "USD",
+        "date": "2026-04-04",
+        "form_summary": "compound",
+        "notes": "Median of 1 bulk offers (Ganzhou Wanfeng (Alibaba))",
+        "price_per_kg": 1000.0,
+        "source_type": "median_aggregate",
+        "sources": [
+          "Ganzhou Wanfeng (Alibaba)"
+        ]
+      },
+      "latest_lab_price": null,
+      "latest_retail_price": {
+        "contributing_observations": 1,
+        "currency": "USD",
+        "date": "2026-04-04",
+        "form_summary": "metal, oxide",
+        "notes": "Median of 7 retail offers (Luciteria, MSE Supplies, PEGUYS, RWMM + 1 more)",
+        "price_per_kg": 10200.0,
+        "source_type": "median_aggregate",
+        "sources": [
+          "Luciteria"
+        ]
+      },
+      "observation_count": 12,
+      "tiers": {
+        "bulk": {
+          "distinct_days": 4,
+          "observation_count": 5,
+          "windows": {
+            "1y": {
+              "abs_change": -2850.0,
+              "actual_span_days": 232,
+              "confidence": "medium",
+              "confidence_note": "Based on 4 observation(s) across 3 distinct day(s), spanning 232 day(s).",
+              "direction": "down",
+              "distinct_days_in_window": 3,
+              "end_date": "2026-04-04",
+              "end_price": 1000.0,
+              "observations_in_window": 4,
+              "pct_change": -74.03,
+              "start_date": "2025-08-15",
+              "start_price": 3850.0,
+              "window_days": 365
+            },
+            "30d": {
+              "abs_change": -3913.0,
+              "actual_span_days": 20,
+              "confidence": "low",
+              "confidence_note": "Based on 3 observation(s) across 2 distinct day(s), spanning 20 day(s).",
+              "direction": "down",
+              "distinct_days_in_window": 2,
+              "end_date": "2026-04-04",
+              "end_price": 1000.0,
+              "observations_in_window": 3,
+              "pct_change": -79.65,
+              "start_date": "2026-03-15",
+              "start_price": 4913.0,
+              "window_days": 30
+            },
+            "7d": null,
+            "90d": {
+              "abs_change": -3913.0,
+              "actual_span_days": 20,
+              "confidence": "low",
+              "confidence_note": "Based on 3 observation(s) across 2 distinct day(s), spanning 20 day(s).",
+              "direction": "down",
+              "distinct_days_in_window": 2,
+              "end_date": "2026-04-04",
+              "end_price": 1000.0,
+              "observations_in_window": 3,
+              "pct_change": -79.65,
+              "start_date": "2026-03-15",
+              "start_price": 4913.0,
+              "window_days": 90
+            },
+            "all_time": {
+              "abs_change": -200.0,
+              "actual_span_days": 475,
+              "confidence": "medium",
+              "confidence_note": "Based on 5 observation(s) across 4 distinct day(s), spanning 475 day(s).",
+              "direction": "down",
+              "distinct_days_in_window": 4,
+              "end_date": "2026-04-04",
+              "end_price": 1000.0,
+              "observations_in_window": 5,
+              "pct_change": -16.67,
+              "start_date": "2024-12-15",
+              "start_price": 1200.0,
+              "window_days": null
+            }
+          }
+        },
+        "lab": {
+          "distinct_days": 0,
+          "observation_count": 0,
+          "windows": {
+            "1y": null,
+            "30d": null,
+            "7d": null,
+            "90d": null,
+            "all_time": null
+          }
+        },
+        "retail": {
+          "distinct_days": 3,
+          "observation_count": 7,
+          "windows": {
+            "1y": {
+              "abs_change": 21133.0,
+              "actual_span_days": 15,
+              "confidence": "medium",
+              "confidence_note": "Based on 7 observation(s) across 3 distinct day(s), spanning 15 day(s).",
+              "direction": "up",
+              "distinct_days_in_window": 3,
+              "end_date": "2026-04-04",
+              "end_price": 31333.0,
+              "observations_in_window": 7,
+              "pct_change": 207.19,
+              "start_date": "2026-03-20",
+              "start_price": 10200.0,
+              "window_days": 365
+            },
+            "30d": {
+              "abs_change": 21133.0,
+              "actual_span_days": 15,
+              "confidence": "medium",
+              "confidence_note": "Based on 7 observation(s) across 3 distinct day(s), spanning 15 day(s).",
+              "direction": "up",
+              "distinct_days_in_window": 3,
+              "end_date": "2026-04-04",
+              "end_price": 31333.0,
+              "observations_in_window": 7,
+              "pct_change": 207.19,
+              "start_date": "2026-03-20",
+              "start_price": 10200.0,
+              "window_days": 30
+            },
+            "7d": null,
+            "90d": {
+              "abs_change": 21133.0,
+              "actual_span_days": 15,
+              "confidence": "medium",
+              "confidence_note": "Based on 7 observation(s) across 3 distinct day(s), spanning 15 day(s).",
+              "direction": "up",
+              "distinct_days_in_window": 3,
+              "end_date": "2026-04-04",
+              "end_price": 31333.0,
+              "observations_in_window": 7,
+              "pct_change": 207.19,
+              "start_date": "2026-03-20",
+              "start_price": 10200.0,
+              "window_days": 90
+            },
+            "all_time": {
+              "abs_change": 21133.0,
+              "actual_span_days": 15,
+              "confidence": "medium",
+              "confidence_note": "Based on 7 observation(s) across 3 distinct day(s), spanning 15 day(s).",
+              "direction": "up",
+              "distinct_days_in_window": 3,
+              "end_date": "2026-04-04",
+              "end_price": 31333.0,
+              "observations_in_window": 7,
+              "pct_change": 207.19,
+              "start_date": "2026-03-20",
+              "start_price": 10200.0,
+              "window_days": null
+            }
+          }
+        }
+      }
+    },
+    "Se": {
+      "data_quality": "sparse",
+      "data_since": "2026-03-15",
+      "data_until": "2026-03-15",
+      "distinct_days": 1,
+      "latest_bulk_price": null,
+      "latest_lab_price": null,
+      "latest_retail_price": {
+        "contributing_observations": 3,
+        "currency": "USD",
+        "date": "2026-03-15",
+        "form_summary": "powder",
+        "notes": "Median of 3 retail offers (ALB Materials, Edgetech Industries, Stanford Advanced Materials)",
+        "price_per_kg": 22.0,
+        "source_type": "median_aggregate",
+        "sources": [
+          "alb-materials-01",
+          "edgetech-industries-01",
+          "stanford-advanced-materials-01"
+        ]
+      },
+      "observation_count": 3,
+      "tiers": {
+        "bulk": {
+          "distinct_days": 0,
+          "observation_count": 0,
+          "windows": {
+            "1y": null,
+            "30d": null,
+            "7d": null,
+            "90d": null,
+            "all_time": null
+          }
+        },
+        "lab": {
+          "distinct_days": 0,
+          "observation_count": 0,
+          "windows": {
+            "1y": null,
+            "30d": null,
+            "7d": null,
+            "90d": null,
+            "all_time": null
+          }
+        },
+        "retail": {
+          "distinct_days": 1,
+          "observation_count": 3,
+          "windows": {
+            "1y": null,
+            "30d": null,
+            "7d": null,
+            "90d": null,
+            "all_time": null
+          }
+        }
+      }
+    },
+    "Sm": {
+      "data_quality": "moderate",
+      "data_since": "2026-03-15",
+      "data_until": "2026-04-04",
+      "distinct_days": 2,
+      "latest_bulk_price": null,
+      "latest_lab_price": null,
+      "latest_retail_price": {
+        "contributing_observations": 3,
+        "currency": "USD",
+        "date": "2026-04-04",
+        "form_summary": "metal, oxide",
+        "notes": "Median of 6 retail offers (ALB Materials, Edgetech Industries, Luciteria, Stanford Advanced Materials + 2 more)",
+        "price_per_kg": 1936.0,
+        "source_type": "median_aggregate",
+        "sources": [
+          "Luciteria",
+          "novaelements (eBay)",
+          "snaucke-elements (eBay)"
+        ]
+      },
+      "observation_count": 6,
+      "tiers": {
+        "bulk": {
+          "distinct_days": 0,
+          "observation_count": 0,
+          "windows": {
+            "1y": null,
+            "30d": null,
+            "7d": null,
+            "90d": null,
+            "all_time": null
+          }
+        },
+        "lab": {
+          "distinct_days": 0,
+          "observation_count": 0,
+          "windows": {
+            "1y": null,
+            "30d": null,
+            "7d": null,
+            "90d": null,
+            "all_time": null
+          }
+        },
+        "retail": {
+          "distinct_days": 2,
+          "observation_count": 6,
+          "windows": {
+            "1y": {
+              "abs_change": 8996.0,
+              "actual_span_days": 20,
+              "confidence": "low",
+              "confidence_note": "Based on 6 observation(s) across 2 distinct day(s), spanning 20 day(s).",
+              "direction": "up",
+              "distinct_days_in_window": 2,
+              "end_date": "2026-04-04",
+              "end_price": 9000.0,
+              "observations_in_window": 6,
+              "pct_change": 224900.0,
+              "start_date": "2026-03-15",
+              "start_price": 4.0,
+              "window_days": 365
+            },
+            "30d": {
+              "abs_change": 8996.0,
+              "actual_span_days": 20,
+              "confidence": "low",
+              "confidence_note": "Based on 6 observation(s) across 2 distinct day(s), spanning 20 day(s).",
+              "direction": "up",
+              "distinct_days_in_window": 2,
+              "end_date": "2026-04-04",
+              "end_price": 9000.0,
+              "observations_in_window": 6,
+              "pct_change": 224900.0,
+              "start_date": "2026-03-15",
+              "start_price": 4.0,
+              "window_days": 30
+            },
+            "7d": null,
+            "90d": {
+              "abs_change": 8996.0,
+              "actual_span_days": 20,
+              "confidence": "low",
+              "confidence_note": "Based on 6 observation(s) across 2 distinct day(s), spanning 20 day(s).",
+              "direction": "up",
+              "distinct_days_in_window": 2,
+              "end_date": "2026-04-04",
+              "end_price": 9000.0,
+              "observations_in_window": 6,
+              "pct_change": 224900.0,
+              "start_date": "2026-03-15",
+              "start_price": 4.0,
+              "window_days": 90
+            },
+            "all_time": {
+              "abs_change": 8996.0,
+              "actual_span_days": 20,
+              "confidence": "low",
+              "confidence_note": "Based on 6 observation(s) across 2 distinct day(s), spanning 20 day(s).",
+              "direction": "up",
+              "distinct_days_in_window": 2,
+              "end_date": "2026-04-04",
+              "end_price": 9000.0,
+              "observations_in_window": 6,
+              "pct_change": 224900.0,
+              "start_date": "2026-03-15",
+              "start_price": 4.0,
+              "window_days": null
+            }
+          }
+        }
+      }
+    },
+    "Ta": {
+      "data_quality": "sparse",
+      "data_since": "2026-03-15",
+      "data_until": "2026-03-15",
+      "distinct_days": 1,
+      "latest_bulk_price": {
+        "contributing_observations": 1,
+        "currency": "USD",
+        "date": "2026-03-15",
+        "form_summary": "metal",
+        "notes": "Median of 1 bulk offers (Mining.com / LME benchmark)",
+        "price_per_kg": 280.0,
+        "source_type": "median_aggregate",
+        "sources": [
+          "Mining.com / LME benchmark"
+        ]
+      },
+      "latest_lab_price": null,
+      "latest_retail_price": {
+        "contributing_observations": 1,
+        "currency": "USD",
+        "date": "2026-03-15",
+        "form_summary": "metal",
+        "notes": "Median of 1 retail offers (Metallium / Element Collectors)",
+        "price_per_kg": 2800.0,
+        "source_type": "median_aggregate",
+        "sources": [
+          "Metallium / Element Collectors"
+        ]
+      },
+      "observation_count": 2,
+      "tiers": {
+        "bulk": {
+          "distinct_days": 1,
+          "observation_count": 1,
+          "windows": {
+            "1y": null,
+            "30d": null,
+            "7d": null,
+            "90d": null,
+            "all_time": null
+          }
+        },
+        "lab": {
+          "distinct_days": 0,
+          "observation_count": 0,
+          "windows": {
+            "1y": null,
+            "30d": null,
+            "7d": null,
+            "90d": null,
+            "all_time": null
+          }
+        },
+        "retail": {
+          "distinct_days": 1,
+          "observation_count": 1,
+          "windows": {
+            "1y": null,
+            "30d": null,
+            "7d": null,
+            "90d": null,
+            "all_time": null
+          }
+        }
+      }
+    },
+    "Tb": {
+      "data_quality": "rich",
+      "data_since": "2026-02-26",
+      "data_until": "2026-04-04",
+      "distinct_days": 4,
+      "latest_bulk_price": {
+        "contributing_observations": 1,
+        "currency": "USD",
+        "date": "2026-04-04",
+        "form_summary": "compound",
+        "notes": "Median of 1 bulk offers (Ganzhou Wanfeng (Alibaba))",
+        "price_per_kg": 600.0,
+        "source_type": "median_aggregate",
+        "sources": [
+          "Ganzhou Wanfeng (Alibaba)"
+        ]
+      },
+      "latest_lab_price": null,
+      "latest_retail_price": {
+        "contributing_observations": 4,
+        "currency": "USD",
+        "date": "2026-03-22",
+        "form_summary": "metal, oxide",
+        "notes": "Median of 8 retail offers (Chemsavers, MSE Supplies (eBay), PEGUYS, RWMM + 2 more)",
+        "price_per_kg": 10800.0,
+        "source_type": "median_aggregate",
+        "sources": [
+          "peguys-tb-metal-01",
+          "peguys-tb-metal-02",
+          "rwmm-tb-01",
+          "smart-elements-tb-metal-01"
+        ]
+      },
+      "observation_count": 12,
+      "tiers": {
+        "bulk": {
+          "distinct_days": 3,
+          "observation_count": 4,
+          "windows": {
+            "1y": {
+              "abs_change": -1490.0,
+              "actual_span_days": 37,
+              "confidence": "medium",
+              "confidence_note": "Based on 4 observation(s) across 3 distinct day(s), spanning 37 day(s).",
+              "direction": "down",
+              "distinct_days_in_window": 3,
+              "end_date": "2026-04-04",
+              "end_price": 600.0,
+              "observations_in_window": 4,
+              "pct_change": -71.29,
+              "start_date": "2026-02-26",
+              "start_price": 2090.0,
+              "window_days": 365
+            },
+            "30d": {
+              "abs_change": -393.0,
+              "actual_span_days": 15,
+              "confidence": "low",
+              "confidence_note": "Based on 3 observation(s) across 2 distinct day(s), spanning 15 day(s).",
+              "direction": "down",
+              "distinct_days_in_window": 2,
+              "end_date": "2026-04-04",
+              "end_price": 600.0,
+              "observations_in_window": 3,
+              "pct_change": -39.58,
+              "start_date": "2026-03-20",
+              "start_price": 993.0,
+              "window_days": 30
+            },
+            "7d": null,
+            "90d": {
+              "abs_change": -1490.0,
+              "actual_span_days": 37,
+              "confidence": "medium",
+              "confidence_note": "Based on 4 observation(s) across 3 distinct day(s), spanning 37 day(s).",
+              "direction": "down",
+              "distinct_days_in_window": 3,
+              "end_date": "2026-04-04",
+              "end_price": 600.0,
+              "observations_in_window": 4,
+              "pct_change": -71.29,
+              "start_date": "2026-02-26",
+              "start_price": 2090.0,
+              "window_days": 90
+            },
+            "all_time": {
+              "abs_change": -1490.0,
+              "actual_span_days": 37,
+              "confidence": "medium",
+              "confidence_note": "Based on 4 observation(s) across 3 distinct day(s), spanning 37 day(s).",
+              "direction": "down",
+              "distinct_days_in_window": 3,
+              "end_date": "2026-04-04",
+              "end_price": 600.0,
+              "observations_in_window": 4,
+              "pct_change": -71.29,
+              "start_date": "2026-02-26",
+              "start_price": 2090.0,
+              "window_days": null
+            }
+          }
+        },
+        "lab": {
+          "distinct_days": 0,
+          "observation_count": 0,
+          "windows": {
+            "1y": null,
+            "30d": null,
+            "7d": null,
+            "90d": null,
+            "all_time": null
+          }
+        },
+        "retail": {
+          "distinct_days": 2,
+          "observation_count": 8,
+          "windows": {
+            "1y": {
+              "abs_change": -855.0,
+              "actual_span_days": 2,
+              "confidence": "low",
+              "confidence_note": "Based on 8 observation(s) across 2 distinct day(s), spanning 2 day(s).",
+              "direction": "down",
+              "distinct_days_in_window": 2,
+              "end_date": "2026-03-22",
+              "end_price": 10800.0,
+              "observations_in_window": 8,
+              "pct_change": -7.34,
+              "start_date": "2026-03-20",
+              "start_price": 11655.0,
+              "window_days": 365
+            },
+            "30d": {
+              "abs_change": -855.0,
+              "actual_span_days": 2,
+              "confidence": "low",
+              "confidence_note": "Based on 8 observation(s) across 2 distinct day(s), spanning 2 day(s).",
+              "direction": "down",
+              "distinct_days_in_window": 2,
+              "end_date": "2026-03-22",
+              "end_price": 10800.0,
+              "observations_in_window": 8,
+              "pct_change": -7.34,
+              "start_date": "2026-03-20",
+              "start_price": 11655.0,
+              "window_days": 30
+            },
+            "7d": {
+              "abs_change": -855.0,
+              "actual_span_days": 2,
+              "confidence": "low",
+              "confidence_note": "Based on 8 observation(s) across 2 distinct day(s), spanning 2 day(s).",
+              "direction": "down",
+              "distinct_days_in_window": 2,
+              "end_date": "2026-03-22",
+              "end_price": 10800.0,
+              "observations_in_window": 8,
+              "pct_change": -7.34,
+              "start_date": "2026-03-20",
+              "start_price": 11655.0,
+              "window_days": 7
+            },
+            "90d": {
+              "abs_change": -855.0,
+              "actual_span_days": 2,
+              "confidence": "low",
+              "confidence_note": "Based on 8 observation(s) across 2 distinct day(s), spanning 2 day(s).",
+              "direction": "down",
+              "distinct_days_in_window": 2,
+              "end_date": "2026-03-22",
+              "end_price": 10800.0,
+              "observations_in_window": 8,
+              "pct_change": -7.34,
+              "start_date": "2026-03-20",
+              "start_price": 11655.0,
+              "window_days": 90
+            },
+            "all_time": {
+              "abs_change": -855.0,
+              "actual_span_days": 2,
+              "confidence": "low",
+              "confidence_note": "Based on 8 observation(s) across 2 distinct day(s), spanning 2 day(s).",
+              "direction": "down",
+              "distinct_days_in_window": 2,
+              "end_date": "2026-03-22",
+              "end_price": 10800.0,
+              "observations_in_window": 8,
+              "pct_change": -7.34,
+              "start_date": "2026-03-20",
+              "start_price": 11655.0,
+              "window_days": null
+            }
+          }
+        }
+      }
+    },
+    "Te": {
+      "data_quality": "rich",
+      "data_since": "2026-02-28",
+      "data_until": "2026-04-04",
+      "distinct_days": 6,
+      "latest_bulk_price": {
+        "contributing_observations": 2,
+        "currency": "USD",
+        "date": "2026-04-04",
+        "form_summary": "metal",
+        "notes": "Median of 5 bulk offers (BusinessAnalytiq, IMARC Group, Multiple CN/FR suppliers (Alibaba))",
+        "price_per_kg": 112.0,
+        "source_type": "median_aggregate",
+        "sources": [
+          "Multiple CN/FR suppliers (Alibaba)",
+          "SARL ISLO (Alibaba)"
+        ]
+      },
+      "latest_lab_price": null,
+      "latest_retail_price": {
+        "contributing_observations": 8,
+        "currency": "USD",
+        "date": "2026-03-29",
+        "form_summary": "metal, oxide",
+        "notes": "Median of 12 retail offers (ALB Materials, American Elements, Chemsavers, Edgetech Industries + 7 more)",
+        "price_per_kg": 629.0,
+        "source_type": "median_aggregate",
+        "sources": [
+          "Chemsavers",
+          "Luciteria",
+          "MSE Supplies",
+          "PEGUYS",
+          "RWMM",
+          "Smart-Elements",
+          "Strategic Metals Invest"
+        ]
+      },
+      "observation_count": 17,
+      "tiers": {
+        "bulk": {
+          "distinct_days": 4,
+          "observation_count": 5,
+          "windows": {
+            "1y": {
+              "abs_change": 473.0,
+              "actual_span_days": 35,
+              "confidence": "medium",
+              "confidence_note": "Based on 5 observation(s) across 4 distinct day(s), spanning 35 day(s).",
+              "direction": "up",
+              "distinct_days_in_window": 4,
+              "end_date": "2026-04-04",
+              "end_price": 590.0,
+              "observations_in_window": 5,
+              "pct_change": 404.27,
+              "start_date": "2026-02-28",
+              "start_price": 117.0,
+              "window_days": 365
+            },
+            "30d": {
+              "abs_change": 482.0,
+              "actual_span_days": 10,
+              "confidence": "medium",
+              "confidence_note": "Based on 4 observation(s) across 3 distinct day(s), spanning 10 day(s).",
+              "direction": "up",
+              "distinct_days_in_window": 3,
+              "end_date": "2026-04-04",
+              "end_price": 590.0,
+              "observations_in_window": 4,
+              "pct_change": 446.3,
+              "start_date": "2026-03-25",
+              "start_price": 108.0,
+              "window_days": 30
+            },
+            "7d": {
+              "abs_change": 478.0,
+              "actual_span_days": 5,
+              "confidence": "low",
+              "confidence_note": "Based on 3 observation(s) across 2 distinct day(s), spanning 5 day(s).",
+              "direction": "up",
+              "distinct_days_in_window": 2,
+              "end_date": "2026-04-04",
+              "end_price": 590.0,
+              "observations_in_window": 3,
+              "pct_change": 426.79,
+              "start_date": "2026-03-30",
+              "start_price": 112.0,
+              "window_days": 7
+            },
+            "90d": {
+              "abs_change": 473.0,
+              "actual_span_days": 35,
+              "confidence": "medium",
+              "confidence_note": "Based on 5 observation(s) across 4 distinct day(s), spanning 35 day(s).",
+              "direction": "up",
+              "distinct_days_in_window": 4,
+              "end_date": "2026-04-04",
+              "end_price": 590.0,
+              "observations_in_window": 5,
+              "pct_change": 404.27,
+              "start_date": "2026-02-28",
+              "start_price": 117.0,
+              "window_days": 90
+            },
+            "all_time": {
+              "abs_change": 473.0,
+              "actual_span_days": 35,
+              "confidence": "medium",
+              "confidence_note": "Based on 5 observation(s) across 4 distinct day(s), spanning 35 day(s).",
+              "direction": "up",
+              "distinct_days_in_window": 4,
+              "end_date": "2026-04-04",
+              "end_price": 590.0,
+              "observations_in_window": 5,
+              "pct_change": 404.27,
+              "start_date": "2026-02-28",
+              "start_price": 117.0,
+              "window_days": null
+            }
+          }
+        },
+        "lab": {
+          "distinct_days": 0,
+          "observation_count": 0,
+          "windows": {
+            "1y": null,
+            "30d": null,
+            "7d": null,
+            "90d": null,
+            "all_time": null
+          }
+        },
+        "retail": {
+          "distinct_days": 2,
+          "observation_count": 12,
+          "windows": {
+            "1y": {
+              "abs_change": 1261.0,
+              "actual_span_days": 14,
+              "confidence": "low",
+              "confidence_note": "Based on 12 observation(s) across 2 distinct day(s), spanning 14 day(s).",
+              "direction": "up",
+              "distinct_days_in_window": 2,
+              "end_date": "2026-03-29",
+              "end_price": 1368.5,
+              "observations_in_window": 12,
+              "pct_change": 1173.02,
+              "start_date": "2026-03-15",
+              "start_price": 107.5,
+              "window_days": 365
+            },
+            "30d": {
+              "abs_change": 1261.0,
+              "actual_span_days": 14,
+              "confidence": "low",
+              "confidence_note": "Based on 12 observation(s) across 2 distinct day(s), spanning 14 day(s).",
+              "direction": "up",
+              "distinct_days_in_window": 2,
+              "end_date": "2026-03-29",
+              "end_price": 1368.5,
+              "observations_in_window": 12,
+              "pct_change": 1173.02,
+              "start_date": "2026-03-15",
+              "start_price": 107.5,
+              "window_days": 30
+            },
+            "7d": null,
+            "90d": {
+              "abs_change": 1261.0,
+              "actual_span_days": 14,
+              "confidence": "low",
+              "confidence_note": "Based on 12 observation(s) across 2 distinct day(s), spanning 14 day(s).",
+              "direction": "up",
+              "distinct_days_in_window": 2,
+              "end_date": "2026-03-29",
+              "end_price": 1368.5,
+              "observations_in_window": 12,
+              "pct_change": 1173.02,
+              "start_date": "2026-03-15",
+              "start_price": 107.5,
+              "window_days": 90
+            },
+            "all_time": {
+              "abs_change": 1261.0,
+              "actual_span_days": 14,
+              "confidence": "low",
+              "confidence_note": "Based on 12 observation(s) across 2 distinct day(s), spanning 14 day(s).",
+              "direction": "up",
+              "distinct_days_in_window": 2,
+              "end_date": "2026-03-29",
+              "end_price": 1368.5,
+              "observations_in_window": 12,
+              "pct_change": 1173.02,
+              "start_date": "2026-03-15",
+              "start_price": 107.5,
+              "window_days": null
+            }
+          }
+        }
+      }
+    },
+    "Tm": {
+      "data_quality": "moderate",
+      "data_since": "2026-03-15",
+      "data_until": "2026-03-30",
+      "distinct_days": 3,
+      "latest_bulk_price": {
+        "contributing_observations": 1,
+        "currency": "USD",
+        "date": "2026-03-30",
+        "form_summary": "oxide",
+        "notes": "Median of 2 bulk offers (Chinese Direct Seller, Ganzhou Zhanhai)",
+        "price_per_kg": 965.0,
+        "source_type": "median_aggregate",
+        "sources": [
+          "Ganzhou Zhanhai"
+        ]
+      },
+      "latest_lab_price": null,
+      "latest_retail_price": {
+        "contributing_observations": 10,
+        "currency": "USD",
+        "date": "2026-03-29",
+        "form_summary": "metal, oxide",
+        "notes": "Median of 12 retail offers (Alfa Aesar, Chemsavers, Edgetech Industries, MSE Supplies + 4 more)",
+        "price_per_kg": 10959.5,
+        "source_type": "median_aggregate",
+        "sources": [
+          "Alfa Aesar",
+          "Chemsavers",
+          "MSE Supplies",
+          "PEGUYS",
+          "RWMM",
+          "Smart-Elements"
+        ]
+      },
+      "observation_count": 14,
+      "tiers": {
+        "bulk": {
+          "distinct_days": 2,
+          "observation_count": 2,
+          "windows": {
+            "1y": {
+              "abs_change": -1570.0,
+              "actual_span_days": 1,
+              "confidence": "low",
+              "confidence_note": "Based on 2 observation(s) across 2 distinct day(s), spanning 1 day(s).",
+              "direction": "down",
+              "distinct_days_in_window": 2,
+              "end_date": "2026-03-30",
+              "end_price": 180.0,
+              "observations_in_window": 2,
+              "pct_change": -89.71,
+              "start_date": "2026-03-29",
+              "start_price": 1750.0,
+              "window_days": 365
+            },
+            "30d": {
+              "abs_change": -1570.0,
+              "actual_span_days": 1,
+              "confidence": "low",
+              "confidence_note": "Based on 2 observation(s) across 2 distinct day(s), spanning 1 day(s).",
+              "direction": "down",
+              "distinct_days_in_window": 2,
+              "end_date": "2026-03-30",
+              "end_price": 180.0,
+              "observations_in_window": 2,
+              "pct_change": -89.71,
+              "start_date": "2026-03-29",
+              "start_price": 1750.0,
+              "window_days": 30
+            },
+            "7d": {
+              "abs_change": -1570.0,
+              "actual_span_days": 1,
+              "confidence": "low",
+              "confidence_note": "Based on 2 observation(s) across 2 distinct day(s), spanning 1 day(s).",
+              "direction": "down",
+              "distinct_days_in_window": 2,
+              "end_date": "2026-03-30",
+              "end_price": 180.0,
+              "observations_in_window": 2,
+              "pct_change": -89.71,
+              "start_date": "2026-03-29",
+              "start_price": 1750.0,
+              "window_days": 7
+            },
+            "90d": {
+              "abs_change": -1570.0,
+              "actual_span_days": 1,
+              "confidence": "low",
+              "confidence_note": "Based on 2 observation(s) across 2 distinct day(s), spanning 1 day(s).",
+              "direction": "down",
+              "distinct_days_in_window": 2,
+              "end_date": "2026-03-30",
+              "end_price": 180.0,
+              "observations_in_window": 2,
+              "pct_change": -89.71,
+              "start_date": "2026-03-29",
+              "start_price": 1750.0,
+              "window_days": 90
+            },
+            "all_time": {
+              "abs_change": -1570.0,
+              "actual_span_days": 1,
+              "confidence": "low",
+              "confidence_note": "Based on 2 observation(s) across 2 distinct day(s), spanning 1 day(s).",
+              "direction": "down",
+              "distinct_days_in_window": 2,
+              "end_date": "2026-03-30",
+              "end_price": 180.0,
+              "observations_in_window": 2,
+              "pct_change": -89.71,
+              "start_date": "2026-03-29",
+              "start_price": 1750.0,
+              "window_days": null
+            }
+          }
+        },
+        "lab": {
+          "distinct_days": 0,
+          "observation_count": 0,
+          "windows": {
+            "1y": null,
+            "30d": null,
+            "7d": null,
+            "90d": null,
+            "all_time": null
+          }
+        },
+        "retail": {
+          "distinct_days": 2,
+          "observation_count": 12,
+          "windows": {
+            "1y": {
+              "abs_change": 15300.0,
+              "actual_span_days": 14,
+              "confidence": "low",
+              "confidence_note": "Based on 12 observation(s) across 2 distinct day(s), spanning 14 day(s).",
+              "direction": "up",
+              "distinct_days_in_window": 2,
+              "end_date": "2026-03-29",
+              "end_price": 18300.0,
+              "observations_in_window": 12,
+              "pct_change": 510.0,
+              "start_date": "2026-03-15",
+              "start_price": 3000.0,
+              "window_days": 365
+            },
+            "30d": {
+              "abs_change": 15300.0,
+              "actual_span_days": 14,
+              "confidence": "low",
+              "confidence_note": "Based on 12 observation(s) across 2 distinct day(s), spanning 14 day(s).",
+              "direction": "up",
+              "distinct_days_in_window": 2,
+              "end_date": "2026-03-29",
+              "end_price": 18300.0,
+              "observations_in_window": 12,
+              "pct_change": 510.0,
+              "start_date": "2026-03-15",
+              "start_price": 3000.0,
+              "window_days": 30
+            },
+            "7d": null,
+            "90d": {
+              "abs_change": 15300.0,
+              "actual_span_days": 14,
+              "confidence": "low",
+              "confidence_note": "Based on 12 observation(s) across 2 distinct day(s), spanning 14 day(s).",
+              "direction": "up",
+              "distinct_days_in_window": 2,
+              "end_date": "2026-03-29",
+              "end_price": 18300.0,
+              "observations_in_window": 12,
+              "pct_change": 510.0,
+              "start_date": "2026-03-15",
+              "start_price": 3000.0,
+              "window_days": 90
+            },
+            "all_time": {
+              "abs_change": 15300.0,
+              "actual_span_days": 14,
+              "confidence": "low",
+              "confidence_note": "Based on 12 observation(s) across 2 distinct day(s), spanning 14 day(s).",
+              "direction": "up",
+              "distinct_days_in_window": 2,
+              "end_date": "2026-03-29",
+              "end_price": 18300.0,
+              "observations_in_window": 12,
+              "pct_change": 510.0,
+              "start_date": "2026-03-15",
+              "start_price": 3000.0,
+              "window_days": null
+            }
+          }
+        }
+      }
+    },
+    "V": {
+      "data_quality": "moderate",
+      "data_since": "2026-03-15",
+      "data_until": "2026-03-30",
+      "distinct_days": 3,
+      "latest_bulk_price": {
+        "contributing_observations": 1,
+        "currency": "USD",
+        "date": "2026-03-30",
+        "form_summary": "oxide",
+        "notes": "Median of 3 bulk offers (Alibaba (multiple CN suppliers), Fastmarkets (Europe), Fastmarkets (Rotterdam))",
+        "price_per_kg": 24.0,
+        "source_type": "median_aggregate",
+        "sources": [
+          "Fastmarkets (Rotterdam)"
+        ]
+      },
+      "latest_lab_price": null,
+      "latest_retail_price": {
+        "contributing_observations": 10,
+        "currency": "USD",
+        "date": "2026-03-29",
+        "form_summary": "metal, oxide",
+        "notes": "Median of 13 retail offers (ALB Materials, Alfa Aesar, Chemsavers, Edgetech Industries + 6 more)",
+        "price_per_kg": 1530.0,
+        "source_type": "median_aggregate",
+        "sources": [
+          "Alfa Aesar",
+          "Chemsavers",
+          "MSE Supplies",
+          "Metallos.de",
+          "PEGUYS",
+          "RWMM",
+          "Smart-Elements"
+        ]
+      },
+      "observation_count": 16,
+      "tiers": {
+        "bulk": {
+          "distinct_days": 2,
+          "observation_count": 3,
+          "windows": {
+            "1y": {
+              "abs_change": -295.0,
+              "actual_span_days": 1,
+              "confidence": "low",
+              "confidence_note": "Based on 3 observation(s) across 2 distinct day(s), spanning 1 day(s).",
+              "direction": "down",
+              "distinct_days_in_window": 2,
+              "end_date": "2026-03-30",
+              "end_price": 12.0,
+              "observations_in_window": 3,
+              "pct_change": -96.09,
+              "start_date": "2026-03-29",
+              "start_price": 307.0,
+              "window_days": 365
+            },
+            "30d": {
+              "abs_change": -295.0,
+              "actual_span_days": 1,
+              "confidence": "low",
+              "confidence_note": "Based on 3 observation(s) across 2 distinct day(s), spanning 1 day(s).",
+              "direction": "down",
+              "distinct_days_in_window": 2,
+              "end_date": "2026-03-30",
+              "end_price": 12.0,
+              "observations_in_window": 3,
+              "pct_change": -96.09,
+              "start_date": "2026-03-29",
+              "start_price": 307.0,
+              "window_days": 30
+            },
+            "7d": {
+              "abs_change": -295.0,
+              "actual_span_days": 1,
+              "confidence": "low",
+              "confidence_note": "Based on 3 observation(s) across 2 distinct day(s), spanning 1 day(s).",
+              "direction": "down",
+              "distinct_days_in_window": 2,
+              "end_date": "2026-03-30",
+              "end_price": 12.0,
+              "observations_in_window": 3,
+              "pct_change": -96.09,
+              "start_date": "2026-03-29",
+              "start_price": 307.0,
+              "window_days": 7
+            },
+            "90d": {
+              "abs_change": -295.0,
+              "actual_span_days": 1,
+              "confidence": "low",
+              "confidence_note": "Based on 3 observation(s) across 2 distinct day(s), spanning 1 day(s).",
+              "direction": "down",
+              "distinct_days_in_window": 2,
+              "end_date": "2026-03-30",
+              "end_price": 12.0,
+              "observations_in_window": 3,
+              "pct_change": -96.09,
+              "start_date": "2026-03-29",
+              "start_price": 307.0,
+              "window_days": 90
+            },
+            "all_time": {
+              "abs_change": -295.0,
+              "actual_span_days": 1,
+              "confidence": "low",
+              "confidence_note": "Based on 3 observation(s) across 2 distinct day(s), spanning 1 day(s).",
+              "direction": "down",
+              "distinct_days_in_window": 2,
+              "end_date": "2026-03-30",
+              "end_price": 12.0,
+              "observations_in_window": 3,
+              "pct_change": -96.09,
+              "start_date": "2026-03-29",
+              "start_price": 307.0,
+              "window_days": null
+            }
+          }
+        },
+        "lab": {
+          "distinct_days": 0,
+          "observation_count": 0,
+          "windows": {
+            "1y": null,
+            "30d": null,
+            "7d": null,
+            "90d": null,
+            "all_time": null
+          }
+        },
+        "retail": {
+          "distinct_days": 2,
+          "observation_count": 13,
+          "windows": {
+            "1y": {
+              "abs_change": 2331.0,
+              "actual_span_days": 14,
+              "confidence": "low",
+              "confidence_note": "Based on 13 observation(s) across 2 distinct day(s), spanning 14 day(s).",
+              "direction": "up",
+              "distinct_days_in_window": 2,
+              "end_date": "2026-03-29",
+              "end_price": 2345.0,
+              "observations_in_window": 13,
+              "pct_change": 16650.0,
+              "start_date": "2026-03-15",
+              "start_price": 14.0,
+              "window_days": 365
+            },
+            "30d": {
+              "abs_change": 2331.0,
+              "actual_span_days": 14,
+              "confidence": "low",
+              "confidence_note": "Based on 13 observation(s) across 2 distinct day(s), spanning 14 day(s).",
+              "direction": "up",
+              "distinct_days_in_window": 2,
+              "end_date": "2026-03-29",
+              "end_price": 2345.0,
+              "observations_in_window": 13,
+              "pct_change": 16650.0,
+              "start_date": "2026-03-15",
+              "start_price": 14.0,
+              "window_days": 30
+            },
+            "7d": null,
+            "90d": {
+              "abs_change": 2331.0,
+              "actual_span_days": 14,
+              "confidence": "low",
+              "confidence_note": "Based on 13 observation(s) across 2 distinct day(s), spanning 14 day(s).",
+              "direction": "up",
+              "distinct_days_in_window": 2,
+              "end_date": "2026-03-29",
+              "end_price": 2345.0,
+              "observations_in_window": 13,
+              "pct_change": 16650.0,
+              "start_date": "2026-03-15",
+              "start_price": 14.0,
+              "window_days": 90
+            },
+            "all_time": {
+              "abs_change": 2331.0,
+              "actual_span_days": 14,
+              "confidence": "low",
+              "confidence_note": "Based on 13 observation(s) across 2 distinct day(s), spanning 14 day(s).",
+              "direction": "up",
+              "distinct_days_in_window": 2,
+              "end_date": "2026-03-29",
+              "end_price": 2345.0,
+              "observations_in_window": 13,
+              "pct_change": 16650.0,
+              "start_date": "2026-03-15",
+              "start_price": 14.0,
+              "window_days": null
+            }
+          }
+        }
+      }
+    },
+    "W": {
+      "data_quality": "sparse",
+      "data_since": "2026-03-15",
+      "data_until": "2026-03-15",
+      "distinct_days": 1,
+      "latest_bulk_price": null,
+      "latest_lab_price": null,
+      "latest_retail_price": {
+        "contributing_observations": 4,
+        "currency": "USD",
+        "date": "2026-03-15",
+        "form_summary": "powder",
+        "notes": "Median of 4 retail offers (ALB Materials, American Elements, Edgetech Industries, Stanford Advanced Materials)",
+        "price_per_kg": 54.0,
+        "source_type": "median_aggregate",
+        "sources": [
+          "alb-materials-01",
+          "american-elements-01",
+          "edgetech-industries-01",
+          "stanford-advanced-materials-01"
+        ]
+      },
+      "observation_count": 4,
+      "tiers": {
+        "bulk": {
+          "distinct_days": 0,
+          "observation_count": 0,
+          "windows": {
+            "1y": null,
+            "30d": null,
+            "7d": null,
+            "90d": null,
+            "all_time": null
+          }
+        },
+        "lab": {
+          "distinct_days": 0,
+          "observation_count": 0,
+          "windows": {
+            "1y": null,
+            "30d": null,
+            "7d": null,
+            "90d": null,
+            "all_time": null
+          }
+        },
+        "retail": {
+          "distinct_days": 1,
+          "observation_count": 4,
+          "windows": {
+            "1y": null,
+            "30d": null,
+            "7d": null,
+            "90d": null,
+            "all_time": null
+          }
+        }
+      }
+    },
+    "Y": {
+      "data_quality": "moderate",
+      "data_since": "2026-03-15",
+      "data_until": "2026-04-04",
+      "distinct_days": 2,
+      "latest_bulk_price": null,
+      "latest_lab_price": null,
+      "latest_retail_price": {
+        "contributing_observations": 2,
+        "currency": "USD",
+        "date": "2026-04-04",
+        "form_summary": "metal, oxide",
+        "notes": "Median of 5 retail offers (ALB Materials, Edgetech Industries, Stanford Advanced Materials, novaelements (eBay) + 1 more)",
+        "price_per_kg": 10.0,
+        "source_type": "median_aggregate",
+        "sources": [
+          "novaelements (eBay)",
+          "snaucke-elements (eBay)"
+        ]
+      },
+      "observation_count": 5,
+      "tiers": {
+        "bulk": {
+          "distinct_days": 0,
+          "observation_count": 0,
+          "windows": {
+            "1y": null,
+            "30d": null,
+            "7d": null,
+            "90d": null,
+            "all_time": null
+          }
+        },
+        "lab": {
+          "distinct_days": 0,
+          "observation_count": 0,
+          "windows": {
+            "1y": null,
+            "30d": null,
+            "7d": null,
+            "90d": null,
+            "all_time": null
+          }
+        },
+        "retail": {
+          "distinct_days": 2,
+          "observation_count": 5,
+          "windows": {
+            "1y": {
+              "abs_change": 9267.0,
+              "actual_span_days": 20,
+              "confidence": "low",
+              "confidence_note": "Based on 5 observation(s) across 2 distinct day(s), spanning 20 day(s).",
+              "direction": "up",
+              "distinct_days_in_window": 2,
+              "end_date": "2026-04-04",
+              "end_price": 9275.0,
+              "observations_in_window": 5,
+              "pct_change": 115837.5,
+              "start_date": "2026-03-15",
+              "start_price": 8.0,
+              "window_days": 365
+            },
+            "30d": {
+              "abs_change": 9267.0,
+              "actual_span_days": 20,
+              "confidence": "low",
+              "confidence_note": "Based on 5 observation(s) across 2 distinct day(s), spanning 20 day(s).",
+              "direction": "up",
+              "distinct_days_in_window": 2,
+              "end_date": "2026-04-04",
+              "end_price": 9275.0,
+              "observations_in_window": 5,
+              "pct_change": 115837.5,
+              "start_date": "2026-03-15",
+              "start_price": 8.0,
+              "window_days": 30
+            },
+            "7d": null,
+            "90d": {
+              "abs_change": 9267.0,
+              "actual_span_days": 20,
+              "confidence": "low",
+              "confidence_note": "Based on 5 observation(s) across 2 distinct day(s), spanning 20 day(s).",
+              "direction": "up",
+              "distinct_days_in_window": 2,
+              "end_date": "2026-04-04",
+              "end_price": 9275.0,
+              "observations_in_window": 5,
+              "pct_change": 115837.5,
+              "start_date": "2026-03-15",
+              "start_price": 8.0,
+              "window_days": 90
+            },
+            "all_time": {
+              "abs_change": 9267.0,
+              "actual_span_days": 20,
+              "confidence": "low",
+              "confidence_note": "Based on 5 observation(s) across 2 distinct day(s), spanning 20 day(s).",
+              "direction": "up",
+              "distinct_days_in_window": 2,
+              "end_date": "2026-04-04",
+              "end_price": 9275.0,
+              "observations_in_window": 5,
+              "pct_change": 115837.5,
+              "start_date": "2026-03-15",
+              "start_price": 8.0,
+              "window_days": null
+            }
+          }
+        }
+      }
+    },
+    "Yb": {
+      "data_quality": "moderate",
+      "data_since": "2026-03-15",
+      "data_until": "2026-04-04",
+      "distinct_days": 2,
+      "latest_bulk_price": {
+        "contributing_observations": 1,
+        "currency": "USD",
+        "date": "2026-04-04",
+        "form_summary": "metal",
+        "notes": "Median of 1 bulk offers (Changsha Xinkang (Alibaba))",
+        "price_per_kg": 185.0,
+        "source_type": "median_aggregate",
+        "sources": [
+          "Changsha Xinkang (Alibaba)"
+        ]
+      },
+      "latest_lab_price": null,
+      "latest_retail_price": {
+        "contributing_observations": 3,
+        "currency": "USD",
+        "date": "2026-03-15",
+        "form_summary": "oxide",
+        "notes": "Median of 3 retail offers (ALB Materials, Edgetech Industries, Stanford Advanced Materials)",
+        "price_per_kg": 36.0,
+        "source_type": "median_aggregate",
+        "sources": [
+          "alb-materials-01",
+          "edgetech-industries-01",
+          "stanford-advanced-materials-01"
+        ]
+      },
+      "observation_count": 4,
+      "tiers": {
+        "bulk": {
+          "distinct_days": 1,
+          "observation_count": 1,
+          "windows": {
+            "1y": null,
+            "30d": null,
+            "7d": null,
+            "90d": null,
+            "all_time": null
+          }
+        },
+        "lab": {
+          "distinct_days": 0,
+          "observation_count": 0,
+          "windows": {
+            "1y": null,
+            "30d": null,
+            "7d": null,
+            "90d": null,
+            "all_time": null
+          }
+        },
+        "retail": {
+          "distinct_days": 1,
+          "observation_count": 3,
+          "windows": {
+            "1y": null,
+            "30d": null,
+            "7d": null,
+            "90d": null,
+            "all_time": null
+          }
+        }
+      }
+    },
+    "Zr": {
+      "data_quality": "sparse",
+      "data_since": "2026-03-15",
+      "data_until": "2026-03-15",
+      "distinct_days": 1,
+      "latest_bulk_price": null,
+      "latest_lab_price": null,
+      "latest_retail_price": {
+        "contributing_observations": 3,
+        "currency": "USD",
+        "date": "2026-03-15",
+        "form_summary": "metal",
+        "notes": "Median of 3 retail offers (American Elements, Edgetech Industries, Stanford Advanced Materials)",
+        "price_per_kg": 150.0,
+        "source_type": "median_aggregate",
+        "sources": [
+          "american-elements-01",
+          "edgetech-industries-01",
+          "stanford-advanced-materials-01"
+        ]
+      },
+      "observation_count": 3,
+      "tiers": {
+        "bulk": {
+          "distinct_days": 0,
+          "observation_count": 0,
+          "windows": {
+            "1y": null,
+            "30d": null,
+            "7d": null,
+            "90d": null,
+            "all_time": null
+          }
+        },
+        "lab": {
+          "distinct_days": 0,
+          "observation_count": 0,
+          "windows": {
+            "1y": null,
+            "30d": null,
+            "7d": null,
+            "90d": null,
+            "all_time": null
+          }
+        },
+        "retail": {
+          "distinct_days": 1,
+          "observation_count": 3,
+          "windows": {
+            "1y": null,
+            "30d": null,
+            "7d": null,
+            "90d": null,
+            "all_time": null
+          }
+        }
+      }
+    }
+  },
+  "flat_threshold_pct": 1.0,
+  "generated_at": "2026-05-24T08:13:12Z",
+  "windows": [
+    "7d",
+    "30d",
+    "90d",
+    "1y",
+    "all_time"
+  ]
+}

@@ -21,6 +21,7 @@ import {
   loadPolicyEvents,
   loadPriceRecords,
   loadRegulatoryNotices,
+  loadSiteSettings,
   loadSourceBreakdown,
   loadSources,
 } from './load';
@@ -53,6 +54,7 @@ export function verifyData(): VerifyReport {
   loadNews();
   loadSources();
   loadSourceBreakdown();
+  loadSiteSettings();
 
   // Union of every element a notice controls (active or suspended), including
   // the newly-controlled escalation list.

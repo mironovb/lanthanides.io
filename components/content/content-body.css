@@ -1,0 +1,173 @@
+/* ──────────────────────────────────────────────────────────────────────────
+   Long-form content prose (Prompt 8)
+
+   Styles the markdown bodies rendered by <Markdown> on /methodology and
+   /news/[slug] — headings, paragraphs, lists, links, tables (GFM), blockquotes,
+   code, and footnote-style references — mapped onto the dark baseline tokens
+   (tailwind.config.ts via theme()). Scoped under `.content-body` so it only
+   touches rendered editorial content, never the page chrome (Tailwind utilities).
+   Prompt 11 folds this into the full design system.
+   ────────────────────────────────────────────────────────────────────────── */
+
+.content-body {
+  font-size: 0.9375rem;
+  line-height: 1.75;
+  color: theme('colors.fg.muted');
+  max-width: theme('maxWidth.prose');
+}
+
+/* ── Headings ────────────────────────────────────────────────────────────── */
+.content-body h2 {
+  font-family: theme('fontFamily.serif');
+  font-size: 1.375rem;
+  font-weight: 600;
+  color: theme('colors.fg.DEFAULT');
+  letter-spacing: -0.01em;
+  margin: 2.25rem 0 0.875rem;
+  padding-bottom: 0.4rem;
+  border-bottom: 1px solid theme('colors.border.strong');
+  scroll-margin-top: 1.5rem;
+}
+.content-body h3 {
+  font-family: theme('fontFamily.serif');
+  font-size: 1.0625rem;
+  font-weight: 600;
+  color: theme('colors.fg.DEFAULT');
+  margin: 1.75rem 0 0.625rem;
+  scroll-margin-top: 1.5rem;
+}
+.content-body h4 {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: theme('colors.fg.muted');
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin: 1.5rem 0 0.5rem;
+}
+.content-body h2:first-child,
+.content-body h3:first-child {
+  margin-top: 0;
+}
+
+/* ── Base prose ──────────────────────────────────────────────────────────── */
+.content-body p {
+  margin: 0.875rem 0;
+}
+.content-body strong {
+  color: theme('colors.fg.DEFAULT');
+  font-weight: 600;
+}
+.content-body em {
+  font-style: italic;
+}
+.content-body a {
+  color: theme('colors.fg.DEFAULT');
+  text-decoration: none;
+  border-bottom: 1px dotted theme('colors.border.strong');
+}
+.content-body a:hover {
+  border-bottom-color: theme('colors.accent.DEFAULT');
+  color: theme('colors.accent.strong');
+}
+.content-body sub,
+.content-body sup {
+  font-size: 0.72em;
+  line-height: 0;
+}
+.content-body hr {
+  border: 0;
+  border-top: 1px solid theme('colors.border.DEFAULT');
+  margin: 2rem 0;
+}
+
+/* ── Lists ───────────────────────────────────────────────────────────────── */
+.content-body ul,
+.content-body ol {
+  margin: 0.875rem 0;
+  padding-left: 1.5rem;
+}
+.content-body li {
+  margin: 0.35rem 0;
+}
+.content-body ul {
+  list-style: disc;
+}
+.content-body ol {
+  list-style: decimal;
+}
+.content-body li > ul,
+.content-body li > ol {
+  margin: 0.35rem 0;
+}
+
+/* ── Blockquote ──────────────────────────────────────────────────────────── */
+.content-body blockquote {
+  margin: 1.25rem 0;
+  padding: 0.5rem 0 0.5rem 1rem;
+  border-left: 3px solid theme('colors.accent.DEFAULT');
+  color: theme('colors.fg.muted');
+  background: theme('colors.surface');
+}
+.content-body blockquote p {
+  margin: 0.35rem 0;
+}
+
+/* ── Tables (GFM) ────────────────────────────────────────────────────────── */
+.content-body table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.8125rem;
+  margin: 1.25rem 0;
+  border: 1px solid theme('colors.border.DEFAULT');
+}
+.content-body th,
+.content-body td {
+  padding: 0.5rem 0.75rem;
+  text-align: left;
+  border-bottom: 1px solid theme('colors.border.DEFAULT');
+  vertical-align: top;
+}
+.content-body th {
+  font-weight: 600;
+  color: theme('colors.fg.dim');
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  font-size: 0.6875rem;
+  border-bottom: 2px solid theme('colors.border.strong');
+  background: theme('colors.surface');
+}
+.content-body td {
+  color: theme('colors.fg.muted');
+}
+.content-body tbody tr:hover {
+  background: theme('colors.overlay');
+}
+/* Numeric columns (GFM right-alignment) read as tabular monospace. */
+.content-body td[align='right'],
+.content-body th[align='right'] {
+  font-variant-numeric: tabular-nums;
+}
+
+/* ── Code ────────────────────────────────────────────────────────────────── */
+.content-body code {
+  font-family: theme('fontFamily.mono');
+  font-size: 0.8125rem;
+  padding: 0.1rem 0.3rem;
+  background: theme('colors.surface');
+  border: 1px solid theme('colors.border.DEFAULT');
+  border-radius: theme('borderRadius.sm');
+  color: theme('colors.fg.DEFAULT');
+}
+.content-body pre {
+  margin: 1.25rem 0;
+  padding: 1rem;
+  overflow-x: auto;
+  background: theme('colors.surface');
+  border: 1px solid theme('colors.border.DEFAULT');
+  border-radius: theme('borderRadius.DEFAULT');
+}
+.content-body pre code {
+  padding: 0;
+  border: 0;
+  background: transparent;
+}
