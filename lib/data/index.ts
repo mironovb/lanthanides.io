@@ -16,6 +16,7 @@ import {
   loadAllPriceHistory,
   loadElementCatalog,
   loadFluctuationsFile,
+  loadMovements,
   loadNews,
   loadPolicyEvents,
   loadPriceRecords,
@@ -28,6 +29,7 @@ import type {
   Element,
   ElementCategory,
   Fluctuation,
+  MovementsFile,
   NewsItem,
   PolicyEvent,
   PremiumLeaderboardRow,
@@ -144,6 +146,24 @@ export function getPolicyEvents(): PolicyEvent[] {
 export function getRegulatedElements(): Element[] {
   ensureVerified();
   return loadElementCatalog().filter((e) => e.regulatory_status === 'active');
+}
+
+/**
+ * Every element with a non-'none' regulatory status (active OR suspended), in
+ * atomic-number order — the set the regulatory tracker's element-filter strip
+ * is built from (legacy regulatory.html: `regulatory_status != 'none'`).
+ */
+export function getRegulatedAndSuspendedElements(): Element[] {
+  ensureVerified();
+  return loadElementCatalog()
+    .filter((e) => e.regulatory_status !== 'none')
+    .sort((a, b) => a.atomic_number - b.atomic_number);
+}
+
+/** The auto-generated market-movements feed (config, state, and events). */
+export function getMovements(): MovementsFile {
+  ensureVerified();
+  return loadMovements();
 }
 
 // ── Sources & breakdown ──────────────────────────────────────────────────────

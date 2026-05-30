@@ -16,6 +16,7 @@ import {
   loadAllPriceHistory,
   loadElementCatalog,
   loadFluctuationsFile,
+  loadMovements,
   loadNews,
   loadPolicyEvents,
   loadPriceRecords,
@@ -48,6 +49,7 @@ export function verifyData(): VerifyReport {
   loadAllPriceHistory();
   loadFluctuationsFile();
   loadPolicyEvents();
+  loadMovements();
   loadNews();
   loadSources();
   loadSourceBreakdown();

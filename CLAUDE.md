@@ -170,11 +170,27 @@ Each prompt must leave `npm run build` green. Later prompts tick these off.
   markdown through react-markdown + rehype-raw, the `{% include provenance-table %}`
   resolved to the live table; front-matter `title`/`description`/`keywords` drive
   metadata), related + prev/next nav. New: `components/elements/*`, `lib/content.ts`,
-  `components/elements/element-body.css`. **Remaining:** `/`, `/regulatory`,
-  `/framework`, `/methodology`, `/sources`, `/about`, `/news`, `/news/[slug]`.
+  `components/elements/element-body.css`. `/regulatory` landed in P7 (below).
+  **Remaining:** `/`, `/framework`, `/methodology`, `/sources`, `/about`, `/news`,
+  `/news/[slug]`.
 - [ ] **7 — Data exports, feeds & dashboard.** `/dashboard`, `/movements`,
   `movements.xml`, `feed.xml`, `sitemap.ts`, `robots.ts`, `/data` landing, and the
-  preserved `/assets/data/*.json` exports (build-generated).
+  preserved `/assets/data/*.json` exports (build-generated). **Regulatory tracker
+  + market movements DONE** (the "Prompt 7" task in the local prompt sequence):
+  SSG `/regulatory` — element-filter island (`RegulatoryView` + `ElementFilter`,
+  keyboard-accessible, instant client-side filter over server-rendered content)
+  over classified active-control-regime cards (`RegulatoryNoticeCard`) and the
+  newest-first announcement timeline (`RegulatoryTimeline`), key-legal-references
+  aside, strong metadata + BreadcrumbList & Dataset JSON-LD; SSG `/movements` —
+  the auto-generated price/regulatory event feed (`MovementRow`, sparklines,
+  detection-threshold footer, honest "no editorial interpretation" framing); and
+  the `/movements.xml` Atom feed route handler (faithful port, 50-event cap,
+  preserved no-trailing-slash URL). New: `components/regulatory/*`,
+  `components/movements/*`; `lib/data` gains the movements reader (`getMovements`,
+  `MovementEvent`/`MovementsFile` types, build-time smoke-parse) and
+  `getRegulatedAndSuspendedElements`. **Remaining:** `/dashboard`, `feed.xml`,
+  `sitemap.ts`, `robots.ts`, `/data` landing, and the preserved
+  `/assets/data/*.json` exports.
 - [ ] **8 — Commercial stubs & API.** **Prisma models (`Listing`,
   `Subscription`, `ScreenedOffer`) + seed: DONE** — the dynamic data model and the
   dataset-seeded `ScreenedOffer` feed (220 rows, `origin:"seed"`, SQLite dev /

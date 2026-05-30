@@ -17,6 +17,7 @@ import { parse as parseYaml } from 'yaml';
 import type {
   Element,
   FluctuationsFile,
+  MovementsFile,
   NewsItem,
   PolicyEvent,
   PriceHistory,
@@ -181,6 +182,26 @@ export const loadRegulatoryNotices = once<RegulatoryNotice[]>(() => {
     }
     return data as unknown as RegulatoryNotice;
   });
+});
+
+// ── Movements (auto-generated event feed) ──────────────────────────────────────
+
+export const loadMovements = once<MovementsFile>(() => {
+  const file = 'movements.yml';
+  const data = readYaml<unknown>(file);
+  if (!isObject(data) || !Array.isArray(data.events)) {
+    fail(file, 'expected a mapping with an "events" list');
+  }
+  data.events.forEach((row, i) => {
+    if (!isObject(row)) fail(file, `event ${i} is not a mapping`);
+    requireFields(file, row, `event ${row.id ?? i}`, [
+      'id',
+      'date',
+      'element',
+      'type',
+    ]);
+  });
+  return data as unknown as MovementsFile;
 });
 
 // ── Policy events ──────────────────────────────────────────────────────────────

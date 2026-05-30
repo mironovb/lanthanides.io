@@ -272,6 +272,83 @@ export interface PolicyEvent {
   notes: string; // includes the Chinese reference string
 }
 
+// ── Movements  (from _data/movements.yml — auto-generated event feed) ────────
+// Written by scripts/detect_movements.py: factual price-movement and
+// regulatory-change events. `events` is the reverse-chronological feed; `config`
+// and `state` drive the page footer + the Atom feed's <updated> stamp. Fields
+// below the always-present block are present only on certain event `type`s.
+
+export type MovementType =
+  | 'price_spike'
+  | 'price_drop'
+  | 'regulatory_change'
+  | 'new_data';
+
+export interface MovementSparkline {
+  width: number;
+  height: number;
+  path: string; // SVG path `d` attribute
+  point_count: number;
+  min_price: number;
+  max_price: number;
+  last_x: number;
+  last_y: number;
+}
+
+export interface MovementEvent {
+  // always present (every event)
+  id: string; // 'Y-retail-30d-2026-04-04' — anchors #mv-<id>
+  date: ISODate;
+  element: string; // 'Y' (FK → Element.symbol)
+  element_name: string; // 'Yttrium'
+  element_url: string; // '/elements/Y/'
+  type: MovementType;
+  description: string; // deterministic factual summary (no editorial interpretation)
+  source: string; // 'fluctuations.json'
+
+  // price_spike / price_drop only
+  tier?: FluctuationTier; // 'retail' | 'bulk' | 'lab'
+  tier_label?: string;
+  window?: string; // '30d'
+  direction?: Direction; // 'up' | 'down' | 'flat'
+  magnitude_pct?: number;
+  abs_magnitude_pct?: number;
+  start_date?: ISODate;
+  end_date?: ISODate;
+  start_price_per_kg?: number;
+  end_price_per_kg?: number;
+  currency?: string; // 'USD'
+  confidence?: Confidence;
+  actual_span_days?: number;
+  sparkline?: MovementSparkline;
+
+  // price_spike / price_drop / new_data
+  observation_count?: number;
+  distinct_days?: number;
+
+  // regulatory_change only (none in the data today; typed for the ported row)
+  prior_signature?: string;
+  current_signature?: string;
+}
+
+export interface MovementsConfig {
+  threshold_pct: number; // 10.0 — the detection threshold
+  window: string; // '30d'
+  tiers: string[]; // ['retail','bulk','lab']
+}
+
+export interface MovementsState {
+  /** symbol → 'status|controlled=…|signature' string used to detect regulatory changes. */
+  regulatory: Record<string, string>;
+  last_run: ISODateTime; // drives the Atom feed <updated> + page footer
+}
+
+export interface MovementsFile {
+  config: MovementsConfig;
+  state: MovementsState;
+  events: MovementEvent[]; // reverse-chronological as authored
+}
+
 // ── Source  (from _data/source_registry.yml — 5 sources) ─────────────────────
 
 export type SourceType = 'distributor' | 'marketplace';
