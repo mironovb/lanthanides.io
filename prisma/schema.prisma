@@ -1,15 +1,17 @@
-// lanthanides.io — Prisma schema (Prompt 3: datasource + generator only).
-//
-// Models (Listing, Subscription, ScreenedOffer) are added in a later prompt —
-// see CLAUDE.md → Migration status checklist and docs/MIGRATION.md §2.2 / §4.
+// lanthanides.io — Prisma schema (Prompt 5: dynamic, user-generated side).
 //
 // Only genuinely dynamic, user-generated data lives here. The reference /
 // provenance dataset stays in versioned files under _data/ and is read by the
-// typed data layer in lib/data/ — it is NEVER mirrored into the database.
+// typed data layer in lib/data/ — it is NEVER mirrored into the database, and a
+// row here is NEVER auto-published back into the open dataset (that stays the
+// reviewed git-PR flow). See docs/ARCHITECTURE.md §4.
 //
-// `provider` is `sqlite` for local/dev and is switched to `postgresql` for
-// production by changing DATABASE_URL only — a connection-string change, not a
-// code change (docs/MIGRATION.md §1).
+// SQLite ⇄ Postgres: `provider` is `sqlite` for local/dev and is switched to
+// `postgresql` for production by changing DATABASE_URL only — a connection-string
+// change, not a code change (docs/MIGRATION.md §1, docs/ARCHITECTURE.md §5).
+// To stay portable across both engines this schema avoids SQLite-unsupported
+// constructs: no native `enum` (status/channel/origin are documented "enum-like"
+// Strings) and no scalar lists (`topics` is a CSV String, not String[]).
 
 generator client {
   provider = "prisma-client-js"
@@ -18,4 +20,116 @@ generator client {
 datasource db {
   provider = "sqlite"
   url      = env("DATABASE_URL")
+}
+
+/// Seller submissions captured at /sell (write path: POST /api/listings, P8).
+/// Storage-only here — moderation/approval, contact reveal, payments, and public
+/// display are later prompts. A Listing is NEVER auto-published into the open
+/// dataset in _data/ (docs/ARCHITECTURE.md §4.2).
+model Listing {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+
+  // What is being offered. `elementSymbol` is the case-sensitive catalog symbol
+  // (e.g. 'Dy'); the catalog lives in _data/ files, so this is a logical FK only
+  // (not DB-enforced). `form`/`purity` mirror the _data/ vocabularies.
+  elementSymbol    String
+  form             String
+  purity           String
+  quantityKg       Float
+  askingPricePerKg Float
+  currency         String @default("USD")
+
+  // Seller identity. `sellerContact` is private and OPTIONAL — never published.
+  sellerName    String
+  sellerContact String?
+  notes         String?
+
+  // Workflow state — enum-like String (SQLite has no native enum):
+  // 'pending' (captured) | 'reviewed' | 'published'. Portable to Postgres as-is.
+  status String @default("pending")
+
+  // Price-gauge snapshot at submission time (lib/price-gauge.ts over the price
+  // dataset), frozen so the listing records where the asking price sat vs the
+  // retail/bulk references the day it was created. All nullable: the gauge may
+  // resolve no reference for a thinly-covered element (surface the gap, never
+  // fabricate — CLAUDE.md hard rule #1).
+  gaugeLow        Float?
+  gaugeMid        Float?
+  gaugeHigh       Float?
+  gaugeConfidence String? // 'low' | 'medium' | 'high'
+
+  @@index([elementSymbol])
+  @@index([status])
+  @@map("listings")
+}
+
+/// Notification signups captured at /alerts (write path: POST /api/subscribe, P8).
+/// Minimal and privacy-respecting: store only what a channel needs to deliver.
+/// Telegram exists end-to-end today (scripts/notify/telegram.py); email delivery,
+/// double-opt-in, and per-topic routing are later prompts (storage-only here).
+/// docs/ARCHITECTURE.md §4.3.
+model Subscription {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+
+  // Delivery channel — enum-like String: 'telegram' | 'email'.
+  channel String
+
+  // Destination. OPTIONAL because a Telegram signup may carry no email (chat-id
+  // wiring is a later prompt); never store more than the channel needs.
+  email String?
+
+  // Topics of interest — CSV of 'regulatory' | 'price-movements' (SQLite has no
+  // scalar-list type; a CSV String keeps the schema identical on Postgres).
+  // Empty string ⇒ all topics.
+  topics String @default("")
+
+  // Lifecycle — enum-like String: 'waitlist' (captured, not yet delivering) |
+  // 'active'. `confirmedAt` is set when a double-opt-in completes (later prompt).
+  status      String    @default("waitlist")
+  confirmedAt DateTime?
+
+  @@index([channel])
+  @@map("subscriptions")
+}
+
+/// Backing table for the screened-offer feed at /offers (ISR, P8).
+/// SEEDED tonight from the public price dataset (prisma/seed.ts, origin='seed')
+/// so the demand-side feed has real content. The live screening/ingestion
+/// pipeline (parsing, scoring, dedup of real buy/sell offers) is a later prompt;
+/// rows it adds carry origin='screened'. docs/ARCHITECTURE.md §4.1.
+model ScreenedOffer {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+
+  elementSymbol String // case-sensitive catalog symbol, e.g. 'Dy'
+  form          String // mirrors _data/ forms ('oxide' | 'metal' | ...)
+  purity        String? // nullable: a few source records omit purity
+  quantityKg    Float? // nullable: not every source record quotes a quantity
+  pricePerKg    Float // normalized USD/kg copied from the source price record
+  currency      String  @default("USD")
+
+  // Seller provenance carried over from the source record.
+  sellerName    String
+  sellerCountry String? // ISO-2; nullable (some source rows omit it)
+  sourceType    String // source record's source_type, e.g. 'distributor_offer'
+  sourceUrl     String? // optional; absent on every current dataset record
+  observedDate  String // source record's quote_date, ISO 'YYYY-MM-DD' (date-only, stored verbatim)
+
+  // Ranking inputs. `confidence` is the source record's numeric confidence_score
+  // (0..1). `valueScore` is the computed rank input documented in prisma/seed.ts:
+  // how far below the element's same-form median the offer sits, scaled by
+  // confidence (higher = better value). Indexed for feed ordering.
+  confidence Float
+  valueScore Float
+
+  // Provenance of the row itself — enum-like String: 'seed' (public dataset,
+  // this prompt) | 'screened' (live pipeline, later prompt).
+  origin String @default("screened")
+
+  @@index([elementSymbol])
+  @@index([origin])
+  @@index([valueScore])
+  @@map("screened_offers")
 }

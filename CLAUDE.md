@@ -163,10 +163,13 @@ Each prompt must leave `npm run build` green. Later prompts tick these off.
 - [ ] **7 — Data exports, feeds & dashboard.** `/dashboard`, `/movements`,
   `movements.xml`, `feed.xml`, `sitemap.ts`, `robots.ts`, `/data` landing, and the
   preserved `/assets/data/*.json` exports (build-generated).
-- [ ] **8 — Commercial stubs & API.** Prisma models (`Listing`, `Subscription`,
-  `ScreenedOffer`) + seed; stub routes `/tools/price-gauge`, `/sell`, `/offers`,
-  `/alerts`; handlers `/api/price-gauge`, `/api/listings`, `/api/subscribe`,
-  `/api/export/[format]`.
+- [ ] **8 — Commercial stubs & API.** **Prisma models (`Listing`,
+  `Subscription`, `ScreenedOffer`) + seed: DONE** — the dynamic data model and the
+  dataset-seeded `ScreenedOffer` feed (220 rows, `origin:"seed"`, SQLite dev /
+  Postgres prod, ARCHITECTURE §5) landed early as the "Prompt 5" task in the local
+  prompt sequence (which the checklist numbers as part of P8, not P5/Design). **Remaining:**
+  stub routes `/tools/price-gauge`, `/sell`, `/offers`, `/alerts`; handlers
+  `/api/price-gauge`, `/api/listings`, `/api/subscribe`, `/api/export/[format]`.
 - [ ] **9–24 — Polish & rebuilds** (MIGRATION §4): visualization rebuilds
   (AUDIT §3), content/positioning (§4.5–§4.6), design polish (Prompt 11 = full
   design system), PWA/manifest fixes (§4.8, incl. `/periodicpricing/…` →
