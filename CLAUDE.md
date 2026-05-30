@@ -147,9 +147,14 @@ Each prompt must leave `npm run build` green. Later prompts tick these off.
 - [x] **3 — Scaffold.** Next.js + TS + Tailwind + Prisma app shell; baseline
   design tokens; Jekyll build files quarantined into `legacy/`; this `CLAUDE.md`.
   `npm run build` passes on the placeholder home.
-- [ ] **4 — Data layer.** `lib/types.ts` (ARCHITECTURE §3 contracts) + `lib/data/*`
-  readers over `_data/`, `_elements/`, `_articles/`; `lib/price-gauge.ts`;
-  build-time validation (a malformed file fails the build loudly).
+- [x] **4 — Data layer.** `lib/data/types.ts` (+ `lib/types.ts` re-export) =
+  ARCHITECTURE §3 contracts; `lib/data/{load,index,verify}.ts` readers over the
+  `_data/` files (catalog, price_records, price_history, fluctuations,
+  regulatory, policy_events, news, source_registry, source_breakdown);
+  `lib/price-gauge.ts` ports `price-selection.html` (retail/bulk refs + premium);
+  build-time validation throws on a malformed file and asserts 31 elements /
+  238 records / every regulated element resolves to a notice. (`_elements/`,
+  `_articles/` markdown-body readers land with their pages in P6.)
 - [ ] **5 — Design system & shell.** Token system, fonts (self-hosted), `nav`/
   `footer`, `<head>`/SEO via `lib/seo.ts`, JSON-LD components, breadcrumb.
 - [ ] **6 — Reference & content pages.** `/`, `/elements`, `/elements/[symbol]`,
