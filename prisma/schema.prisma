@@ -1,0 +1,21 @@
+// lanthanides.io — Prisma schema (Prompt 3: datasource + generator only).
+//
+// Models (Listing, Subscription, ScreenedOffer) are added in a later prompt —
+// see CLAUDE.md → Migration status checklist and docs/MIGRATION.md §2.2 / §4.
+//
+// Only genuinely dynamic, user-generated data lives here. The reference /
+// provenance dataset stays in versioned files under _data/ and is read by the
+// typed data layer in lib/data/ — it is NEVER mirrored into the database.
+//
+// `provider` is `sqlite` for local/dev and is switched to `postgresql` for
+// production by changing DATABASE_URL only — a connection-string change, not a
+// code change (docs/MIGRATION.md §1).
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}

@@ -1,0 +1,71 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ──────────────────────────────────────────────────────────────────────────
+   Design tokens — baseline (Prompt 3)
+
+   Terminal-adjacent, dense, understated. Colors live in tailwind.config.ts;
+   fonts are exposed here as CSS variables so the type pairing can be swapped
+   (e.g. self-hosted next/font) without touching utility classes.
+
+   NOTE: .impeccable.md specifies a LIGHT-mode brand system. These dark tokens
+   are the scaffold per Prompt 3; Prompt 11 reconciles them into the full
+   light-mode design system.
+   ────────────────────────────────────────────────────────────────────────── */
+@layer base {
+  :root {
+    --font-sans: 'IBM Plex Sans', ui-sans-serif, system-ui, -apple-system,
+      'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    --font-mono: 'IBM Plex Mono', ui-monospace, SFMono-Regular, 'SF Mono', Menlo,
+      Consolas, 'Liberation Mono', monospace;
+    --font-serif: 'Source Serif 4', ui-serif, Georgia, Cambria,
+      'Times New Roman', serif;
+  }
+
+  html {
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+  }
+
+  body {
+    @apply bg-base text-fg font-sans antialiased;
+    font-size: 0.8125rem; /* 13px — dense baseline */
+    line-height: 1.5;
+    text-rendering: optimizeLegibility;
+    font-feature-settings: 'kern' 1;
+  }
+
+  h1,
+  h2,
+  h3 {
+    @apply font-serif text-fg;
+    letter-spacing: -0.01em;
+  }
+
+  /* Numeric data is monospace with tabular figures (brand commitment). */
+  .tabular,
+  code,
+  kbd,
+  samp,
+  pre {
+    @apply font-mono;
+    font-variant-numeric: tabular-nums;
+    font-feature-settings: 'tnum' 1, 'zero' 1;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  ::selection {
+    background: theme('colors.accent.dim');
+    color: theme('colors.fg.DEFAULT');
+  }
+
+  :focus-visible {
+    outline: 2px solid theme('colors.accent.DEFAULT');
+    outline-offset: 2px;
+  }
+}
