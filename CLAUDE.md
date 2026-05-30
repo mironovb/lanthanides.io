@@ -159,7 +159,19 @@ Each prompt must leave `npm run build` green. Later prompts tick these off.
   `footer`, `<head>`/SEO via `lib/seo.ts`, JSON-LD components, breadcrumb.
 - [ ] **6 — Reference & content pages.** `/`, `/elements`, `/elements/[symbol]`,
   `/regulatory`, `/framework`, `/methodology`, `/sources`, `/about`, `/news`,
-  `/news/[slug]` (markdown bodies rendered server-side).
+  `/news/[slug]` (markdown bodies rendered server-side). **Element pages DONE**
+  (the "Prompt 6" task in the local prompt sequence — same offset as P8): SSG
+  `/elements` category grid (`ElementCard` tiles, control/demand indicators,
+  retail+bulk refs) and all 31 case-sensitive `/elements/[symbol]` detail pages
+  (`generateStaticParams`, `dynamicParams=false`) — header/badges, two
+  reference-price cards + retail premium, Price Movement % table, full **sortable**
+  provenance table (expanded to the complete schema), inline regulatory notice,
+  editorial `_elements/*.md` bodies (`gray-matter` via `lib/content.ts`, HTML-rich
+  markdown through react-markdown + rehype-raw, the `{% include provenance-table %}`
+  resolved to the live table; front-matter `title`/`description`/`keywords` drive
+  metadata), related + prev/next nav. New: `components/elements/*`, `lib/content.ts`,
+  `components/elements/element-body.css`. **Remaining:** `/`, `/regulatory`,
+  `/framework`, `/methodology`, `/sources`, `/about`, `/news`, `/news/[slug]`.
 - [ ] **7 — Data exports, feeds & dashboard.** `/dashboard`, `/movements`,
   `movements.xml`, `feed.xml`, `sitemap.ts`, `robots.ts`, `/data` landing, and the
   preserved `/assets/data/*.json` exports (build-generated).

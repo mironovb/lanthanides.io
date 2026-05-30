@@ -1,0 +1,122 @@
+/**
+ * /elements — the merged element directory + price ledger (SSG, Prompt 6).
+ *
+ * All 31 elements grouped into the four categories, each a grid of linked
+ * <ElementCard> tiles with category colour-coding, the China-export-control (❗)
+ * and high-demand (🔥) indicators, the export-control status, and the retail +
+ * bulk reference prices from `getReferencePrices()`. Ports the intent of
+ * legacy/pages/elements.html + legacy/_includes/element-grid.html.
+ *
+ * The old `/prices/` URL 301-redirects here; that redirect is wired in
+ * next.config.mjs alongside the other commercial routes (MIGRATION §3.5).
+ */
+import type { Metadata } from 'next';
+import Link from 'next/link';
+import { getElementsByCategory, getReferencePrices } from '@/lib/data';
+import {
+  CATEGORY_ORDER,
+  CATEGORY_STYLE,
+  CONTROL_STYLE,
+} from '@/components/elements/categories';
+import { ElementCard } from '@/components/elements/ElementCard';
+
+export const metadata: Metadata = {
+  title: 'All Rare Earth & Strategic Metal Prices — Element Directory',
+  description:
+    'Compare prices per kg for all 31 rare earth elements, strategic metals, and semiconductor materials. Retail and bulk benchmarks with export-control status.',
+  alternates: { canonical: '/elements/' },
+};
+
+export default function ElementsIndexPage() {
+  const byCategory = getElementsByCategory();
+  const total = CATEGORY_ORDER.reduce(
+    (n, cat) => n + byCategory[cat].length,
+    0,
+  );
+
+  return (
+    <main className="mx-auto max-w-content px-6 py-10">
+      <nav aria-label="Breadcrumb" className="mb-6 text-sm text-fg-dim">
+        <Link href="/" className="hover:text-fg">
+          Home
+        </Link>
+        <span className="px-2 text-border-strong">/</span>
+        <span className="text-fg">All Elements</span>
+      </nav>
+
+      <h1 className="font-serif text-3xl font-semibold text-fg">
+        All Rare Earth &amp; Strategic Metal Prices
+      </h1>
+      <p className="mt-3 max-w-prose text-base leading-relaxed text-fg-muted">
+        Current prices per kilogram for {total} rare earth elements, strategic
+        metals, and semiconductor materials. Each element shows a retail
+        reference and bulk benchmark with export-control status. Prices are
+        normalised to USD/kg from verified, in-stock listings.
+      </p>
+
+      {CATEGORY_ORDER.map((cat) => {
+        const elements = [...byCategory[cat]].sort(
+          (a, b) => a.atomic_number - b.atomic_number,
+        );
+        if (elements.length === 0) return null;
+        const style = CATEGORY_STYLE[cat];
+
+        return (
+          <section key={cat} className="mt-10">
+            <h2 className="mb-3 flex items-center gap-2 border-b border-border pb-2 font-serif text-lg font-semibold text-fg">
+              <span
+                className={`inline-block h-3.5 w-[3px] ${style.swatch}`}
+                aria-hidden="true"
+              />
+              {style.label}
+              <span className="ml-auto font-mono text-xs font-normal text-fg-dim">
+                {elements.length}
+              </span>
+            </h2>
+
+            <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
+              {elements.map((element) => {
+                const { retailRef, bulkRef } = getReferencePrices(
+                  element.symbol,
+                );
+                return (
+                  <ElementCard
+                    key={element.symbol}
+                    element={element}
+                    retail={retailRef}
+                    bulk={bulkRef}
+                  />
+                );
+              })}
+            </div>
+          </section>
+        );
+      })}
+
+      <div className="mt-10 flex flex-wrap gap-x-5 gap-y-3 border-t border-border pt-4 text-xs text-fg-muted">
+        <span className="flex items-center gap-1">
+          <span aria-hidden="true">❗</span> China export control active
+        </span>
+        <span className="flex items-center gap-1">
+          <span aria-hidden="true">🔥</span> High demand
+        </span>
+        <LegendTag kind="restricted" /> Export licence required
+        <LegendTag kind="monitored" /> Under surveillance
+        <LegendTag kind="normal" /> No restrictions
+      </div>
+    </main>
+  );
+}
+
+function LegendTag({ kind }: { kind: keyof typeof CONTROL_STYLE }) {
+  const ctrl = CONTROL_STYLE[kind];
+  return (
+    <span className="flex items-center gap-1">
+      <span
+        className={`inline-block rounded-sm px-1 py-px font-mono text-2xs font-semibold ${ctrl.classes}`}
+      >
+        {ctrl.label}
+      </span>
+    </span>
+  );
+}

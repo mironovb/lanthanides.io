@@ -1,0 +1,328 @@
+/* ──────────────────────────────────────────────────────────────────────────
+   Editorial element-body styles (Prompt 6)
+
+   The `_elements/*.md` bodies are HTML-rich markdown authored against Jekyll's
+   class names (`.applications-table`, `.market-stats-grid`, `.regulatory-banner`,
+   `.notes-block`, `.compact-properties`, `.references-list`, …). react-markdown
+   renders that raw HTML verbatim, so these legacy classes need styling.
+
+   This is a faithful port of legacy/_sass/_element-detail.scss mapped onto the
+   dark baseline tokens (tailwind.config.ts via theme()). Everything is scoped
+   under `.element-body` so it only touches rendered editorial content, never the
+   page chrome (which uses Tailwind utilities). Prompt 11 folds this into the
+   full design system; until then it keeps the bodies legible and on-brand.
+   ────────────────────────────────────────────────────────────────────────── */
+
+.element-body {
+  font-size: 0.875rem;
+  line-height: 1.7;
+  color: theme('colors.fg.muted');
+}
+
+/* ── Base prose ──────────────────────────────────────────────────────────── */
+.element-body p {
+  margin: 0.75rem 0;
+}
+.element-body strong {
+  color: theme('colors.fg.DEFAULT');
+  font-weight: 600;
+}
+.element-body a {
+  color: theme('colors.fg.DEFAULT');
+  text-decoration: none;
+  border-bottom: 1px dotted theme('colors.border.strong');
+}
+.element-body a:hover {
+  border-bottom-color: theme('colors.accent.DEFAULT');
+  color: theme('colors.accent.strong');
+}
+.element-body sub,
+.element-body sup {
+  font-size: 0.75em;
+}
+.element-body h2,
+.element-body h3 {
+  color: theme('colors.fg.DEFAULT');
+}
+
+/* ── Sections ────────────────────────────────────────────────────────────── */
+.element-body .element-section {
+  margin-bottom: 2rem;
+}
+.element-body .section-title {
+  font-family: theme('fontFamily.serif');
+  font-size: 1.0625rem;
+  font-weight: 600;
+  color: theme('colors.fg.DEFAULT');
+  margin: 0 0 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid theme('colors.border.strong');
+}
+.element-body .subsection-title {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: theme('colors.fg.muted');
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin: 1.5rem 0 0.75rem;
+}
+.element-body .section-intro {
+  font-size: 0.875rem;
+  color: theme('colors.fg.muted');
+  margin-bottom: 1rem;
+  max-width: 72ch;
+}
+
+/* ── Applications table (3-column) ───────────────────────────────────────── */
+.element-body .applications-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.8125rem;
+  margin-bottom: 0.75rem;
+}
+.element-body .applications-table th,
+.element-body .applications-table td {
+  padding: 0.5rem 0.75rem;
+  text-align: left;
+  border-bottom: 1px solid theme('colors.border.DEFAULT');
+  vertical-align: top;
+}
+.element-body .applications-table th {
+  font-weight: 600;
+  color: theme('colors.fg.dim');
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  font-size: 0.6875rem;
+  border-bottom: 2px solid theme('colors.border.strong');
+  background: theme('colors.surface');
+}
+.element-body .applications-table td {
+  color: theme('colors.fg.muted');
+}
+.element-body .applications-table td:first-child {
+  font-weight: 600;
+  color: theme('colors.fg.DEFAULT');
+}
+.element-body .applications-table tbody tr:hover {
+  background: theme('colors.overlay');
+}
+
+/* ── Market & supply stats ───────────────────────────────────────────────── */
+.element-body .market-stats-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+@media (min-width: 768px) {
+  .element-body .market-stats-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+.element-body .market-stats {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid theme('colors.border.DEFAULT');
+}
+.element-body .stat-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 0.75rem;
+  padding: 0.5rem 0.75rem;
+  font-size: 0.8125rem;
+  border-bottom: 1px solid theme('colors.border.DEFAULT');
+}
+.element-body .stat-row:last-child {
+  border-bottom: none;
+}
+.element-body .stat-row:nth-child(odd) {
+  background: theme('colors.surface');
+}
+.element-body .stat-label {
+  color: theme('colors.fg.muted');
+}
+.element-body .stat-value {
+  font-family: theme('fontFamily.mono');
+  font-variant-numeric: tabular-nums;
+  font-weight: 600;
+  color: theme('colors.fg.DEFAULT');
+  text-align: right;
+  white-space: nowrap;
+}
+
+/* ── Regulatory banner (in-body, detailed) ───────────────────────────────── */
+.element-body .regulatory-banner {
+  padding: 1rem;
+  margin-bottom: 1.5rem;
+  font-size: 0.8125rem;
+  background: theme('colors.surface');
+  border: 1px solid theme('colors.border.DEFAULT');
+  border-left-width: 3px;
+}
+.element-body .regulatory-banner.banner-active {
+  border-left-color: theme('colors.down');
+}
+.element-body .regulatory-banner.banner-suspended {
+  border-left-color: theme('colors.risk.medium');
+}
+.element-body .banner-title {
+  font-weight: 700;
+  color: theme('colors.fg.DEFAULT');
+  margin-bottom: 0.5rem;
+  font-size: 0.9375rem;
+}
+.element-body .banner-body {
+  color: theme('colors.fg.muted');
+}
+.element-body .banner-key-date {
+  font-family: theme('fontFamily.mono');
+  font-weight: 600;
+  color: theme('colors.fg.DEFAULT');
+  margin-top: 0.75rem;
+  padding-top: 0.5rem;
+  border-top: 1px dotted theme('colors.border.strong');
+  font-size: 0.8125rem;
+}
+
+/* ── Notes ───────────────────────────────────────────────────────────────── */
+.element-body .notes-block {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.75rem;
+}
+@media (min-width: 768px) {
+  .element-body .notes-block {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+.element-body .note-item {
+  font-size: 0.8125rem;
+  color: theme('colors.fg.muted');
+  padding: 0.75rem 1rem;
+  background: theme('colors.surface');
+  border-left: 2px solid theme('colors.border.strong');
+}
+.element-body .note-item strong {
+  color: theme('colors.fg.DEFAULT');
+  display: block;
+  margin-bottom: 0.25rem;
+}
+.element-body .note-item.note-warning {
+  border-left-color: theme('colors.down');
+}
+.element-body .note-item.note-caution {
+  border-left-color: theme('colors.risk.medium');
+}
+
+/* ── Compact physical-properties card ────────────────────────────────────── */
+.element-body .compact-properties {
+  background: theme('colors.surface');
+  border: 1px solid theme('colors.border.DEFAULT');
+  padding: 0.75rem 1rem;
+  margin-bottom: 1.5rem;
+  font-family: theme('fontFamily.mono');
+  font-variant-numeric: tabular-nums;
+  font-size: 0.75rem;
+  color: theme('colors.fg.muted');
+}
+.element-body .compact-prop-title {
+  font-family: theme('fontFamily.sans');
+  font-weight: 600;
+  color: theme('colors.fg.dim');
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 0.25rem;
+}
+.element-body .compact-prop-title a {
+  border-bottom: none;
+  color: theme('colors.fg.dim');
+}
+
+/* ── Generic data table (hand-authored bodies, e.g. V) ───────────────────── */
+.element-body .data-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.8125rem;
+  border: 1px solid theme('colors.border.DEFAULT');
+  margin-bottom: 0.75rem;
+}
+.element-body .data-table th,
+.element-body .data-table td {
+  padding: 0.5rem 0.75rem;
+  text-align: left;
+  border-bottom: 1px solid theme('colors.border.DEFAULT');
+  vertical-align: top;
+}
+.element-body .data-table th {
+  font-size: 0.6875rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: theme('colors.fg.dim');
+  background: theme('colors.surface');
+  white-space: nowrap;
+}
+.element-body .data-table td {
+  color: theme('colors.fg.muted');
+}
+.element-body .data-table tbody tr:hover {
+  background: theme('colors.overlay');
+}
+.element-body .data-table tr.table-highlight {
+  background: theme('colors.accent.dim');
+}
+.element-body .mono {
+  font-family: theme('fontFamily.mono');
+  font-variant-numeric: tabular-nums;
+}
+.element-body .table-note {
+  font-size: 0.75rem;
+  color: theme('colors.fg.dim');
+  font-style: italic;
+  margin-top: 0.5rem;
+  max-width: 72ch;
+}
+
+/* ── Academic references ─────────────────────────────────────────────────── */
+.element-body .references-list {
+  list-style: none;
+  counter-reset: ref-counter;
+  padding: 0;
+  margin: 0;
+}
+@media (min-width: 768px) {
+  .element-body .references-list {
+    columns: 2;
+    column-gap: 2rem;
+  }
+}
+.element-body .references-list li {
+  counter-increment: ref-counter;
+  font-size: 0.75rem;
+  color: theme('colors.fg.muted');
+  padding: 0.25rem 0 0.25rem 1.5rem;
+  position: relative;
+  break-inside: avoid;
+}
+.element-body .references-list li::before {
+  content: '[' counter(ref-counter) ']';
+  position: absolute;
+  left: 0;
+  font-family: theme('fontFamily.mono');
+  font-size: 0.6875rem;
+  color: theme('colors.fg.dim');
+  font-weight: 600;
+}
+
+/* ── Supplier / stock helpers ────────────────────────────────────────────── */
+.element-body .supplier-link {
+  color: theme('colors.fg.DEFAULT');
+}
+.element-body .stock-in {
+  color: theme('colors.up');
+  font-weight: 600;
+}
+.element-body .stock-out {
+  color: theme('colors.down');
+}
