@@ -134,14 +134,13 @@ export const PRIMARY_NAV: NavGroup[] = [
 
 /**
  * The alerts layer is a single surface, so it's a standalone top-level link
- * rather than a menu. Telegram fires today via the regulatory monitor; the
- * subscribe form (Telegram + email) lands in a later prompt.
+ * rather than a menu. The subscribe page is live (Prompt 22): Telegram alerts
+ * fire today via the regulatory monitor, and email is open as a waitlist.
  */
 export const ALERTS_LINK: NavItem = {
   href: '/alerts',
   label: 'Alerts',
   description: 'Telegram & email when something moves',
-  soon: true,
 };
 
 /** Open-data export endpoints — footer-only, appended under the Data column. */

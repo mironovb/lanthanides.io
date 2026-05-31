@@ -113,6 +113,16 @@ export default function RegulatoryPage() {
 
       {/* Live alerting on these announcements (no fabricated bot link). */}
       <TelegramBadge variant="panel" className="mt-8" />
+      <p className="mt-2 text-xs leading-relaxed text-fg-dim">
+        Want these the moment they land?{' '}
+        <Link
+          href="/alerts/"
+          className="font-medium text-accent hover:text-accent-strong"
+        >
+          Set up alerts
+        </Link>{' '}
+        — Telegram now, or join the email waitlist.
+      </p>
 
       <RegulatoryView
         notices={notices}

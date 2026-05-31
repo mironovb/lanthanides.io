@@ -204,7 +204,7 @@ Each prompt must leave `npm run build` green. Later prompts tick these off.
   `/assets/data/*.json` exports — `fluctuations.json` copied into `public/`
   verbatim; `elements.json` 301→`/api/export/json/` (MIGRATION §3.4.1).
   **Remaining:** `/dashboard`, `feed.xml`, `sitemap.ts`, `robots.ts`.
-- [ ] **8 — Commercial stubs & API.** **Prisma models (`Listing`,
+- [x] **8 — Commercial stubs & API.** **Prisma models (`Listing`,
   `Subscription`, `ScreenedOffer`) + seed: DONE** — the dynamic data model and the
   dataset-seeded `ScreenedOffer` feed (220 rows, `origin:"seed"`, SQLite dev /
   Postgres prod, ARCHITECTURE §5) landed early as the "Prompt 5" task in the local
@@ -298,8 +298,29 @@ Each prompt must leave `npm run build` green. Later prompts tick these off.
   pillar links to it, and the vision page's demand-side card/roadmap move to **In progress**
   (live seeded feed, screening backend stubbed). New `lib/screening/index.ts`,
   `components/offers/*` (`offers.ts` pure DTO/helpers, `OffersBanner`, `OffersFeed`). `/offers`
-  is `force-dynamic`/nodejs (live DB). **Remaining:** stub route `/alerts`; handler
-  `/api/subscribe`.
+  is `force-dynamic`/nodejs (live DB). **Notification signup + `/api/subscribe` DONE** (the
+  "Prompt 22" task in the local prompt sequence): SSG `/alerts/` — the alerts layer's two
+  channels, each honest about status. **Telegram (LIVE):** places the prompt-16
+  `TelegramBadge` subscribe CTA to the MOFCOM alert bot (real link via
+  `NEXT_PUBLIC_TELEGRAM_BOT_URL`, else routes back here with a maintainer note), plus a
+  "what you get" panel — the regulatory monitor already dispatches these alerts.
+  **Email (WAITLIST):** an accessible capture form (email + topic checkboxes
+  regulatory / price-movements) POSTs to **`/api/subscribe`**, which validates server-side
+  (shared `validateSubscription` — identical client + server rules), **dedupes by
+  email+channel** (app-level; no migration), and persists a `Subscription` with
+  `channel:'email'`, `status:'waitlist'`, topics CSV — returning the **contact-safe** DTO
+  (`hasEmail` boolean; the address is never echoed). The confirmation states plainly that
+  **email alerts are in development and nothing was sent** (hard rule #1); **no external
+  calls, no email provider, no tracking** (hard rule #3) — and there is deliberately **no
+  GET** (the subscriber list is private, never enumerated). Privacy note + the
+  "regulatory now, price-movements next" vision framing tie it to `/about`. New
+  `components/alerts/*` (`alerts.ts` pure helpers + `validateSubscription`/`parseTopics`/
+  `serializeTopics`/`toSubscriptionDTO`, `EmailWaitlistForm` client island,
+  `TelegramSubscribe`). `/api/subscribe` is `force-dynamic`/nodejs (live DB). Full
+  metadata (no longer `noindex`) + WebApplication & BreadcrumbList JSON-LD; nav un-flags
+  Alerts (`soon` removed, footer brand-band tag dropped), and the home pillar +
+  regulatory page link here. (`NEXT_PUBLIC_TELEGRAM_BOT_URL` was already in `.env.example`
+  from P16.)
 - [x] **9 — Remove choppy/low-data visualizations.** Executed the AUDIT §3
   REMOVE decisions — the per-element price-history line chart (never ported) is
   replaced by the Price Movement % table + a new sortable **Price History**

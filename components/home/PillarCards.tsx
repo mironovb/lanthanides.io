@@ -91,17 +91,20 @@ function buildPillars(c: PillarCounts): Pillar[] {
           <span className="text-fg">Sell / List</span> turns it into an instant
           check on a seller’s asking price, and the{' '}
           <span className="text-fg">Offer Feed</span> ranks demand-side offers by
-          value against those same references. Live announcement alerts follow.
-          The open reference stays free and open regardless.
+          value against those same references.{' '}
+          <span className="text-fg">Alerts</span> push each new export-control
+          announcement to Telegram today. The open reference stays free and open
+          regardless.
         </>
       ),
       links: [
         { label: 'Try the Price Gauge', href: '/tools/price-gauge/' },
         { label: 'List material for sale', href: '/sell/' },
         { label: 'Browse the offer feed', href: '/offers/' },
+        { label: 'Get alerts', href: '/alerts/' },
       ],
       pending:
-        'Live announcement alerts launch as the dataset deepens — no email wall, no paywall on the open data.',
+        'Telegram announcement alerts are live; email delivery is in development — no email wall, no paywall on the open data.',
     },
   ];
 }

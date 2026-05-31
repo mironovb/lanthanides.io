@@ -98,14 +98,13 @@ export function SiteFooter() {
               export-control intelligence for rare-earth and strategic materials.
             </p>
 
-            {/* Alerts entry (Telegram + email; no fabricated bot link). */}
+            {/* Alerts entry (Telegram live + email waitlist; no fabricated bot link). */}
             <Link
               href={ALERTS_LINK.href}
               className="mt-4 inline-flex items-center gap-2 border border-border-strong px-2.5 py-1.5 text-xs font-medium text-fg transition-colors duration-fast hover:border-accent hover:text-accent-strong"
             >
               <span aria-hidden="true">◷</span>
               Get alerts — Telegram &amp; email
-              <SoonTag />
             </Link>
 
             <p className="mt-4 text-2xs leading-relaxed text-fg-dim">
