@@ -44,12 +44,20 @@ const config: Config = {
         border: {
           DEFAULT: '#262b33', // hairline dividers, default panel edge
           strong: '#333b46', // emphasized edge, separators, sort glyphs
+          // Form-control boundary. ≥3:1 against both the field fill (`base`) and
+          // the enclosing panel (`surface`) so inputs meet WCAG 1.4.11 (non-text
+          // contrast); the lighter `border`/`border-strong` stay for decorative
+          // hairline dividers (which 1.4.11 exempts). See docs/QA.md.
+          field: '#606b7b',
         },
         // ── Foreground text — three deliberate steps of emphasis. ──
         fg: {
           DEFAULT: '#e6e8eb', // primary text / numerics
           muted: '#9aa3ad', // body, secondary text
-          dim: '#6b7178', // labels, captions, fine print
+          // Labels, captions, fine print, table headers, eyebrows. Lightened
+          // from #6b7178 so it clears WCAG AA (4.5:1) for normal text on base/
+          // surface/raised (5.5 / 5.1 / 4.8); the old value failed at 3.4–4.0.
+          dim: '#828993',
         },
         // ── The one restrained accent (terminal teal, from brand #1A5C6B). ──
         accent: {

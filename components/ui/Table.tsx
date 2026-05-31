@@ -5,8 +5,11 @@
  * components (static tables) and client components (the sortable table below).
  *
  * `TH` carries the sortable affordance: pass `sortable` plus `sortDir`
- * ('asc' | 'desc' | null) and `onSort`; it wires `aria-sort`, the cursor, and
- * the ↑/↓/↕ glyph. Compose them, or use <SortableTable> for the common case.
+ * ('asc' | 'desc' | null) and `onSort`. The clickable target is a real nested
+ * <button> (not a click handler on the <th>), so sorting is fully keyboard-
+ * operable — Tab to focus, Enter/Space to sort (WCAG 2.1.1) — with the global
+ * focus-visible ring; `aria-sort` stays on the <th> and the ↑/↓/↕ glyph is
+ * decorative. Compose them, or use <SortableTable> for the common case.
  */
 import { cn } from './cn';
 
@@ -109,20 +112,35 @@ export function TH({
     <th
       scope={scope}
       aria-sort={ariaSort}
-      onClick={sortable ? onSort : undefined}
       className={cn(
-        'whitespace-nowrap border-b border-border bg-raised px-3 py-2 text-2xs font-semibold uppercase tracking-caps text-fg-dim',
-        ALIGN[a],
-        sortable && 'cursor-pointer select-none hover:text-fg',
+        'whitespace-nowrap border-b border-border bg-raised text-2xs font-semibold uppercase tracking-caps text-fg-dim',
+        // Padding/alignment live on the inner button when sortable so the whole
+        // header cell is one keyboard-focusable hit target.
+        sortable ? 'p-0' : cn('px-3 py-2', ALIGN[a]),
         className,
       )}
     >
-      {children}
       {sortable ? (
-        <span className="ml-1 text-fg-dim" aria-hidden="true">
-          {sortDir === 'asc' ? '↑' : sortDir === 'desc' ? '↓' : '↕'}
-        </span>
-      ) : null}
+        <button
+          type="button"
+          onClick={onSort}
+          className={cn(
+            'flex w-full select-none items-center gap-1 px-3 py-2 uppercase tracking-caps transition-colors duration-fast hover:text-fg',
+            a === 'right'
+              ? 'justify-end'
+              : a === 'center'
+                ? 'justify-center'
+                : 'justify-start',
+          )}
+        >
+          {children}
+          <span className="text-fg-dim" aria-hidden="true">
+            {sortDir === 'asc' ? '↑' : sortDir === 'desc' ? '↓' : '↕'}
+          </span>
+        </button>
+      ) : (
+        children
+      )}
     </th>
   );
 }

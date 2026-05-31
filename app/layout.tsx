@@ -1,6 +1,58 @@
 import type { Metadata } from 'next';
+import { IBM_Plex_Sans, IBM_Plex_Mono, Source_Serif_4 } from 'next/font/google';
 import './globals.css';
 import { SiteHeader, SiteFooter } from '@/components/layout';
+
+/*
+ * Self-hosted fonts via next/font/google: downloaded and served from our own
+ * origin at build time (no runtime request to Google, no render-blocking
+ * external stylesheet), subset to `latin`, with `display: swap` and
+ * auto-generated size-adjusted fallback metrics so swapping in the web font
+ * causes no layout shift. Each exposes a CSS variable consumed by Tailwind's
+ * fontFamily (tailwind.config.ts) — the same --font-* seam the prior <link>
+ * setup used, so this is a swap, not a rewrite.
+ *
+ * IBM Plex Sans/Mono ship as static weights (so we enumerate them); Source
+ * Serif 4 is a variable font (so weight is omitted to fetch the full axis).
+ */
+const sans = IBM_Plex_Sans({
+  subsets: ['latin'],
+  weight: ['400', '500', '600', '700'],
+  display: 'swap',
+  variable: '--font-sans',
+  fallback: [
+    'ui-sans-serif',
+    'system-ui',
+    '-apple-system',
+    'Segoe UI',
+    'Roboto',
+    'Helvetica',
+    'Arial',
+    'sans-serif',
+  ],
+});
+
+const mono = IBM_Plex_Mono({
+  subsets: ['latin'],
+  weight: ['400', '500', '600'],
+  display: 'swap',
+  variable: '--font-mono',
+  fallback: [
+    'ui-monospace',
+    'SFMono-Regular',
+    'Menlo',
+    'Consolas',
+    'Liberation Mono',
+    'monospace',
+  ],
+});
+
+const serif = Source_Serif_4({
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-serif',
+  fallback: ['ui-serif', 'Georgia', 'Cambria', 'Times New Roman', 'serif'],
+});
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://www.lanthanides.io'),
@@ -18,28 +70,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
-      {/*
-        Font setup via Google Fonts. Kept as plain <link> tags so the build
-        never depends on a build-time font fetch (next/font/google would).
-        Self-hosting is deferred to a later prompt; the type pairing is wired
-        through CSS variables (app/globals.css), so it's a swap, not a rewrite.
-      */}
-      <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link
-          rel="preconnect"
-          href="https://fonts.gstatic.com"
-          crossOrigin="anonymous"
-        />
-        {/* Loaded once in the App Router root layout (applies to every route),
-            so the pages-router single-page heuristic below is a false positive. */}
-        {/* eslint-disable-next-line @next/next/no-page-custom-font */}
-        <link
-          rel="stylesheet"
-          href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&display=swap"
-        />
-      </head>
+    <html
+      lang="en"
+      className={`${sans.variable} ${mono.variable} ${serif.variable}`}
+    >
       <body className="flex min-h-screen flex-col bg-base text-fg">
         <a
           href="#main"
@@ -48,7 +82,10 @@ export default function RootLayout({
           Skip to content
         </a>
         <SiteHeader />
-        <div id="main" className="flex-1">
+        {/* tabIndex=-1 so the skip link reliably moves keyboard focus here
+            (a plain div isn't focusable); each page renders its own <main>
+            landmark inside. */}
+        <div id="main" tabIndex={-1} className="flex-1 outline-none">
           {children}
         </div>
         <SiteFooter />

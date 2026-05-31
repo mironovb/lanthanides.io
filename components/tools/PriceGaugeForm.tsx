@@ -33,7 +33,9 @@ const LABEL =
 const HINT = 'mt-1 text-2xs leading-relaxed text-fg-dim';
 
 function fieldClass(hasError: boolean): string {
-  return `${FIELD} ${hasError ? 'border-down' : 'border-border-strong focus-visible:border-accent'}`;
+  // `border-field` is the ≥3:1 control boundary (WCAG 1.4.11); error state swaps
+  // to the semantic red, focus to the accent.
+  return `${FIELD} ${hasError ? 'border-down' : 'border-border-field focus-visible:border-accent'}`;
 }
 
 export function PriceGaugeForm({

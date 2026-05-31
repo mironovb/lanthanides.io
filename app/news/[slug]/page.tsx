@@ -11,6 +11,7 @@
  */
 import type { Metadata } from 'next';
 import Link from 'next/link';
+import Image from 'next/image';
 import { notFound } from 'next/navigation';
 
 import '@/components/content/content-body.css';
@@ -119,13 +120,13 @@ export default function ArticlePage({ params }: { params: Params }) {
 
         {fm.image && (
           <figure className="mb-8 overflow-hidden border border-border bg-raised">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
+            <Image
               src={`/assets/images/${fm.image}`}
               alt={fm.image_alt ?? fm.title}
-              loading="lazy"
               width={1200}
               height={721}
+              sizes="(max-width: 1200px) 100vw, 1200px"
+              priority
               className="h-auto w-full"
             />
           </figure>

@@ -6,24 +6,20 @@
    Design tokens — the Strategic Materials Ledger system (Prompt 11)
 
    Terminal-adjacent, dense, understated. Colors live in tailwind.config.ts
-   (hex, so the prose stylesheets' theme() calls stay valid); fonts are exposed
-   here as CSS variables so the type pairing can be swapped (e.g. self-hosted
-   next/font) without touching utility classes.
+   (hex, so the prose stylesheets' theme() calls stay valid).
+
+   FONTS: self-hosted via next/font/google (app/layout.tsx), which subsets to
+   latin, uses `display: swap`, and injects size-adjusted fallback metrics (no
+   layout shift). It defines the --font-sans / --font-mono / --font-serif
+   variables on <html> — Tailwind's fontFamily reads them — so the type pairing
+   is still a swap, not a utility-class rewrite. No render-blocking external
+   stylesheet, no runtime request to Google.
 
    THEME: dark instrument-panel theme is the shipped default. The token names
    are semantic, so the future light-mode brand (.impeccable.md) is a
    token-value edit — see docs/DESIGN-SYSTEM.md §"Theme & the light-mode path".
    ────────────────────────────────────────────────────────────────────────── */
 @layer base {
-  :root {
-    --font-sans: 'IBM Plex Sans', ui-sans-serif, system-ui, -apple-system,
-      'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-    --font-mono: 'IBM Plex Mono', ui-monospace, SFMono-Regular, 'SF Mono', Menlo,
-      Consolas, 'Liberation Mono', monospace;
-    --font-serif: 'Source Serif 4', ui-serif, Georgia, Cambria,
-      'Times New Roman', serif;
-  }
-
   html {
     -webkit-text-size-adjust: 100%;
     text-size-adjust: 100%;
@@ -68,6 +64,21 @@
   :focus-visible {
     outline: 2px solid theme('colors.accent.DEFAULT');
     outline-offset: 2px;
+  }
+
+  /* Respect a user's reduced-motion preference (WCAG 2.3.3 / Animation from
+     Interactions). The system only uses short hover color transitions and a
+     chevron rotate, but honour the preference globally and decisively: collapse
+     all transitions/animations and disable smooth scrolling. */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
   }
 }
 

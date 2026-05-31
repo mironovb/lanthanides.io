@@ -501,8 +501,39 @@ Each prompt must leave `npm run build` green. Later prompts tick these off.
   `noindex` dropped now it is a real page; the dashboard nav item un-flagged
   `soon`. New: `app/dashboard/page.tsx`, `components/dashboard/RegulatorySnapshot.tsx`.
   `npm run build` green.
-- [ ] **18–24 — Polish & rebuilds** (MIGRATION §4): content/positioning
+- [ ] **18–22, 24 — Polish & rebuilds** (MIGRATION §4): content/positioning
   (remaining §4.5–§4.6 surfaces), remaining page polish, PWA/manifest fixes
   (§4.8, incl. `/periodicpricing/…` → `/assets/images/…`).
+- [x] **23 — Production-grade performance, accessibility & mobile.** Full audit +
+  evidence in **`docs/QA.md`** (rigorous manual review + computed WCAG contrast
+  ratios + built-output inspection; **no** Lighthouse/axe score fabricated —
+  neither is installed in this repo). **Performance:** fonts self-hosted via
+  `next/font/google` (subset `latin`, `display:swap`, auto size-adjusted fallback
+  metrics ⇒ no CLS) — the render-blocking Google `<link>` + two `preconnect`s +
+  the runtime third-party request are gone (**0** `googleapis`/`gstatic` refs in
+  built HTML; 27 subsetted woff2 self-served + preloaded same-origin); the two
+  *rendered* news images (card thumb + article hero) moved to `next/image`
+  (`width`/`height`/`sizes`, lazy by default, hero `priority` as the LCP) ⇒
+  responsive `srcset`, no layout shift (`og-default` refs are OG meta and the
+  header "logo" is a CSS square — neither is a rendered `<img>`). Client JS already
+  minimal (87.3 kB shared, reference pages ~101 kB, server-first) and SSG/ISR
+  confirmed static; no dead chart code (every chart imported; P10 gate holds —
+  0 `<polyline>`); removed the `:root` font vars. **Accessibility (WCAG AA):** the
+  **sortable table header was mouse-only** — rebuilt as a nested `<button>`
+  (Enter/Space + focus ring; `aria-sort` stays on `<th>`), the key 2.1.1 fix;
+  contrast brought to AA — `fg-dim` `#6b7178→#828993` (every `<TH>`/eyebrow/caption
+  was 3.4–4.0:1, now 4.8–5.5:1) and a new `border-field` `#606b7b` (≥3:1, WCAG
+  1.4.11) on all form controls (was 1.7:1); `prefers-reduced-motion` honoured
+  globally; skip-link target made focusable (`tabIndex=-1`); verified **1 `<main>`
+  + 1 `<h1>` per page**, logical heading order (`PageHeader`→h1,
+  `SectionHeading`→h2/h3), and no colour-only meaning
+  (badge labels / movement sign / coverage counts / confidence label all carry
+  text). **Mobile:** every breakpoint re-verified — tables scroll in
+  `overflow-x-auto`, forms + CTAs stack and clear the 24px AA target minimum,
+  dashboard panels reflow to one column (the dense element grid stays 2-up by
+  design — verified no overflow at 320px). New `docs/QA.md`; touched
+  `tailwind.config.ts`, `app/{layout.tsx,globals.css}`, `components/ui/Table.tsx`,
+  the two news image components, and the three form islands. `npm run build` green
+  (57 routes); `npm run lint` clean.
 - [ ] **25 — Parity & cleanup.** Verify route parity against AUDIT §2; **remove
   `legacy/`**.

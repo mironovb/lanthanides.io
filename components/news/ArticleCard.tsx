@@ -6,6 +6,7 @@
  * Card primitive + the shared date formatter (Prompt 12).
  */
 import Link from 'next/link';
+import Image from 'next/image';
 import { Card } from '@/components/ui';
 import { formatDate } from '@/lib/format';
 import type { ArticleContent } from '@/lib/content';
@@ -16,14 +17,17 @@ export function ArticleCard({ article }: { article: ArticleContent }) {
 
   return (
     <Card as="article" padding="none" interactive className="group flex flex-col">
-      <Link href={href} className="block aspect-[16/9] overflow-hidden bg-raised">
+      <Link
+        href={href}
+        className="relative block aspect-[16/9] overflow-hidden bg-raised"
+      >
         {fm.image_thumb ? (
-          // eslint-disable-next-line @next/next/no-img-element
-          <img
+          <Image
             src={`/assets/images/${fm.image_thumb}`}
             alt={fm.image_alt ?? fm.title}
-            loading="lazy"
-            className="h-full w-full object-cover opacity-90 transition-opacity group-hover:opacity-100"
+            fill
+            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 360px"
+            className="object-cover opacity-90 transition-opacity group-hover:opacity-100"
           />
         ) : (
           <span className="flex h-full w-full items-center justify-center text-border-strong">
