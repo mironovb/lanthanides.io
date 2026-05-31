@@ -76,10 +76,13 @@ Two stores with opposite needs — **never mix them**:
    placeholders. Never commit a real `.env`, key, or secret. **Do not
    `git add -A`** — `.arun/`, `combined*.txt`, `chat.md` are gitignored
    scratch/secrets; **stage deliverables explicitly.**
-4. **`legacy/` is reference-only.** It holds the quarantined Jekyll build files
-   (layouts, includes, SCSS, pages, config, old JS/CSS). The Next build **never**
-   imports from `legacy/`. It is deleted in **Prompt 25** after route-parity
-   sign-off.
+4. **No Jekyll dependency.** The Next build **never** imported from `legacy/`
+   (the quarantined Jekyll layouts/includes/SCSS/pages/config/JS). `legacy/` was
+   **removed in Prompt 25** after route-parity sign-off (with the two dead
+   Jekyll-Liquid root sources `humans.txt` + `movements.xml`); the root
+   `robots.txt` is retained per the P25 do-not-remove list but is not served (Next
+   serves `/robots.txt` from `app/robots.ts`). Nothing in the app may reintroduce a
+   Jekyll/Liquid build path.
 5. **`build` stays green on every commit** (MIGRATION §4 sequencing invariant).
 
 ## Directory map (condensed from ARCHITECTURE §1)
@@ -94,8 +97,8 @@ _elements/    UNCHANGED — 31 element bodies (.md)
 _articles/    UNCHANGED — 5 articles (.md)
 scripts/      UNCHANGED — Python pipeline + regulatory monitor (commits _data/ every 6h)
 public/       assets/images (favicons, og, manifest), assets/data (open-data exports, build-generated)
-docs/         AUDIT.md, MIGRATION.md, ARCHITECTURE.md
-legacy/       quarantined Jekyll files (reference-only; removed in Prompt 25)
+docs/         AUDIT.md, MIGRATION.md, ARCHITECTURE.md, INVESTOR-WALKTHROUGH.md, …
+              (legacy/ — the quarantined Jekyll tree — was removed in Prompt 25)
 ```
 
 `_data/`, `_elements/`, `_articles/`, `scripts/`, `assets/images`, `assets/data`,
@@ -569,5 +572,31 @@ Each prompt must leave `npm run build` green. Later prompts tick these off.
   `components/seo/*`, `app/{sitemap.ts,robots.ts,feed.xml/route.ts}`,
   `app/framework/*`, `docs/SEO.md`, `public/{humans.txt,assets/images/*}`.
   `npm run build` green (61 routes); `npm run lint` clean.
-- [ ] **25 — Parity & cleanup.** Verify route parity against AUDIT §2; **remove
-  `legacy/`**.
+- [x] **25 — Parity & cleanup.** Final investor-readiness sweep. **Route parity
+  verified against AUDIT §2 / MIGRATION §3 from the built output** before any
+  deletion: all 31 case-sensitive `/elements/<Sym>/`, all 5 `/news/<slug>/`, every
+  top-level page, the `/sitemap.xml` · `/feed.xml` · `/movements.xml` ·
+  `/robots.txt` handlers, the `public/` statics (`humans.txt`,
+  `assets/data/fluctuations.json`, `assets/images/site.webmanifest`, favicons +
+  `og-default.png`), and the three 301s (`/prices`→`/elements/`,
+  `/vision`→`/about/`, `/assets/data/elements.json`→`/api/export/json/`); the four
+  preserved `/methodology` anchors + the two `/framework` anchors confirmed in the
+  built HTML; an internal-link check over built HTML returned **0 dangling links**.
+  Only then: **`legacy/` removed** (the whole quarantined Jekyll tree, incl. the
+  old `assets/css/main.scss` + `assets/js/*` charts), plus the two dead
+  Jekyll-Liquid root sources superseded by Next equivalents — `humans.txt`
+  (→ `public/humans.txt`) and `movements.xml` (→ `app/movements.xml/route.ts`).
+  Root `robots.txt` **retained** per the do-not-remove constraint (vestigial Liquid
+  source, not served; `/robots.txt` comes from `app/robots.ts`) — recorded in
+  `docs/QA.md` §6. Scratch dumps (`chat.md`, `combined*.txt`) + stale Jekyll output
+  (`_site/`, `.jekyll-cache/`) cleared from the working tree; `.gitignore` already
+  excludes them and `node_modules`/`.next`/`*.db`/`.env`/`prompts`/`logs`/
+  `run-all.sh`; **no secrets tracked**. **README** repositioned as a venture product
+  (what/who/why-now, stack + hybrid-data architecture, dev setup, data model +
+  open-data export, deployment incl. SQLite→Postgres + env vars, a live-vs-stubbed
+  table, CC BY 4.0 / MIT). New **`docs/INVESTOR-WALKTHROUGH.md`** — the Regulatory →
+  Elements/provenance → Dashboard → Price Gauge → Sell → Offers → Alerts
+  click-through, the defensible-asset framing, and a candid stage/roadmap. Tidy:
+  stale `.edu` contact → `hello@lanthanides.io` in `CONTRIBUTING.md`; dropped the
+  now-dead `legacy/` entry from the ESLint ignore list. `npm run build` green
+  (61 routes); `npm run lint` clean. **Migration complete.**

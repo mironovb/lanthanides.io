@@ -217,4 +217,4 @@ normalised, and verified.
 
 ## Questions?
 
-Open an issue or email **mironovb@berea.edu**.
+Open an issue or email **hello@lanthanides.io**.
