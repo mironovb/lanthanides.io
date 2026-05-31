@@ -10,12 +10,19 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import {
+  getControlByCategory,
+  getCoverageTally,
+  getElementCoverage,
   getElements,
+  getPremiumLeaderboard,
   getPriceRecords,
   getRegulatoryNotices,
   getSourceBreakdown,
   getSources,
 } from '@/lib/data';
+import { CoverageGrid } from '@/components/charts/CoverageGrid';
+import { MarketStructure } from '@/components/charts/MarketStructure';
+import { PremiumLeaderboard } from '@/components/charts/PremiumLeaderboard';
 
 export const metadata: Metadata = {
   title: 'Open Data — Rare Earth & Strategic Metal Price Dataset',
@@ -34,6 +41,12 @@ export default function DataPage() {
   const notices = getRegulatoryNotices().length;
   const sources = getSources().length;
   const observations = getSourceBreakdown().total_observations;
+
+  // Rebuilt, data-honest visualizations (Prompt 10).
+  const coverage = getElementCoverage();
+  const coverageTally = getCoverageTally();
+  const control = getControlByCategory();
+  const premiums = getPremiumLeaderboard();
 
   const stats: Array<[number, string]> = [
     [priceRecords, 'Price records'],
@@ -99,6 +112,62 @@ export default function DataPage() {
           </div>
         ))}
       </dl>
+
+      {/* ── Dataset at a glance (rebuilt, data-honest visualizations, P10) ── */}
+      <section className="mt-12">
+        <h2 className="border-b-2 border-fg pb-2 font-serif text-xl font-semibold text-fg">
+          Dataset at a glance
+        </h2>
+        <p className="mt-3 max-w-prose text-sm leading-relaxed text-fg-muted">
+          A few honest views derived from the data below. Each states its own
+          sample size; nothing is drawn that the data cannot support. (Price
+          trend lines live on each element page and appear only once a tier has
+          enough distinct observation days — see{' '}
+          <Link
+            href="/methodology/"
+            className="text-fg underline decoration-dotted underline-offset-2 hover:text-accent-strong"
+          >
+            methodology
+          </Link>
+          .)
+        </p>
+
+        <div className="mt-8">
+          <h3 className="font-serif text-lg font-semibold text-fg">
+            Coverage by element
+          </h3>
+          <p className="mb-4 mt-1 max-w-prose text-sm leading-relaxed text-fg-muted">
+            How much price data backs each tracked element. Thin coverage is
+            shown, not hidden — transparency about data density is part of the
+            provenance-first model. Each tile links to the element.
+          </p>
+          <CoverageGrid items={coverage} tally={coverageTally} />
+        </div>
+
+        <div className="mt-10">
+          <h3 className="font-serif text-lg font-semibold text-fg">
+            Control by category
+          </h3>
+          <p className="mb-4 mt-1 max-w-prose text-sm leading-relaxed text-fg-muted">
+            Where active Chinese export control concentrates across the four
+            material classes.
+          </p>
+          <div className="max-w-2xl">
+            <MarketStructure rows={control} />
+          </div>
+        </div>
+
+        <div className="mt-10">
+          <h3 className="font-serif text-lg font-semibold text-fg">
+            Retail premium leaderboard
+          </h3>
+          <p className="mb-4 mt-1 max-w-prose text-sm leading-relaxed text-fg-muted">
+            The markup small-quantity buyers pay over commodity pricing —
+            latest retail reference ÷ latest bulk benchmark, per element.
+          </p>
+          <PremiumLeaderboard rows={premiums} />
+        </div>
+      </section>
 
       {/* ── Downloads ────────────────────────────────────────────────────── */}
       <section className="mt-10">

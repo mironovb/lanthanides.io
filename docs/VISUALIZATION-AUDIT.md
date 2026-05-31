@@ -1,8 +1,13 @@
-# lanthanides.io — Visualization Audit & Remediation (Prompt 9)
+# lanthanides.io — Visualization Audit & Remediation (Prompts 9–10)
 
 > Date: 2026-05-31 · Branch: `main` · Companion to `docs/AUDIT.md §3` (the
 > visualization inventory and REMOVE/REBUILD/KEEP decisions) and
 > `docs/ARCHITECTURE.md`.
+>
+> **Prompt 9** removed the choppy/low-data visuals (below). **Prompt 10** rebuilt
+> the small approved set behind a single, centralized data-sufficiency gate — the
+> final rendered inventory and the chosen threshold are in
+> [§ Prompt 10 — Rebuilt, gated visualizations](#prompt-10--rebuilt-gated-visualizations).
 >
 > **Thesis:** a clean table beats a bad chart. The price corpus clusters on two
 > collection days; any line, trend, or "% move" drawn from one or two points is
@@ -126,20 +131,98 @@ low-data; they are tables, stat callouts, or genuinely sufficient visuals:
 | Two-price reference cards | `ReferencePriceCard.tsx` | KEEP | Single observed prices, fully attributed. |
 | Regulatory tracker + timeline | `components/regulatory/*` | KEEP | The crown jewel (AUDIT §6); deep, dated, sourced. |
 | Movements feed (rows/meta) | `components/movements/*` | KEEP | Factual events; only the sub-threshold sparkline was gated (above). |
-| Home element grid · regulatory snapshot · premium leaderboard · coverage grid | home / dashboard (Prompt 17) | KEEP | Dense, honest, sample-size-aware; the coverage grid turns thin data into a transparency signal. |
+| Home element grid · regulatory snapshot | home / dashboard (Prompt 17) | KEEP | Dense, honest, sample-size-aware. |
+| Premium leaderboard · coverage grid | **now on `/data`** (rebuilt in Prompt 10, below) | KEEP/REBUILD | The coverage grid turns thin data into a transparency signal; both will also feed the Prompt 17 dashboard. |
+
+---
+
+## Prompt 10 — Rebuilt, gated visualizations
+
+> Date: 2026-05-31. Executes the **KEEP / REBUILD-CLEAN** rows of `docs/AUDIT.md §3`.
+> Thesis unchanged: *a clean table beats a bad chart.* The new rule: every drawn
+> trend passes through **one** gate, so nothing choppy can render.
+
+### The shared primitive + the one gate (`components/charts/`)
+
+- **`sufficiency.ts` — the single rule.** `meetsThreshold(distinctPoints, min)` +
+  `distinctCount()`. Two configured minimums, both centralized here so no
+  visualization re-derives its own:
+  - **`MIN_LINE_POINTS = 5`** — a line/area needs ≥ 5 **distinct points**
+    (distinct observation days) **in the single series it plots**. The gate is
+    applied **per series (per tier)**, never per element — a 2-day retail line is
+    never drawn just because the bulk series beside it is longer.
+  - **`MIN_SPARKLINE_POINTS = 3`** — the looser bar for inline event sparklines
+    (a 2-point sparkline is a slope fixed by direction, not data).
+- **`price-series.ts`** — collapses each day's raw offers in a tier to their
+  per-day **median** (derived `median_aggregate` rows excluded), yielding one
+  point per distinct day: exactly the unit the gate counts.
+- **`LineChart.tsx`** — the lone inline-SVG line primitive. It filters series
+  through the gate and, if **none** qualifies, renders its `fallback` (a table)
+  instead of a line. Pure server SVG; no client JS, no animation.
+- **`BarTable.tsx`** — labeled horizontal bar-in-table (the honest alternative to
+  a pie); categorical, so no line-gate, but every bar prints its exact number.
+
+### Final inventory — what renders, where, and the gate
+
+| Visualization | Component | Where | Gate | Renders today |
+|:--|:--|:--|:--|:--|
+| **Price Trend** line (retail/bulk, daily medians) | `PriceHistoryChart` → `LineChart` | `/elements/[symbol]` | per-series **≥ 5 distinct days** | **0 elements** — see below; the P9 observations table stands in for all 31 |
+| **Price History** observations table | `PriceHistoryTable` (P9) | `/elements/[symbol]` | n/a (always a table) | all 31 elements |
+| **Movements** sparkline | `MovementRow` | `/movements` | **≥ 3 points** (same `meetsThreshold`) | **2 of 26** price-move events |
+| **Coverage grid** (heatmap) | `CoverageGrid` | `/data` | n/a (categorical; each tile prints its observation count) | 31 tiles · rich 4 / moderate 19 / sparse 8 / none 0 |
+| **Control by category** bars | `MarketStructure` → `BarTable` | `/data` | n/a (categorical bar-in-table) | 4 category rows |
+| **Retail-premium leaderboard** (sortable) | `PremiumLeaderboard` | `/data` | n/a (ranked table; **Basis** column discloses the form each side is quoted in) | 12 rows (the elements with both a qualifying retail reference *and* bulk benchmark, via `selectReferencePrices`) |
+| **Regulatory announcement timeline** | `RegulatoryTimeline` | `/regulatory` | KEEP — refined to terminal-grade (tabular dates, tightened title tracking, monospace announcement refs) | 11 events |
+
+### Why the price-trend line renders for zero elements today (the gate, proven)
+
+A line connects points **within one series** (one tier). Measured against the live
+`_data/price_history/*.yml` on 2026-05-31, the deepest single tier in the whole
+catalog is **4 distinct days** — Sc *bulk* (4) and Te *bulk* (4) — and those four
+days even **mix forms** (oxide → metal → compound), which the audit flags as noise
+dressed as signal (`AUDIT §3 #2`). **No tier reaches 5.** (The `fluctuations.json`
+`distinct_days = 6` for Sc/Te is the *union* across tiers, which a single line
+cannot honestly use.)
+
+So with the per-series ≥ 5 gate, the Price Trend line is **suppressed for all 31
+elements**, and every element shows the honest observations table instead — the
+expected, correct outcome (the prompt: *"Most elements will show the table, and
+that is correct."*). The line is not dead code: it is wired into the element page
+and build-verified, and it activates automatically the moment the Python pipeline
+deepens any tier to ≥ 5 clean days. **Proof:** the built site emits **0
+`<polyline>` across all 31 element pages**.
+
+### Threshold rationale (why 5, not 3)
+
+`AUDIT §3 #1` floated ≥ 3 for the line; this pass adopts **≥ 5** as the configured
+line minimum (the prompt's own example) because, with this corpus, ≥ 3 or ≥ 4
+would draw exactly the form-mixed 3–4-point bulk lines (Sc, Te, Lu, Tb) the audit
+warns against. ≥ 5 guarantees that the first lines to appear are genuinely
+deepening series, not artefacts. The value is a single constant (`MIN_LINE_POINTS`)
+and a per-call `min` prop, so it is trivially re-tuned in one place. The sparkline
+keeps its looser ≥ 3 because it is a glanceable adornment beside the full factual
+row, not a standalone trend.
 
 ---
 
 ## Verification (no dead code / orphaned assets in the active app)
 
-- No `<svg>`, `polyline`, `sparkline`, `pc-*`, `price-chart`, `charts.js`,
-  `mover`, or `fluctuation-fallback` references remain in `app/`, `components/`,
-  or `lib/` other than the **gated** ≥3-point movements sparkline (the built
-  `/movements` page emits exactly 2 `<svg>`; every built element page emits 0).
-- No chart CSS selectors exist in `app/globals.css` or the component CSS.
+- The only inline-SVG **trend** code in the active app now lives behind the gate:
+  `components/charts/LineChart.tsx` (the price-trend primitive) and
+  `components/movements/MovementRow.tsx` (the event sparkline). No legacy `pc-*`,
+  `price-chart`, `charts.js`, `dashboard-mover-row`, or `fluctuation-fallback`
+  references exist anywhere in `app/`, `components/`, or `lib/`.
+- **Built-output proof of the gate:** every built element page emits **0
+  `<polyline>`** (the Price Trend line is suppressed for all 31 elements — no
+  tier clears ≥ 5 distinct days); the built `/movements` page emits exactly **2
+  `<svg>`** (the 2 events with ≥ 3 points). Re-checkable with
+  `grep -c "<polyline" .next/server/app/elements/*.html`.
+- No chart CSS selectors exist in `app/globals.css` or the component CSS; the
+  charts are pure Tailwind-classed inline SVG / tables.
 - The legacy implementations remain only under `legacy/` (reference-only;
   removed wholesale in Prompt 25) — the Next build never imports from there.
-- `npm run build` passes (53 routes; all 31 element pages + `/movements`).
+- `npm run build` passes (53 routes; all 31 element pages + `/movements` +
+  `/data`).
 
 ---
 

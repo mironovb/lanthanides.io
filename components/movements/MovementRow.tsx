@@ -9,6 +9,10 @@
 import Link from 'next/link';
 import type { MovementEvent } from '@/lib/types';
 import {
+  meetsThreshold,
+  MIN_SPARKLINE_POINTS,
+} from '@/components/charts/sufficiency';
+import {
   CONFIDENCE_STYLE,
   DIRECTION_COLOR,
   MOVEMENT_FALLBACK,
@@ -82,14 +86,16 @@ export function MovementRow({ event }: { event: MovementEvent }) {
         {event.description}
       </p>
 
-      {/* ── Sparkline (≥3 points only) ────────────────────────────────────
-          Minimum-data threshold per docs/AUDIT.md §3 (#5): a 2-point sparkline
-          is a fixed slope set by direction, not by data, so it implies a shape
-          the series can't support. We render the curve only when it spans ≥3
-          observation points; below that it is suppressed and the factual
-          from→to / change / observation count survive in the Meta block below.
-          See docs/VISUALIZATION-AUDIT.md. */}
-      {event.sparkline?.path && event.sparkline.point_count >= 3 && (
+      {/* ── Sparkline (gated) ─────────────────────────────────────────────
+          Minimum-data threshold via the shared gate (components/charts/
+          sufficiency.ts, MIN_SPARKLINE_POINTS = 3): a 2-point sparkline is a
+          fixed slope set by direction, not by data, so it implies a shape the
+          series can't support. We render the curve only when it clears the gate;
+          below that it is suppressed and the factual from→to / change /
+          observation count survive in the Meta block below. The same rule that
+          gates the price line gates this — see docs/VISUALIZATION-AUDIT.md. */}
+      {event.sparkline?.path &&
+        meetsThreshold(event.sparkline.point_count, MIN_SPARKLINE_POINTS) && (
         <div className="flex items-center gap-3">
           <svg
             viewBox={`0 0 ${event.sparkline.width} ${event.sparkline.height}`}

@@ -432,6 +432,8 @@ export interface PremiumLeaderboardRow {
   retail_usd_per_kg: number;
   bulk_usd_per_kg: number;
   premium: number; // retail ÷ bulk
+  retail_form: string; // form the retail reference is quoted in (e.g. 'metal')
+  bulk_form: string; // form the bulk benchmark is quoted in (e.g. 'oxide')
 }
 
 /** Counts of elements by their fluctuation `data_quality`, plus uncovered ('none'). */
@@ -440,4 +442,24 @@ export interface CoverageTally {
   moderate: number;
   sparse: number;
   none: number;
+}
+
+/** Per-element price-data coverage — drives the data-coverage grid (Prompt 10). */
+export interface ElementCoverage {
+  symbol: string;
+  name: string;
+  category: ElementCategory;
+  quality: DataQuality | 'none'; // 'none' = no fluctuation entry / zero observations
+  observations: number;
+}
+
+/**
+ * China-export-control tally for one element category — drives the
+ * market-structure bars (Prompt 10). `controlled` counts elements with
+ * `cn_export_control === true`.
+ */
+export interface CategoryControl {
+  category: ElementCategory;
+  controlled: number;
+  total: number;
 }

@@ -26,9 +26,11 @@ import {
   loadSources,
 } from './load';
 import type {
+  CategoryControl,
   CoverageTally,
   Element,
   ElementCategory,
+  ElementCoverage,
   Fluctuation,
   MovementsFile,
   NewsItem,
@@ -238,6 +240,8 @@ export function getPremiumLeaderboard(limit?: number): PremiumLeaderboardRow[] {
         retail_usd_per_kg: retailRef.normalized_usd_per_kg,
         bulk_usd_per_kg: bulkRef.normalized_usd_per_kg,
         premium: retailPremium,
+        retail_form: retailRef.form,
+        bulk_form: bulkRef.form,
       });
     }
   }
@@ -262,4 +266,45 @@ export function getCoverageTally(): CoverageTally {
     }
   }
   return tally;
+}
+
+/**
+ * Per-element price-data coverage (symbol, name, category, quality grade, and
+ * observation count) in catalog order — the rows behind the data-coverage grid.
+ * `quality` is 'none' when an element has no fluctuation entry or zero
+ * observations.
+ */
+export function getElementCoverage(): ElementCoverage[] {
+  ensureVerified();
+  const fluctuations = loadFluctuationsFile().elements;
+  return loadElementCatalog().map((el) => {
+    const f = fluctuations[el.symbol];
+    const observations = f?.observation_count ?? 0;
+    const quality = !f || observations === 0 ? 'none' : f.data_quality;
+    return {
+      symbol: el.symbol,
+      name: el.name,
+      category: el.category,
+      quality,
+      observations,
+    };
+  });
+}
+
+/**
+ * China-export-control counts per element category, in `CATEGORY_ORDER` — the
+ * rows behind the market-structure bars. `controlled` counts elements with
+ * `cn_export_control === true`.
+ */
+export function getControlByCategory(): CategoryControl[] {
+  ensureVerified();
+  const elements = loadElementCatalog();
+  return CATEGORY_ORDER.map((category) => {
+    const inCat = elements.filter((e) => e.category === category);
+    return {
+      category,
+      controlled: inCat.filter((e) => e.cn_export_control).length,
+      total: inCat.length,
+    };
+  });
 }

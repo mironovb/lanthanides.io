@@ -223,9 +223,23 @@ Each prompt must leave `npm run build` green. Later prompts tick these off.
   sparkline and the orphaned `fluctuation-fallback.html` are ensured
   never-ported. Hard rule adopted: ≤2 distinct points ⇒ a table/stat, never a
   line. Full rationale in `docs/VISUALIZATION-AUDIT.md`.
-- [ ] **10–24 — Polish & rebuilds** (MIGRATION §4): visualization rebuilds
-  (AUDIT §3), content/positioning (§4.5–§4.6), design polish (Prompt 11 = full
-  design system), PWA/manifest fixes (§4.8, incl. `/periodicpricing/…` →
-  `/assets/images/…`).
+- [x] **10 — Rebuild clean, data-honest visualizations.** A single shared
+  charting primitive with a centralized **data-sufficiency gate**
+  (`components/charts/sufficiency.ts`: `MIN_LINE_POINTS=5` per-series,
+  `MIN_SPARKLINE_POINTS=3`; `LineChart.tsx` refuses to draw below it and falls
+  back to a table). Rebuilt only the audit-approved set: a gated **Price Trend**
+  line on element pages (`PriceHistoryChart`; renders for **0** elements today —
+  no tier reaches 5 distinct days — so the P9 observations table stands in, the
+  gate proven by 0 `<polyline>` in built output); the **data-coverage grid**
+  (`CoverageGrid`, heatmap with per-tile counts), **control-by-category** bars
+  (`MarketStructure`→`BarTable`, bar-in-table not pie), and the sortable
+  **retail-premium leaderboard** (`PremiumLeaderboard`, with a form-**Basis**
+  disclosure column) all on `/data`; the movements sparkline re-routed through the
+  same gate; the regulatory timeline refined to terminal-grade. Every rendered
+  visual states its own sample size and degrades to a table; no animation. Full
+  final inventory + threshold rationale in `docs/VISUALIZATION-AUDIT.md`.
+- [ ] **11–24 — Polish & rebuilds** (MIGRATION §4): content/positioning
+  (§4.5–§4.6), design polish (Prompt 11 = full design system), PWA/manifest fixes
+  (§4.8, incl. `/periodicpricing/…` → `/assets/images/…`).
 - [ ] **25 — Parity & cleanup.** Verify route parity against AUDIT §2; **remove
   `legacy/`**.

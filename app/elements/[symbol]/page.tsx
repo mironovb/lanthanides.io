@@ -25,6 +25,7 @@ import {
   getReferencePrices,
 } from '@/lib/data';
 import type { Element } from '@/lib/types';
+import { PriceHistoryChart } from '@/components/charts/PriceHistoryChart';
 import {
   CATEGORY_ORDER,
   CATEGORY_STYLE,
@@ -207,7 +208,13 @@ export default function ElementDetailPage({ params }: { params: Params }) {
       {/* ── Price Movement % table ─────────────────────────────────────── */}
       <PriceMovementTable fluctuation={fluctuation} symbol={element.symbol} />
 
-      {/* ── Price History observations table (replaces the legacy chart) ── */}
+      {/* ── Price Trend (gated line — renders only for a tier with ≥5
+          distinct days; today no tier qualifies, so the observations table
+          below stands in for every element). docs/VISUALIZATION-AUDIT.md ── */}
+      <PriceHistoryChart history={priceHistory} elementName={element.name} />
+
+      {/* ── Price History observations table (always present; the honest
+          fallback that carries the data for all 31 elements today) ─────── */}
       <PriceHistoryTable history={priceHistory} elementName={element.name} />
 
       {/* ── Inline regulatory notice ───────────────────────────────────── */}

@@ -44,7 +44,7 @@ export function RegulatoryTimeline({ events }: { events: PolicyEvent[] }) {
           <li key={event.id} className="relative flex gap-3">
             <time
               dateTime={event.date}
-              className="w-20 shrink-0 pt-2.5 text-right font-mono text-2xs leading-snug text-fg-dim sm:w-24 sm:text-xs"
+              className="w-20 shrink-0 pt-2.5 text-right font-mono text-2xs leading-snug tabular-nums text-fg-dim sm:w-24 sm:text-xs"
             >
               {fmtLongDate(event.date)}
             </time>
@@ -65,7 +65,7 @@ export function RegulatoryTimeline({ events }: { events: PolicyEvent[] }) {
                 </span>
               </div>
 
-              <div className="font-sans text-base font-semibold leading-snug text-fg">
+              <div className="font-sans text-base font-semibold leading-snug tracking-tightish text-fg">
                 {event.title}
               </div>
 
@@ -74,7 +74,7 @@ export function RegulatoryTimeline({ events }: { events: PolicyEvent[] }) {
               </p>
 
               {event.source_name && (
-                <div className="mt-2 text-2xs font-medium text-fg-dim">
+                <div className="mt-2 font-mono text-2xs font-medium text-fg-dim">
                   {event.source_name}
                 </div>
               )}
