@@ -367,7 +367,34 @@ Each prompt must leave `npm run build` green. Later prompts tick these off.
   claim is checkable; no audits/certifications/partnerships implied. New:
   `components/trust/*`, `app/contribute/page.tsx`. `npm run build` green (57
   routes); `npm run lint` clean.
-- [ ] **17–24 — Polish & rebuilds** (MIGRATION §4): content/positioning
+- [x] **17 — Clean market overview dashboard.** Rebuilt `/dashboard/` from the
+  Prompt 14 `ComingSoon` placeholder into a dense, terminal-grade market overview,
+  porting only the credible panels from `legacy/pages/dashboard.html` and
+  **dropping the "30-day movers" board** (its 2-distinct-day windows produce
+  oxide→metal artefacts, not real moves — docs/VISUALIZATION-AUDIT.md §2; a footer
+  note routes "biggest moves" to the factual `/movements` feed instead). Three
+  panels, each derived live from `lib/data` and stating its own sample size: a
+  **regulatory snapshot** (`components/dashboard/RegulatorySnapshot` — element
+  counts by export-control posture restricted/monitored/unrestricted and
+  regulatory state active/suspended/clear, every tile linking into the crown-jewel
+  `/regulatory` tracker, colour reusing the semantic risk scale via `Badge`); the
+  sortable **retail-premium leaderboard** (`PremiumLeaderboard`, reused from
+  `/data`, with a new opt-in `flagInverse` marking <1× cases where retail undercuts
+  bulk; states "N of 31 priced in both tiers"); and the **data-coverage map**
+  (`CoverageGrid`, reused). The header carries a "data as of" stamp from
+  `fluctuations.json` `generated_at` (new `getDataGeneratedAt()`), a Methodology
+  link, and the honest "every figure is derived from the data" framing; a
+  `StoryLink` + the per-section deep-links wire the page into `/regulatory`,
+  `/movements`, `/elements`, and `/data`. New data accessors `getRegulatorySnapshot()`
+  + `getDataGeneratedAt()` (+ `RegulatorySnapshot` type). **SSG, not ISR** — the
+  data layer memoises `_data/` per process (`lib/data/load.ts`), so the page
+  refreshes on the pipeline-triggered rebuild like every other reference surface;
+  an ISR `revalidate` would only re-render against the same cached snapshot, so it
+  is deliberately omitted. Full metadata + OpenGraph + BreadcrumbList JSON-LD;
+  `noindex` dropped now it is a real page; the dashboard nav item un-flagged
+  `soon`. New: `app/dashboard/page.tsx`, `components/dashboard/RegulatorySnapshot.tsx`.
+  `npm run build` green.
+- [ ] **18–24 — Polish & rebuilds** (MIGRATION §4): content/positioning
   (remaining §4.5–§4.6 surfaces), remaining page polish, PWA/manifest fixes
   (§4.8, incl. `/periodicpricing/…` → `/assets/images/…`).
 - [ ] **25 — Parity & cleanup.** Verify route parity against AUDIT §2; **remove

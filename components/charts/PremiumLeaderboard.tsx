@@ -44,7 +44,14 @@ const COLUMNS: Column[] = [
   { label: 'Premium', sortKey: 'premium', numeric: true },
 ];
 
-export function PremiumLeaderboard({ rows }: { rows: PremiumLeaderboardRow[] }) {
+export function PremiumLeaderboard({
+  rows,
+  flagInverse = false,
+}: {
+  rows: PremiumLeaderboardRow[];
+  /** Mark inverse (<1×) rows — retail undercuts bulk — distinctly (default off). */
+  flagInverse?: boolean;
+}) {
   const [sort, setSort] = useState<{ key: SortKey; dir: SortDir }>({
     key: 'premium',
     dir: 'desc',
@@ -111,9 +118,18 @@ export function PremiumLeaderboard({ rows }: { rows: PremiumLeaderboardRow[] }) 
               <TD numeric>{fmtUsdPrice(r.retail_usd_per_kg)}</TD>
               <TD numeric>{fmtUsdPrice(r.bulk_usd_per_kg)}</TD>
               <TD numeric>
-                <span className="font-semibold text-accent-strong">
-                  {fmtPremium(r.premium)}×
-                </span>
+                {flagInverse && r.premium < 1 ? (
+                  <span
+                    className="font-semibold text-neutral"
+                    title="Inverse — retail undercuts the bulk benchmark"
+                  >
+                    {fmtPremium(r.premium)}×
+                  </span>
+                ) : (
+                  <span className="font-semibold text-accent-strong">
+                    {fmtPremium(r.premium)}×
+                  </span>
+                )}
               </TD>
               <TD className="whitespace-nowrap font-mono text-2xs">
                 <span className="text-fg-dim">

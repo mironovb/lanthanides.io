@@ -9,8 +9,8 @@
  *   Alerts ───────► get told the moment something moves
  *   About ────────► what this is, how it's built, how to contribute
  *
- * Routes that are not yet built (Tools, Alerts, the market dashboard — they land
- * in later prompts) are flagged `soon`: they still appear in the IA and link to a
+ * Routes that are not yet built (the Tools layer and Alerts — they land in later
+ * prompts) are flagged `soon`: they still appear in the IA and link to a
  * clearly-labelled "coming in this build" placeholder, never a dead end.
  */
 export interface NavItem {
@@ -50,8 +50,7 @@ export const PRIMARY_NAV: NavGroup[] = [
       {
         href: '/dashboard',
         label: 'Market Dashboard',
-        description: 'Coverage & movers at a glance',
-        soon: true,
+        description: 'Premiums, controls & coverage at a glance',
       },
       {
         href: '/data',

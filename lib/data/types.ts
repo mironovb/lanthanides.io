@@ -463,3 +463,14 @@ export interface CategoryControl {
   controlled: number;
   total: number;
 }
+
+/**
+ * Dashboard regulatory snapshot — element counts by Chinese export-control
+ * posture and current regulatory state (Prompt 17). Each breakdown partitions
+ * all `total` catalog elements; counts come straight from the catalog.
+ */
+export interface RegulatorySnapshot {
+  export_control: Record<ExportControlStatus, number>; // restricted | monitored | normal
+  regulatory: Record<RegulatoryStatus, number>; // active | suspended | none
+  total: number;
+}

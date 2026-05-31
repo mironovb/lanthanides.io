@@ -40,6 +40,7 @@ import type {
   PriceRecord,
   ReferencePrices,
   RegulatoryNotice,
+  RegulatorySnapshot,
   SiteSettings,
   Source,
   SourceBreakdown,
@@ -119,6 +120,16 @@ export function getPriceHistory(symbol: string): PriceHistory | null {
 export function getFluctuation(symbol: string): Fluctuation | null {
   ensureVerified();
   return loadFluctuationsFile().elements[symbol] ?? null;
+}
+
+/**
+ * Generation timestamp of the fluctuations dataset (RFC3339) — the "data as of"
+ * stamp on the dashboard. Read verbatim from `fluctuations.json` `generated_at`,
+ * the freshest derived artefact the 6-hourly pipeline writes.
+ */
+export function getDataGeneratedAt(): string {
+  ensureVerified();
+  return loadFluctuationsFile().generated_at;
 }
 
 /**
@@ -307,4 +318,25 @@ export function getControlByCategory(): CategoryControl[] {
       total: inCat.length,
     };
   });
+}
+
+/**
+ * Element counts by Chinese export-control posture (restricted/monitored/normal)
+ * and current regulatory state (active/suspended/none) — the dashboard
+ * regulatory snapshot (Prompt 17). Both breakdowns partition all catalog
+ * elements; counts come straight from the catalog (no fabrication).
+ */
+export function getRegulatorySnapshot(): RegulatorySnapshot {
+  ensureVerified();
+  const elements = loadElementCatalog();
+  const snapshot: RegulatorySnapshot = {
+    export_control: { restricted: 0, monitored: 0, normal: 0 },
+    regulatory: { active: 0, suspended: 0, none: 0 },
+    total: elements.length,
+  };
+  for (const el of elements) {
+    snapshot.export_control[el.export_control_status] += 1;
+    snapshot.regulatory[el.regulatory_status] += 1;
+  }
+  return snapshot;
 }
