@@ -87,19 +87,21 @@ function buildPillars(c: PillarCounts): Pillar[] {
         <>
           The commercial layer, taking shape: the{' '}
           <span className="text-fg">Price Gauge</span> estimates a fair price
-          range for any element from the sourced records above, and{' '}
+          range for any element from the sourced records above,{' '}
           <span className="text-fg">Sell / List</span> turns it into an instant
-          check on a seller’s asking price as a listing is captured. Export-control-screened
-          offers and live announcement alerts follow. The open reference stays
-          free and open regardless.
+          check on a seller’s asking price, and the{' '}
+          <span className="text-fg">Offer Feed</span> ranks demand-side offers by
+          value against those same references. Live announcement alerts follow.
+          The open reference stays free and open regardless.
         </>
       ),
       links: [
         { label: 'Try the Price Gauge', href: '/tools/price-gauge/' },
         { label: 'List material for sale', href: '/sell/' },
+        { label: 'Browse the offer feed', href: '/offers/' },
       ],
       pending:
-        'Screened offers & alerts launch as the dataset deepens — no email wall, no paywall on the open data.',
+        'Live announcement alerts launch as the dataset deepens — no email wall, no paywall on the open data.',
     },
   ];
 }

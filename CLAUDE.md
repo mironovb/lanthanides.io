@@ -269,8 +269,37 @@ Each prompt must leave `npm run build` green. Later prompts tick these off.
   `GET /api/listings` lists published listings (status filter, contact-safe). `/sell` +
   `/api/listings` are `force-dynamic`/nodejs (live DB). Full metadata (no longer
   `noindex`) + WebApplication & BreadcrumbList JSON-LD; nav un-flags Sell/List (`soon`
-  removed) and the home Tools pillar links to it. **Remaining:** stub routes `/offers`,
-  `/alerts`; handler `/api/subscribe`.
+  removed) and the home Tools pillar links to it. **Offer-screening feed +
+  `lib/screening` DONE** (the "Prompt 21" task in the local prompt sequence): SSR
+  `/offers/` — a dense, filterable, value-ranked feed of the seeded `ScreenedOffer`
+  rows (element / form / purity / quantity / price-per-kg / seller / country / source
+  type / observed date / confidence + a **value rank**). It reads the rows through
+  `lib/screening`'s `screen()`, joins element metadata (name, category, **export-control
+  status**) from `lib/data` to annotate each row, and renders the sortable table
+  (`components/offers/OffersFeed` client island over the shared `SortableTable` +
+  `FilterChips`) **sorted by value by default**. Filters — element, category, form,
+  source type, and a medium+-confidence toggle — are instant client-side AND-filters over
+  server-rendered rows (works without JS; SSR'd with all offers visible). Each row links to
+  its element page (and to the source URL when present — none on seeded rows) and is tagged
+  **seeded vs. screened** via `origin`; the value rank + confidence render **monochrome**
+  (not a colour axis — only the category/regulatory annotation badges carry colour). A
+  headline **honesty banner** (`OffersBanner`) states the feed is **seeded from the
+  verified dataset** (220 rows) with live internet screening **in development** — no
+  "scanned the web" theatre (hard rule #1), its status read from `SCREENING_BACKEND`. The
+  **`lib/screening`** stub module exposes the intended pipeline interface — `ingest()`
+  (STUB → `[]`, the only true gap), `normalize()` (real, pure; USD/kg only from a supplied
+  FX table — never a guessed rate, hard rules #1/#3), `rank()`/`valueScore()` (real, pure;
+  the **same same-form-median × confidence formula** `prisma/seed.ts` uses), and `screen()`
+  (returns the seeded rows today) — so the wiring is legible to a reader. **`docs/OFFER-
+  SCREENING.md`** specifies the live backend (target sources, ingest→normalize→verify→rank→
+  dedup→**human-review checkpoint**→publish, reusing the Python pipeline in `scripts/` as the
+  normalization foundation) and marks every STUB/TODO. Full metadata (no longer `noindex`) +
+  Dataset & BreadcrumbList JSON-LD; nav un-flags Offer Feed (`soon` removed), the home Tools
+  pillar links to it, and the vision page's demand-side card/roadmap move to **In progress**
+  (live seeded feed, screening backend stubbed). New `lib/screening/index.ts`,
+  `components/offers/*` (`offers.ts` pure DTO/helpers, `OffersBanner`, `OffersFeed`). `/offers`
+  is `force-dynamic`/nodejs (live DB). **Remaining:** stub route `/alerts`; handler
+  `/api/subscribe`.
 - [x] **9 — Remove choppy/low-data visualizations.** Executed the AUDIT §3
   REMOVE decisions — the per-element price-history line chart (never ported) is
   replaced by the Price Movement % table + a new sortable **Price History**

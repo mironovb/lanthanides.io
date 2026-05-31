@@ -193,9 +193,9 @@ export default function AboutPage() {
     },
     {
       capability: 'Offer-screening feed (demand side)',
-      stage: 'planned',
+      stage: 'progress',
       status:
-        'Seeded feed only — the screening and ingestion backend (parse, score, dedup) is a stub.',
+        'Live — seeded from the dataset and ranked by value; the live screening backend (ingest, score, dedup) is a stub.',
       href: '/offers/',
       cta: 'Offer feed',
     },
@@ -447,7 +447,7 @@ export default function AboutPage() {
         <Card as="article" padding="lg" className="flex flex-col">
           <div className="flex items-center justify-between gap-3">
             <p className="eyebrow">Demand side</p>
-            <Chip dot={STAGE.planned.dot}>{STAGE.planned.label}</Chip>
+            <Chip dot={STAGE.progress.dot}>{STAGE.progress.label}</Chip>
           </div>
           <h3 className="mt-3 font-serif text-lg font-semibold text-fg">
             Find the offer without trawling the internet
@@ -458,8 +458,9 @@ export default function AboutPage() {
             The demand-side engine screens those sources and surfaces high-yield
             offers — verified, priced against our references, and ranked — so a
             buyer sees the best available material without trawling a dozen
-            marketplaces. Today the feed runs on a seeded data model; the
-            screening and ingestion backend is not built yet.
+            marketplaces. Today the feed is live — seeded from the verified
+            dataset and ranked by value; the live screening and ingestion backend
+            is not built yet.
           </p>
           <div className="mt-4 border-t border-border pt-3">
             <Link

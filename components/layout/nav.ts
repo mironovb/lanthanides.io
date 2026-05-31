@@ -95,8 +95,7 @@ export const PRIMARY_NAV: NavGroup[] = [
       {
         href: '/offers',
         label: 'Offer Feed',
-        description: 'Screened buy/sell offers',
-        soon: true,
+        description: 'Offers ranked by value vs. the references',
       },
     ],
   },
