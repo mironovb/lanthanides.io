@@ -20,6 +20,8 @@ import { getArticleContent, getArticleSlugs } from '@/lib/content';
 import { Container } from '@/components/layout';
 import { Breadcrumbs } from '@/components/ui';
 import { formatDate } from '@/lib/format';
+import { buildMetadata } from '@/lib/seo';
+import { ArticleJsonLd, BreadcrumbJsonLd } from '@/components/seo';
 import { Markdown } from '@/components/content/Markdown';
 
 type Params = { slug: string };
@@ -34,20 +36,17 @@ export function generateMetadata({ params }: { params: Params }): Metadata {
   const article = getArticleContent(params.slug);
   if (!article) return {};
   const { frontMatter: fm } = article;
-  return {
+  return buildMetadata({
     title: fm.title,
     description: fm.description,
     keywords: fm.keywords,
-    alternates: { canonical: `/news/${params.slug}/` },
-    openGraph: {
-      title: fm.title,
-      description: fm.description,
-      url: `/news/${params.slug}/`,
-      type: 'article',
-      publishedTime: fm.date,
-      ...(fm.image ? { images: [`/assets/images/${fm.image}`] } : {}),
-    },
-  };
+    path: `/news/${params.slug}/`,
+    ogType: 'article',
+    publishedTime: fm.date,
+    ...(fm.image
+      ? { image: `/assets/images/${fm.image}`, imageAlt: fm.image_alt ?? fm.title }
+      : {}),
+  });
 }
 
 const STATUS_BADGE: Record<string, { label: string; classes: string }> = {
@@ -67,6 +66,20 @@ export default function ArticlePage({ params }: { params: Params }) {
 
   return (
     <Container as="main" className="py-10">
+      <ArticleJsonLd
+        slug={params.slug}
+        title={fm.title}
+        description={fm.description}
+        datePublished={fm.date}
+        image={fm.image}
+      />
+      <BreadcrumbJsonLd
+        items={[
+          { name: 'Home', path: '/' },
+          { name: 'News', path: '/news/' },
+          { name: fm.title, path: `/news/${params.slug}/` },
+        ]}
+      />
       <Breadcrumbs
         className="mb-5"
         items={[

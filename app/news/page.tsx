@@ -16,13 +16,15 @@ import { Container, PageHeader, StoryLink } from '@/components/layout';
 import { SectionHeading } from '@/components/ui';
 import { ArticleCard } from '@/components/news/ArticleCard';
 import { DevelopmentTimeline } from '@/components/news/DevelopmentTimeline';
+import { buildMetadata } from '@/lib/seo';
+import { BreadcrumbJsonLd } from '@/components/seo';
 
-export const metadata: Metadata = {
+export const metadata: Metadata = buildMetadata({
   title: 'Rare Earth News & Analysis',
   description:
     'Export controls, market research, and supply chain analysis for rare earth and strategic metals.',
-  alternates: { canonical: '/news/' },
-};
+  path: '/news/',
+});
 
 export default function NewsIndexPage() {
   const articles = getAllArticles();
@@ -32,6 +34,7 @@ export default function NewsIndexPage() {
 
   return (
     <Container as="main" className="py-10">
+      <BreadcrumbJsonLd items={[{ name: 'Home', path: '/' }, { name: 'News', path: '/news/' }]} />
       <PageHeader
         crumbs={[{ label: 'Home', href: '/' }, { label: 'News' }]}
         eyebrow="Editorial"

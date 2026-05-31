@@ -15,20 +15,19 @@ import { Container, PageHeader, StoryLink } from '@/components/layout';
 import { buttonClasses } from '@/components/ui';
 import { formatDate } from '@/lib/format';
 import { MovementRow } from '@/components/movements/MovementRow';
+import { buildMetadata } from '@/lib/seo';
+import { BreadcrumbJsonLd } from '@/components/seo';
 
 const DESCRIPTION =
   'Reverse-chronological feed of significant price movements (>10% in 30 days) and regulatory state changes across tracked rare earth and strategic metals. Auto-generated from the underlying observation data — no editorial interpretation.';
 
-export const metadata: Metadata = {
+export const metadata: Metadata = buildMetadata({
   title: 'Market Movements — Auto-Generated Price & Regulatory Alerts',
   description: DESCRIPTION,
   keywords:
     'rare earth price alerts, price movement feed, strategic metals price spikes, regulatory change feed, rare earth market signals',
-  alternates: {
-    canonical: '/movements/',
-    types: { 'application/atom+xml': '/movements.xml' },
-  },
-};
+  path: '/movements/',
+});
 
 export default function MovementsPage() {
   const { config, state, events } = getMovements();
@@ -38,6 +37,7 @@ export default function MovementsPage() {
 
   return (
     <Container as="main" className="py-10">
+      <BreadcrumbJsonLd items={[{ name: 'Home', path: '/' }, { name: 'Market Movements', path: '/movements/' }]} />
       <PageHeader
         crumbs={[{ label: 'Home', href: '/' }, { label: 'Market Movements' }]}
         eyebrow="Market Feed"

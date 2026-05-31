@@ -25,7 +25,9 @@ import {
   getReferencePrices,
 } from '@/lib/data';
 import { formatDate } from '@/lib/format';
+import { buildMetadata } from '@/lib/seo';
 import type { Element } from '@/lib/types';
+import { BreadcrumbJsonLd, ElementJsonLd } from '@/components/seo';
 import { Container } from '@/components/layout';
 import { Badge, Breadcrumbs, SectionHeading } from '@/components/ui';
 import { PriceHistoryChart } from '@/components/charts/PriceHistoryChart';
@@ -57,12 +59,12 @@ export function generateMetadata({ params }: { params: Params }): Metadata {
   const element = getElementBySymbol(params.symbol);
   const fm = getElementContent(params.symbol)?.frontMatter;
   if (!element && !fm) return {};
-  return {
+  return buildMetadata({
     title: fm?.title ?? `${element?.name ?? params.symbol} Price`,
     description: fm?.description,
     keywords: fm?.keywords,
-    alternates: { canonical: `/elements/${params.symbol}/` },
-  };
+    path: `/elements/${params.symbol}/`,
+  });
 }
 
 export default function ElementDetailPage({ params }: { params: Params }) {
@@ -99,6 +101,22 @@ export default function ElementDetailPage({ params }: { params: Params }) {
 
   return (
     <Container as="main" className="py-10">
+      <ElementJsonLd
+        element={element}
+        retailRef={retailRef}
+        bulkRef={bulkRef}
+        description={content?.frontMatter?.description}
+      />
+      <BreadcrumbJsonLd
+        items={[
+          { name: 'Home', path: '/' },
+          { name: 'Elements', path: '/elements/' },
+          {
+            name: `${element.symbol} — ${element.name}`,
+            path: `/elements/${element.symbol}/`,
+          },
+        ]}
+      />
       <Breadcrumbs
         className="mb-5"
         items={[

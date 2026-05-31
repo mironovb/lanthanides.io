@@ -13,6 +13,8 @@
  */
 import type { Metadata } from 'next';
 import Link from 'next/link';
+import { buildMetadata } from '@/lib/seo';
+import { BreadcrumbJsonLd } from '@/components/seo';
 import { getSourceBreakdown } from '@/lib/data';
 import { Container, PageHeader, StoryLink } from '@/components/layout';
 import { Callout, SectionHeading } from '@/components/ui';
@@ -22,54 +24,28 @@ import {
   SourceBreakdownPanel,
 } from '@/components/trust';
 
-const SITE = 'https://www.lanthanides.io';
-const GITHUB = 'https://github.com/mironovb/lanthanides.io';
-
 const TITLE = 'Contribute Data';
 const DESCRIPTION =
   'How sourced prices and market intelligence enter lanthanides.io: an open, auditable contributor pipeline with two human checkpoints — GitHub issue, maintainer review, pull request, and merge. No fabricated or auto-published data.';
 
-export const metadata: Metadata = {
+export const metadata: Metadata = buildMetadata({
   title: TITLE,
   description: DESCRIPTION,
   keywords:
     'contribute rare earth prices, open data contribution, rare earth price submission, data provenance, double review data pipeline, lanthanides.io contribute',
-  alternates: { canonical: '/contribute/' },
-  openGraph: {
-    type: 'website',
-    url: '/contribute/',
-    siteName: 'lanthanides.io — Strategic Materials Ledger',
-    title: 'Contribute Data — lanthanides.io',
-    description: DESCRIPTION,
-  },
-};
+  path: '/contribute/',
+});
 
 export default function ContributePage() {
   const breakdown = getSourceBreakdown();
 
-  const jsonLd = [
-    {
-      '@context': 'https://schema.org',
-      '@type': 'BreadcrumbList',
-      itemListElement: [
-        { '@type': 'ListItem', position: 1, name: 'Home', item: `${SITE}/` },
-        {
-          '@type': 'ListItem',
-          position: 2,
-          name: 'Contribute',
-          item: `${SITE}/contribute/`,
-        },
-      ],
-    },
-  ];
-
   return (
     <Container as="main" className="py-10">
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify(jsonLd).replace(/</g, '\\u003c'),
-        }}
+      <BreadcrumbJsonLd
+        items={[
+          { name: 'Home', path: '/' },
+          { name: 'Contribute', path: '/contribute/' },
+        ]}
       />
 
       <PageHeader

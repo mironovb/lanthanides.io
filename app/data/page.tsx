@@ -20,20 +20,22 @@ import {
   getSourceBreakdown,
   getSources,
 } from '@/lib/data';
+import { buildMetadata } from '@/lib/seo';
+import { BreadcrumbJsonLd, DatasetJsonLd } from '@/components/seo';
 import { Container, PageHeader, StoryLink } from '@/components/layout';
 import { Callout, SectionHeading, Stat, StatGrid } from '@/components/ui';
 import { CoverageGrid } from '@/components/charts/CoverageGrid';
 import { MarketStructure } from '@/components/charts/MarketStructure';
 import { PremiumLeaderboard } from '@/components/charts/PremiumLeaderboard';
 
-export const metadata: Metadata = {
+export const metadata: Metadata = buildMetadata({
   title: 'Open Data — Rare Earth & Strategic Metal Price Dataset',
   description:
     'Download the full rare earth and strategic metal price dataset: 238 sourced price records as JSON or CSV, plus regulatory and fluctuation data. Open data under CC BY 4.0.',
   keywords:
     'rare earth price dataset, open data rare earth, strategic metals CSV, rare earth prices JSON, CC BY 4.0 commodity data',
-  alternates: { canonical: '/data/' },
-};
+  path: '/data/',
+});
 
 const REPO = 'https://github.com/mironovb/lanthanides.io';
 
@@ -81,6 +83,35 @@ export default function DataPage() {
 
   return (
     <Container as="main" className="py-10">
+      <BreadcrumbJsonLd
+        items={[
+          { name: 'Home', path: '/' },
+          { name: 'Open Data', path: '/data/' },
+        ]}
+      />
+      <DatasetJsonLd
+        name="lanthanides.io — Rare Earth & Strategic Metal Price Records"
+        description={`${priceRecords} sourced, normalised USD/kg price records across ${elements} rare-earth and strategic-metal elements — each tied to a seller, date, form, purity, quantity, and verification status — plus per-element price-fluctuation windows. Open data, CC BY 4.0.`}
+        path="/data/"
+        keywords="rare earth prices, strategic metals, critical minerals, price dataset, export controls"
+        distribution={[
+          {
+            encodingFormat: 'application/json',
+            contentUrl: '/api/export/json/',
+            name: 'Price records (JSON)',
+          },
+          {
+            encodingFormat: 'text/csv',
+            contentUrl: '/api/export/csv/',
+            name: 'Price records (CSV)',
+          },
+          {
+            encodingFormat: 'application/json',
+            contentUrl: '/assets/data/fluctuations.json',
+            name: 'Price fluctuations (JSON)',
+          },
+        ]}
+      />
       <PageHeader
         crumbs={[{ label: 'Home', href: '/' }, { label: 'Open Data' }]}
         eyebrow="Open Data"

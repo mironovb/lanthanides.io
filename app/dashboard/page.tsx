@@ -18,6 +18,8 @@
  */
 import type { Metadata } from 'next';
 import Link from 'next/link';
+import { buildMetadata } from '@/lib/seo';
+import { BreadcrumbJsonLd } from '@/components/seo';
 import {
   getCoverageTally,
   getDataGeneratedAt,
@@ -33,23 +35,16 @@ import { CoverageGrid } from '@/components/charts/CoverageGrid';
 import { PremiumLeaderboard } from '@/components/charts/PremiumLeaderboard';
 import { RegulatorySnapshot } from '@/components/dashboard/RegulatorySnapshot';
 
-const SITE = 'https://www.lanthanides.io';
 const DESCRIPTION =
   'A single-screen market overview for rare earths and strategic metals: retail-to-bulk price premiums, China export-control posture, and data coverage — every figure derived from the underlying observations, no editorial interpretation.';
 
-export const metadata: Metadata = {
+export const metadata: Metadata = buildMetadata({
   title: 'Market Dashboard — Premiums, Export Controls & Coverage',
   description: DESCRIPTION,
   keywords:
     'rare earth market dashboard, strategic metals overview, retail premium ratio, China export control snapshot, rare earth data coverage',
-  alternates: { canonical: '/dashboard/' },
-  openGraph: {
-    title: 'Market Dashboard — lanthanides.io',
-    description: DESCRIPTION,
-    url: '/dashboard/',
-    type: 'website',
-  },
-};
+  path: '/dashboard/',
+});
 
 export default function DashboardPage() {
   const generatedAt = getDataGeneratedAt();
@@ -61,27 +56,13 @@ export default function DashboardPage() {
 
   const inverseCount = premiums.filter((p) => p.premium < 1).length;
 
-  const jsonLd = {
-    '@context': 'https://schema.org',
-    '@type': 'BreadcrumbList',
-    itemListElement: [
-      { '@type': 'ListItem', position: 1, name: 'Home', item: `${SITE}/` },
-      {
-        '@type': 'ListItem',
-        position: 2,
-        name: 'Market Dashboard',
-        item: `${SITE}/dashboard/`,
-      },
-    ],
-  };
-
   return (
     <Container as="main" className="py-10">
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify(jsonLd).replace(/</g, '\\u003c'),
-        }}
+      <BreadcrumbJsonLd
+        items={[
+          { name: 'Home', path: '/' },
+          { name: 'Market Dashboard', path: '/dashboard/' },
+        ]}
       />
 
       <PageHeader

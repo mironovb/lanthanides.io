@@ -15,6 +15,8 @@
  */
 import type { Metadata } from 'next';
 import Link from 'next/link';
+import { buildMetadata } from '@/lib/seo';
+import { BreadcrumbJsonLd, WebApplicationJsonLd } from '@/components/seo';
 import {
   getElementBySymbol,
   getElements,
@@ -28,32 +30,16 @@ import { PriceGaugeForm } from '@/components/tools/PriceGaugeForm';
 import { PriceGaugeResult } from '@/components/tools/PriceGaugeResult';
 import { buildElementOptions, parseGaugeQuery } from '@/components/tools/gauge';
 
-const SITE = 'https://www.lanthanides.io';
-
 const DESCRIPTION =
   'Estimate a fair price range for a rare-earth or strategic-metal purchase — pick the element, form, purity, and quantity and get a transparent low/mid/high band, a confidence grade, and the exact sourced records behind it. No opaque index, no fabricated number.';
 
-export const metadata: Metadata = {
+export const metadata: Metadata = buildMetadata({
   title: 'Price Gauge — Benchmark a Rare-Earth or Strategic-Metal Quote',
   description: DESCRIPTION,
   keywords:
     'rare earth price estimate, rare earth fair price, strategic metals price gauge, oxide metal price per kg, dysprosium price estimate, neodymium price benchmark, rare earth quote check',
-  alternates: { canonical: '/tools/price-gauge/' },
-  openGraph: {
-    title: 'Price Gauge — lanthanides.io',
-    description: DESCRIPTION,
-    url: '/tools/price-gauge/',
-    type: 'website',
-    images: [
-      {
-        url: '/assets/images/og-default.png',
-        width: 1200,
-        height: 630,
-        alt: 'lanthanides.io — Strategic Materials Ledger',
-      },
-    ],
-  },
-};
+  path: '/tools/price-gauge/',
+});
 
 type SearchParams = Record<string, string | string[] | undefined>;
 
@@ -95,40 +81,18 @@ export default function PriceGaugePage({
       ).toString()}`
     : '/api/price-gauge/';
 
-  const jsonLd = [
-    {
-      '@context': 'https://schema.org',
-      '@type': 'WebApplication',
-      name: 'Price Gauge — lanthanides.io',
-      url: `${SITE}/tools/price-gauge/`,
-      applicationCategory: 'BusinessApplication',
-      operatingSystem: 'Web',
-      isAccessibleForFree: true,
-      description: DESCRIPTION,
-      provider: { '@type': 'Organization', name: 'lanthanides.io', url: `${SITE}/` },
-    },
-    {
-      '@context': 'https://schema.org',
-      '@type': 'BreadcrumbList',
-      itemListElement: [
-        { '@type': 'ListItem', position: 1, name: 'Home', item: `${SITE}/` },
-        {
-          '@type': 'ListItem',
-          position: 2,
-          name: 'Price Gauge',
-          item: `${SITE}/tools/price-gauge/`,
-        },
-      ],
-    },
-  ];
-
   return (
     <Container as="main" className="py-10">
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify(jsonLd).replace(/</g, '\\u003c'),
-        }}
+      <WebApplicationJsonLd
+        name="Price Gauge — lanthanides.io"
+        description={DESCRIPTION}
+        path="/tools/price-gauge/"
+      />
+      <BreadcrumbJsonLd
+        items={[
+          { name: 'Home', path: '/' },
+          { name: 'Price Gauge', path: '/tools/price-gauge/' },
+        ]}
       />
 
       <PageHeader

@@ -23,6 +23,8 @@ import { getSourceBreakdown } from '@/lib/data';
 import { Container, PageHeader, StoryLink } from '@/components/layout';
 import { Markdown } from '@/components/content/Markdown';
 import { SourceBreakdownTable } from '@/components/content/SourceBreakdownTable';
+import { buildMetadata } from '@/lib/seo';
+import { BreadcrumbJsonLd } from '@/components/seo';
 
 // The Liquid block (assign → if → for → endif) that rendered the breakdown table.
 const BREAKDOWN_BLOCK = /\{%\s*assign\s+breakdown[\s\S]*?\{%\s*endif\s*%\}/;
@@ -37,12 +39,12 @@ const FRONT_MATTER = source.data as {
 };
 const BODY = source.content;
 
-export const metadata: Metadata = {
+export const metadata: Metadata = buildMetadata({
   title: FRONT_MATTER.title ?? 'Methodology',
   description: FRONT_MATTER.description,
   keywords: FRONT_MATTER.keywords,
-  alternates: { canonical: '/methodology/' },
-};
+  path: '/methodology/',
+});
 
 export default function MethodologyPage() {
   const breakdown = getSourceBreakdown();
@@ -51,6 +53,7 @@ export default function MethodologyPage() {
 
   return (
     <Container as="main" className="py-10">
+      <BreadcrumbJsonLd items={[{ name: 'Home', path: '/' }, { name: 'Methodology', path: '/methodology/' }]} />
       <PageHeader
         crumbs={[{ label: 'Home', href: '/' }, { label: 'Methodology' }]}
         eyebrow="Trust & Method"

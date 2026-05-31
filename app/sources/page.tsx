@@ -14,13 +14,15 @@ import { getSiteSettings, getSources } from '@/lib/data';
 import { Container, PageHeader, StoryLink } from '@/components/layout';
 import { Callout, SectionHeading, Table, THead, TBody, TR, TH, TD } from '@/components/ui';
 import { capitalize } from '@/components/elements/format';
+import { buildMetadata } from '@/lib/seo';
+import { BreadcrumbJsonLd } from '@/components/seo';
 
-export const metadata: Metadata = {
+export const metadata: Metadata = buildMetadata({
   title: 'Rare Earth Price Data Sources — Trust Tiers & Registry',
   description:
     'Registry of curated data sources for rare earth and strategic metal pricing. Trust tier classifications, ingestion status, and data quality methodology.',
-  alternates: { canonical: '/sources/' },
-};
+  path: '/sources/',
+});
 
 /** Tier → reliability label + tone, matching the legacy badge mapping. */
 const TIER_RELIABILITY: Record<number, { label: string; classes: string }> = {
@@ -49,6 +51,7 @@ export default function SourcesPage() {
 
   return (
     <Container as="main" className="py-10">
+      <BreadcrumbJsonLd items={[{ name: 'Home', path: '/' }, { name: 'Sources', path: '/sources/' }]} />
       <PageHeader
         crumbs={[{ label: 'Home', href: '/' }, { label: 'Sources' }]}
         eyebrow="Provenance"

@@ -18,6 +18,8 @@
  */
 import type { Metadata } from 'next';
 import Link from 'next/link';
+import { buildMetadata } from '@/lib/seo';
+import { BreadcrumbJsonLd, DatasetJsonLd } from '@/components/seo';
 import { getElements, getSiteSettings } from '@/lib/data';
 import { screen } from '@/lib/screening';
 import { Container, PageHeader, StoryLink } from '@/components/layout';
@@ -33,38 +35,15 @@ import {
 export const dynamic = 'force-dynamic';
 export const runtime = 'nodejs';
 
-const SITE = 'https://www.lanthanides.io';
-
 const DESCRIPTION =
-  'A value-ranked feed of rare-earth and strategic-metal offers — element, form, purity, quantity, price per kg, seller, source, and confidence — each scored against its element’s same-form median and annotated with its China export-control status. Seeded from the verified open dataset; live screening in development.';
-
-export const metadata: Metadata = {
+  "A value-ranked feed of rare-earth and strategic-metal offers — element, form, purity, quantity, price per kg, seller, source, and confidence — each scored against its element's same-form median and annotated with its China export-control status. Seeded from the verified open dataset; live screening in development.";
+export const metadata: Metadata = buildMetadata({
   title: 'Offer Feed — Rare-Earth Offers Ranked by Value',
   description: DESCRIPTION,
   keywords:
     'rare earth offers, buy rare earth, rare earth price comparison, dysprosium neodymium offers, strategic metals marketplace, rare earth offer screening, best value rare earth, gallium germanium antimony offers',
-  alternates: { canonical: '/offers/' },
-  openGraph: {
-    title: 'Offer Feed — lanthanides.io',
-    description: DESCRIPTION,
-    url: '/offers/',
-    type: 'website',
-    images: [
-      {
-        url: '/assets/images/og-default.png',
-        width: 1200,
-        height: 630,
-        alt: 'lanthanides.io — Strategic Materials Ledger',
-      },
-    ],
-  },
-  twitter: {
-    card: 'summary_large_image',
-    title: 'Offer Feed — lanthanides.io',
-    description: DESCRIPTION,
-    images: ['/assets/images/og-default.png'],
-  },
-};
+  path: '/offers/',
+});
 
 export default async function OffersPage() {
   // Element metadata (name, category label, control status) to annotate each
@@ -90,52 +69,23 @@ export default async function OffersPage() {
   const elementCount = new Set(offers.map((o) => o.elementSymbol)).size;
   const seededCount = offers.filter((o) => o.origin === 'seed').length;
   const screenedCount = offers.filter((o) => o.origin === 'screened').length;
-  const dateModified = offers.reduce(
-    (max, o) => (o.observedDate > max ? o.observedDate : max),
-    '',
-  );
-
-  const jsonLd = [
-    {
-      '@context': 'https://schema.org',
-      '@type': 'BreadcrumbList',
-      itemListElement: [
-        { '@type': 'ListItem', position: 1, name: 'Home', item: `${SITE}/` },
-        {
-          '@type': 'ListItem',
-          position: 2,
-          name: 'Offer Feed',
-          item: `${SITE}/offers/`,
-        },
-      ],
-    },
-    {
-      '@context': 'https://schema.org',
-      '@type': 'Dataset',
-      name: 'Screened rare-earth & strategic-metal offer feed',
-      description: DESCRIPTION,
-      url: `${SITE}/offers/`,
-      license: 'https://creativecommons.org/licenses/by/4.0/',
-      isAccessibleForFree: true,
-      creator: { '@type': 'Organization', name: 'lanthanides.io', url: `${SITE}/` },
-      ...(dateModified ? { dateModified } : {}),
-      keywords: [
-        'rare earth offers',
-        'strategic metals pricing',
-        'offer screening',
-        'rare earth value ranking',
-        'China export controls',
-      ],
-    },
-  ];
 
   return (
     <Container as="main" className="py-10">
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify(jsonLd).replace(/</g, '\\u003c'),
-        }}
+      <BreadcrumbJsonLd
+        items={[{ name: 'Home', path: '/' }, { name: 'Offer Feed', path: '/offers/' }]}
+      />
+      <DatasetJsonLd
+        name="Screened rare-earth & strategic-metal offer feed"
+        description={DESCRIPTION}
+        path="/offers/"
+        keywords={[
+          'rare earth offers',
+          'strategic metals pricing',
+          'offer screening',
+          'rare earth value ranking',
+          'China export controls',
+        ]}
       />
 
       <PageHeader

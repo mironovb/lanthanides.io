@@ -9,6 +9,8 @@
  * (<RegulatoryView>) adds instant element filtering as progressive enhancement.
  */
 import type { Metadata } from 'next';
+import { buildMetadata } from '@/lib/seo';
+import { BreadcrumbJsonLd, DatasetJsonLd } from '@/components/seo';
 import {
   getPolicyEvents,
   getRegulatedAndSuspendedElements,
@@ -20,23 +22,16 @@ import { Callout } from '@/components/ui';
 import { TelegramBadge } from '@/components/trust';
 import { RegulatoryView } from '@/components/regulatory/RegulatoryView';
 
-const SITE = 'https://www.lanthanides.io';
 const DESCRIPTION =
   'MOFCOM rare earth and strategic metal export-control timeline 2023–2026: announcement numbers, effective dates, affected elements, and current status.';
 
-export const metadata: Metadata = {
+export const metadata: Metadata = buildMetadata({
   title: 'China Rare Earth Export Controls Tracker 2026',
   description: DESCRIPTION,
   keywords:
     'China rare earth export controls, MOFCOM export licence, gallium germanium ban, rare earth export ban, dual-use export control tracker, strategic metals regulation',
-  alternates: { canonical: '/regulatory/' },
-  openGraph: {
-    title: 'China Rare Earth Export Controls Tracker 2026',
-    description: DESCRIPTION,
-    url: '/regulatory/',
-    type: 'website',
-  },
-};
+  path: '/regulatory/',
+});
 
 export default function RegulatoryPage() {
   // Notices newest-first by effective date; timeline newest-first by date.
@@ -54,47 +49,25 @@ export default function RegulatoryPage() {
     ...events.map((e) => e.date),
   ].sort((a, b) => b.localeCompare(a))[0];
 
-  const jsonLd = [
-    {
-      '@context': 'https://schema.org',
-      '@type': 'BreadcrumbList',
-      itemListElement: [
-        { '@type': 'ListItem', position: 1, name: 'Home', item: `${SITE}/` },
-        {
-          '@type': 'ListItem',
-          position: 2,
-          name: 'Regulatory Tracker',
-          item: `${SITE}/regulatory/`,
-        },
-      ],
-    },
-    {
-      '@context': 'https://schema.org',
-      '@type': 'Dataset',
-      name: 'China Rare Earth & Strategic Metal Export-Control Tracker',
-      description: DESCRIPTION,
-      url: `${SITE}/regulatory/`,
-      license: 'https://creativecommons.org/licenses/by/4.0/',
-      isAccessibleForFree: true,
-      creator: { '@type': 'Organization', name: 'lanthanides.io' },
-      ...(lastModified ? { dateModified: lastModified } : {}),
-      keywords: [
-        'rare earth export controls',
-        'MOFCOM announcements',
-        'export licence',
-        'strategic metals',
-        'dual-use export regulation',
-      ],
-    },
-  ];
-
   return (
     <Container as="main" className="py-10">
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify(jsonLd).replace(/</g, '\\u003c'),
-        }}
+      <BreadcrumbJsonLd
+        items={[
+          { name: 'Home', path: '/' },
+          { name: 'Regulatory Tracker', path: '/regulatory/' },
+        ]}
+      />
+      <DatasetJsonLd
+        name="China Rare Earth & Strategic Metal Export-Control Tracker"
+        description={DESCRIPTION}
+        path="/regulatory/"
+        keywords={[
+          'rare earth export controls',
+          'MOFCOM announcements',
+          'export licence',
+          'strategic metals',
+          'dual-use export regulation',
+        ]}
       />
 
       <PageHeader

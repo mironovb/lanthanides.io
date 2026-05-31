@@ -13,6 +13,8 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { getElementsByCategory, getReferencePrices } from '@/lib/data';
+import { buildMetadata } from '@/lib/seo';
+import { BreadcrumbJsonLd } from '@/components/seo';
 import { Container, PageHeader, StoryLink } from '@/components/layout';
 import { SectionHeading } from '@/components/ui';
 import {
@@ -22,12 +24,14 @@ import {
 } from '@/components/elements/categories';
 import { ElementCard } from '@/components/elements/ElementCard';
 
-export const metadata: Metadata = {
+export const metadata: Metadata = buildMetadata({
   title: 'All Rare Earth & Strategic Metal Prices — Element Directory',
   description:
     'Compare prices per kg for all 31 rare earth elements, strategic metals, and semiconductor materials. Retail and bulk benchmarks with export-control status.',
-  alternates: { canonical: '/elements/' },
-};
+  keywords:
+    'rare earth prices, rare earth element directory, strategic metal prices, retail vs bulk price, export control status',
+  path: '/elements/',
+});
 
 export default function ElementsIndexPage() {
   const byCategory = getElementsByCategory();
@@ -38,6 +42,12 @@ export default function ElementsIndexPage() {
 
   return (
     <Container as="main" className="py-10">
+      <BreadcrumbJsonLd
+        items={[
+          { name: 'Home', path: '/' },
+          { name: 'Elements', path: '/elements/' },
+        ]}
+      />
       <PageHeader
         crumbs={[{ label: 'Home', href: '/' }, { label: 'Elements' }]}
         eyebrow="Reference · Price Ledger"

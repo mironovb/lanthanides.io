@@ -18,6 +18,8 @@
  */
 import type { Metadata } from 'next';
 import Link from 'next/link';
+import { buildMetadata } from '@/lib/seo';
+import { BreadcrumbJsonLd } from '@/components/seo';
 import {
   getControlledElementCount,
   getElements,
@@ -43,41 +45,19 @@ import {
   TR,
 } from '@/components/ui';
 
-const SITE = 'https://www.lanthanides.io';
 const GITHUB = 'https://github.com/mironovb/lanthanides.io';
 
 const TITLE = 'About & Vision';
 const DESCRIPTION =
   'What lanthanides.io is today — an open, source-transparent reference for rare-earth and strategic-metal pricing and Chinese export-control intelligence — and where it is going: a two-sided marketplace and alerts layer built on that dataset. Open data, CC BY 4.0.';
 
-export const metadata: Metadata = {
+export const metadata: Metadata = buildMetadata({
   title: TITLE,
   description: DESCRIPTION,
   keywords:
     'rare earth intelligence, strategic materials pricing, rare earth marketplace, rare earth price gauge, MOFCOM export-control alerts, rare earth vision, critical minerals platform, independent rare earth data, open-access critical minerals, China rare earth export controls',
-  alternates: { canonical: '/about/' },
-  openGraph: {
-    type: 'website',
-    url: '/about/',
-    siteName: 'lanthanides.io — Strategic Materials Ledger',
-    title: 'About & Vision — lanthanides.io',
-    description: DESCRIPTION,
-    images: [
-      {
-        url: '/assets/images/og-default.png',
-        width: 1200,
-        height: 630,
-        alt: 'lanthanides.io — Strategic Materials Ledger',
-      },
-    ],
-  },
-  twitter: {
-    card: 'summary_large_image',
-    title: 'About & Vision — lanthanides.io',
-    description: DESCRIPTION,
-    images: ['/assets/images/og-default.png'],
-  },
-};
+  path: '/about/',
+});
 
 const INLINE_LINK =
   'text-fg underline decoration-dotted underline-offset-2 hover:text-accent-strong';
@@ -209,47 +189,13 @@ export default function AboutPage() {
     },
   ];
 
-  const jsonLd = [
-    {
-      '@context': 'https://schema.org',
-      '@type': 'BreadcrumbList',
-      itemListElement: [
-        { '@type': 'ListItem', position: 1, name: 'Home', item: `${SITE}/` },
-        {
-          '@type': 'ListItem',
-          position: 2,
-          name: 'About & Vision',
-          item: `${SITE}/about/`,
-        },
-      ],
-    },
-    {
-      '@context': 'https://schema.org',
-      '@type': 'Organization',
-      name: 'lanthanides.io',
-      alternateName: 'lanthanides.io — Strategic Materials Ledger',
-      url: `${SITE}/`,
-      description:
-        'Independent, open-access pricing and Chinese export-control intelligence for rare-earth and strategic-metal elements.',
-      knowsAbout: [
-        'Rare earth elements',
-        'Strategic metals',
-        'Rare earth pricing',
-        'China export controls',
-        'MOFCOM export-control announcements',
-        'Critical minerals supply chains',
-      ],
-      sameAs: [GITHUB],
-    },
-  ];
-
   return (
     <Container as="main" className="py-10">
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify(jsonLd).replace(/</g, '\\u003c'),
-        }}
+      <BreadcrumbJsonLd
+        items={[
+          { name: 'Home', path: '/' },
+          { name: 'About & Vision', path: '/about/' },
+        ]}
       />
 
       <PageHeader

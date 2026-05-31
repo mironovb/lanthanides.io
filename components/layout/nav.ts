@@ -68,6 +68,11 @@ export const PRIMARY_NAV: NavGroup[] = [
         description: 'China export-control announcements',
       },
       {
+        href: '/framework',
+        label: 'Framework',
+        description: 'Import/export procurement reference',
+      },
+      {
         href: '/movements',
         label: 'Market Movements',
         description: 'Auto-detected price & control changes',

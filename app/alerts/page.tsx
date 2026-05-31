@@ -18,67 +18,33 @@
  */
 import type { Metadata } from 'next';
 import Link from 'next/link';
+import { buildMetadata } from '@/lib/seo';
+import { BreadcrumbJsonLd, WebApplicationJsonLd } from '@/components/seo';
 import { Container, PageHeader, StoryLink } from '@/components/layout';
 import { Callout, Chip, Panel, SectionHeading } from '@/components/ui';
 import { TelegramSubscribe, EmailWaitlistForm } from '@/components/alerts';
 
-const SITE = 'https://www.lanthanides.io';
-
 const DESCRIPTION =
   'Get notified the moment a new Chinese export-control announcement lands or a tracked rare-earth price moves — by Telegram (live now) or email (join the waitlist). Scoped to the events you care about; your address is never published.';
 
-export const metadata: Metadata = {
+export const metadata: Metadata = buildMetadata({
   title: 'Alerts — Export-Control & Price Notifications by Telegram or Email',
   description: DESCRIPTION,
   keywords:
     'rare earth alerts, MOFCOM announcement alerts, export control notifications, rare earth price alerts, telegram rare earth bot, strategic metals alerts',
-  alternates: { canonical: '/alerts/' },
-  openGraph: {
-    title: 'Alerts — lanthanides.io',
-    description: DESCRIPTION,
-    url: '/alerts/',
-    type: 'website',
-    images: [
-      {
-        url: '/assets/images/og-default.png',
-        width: 1200,
-        height: 630,
-        alt: 'lanthanides.io — Strategic Materials Ledger',
-      },
-    ],
-  },
-};
+  path: '/alerts/',
+});
 
 export default function AlertsPage() {
-  const jsonLd = [
-    {
-      '@context': 'https://schema.org',
-      '@type': 'WebApplication',
-      name: 'Alerts — lanthanides.io',
-      url: `${SITE}/alerts/`,
-      applicationCategory: 'BusinessApplication',
-      operatingSystem: 'Web',
-      isAccessibleForFree: true,
-      description: DESCRIPTION,
-      provider: { '@type': 'Organization', name: 'lanthanides.io', url: `${SITE}/` },
-    },
-    {
-      '@context': 'https://schema.org',
-      '@type': 'BreadcrumbList',
-      itemListElement: [
-        { '@type': 'ListItem', position: 1, name: 'Home', item: `${SITE}/` },
-        { '@type': 'ListItem', position: 2, name: 'Alerts', item: `${SITE}/alerts/` },
-      ],
-    },
-  ];
-
   return (
     <Container as="main" className="py-10">
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify(jsonLd).replace(/</g, '\\u003c'),
-        }}
+      <WebApplicationJsonLd
+        name="Alerts — lanthanides.io"
+        description={DESCRIPTION}
+        path="/alerts/"
+      />
+      <BreadcrumbJsonLd
+        items={[{ name: 'Home', path: '/' }, { name: 'Alerts', path: '/alerts/' }]}
       />
 
       <PageHeader

@@ -21,6 +21,8 @@ import {
   getSourceBreakdown,
   getSources,
 } from '@/lib/data';
+import { buildMetadata } from '@/lib/seo';
+import { FaqJsonLd } from '@/components/seo';
 import { Container } from '@/components/layout';
 import { SectionHeading } from '@/components/ui';
 import {
@@ -32,44 +34,22 @@ import { Hero } from '@/components/home/Hero';
 import { ProofStats } from '@/components/home/ProofStats';
 import { PillarCards } from '@/components/home/PillarCards';
 
-const SITE = 'https://www.lanthanides.io';
-
 const TITLE =
   'lanthanides.io — Sourced Prices & Export-Control Intelligence for Rare Earths';
 
 const DESCRIPTION =
   'Source-transparent pricing and Chinese export-control intelligence for 31 rare-earth and strategic-metal elements — every price tied to a seller, date, and quantity; every regulatory announcement cited to its source. Open data, CC BY 4.0.';
 
-export const metadata: Metadata = {
-  // `absolute` bypasses the root layout's "%s · lanthanides.io" template so the
-  // home title isn't double-branded.
-  title: { absolute: TITLE },
+export const metadata: Metadata = buildMetadata({
+  // absoluteTitle bypasses the "%s · lanthanides.io" template so the home title
+  // isn't double-branded. WebSite + Organization JSON-LD is site-wide (root
+  // layout); the home page carries the FAQPage entity.
+  absoluteTitle: TITLE,
   description: DESCRIPTION,
   keywords:
     'rare earth prices, rare earth export controls, MOFCOM announcements, strategic metals pricing, critical minerals data, gallium germanium controls, rare earth supply chain, open data rare earth',
-  alternates: { canonical: '/' },
-  openGraph: {
-    type: 'website',
-    url: '/',
-    siteName: 'lanthanides.io — Strategic Materials Ledger',
-    title: TITLE,
-    description: DESCRIPTION,
-    images: [
-      {
-        url: '/assets/images/og-default.png',
-        width: 1200,
-        height: 630,
-        alt: 'lanthanides.io — Strategic Materials Ledger',
-      },
-    ],
-  },
-  twitter: {
-    card: 'summary_large_image',
-    title: TITLE,
-    description: DESCRIPTION,
-    images: ['/assets/images/og-default.png'],
-  },
-};
+  path: '/',
+});
 
 export default function HomePage() {
   const totalElements = getElements().length;
@@ -104,40 +84,9 @@ export default function HomePage() {
     },
   ];
 
-  const jsonLd = [
-    {
-      '@context': 'https://schema.org',
-      '@type': 'WebSite',
-      name: 'lanthanides.io — Strategic Materials Ledger',
-      alternateName: 'lanthanides.io',
-      url: `${SITE}/`,
-      description: DESCRIPTION,
-      inLanguage: 'en',
-      license: 'https://creativecommons.org/licenses/by/4.0/',
-      publisher: {
-        '@type': 'Organization',
-        name: 'lanthanides.io',
-        url: `${SITE}/`,
-      },
-    },
-    {
-      '@context': 'https://schema.org',
-      '@type': 'Organization',
-      name: 'lanthanides.io',
-      url: `${SITE}/`,
-      description:
-        'Open reference for rare-earth and strategic-metal pricing and Chinese export-control intelligence.',
-    },
-  ];
-
   return (
     <Container as="main" className="pb-20">
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify(jsonLd).replace(/</g, '\\u003c'),
-        }}
-      />
+      <FaqJsonLd records={records} elements={totalElements} />
 
       <Hero
         totalElements={totalElements}

@@ -14,6 +14,8 @@
  */
 import type { Metadata } from 'next';
 import Link from 'next/link';
+import { buildMetadata } from '@/lib/seo';
+import { BreadcrumbJsonLd, WebApplicationJsonLd } from '@/components/seo';
 import { getElements, getPriceRecords } from '@/lib/data';
 import { prisma } from '@/lib/db';
 import { Container, PageHeader, StoryLink } from '@/components/layout';
@@ -29,32 +31,15 @@ import {
 export const dynamic = 'force-dynamic';
 export const runtime = 'nodejs';
 
-const SITE = 'https://www.lanthanides.io';
-
 const DESCRIPTION =
-  'List rare-earth or strategic-metal material for sale and get an instant, sourced price check — your asking price positioned against the dataset’s fair-value range before it reaches a buyer. Submissions are reviewed before publishing.';
-
-export const metadata: Metadata = {
+  "List rare-earth or strategic-metal material for sale and get an instant, sourced price check — your asking price positioned against the dataset's fair-value range before it reaches a buyer. Submissions are reviewed before publishing.";
+export const metadata: Metadata = buildMetadata({
   title: 'Sell / List Material — Instant Sourced Price Check',
   description: DESCRIPTION,
   keywords:
     'sell rare earth, list rare earth material, sell strategic metals, rare earth seller listing, oxide metal asking price, rare earth marketplace, dysprosium neodymium sell',
-  alternates: { canonical: '/sell/' },
-  openGraph: {
-    title: 'Sell / List Material — lanthanides.io',
-    description: DESCRIPTION,
-    url: '/sell/',
-    type: 'website',
-    images: [
-      {
-        url: '/assets/images/og-default.png',
-        width: 1200,
-        height: 630,
-        alt: 'lanthanides.io — Strategic Materials Ledger',
-      },
-    ],
-  },
-};
+  path: '/sell/',
+});
 
 /** Recent submissions for the listings view (all statuses; private contact dropped). */
 async function recentListings(): Promise<ListingDTO[]> {
@@ -78,40 +63,18 @@ export default async function SellPage() {
   const knownForms = [...new Set(records.map((r) => r.form.toLowerCase()))].sort();
   const listings = await recentListings();
 
-  const jsonLd = [
-    {
-      '@context': 'https://schema.org',
-      '@type': 'WebApplication',
-      name: 'Sell / List Material — lanthanides.io',
-      url: `${SITE}/sell/`,
-      applicationCategory: 'BusinessApplication',
-      operatingSystem: 'Web',
-      isAccessibleForFree: true,
-      description: DESCRIPTION,
-      provider: { '@type': 'Organization', name: 'lanthanides.io', url: `${SITE}/` },
-    },
-    {
-      '@context': 'https://schema.org',
-      '@type': 'BreadcrumbList',
-      itemListElement: [
-        { '@type': 'ListItem', position: 1, name: 'Home', item: `${SITE}/` },
-        {
-          '@type': 'ListItem',
-          position: 2,
-          name: 'Sell / List Material',
-          item: `${SITE}/sell/`,
-        },
-      ],
-    },
-  ];
-
   return (
     <Container as="main" className="py-10">
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify(jsonLd).replace(/</g, '\\u003c'),
-        }}
+      <WebApplicationJsonLd
+        name="Sell / List Material — lanthanides.io"
+        description={DESCRIPTION}
+        path="/sell/"
+      />
+      <BreadcrumbJsonLd
+        items={[
+          { name: 'Home', path: '/' },
+          { name: 'Sell / List Material', path: '/sell/' },
+        ]}
       />
 
       <PageHeader

@@ -39,7 +39,7 @@ const config: Config = {
         // ── Surfaces — near-black page → graphite panels → hovered rows. ──
         base: '#0b0d10', // page background
         surface: '#14171c', // panels / cards
-        raised: '#1a1d23', // raised surface, table headers (matches manifest theme_color)
+        raised: '#1a1d23', // raised surface, table headers
         overlay: '#1f242b', // popovers / hovered rows / tooltips
         border: {
           DEFAULT: '#262b33', // hairline dividers, default panel edge

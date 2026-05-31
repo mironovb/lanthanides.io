@@ -501,9 +501,10 @@ Each prompt must leave `npm run build` green. Later prompts tick these off.
   `noindex` dropped now it is a real page; the dashboard nav item un-flagged
   `soon`. New: `app/dashboard/page.tsx`, `components/dashboard/RegulatorySnapshot.tsx`.
   `npm run build` green.
-- [ ] **18–22, 24 — Polish & rebuilds** (MIGRATION §4): content/positioning
-  (remaining §4.5–§4.6 surfaces), remaining page polish, PWA/manifest fixes
-  (§4.8, incl. `/periodicpricing/…` → `/assets/images/…`).
+- [ ] **18–22 — Polish & rebuilds** (MIGRATION §4): content/positioning
+  (remaining §4.5–§4.6 surfaces) and remaining page polish. (The §4.8 PWA/manifest
+  fix — `/periodicpricing/…` → `/assets/images/…` + brand colors — was completed in
+  **Prompt 24** alongside moving the favicons/manifest into `public/`.)
 - [x] **23 — Production-grade performance, accessibility & mobile.** Full audit +
   evidence in **`docs/QA.md`** (rigorous manual review + computed WCAG contrast
   ratios + built-output inspection; **no** Lighthouse/axe score fabricated —
@@ -535,5 +536,38 @@ Each prompt must leave `npm run build` green. Later prompts tick these off.
   `tailwind.config.ts`, `app/{layout.tsx,globals.css}`, `components/ui/Table.tsx`,
   the two news image components, and the three form islands. `npm run build` green
   (57 routes); `npm run lint` clean.
+- [x] **24 — SEO, structured data & URL preservation.** Full parity-plus sweep
+  (evidence in `docs/SEO.md`). **Metadata:** new `lib/seo.ts` `buildMetadata()`
+  centralises the legacy `head.html` contract — every route now ships complete,
+  self-referential title/description/keywords/canonical + Open Graph + Twitter +
+  Atom feed alternates (verified in built HTML: a page's og:title/og:url/canonical
+  reflect the page, not a layout default — which is why every route builds its own
+  OG rather than inheriting one). Root `layout.tsx` gained `icons`, `manifest`,
+  `robots` directives (`max-image-preview:large` …), `authors`→`/humans.txt`,
+  baseline OG/Twitter, and `viewport.themeColor` (`#1A5C6B`). **Structured data** as
+  `components/seo/*` (server-first, one escaped `<script>` renderer) — the four
+  legacy includes: `SiteJsonLd` (WebSite+Organization, site-wide) · `FaqJsonLd`
+  (home, ported verbatim with live counts) · `BreadcrumbJsonLd` (every
+  section/detail page) · `ArticleJsonLd` (`/news/[slug]`) · `ElementJsonLd`
+  (Product+Offer[] on `/elements/[symbol]`) — plus a new `DatasetJsonLd` (`/data`
+  with JSON/CSV/fluctuations `DataDownload`; `/regulatory`; `/offers`) and
+  `WebApplicationJsonLd` (`/tools/price-gauge`, `/sell`, `/alerts`); the per-page
+  inline `<script>` blocks were refactored onto these (de-duping the now-site-wide
+  Organization). **URL preservation:** every AUDIT §2 permalink resolves or 301s —
+  the one structural gap, the **unbuilt `/framework/` route**, was ported verbatim
+  (markdown relocated to `app/framework/framework.md`, Liquid resolved, `#pricing`
+  + `#us-side-tariff-stack-may-14-2026` anchors preserved, re-linked in the
+  Intelligence nav after Regulatory); and `/humans.txt` +
+  `/assets/images/site.webmanifest` + the favicons were moved into `public/` (the
+  manifest §4.8-fixed: `/periodicpricing/…`→`/assets/images/…`, brand colors).
+  **Sitemap/robots/feeds:** `app/sitemap.ts` (52 URLs incl. all 31 elements + 5
+  articles, real `lastmod`), `app/robots.ts` (Allow `/`, Disallow `/api/`,
+  sitemap+host), and a populated **`app/feed.xml`** news Atom feed (the legacy
+  jekyll-feed shipped empty — no `_posts`; now sourced from the 5 `_articles`).
+  `CNAME` intact. Default + per-article OG images resolve; dynamic per-route OG
+  considered and deferred (offline-build risk, optional). New: `lib/seo.ts`,
+  `components/seo/*`, `app/{sitemap.ts,robots.ts,feed.xml/route.ts}`,
+  `app/framework/*`, `docs/SEO.md`, `public/{humans.txt,assets/images/*}`.
+  `npm run build` green (61 routes); `npm run lint` clean.
 - [ ] **25 — Parity & cleanup.** Verify route parity against AUDIT §2; **remove
   `legacy/`**.
