@@ -278,8 +278,27 @@ Each prompt must leave `npm run build` green. Later prompts tick these off.
   rows, reference cards, "last update"); dense data tables keep sortable ISO dates
   by design. `npm run build` green (51 routes); `npm run lint` clean; the P10
   chart gate still holds (0 `<polyline>` in built output).
-- [ ] **13–24 — Polish & rebuilds** (MIGRATION §4): content/positioning
-  (§4.5–§4.6), remaining page polish, PWA/manifest fixes (§4.8, incl.
-  `/periodicpricing/…` → `/assets/images/…`).
+- [x] **13 — Investment-grade landing page & value proposition.** Replaced the
+  migration placeholder at `app/page.tsx` (`/`) with a focused above-the-fold
+  (resolving AUDIT §4.6, the missing "what/who/why-now", and §4.5, the apologetic
+  "sparse data" voice): a value-prop headline + audience subhead, a sober **Why
+  now** panel (US–China decoupling + the live MOFCOM announcement count/controlled
+  tally, no fabricated market-size figure), live **proof stats** via `Stat` (all
+  from `lib/data`: elements, sourced records, sources, China-controlled,
+  regulatory announcements), and primary CTAs. New `components/home/*`
+  (`Hero`, `ProofStats`, `PillarCards`). Below the fold, a three-pillar product
+  story (Data & Provenance → **Regulatory Intelligence** (crown jewel, AUDIT §6,
+  led) → Tools & Marketplace). **Honesty:** the 238 records are labelled
+  **"sourced"** not "verified" (only 27 hold a `verified` status) per hard rule #1;
+  CTAs route only to surfaces that exist today (`/regulatory`, `/elements`,
+  `/data`) — the not-yet-built price-gauge/alerts/marketplace tools are previewed
+  as an **"In development"** pillar, never dead links (nav.ts keeps the stubs out
+  until their prompt). Trust band surfaces per-price provenance, CC BY 4.0 open
+  data, and the 6-hourly Telegram monitor (no fabricated bot link). Full metadata
+  + OpenGraph/Twitter (`og-default.png` copied into `public/assets/images/`) and
+  `WebSite`/`Organization` JSON-LD. `npm run build` green.
+- [ ] **14–24 — Polish & rebuilds** (MIGRATION §4): content/positioning
+  (remaining §4.5–§4.6 surfaces), remaining page polish, PWA/manifest fixes
+  (§4.8, incl. `/periodicpricing/…` → `/assets/images/…`).
 - [ ] **25 — Parity & cleanup.** Verify route parity against AUDIT §2; **remove
   `legacy/`**.

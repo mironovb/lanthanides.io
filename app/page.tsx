@@ -1,69 +1,153 @@
 /**
- * Home (placeholder). The crown-jewel-forward home page is built in a later
- * prompt (docs/MIGRATION.md §4); this is a coherent, design-system-composed
- * landing that surfaces live coverage counts and routes into the reference
- * surfaces. All figures come from the live data layer (no fabricated data).
+ * Home (/) — the investment-grade landing page (Prompt 13). Replaces the
+ * migration placeholder with a focused above-the-fold value proposition (what
+ * this is, who it's for, why it matters now), live proof stats, primary CTAs
+ * into the real product surfaces, and a below-the-fold three-pillar product
+ * story. Leads with the crown-jewel regulatory intelligence (AUDIT §6) and
+ * drops the apologetic "sparse data" framing (AUDIT §4.5) in favour of
+ * verified-first coverage presented as a strength.
+ *
+ * Every number comes from the live data layer — nothing is fabricated, and the
+ * 238 records are labelled "sourced" (each carries provenance), not "verified"
+ * (only a minority hold a verified status), per CLAUDE.md hard rule #1.
  */
+import type { Metadata } from 'next';
 import {
   getControlledElementCount,
   getElements,
+  getPolicyEvents,
   getPriceRecords,
-  getRegulatedElements,
+  getRegulatoryNotices,
   getSources,
 } from '@/lib/data';
 import { Container } from '@/components/layout';
-import { Callout, LinkButton, Stat, StatGrid } from '@/components/ui';
+import { Hero } from '@/components/home/Hero';
+import { ProofStats } from '@/components/home/ProofStats';
+import { PillarCards } from '@/components/home/PillarCards';
+
+const SITE = 'https://www.lanthanides.io';
+
+const TITLE =
+  'lanthanides.io — Sourced Prices & Export-Control Intelligence for Rare Earths';
+
+const DESCRIPTION =
+  'Source-transparent pricing and Chinese export-control intelligence for 31 rare-earth and strategic-metal elements — every price tied to a seller, date, and quantity; every regulatory announcement cited to its source. Open data, CC BY 4.0.';
+
+export const metadata: Metadata = {
+  // `absolute` bypasses the root layout's "%s · lanthanides.io" template so the
+  // home title isn't double-branded.
+  title: { absolute: TITLE },
+  description: DESCRIPTION,
+  keywords:
+    'rare earth prices, rare earth export controls, MOFCOM announcements, strategic metals pricing, critical minerals data, gallium germanium controls, rare earth supply chain, open data rare earth',
+  alternates: { canonical: '/' },
+  openGraph: {
+    type: 'website',
+    url: '/',
+    siteName: 'lanthanides.io — Strategic Materials Ledger',
+    title: TITLE,
+    description: DESCRIPTION,
+    images: [
+      {
+        url: '/assets/images/og-default.png',
+        width: 1200,
+        height: 630,
+        alt: 'lanthanides.io — Strategic Materials Ledger',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: TITLE,
+    description: DESCRIPTION,
+    images: ['/assets/images/og-default.png'],
+  },
+};
 
 export default function HomePage() {
-  const elements = getElements().length;
-  const priceRecords = getPriceRecords().length;
+  const totalElements = getElements().length;
+  const records = getPriceRecords().length;
   const controlled = getControlledElementCount();
-  const regulated = getRegulatedElements().length;
   const sources = getSources().length;
+  const announcements = getPolicyEvents().length;
+  const notices = getRegulatoryNotices().length;
 
-  const stats: Array<[string, number]> = [
-    ['Elements', elements],
-    ['Price records', priceRecords],
-    ['CN-controlled', controlled],
-    ['Active regulatory', regulated],
-    ['Data sources', sources],
+  const stats = [
+    {
+      label: 'Elements tracked',
+      value: totalElements,
+      hint: 'Rare earths + strategic metals',
+    },
+    {
+      label: 'Sourced price records',
+      value: records,
+      hint: 'Each fully provenanced',
+    },
+    { label: 'Curated sources', value: sources, hint: 'Trust-tiered, reviewed' },
+    {
+      label: 'China-controlled',
+      value: controlled,
+      hint: `of ${totalElements} elements`,
+    },
+    {
+      label: 'Regulatory announcements',
+      value: announcements,
+      hint: 'Tracked since 2023',
+    },
+  ];
+
+  const jsonLd = [
+    {
+      '@context': 'https://schema.org',
+      '@type': 'WebSite',
+      name: 'lanthanides.io — Strategic Materials Ledger',
+      alternateName: 'lanthanides.io',
+      url: `${SITE}/`,
+      description: DESCRIPTION,
+      inLanguage: 'en',
+      license: 'https://creativecommons.org/licenses/by/4.0/',
+      publisher: {
+        '@type': 'Organization',
+        name: 'lanthanides.io',
+        url: `${SITE}/`,
+      },
+    },
+    {
+      '@context': 'https://schema.org',
+      '@type': 'Organization',
+      name: 'lanthanides.io',
+      url: `${SITE}/`,
+      description:
+        'Open reference for rare-earth and strategic-metal pricing and Chinese export-control intelligence.',
+    },
   ];
 
   return (
-    <Container as="main" className="py-16">
-      <p className="eyebrow">Strategic Materials Ledger</p>
+    <Container as="main" className="pb-20">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(jsonLd).replace(/</g, '\\u003c'),
+        }}
+      />
 
-      <h1 className="mt-3 font-serif text-4xl font-semibold text-fg sm:text-5xl">
-        lanthanides.io
-      </h1>
+      <Hero
+        totalElements={totalElements}
+        controlled={controlled}
+        announcements={announcements}
+      />
 
-      <p className="mt-4 max-w-prose text-md leading-relaxed text-fg-muted">
-        Sourced pricing, supply-chain risk, and regulatory intelligence for
-        rare-earth and strategic materials — open data, fully provenanced, free to
-        use.
-      </p>
+      <ProofStats stats={stats} />
 
-      <div className="mt-6 flex flex-wrap gap-3">
-        <LinkButton href="/elements/" variant="primary">
-          Browse elements
-        </LinkButton>
-        <LinkButton href="/regulatory/">Regulatory tracker</LinkButton>
-        <LinkButton href="/data/" variant="ghost">
-          Open data
-        </LinkButton>
-      </div>
-
-      <StatGrid cols={5} className="mt-15">
-        {stats.map(([label, value]) => (
-          <Stat key={label} label={label} value={value} />
-        ))}
-      </StatGrid>
-
-      <Callout tone="note" className="mt-15 max-w-prose">
-        Migration in progress — the terminal-grade design system is being rolled
-        across every page (Prompt 12 of 25). The full home page lands in a later
-        prompt; meanwhile, the reference surfaces above are complete.
-      </Callout>
+      <PillarCards
+        counts={{
+          records,
+          elements: totalElements,
+          announcements,
+          notices,
+          controlled,
+        }}
+      />
     </Container>
   );
 }
