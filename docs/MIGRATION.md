@@ -125,7 +125,8 @@ and are served by route handlers or static files in `public/`.
 | `/movements/` | `app/movements/page.tsx` | preserved |
 | `/news/` | `app/news/page.tsx` | preserved |
 | `/methodology/` | `app/methodology/page.tsx` | preserved |
-| `/about/` | `app/about/page.tsx` | preserved |
+| `/about/` | `app/about/page.tsx` | preserved (reframed as About **/ Vision**, P15) |
+| `/vision/` *(new alias)* | — | **301 → `/about/`** — the About page is the investor-facing About/Vision page; `/vision` is an alias investors may type (P15) |
 | `/sources/` | `app/sources/page.tsx` | preserved |
 | `/prices/` | — | **CHANGES → 301 redirect to `/elements/`** (see §3.5) |
 | `/404.html` | `app/not-found.tsx` | preserved in behavior (Next serves the 404 page for any unmatched route; the literal `.html` path was a Jekyll artifact, not linked) |

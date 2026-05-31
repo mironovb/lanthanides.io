@@ -15,6 +15,16 @@ const nextConfig = {
         destination: '/elements/',
         statusCode: 301,
       },
+      // The About page doubles as the investor-facing About/Vision page
+      // (Prompt 15). `/vision` is an alias investors may type directly; it 301s
+      // to the canonical `/about/` (which declares `canonical: /about/`), so the
+      // vision lives at one URL with no duplicate-content split. `trailingSlash`
+      // normalises `/vision` → `/vision/` first, which then 301s here.
+      {
+        source: '/vision',
+        destination: '/about/',
+        statusCode: 301,
+      },
       // The legacy Jekyll-generated per-element export (/assets/data/elements.json)
       // is superseded by the canonical, always-fresh price-records export. Its
       // only consumer was the retired interactive ledger JS. See MIGRATION §3.4.

@@ -322,9 +322,26 @@ Each prompt must leave `npm run build` green. Later prompts tick these off.
   "Elements" (matching the detail page's parent crumb); every trail starts at Home. New:
   `components/layout/{StoryLink,ComingSoon}.tsx`, `app/{dashboard,tools/price-gauge,
   sell,offers,alerts}/page.tsx`. `npm run build` green (56 routes); `npm run lint` clean.
-- [ ] **15–24 — Polish & rebuilds** (MIGRATION §4): content/positioning
-  (remaining §4.5–§4.6 surfaces, incl. the §4.6 investor reframe of `/about`),
-  remaining page polish, PWA/manifest fixes (§4.8, incl. `/periodicpricing/…` →
-  `/assets/images/…`).
+- [x] **15 — About / Vision page framing the commercial direction.** Reframed
+  `/about/` (the §4.6 investor reframe) into two clearly separated parts. **Part 01
+  "What this is today"** — the true description + the four principles + live coverage
+  stats, kept as the factual spine; the 238 records are labelled **sourced**, not
+  "verified" (only the live-computed **27** that carry a `verified` status are called
+  verified — hard rule #1). **Part 02 "Where it's going"** — the investor-framed
+  two-sided vision: demand-side offer-screening (→`/offers`), supply-side listing +
+  price gauge (→`/sell`,`/tools/price-gauge`), and the alerts layer (Telegram now,
+  email next →`/alerts`). A candid **staged roadmap** table maps each capability to
+  **Now / In progress / Planned**, explicitly labels the two stubs (offer-screening
+  backend, email notifications), and links every row to its live entry point; a
+  truthful **why now / why this** note names the defensible asset (the only
+  source-cited English-language MOFCOM tracker + a provenance-first dataset) with no
+  fabricated traction/revenue/partnerships. Full metadata + OpenGraph + Organization
+  & BreadcrumbList JSON-LD. **`/vision` 301→`/about/`** (next.config.mjs; recorded in
+  MIGRATION §3.1). Composed from `components/ui/*` (local `PartHeader` + roadmap data
+  only); single file touched is `app/about/page.tsx`. `npm run build` green (56
+  routes); `npm run lint` clean.
+- [ ] **16–24 — Polish & rebuilds** (MIGRATION §4): content/positioning
+  (remaining §4.5–§4.6 surfaces), remaining page polish, PWA/manifest fixes
+  (§4.8, incl. `/periodicpricing/…` → `/assets/images/…`).
 - [ ] **25 — Parity & cleanup.** Verify route parity against AUDIT §2; **remove
   `legacy/`**.
