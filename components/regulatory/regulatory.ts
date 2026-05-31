@@ -9,6 +9,7 @@
  * string here is spelled out in full (no runtime construction). Pure module: no
  * I/O, safe in both Server and Client Components.
  */
+import { formatDate } from '@/lib/format';
 import type { PolicyEventType, RegulatoryNotice } from '@/lib/types';
 
 /** The four control-regime classes the tracker buckets notices into. */
@@ -91,19 +92,11 @@ export const EVENT_TYPE_STYLE: Record<
   },
 };
 
-const MONTHS = [
-  'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
-  'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec',
-];
-
 /**
- * Format an ISO 'YYYY-MM-DD' date as 'D Mon YYYY' (legacy `date: "%-d %b %Y"`),
- * parsing the string directly so there is no timezone off-by-one. Returns the
- * input unchanged if it is not a plain ISO date.
+ * Long date shared by the cards and timeline — delegates to the shared
+ * `formatDate` so every editorial/feed surface formats dates identically
+ * ("Apr 9, 2025"); see lib/format.ts. Returns the input unchanged if unparseable.
  */
 export function fmtLongDate(iso: string): string {
-  const m = /^(\d{4})-(\d{2})-(\d{2})/.exec(iso);
-  if (!m) return iso;
-  const month = MONTHS[Number(m[2]) - 1] ?? m[2];
-  return `${Number(m[3])} ${month} ${m[1]}`;
+  return formatDate(iso);
 }

@@ -9,12 +9,13 @@
  * (<RegulatoryView>) adds instant element filtering as progressive enhancement.
  */
 import type { Metadata } from 'next';
-import Link from 'next/link';
 import {
   getPolicyEvents,
   getRegulatedAndSuspendedElements,
   getRegulatoryNotices,
 } from '@/lib/data';
+import { Container, PageHeader } from '@/components/layout';
+import { Callout } from '@/components/ui';
 import { RegulatoryView } from '@/components/regulatory/RegulatoryView';
 
 const SITE = 'https://www.lanthanides.io';
@@ -86,7 +87,7 @@ export default function RegulatoryPage() {
   ];
 
   return (
-    <main className="mx-auto max-w-content px-6 py-10">
+    <Container as="main" className="py-10">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
@@ -94,26 +95,12 @@ export default function RegulatoryPage() {
         }}
       />
 
-      <nav aria-label="Breadcrumb" className="mb-6 text-sm text-fg-dim">
-        <Link href="/" className="hover:text-fg">
-          Home
-        </Link>
-        <span className="px-2 text-border-strong">/</span>
-        <span className="text-fg">Regulatory Tracker</span>
-      </nav>
-
-      <header className="border-b border-border-strong pb-6">
-        <h1 className="font-serif text-3xl font-semibold text-fg">
-          China Rare Earth Export Controls Tracker
-        </h1>
-        <p className="mt-3 max-w-prose text-base leading-relaxed text-fg-muted">
-          Every published Chinese export-control announcement affecting rare
-          earths, strategic metals, and semiconductor materials since 2023 —
-          announcement numbers, effective dates, affected elements, and current
-          status. Filter by element to isolate the regime and announcements that
-          touch it.
-        </p>
-      </header>
+      <PageHeader
+        crumbs={[{ label: 'Home', href: '/' }, { label: 'Regulatory Tracker' }]}
+        eyebrow="Export Controls"
+        title="China Rare Earth Export Controls Tracker"
+        lead="Every published Chinese export-control announcement affecting rare earths, strategic metals, and semiconductor materials since 2023 — announcement numbers, effective dates, affected elements, and current status. Filter by element to isolate the regime and announcements that touch it."
+      />
 
       <RegulatoryView
         notices={notices}
@@ -122,38 +109,38 @@ export default function RegulatoryPage() {
       />
 
       {/* ── Key legal references ──────────────────────────────────────── */}
-      <aside className="mt-10 border border-l-[3px] border-border border-l-accent bg-surface px-5 py-4">
-        <h2 className="text-sm font-bold uppercase tracking-wider text-fg">
-          Key Legal References
-        </h2>
-        <dl className="mt-4">
-          <dt className="text-sm font-semibold text-fg">
+      <Callout
+        tone="note"
+        glyph={null}
+        title="Key Legal References"
+        className="mt-12"
+      >
+        <dl>
+          <dt className="font-semibold text-fg">
             End-user certificate requirement
           </dt>
-          <dd className="mt-1 text-sm leading-relaxed text-fg-muted">
+          <dd className="mt-1 leading-relaxed text-fg-muted">
             Article 15 of the Export Control Law of the PRC requires exporters to
             submit an end-user certificate (最终用户证明) identifying the
             consignee, end user, and end use for all controlled items.
           </dd>
 
-          <dt className="mt-3 text-sm font-semibold text-fg">Review period</dt>
-          <dd className="mt-1 text-sm leading-relaxed text-fg-muted">
+          <dt className="mt-3 font-semibold text-fg">Review period</dt>
+          <dd className="mt-1 leading-relaxed text-fg-muted">
             MOFCOM has up to 45 working days from acceptance of a complete
             application to issue or deny an export licence, per the 2024 Dual-Use
             Items Export Control Regulations.
           </dd>
 
-          <dt className="mt-3 text-sm font-semibold text-fg">
-            Presumptive denial
-          </dt>
-          <dd className="mt-1 text-sm leading-relaxed text-fg-muted">
+          <dt className="mt-3 font-semibold text-fg">Presumptive denial</dt>
+          <dd className="mt-1 leading-relaxed text-fg-muted">
             Licence applications subject to presumptive denial are refused absent
             extraordinary circumstances. This standard currently applies to
             Ga/Ge/Sb exports to US military end-users under Article 1 of MOFCOM
             No. 46/2024.
           </dd>
         </dl>
-      </aside>
-    </main>
+      </Callout>
+    </Container>
   );
 }

@@ -24,7 +24,10 @@ import {
   getPriceRecords,
   getReferencePrices,
 } from '@/lib/data';
+import { formatDate } from '@/lib/format';
 import type { Element } from '@/lib/types';
+import { Container } from '@/components/layout';
+import { Badge, Breadcrumbs, SectionHeading } from '@/components/ui';
 import { PriceHistoryChart } from '@/components/charts/PriceHistoryChart';
 import {
   CATEGORY_ORDER,
@@ -94,20 +97,15 @@ export default function ElementDetailPage({ params }: { params: Params }) {
   const next = idx >= 0 && idx < ordered.length - 1 ? ordered[idx + 1] : null;
 
   return (
-    <main className="mx-auto max-w-content px-6 py-10">
-      <nav aria-label="Breadcrumb" className="mb-6 text-sm text-fg-dim">
-        <Link href="/" className="hover:text-fg">
-          Home
-        </Link>
-        <span className="px-2 text-border-strong">/</span>
-        <Link href="/elements/" className="hover:text-fg">
-          Elements
-        </Link>
-        <span className="px-2 text-border-strong">/</span>
-        <span className="text-fg">
-          {element.symbol} — {element.name}
-        </span>
-      </nav>
+    <Container as="main" className="py-10">
+      <Breadcrumbs
+        className="mb-5"
+        items={[
+          { label: 'Home', href: '/' },
+          { label: 'Elements', href: '/elements/' },
+          { label: `${element.symbol} — ${element.name}` },
+        ]}
+      />
 
       {/* ── Header ─────────────────────────────────────────────────────── */}
       <header className="mb-8 flex flex-col gap-4 border-b border-border-strong pb-6 md:flex-row md:items-start md:gap-6">
@@ -129,18 +127,14 @@ export default function ElementDetailPage({ params }: { params: Params }) {
             </h1>
 
             <div className="mt-2 flex flex-wrap items-center gap-2">
-              <span
-                className={`inline-block rounded-sm px-2 py-0.5 text-xs font-medium ${cat.badge}`}
-              >
-                {cat.badgeLabel}
-              </span>
+              <Badge variant={element.category}>{cat.badgeLabel}</Badge>
               {element.regulatory_status !== 'none' && (
-                <Link
+                <Badge
+                  variant={element.regulatory_status}
                   href="/regulatory/"
-                  className={`inline-block rounded-sm px-2 py-0.5 font-mono text-2xs font-semibold uppercase tracking-wide ${REGULATORY_BADGE[element.regulatory_status].classes}`}
                 >
                   {REGULATORY_BADGE[element.regulatory_status].label}
-                </Link>
+                </Badge>
               )}
             </div>
 
@@ -180,7 +174,7 @@ export default function ElementDetailPage({ params }: { params: Params }) {
         <div className="shrink-0 font-mono text-sm text-fg-dim md:text-right">
           {latestDate && (
             <>
-              Last update: {latestDate}
+              Last update: {formatDate(latestDate)}
               <br />
             </>
           )}
@@ -230,9 +224,7 @@ export default function ElementDetailPage({ params }: { params: Params }) {
 
       {!hasInlineProvenance && (
         <section className="mt-8">
-          <h2 className="mb-4 border-b border-border-strong pb-2 font-serif text-lg font-semibold text-fg">
-            All Offers
-          </h2>
+          <SectionHeading title="All Offers" />
           <ProvenanceTable records={records} />
         </section>
       )}
@@ -240,7 +232,7 @@ export default function ElementDetailPage({ params }: { params: Params }) {
       {/* ── Related elements ───────────────────────────────────────────── */}
       {related.length > 0 && (
         <div className="mt-8 flex flex-wrap items-baseline gap-2 border border-border bg-surface px-4 py-3 text-sm">
-          <span className="text-xs font-semibold uppercase tracking-wide text-fg-dim">
+          <span className="text-xs font-semibold uppercase tracking-caps text-fg-dim">
             Related elements
           </span>
           {related.map((rel, i) => (
@@ -316,7 +308,7 @@ export default function ElementDetailPage({ params }: { params: Params }) {
           })}
         </div>
       </nav>
-    </main>
+    </Container>
   );
 }
 

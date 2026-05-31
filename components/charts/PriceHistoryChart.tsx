@@ -14,6 +14,7 @@
  *
  * Server component: pure SVG via <LineChart>, no client JS.
  */
+import { Panel } from '@/components/ui';
 import type { PriceHistory } from '@/lib/types';
 import { LineChart, type LineChartSeries } from './LineChart';
 import { dailyMedianSeries, type SeriesPoint } from './price-series';
@@ -76,36 +77,29 @@ export function PriceHistoryChart({
   }));
 
   return (
-    <section
-      className="mb-6 border border-border bg-surface p-4"
-      aria-labelledby="price-trend-title"
-    >
-      <div className="mb-3 flex flex-wrap items-baseline justify-between gap-x-3 gap-y-1 border-b border-border pb-2">
-        <h2
-          id="price-trend-title"
-          className="font-serif text-lg font-semibold text-fg"
-        >
+    <Panel
+      className="mb-6"
+      title={
+        <>
           Price Trend{' '}
           <span className="font-sans text-xs font-normal text-fg-dim">
             (USD/kg, daily medians)
           </span>
-        </h2>
-        <div className="flex items-center gap-3">
-          {built.map((t) => (
-            <span
-              key={t.key}
-              className="flex items-center gap-1.5 font-mono text-2xs text-fg-muted"
-            >
-              <span
-                className={`inline-block h-2 w-3 ${t.swatch}`}
-                aria-hidden="true"
-              />
-              {t.label}
-            </span>
-          ))}
-        </div>
-      </div>
-
+        </>
+      }
+      actions={built.map((t) => (
+        <span
+          key={t.key}
+          className="flex items-center gap-1.5 font-mono text-2xs text-fg-muted"
+        >
+          <span
+            className={`inline-block h-2 w-3 ${t.swatch}`}
+            aria-hidden="true"
+          />
+          {t.label}
+        </span>
+      ))}
+    >
       <LineChart
         series={series}
         ariaLabel={`${elementName} price trend, USD per kilogram, by tier`}
@@ -125,6 +119,6 @@ export function PriceHistoryChart({
           appears in the Price History table below instead of as a line.
         </p>
       </div>
-    </section>
+    </Panel>
   );
 }

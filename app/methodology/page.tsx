@@ -14,12 +14,12 @@
 import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import type { Metadata } from 'next';
-import Link from 'next/link';
 import matter from 'gray-matter';
 
 import '@/components/content/content-body.css';
 
 import { getSourceBreakdown } from '@/lib/data';
+import { Container, PageHeader } from '@/components/layout';
 import { Markdown } from '@/components/content/Markdown';
 import { SourceBreakdownTable } from '@/components/content/SourceBreakdownTable';
 
@@ -49,26 +49,18 @@ export default function MethodologyPage() {
   const [before, after] = BODY.split(BREAKDOWN_BLOCK);
 
   return (
-    <main className="mx-auto max-w-content px-6 py-10">
-      <nav aria-label="Breadcrumb" className="mb-6 text-sm text-fg-dim">
-        <Link href="/" className="hover:text-fg">
-          Home
-        </Link>
-        <span className="px-2 text-border-strong">/</span>
-        <span className="text-fg">Methodology</span>
-      </nav>
-
-      <header className="mb-8 border-b border-border-strong pb-6">
-        <h1 className="font-serif text-3xl font-semibold text-fg">Methodology</h1>
-        <p className="mt-3 max-w-prose text-base leading-relaxed text-fg-muted">
-          {FRONT_MATTER.description}
-        </p>
-      </header>
+    <Container as="main" className="py-10">
+      <PageHeader
+        crumbs={[{ label: 'Home', href: '/' }, { label: 'Methodology' }]}
+        eyebrow="Trust & Method"
+        title="Methodology"
+        lead={FRONT_MATTER.description}
+      />
 
       {/* Two prose blocks with the live breakdown table spliced between them.
           The table is a sibling (not nested in .content-body) so the prose-table
           CSS never double-styles it. */}
-      <div className="content-body">
+      <div className="content-body mt-10">
         <Markdown>{before}</Markdown>
       </div>
       <div className="max-w-prose">
@@ -79,6 +71,6 @@ export default function MethodologyPage() {
           <Markdown>{after}</Markdown>
         </div>
       )}
-    </main>
+    </Container>
   );
 }

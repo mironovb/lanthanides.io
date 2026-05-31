@@ -11,6 +11,9 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { getMovements } from '@/lib/data';
+import { Container, PageHeader } from '@/components/layout';
+import { buttonClasses } from '@/components/ui';
+import { formatDate } from '@/lib/format';
 import { MovementRow } from '@/components/movements/MovementRow';
 
 const DESCRIPTION =
@@ -34,42 +37,28 @@ export default function MovementsPage() {
   const total = events.length;
 
   return (
-    <main className="mx-auto max-w-content px-6 py-10">
-      <nav aria-label="Breadcrumb" className="mb-6 text-sm text-fg-dim">
-        <Link href="/" className="hover:text-fg">
-          Home
-        </Link>
-        <span className="px-2 text-border-strong">/</span>
-        <span className="text-fg">Market Movements</span>
-      </nav>
-
-      <header className="flex flex-col gap-4 border-b-2 border-fg pb-5 md:flex-row md:items-end md:justify-between">
-        <div className="max-w-prose">
-          <h1 className="font-serif text-3xl font-semibold leading-tight text-fg">
-            Market Movements
-          </h1>
-          <p className="mt-2 text-sm leading-relaxed text-fg-muted">
-            Auto-generated factual events from the underlying observation data —
-            significant price movements (default threshold {threshold}% over the{' '}
-            {windowLabel} window) and regulatory state changes. No editorial
-            interpretation: each entry is a deterministic summary of what the
-            data shows.
-          </p>
-        </div>
-        <div className="flex shrink-0 items-center gap-3">
-          <span className="font-mono text-xs text-fg-dim">
-            {total} event{total !== 1 ? 's' : ''}
-          </span>
-          <a
-            href="/movements.xml"
-            rel="alternate"
-            type="application/atom+xml"
-            className="rounded-sm border border-border px-2 py-1 font-mono text-2xs uppercase tracking-wide text-fg-muted transition-colors hover:border-accent hover:text-accent-strong"
-          >
-            <span aria-hidden="true">⏚</span> Atom feed
-          </a>
-        </div>
-      </header>
+    <Container as="main" className="py-10">
+      <PageHeader
+        crumbs={[{ label: 'Home', href: '/' }, { label: 'Market Movements' }]}
+        eyebrow="Market Feed"
+        title="Market Movements"
+        lead={`Auto-generated factual events from the underlying observation data — significant price movements (default threshold ${threshold}% over the ${windowLabel} window) and regulatory state changes. No editorial interpretation: each entry is a deterministic summary of what the data shows.`}
+        actions={
+          <>
+            <span className="font-mono text-xs text-fg-dim">
+              {total} event{total !== 1 ? 's' : ''}
+            </span>
+            <a
+              href="/movements.xml"
+              rel="alternate"
+              type="application/atom+xml"
+              className={buttonClasses('secondary', 'sm')}
+            >
+              <span aria-hidden="true">⏚</span> Atom feed
+            </a>
+          </>
+        }
+      />
 
       {total === 0 ? (
         <p className="py-12 text-center text-sm text-fg-muted">
@@ -78,7 +67,7 @@ export default function MovementsPage() {
         </p>
       ) : (
         <>
-          <ul className="mt-6 flex flex-col gap-3">
+          <ul className="mt-8 flex flex-col gap-3">
             {events.map((event) => (
               <MovementRow key={event.id} event={event} />
             ))}
@@ -92,12 +81,15 @@ export default function MovementsPage() {
               </strong>
               . Last detector run:{' '}
               {state?.last_run ? (
-                <time dateTime={state.last_run}>{state.last_run}</time>
+                <time dateTime={state.last_run}>{formatDate(state.last_run)}</time>
               ) : (
                 'unknown'
               )}
               . See{' '}
-              <Link href="/methodology/" className="text-accent hover:text-accent-strong">
+              <Link
+                href="/methodology/"
+                className="text-accent hover:text-accent-strong"
+              >
                 methodology
               </Link>{' '}
               for how movements are aggregated.
@@ -105,6 +97,6 @@ export default function MovementsPage() {
           </footer>
         </>
       )}
-    </main>
+    </Container>
   );
 }

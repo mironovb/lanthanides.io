@@ -18,6 +18,8 @@ import {
   getPriceRecords,
   getSources,
 } from '@/lib/data';
+import { Container, PageHeader } from '@/components/layout';
+import { SectionHeading, Stat, StatGrid } from '@/components/ui';
 
 export const metadata: Metadata = {
   title: 'About lanthanides.io',
@@ -38,22 +40,17 @@ export default function AboutPage() {
   const elementCount = stats[0][0];
 
   return (
-    <main className="mx-auto max-w-content px-6 py-10">
-      <nav aria-label="Breadcrumb" className="mb-6 text-sm text-fg-dim">
-        <Link href="/" className="hover:text-fg">
-          Home
-        </Link>
-        <span className="px-2 text-border-strong">/</span>
-        <span className="text-fg">About</span>
-      </nav>
+    <Container as="main" className="py-10">
+      <PageHeader
+        crumbs={[{ label: 'Home', href: '/' }, { label: 'About' }]}
+        eyebrow="About"
+        title="About lanthanides.io"
+        lead="Independent, open-access strategic materials intelligence. No subscriptions, no paywalls. Real prices with source provenance."
+      />
 
-      <h1 className="font-serif text-3xl font-semibold text-fg">About</h1>
-
-      <div className="mt-6 max-w-prose space-y-8 text-base leading-relaxed text-fg-muted">
+      <div className="mt-10 max-w-prose space-y-10 text-base leading-relaxed text-fg-muted">
         <section>
-          <h2 className="mb-2 font-serif text-lg font-semibold text-fg">
-            What This Is
-          </h2>
+          <SectionHeading title="What This Is" />
           <p>
             <strong className="font-semibold text-fg">lanthanides.io</strong> is
             an independent, open-access pricing and intelligence platform for rare
@@ -72,9 +69,7 @@ export default function AboutPage() {
         </section>
 
         <section>
-          <h2 className="mb-2 font-serif text-lg font-semibold text-fg">
-            Motivation
-          </h2>
+          <SectionHeading title="Motivation" />
           <p>
             Rare earth pricing is fragmented, paywalled, and disconnected across
             market tiers. Commodity benchmarks from major reporting agencies sit
@@ -92,9 +87,7 @@ export default function AboutPage() {
         </section>
 
         <section>
-          <h2 className="mb-3 font-serif text-lg font-semibold text-fg">
-            Principles
-          </h2>
+          <SectionHeading title="Principles" />
           <dl className="space-y-3">
             {[
               [
@@ -110,10 +103,7 @@ export default function AboutPage() {
                 'Each price record includes the seller, country, date, form, purity, quantity, confidence score, and verification status. The full data is visible on every element page.',
               ],
             ].map(([term, def]) => (
-              <div
-                key={term}
-                className="border-l-2 border-border-strong pl-4"
-              >
+              <div key={term} className="border-l-2 border-border-strong pl-4">
                 <dt className="font-semibold text-fg">{term}</dt>
                 <dd className="mt-0.5">{def}</dd>
               </div>
@@ -153,27 +143,16 @@ export default function AboutPage() {
         </section>
 
         <section>
-          <h2 className="mb-3 font-serif text-lg font-semibold text-fg">
-            Data Coverage
-          </h2>
-          <dl className="grid grid-cols-2 gap-px overflow-hidden border border-border bg-border sm:grid-cols-4">
+          <SectionHeading title="Data Coverage" />
+          <StatGrid cols={4}>
             {stats.map(([value, label]) => (
-              <div key={label} className="bg-surface px-4 py-5 text-center">
-                <dd className="font-mono text-2xl tabular-nums text-fg">
-                  {value}
-                </dd>
-                <dt className="mt-1 font-mono text-2xs uppercase tracking-wider text-fg-dim">
-                  {label}
-                </dt>
-              </div>
+              <Stat key={label} label={label} value={value} />
             ))}
-          </dl>
+          </StatGrid>
         </section>
 
         <section>
-          <h2 className="mb-2 font-serif text-lg font-semibold text-fg">
-            Community Contributions
-          </h2>
+          <SectionHeading title="Community Contributions" />
           <p>
             lanthanides.io is open to contributions from researchers, analysts,
             procurement professionals, and anyone with sourced pricing data or
@@ -226,9 +205,7 @@ export default function AboutPage() {
         </section>
 
         <section>
-          <h2 className="mb-2 font-serif text-lg font-semibold text-fg">
-            Contact
-          </h2>
+          <SectionHeading title="Contact" />
           <p>
             For data corrections, source submissions, or questions:{' '}
             <strong className="font-semibold text-fg">mironovb@berea.edu</strong>
@@ -252,6 +229,6 @@ export default function AboutPage() {
           </p>
         </section>
       </div>
-    </main>
+    </Container>
   );
 }

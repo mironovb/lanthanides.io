@@ -49,19 +49,19 @@ export function SiteNav() {
         })}
       </nav>
 
-      {/* Mobile toggle */}
+      {/* Mobile toggle — 44px touch target (a11y minimum). */}
       <button
         type="button"
         aria-label="Toggle navigation menu"
         aria-expanded={open}
         aria-controls="mobile-nav"
         onClick={() => setOpen((v) => !v)}
-        className="flex flex-col gap-1 p-2 md:hidden"
+        className="-mr-2.5 flex h-11 w-11 flex-col items-center justify-center gap-1 text-fg-muted hover:text-fg md:hidden"
       >
         {[0, 1, 2].map((i) => (
           <span
             key={i}
-            className="block h-px w-5 bg-fg-muted"
+            className="block h-px w-5 bg-current"
             aria-hidden="true"
           />
         ))}
@@ -83,7 +83,7 @@ export function SiteNav() {
                 aria-current={active ? 'page' : undefined}
                 onClick={() => setOpen(false)}
                 className={cn(
-                  'py-2 text-sm font-medium transition-colors duration-fast',
+                  'flex min-h-[44px] items-center border-b border-border/60 text-sm font-medium transition-colors duration-fast last:border-0',
                   active ? 'text-accent-strong' : 'text-fg-muted hover:text-fg',
                 )}
               >

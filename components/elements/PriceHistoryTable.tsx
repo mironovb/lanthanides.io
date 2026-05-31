@@ -20,10 +20,12 @@
  *
  * Mirrors ProvenanceTable: a single client island so headers sort in place, but
  * fully present in the SSR HTML (works without JS, stays crawlable). No I/O.
+ * Composes Panel + the shared Table primitives (Prompt 12).
  */
 import { useMemo, useState } from 'react';
 import type { PriceHistory, PriceObservation } from '@/lib/types';
-import { capitalize, fmtUsd } from './format';
+import { Panel, Table, THead, TBody, TR, TH, TD } from '@/components/ui';
+import { capitalize, fmtUsdPrice } from './format';
 
 type SortKey = 'date' | 'tier' | 'form' | 'price_per_kg' | 'source';
 type SortDir = 'asc' | 'desc';
@@ -48,7 +50,7 @@ const COLUMNS: Column[] = [
     label: 'USD/kg',
     sortKey: 'price_per_kg',
     numeric: true,
-    render: (o) => `$${fmtUsd(o.price_per_kg)}`,
+    render: (o) => fmtUsdPrice(o.price_per_kg),
   },
   { label: 'Source', sortKey: 'source', render: (o) => sourceLabel(o) },
 ];
@@ -119,75 +121,46 @@ export function PriceHistoryTable({
   }
 
   return (
-    <section
-      className="mb-6 border border-border bg-surface p-4"
-      aria-labelledby="price-history-title"
-    >
-      <div className="mb-3 flex items-baseline justify-between gap-3 border-b border-border pb-2">
-        <h2
-          id="price-history-title"
-          className="font-serif text-lg font-semibold text-fg"
-        >
-          Price History
-        </h2>
-        <span className="font-mono text-2xs uppercase tracking-wide text-fg-muted">
+    <Panel
+      title="Price History"
+      className="mb-6"
+      actions={
+        <span className="font-mono text-2xs uppercase tracking-caps text-fg-muted">
           {sample}
         </span>
-      </div>
-
-      <div className="overflow-x-auto border border-border">
-        <table className="w-full border-collapse text-sm">
-          <thead>
-            <tr className="bg-raised">
-              {COLUMNS.map((col) => {
-                const active = sort.key === col.sortKey;
-                return (
-                  <th
-                    key={col.label}
-                    aria-sort={
-                      active
-                        ? sort.dir === 'asc'
-                          ? 'ascending'
-                          : 'descending'
-                        : undefined
-                    }
-                    className={`cursor-pointer select-none whitespace-nowrap border-b border-border px-3 py-2 text-2xs font-semibold uppercase tracking-wide text-fg-dim hover:text-fg ${
-                      col.numeric ? 'text-right' : 'text-left'
-                    }`}
-                    onClick={() => onSort(col)}
-                  >
-                    {col.label}
-                    <span className="ml-1 text-fg-dim">
-                      {active ? (sort.dir === 'asc' ? '↑' : '↓') : '↕'}
-                    </span>
-                  </th>
-                );
-              })}
-            </tr>
-          </thead>
-          <tbody>
-            {sorted.map((o, i) => (
-              <tr
-                key={`${o.date}-${o.tier}-${o.record_id ?? i}`}
-                className="border-b border-border last:border-0 odd:bg-surface hover:bg-overlay"
-              >
-                {COLUMNS.map((col) => (
-                  <td
-                    key={col.label}
-                    className={`px-3 py-2 align-top ${
-                      col.numeric
-                        ? 'whitespace-nowrap text-right font-mono tabular-nums text-fg'
-                        : 'text-fg-muted'
-                    }`}
-                  >
-                    {col.render(o)}
-                  </td>
-                ))}
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+      }
+    >
+      <Table bordered={false}>
+        <THead>
+          <TR hover={false}>
+            {COLUMNS.map((col) => {
+              const active = sort.key === col.sortKey;
+              return (
+                <TH
+                  key={col.label}
+                  numeric={col.numeric}
+                  sortable
+                  sortDir={active ? sort.dir : null}
+                  onSort={() => onSort(col)}
+                >
+                  {col.label}
+                </TH>
+              );
+            })}
+          </TR>
+        </THead>
+        <TBody>
+          {sorted.map((o, i) => (
+            <TR key={`${o.date}-${o.tier}-${o.record_id ?? i}`}>
+              {COLUMNS.map((col) => (
+                <TD key={col.label} numeric={col.numeric}>
+                  {col.render(o)}
+                </TD>
+              ))}
+            </TR>
+          ))}
+        </TBody>
+      </Table>
 
       <p className="mt-3 text-xs leading-relaxed text-fg-muted">
         {elementName} price observations as a dated table, not a trend line: the
@@ -195,6 +168,6 @@ export function PriceHistoryTable({
         implying movement between points that was never observed. Click a column
         to sort.
       </p>
-    </section>
+    </Panel>
   );
 }

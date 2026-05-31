@@ -16,6 +16,9 @@ import { notFound } from 'next/navigation';
 import '@/components/content/content-body.css';
 
 import { getArticleContent, getArticleSlugs } from '@/lib/content';
+import { Container } from '@/components/layout';
+import { Breadcrumbs } from '@/components/ui';
+import { formatDate } from '@/lib/format';
 import { Markdown } from '@/components/content/Markdown';
 
 type Params = { slug: string };
@@ -46,16 +49,6 @@ export function generateMetadata({ params }: { params: Params }): Metadata {
   };
 }
 
-function formatDate(iso: string): string {
-  const d = new Date(`${iso}T00:00:00Z`);
-  return d.toLocaleDateString('en-US', {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
-    timeZone: 'UTC',
-  });
-}
-
 const STATUS_BADGE: Record<string, { label: string; classes: string }> = {
   active: { label: 'In Force', classes: 'text-up bg-up/10 border border-up/25' },
   suspended: {
@@ -72,18 +65,15 @@ export default function ArticlePage({ params }: { params: Params }) {
   const status = fm.status ? STATUS_BADGE[fm.status] : undefined;
 
   return (
-    <main className="mx-auto max-w-content px-6 py-10">
-      <nav aria-label="Breadcrumb" className="mb-6 text-sm text-fg-dim">
-        <Link href="/" className="hover:text-fg">
-          Home
-        </Link>
-        <span className="px-2 text-border-strong">/</span>
-        <Link href="/news/" className="hover:text-fg">
-          News
-        </Link>
-        <span className="px-2 text-border-strong">/</span>
-        <span className="text-fg">{fm.title}</span>
-      </nav>
+    <Container as="main" className="py-10">
+      <Breadcrumbs
+        className="mb-5"
+        items={[
+          { label: 'Home', href: '/' },
+          { label: 'News', href: '/news/' },
+          { label: fm.title },
+        ]}
+      />
 
       <article>
         <header className="mb-6 border-b border-border-strong pb-6">
@@ -107,7 +97,7 @@ export default function ArticlePage({ params }: { params: Params }) {
             {fm.title}
           </h1>
           {fm.subtitle && (
-            <p className="mt-3 max-w-prose text-lg leading-relaxed text-fg-muted">
+            <p className="mt-3 max-w-prose text-md leading-relaxed text-fg-muted">
               {fm.subtitle}
             </p>
           )}
@@ -154,6 +144,6 @@ export default function ArticlePage({ params }: { params: Params }) {
           </Link>
         </footer>
       </article>
-    </main>
+    </Container>
   );
 }

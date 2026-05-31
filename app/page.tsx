@@ -1,107 +1,69 @@
 /**
- * Placeholder home (Prompt 3). The crown-jewel-forward home page is built in
- * Prompt 6 (docs/MIGRATION.md §4). This exists only to keep `npm run build`
- * green while the app shell is stood up.
- *
- * Prompt 4 adds a temporary "data layer self-check" panel below: it exercises
- * `lib/data` at build time (SSG) so the integrity assertions run and the counts
- * are proven against the real `_data/` files. Prompt 6 removes this panel when
- * the real home page lands.
+ * Home (placeholder). The crown-jewel-forward home page is built in a later
+ * prompt (docs/MIGRATION.md §4); this is a coherent, design-system-composed
+ * landing that surfaces live coverage counts and routes into the reference
+ * surfaces. All figures come from the live data layer (no fabricated data).
  */
 import {
-  getCategoryCounts,
   getControlledElementCount,
-  getCoverageTally,
   getElements,
-  getPremiumLeaderboard,
   getPriceRecords,
   getRegulatedElements,
   getSources,
 } from '@/lib/data';
+import { Container } from '@/components/layout';
+import { Callout, LinkButton, Stat, StatGrid } from '@/components/ui';
 
 export default function HomePage() {
-  const elements = getElements();
-  const priceRecords = getPriceRecords();
-  const sources = getSources();
+  const elements = getElements().length;
+  const priceRecords = getPriceRecords().length;
   const controlled = getControlledElementCount();
-  const regulated = getRegulatedElements();
-  const categories = getCategoryCounts();
-  const coverage = getCoverageTally();
-  const topPremiums = getPremiumLeaderboard(5);
+  const regulated = getRegulatedElements().length;
+  const sources = getSources().length;
 
-  const stats: Array<[string, string | number]> = [
-    ['elements', elements.length],
-    ['price records', priceRecords.length],
+  const stats: Array<[string, number]> = [
+    ['Elements', elements],
+    ['Price records', priceRecords],
     ['CN-controlled', controlled],
-    ['active regulatory', regulated.length],
-    ['data sources', sources.length],
+    ['Active regulatory', regulated],
+    ['Data sources', sources],
   ];
 
   return (
-    <main className="mx-auto flex min-h-screen max-w-content flex-col justify-center px-6 py-16">
-      <p className="font-mono text-2xs uppercase tracking-[0.2em] text-fg-dim">
-        Strategic Materials Ledger
-      </p>
+    <Container as="main" className="py-16">
+      <p className="eyebrow">Strategic Materials Ledger</p>
 
-      <h1 className="mt-3 font-serif text-4xl font-semibold text-fg">
+      <h1 className="mt-3 font-serif text-4xl font-semibold text-fg sm:text-5xl">
         lanthanides.io
       </h1>
 
-      <p className="mt-4 max-w-prose text-base leading-relaxed text-fg-muted">
+      <p className="mt-4 max-w-prose text-md leading-relaxed text-fg-muted">
         Sourced pricing, supply-chain risk, and regulatory intelligence for
-        rare-earth and strategic materials.
+        rare-earth and strategic materials — open data, fully provenanced, free to
+        use.
       </p>
 
-      <div className="mt-8 inline-flex w-fit items-center gap-2 border border-border bg-surface px-3 py-1.5">
-        <span
-          className="h-1.5 w-1.5 rounded-full bg-risk-medium"
-          aria-hidden="true"
-        />
-        <span className="font-mono text-xs text-fg-muted">
-          Migration in progress — Next.js app shell (Prompt 3 of 25)
-        </span>
+      <div className="mt-6 flex flex-wrap gap-3">
+        <LinkButton href="/elements/" variant="primary">
+          Browse elements
+        </LinkButton>
+        <LinkButton href="/regulatory/">Regulatory tracker</LinkButton>
+        <LinkButton href="/data/" variant="ghost">
+          Open data
+        </LinkButton>
       </div>
 
-      {/* TEMPORARY — Prompt 4 data-layer self-check; removed in Prompt 6. */}
-      <section className="mt-12 border border-border bg-surface p-5">
-        <p className="font-mono text-2xs uppercase tracking-[0.2em] text-fg-dim">
-          Prompt 4 · data layer self-check
-        </p>
+      <StatGrid cols={5} className="mt-15">
+        {stats.map(([label, value]) => (
+          <Stat key={label} label={label} value={value} />
+        ))}
+      </StatGrid>
 
-        <dl className="mt-4 grid grid-cols-2 gap-x-8 gap-y-2 sm:grid-cols-5">
-          {stats.map(([label, value]) => (
-            <div key={label}>
-              <dd className="font-mono text-2xl text-fg">{value}</dd>
-              <dt className="font-mono text-2xs uppercase tracking-wider text-fg-dim">
-                {label}
-              </dt>
-            </div>
-          ))}
-        </dl>
-
-        <p className="mt-5 font-mono text-2xs text-fg-muted">
-          categories — light {categories.rare_earth_light} · heavy{' '}
-          {categories.rare_earth_heavy} · strategic {categories.strategic_metal}{' '}
-          · semiconductor {categories.semiconductor_metal}
-        </p>
-        <p className="mt-1 font-mono text-2xs text-fg-muted">
-          coverage — rich {coverage.rich} · moderate {coverage.moderate} ·
-          sparse {coverage.sparse} · none {coverage.none}
-        </p>
-
-        <p className="mt-5 font-mono text-2xs uppercase tracking-wider text-fg-dim">
-          top retail premiums (retail ÷ bulk)
-        </p>
-        <ul className="mt-2 space-y-1">
-          {topPremiums.map((row) => (
-            <li key={row.symbol} className="font-mono text-xs text-fg-muted">
-              <span className="text-fg">{row.symbol}</span> ×
-              {row.premium.toFixed(1)} — ${row.retail_usd_per_kg.toLocaleString()}{' '}
-              retail / ${row.bulk_usd_per_kg.toLocaleString()} bulk
-            </li>
-          ))}
-        </ul>
-      </section>
-    </main>
+      <Callout tone="note" className="mt-15 max-w-prose">
+        Migration in progress — the terminal-grade design system is being rolled
+        across every page (Prompt 12 of 25). The full home page lands in a later
+        prompt; meanwhile, the reference surfaces above are complete.
+      </Callout>
+    </Container>
   );
 }

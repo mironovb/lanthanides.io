@@ -6,8 +6,10 @@
  * Note (AUDIT §3): this is a *table*, not the per-observation line chart — the
  * line chart is deliberately deferred to Prompts 9–10. Missing windows render as
  * "—" rather than a fabricated zero; the panel renders nothing when the element
- * has no fluctuation entry.
+ * has no fluctuation entry. Composes the shared Panel primitive (Prompt 12).
  */
+import { Panel } from '@/components/ui';
+import { capitalize, formatDate } from '@/lib/format';
 import type {
   DataQuality,
   Fluctuation,
@@ -42,29 +44,22 @@ export function PriceMovementTable({
     fluctuation.data_until && fluctuation.data_until !== fluctuation.data_since;
 
   return (
-    <section
-      className="mb-6 border border-border bg-surface p-4"
-      aria-labelledby={`pm-title-${symbol}`}
-    >
-      <div className="mb-3 flex items-baseline justify-between gap-3 border-b border-border pb-2">
-        <h2
-          id={`pm-title-${symbol}`}
-          className="font-serif text-lg font-semibold text-fg"
-        >
-          Price Movement
-        </h2>
+    <Panel
+      title="Price Movement"
+      className="mb-6"
+      actions={
         <span
-          className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-wide text-fg-muted"
+          className="inline-flex items-center gap-2 text-2xs font-semibold uppercase tracking-caps text-fg-muted"
           title={`Coverage classification: ${fluctuation.observation_count} observation(s) across ${fluctuation.distinct_days} day(s)`}
         >
           <span
             className={`inline-block h-2 w-2 rounded-full ${QUALITY_DOT[quality]}`}
             aria-hidden="true"
           />
-          {capitalizeWord(quality)} data
+          {capitalize(quality)} data
         </span>
-      </div>
-
+      }
+    >
       <div className="overflow-x-auto">
         <table className="w-full border-collapse text-sm">
           <thead>
@@ -75,7 +70,7 @@ export function PriceMovementTable({
               {WINDOWS.map((w) => (
                 <th
                   key={w}
-                  className="px-3 py-2 text-right font-mono text-xs font-semibold uppercase tracking-wide text-fg-dim"
+                  className="px-3 py-2 text-right font-mono text-2xs font-semibold uppercase tracking-caps text-fg-dim"
                 >
                   {w}
                 </th>
@@ -115,14 +110,14 @@ export function PriceMovementTable({
           <>
             Data available since{' '}
             <time dateTime={fluctuation.data_since}>
-              {fluctuation.data_since}
+              {formatDate(fluctuation.data_since)}
             </time>
             {showThrough && (
               <>
                 {' '}
                 through{' '}
                 <time dateTime={fluctuation.data_until}>
-                  {fluctuation.data_until}
+                  {formatDate(fluctuation.data_until)}
                 </time>
               </>
             )}
@@ -138,7 +133,7 @@ export function PriceMovementTable({
           </>
         )}
       </p>
-    </section>
+    </Panel>
   );
 }
 
@@ -185,8 +180,4 @@ function MovementCell({
       <span aria-hidden="true">—</span> flat
     </td>
   );
-}
-
-function capitalizeWord(s: string): string {
-  return s.charAt(0).toUpperCase() + s.slice(1);
 }

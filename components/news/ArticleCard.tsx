@@ -2,28 +2,20 @@
  * A feature-article tile for the /news index (Prompt 8) — ports the legacy
  * `np-tile` markup. Links to /news/[slug]/. Renders the real thumbnail when the
  * article declares one (image_thumb), otherwise the legacy placeholder glyph, so
- * the grid stays even regardless of which articles have art.
+ * the grid stays even regardless of which articles have art. Composes the shared
+ * Card primitive + the shared date formatter (Prompt 12).
  */
 import Link from 'next/link';
+import { Card } from '@/components/ui';
+import { formatDate } from '@/lib/format';
 import type { ArticleContent } from '@/lib/content';
-
-function formatDate(iso: string): string {
-  // 'YYYY-MM-DD' → 'Mon D, YYYY' (UTC so SSG output is deterministic).
-  const d = new Date(`${iso}T00:00:00Z`);
-  return d.toLocaleDateString('en-US', {
-    year: 'numeric',
-    month: 'short',
-    day: 'numeric',
-    timeZone: 'UTC',
-  });
-}
 
 export function ArticleCard({ article }: { article: ArticleContent }) {
   const { slug, frontMatter: fm } = article;
   const href = `/news/${slug}/`;
 
   return (
-    <article className="group flex flex-col border border-border bg-surface transition-colors hover:border-border-strong">
+    <Card as="article" padding="none" interactive className="group flex flex-col">
       <Link href={href} className="block aspect-[16/9] overflow-hidden bg-raised">
         {fm.image_thumb ? (
           // eslint-disable-next-line @next/next/no-img-element
@@ -99,6 +91,6 @@ export function ArticleCard({ article }: { article: ArticleContent }) {
           </div>
         )}
       </div>
-    </article>
+    </Card>
   );
 }

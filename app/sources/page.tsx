@@ -11,6 +11,8 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { getSiteSettings, getSources } from '@/lib/data';
+import { Container, PageHeader } from '@/components/layout';
+import { Callout, SectionHeading, Table, THead, TBody, TR, TH, TD } from '@/components/ui';
 import { capitalize } from '@/components/elements/format';
 
 export const metadata: Metadata = {
@@ -34,6 +36,9 @@ const REVIEW_STYLE: Record<string, string> = {
   pending: 'text-risk-medium',
 };
 
+const PILL =
+  'inline-block rounded-sm px-1.5 py-0.5 font-mono text-2xs font-semibold';
+
 export default function SourcesPage() {
   const settings = getSiteSettings();
   const sources = getSources();
@@ -43,155 +48,117 @@ export default function SourcesPage() {
   );
 
   return (
-    <main className="mx-auto max-w-content px-6 py-10">
-      <nav aria-label="Breadcrumb" className="mb-6 text-sm text-fg-dim">
-        <Link href="/" className="hover:text-fg">
-          Home
-        </Link>
-        <span className="px-2 text-border-strong">/</span>
-        <span className="text-fg">Sources</span>
-      </nav>
-
-      <header className="mb-8 border-b border-border-strong pb-6">
-        <h1 className="font-serif text-3xl font-semibold text-fg">Data Sources</h1>
-        <p className="mt-3 max-w-prose text-base leading-relaxed text-fg-muted">
-          Every price record names its source. Sources are classified into five
-          trust tiers and tracked in a reviewable registry. See{' '}
-          <Link
-            href="/methodology/"
-            className="text-fg underline decoration-dotted underline-offset-2 hover:text-accent-strong"
-          >
-            Methodology
-          </Link>{' '}
-          for how trust tiers gate reference-price selection.
-        </p>
-      </header>
+    <Container as="main" className="py-10">
+      <PageHeader
+        crumbs={[{ label: 'Home', href: '/' }, { label: 'Sources' }]}
+        eyebrow="Provenance"
+        title="Data Sources"
+        lead={
+          <>
+            Every price record names its source. Sources are classified into five
+            trust tiers and tracked in a reviewable registry. See{' '}
+            <Link
+              href="/methodology/"
+              className="text-fg underline decoration-dotted underline-offset-2 hover:text-accent-strong"
+            >
+              Methodology
+            </Link>{' '}
+            for how trust tiers gate reference-price selection.
+          </>
+        }
+      />
 
       {/* ── Trust tiers ──────────────────────────────────────────────────── */}
-      <section>
-        <h2 className="mb-3 border-b border-border pb-2 font-serif text-lg font-semibold text-fg">
-          Trust Tiers
-        </h2>
-        <div className="overflow-x-auto border border-border">
-          <table className="w-full border-collapse text-sm">
-            <thead>
-              <tr className="bg-surface text-left">
-                <th className="border-b-2 border-border-strong px-3 py-2 text-right text-2xs font-semibold uppercase tracking-wide text-fg-dim">
-                  Tier
-                </th>
-                <th className="border-b-2 border-border-strong px-3 py-2 text-2xs font-semibold uppercase tracking-wide text-fg-dim">
-                  Description
-                </th>
-                <th className="border-b-2 border-border-strong px-3 py-2 text-2xs font-semibold uppercase tracking-wide text-fg-dim">
-                  Reliability
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              {tiers.map(([tier, description]) => {
-                const rel = TIER_RELIABILITY[Number(tier)];
-                return (
-                  <tr
-                    key={tier}
-                    className="border-b border-border last:border-0 hover:bg-overlay"
-                  >
-                    <td className="px-3 py-2 text-right font-mono tabular-nums text-fg">
-                      {tier}
-                    </td>
-                    <td className="px-3 py-2 text-fg-muted">{description}</td>
-                    <td className="px-3 py-2">
-                      {rel && (
-                        <span
-                          className={`inline-block rounded-sm px-1.5 py-0.5 font-mono text-2xs font-semibold ${rel.classes}`}
-                        >
-                          {rel.label}
-                        </span>
-                      )}
-                    </td>
-                  </tr>
-                );
-              })}
-            </tbody>
-          </table>
-        </div>
+      <section className="mt-12">
+        <SectionHeading title="Trust Tiers" />
+        <Table>
+          <THead>
+            <TR hover={false}>
+              <TH numeric>Tier</TH>
+              <TH>Description</TH>
+              <TH>Reliability</TH>
+            </TR>
+          </THead>
+          <TBody>
+            {tiers.map(([tier, description]) => {
+              const rel = TIER_RELIABILITY[Number(tier)];
+              return (
+                <TR key={tier}>
+                  <TD numeric>{tier}</TD>
+                  <TD>{description}</TD>
+                  <TD>
+                    {rel && (
+                      <span className={`${PILL} ${rel.classes}`}>
+                        {rel.label}
+                      </span>
+                    )}
+                  </TD>
+                </TR>
+              );
+            })}
+          </TBody>
+        </Table>
       </section>
 
       {/* ── Registered sources ───────────────────────────────────────────── */}
-      <section className="mt-10">
-        <h2 className="mb-3 flex items-baseline gap-2 border-b border-border pb-2 font-serif text-lg font-semibold text-fg">
-          Registered Sources
-          <span className="ml-auto font-mono text-xs font-normal text-fg-dim">
-            {sources.length}
-          </span>
-        </h2>
+      <section className="mt-12">
+        <SectionHeading title="Registered Sources" count={sources.length} />
 
         {sources.length > 0 ? (
-          <div className="overflow-x-auto border border-border">
-            <table className="w-full border-collapse text-sm">
-              <thead>
-                <tr className="bg-surface text-left">
-                  {['Source', 'Type', 'Trust Tier', 'Country', 'Supported Elements', 'Status', 'Review'].map(
-                    (h) => (
-                      <th
-                        key={h}
-                        className="border-b-2 border-border-strong px-3 py-2 text-2xs font-semibold uppercase tracking-wide text-fg-dim"
-                      >
-                        {h}
-                      </th>
-                    ),
-                  )}
-                </tr>
-              </thead>
-              <tbody>
-                {sources.map((source) => (
-                  <tr
-                    key={source.id}
-                    className="border-b border-border align-top last:border-0 hover:bg-overlay"
-                  >
-                    <td className="px-3 py-2 font-medium text-fg">{source.name}</td>
-                    <td className="px-3 py-2 text-fg-muted">{capitalize(source.type)}</td>
-                    <td className="px-3 py-2 font-mono tabular-nums text-fg-muted">
-                      {source.trust_tier}
-                    </td>
-                    <td className="px-3 py-2 font-mono text-fg-muted">
-                      {source.country || '—'}
-                    </td>
-                    <td className="px-3 py-2">
-                      <span className="mb-1 block font-mono text-2xs text-fg-dim">
-                        {source.supported_elements.length} elements
+          <Table>
+            <THead>
+              <TR hover={false}>
+                {['Source', 'Type', 'Trust Tier', 'Country', 'Supported Elements', 'Status', 'Review'].map(
+                  (h) => (
+                    <TH key={h}>{h}</TH>
+                  ),
+                )}
+              </TR>
+            </THead>
+            <TBody>
+              {sources.map((source) => (
+                <TR key={source.id}>
+                  <TD className="font-medium">
+                    <span className="text-fg">{source.name}</span>
+                  </TD>
+                  <TD>{capitalize(source.type)}</TD>
+                  <TD className="font-mono tabular-nums">{source.trust_tier}</TD>
+                  <TD className="font-mono">{source.country || '—'}</TD>
+                  <TD>
+                    <span className="mb-1 block font-mono text-2xs text-fg-dim">
+                      {source.supported_elements.length} elements
+                    </span>
+                    <span className="flex flex-wrap gap-1">
+                      {source.supported_elements.map((sym) => (
+                        <code
+                          key={sym}
+                          className="rounded-sm bg-overlay px-1 py-px font-mono text-2xs text-fg-muted"
+                        >
+                          {sym}
+                        </code>
+                      ))}
+                    </span>
+                  </TD>
+                  <TD>
+                    {source.parse_status === 'active' ? (
+                      <span className={`${PILL} border border-up/25 bg-up/10 text-up`}>
+                        Active
                       </span>
-                      <span className="flex flex-wrap gap-1">
-                        {source.supported_elements.map((sym) => (
-                          <code
-                            key={sym}
-                            className="rounded-sm bg-overlay px-1 py-px font-mono text-2xs text-fg-muted"
-                          >
-                            {sym}
-                          </code>
-                        ))}
+                    ) : (
+                      <span className="font-mono text-2xs text-fg-dim">
+                        {source.parse_status}
                       </span>
-                    </td>
-                    <td className="px-3 py-2">
-                      {source.parse_status === 'active' ? (
-                        <span className="inline-block rounded-sm border border-up/25 bg-up/10 px-1.5 py-0.5 font-mono text-2xs font-semibold text-up">
-                          Active
-                        </span>
-                      ) : (
-                        <span className="font-mono text-2xs text-fg-dim">
-                          {source.parse_status}
-                        </span>
-                      )}
-                    </td>
-                    <td
-                      className={`px-3 py-2 text-xs ${REVIEW_STYLE[source.review_status] ?? 'text-fg-dim'}`}
-                    >
+                    )}
+                  </TD>
+                  <TD className="text-xs">
+                    <span className={REVIEW_STYLE[source.review_status] ?? 'text-fg-dim'}>
                       {capitalize(source.review_status)}
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
+                    </span>
+                  </TD>
+                </TR>
+              ))}
+            </TBody>
+          </Table>
         ) : (
           <div className="border border-border bg-surface px-4 py-6 text-sm text-fg-dim">
             No sources are registered yet.
@@ -200,18 +167,13 @@ export default function SourcesPage() {
       </section>
 
       {/* ── Disclaimer (legacy disclaimer.html) ──────────────────────────── */}
-      <aside className="mt-10 border border-l-[3px] border-border border-l-accent bg-surface px-5 py-4 text-sm leading-relaxed text-fg-muted">
+      <Callout tone="note" glyph={null} className="mt-12">
         <strong className="text-fg">Disclaimer:</strong> All prices shown require
         source provenance. No data is fabricated or interpolated. Prices are
         normalised to USD/kg for comparability; original quoted units are
         preserved in provenance records. Retail and bulk tiers are never merged.{' '}
-        <Link
-          href="/methodology/"
-          className="text-fg underline decoration-dotted underline-offset-2 hover:text-accent-strong"
-        >
-          Full methodology →
-        </Link>
-      </aside>
-    </main>
+        <Link href="/methodology/">Full methodology →</Link>
+      </Callout>
+    </Container>
   );
 }

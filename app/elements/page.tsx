@@ -11,8 +11,9 @@
  * next.config.mjs alongside the other commercial routes (MIGRATION §3.5).
  */
 import type { Metadata } from 'next';
-import Link from 'next/link';
 import { getElementsByCategory, getReferencePrices } from '@/lib/data';
+import { Container, PageHeader } from '@/components/layout';
+import { SectionHeading } from '@/components/ui';
 import {
   CATEGORY_ORDER,
   CATEGORY_STYLE,
@@ -35,24 +36,13 @@ export default function ElementsIndexPage() {
   );
 
   return (
-    <main className="mx-auto max-w-content px-6 py-10">
-      <nav aria-label="Breadcrumb" className="mb-6 text-sm text-fg-dim">
-        <Link href="/" className="hover:text-fg">
-          Home
-        </Link>
-        <span className="px-2 text-border-strong">/</span>
-        <span className="text-fg">All Elements</span>
-      </nav>
-
-      <h1 className="font-serif text-3xl font-semibold text-fg">
-        All Rare Earth &amp; Strategic Metal Prices
-      </h1>
-      <p className="mt-3 max-w-prose text-base leading-relaxed text-fg-muted">
-        Current prices per kilogram for {total} rare earth elements, strategic
-        metals, and semiconductor materials. Each element shows a retail
-        reference and bulk benchmark with export-control status. Prices are
-        normalised to USD/kg from verified, in-stock listings.
-      </p>
+    <Container as="main" className="py-10">
+      <PageHeader
+        crumbs={[{ label: 'Home', href: '/' }, { label: 'All Elements' }]}
+        eyebrow="Reference · Price Ledger"
+        title="All Rare Earth & Strategic Metal Prices"
+        lead={`Current prices per kilogram for ${total} rare earth elements, strategic metals, and semiconductor materials. Each element shows a retail reference and bulk benchmark with export-control status. Prices are normalised to USD/kg from verified, in-stock listings.`}
+      />
 
       {CATEGORY_ORDER.map((cat) => {
         const elements = [...byCategory[cat]].sort(
@@ -62,17 +52,12 @@ export default function ElementsIndexPage() {
         const style = CATEGORY_STYLE[cat];
 
         return (
-          <section key={cat} className="mt-10">
-            <h2 className="mb-3 flex items-center gap-2 border-b border-border pb-2 font-serif text-lg font-semibold text-fg">
-              <span
-                className={`inline-block h-3.5 w-[3px] ${style.swatch}`}
-                aria-hidden="true"
-              />
-              {style.label}
-              <span className="ml-auto font-mono text-xs font-normal text-fg-dim">
-                {elements.length}
-              </span>
-            </h2>
+          <section key={cat} className="mt-12">
+            <SectionHeading
+              swatch={style.swatch}
+              title={style.label}
+              count={elements.length}
+            />
 
             <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
               {elements.map((element) => {
@@ -93,7 +78,7 @@ export default function ElementsIndexPage() {
         );
       })}
 
-      <div className="mt-10 flex flex-wrap gap-x-5 gap-y-3 border-t border-border pt-4 text-xs text-fg-muted">
+      <div className="mt-12 flex flex-wrap gap-x-5 gap-y-3 border-t border-border pt-4 text-xs text-fg-muted">
         <span className="flex items-center gap-1">
           <span aria-hidden="true">❗</span> China export control active
         </span>
@@ -104,7 +89,7 @@ export default function ElementsIndexPage() {
         <LegendTag kind="monitored" /> Under surveillance
         <LegendTag kind="normal" /> No restrictions
       </div>
-    </main>
+    </Container>
   );
 }
 

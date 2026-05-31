@@ -22,13 +22,16 @@ export function Table({
   children,
   className,
   caption,
+  bordered = true,
 }: {
   children: React.ReactNode;
   className?: string;
   caption?: React.ReactNode;
+  /** Outer border + scroll container. Set false when nested in a Card/Panel. */
+  bordered?: boolean;
 }) {
   return (
-    <div className="overflow-x-auto border border-border">
+    <div className={cn('overflow-x-auto', bordered && 'border border-border')}>
       <table className={cn('w-full border-collapse text-sm', className)}>
         {caption ? (
           <caption className="px-3 py-2 text-left text-2xs text-fg-dim">

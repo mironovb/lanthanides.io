@@ -3,10 +3,12 @@
  * element detail page — a port of the two-card row in
  * legacy/_layouts/element-detail.html. The retail card additionally shows the
  * quoted quantity and the retail-premium multiple; the bulk card shows the
- * incoterm. Records come pre-selected from `getReferencePrices()`.
+ * incoterm. Records come pre-selected from `getReferencePrices()`. Composes the
+ * shared Card primitive (Prompt 12).
  */
+import { Card } from '@/components/ui';
 import type { PriceRecord } from '@/lib/types';
-import { capitalize, fmtQuantity, fmtUsd } from './format';
+import { capitalize, fmtQuantity, fmtUsdPrice, formatDate } from './format';
 
 interface ReferencePriceCardProps {
   label: string;
@@ -27,15 +29,13 @@ export function ReferencePriceCard({
   premium,
 }: ReferencePriceCardProps) {
   return (
-    <div className="border border-border bg-surface p-4">
-      <div className="text-2xs font-semibold uppercase tracking-wider text-fg-dim">
-        {label}
-      </div>
+    <Card>
+      <p className="eyebrow">{label}</p>
 
       {record ? (
         <>
           <div className="mt-2 font-mono text-3xl font-bold leading-none tabular-nums text-fg">
-            ${fmtUsd(record.normalized_usd_per_kg)}
+            {fmtUsdPrice(record.normalized_usd_per_kg)}
             <span className="text-sm font-normal text-fg-muted">/kg</span>
           </div>
 
@@ -53,7 +53,7 @@ export function ReferencePriceCard({
               <> · {record.seller_country}</>
             ) : null}
             {' · '}
-            {record.quote_date}
+            {formatDate(record.quote_date)}
           </div>
 
           {kind === 'retail' && premium && (
@@ -68,6 +68,6 @@ export function ReferencePriceCard({
           <div className="mt-1 text-sm text-fg-muted">{emptyText}</div>
         </>
       )}
-    </div>
+    </Card>
   );
 }

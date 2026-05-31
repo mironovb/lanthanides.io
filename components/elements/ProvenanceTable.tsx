@@ -11,11 +11,12 @@
  * column headers sort in place (default: newest first). Everything renders in the
  * initial SSR HTML too, so it works without JS and stays crawlable. Records are
  * passed in from the server (`getPriceRecords(symbol)`); this component does no
- * I/O. Expands the legacy 6-column `provenance-table.html` to the full schema.
+ * I/O. Composes the shared Table primitives (Prompt 12) for consistent styling.
  */
 import { useMemo, useState } from 'react';
 import type { PriceRecord } from '@/lib/types';
-import { capitalize, fmtUsd, humanize } from './format';
+import { Table, THead, TBody, TR, TH, TD } from '@/components/ui';
+import { capitalize, fmtUsd, fmtUsdPrice, humanize } from './format';
 
 type SortKey =
   | 'quote_date'
@@ -55,7 +56,7 @@ const COLUMNS: Column[] = [
     label: 'USD/kg',
     sortKey: 'normalized_usd_per_kg',
     numeric: true,
-    render: (r) => `$${fmtUsd(r.normalized_usd_per_kg)}`,
+    render: (r) => fmtUsdPrice(r.normalized_usd_per_kg),
   },
   {
     label: 'Original',
@@ -108,13 +109,11 @@ export function ProvenanceTable({ records }: { records: PriceRecord[] }) {
     [records, sort],
   );
 
-  function onSort(col: Column) {
-    if (!col.sortKey) return;
-    const key = col.sortKey;
+  function onSort(key: SortKey, numeric?: boolean) {
     setSort((prev) =>
       prev.key === key
         ? { key, dir: prev.dir === 'asc' ? 'desc' : 'asc' }
-        : { key, dir: col.numeric || key === 'quote_date' ? 'desc' : 'asc' },
+        : { key, dir: numeric || key === 'quote_date' ? 'desc' : 'asc' },
     );
   }
 
@@ -128,61 +127,41 @@ export function ProvenanceTable({ records }: { records: PriceRecord[] }) {
 
   return (
     <div>
-      <div className="overflow-x-auto border border-border">
-        <table className="w-full border-collapse text-sm">
-          <thead>
-            <tr className="bg-raised">
-              {COLUMNS.map((col) => {
-                const active = col.sortKey && sort.key === col.sortKey;
-                return (
-                  <th
-                    key={col.label}
-                    aria-sort={
-                      active
-                        ? sort.dir === 'asc'
-                          ? 'ascending'
-                          : 'descending'
-                        : undefined
-                    }
-                    className={`whitespace-nowrap border-b border-border px-3 py-2 text-2xs font-semibold uppercase tracking-wide text-fg-dim ${
-                      col.numeric ? 'text-right' : 'text-left'
-                    } ${col.sortKey ? 'cursor-pointer select-none hover:text-fg' : ''}`}
-                    onClick={() => onSort(col)}
-                  >
-                    {col.label}
-                    {col.sortKey ? (
-                      <span className="ml-1 text-fg-dim">
-                        {active ? (sort.dir === 'asc' ? '↑' : '↓') : '↕'}
-                      </span>
-                    ) : null}
-                  </th>
-                );
-              })}
-            </tr>
-          </thead>
-          <tbody>
-            {sorted.map((r) => (
-              <tr
-                key={r.id}
-                className="border-b border-border last:border-0 odd:bg-surface hover:bg-overlay"
-              >
-                {COLUMNS.map((col) => (
-                  <td
-                    key={col.label}
-                    className={`px-3 py-2 align-top ${
-                      col.numeric
-                        ? 'whitespace-nowrap text-right font-mono tabular-nums text-fg'
-                        : 'text-fg-muted'
-                    }`}
-                  >
-                    {col.render(r)}
-                  </td>
-                ))}
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+      <Table>
+        <THead>
+          <TR hover={false}>
+            {COLUMNS.map((col) => {
+              const active = col.sortKey && sort.key === col.sortKey;
+              return (
+                <TH
+                  key={col.label}
+                  numeric={col.numeric}
+                  sortable={!!col.sortKey}
+                  sortDir={active ? sort.dir : col.sortKey ? null : undefined}
+                  onSort={
+                    col.sortKey
+                      ? () => onSort(col.sortKey!, col.numeric)
+                      : undefined
+                  }
+                >
+                  {col.label}
+                </TH>
+              );
+            })}
+          </TR>
+        </THead>
+        <TBody>
+          {sorted.map((r) => (
+            <TR key={r.id}>
+              {COLUMNS.map((col) => (
+                <TD key={col.label} numeric={col.numeric}>
+                  {col.render(r)}
+                </TD>
+              ))}
+            </TR>
+          ))}
+        </TBody>
+      </Table>
       <p className="mt-2 font-mono text-2xs text-fg-dim">
         {records.length} record{records.length !== 1 ? 's' : ''} · click a column
         to sort

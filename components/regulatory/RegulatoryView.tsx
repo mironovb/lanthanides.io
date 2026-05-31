@@ -9,11 +9,12 @@
  * Everything is server-rendered in the initial HTML (this client component is
  * SSR'd with `selected = null`, i.e. all notices + events visible), so the page
  * is fully readable and crawlable without JS — filtering is pure progressive
- * enhancement, exactly as the original promised.
+ * enhancement, exactly as the original promised. Composes the shared FilterChips
+ * + SectionHeading primitives (Prompt 12).
  */
 import { useMemo, useState } from 'react';
 import type { PolicyEvent, RegulatoryNotice } from '@/lib/types';
-import { ElementFilter } from './ElementFilter';
+import { FilterChips, SectionHeading } from '@/components/ui';
 import { RegulatoryNoticeCard } from './RegulatoryNoticeCard';
 import { RegulatoryTimeline } from './RegulatoryTimeline';
 
@@ -27,6 +28,11 @@ export function RegulatoryView({
   filterElements: string[];
 }) {
   const [selected, setSelected] = useState<string | null>(null);
+
+  const filterOptions = useMemo(
+    () => filterElements.map((sym) => ({ value: sym, label: sym })),
+    [filterElements],
+  );
 
   const visibleNotices = useMemo(
     () =>
@@ -46,26 +52,23 @@ export function RegulatoryView({
 
   return (
     <>
-      <ElementFilter
-        elements={filterElements}
-        selected={selected}
-        onSelect={setSelected}
+      <FilterChips
+        options={filterOptions}
+        value={selected}
+        onChange={setSelected}
+        label="Filter by element"
+        className="mt-8"
       />
 
       <section className="mt-8">
-        <h2 className="flex items-baseline gap-2 border-b border-border-strong pb-2 font-serif text-xl font-semibold text-fg">
-          Active Control Regimes
-          <span className="ml-auto font-mono text-xs font-normal text-fg-dim">
-            {visibleNotices.length}
-          </span>
-        </h2>
-        <p className="mt-2 max-w-prose text-sm text-fg-muted">
-          Each card represents a distinct regulatory action. Status reflects the
-          current state of each control regime.
-        </p>
+        <SectionHeading
+          title="Active Control Regimes"
+          count={visibleNotices.length}
+          description="Each card represents a distinct regulatory action. Status reflects the current state of each control regime."
+        />
 
         {visibleNotices.length > 0 ? (
-          <div className="mt-4 grid gap-4 [grid-template-columns:repeat(auto-fill,minmax(min(100%,320px),1fr))]">
+          <div className="grid gap-4 [grid-template-columns:repeat(auto-fill,minmax(min(100%,320px),1fr))]">
             {visibleNotices.map((notice) => (
               <RegulatoryNoticeCard key={notice.notice_id} notice={notice} />
             ))}
@@ -76,16 +79,11 @@ export function RegulatoryView({
       </section>
 
       <section className="mt-10">
-        <h2 className="flex items-baseline gap-2 border-b border-border-strong pb-2 font-serif text-xl font-semibold text-fg">
-          Announcement Timeline
-          <span className="ml-auto font-mono text-xs font-normal text-fg-dim">
-            {visibleEvents.length}
-          </span>
-        </h2>
-        <p className="mb-4 mt-2 max-w-prose text-sm text-fg-muted">
-          All published Chinese export-control announcements affecting rare
-          earths, strategic metals, and semiconductor materials — newest first.
-        </p>
+        <SectionHeading
+          title="Announcement Timeline"
+          count={visibleEvents.length}
+          description="All published Chinese export-control announcements affecting rare earths, strategic metals, and semiconductor materials — newest first."
+        />
 
         {visibleEvents.length > 0 ? (
           <RegulatoryTimeline events={visibleEvents} />
@@ -99,7 +97,7 @@ export function RegulatoryView({
 
 function EmptyHint({ symbol, noun }: { symbol: string | null; noun: string }) {
   return (
-    <p className="mt-4 border border-dashed border-border bg-surface px-4 py-6 text-center text-sm text-fg-dim">
+    <p className="border border-dashed border-border bg-surface px-4 py-6 text-center text-sm text-fg-dim">
       No {noun}
       {symbol ? (
         <>

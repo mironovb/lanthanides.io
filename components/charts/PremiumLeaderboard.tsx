@@ -13,12 +13,13 @@
  *
  * A client island purely so headers sort in place (mirrors ProvenanceTable /
  * PriceHistoryTable); fully present in the SSR HTML, works without JS. No I/O —
- * rows are passed in from the server.
+ * rows are passed in from the server. Composes the shared Table primitives (P12).
  */
 import { useMemo, useState } from 'react';
 import Link from 'next/link';
 import type { PremiumLeaderboardRow } from '@/lib/types';
-import { fmtPremium, fmtUsd } from '@/components/elements/format';
+import { Table, THead, TBody, TR, TH, TD } from '@/components/ui';
+import { fmtPremium, fmtUsdPrice } from '@/components/elements/format';
 
 type SortKey = 'symbol' | 'retail' | 'bulk' | 'premium';
 type SortDir = 'asc' | 'desc';
@@ -75,71 +76,54 @@ export function PremiumLeaderboard({ rows }: { rows: PremiumLeaderboardRow[] }) 
 
   return (
     <div>
-      <div className="overflow-x-auto border border-border">
-        <table className="w-full border-collapse text-sm">
-          <thead>
-            <tr className="bg-raised">
-              {COLUMNS.map((col) => {
-                const active = sort.key === col.sortKey;
-                return (
-                  <th
-                    key={col.label}
-                    aria-sort={
-                      active
-                        ? sort.dir === 'asc'
-                          ? 'ascending'
-                          : 'descending'
-                        : undefined
-                    }
-                    className={`cursor-pointer select-none whitespace-nowrap border-b border-border px-3 py-2 text-2xs font-semibold uppercase tracking-wide text-fg-dim hover:text-fg ${
-                      col.numeric ? 'text-right' : 'text-left'
-                    }`}
-                    onClick={() => onSort(col)}
-                  >
-                    {col.label}
-                    <span className="ml-1 text-fg-dim">
-                      {active ? (sort.dir === 'asc' ? '↑' : '↓') : '↕'}
-                    </span>
-                  </th>
-                );
-              })}
-              <th className="whitespace-nowrap border-b border-border px-3 py-2 text-left text-2xs font-semibold uppercase tracking-wide text-fg-dim">
-                Basis
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            {sorted.map((r) => (
-              <tr
-                key={r.symbol}
-                className="border-b border-border last:border-0 odd:bg-surface hover:bg-overlay"
-              >
-                <td className="px-3 py-2">
-                  <Link
-                    href={`/elements/${r.symbol}/`}
-                    className="font-medium text-fg hover:text-accent-strong"
-                  >
-                    <span className="font-mono">{r.symbol}</span>{' '}
-                    <span className="text-fg-muted">{r.name}</span>
-                  </Link>
-                </td>
-                <td className="whitespace-nowrap px-3 py-2 text-right font-mono tabular-nums text-fg">
-                  ${fmtUsd(r.retail_usd_per_kg)}
-                </td>
-                <td className="whitespace-nowrap px-3 py-2 text-right font-mono tabular-nums text-fg">
-                  ${fmtUsd(r.bulk_usd_per_kg)}
-                </td>
-                <td className="whitespace-nowrap px-3 py-2 text-right font-mono tabular-nums font-semibold text-accent-strong">
+      <Table>
+        <THead>
+          <TR hover={false}>
+            {COLUMNS.map((col) => {
+              const active = sort.key === col.sortKey;
+              return (
+                <TH
+                  key={col.label}
+                  numeric={col.numeric}
+                  sortable
+                  sortDir={active ? sort.dir : null}
+                  onSort={() => onSort(col)}
+                >
+                  {col.label}
+                </TH>
+              );
+            })}
+            <TH>Basis</TH>
+          </TR>
+        </THead>
+        <TBody>
+          {sorted.map((r) => (
+            <TR key={r.symbol}>
+              <TD>
+                <Link
+                  href={`/elements/${r.symbol}/`}
+                  className="font-medium text-fg hover:text-accent-strong"
+                >
+                  <span className="font-mono">{r.symbol}</span>{' '}
+                  <span className="text-fg-muted">{r.name}</span>
+                </Link>
+              </TD>
+              <TD numeric>{fmtUsdPrice(r.retail_usd_per_kg)}</TD>
+              <TD numeric>{fmtUsdPrice(r.bulk_usd_per_kg)}</TD>
+              <TD numeric>
+                <span className="font-semibold text-accent-strong">
                   {fmtPremium(r.premium)}×
-                </td>
-                <td className="whitespace-nowrap px-3 py-2 text-left font-mono text-2xs text-fg-dim">
+                </span>
+              </TD>
+              <TD className="whitespace-nowrap font-mono text-2xs">
+                <span className="text-fg-dim">
                   {r.retail_form} / {r.bulk_form}
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+                </span>
+              </TD>
+            </TR>
+          ))}
+        </TBody>
+      </Table>
       <p className="mt-3 text-xs leading-relaxed text-fg-muted">
         Latest retail reference ÷ latest bulk benchmark, ranked by premium. The
         <span className="text-fg-dim"> Basis</span> column shows the form each

@@ -8,7 +8,7 @@
 import Link from 'next/link';
 import type { Element, PriceRecord } from '@/lib/types';
 import { CATEGORY_STYLE, CONTROL_STYLE } from './categories';
-import { fmtUsd } from './format';
+import { fmtUsdPrice } from './format';
 
 interface ElementCardProps {
   element: Element;
@@ -75,7 +75,7 @@ function PriceRow({
       <span className="text-2xs uppercase tracking-wide text-fg-dim">{label}</span>
       {record ? (
         <span className={`tabular-nums ${className}`}>
-          ${fmtUsd(record.normalized_usd_per_kg)}
+          {fmtUsdPrice(record.normalized_usd_per_kg)}
           <span className="text-2xs text-fg-dim">/kg</span>
         </span>
       ) : (

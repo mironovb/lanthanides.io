@@ -20,6 +20,8 @@ import {
   getSourceBreakdown,
   getSources,
 } from '@/lib/data';
+import { Container, PageHeader } from '@/components/layout';
+import { Callout, SectionHeading, Stat, StatGrid } from '@/components/ui';
 import { CoverageGrid } from '@/components/charts/CoverageGrid';
 import { MarketStructure } from '@/components/charts/MarketStructure';
 import { PremiumLeaderboard } from '@/components/charts/PremiumLeaderboard';
@@ -62,118 +64,91 @@ export default function DataPage() {
       href: '/api/export/json/',
       meta: `${priceRecords} records · application/json`,
       desc: 'The canonical price store: every sourced, normalised USD/kg record with seller, date, form, purity, quantity, and verification status.',
-      external: false,
     },
     {
       title: 'Price records — CSV',
       href: '/api/export/csv/',
       meta: `${priceRecords} rows · text/csv`,
       desc: 'The same dataset as a flat spreadsheet table — one row per record, every field as a column.',
-      external: false,
     },
     {
       title: 'Price fluctuations — JSON',
       href: '/assets/data/fluctuations.json',
       meta: 'Per-element windows · application/json',
       desc: 'Pre-computed price-change windows (7d/30d/90d/1y/all-time) per element and tier, with confidence and observation counts.',
-      external: false,
     },
   ];
 
   return (
-    <main className="mx-auto max-w-content px-6 py-10">
-      <nav aria-label="Breadcrumb" className="mb-6 text-sm text-fg-dim">
-        <Link href="/" className="hover:text-fg">
-          Home
-        </Link>
-        <span className="px-2 text-border-strong">/</span>
-        <span className="text-fg">Open Data</span>
-      </nav>
-
-      <header className="border-b border-border-strong pb-6">
-        <h1 className="font-serif text-3xl font-semibold text-fg">Open Data</h1>
-        <p className="mt-3 max-w-prose text-base leading-relaxed text-fg-muted">
-          The full dataset behind lanthanides.io is open and inspectable. Every
-          price carries source provenance; nothing is fabricated, interpolated, or
-          model-generated. The data lives as versioned files in git — so it can be
-          forked, audited, diffed, and cited — and is also served here as
-          ready-to-use JSON and CSV exports.
-        </p>
-      </header>
+    <Container as="main" className="py-10">
+      <PageHeader
+        crumbs={[{ label: 'Home', href: '/' }, { label: 'Open Data' }]}
+        eyebrow="Open Data"
+        title="Open Data"
+        lead="The full dataset behind lanthanides.io is open and inspectable. Every price carries source provenance; nothing is fabricated, interpolated, or model-generated. The data lives as versioned files in git — so it can be forked, audited, diffed, and cited — and is also served here as ready-to-use JSON and CSV exports."
+      />
 
       {/* ── Coverage ─────────────────────────────────────────────────────── */}
-      <dl className="mt-8 grid grid-cols-2 gap-px overflow-hidden border border-border bg-border sm:grid-cols-5">
+      <StatGrid cols={5} className="mt-10">
         {stats.map(([value, label]) => (
-          <div key={label} className="bg-surface px-4 py-5 text-center">
-            <dd className="font-mono text-2xl tabular-nums text-fg">{value}</dd>
-            <dt className="mt-1 font-mono text-2xs uppercase tracking-wider text-fg-dim">
-              {label}
-            </dt>
-          </div>
+          <Stat key={label} label={label} value={value} />
         ))}
-      </dl>
+      </StatGrid>
 
       {/* ── Dataset at a glance (rebuilt, data-honest visualizations, P10) ── */}
       <section className="mt-12">
-        <h2 className="border-b-2 border-fg pb-2 font-serif text-xl font-semibold text-fg">
-          Dataset at a glance
-        </h2>
-        <p className="mt-3 max-w-prose text-sm leading-relaxed text-fg-muted">
-          A few honest views derived from the data below. Each states its own
-          sample size; nothing is drawn that the data cannot support. (Price
-          trend lines live on each element page and appear only once a tier has
-          enough distinct observation days — see{' '}
-          <Link
-            href="/methodology/"
-            className="text-fg underline decoration-dotted underline-offset-2 hover:text-accent-strong"
-          >
-            methodology
-          </Link>
-          .)
-        </p>
+        <SectionHeading
+          title="Dataset at a glance"
+          description={
+            <>
+              A few honest views derived from the data below. Each states its own
+              sample size; nothing is drawn that the data cannot support. (Price
+              trend lines live on each element page and appear only once a tier has
+              enough distinct observation days — see{' '}
+              <Link
+                href="/methodology/"
+                className="text-fg underline decoration-dotted underline-offset-2 hover:text-accent-strong"
+              >
+                methodology
+              </Link>
+              .)
+            </>
+          }
+        />
 
         <div className="mt-8">
-          <h3 className="font-serif text-lg font-semibold text-fg">
-            Coverage by element
-          </h3>
-          <p className="mb-4 mt-1 max-w-prose text-sm leading-relaxed text-fg-muted">
-            How much price data backs each tracked element. Thin coverage is
-            shown, not hidden — transparency about data density is part of the
-            provenance-first model. Each tile links to the element.
-          </p>
+          <SectionHeading
+            as="h3"
+            title="Coverage by element"
+            description="How much price data backs each tracked element. Thin coverage is shown, not hidden — transparency about data density is part of the provenance-first model. Each tile links to the element."
+          />
           <CoverageGrid items={coverage} tally={coverageTally} />
         </div>
 
         <div className="mt-10">
-          <h3 className="font-serif text-lg font-semibold text-fg">
-            Control by category
-          </h3>
-          <p className="mb-4 mt-1 max-w-prose text-sm leading-relaxed text-fg-muted">
-            Where active Chinese export control concentrates across the four
-            material classes.
-          </p>
+          <SectionHeading
+            as="h3"
+            title="Control by category"
+            description="Where active Chinese export control concentrates across the four material classes."
+          />
           <div className="max-w-2xl">
             <MarketStructure rows={control} />
           </div>
         </div>
 
         <div className="mt-10">
-          <h3 className="font-serif text-lg font-semibold text-fg">
-            Retail premium leaderboard
-          </h3>
-          <p className="mb-4 mt-1 max-w-prose text-sm leading-relaxed text-fg-muted">
-            The markup small-quantity buyers pay over commodity pricing —
-            latest retail reference ÷ latest bulk benchmark, per element.
-          </p>
+          <SectionHeading
+            as="h3"
+            title="Retail premium leaderboard"
+            description="The markup small-quantity buyers pay over commodity pricing — latest retail reference ÷ latest bulk benchmark, per element."
+          />
           <PremiumLeaderboard rows={premiums} />
         </div>
       </section>
 
       {/* ── Downloads ────────────────────────────────────────────────────── */}
-      <section className="mt-10">
-        <h2 className="mb-4 border-b border-border pb-2 font-serif text-lg font-semibold text-fg">
-          Downloads
-        </h2>
+      <section className="mt-12">
+        <SectionHeading title="Downloads" />
         <div className="grid gap-3 md:grid-cols-2">
           {downloads.map((d) => (
             <a
@@ -224,10 +199,8 @@ export default function DataPage() {
       </section>
 
       {/* ── Source in git ────────────────────────────────────────────────── */}
-      <section className="mt-10">
-        <h2 className="mb-4 border-b border-border pb-2 font-serif text-lg font-semibold text-fg">
-          Source of Truth
-        </h2>
+      <section className="mt-12">
+        <SectionHeading title="Source of Truth" />
         <p className="max-w-prose text-sm leading-relaxed text-fg-muted">
           The exports above are generated from the versioned reference data in the
           repository&rsquo;s{' '}
@@ -256,49 +229,35 @@ export default function DataPage() {
       </section>
 
       {/* ── Licence & attribution ────────────────────────────────────────── */}
-      <section className="mt-10 border border-l-[3px] border-border border-l-accent bg-surface px-5 py-4">
-        <h2 className="text-sm font-bold uppercase tracking-wider text-fg">
-          Licence &amp; Attribution
-        </h2>
-        <p className="mt-3 max-w-prose text-sm leading-relaxed text-fg-muted">
+      <Callout tone="note" glyph={null} title="Licence & Attribution" className="mt-12">
+        <p className="max-w-prose leading-relaxed">
           The dataset is licensed under{' '}
           <a
             href="https://creativecommons.org/licenses/by/4.0/"
             target="_blank"
             rel="license noopener"
-            className="text-fg underline decoration-dotted underline-offset-2 hover:text-accent-strong"
           >
             Creative Commons Attribution 4.0 (CC BY 4.0)
           </a>
           . You are free to share and adapt it for any purpose, including
           commercially, provided you give appropriate credit. The site code is
           licensed{' '}
-          <a
-            href="https://opensource.org/licenses/MIT"
-            target="_blank"
-            rel="noopener"
-            className="text-fg underline decoration-dotted underline-offset-2 hover:text-accent-strong"
-          >
+          <a href="https://opensource.org/licenses/MIT" target="_blank" rel="noopener">
             MIT
           </a>
           .
         </p>
-        <p className="mt-3 max-w-prose text-sm leading-relaxed text-fg-muted">
+        <p className="mt-3 max-w-prose leading-relaxed">
           Suggested citation:{' '}
           <span className="text-fg">
             lanthanides.io — Strategic Materials Ledger, price-records dataset (CC
             BY 4.0), www.lanthanides.io/data/.
           </span>{' '}
           See{' '}
-          <Link
-            href="/methodology/"
-            className="text-fg underline decoration-dotted underline-offset-2 hover:text-accent-strong"
-          >
-            Methodology
-          </Link>{' '}
-          for how each value is collected, normalised, and verified.
+          <Link href="/methodology/">Methodology</Link> for how each value is
+          collected, normalised, and verified.
         </p>
-      </section>
-    </main>
+      </Callout>
+    </Container>
   );
 }

@@ -256,8 +256,30 @@ Each prompt must leave `npm run build` green. Later prompts tick these off.
   `app/layout.tsx` (flex-column body, skip-to-content). Full system in
   `docs/DESIGN-SYSTEM.md` incl. the dark↔light reconciliation. Page-by-page adoption
   is Prompt 12. `npm run build` green (51 routes).
-- [ ] **12–24 — Polish & rebuilds** (MIGRATION §4): content/positioning
-  (§4.5–§4.6), page-by-page adoption of the design system, PWA/manifest fixes
-  (§4.8, incl. `/periodicpricing/…` → `/assets/images/…`).
+- [x] **12 — Apply the design system across pages with responsive layout.**
+  Page-by-page adoption: every ported page (`/`, `/elements` + detail,
+  `/regulatory`, `/movements`, `/about`, `/methodology`, `/sources`, `/news` +
+  article, `/data`) now composes from `components/layout/*` and `components/ui/*`
+  instead of bespoke markup. New `components/layout/PageHeader` (breadcrumb +
+  eyebrow + serif H1 + lead) standardizes every masthead onto `Container`;
+  hand-rolled tables → `Table`/`SortableTable` primitives (Provenance,
+  PriceHistory, PremiumLeaderboard, SourceBreakdown, the sources page); section
+  titles → `SectionHeading`; element-page boxed sections → `Panel`; status tags →
+  `Badge`; asides (key legal refs, disclaimer, licence) → `Callout`; coverage
+  readouts → `Stat`/`StatGrid`; the regulatory element filter → the shared
+  `FilterChips` (bespoke `ElementFilter` deleted); home CTAs → `LinkButton`.
+  **Responsive:** mobile nav is a 44px-target toggle + full-width disclosure menu
+  (≥44px links); every table sits in an `overflow-x-auto` scroll container; the
+  element/periodic grids and panels reflow to one column on mobile; `Container`
+  removes fixed widths. **Consistency:** one shared `lib/format.ts` is the single
+  source of truth — `fmtUsdPrice` (USD `$` + thousands separators, null-safe "—")
+  for every standalone price, and one `formatDate` ("Mon D, YYYY") for every
+  editorial/feed surface (article cards, news + regulatory timelines, movements
+  rows, reference cards, "last update"); dense data tables keep sortable ISO dates
+  by design. `npm run build` green (51 routes); `npm run lint` clean; the P10
+  chart gate still holds (0 `<polyline>` in built output).
+- [ ] **13–24 — Polish & rebuilds** (MIGRATION §4): content/positioning
+  (§4.5–§4.6), remaining page polish, PWA/manifest fixes (§4.8, incl.
+  `/periodicpricing/…` → `/assets/images/…`).
 - [ ] **25 — Parity & cleanup.** Verify route parity against AUDIT §2; **remove
   `legacy/`**.

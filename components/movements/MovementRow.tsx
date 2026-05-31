@@ -8,6 +8,7 @@
  */
 import Link from 'next/link';
 import type { MovementEvent } from '@/lib/types';
+import { formatDate, fmtUsdPrice } from '@/lib/format';
 import {
   meetsThreshold,
   MIN_SPARKLINE_POINTS,
@@ -41,7 +42,7 @@ export function MovementRow({ event }: { event: MovementEvent }) {
       {/* ── Head ──────────────────────────────────────────────────────── */}
       <div className="flex flex-wrap items-center gap-x-3 gap-y-2">
         <time dateTime={event.date} className="font-mono text-xs text-fg-dim">
-          {event.date}
+          {formatDate(event.date)}
         </time>
         <span
           className={`rounded-sm px-1.5 py-0.5 font-mono text-2xs font-semibold uppercase tracking-wide ${style.chip}`}
@@ -125,8 +126,8 @@ export function MovementRow({ event }: { event: MovementEvent }) {
           <span className="font-mono text-2xs text-fg-dim">
             {event.sparkline.point_count} pts ·{' '}
             {event.start_price_per_kg != null && event.end_price_per_kg != null
-              ? `$${event.start_price_per_kg} → $${event.end_price_per_kg}`
-              : `$${event.sparkline.min_price}–$${event.sparkline.max_price}`}
+              ? `${fmtUsdPrice(event.start_price_per_kg)} → ${fmtUsdPrice(event.end_price_per_kg)}`
+              : `${fmtUsdPrice(event.sparkline.min_price)}–${fmtUsdPrice(event.sparkline.max_price)}`}
           </span>
         </div>
       )}
@@ -144,11 +145,11 @@ export function MovementRow({ event }: { event: MovementEvent }) {
             </span>
           </Cell>
           <Cell label="From">
-            ${event.start_price_per_kg}{' '}
+            {fmtUsdPrice(event.start_price_per_kg)}{' '}
             <span className="text-2xs text-fg-dim">/kg</span>
           </Cell>
           <Cell label="To">
-            ${event.end_price_per_kg}{' '}
+            {fmtUsdPrice(event.end_price_per_kg)}{' '}
             <span className="text-2xs text-fg-dim">/kg</span>
           </Cell>
           <Cell label="Observations">
