@@ -211,9 +211,25 @@ Each prompt must leave `npm run build` green. Later prompts tick these off.
   prompt sequence (which the checklist numbers as part of P8, not P5/Design).
   **`/api/export/[format]` DONE** (the "Prompt 8" task in the local prompt
   sequence): json/csv open-data export of the 238 price records from `lib/data`,
-  CC BY 4.0 headers, both formats build-time static. **Remaining:**
-  stub routes `/tools/price-gauge`, `/sell`, `/offers`, `/alerts`; handlers
-  `/api/price-gauge`, `/api/listings`, `/api/subscribe`.
+  CC BY 4.0 headers, both formats build-time static. **Price-gauge engine +
+  `/api/price-gauge` DONE** (the "Prompt 18" task in the local prompt sequence):
+  `lib/price-gauge.ts` gains `estimatePrice(input, records)` — a pure,
+  side-effect-free estimator returning a robust **weighted interquartile range**
+  (P25/P50/P75 of `normalized_usd_per_kg`, weighted by
+  confidence×recency×purity-proximity so a lone tiny-quantity vial can't blow up
+  the band), a **holistic confidence** (match count · seller diversity · recency ·
+  form precision · price agreement; conservative — thin/dispersed ⇒ `low`), and a
+  `basis` (matched records, distinct sellers, date range, method, record ids). It
+  derives the retail (<25 kg) vs bulk tier band from quantity, **never merges
+  bands**, widens form only when the exact form has **zero** records, and returns
+  an explicit **"insufficient data"** result — never a fabricated price (hard rule
+  #1) — on zero matches, with a "try the other tier" hint. A built-in
+  `selfCheck(records)` asserts bounded/ordered ranges + the insufficient path.
+  `app/api/price-gauge/route.ts` exposes it (GET query / POST JSON; 200 incl.
+  insufficient, 404 unknown element, 400 unknown form/tier/quantity, CORS,
+  `force-dynamic`/nodejs). **Remaining:** stub routes `/tools/price-gauge` (the
+  gauge **widget** UI is the next, "Prompt 19" task), `/sell`, `/offers`,
+  `/alerts`; handlers `/api/listings`, `/api/subscribe`.
 - [x] **9 — Remove choppy/low-data visualizations.** Executed the AUDIT §3
   REMOVE decisions — the per-element price-history line chart (never ported) is
   replaced by the Price Movement % table + a new sortable **Price History**
