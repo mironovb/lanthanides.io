@@ -6,7 +6,10 @@
  * isn't crawled.
  */
 import type { Metadata } from 'next';
+import { getSourceBreakdown } from '@/lib/data';
 import { ComingSoon } from '@/components/layout';
+import { SectionHeading } from '@/components/ui';
+import { MethodologyCallout, SourceBreakdownPanel } from '@/components/trust';
 
 export const metadata: Metadata = {
   title: 'Market Dashboard',
@@ -17,6 +20,8 @@ export const metadata: Metadata = {
 };
 
 export default function DashboardPage() {
+  const breakdown = getSourceBreakdown();
+
   return (
     <ComingSoon
       crumb="Market Dashboard"
@@ -34,6 +39,19 @@ export default function DashboardPage() {
         { label: 'Open data', href: '/data/' },
         { label: 'Market movements', href: '/movements/' },
       ]}
+      extra={
+        <section>
+          <SectionHeading
+            as="h3"
+            title="Live now — data provenance"
+            description="The dashboard view isn't built yet, but the data it will summarise is already fully provenanced. Here's the current intake mix and how every price is verified."
+          />
+          <div className="grid items-start gap-4 lg:grid-cols-2">
+            <SourceBreakdownPanel breakdown={breakdown} />
+            <MethodologyCallout />
+          </div>
+        </section>
+      }
     />
   );
 }

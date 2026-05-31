@@ -27,6 +27,9 @@ export interface ComingSoonProps {
   related: { label: string; href: string; primary?: boolean }[];
   /** Honest, date-free note on where this sits in the build. */
   note?: React.ReactNode;
+  /** Genuinely-live content to render now (e.g. a real trust panel) — sits
+   *  between the "coming" note and the "Use now" links. */
+  extra?: React.ReactNode;
 }
 
 export function ComingSoon({
@@ -37,6 +40,7 @@ export function ComingSoon({
   bullets,
   related,
   note,
+  extra,
 }: ComingSoonProps) {
   return (
     <Container as="main" className="py-10">
@@ -59,6 +63,8 @@ export function ComingSoon({
           <p className="mt-3 leading-relaxed text-fg-dim">{note}</p>
         ) : null}
       </Callout>
+
+      {extra ? <div className="mt-10">{extra}</div> : null}
 
       <section className="mt-10">
         <p className="eyebrow">Use now</p>

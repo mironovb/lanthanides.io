@@ -340,7 +340,34 @@ Each prompt must leave `npm run build` green. Later prompts tick these off.
   MIGRATION §3.1). Composed from `components/ui/*` (local `PartHeader` + roadmap data
   only); single file touched is `app/about/page.tsx`. `npm run build` green (56
   routes); `npm run lint` clean.
-- [ ] **16–24 — Polish & rebuilds** (MIGRATION §4): content/positioning
+- [x] **16 — Trust signals: provenance, methodology, contributor pipeline, live
+  bot.** Made credibility legible site-wide via a reusable, server-first
+  `components/trust/*` set (composing the P11 primitives; barrel `index.ts`).
+  **`ProvenanceBadge`** — per-record source type + verification status + a
+  **monochrome** confidence meter (band from the methodology thresholds; colour
+  deliberately kept off the data axis per the design system) — dropped onto both
+  headline `ReferencePriceCard`s so verification & confidence travel with every
+  price (the full per-record `ProvenanceTable` already lists all 238).
+  **`SourceBreakdownPanel`** — the `source_breakdown.yml` intake mix as a compact
+  bar-in-panel that shows the 0-count paths too (community/supplier/invoice),
+  reused on home, dashboard, and `/contribute`. **`MethodologyCallout`**
+  (`panel`/`inline`) — the "how we verify" signpost deep-linking
+  `#display-price`, `#verification-and-confidence`, `#provenance-chain` — under
+  the element price cards and on home/dashboard. **`TelegramBadge`**
+  (`inline`/`panel`) — marks the MOFCOM monitor's Telegram alerting **LIVE** on
+  home/regulatory/alerts, reading `NEXT_PUBLIC_TELEGRAM_BOT_URL` (placeholder +
+  `TODO(owner)` in `.env.example`) and routing to `/alerts/` rather than shipping
+  a guessed bot link (**0** `t.me` links in built output, verified). New
+  **`/contribute`** page + **`ContributePanel`** — the double-human-review intake
+  (issue → `approved` label → manual-dispatch PR → merge) framed as a credibility
+  feature, linking the live issue templates + CONTRIBUTING. `ComingSoon` gains an
+  `extra` slot so the dashboard/alerts placeholders carry genuinely-live trust
+  panels. Footer adds a direct open-data/CC BY 4.0 route to `/data`; nav adds
+  `/contribute` (About) and relabels the repo link "GitHub Repository". Every
+  claim is checkable; no audits/certifications/partnerships implied. New:
+  `components/trust/*`, `app/contribute/page.tsx`. `npm run build` green (57
+  routes); `npm run lint` clean.
+- [ ] **17–24 — Polish & rebuilds** (MIGRATION §4): content/positioning
   (remaining §4.5–§4.6 surfaces), remaining page polish, PWA/manifest fixes
   (§4.8, incl. `/periodicpricing/…` → `/assets/images/…`).
 - [ ] **25 — Parity & cleanup.** Verify route parity against AUDIT §2; **remove

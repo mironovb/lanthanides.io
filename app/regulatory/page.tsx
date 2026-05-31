@@ -17,6 +17,7 @@ import {
 import Link from 'next/link';
 import { Container, PageHeader, StoryLink } from '@/components/layout';
 import { Callout } from '@/components/ui';
+import { TelegramBadge } from '@/components/trust';
 import { RegulatoryView } from '@/components/regulatory/RegulatoryView';
 
 const SITE = 'https://www.lanthanides.io';
@@ -109,6 +110,9 @@ export default function RegulatoryPage() {
           <Link href="/elements/">directory</Link>.
         </StoryLink>
       </PageHeader>
+
+      {/* Live alerting on these announcements (no fabricated bot link). */}
+      <TelegramBadge variant="panel" className="mt-8" />
 
       <RegulatoryView
         notices={notices}

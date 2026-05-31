@@ -122,9 +122,14 @@ export const PRIMARY_NAV: NavGroup[] = [
         description: 'The curated source registry',
       },
       {
+        href: '/contribute',
+        label: 'Contribute Data',
+        description: 'Two human checkpoints — how data gets in',
+      },
+      {
         href: GITHUB,
-        label: 'Contribute on GitHub',
-        description: 'Submit prices, corrections, or code',
+        label: 'GitHub Repository',
+        description: 'Source code, issues & data files',
         external: true,
       },
     ],

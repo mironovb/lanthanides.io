@@ -9,6 +9,8 @@
  */
 import type { Metadata } from 'next';
 import { ComingSoon } from '@/components/layout';
+import { SectionHeading } from '@/components/ui';
+import { TelegramBadge } from '@/components/trust';
 
 export const metadata: Metadata = {
   title: 'Alerts',
@@ -36,6 +38,16 @@ export default function AlertsPage() {
         { label: 'Market movements', href: '/movements/' },
         { label: 'News & analysis', href: '/news/' },
       ]}
+      extra={
+        <section>
+          <SectionHeading
+            as="h3"
+            title="Live now — Telegram alerts"
+            description="The public subscribe form is in development, but the alert bot is already running on the six-hourly monitor."
+          />
+          <TelegramBadge variant="panel" />
+        </section>
+      }
     />
   );
 }

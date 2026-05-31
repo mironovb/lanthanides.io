@@ -128,6 +128,17 @@ export function SiteFooter() {
                 MIT
               </a>
             </p>
+
+            {/* Open-data prominence: a direct route to the download hub. */}
+            <p className="mt-2">
+              <Link
+                href="/data/"
+                className="inline-flex items-center gap-1 text-2xs font-medium text-fg-muted transition-colors duration-fast hover:text-fg"
+              >
+                Browse &amp; download the open dataset
+                <span aria-hidden="true">→</span>
+              </Link>
+            </p>
           </div>
 
           {/* ── IA columns (mirror the header groups) ────────────────────── */}

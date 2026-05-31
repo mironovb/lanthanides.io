@@ -7,6 +7,7 @@
  * shared Card primitive (Prompt 12).
  */
 import { Card } from '@/components/ui';
+import { ProvenanceBadge } from '@/components/trust';
 import type { PriceRecord } from '@/lib/types';
 import { capitalize, fmtQuantity, fmtUsdPrice, formatDate } from './format';
 
@@ -56,11 +57,16 @@ export function ReferencePriceCard({
             {formatDate(record.quote_date)}
           </div>
 
-          {kind === 'retail' && premium && (
-            <div className="mt-3 border-t border-dotted border-border pt-2 font-mono text-sm font-semibold text-risk-medium">
-              Retail Premium: {premium}×
-            </div>
-          )}
+          {/* Trust footer — premium (retail) + per-record provenance, so the
+              verification status & confidence travel with the headline price. */}
+          <div className="mt-3 space-y-2 border-t border-dotted border-border pt-2">
+            {kind === 'retail' && premium && (
+              <div className="font-mono text-sm font-semibold text-risk-medium">
+                Retail Premium: {premium}×
+              </div>
+            )}
+            <ProvenanceBadge record={record} />
+          </div>
         </>
       ) : (
         <>

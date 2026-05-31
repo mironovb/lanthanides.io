@@ -18,9 +18,16 @@ import {
   getPolicyEvents,
   getPriceRecords,
   getRegulatoryNotices,
+  getSourceBreakdown,
   getSources,
 } from '@/lib/data';
 import { Container } from '@/components/layout';
+import { SectionHeading } from '@/components/ui';
+import {
+  MethodologyCallout,
+  SourceBreakdownPanel,
+  TelegramBadge,
+} from '@/components/trust';
 import { Hero } from '@/components/home/Hero';
 import { ProofStats } from '@/components/home/ProofStats';
 import { PillarCards } from '@/components/home/PillarCards';
@@ -71,6 +78,7 @@ export default function HomePage() {
   const sources = getSources().length;
   const announcements = getPolicyEvents().length;
   const notices = getRegulatoryNotices().length;
+  const breakdown = getSourceBreakdown();
 
   const stats = [
     {
@@ -138,6 +146,21 @@ export default function HomePage() {
       />
 
       <ProofStats stats={stats} />
+
+      {/* ── Trust signals: provenance mix · how we verify · live alert bot ─ */}
+      <section className="mt-16">
+        <SectionHeading
+          title="Why you can trust these numbers"
+          description="Provenance on every price, a method you can read, and a live monitor watching the controls that move the market."
+        />
+        <div className="mt-6 grid items-start gap-4 lg:grid-cols-2">
+          <SourceBreakdownPanel breakdown={breakdown} />
+          <div className="space-y-4">
+            <MethodologyCallout />
+            <TelegramBadge variant="panel" />
+          </div>
+        </div>
+      </section>
 
       <PillarCards
         counts={{

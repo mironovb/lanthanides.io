@@ -34,6 +34,7 @@ import {
   CATEGORY_STYLE,
   REGULATORY_BADGE,
 } from '@/components/elements/categories';
+import { MethodologyCallout } from '@/components/trust';
 import { ElementBody } from '@/components/elements/ElementBody';
 import { fmtPremium } from '@/components/elements/format';
 import { PriceHistoryTable } from '@/components/elements/PriceHistoryTable';
@@ -183,7 +184,7 @@ export default function ElementDetailPage({ params }: { params: Params }) {
       </header>
 
       {/* ── Two reference-price cards ──────────────────────────────────── */}
-      <div className="mb-8 grid gap-4 md:grid-cols-2">
+      <div className="grid gap-4 md:grid-cols-2">
         <ReferencePriceCard
           label="Retail Reference"
           record={retailRef}
@@ -198,6 +199,9 @@ export default function ElementDetailPage({ params }: { params: Params }) {
           kind="bulk"
         />
       </div>
+
+      {/* ── How these two prices are selected & verified ───────────────── */}
+      <MethodologyCallout variant="inline" className="mb-8 mt-3" />
 
       {/* ── Price Movement % table ─────────────────────────────────────── */}
       <PriceMovementTable fluctuation={fluctuation} symbol={element.symbol} />
