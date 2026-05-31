@@ -82,8 +82,14 @@ export function MovementRow({ event }: { event: MovementEvent }) {
         {event.description}
       </p>
 
-      {/* ── Sparkline ─────────────────────────────────────────────────── */}
-      {event.sparkline?.path && (
+      {/* ── Sparkline (≥3 points only) ────────────────────────────────────
+          Minimum-data threshold per docs/AUDIT.md §3 (#5): a 2-point sparkline
+          is a fixed slope set by direction, not by data, so it implies a shape
+          the series can't support. We render the curve only when it spans ≥3
+          observation points; below that it is suppressed and the factual
+          from→to / change / observation count survive in the Meta block below.
+          See docs/VISUALIZATION-AUDIT.md. */}
+      {event.sparkline?.path && event.sparkline.point_count >= 3 && (
         <div className="flex items-center gap-3">
           <svg
             viewBox={`0 0 ${event.sparkline.width} ${event.sparkline.height}`}

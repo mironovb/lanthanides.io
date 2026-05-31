@@ -20,6 +20,7 @@ import {
   getElementBySymbol,
   getElements,
   getFluctuation,
+  getPriceHistory,
   getPriceRecords,
   getReferencePrices,
 } from '@/lib/data';
@@ -31,6 +32,7 @@ import {
 } from '@/components/elements/categories';
 import { ElementBody } from '@/components/elements/ElementBody';
 import { fmtPremium } from '@/components/elements/format';
+import { PriceHistoryTable } from '@/components/elements/PriceHistoryTable';
 import { PriceMovementTable } from '@/components/elements/PriceMovementTable';
 import { ProvenanceTable } from '@/components/elements/ProvenanceTable';
 import { ReferencePriceCard } from '@/components/elements/ReferencePriceCard';
@@ -68,6 +70,7 @@ export default function ElementDetailPage({ params }: { params: Params }) {
     element.symbol,
   );
   const fluctuation = getFluctuation(element.symbol);
+  const priceHistory = getPriceHistory(element.symbol);
   const content = getElementContent(element.symbol);
 
   const cat = CATEGORY_STYLE[element.category];
@@ -203,6 +206,9 @@ export default function ElementDetailPage({ params }: { params: Params }) {
 
       {/* ── Price Movement % table ─────────────────────────────────────── */}
       <PriceMovementTable fluctuation={fluctuation} symbol={element.symbol} />
+
+      {/* ── Price History observations table (replaces the legacy chart) ── */}
+      <PriceHistoryTable history={priceHistory} elementName={element.name} />
 
       {/* ── Inline regulatory notice ───────────────────────────────────── */}
       {element.regulatory_status !== 'none' && (

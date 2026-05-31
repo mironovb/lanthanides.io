@@ -214,7 +214,16 @@ Each prompt must leave `npm run build` green. Later prompts tick these off.
   CC BY 4.0 headers, both formats build-time static. **Remaining:**
   stub routes `/tools/price-gauge`, `/sell`, `/offers`, `/alerts`; handlers
   `/api/price-gauge`, `/api/listings`, `/api/subscribe`.
-- [ ] **9–24 — Polish & rebuilds** (MIGRATION §4): visualization rebuilds
+- [x] **9 — Remove choppy/low-data visualizations.** Executed the AUDIT §3
+  REMOVE decisions — the per-element price-history line chart (never ported) is
+  replaced by the Price Movement % table + a new sortable **Price History**
+  observations table (`components/elements/PriceHistoryTable.tsx`, fed by
+  `getPriceHistory`); the movements-feed sparkline is gated to ≥3 points (24 of
+  26 sparkline events were 2-point); the dashboard "30-day movers" board + its 2-point
+  sparkline and the orphaned `fluctuation-fallback.html` are ensured
+  never-ported. Hard rule adopted: ≤2 distinct points ⇒ a table/stat, never a
+  line. Full rationale in `docs/VISUALIZATION-AUDIT.md`.
+- [ ] **10–24 — Polish & rebuilds** (MIGRATION §4): visualization rebuilds
   (AUDIT §3), content/positioning (§4.5–§4.6), design polish (Prompt 11 = full
   design system), PWA/manifest fixes (§4.8, incl. `/periodicpricing/…` →
   `/assets/images/…`).
