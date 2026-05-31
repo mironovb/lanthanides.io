@@ -1,15 +1,29 @@
 import type { Config } from 'tailwindcss';
 
 /**
- * Baseline design tokens (Prompt 3) — dense, professional, terminal-adjacent.
+ * Design tokens — the lanthanides.io "Strategic Materials Ledger" system
+ * (Prompt 11, formalizing the Prompt 3 baseline).
  *
- * Understated by design: near-black/graphite surfaces, one restrained accent,
- * and color that only ever encodes meaning (price movement + regulatory risk +
- * element category). Numerics are monospace with tabular figures.
+ * The feel is an instrument panel a procurement officer trusts: dense, legible,
+ * understated. Graphite/near-black surfaces, a single disciplined teal accent,
+ * sharp corners, subtle borders over heavy shadows, and monospace tabular
+ * numerics. Color ONLY ever encodes meaning — price movement (up/down/flat),
+ * regulatory status (restricted/monitored/normal/active/suspended), and the
+ * four element categories. There is no decorative color anywhere in the system.
  *
- * NOTE: .impeccable.md specifies a LIGHT-mode brand system (IBM Plex Sans/Mono
- * + Source Serif 4; teal/amber/red risk semantics). These dark baseline tokens
- * are the scaffold; Prompt 11 reconciles them into the full design system.
+ * ── Theme reconciliation (read before touching colors) ──────────────────────
+ * `.impeccable.md` describes a future LIGHT-mode brand ("a well-designed print
+ * intelligence brief"). The system shipped here is the dark instrument-panel
+ * theme that every page (Prompts 6–10) already composes from. Tokens are kept
+ * strictly semantic by name (`surface`, `fg`, `accent`, `risk-*`, `category-*`)
+ * so the eventual light switch is a token-value edit, never a utility-class
+ * rewrite — see docs/DESIGN-SYSTEM.md §"Theme & the light-mode path".
+ *
+ * NOTE: tokens are hex (not `rgb(var() / <alpha-value>)`) on purpose. The
+ * markdown/prose stylesheets (the `*-body.css` files) resolve these via the
+ * PostCSS `theme()` function, which cannot expand the `<alpha-value>`
+ * placeholder; hex keeps BOTH `theme()` and Tailwind `/opacity` modifiers valid.
+ *
  * Fonts are exposed as CSS variables in app/globals.css so the type pairing can
  * be swapped (e.g. self-hosted next/font) without touching utility classes.
  */
@@ -22,39 +36,42 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        // Surfaces — near-black page → graphite panels.
+        // ── Surfaces — near-black page → graphite panels → hovered rows. ──
         base: '#0b0d10', // page background
         surface: '#14171c', // panels / cards
-        raised: '#1a1d23', // raised surface (matches manifest theme_color)
-        overlay: '#1f242b', // popovers / hovered rows
+        raised: '#1a1d23', // raised surface, table headers (matches manifest theme_color)
+        overlay: '#1f242b', // popovers / hovered rows / tooltips
         border: {
-          DEFAULT: '#262b33',
-          strong: '#333b46',
+          DEFAULT: '#262b33', // hairline dividers, default panel edge
+          strong: '#333b46', // emphasized edge, separators, sort glyphs
         },
-        // Foreground text.
+        // ── Foreground text — three deliberate steps of emphasis. ──
         fg: {
-          DEFAULT: '#e6e8eb',
-          muted: '#9aa3ad',
-          dim: '#6b7178',
+          DEFAULT: '#e6e8eb', // primary text / numerics
+          muted: '#9aa3ad', // body, secondary text
+          dim: '#6b7178', // labels, captions, fine print
         },
-        // The one restrained accent (terminal teal, from brand #1A5C6B).
+        // ── The one restrained accent (terminal teal, from brand #1A5C6B). ──
         accent: {
-          DEFAULT: '#2f9bb7',
-          strong: '#3fb0cd',
-          dim: '#16323a',
+          DEFAULT: '#2f9bb7', // links, active state, focus ring
+          strong: '#3fb0cd', // hover / emphasis
+          dim: '#16323a', // accent tint (selection, active row wash)
         },
-        // Price-movement semantics (financial up / down / neutral).
+        // ── Price-movement semantics (financial up / down / flat). ──
         up: '#3fb27f', // gain — green
         down: '#e5564b', // loss — red
         neutral: '#8a929c', // flat — gray
-        // Regulatory-risk semantics (teal / amber / red per .impeccable.md).
+        flat: '#8a929c', // alias of `neutral` for the up/down/flat trio
+        // ── Regulatory-status semantics (teal / amber / red / gray). ──
+        // The five named states map onto this 4-stop scale (Badge resolves them):
+        //   normal → low · monitored/active → medium · restricted → high · suspended.
         risk: {
-          low: '#2f9bb7', // normal / monitored — teal
-          medium: '#d4a847', // export-controlled — amber
+          low: '#2f9bb7', // normal / monitored baseline — teal
+          medium: '#d4a847', // export-controlled / active licence — amber
           high: '#e5564b', // restricted / presumptive denial — red
           suspended: '#6b7178', // suspended — gray
         },
-        // Element-category accents (carried from legacy/_sass, tuned for dark).
+        // ── Element-category accents (from legacy/_sass, tuned for dark). ──
         category: {
           'ree-light': '#4b8bf5', // azure — light rare earth
           'ree-heavy': '#9b6bf0', // violet — heavy rare earth
@@ -67,12 +84,16 @@ const config: Config = {
         mono: ['var(--font-mono)'],
         serif: ['var(--font-serif)'],
       },
-      // Tight type scale with a small base (density without claustrophobia).
+      // ── Type scale — small dense base for data, serif display for headings. ──
+      // 2xs→base are overridden for density; md is net-new (lead/prose); lg→5xl
+      // inherit Tailwind's defaults (18/20/24/30/36/48) and are documented as
+      // the heading ramp. Numerics always render in the mono family + tabular.
       fontSize: {
-        '2xs': ['0.6875rem', { lineHeight: '0.95rem' }], // 11px
-        xs: ['0.75rem', { lineHeight: '1.05rem' }], // 12px
-        sm: ['0.8125rem', { lineHeight: '1.2rem' }], // 13px (data tables)
-        base: ['0.875rem', { lineHeight: '1.45rem' }], // 14px (body)
+        '2xs': ['0.6875rem', { lineHeight: '0.95rem' }], // 11px — badges, eyebrows, fine print
+        xs: ['0.75rem', { lineHeight: '1.05rem' }], // 12px — table headers, mono meta
+        sm: ['0.8125rem', { lineHeight: '1.2rem' }], // 13px — data tables, compact body (base)
+        base: ['0.875rem', { lineHeight: '1.45rem' }], // 14px — body
+        md: ['0.9375rem', { lineHeight: '1.6rem' }], // 15px — lead paragraphs, section intros
       },
       // Sharp corners — no rounded SaaS cards (.impeccable.md "no decorative layer").
       borderRadius: {
@@ -82,7 +103,7 @@ const config: Config = {
         md: '3px',
       },
       maxWidth: {
-        content: '72rem', // page column
+        content: '72rem', // page column (header/footer/page gutters align to this)
         prose: '46rem', // reading measure for long-form prose
       },
       spacing: {
@@ -91,7 +112,14 @@ const config: Config = {
         '15': '3.75rem',
       },
       letterSpacing: {
-        tightish: '-0.01em',
+        tightish: '-0.01em', // headings
+        caps: '0.08em', // uppercase table headers / chip labels
+        eyebrow: '0.2em', // the mono uppercase eyebrow label convention
+      },
+      // Subtle, fast hover transitions only (no entrance/decorative animation).
+      transitionDuration: {
+        fast: '120ms',
+        base: '200ms',
       },
     },
   },

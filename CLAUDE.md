@@ -238,8 +238,26 @@ Each prompt must leave `npm run build` green. Later prompts tick these off.
   same gate; the regulatory timeline refined to terminal-grade. Every rendered
   visual states its own sample size and degrades to a table; no animation. Full
   final inventory + threshold rationale in `docs/VISUALIZATION-AUDIT.md`.
-- [ ] **11–24 — Polish & rebuilds** (MIGRATION §4): content/positioning
-  (§4.5–§4.6), design polish (Prompt 11 = full design system), PWA/manifest fixes
+- [x] **11 — Terminal-grade design system & base component library.** Formalized
+  the Prompt 3 baseline into a documented system. Tokens (`tailwind.config.ts` +
+  `app/globals.css`): kept the dark instrument-panel palette as **hex** (the
+  `*-body.css` prose styles resolve them via PostCSS `theme()`, which can't expand
+  the `<alpha-value>` placeholder that `/opacity` modifiers need — so CSS-variable
+  tokens were rejected as a silent-regression risk), extended with the up/down/**flat**
+  trio, the five regulatory states (resolved onto the 4-stop `risk` scale by `Badge`),
+  a formalized type scale (+`md`), `caps`/`eyebrow` tracking, and `fast`/`base`
+  durations; two house classes (`.eyebrow`, `.numeric`). Base library
+  `components/ui/*` (barrel `index.ts`): `Table`/`SortableTable`+`useSortable`,
+  `Card`/`Panel`, `Badge`/`Chip`, `Stat`/`StatGrid`, `Button`/`LinkButton`, `Tabs`,
+  `FilterChips`, `Tooltip`, `Callout`, `Breadcrumbs`, `SectionHeading`, `cn` — server-
+  first, keyboard-accessible, prop-driven. Layout shell `components/layout/*`:
+  `SiteHeader` (sticky brand + `SiteNav` active/mobile island), `SiteFooter`
+  (CC BY 4.0 + open-data + real contact), `Container`, shared `nav.ts`; wired into
+  `app/layout.tsx` (flex-column body, skip-to-content). Full system in
+  `docs/DESIGN-SYSTEM.md` incl. the dark↔light reconciliation. Page-by-page adoption
+  is Prompt 12. `npm run build` green (51 routes).
+- [ ] **12–24 — Polish & rebuilds** (MIGRATION §4): content/positioning
+  (§4.5–§4.6), page-by-page adoption of the design system, PWA/manifest fixes
   (§4.8, incl. `/periodicpricing/…` → `/assets/images/…`).
 - [ ] **25 — Parity & cleanup.** Verify route parity against AUDIT §2; **remove
   `legacy/`**.

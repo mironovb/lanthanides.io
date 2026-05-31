@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import './globals.css';
+import { SiteHeader, SiteFooter } from '@/components/layout';
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://www.lanthanides.io'),
@@ -19,9 +20,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       {/*
-        Baseline font setup via Google Fonts (Prompt 3). Kept as plain <link>
-        tags so the production build never depends on a build-time font fetch.
-        Prompt 5/11 migrates this to self-hosted next/font.
+        Font setup via Google Fonts. Kept as plain <link> tags so the build
+        never depends on a build-time font fetch (next/font/google would).
+        Self-hosting is deferred to a later prompt; the type pairing is wired
+        through CSS variables (app/globals.css), so it's a swap, not a rewrite.
       */}
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -38,7 +40,19 @@ export default function RootLayout({
           href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&display=swap"
         />
       </head>
-      <body className="min-h-screen bg-base text-fg">{children}</body>
+      <body className="flex min-h-screen flex-col bg-base text-fg">
+        <a
+          href="#main"
+          className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-3 focus:z-[60] focus:border focus:border-accent focus:bg-surface focus:px-3 focus:py-1.5 focus:text-sm focus:text-fg"
+        >
+          Skip to content
+        </a>
+        <SiteHeader />
+        <div id="main" className="flex-1">
+          {children}
+        </div>
+        <SiteFooter />
+      </body>
     </html>
   );
 }

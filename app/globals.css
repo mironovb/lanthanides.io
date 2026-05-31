@@ -3,15 +3,16 @@
 @tailwind utilities;
 
 /* ──────────────────────────────────────────────────────────────────────────
-   Design tokens — baseline (Prompt 3)
+   Design tokens — the Strategic Materials Ledger system (Prompt 11)
 
-   Terminal-adjacent, dense, understated. Colors live in tailwind.config.ts;
-   fonts are exposed here as CSS variables so the type pairing can be swapped
-   (e.g. self-hosted next/font) without touching utility classes.
+   Terminal-adjacent, dense, understated. Colors live in tailwind.config.ts
+   (hex, so the prose stylesheets' theme() calls stay valid); fonts are exposed
+   here as CSS variables so the type pairing can be swapped (e.g. self-hosted
+   next/font) without touching utility classes.
 
-   NOTE: .impeccable.md specifies a LIGHT-mode brand system. These dark tokens
-   are the scaffold per Prompt 3; Prompt 11 reconciles them into the full
-   light-mode design system.
+   THEME: dark instrument-panel theme is the shipped default. The token names
+   are semantic, so the future light-mode brand (.impeccable.md) is a
+   token-value edit — see docs/DESIGN-SYSTEM.md §"Theme & the light-mode path".
    ────────────────────────────────────────────────────────────────────────── */
 @layer base {
   :root {
@@ -67,5 +68,24 @@
   :focus-visible {
     outline: 2px solid theme('colors.accent.DEFAULT');
     outline-offset: 2px;
+  }
+}
+
+/* ──────────────────────────────────────────────────────────────────────────
+   Component classes — the two recurring "house" patterns, named once so pages
+   stop hand-rolling them. Everything else is a React component in components/ui.
+   ────────────────────────────────────────────────────────────────────────── */
+@layer components {
+  /* The mono uppercase kicker above a heading / above a panel. */
+  .eyebrow {
+    @apply font-mono text-2xs uppercase text-fg-dim;
+    letter-spacing: theme('letterSpacing.eyebrow');
+  }
+
+  /* The data convention: numerics are monospace, tabular, and right-aligned. */
+  .numeric {
+    @apply text-right font-mono;
+    font-variant-numeric: tabular-nums;
+    font-feature-settings: 'tnum' 1, 'zero' 1;
   }
 }
