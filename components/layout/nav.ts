@@ -90,8 +90,7 @@ export const PRIMARY_NAV: NavGroup[] = [
       {
         href: '/sell',
         label: 'Sell / List',
-        description: 'List material for sale',
-        soon: true,
+        description: 'List material + instant price gauge',
       },
       {
         href: '/offers',

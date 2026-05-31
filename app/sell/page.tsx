@@ -1,38 +1,228 @@
 /**
- * /sell — Sell / List Material (PLACEHOLDER, Prompt 14). The seller listing form
- * (writes a `Listing` row) lands with the commercial layer in a later prompt
- * (ARCHITECTURE §4.2). This labelled placeholder keeps the "Tools" IA complete.
- * `noindex` so the thin page isn't crawled.
+ * /sell — Sell / List Material (Prompt 20). The supply-side entry point: a seller
+ * submits a structured listing and gets an INSTANT, dataset-derived gauge — their
+ * asking price positioned against the sourced low/mid/high range — while the row
+ * persists to the `Listing` table as `status:'pending'` (write path:
+ * POST /api/listings). The page also renders the live listings table so the loop
+ * is visible end-to-end (submission → pending row → maintainer review).
+ *
+ * Honest framing (CLAUDE.md): storage only — no email/payment/notification side
+ * effects; the gauge never fabricates a price (hard rule #1); a listing is NEVER
+ * auto-published into the open `_data/` dataset (that stays the reviewed git-PR
+ * flow). Dynamic + Node runtime: it reads the live DB (via lib/db) and `fs` (via
+ * lib/data), so it is request-rendered, not statically optimised.
  */
 import type { Metadata } from 'next';
-import { ComingSoon } from '@/components/layout';
+import Link from 'next/link';
+import { getElements, getPriceRecords } from '@/lib/data';
+import { prisma } from '@/lib/db';
+import { Container, PageHeader, StoryLink } from '@/components/layout';
+import { Callout, Card, SectionHeading } from '@/components/ui';
+import { buildElementOptions } from '@/components/tools/gauge';
+import {
+  SellForm,
+  ListingsTable,
+  toListingDTO,
+  type ListingDTO,
+} from '@/components/sell';
+
+export const dynamic = 'force-dynamic';
+export const runtime = 'nodejs';
+
+const SITE = 'https://www.lanthanides.io';
+
+const DESCRIPTION =
+  'List rare-earth or strategic-metal material for sale and get an instant, sourced price check — your asking price positioned against the dataset’s fair-value range before it reaches a buyer. Submissions are reviewed before publishing.';
 
 export const metadata: Metadata = {
-  title: 'Sell / List Material',
-  description:
-    'List rare-earth or strategic-metal material for sale — form, purity, quantity, and price. Coming in this build.',
+  title: 'Sell / List Material — Instant Sourced Price Check',
+  description: DESCRIPTION,
+  keywords:
+    'sell rare earth, list rare earth material, sell strategic metals, rare earth seller listing, oxide metal asking price, rare earth marketplace, dysprosium neodymium sell',
   alternates: { canonical: '/sell/' },
-  robots: { index: false, follow: true },
+  openGraph: {
+    title: 'Sell / List Material — lanthanides.io',
+    description: DESCRIPTION,
+    url: '/sell/',
+    type: 'website',
+    images: [
+      {
+        url: '/assets/images/og-default.png',
+        width: 1200,
+        height: 630,
+        alt: 'lanthanides.io — Strategic Materials Ledger',
+      },
+    ],
+  },
 };
 
-export default function SellPage() {
+/** Recent submissions for the listings view (all statuses; private contact dropped). */
+async function recentListings(): Promise<ListingDTO[]> {
+  try {
+    const rows = await prisma.listing.findMany({
+      orderBy: { createdAt: 'desc' },
+      take: 25,
+    });
+    return rows.map(toListingDTO);
+  } catch (err) {
+    // The page must still render if the dynamic store is unreachable.
+    console.error('[/sell] could not load listings:', err);
+    return [];
+  }
+}
+
+export default async function SellPage() {
+  const elements = getElements();
+  const records = getPriceRecords();
+  const options = buildElementOptions(elements, records);
+  const knownForms = [...new Set(records.map((r) => r.form.toLowerCase()))].sort();
+  const listings = await recentListings();
+
+  const jsonLd = [
+    {
+      '@context': 'https://schema.org',
+      '@type': 'WebApplication',
+      name: 'Sell / List Material — lanthanides.io',
+      url: `${SITE}/sell/`,
+      applicationCategory: 'BusinessApplication',
+      operatingSystem: 'Web',
+      isAccessibleForFree: true,
+      description: DESCRIPTION,
+      provider: { '@type': 'Organization', name: 'lanthanides.io', url: `${SITE}/` },
+    },
+    {
+      '@context': 'https://schema.org',
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Home', item: `${SITE}/` },
+        {
+          '@type': 'ListItem',
+          position: 2,
+          name: 'Sell / List Material',
+          item: `${SITE}/sell/`,
+        },
+      ],
+    },
+  ];
+
   return (
-    <ComingSoon
-      crumb="Sell / List"
-      eyebrow="Tools"
-      title="Sell / List Material"
-      lead="List rare-earth or strategic-metal material for sale — form, purity, quantity, incoterm, and price — and have it checked against current export-control status before it reaches buyers."
-      bullets={[
-        'Capture a structured listing: element, form, purity, quantity, and price.',
-        'Flag the element’s current Chinese export-control status on submission.',
-        'Stay separate from the open dataset — listings never auto-publish into it.',
-      ]}
-      note="The open reference data stays a reviewed, git-tracked flow; a listing is captured and stored, never silently merged into the published dataset."
-      related={[
-        { label: 'Browse elements', href: '/elements/', primary: true },
-        { label: 'Export-control status', href: '/regulatory/' },
-        { label: 'Methodology', href: '/methodology/' },
-      ]}
-    />
+    <Container as="main" className="py-10">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(jsonLd).replace(/</g, '\\u003c'),
+        }}
+      />
+
+      <PageHeader
+        crumbs={[{ label: 'Home', href: '/' }, { label: 'Sell / List' }]}
+        eyebrow="Tools"
+        title="Sell / List Material"
+        lead="List rare-earth or strategic-metal material and get an instant, sourced price check — your asking price positioned against the dataset’s fair-value range before it reaches a buyer. Every submission is reviewed by a maintainer before publishing; nothing auto-publishes into the open dataset."
+      >
+        <StoryLink>
+          The gauge here runs the same engine as the{' '}
+          <Link href="/tools/price-gauge/">Price Gauge</Link>, over the records
+          behind every <Link href="/elements/">element page</Link> — the supply
+          side of a two-sided market whose demand side is the{' '}
+          <Link href="/offers/">screened Offer Feed</Link>.
+        </StoryLink>
+      </PageHeader>
+
+      {/* ── Form + instant gauge ─────────────────────────────────────────── */}
+      <section className="mt-8">
+        <SellForm options={options} forms={knownForms} />
+      </section>
+
+      {/* ── Listings table (the loop, made visible) ──────────────────────── */}
+      <section className="mt-16">
+        <SectionHeading
+          title="Submitted listings"
+          description="Every submission lands here immediately, marked pending. Publishing is a maintainer step — the same double-checked, human-reviewed flow that governs the open dataset."
+        />
+        <div className="mt-5 space-y-4">
+          <Callout tone="note" title="Review before publish">
+            Listings are captured as <span className="font-mono">pending</span>{' '}
+            and reviewed by a maintainer before they’re marked{' '}
+            <span className="font-mono">published</span>. A listing is never
+            auto-published into the open dataset, and private contact details are
+            never shown here. Read how contributions are reviewed on{' '}
+            <Link
+              href="/contribute/"
+              className="text-accent hover:text-accent-strong"
+            >
+              Contribute
+            </Link>
+            .
+          </Callout>
+          <ListingsTable listings={listings} />
+        </div>
+      </section>
+
+      {/* ── Two-sided vision ─────────────────────────────────────────────── */}
+      <section className="mt-16">
+        <SectionHeading
+          title="Two sides of one market"
+          description="The reference data underneath stays open and free. The thin commercial layer on top connects sellers and buyers through it."
+        />
+        <div className="mt-6 grid gap-4 lg:grid-cols-3">
+          <VisionCard
+            kicker="Supply side"
+            title="Price it, then list it"
+            body="Anchor an asking price to evidence — a sourced low/mid/high range and a confidence grade — instead of guesswork, then capture the listing for review."
+            links={[
+              { label: 'Price Gauge', href: '/tools/price-gauge/' },
+              { label: 'Methodology', href: '/methodology/#display-price' },
+            ]}
+          />
+          <VisionCard
+            kicker="Demand side"
+            title="Screened offers for buyers"
+            body="The same engine screens incoming offers against the references and the live export-control status, so buyers see how each one compares."
+            links={[{ label: 'Offer Feed', href: '/offers/' }]}
+          />
+          <VisionCard
+            kicker="The base layer"
+            title="Open data, regardless"
+            body="The dataset every estimate is built from stays CC BY 4.0 and inspectable in git — the open reference is the product; the marketplace is a thin layer on top."
+            links={[
+              { label: 'Open Data', href: '/data/' },
+              { label: 'The vision', href: '/about/' },
+            ]}
+          />
+        </div>
+      </section>
+    </Container>
+  );
+}
+
+function VisionCard({
+  kicker,
+  title,
+  body,
+  links,
+}: {
+  kicker: string;
+  title: string;
+  body: string;
+  links: { label: string; href: string }[];
+}) {
+  return (
+    <Card padding="lg" className="flex flex-col">
+      <p className="eyebrow">{kicker}</p>
+      <h3 className="mt-2 font-serif text-lg font-semibold text-fg">{title}</h3>
+      <p className="mt-2 flex-1 text-sm leading-relaxed text-fg-muted">{body}</p>
+      <div className="mt-4 flex flex-wrap gap-x-4 gap-y-1.5 border-t border-border pt-3 text-sm">
+        {links.map((l) => (
+          <Link
+            key={l.href}
+            href={l.href}
+            className="font-medium text-accent transition-colors hover:text-accent-strong"
+          >
+            {l.label} →
+          </Link>
+        ))}
+      </div>
+    </Card>
   );
 }

@@ -86,16 +86,20 @@ function buildPillars(c: PillarCounts): Pillar[] {
       body: (
         <>
           The commercial layer, taking shape: the{' '}
-          <span className="text-fg">Price Gauge</span> is live — estimate a fair
-          price range for any element from the sourced records above, with a
-          confidence grade and full basis. Export-control-screened seller offers,
-          listings, and live announcement alerts follow. The open reference stays
+          <span className="text-fg">Price Gauge</span> estimates a fair price
+          range for any element from the sourced records above, and{' '}
+          <span className="text-fg">Sell / List</span> turns it into an instant
+          check on a seller’s asking price as a listing is captured. Export-control-screened
+          offers and live announcement alerts follow. The open reference stays
           free and open regardless.
         </>
       ),
-      links: [{ label: 'Try the Price Gauge', href: '/tools/price-gauge/' }],
+      links: [
+        { label: 'Try the Price Gauge', href: '/tools/price-gauge/' },
+        { label: 'List material for sale', href: '/sell/' },
+      ],
       pending:
-        'Listings, screened offers & alerts launch as the dataset deepens — no email wall, no paywall on the open data.',
+        'Screened offers & alerts launch as the dataset deepens — no email wall, no paywall on the open data.',
     },
   ];
 }

@@ -244,8 +244,33 @@ Each prompt must leave `npm run build` green. Later prompts tick these off.
   summary). New `components/tools/*` (`gauge.ts` pure parse/options helpers,
   `PriceGaugeForm`, `PriceGaugeResult`, `ConfidenceMeter`); metadata + WebApplication &
   BreadcrumbList JSON-LD; nav un-flags Price Gauge (`soon` removed) and the home Tools
-  pillar links to it. **Remaining:** stub routes `/sell`, `/offers`, `/alerts`;
-  handlers `/api/listings`, `/api/subscribe`.
+  pillar links to it. **Seller listing + `/api/listings` DONE** (the "Prompt 20" task
+  in the local prompt sequence): SSR `/sell/` — a seller submits a structured listing
+  (element / form / purity / quantity-kg / asking price + currency / seller name /
+  optional **private** contact + notes) and gets an **instant price-gauge response
+  inline** — the same `estimatePrice` engine returns a low/mid/high USD/kg band +
+  confidence + basis, and the asking price is positioned **below / in / above** that
+  band (with the gap to the median). The submission persists to the Prisma `Listing`
+  table via **POST `/api/listings`** with `status:'pending'` and a FROZEN gauge snapshot
+  (`gaugeLow/Mid/High/Confidence`); inputs are validated server-side (shared
+  `validateListing` — identical client + server rules), rejecting bad/empty/negative
+  values with per-field errors (400). A server-rendered **listings table** on the page
+  shows recent submissions (newest-first, every status; `router.refresh()` after submit)
+  so the loop is visible end-to-end, labelled that publishing is a maintainer step —
+  a `Listing` is never auto-published into the open dataset, and the private contact is
+  **never** returned or rendered (`hasContact` boolean only). The asking-vs-range
+  comparison is computed only for **USD** quotes (the dataset is USD-normalized and there
+  is no live FX — hard rules #1/#3); other currencies are stored + shown verbatim with a
+  note, and a zero-match request renders the engine's explicit **"insufficient data"**
+  path (no fabricated price). Storage only — no email/payment/notification side effects
+  (the "we'll review it" messaging is stubbed). New `lib/db.ts` (Prisma client singleton),
+  `components/sell/*` (`sell.ts` pure helpers + `validateListing`/`positionAskingPrice`/
+  `toListingDTO`, `SellForm` client island, `ListingGaugeResult`, `ListingsTable`);
+  `GET /api/listings` lists published listings (status filter, contact-safe). `/sell` +
+  `/api/listings` are `force-dynamic`/nodejs (live DB). Full metadata (no longer
+  `noindex`) + WebApplication & BreadcrumbList JSON-LD; nav un-flags Sell/List (`soon`
+  removed) and the home Tools pillar links to it. **Remaining:** stub routes `/offers`,
+  `/alerts`; handler `/api/subscribe`.
 - [x] **9 — Remove choppy/low-data visualizations.** Executed the AUDIT §3
   REMOVE decisions — the per-element price-history line chart (never ported) is
   replaced by the Price Movement % table + a new sortable **Price History**
