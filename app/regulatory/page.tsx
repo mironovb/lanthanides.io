@@ -14,7 +14,8 @@ import {
   getRegulatedAndSuspendedElements,
   getRegulatoryNotices,
 } from '@/lib/data';
-import { Container, PageHeader } from '@/components/layout';
+import Link from 'next/link';
+import { Container, PageHeader, StoryLink } from '@/components/layout';
 import { Callout } from '@/components/ui';
 import { RegulatoryView } from '@/components/regulatory/RegulatoryView';
 
@@ -100,7 +101,14 @@ export default function RegulatoryPage() {
         eyebrow="Export Controls"
         title="China Rare Earth Export Controls Tracker"
         lead="Every published Chinese export-control announcement affecting rare earths, strategic metals, and semiconductor materials since 2023 — announcement numbers, effective dates, affected elements, and current status. Filter by element to isolate the regime and announcements that touch it."
-      />
+      >
+        <StoryLink>
+          See how these controls move prices in{' '}
+          <Link href="/movements/">Market Movements</Link>, or jump to any
+          controlled element in the{' '}
+          <Link href="/elements/">directory</Link>.
+        </StoryLink>
+      </PageHeader>
 
       <RegulatoryView
         notices={notices}

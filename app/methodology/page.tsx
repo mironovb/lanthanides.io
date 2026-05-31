@@ -18,8 +18,9 @@ import matter from 'gray-matter';
 
 import '@/components/content/content-body.css';
 
+import Link from 'next/link';
 import { getSourceBreakdown } from '@/lib/data';
-import { Container, PageHeader } from '@/components/layout';
+import { Container, PageHeader, StoryLink } from '@/components/layout';
 import { Markdown } from '@/components/content/Markdown';
 import { SourceBreakdownTable } from '@/components/content/SourceBreakdownTable';
 
@@ -55,7 +56,13 @@ export default function MethodologyPage() {
         eyebrow="Trust & Method"
         title="Methodology"
         lead={FRONT_MATTER.description}
-      />
+      >
+        <StoryLink>
+          See the data this governs in the{' '}
+          <Link href="/elements/">element directory</Link>, or the registry it
+          draws from in <Link href="/sources/">Sources</Link>.
+        </StoryLink>
+      </PageHeader>
 
       {/* Two prose blocks with the live breakdown table spliced between them.
           The table is a sibling (not nested in .content-body) so the prose-table

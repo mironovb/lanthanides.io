@@ -297,8 +297,34 @@ Each prompt must leave `npm run build` green. Later prompts tick these off.
   data, and the 6-hourly Telegram monitor (no fabricated bot link). Full metadata
   + OpenGraph/Twitter (`og-default.png` copied into `public/assets/images/`) and
   `WebSite`/`Organization` JSON-LD. `npm run build` green.
-- [ ] **14–24 — Polish & rebuilds** (MIGRATION §4): content/positioning
-  (remaining §4.5–§4.6 surfaces), remaining page polish, PWA/manifest fixes
-  (§4.8, incl. `/periodicpricing/…` → `/assets/images/…`).
+- [x] **14 — Product narrative, navigation & information architecture.** Tied the
+  pages into one story. **Global IA** — `components/layout/nav.ts` is now a single
+  *grouped* source of truth: four header menus — **Data** (Elements · Market
+  Dashboard · Open Data), **Intelligence** (Regulatory Tracker · Market Movements ·
+  News), **Tools** (Price Gauge · Sell/List · Offer Feed), **About** (About/Vision ·
+  Methodology · Sources · Contribute on GitHub) — plus a standalone **Alerts** link.
+  `SiteNav` rebuilt as accessible disclosure menus (open on hover/focus/click; close
+  on mouse-leave/Escape/outside-click/focus-out; `aria-expanded`+`aria-controls`,
+  active-group highlight) with a grouped, 44px-target mobile panel; the desktop menu
+  links are JS-revealed, but the **footer mirrors the full IA server-side** so every
+  destination stays crawlable / no-JS-reachable. Routes not built yet (Dashboard + the
+  Tools/Alerts commercial layer, prompts 15–24) are flagged `soon` and link to a
+  shared, labelled **`ComingSoon`** placeholder (`noindex`, "coming in this build",
+  routes to live surfaces) — never a 404. **Footer** (`SiteFooter`) rebuilt onto the
+  same IA: licence (CC BY 4.0 data · MIT code), open-data exports (JSON/CSV),
+  contributor pipeline (GitHub), methodology/sources, the Telegram/email **Alerts**
+  entry (no fabricated bot link → `/alerts`), and a **de-`.edu`'d contact**
+  (`hello@lanthanides.io`, flagged `TODO(owner)` per AUDIT §4.1; also fixed on
+  `/about`). **Connective tissue:** a new consistent `StoryLink` cross-link under every
+  section masthead (Elements→Regulatory, Regulatory→Movements, Movements→News,
+  News→Regulatory, Methodology→Elements, Sources→Elements, About→Regulatory/Elements,
+  Data→Elements/Regulatory). **Breadcrumbs** normalised — the `/elements` crumb is now
+  "Elements" (matching the detail page's parent crumb); every trail starts at Home. New:
+  `components/layout/{StoryLink,ComingSoon}.tsx`, `app/{dashboard,tools/price-gauge,
+  sell,offers,alerts}/page.tsx`. `npm run build` green (56 routes); `npm run lint` clean.
+- [ ] **15–24 — Polish & rebuilds** (MIGRATION §4): content/positioning
+  (remaining §4.5–§4.6 surfaces, incl. the §4.6 investor reframe of `/about`),
+  remaining page polish, PWA/manifest fixes (§4.8, incl. `/periodicpricing/…` →
+  `/assets/images/…`).
 - [ ] **25 — Parity & cleanup.** Verify route parity against AUDIT §2; **remove
   `legacy/`**.

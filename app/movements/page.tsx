@@ -11,7 +11,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { getMovements } from '@/lib/data';
-import { Container, PageHeader } from '@/components/layout';
+import { Container, PageHeader, StoryLink } from '@/components/layout';
 import { buttonClasses } from '@/components/ui';
 import { formatDate } from '@/lib/format';
 import { MovementRow } from '@/components/movements/MovementRow';
@@ -58,7 +58,14 @@ export default function MovementsPage() {
             </a>
           </>
         }
-      />
+      >
+        <StoryLink>
+          These are the facts; for the interpretation behind a move, read{' '}
+          <Link href="/news/">News &amp; Analysis</Link>, or trace it to the
+          announcement in the <Link href="/regulatory/">Regulatory Tracker</Link>
+          .
+        </StoryLink>
+      </PageHeader>
 
       {total === 0 ? (
         <p className="py-12 text-center text-sm text-fg-muted">

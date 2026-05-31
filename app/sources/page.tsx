@@ -11,7 +11,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { getSiteSettings, getSources } from '@/lib/data';
-import { Container, PageHeader } from '@/components/layout';
+import { Container, PageHeader, StoryLink } from '@/components/layout';
 import { Callout, SectionHeading, Table, THead, TBody, TR, TH, TD } from '@/components/ui';
 import { capitalize } from '@/components/elements/format';
 
@@ -66,7 +66,12 @@ export default function SourcesPage() {
             for how trust tiers gate reference-price selection.
           </>
         }
-      />
+      >
+        <StoryLink>
+          See a source attached to live prices on any{' '}
+          <Link href="/elements/">element page</Link>.
+        </StoryLink>
+      </PageHeader>
 
       {/* ── Trust tiers ──────────────────────────────────────────────────── */}
       <section className="mt-12">

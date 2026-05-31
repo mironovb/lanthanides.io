@@ -18,7 +18,7 @@ import {
   getPriceRecords,
   getSources,
 } from '@/lib/data';
-import { Container, PageHeader } from '@/components/layout';
+import { Container, PageHeader, StoryLink } from '@/components/layout';
 import { SectionHeading, Stat, StatGrid } from '@/components/ui';
 
 export const metadata: Metadata = {
@@ -46,7 +46,13 @@ export default function AboutPage() {
         eyebrow="About"
         title="About lanthanides.io"
         lead="Independent, open-access strategic materials intelligence. No subscriptions, no paywalls. Real prices with source provenance."
-      />
+      >
+        <StoryLink>
+          See the work itself: the{' '}
+          <Link href="/regulatory/">Regulatory Tracker</Link> and the{' '}
+          <Link href="/elements/">element directory</Link>.
+        </StoryLink>
+      </PageHeader>
 
       <div className="mt-10 max-w-prose space-y-10 text-base leading-relaxed text-fg-muted">
         <section>
@@ -206,9 +212,17 @@ export default function AboutPage() {
 
         <section>
           <SectionHeading title="Contact" />
+          {/* TODO(owner): set the real project contact address. hello@lanthanides.io
+              is a neutral placeholder on the project's own domain (replaces the old
+              .edu address per AUDIT §4.1) — confirm the alias is live before launch. */}
           <p>
             For data corrections, source submissions, or questions:{' '}
-            <strong className="font-semibold text-fg">mironovb@berea.edu</strong>
+            <a
+              href="mailto:hello@lanthanides.io"
+              className="font-semibold text-fg underline decoration-dotted underline-offset-2 hover:text-accent-strong"
+            >
+              hello@lanthanides.io
+            </a>
           </p>
           <p className="mt-3">
             To understand how data is processed, see{' '}

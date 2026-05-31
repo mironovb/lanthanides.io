@@ -12,7 +12,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { getNews } from '@/lib/data';
 import { getAllArticles } from '@/lib/content';
-import { Container, PageHeader } from '@/components/layout';
+import { Container, PageHeader, StoryLink } from '@/components/layout';
 import { SectionHeading } from '@/components/ui';
 import { ArticleCard } from '@/components/news/ArticleCard';
 import { DevelopmentTimeline } from '@/components/news/DevelopmentTimeline';
@@ -37,7 +37,12 @@ export default function NewsIndexPage() {
         eyebrow="Editorial"
         title="News & Analysis"
         lead="Export controls, market research, and supply chain intelligence for rare earth and strategic metals."
-      />
+      >
+        <StoryLink>
+          For the structured, filterable record behind these developments, see
+          the <Link href="/regulatory/">Regulatory Tracker</Link>.
+        </StoryLink>
+      </PageHeader>
 
       {/* ── Featured analysis (the _articles collection) ─────────────────── */}
       {articles.length > 0 && (

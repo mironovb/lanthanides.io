@@ -20,7 +20,7 @@ import {
   getSourceBreakdown,
   getSources,
 } from '@/lib/data';
-import { Container, PageHeader } from '@/components/layout';
+import { Container, PageHeader, StoryLink } from '@/components/layout';
 import { Callout, SectionHeading, Stat, StatGrid } from '@/components/ui';
 import { CoverageGrid } from '@/components/charts/CoverageGrid';
 import { MarketStructure } from '@/components/charts/MarketStructure';
@@ -86,7 +86,14 @@ export default function DataPage() {
         eyebrow="Open Data"
         title="Open Data"
         lead="The full dataset behind lanthanides.io is open and inspectable. Every price carries source provenance; nothing is fabricated, interpolated, or model-generated. The data lives as versioned files in git — so it can be forked, audited, diffed, and cited — and is also served here as ready-to-use JSON and CSV exports."
-      />
+      >
+        <StoryLink>
+          See any record in context on its{' '}
+          <Link href="/elements/">element page</Link>, or the controls that
+          shape the market in the{' '}
+          <Link href="/regulatory/">Regulatory Tracker</Link>.
+        </StoryLink>
+      </PageHeader>
 
       {/* ── Coverage ─────────────────────────────────────────────────────── */}
       <StatGrid cols={5} className="mt-10">
