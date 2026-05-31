@@ -85,8 +85,7 @@ export const PRIMARY_NAV: NavGroup[] = [
       {
         href: '/tools/price-gauge',
         label: 'Price Gauge',
-        description: 'Benchmark a quote vs the references',
-        soon: true,
+        description: 'Estimate a fair price range for a buy or sell',
       },
       {
         href: '/sell',

@@ -85,14 +85,17 @@ function buildPillars(c: PillarCounts): Pillar[] {
       title: 'From reference to transaction',
       body: (
         <>
-          The commercial layer in progress: a price gauge that benchmarks a quote
-          against the sourced references above, export-control-screened seller
-          offers and listings, and live alerts the moment a new announcement
-          lands. The open reference stays free and open regardless.
+          The commercial layer, taking shape: the{' '}
+          <span className="text-fg">Price Gauge</span> is live — estimate a fair
+          price range for any element from the sourced records above, with a
+          confidence grade and full basis. Export-control-screened seller offers,
+          listings, and live announcement alerts follow. The open reference stays
+          free and open regardless.
         </>
       ),
+      links: [{ label: 'Try the Price Gauge', href: '/tools/price-gauge/' }],
       pending:
-        'Launching as the dataset deepens — no email wall, no paywall on the open data.',
+        'Listings, screened offers & alerts launch as the dataset deepens — no email wall, no paywall on the open data.',
     },
   ];
 }

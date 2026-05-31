@@ -227,9 +227,25 @@ Each prompt must leave `npm run build` green. Later prompts tick these off.
   `selfCheck(records)` asserts bounded/ordered ranges + the insufficient path.
   `app/api/price-gauge/route.ts` exposes it (GET query / POST JSON; 200 incl.
   insufficient, 404 unknown element, 400 unknown form/tier/quantity, CORS,
-  `force-dynamic`/nodejs). **Remaining:** stub routes `/tools/price-gauge` (the
-  gauge **widget** UI is the next, "Prompt 19" task), `/sell`, `/offers`,
-  `/alerts`; handlers `/api/listings`, `/api/subscribe`.
+  `force-dynamic`/nodejs). **Price-gauge widget DONE** (the "Prompt 19" task in the
+  local prompt sequence): SSR `/tools/price-gauge/` — pick element / form / purity /
+  quantity (+unit) / optional tier override and get a transparent **low/mid/high
+  USD/kg range**, a monochrome **confidence** grade, and a full **basis** disclosure
+  (records matched, distinct sellers, quote-date span, method, observed min–max, and
+  the contributing record ids → linked to the element's provenance table). The form is
+  a plain `method="get"` island (`components/tools/PriceGaugeForm`) so the whole tool
+  works **without JS** — the engine runs server-side over `searchParams` and the result
+  is server-rendered; JS only narrows the Form select to the element's stocked forms. It
+  calls `estimatePrice` directly (no client round-trip) and renders the engine's explicit
+  **"insufficient data"** path — never a fabricated price (hard rule #1) — on zero
+  matches, with an **"indicative only"** caveat on low-confidence / form-widened /
+  multi-form results. A static observed-min–max bar places the IQR band + median marker
+  on the real price axis (no trend line — the P10 gate doesn't apply to a one-value
+  summary). New `components/tools/*` (`gauge.ts` pure parse/options helpers,
+  `PriceGaugeForm`, `PriceGaugeResult`, `ConfidenceMeter`); metadata + WebApplication &
+  BreadcrumbList JSON-LD; nav un-flags Price Gauge (`soon` removed) and the home Tools
+  pillar links to it. **Remaining:** stub routes `/sell`, `/offers`, `/alerts`;
+  handlers `/api/listings`, `/api/subscribe`.
 - [x] **9 — Remove choppy/low-data visualizations.** Executed the AUDIT §3
   REMOVE decisions — the per-element price-history line chart (never ported) is
   replaced by the Price Movement % table + a new sortable **Price History**
