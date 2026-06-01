@@ -26,8 +26,10 @@ app** (seller listings, alerts, screened offers).
 - **Tailwind CSS** — tokens in `tailwind.config.ts`; fonts as CSS variables in
   `app/globals.css`. Type pairing: **IBM Plex Sans** (UI) · **IBM Plex Mono**
   (all numerics, tabular figures) · **Source Serif 4** (headings).
-- **Prisma** + **SQLite** (local/dev) / **Postgres** (prod) — the datasource
-  `provider` switches by `DATABASE_URL` only, never by code.
+- **Prisma** + **Postgres** (local dev **and** prod) — one engine everywhere via
+  `DATABASE_URL` (point at a pooled endpoint on serverless) + `DIRECT_URL` (for
+  `prisma migrate`); local dev runs a local/Docker Postgres. _(Dev originally used
+  SQLite during the migration; superseded at deploy — see `docs/DEPLOYMENT.md`.)_
 - Content tooling: `gray-matter` (front matter), `yaml` (`_data/*.yml`),
   `react-markdown` + `remark-gfm` + `rehype-raw` (HTML-rich element/article
   bodies).
@@ -71,11 +73,14 @@ Two stores with opposite needs — **never mix them**:
    /elements/`. Element URLs are case-sensitive (`/elements/Dy/`, not `/dy/`).
    Preserve in-page anchors (e.g. `/methodology/#display-price`,
    `/framework/#pricing`).
-3. **No credentials, no paid services.** SQLite only (local file). Stub anything
-   external (email delivery, payments, live ingestion) with env vars +
-   placeholders. Never commit a real `.env`, key, or secret. **Do not
-   `git add -A`** — `.arun/`, `combined*.txt`, `chat.md` are gitignored
-   scratch/secrets; **stage deliverables explicitly.**
+3. **No real credentials, no paid services in the repo.** The DB is **Postgres
+   everywhere**, but local dev runs a *local* Postgres (Docker — free, no hosted
+   service); production's connection string lives only in the host secret store
+   (`DATABASE_URL`/`DIRECT_URL`), never committed. Stub anything else external
+   (email delivery, payments, live ingestion) with env vars + placeholders. Never
+   commit a real `.env`, key, or secret. **Do not `git add -A`** — `.arun/`,
+   `combined*.txt`, `chat.md` are gitignored scratch/secrets; **stage deliverables
+   explicitly.**
 4. **No Jekyll dependency.** The Next build **never** imported from `legacy/`
    (the quarantined Jekyll layouts/includes/SCSS/pages/config/JS). `legacy/` was
    **removed in Prompt 25** after route-parity sign-off (with the two dead

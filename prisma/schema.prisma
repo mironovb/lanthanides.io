@@ -6,20 +6,23 @@
 // row here is NEVER auto-published back into the open dataset (that stays the
 // reviewed git-PR flow). See docs/ARCHITECTURE.md §4.
 //
-// SQLite ⇄ Postgres: `provider` is `sqlite` for local/dev and is switched to
-// `postgresql` for production by changing DATABASE_URL only — a connection-string
-// change, not a code change (docs/MIGRATION.md §1, docs/ARCHITECTURE.md §5).
-// To stay portable across both engines this schema avoids SQLite-unsupported
-// constructs: no native `enum` (status/channel/origin are documented "enum-like"
-// Strings) and no scalar lists (`topics` is a CSV String, not String[]).
+// Postgres everywhere — local dev AND production (the migration's original
+// "SQLite for dev" stance was superseded at deploy; see docs/DEPLOYMENT.md).
+// `DATABASE_URL` is the connection used at runtime (point it at a POOLED endpoint
+// on serverless hosts); `DIRECT_URL` is the direct connection Prisma Migrate uses
+// (set both to the same direct URL for a local/Docker Postgres). The schema still
+// avoids engine-specific constructs — no native `enum` (status/channel/origin are
+// "enum-like" Strings) and no scalar lists (`topics` is a CSV String, not
+// String[]) — so it stays simple and easy to reason about.
 
 generator client {
   provider = "prisma-client-js"
 }
 
 datasource db {
-  provider = "sqlite"
-  url      = env("DATABASE_URL")
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
 }
 
 /// Seller submissions captured at /sell (write path: POST /api/listings, P8).

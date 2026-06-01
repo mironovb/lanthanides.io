@@ -106,8 +106,11 @@ stubbed behind environment variables and placeholders.
   Components keep the dense reference tables server-rendered with no hydration tax.
 - **Tailwind CSS** — a documented terminal-grade design system (IBM Plex Sans /
   IBM Plex Mono / Source Serif 4, self-hosted).
-- **Prisma** + **SQLite (dev) / Postgres (prod)** — the datasource `provider`
-  switches by `DATABASE_URL` only, never by code.
+- **Prisma** + **Postgres** (local dev **and** production) — one engine
+  everywhere: `DATABASE_URL` (point at a pooled endpoint on serverless hosts) plus
+  `DIRECT_URL` for migrations; local dev runs a local/Docker Postgres. _(The
+  migration originally used SQLite for dev; that was superseded at deploy — see
+  [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md).)_
 - **Content tooling** — `gray-matter` (front matter), `yaml` (`_data/*.yml`),
   `react-markdown` + `remark-gfm` + `rehype-raw` (HTML-rich element/article bodies).
 
@@ -156,8 +159,11 @@ git clone https://github.com/mironovb/lanthanides.io.git
 cd lanthanides.io
 npm install                 # also runs `prisma generate`
 
+# Local Postgres in one line (Docker), or point .env at any Postgres you have:
+docker run --name lanth-pg -e POSTGRES_PASSWORD=postgres -p 5432:5432 -d postgres:16
+
 cp .env.example .env        # local config — see Environment below
-npx prisma migrate dev      # create + apply the SQLite dev schema
+npx prisma migrate deploy   # apply the committed schema to your local Postgres
 npx prisma db seed          # seed the screened-offer feed (220 rows) from the dataset
 
 npm run dev                 # http://localhost:3000
@@ -175,14 +181,16 @@ npm run dev                 # http://localhost:3000
 
 ### Environment
 
-Copy `.env.example` → `.env` (gitignored; never commit it). Two variables:
+Copy `.env.example` → `.env` (gitignored; never commit it):
 
 | Variable | Purpose |
 |:--|:--|
-| `DATABASE_URL` | Prisma datasource. Local dev: `file:./dev.db` (SQLite). Production: a `postgresql://…` connection string — see [Deployment](#deployment). |
+| `DATABASE_URL` | Prisma datasource — a `postgresql://…` connection string. On a serverless host, point it at a **pooled** endpoint. |
+| `DIRECT_URL` | Direct (non-pooled) Postgres connection used by `prisma migrate`. For a local/Docker Postgres, set it equal to `DATABASE_URL`. |
 | `NEXT_PUBLIC_TELEGRAM_BOT_URL` | Public link to the MOFCOM alert bot. `NEXT_PUBLIC_` is inlined into the client bundle, so it must be public-safe (a bot/channel URL, never a token). Left as the placeholder, the "Get alerts" CTAs route to `/alerts/` instead of shipping a dead link. |
 
-No other credentials are needed to run the site — every external service is
+No paid/external service is needed to run the site — Postgres runs locally
+(Docker) and every external integration (email, payments, live ingestion) is
 stubbed.
 
 ---
@@ -213,13 +221,18 @@ pre-computed `/assets/data/fluctuations.json` export keeps its original URL.
 
 A Node server is required (API route handlers, dynamic rendering, Prisma), so the
 site runs on a **Node host — Vercel is the natural fit** for Next.js App Router.
+**Full step-by-step — host setup, Postgres wiring, DNS cutover, and post-cutover
+verification — is in [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md).**
 
-1. **Database.** Switch `DATABASE_URL` to a `postgresql://…` connection string.
-   The Prisma `datasource provider` moves `sqlite → postgresql` by changing the
-   connection string only — no code change. Run `prisma migrate deploy` against
-   the production database, then `prisma db seed` once to populate the offer feed.
-2. **Environment.** Set `DATABASE_URL` and (optionally) `NEXT_PUBLIC_TELEGRAM_BOT_URL`
-   on the host. Never commit a real `.env`.
+1. **Database.** Provision a managed Postgres; set `DATABASE_URL` (pooled) and
+   `DIRECT_URL` (direct). The schema is already Postgres (`provider = "postgresql"`)
+   with a committed migration baseline — no per-deploy edit. Run
+   `prisma migrate deploy` against the production database, then `prisma db seed`
+   once to populate the offer feed (idempotent — safe to re-run).
+2. **Environment.** Set `DATABASE_URL`, `DIRECT_URL`, and (optionally)
+   `NEXT_PUBLIC_TELEGRAM_BOT_URL` in the host's secret store. Never commit a real
+   `.env`. `prisma generate` runs on `postinstall`; set the host build command to
+   `prisma migrate deploy && next build`.
 3. **Domain.** `CNAME` (`www.lanthanides.io`) is preserved; only the host binding
    moves. No public URL changes — every legacy permalink resolves or 301-redirects
    (the URL contract is in `docs/MIGRATION.md` §3).

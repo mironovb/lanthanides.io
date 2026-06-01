@@ -1,52 +1,58 @@
 -- CreateTable
 CREATE TABLE "listings" (
-    "id" TEXT NOT NULL PRIMARY KEY,
-    "createdAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "id" TEXT NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "elementSymbol" TEXT NOT NULL,
     "form" TEXT NOT NULL,
     "purity" TEXT NOT NULL,
-    "quantityKg" REAL NOT NULL,
-    "askingPricePerKg" REAL NOT NULL,
+    "quantityKg" DOUBLE PRECISION NOT NULL,
+    "askingPricePerKg" DOUBLE PRECISION NOT NULL,
     "currency" TEXT NOT NULL DEFAULT 'USD',
     "sellerName" TEXT NOT NULL,
     "sellerContact" TEXT,
     "notes" TEXT,
     "status" TEXT NOT NULL DEFAULT 'pending',
-    "gaugeLow" REAL,
-    "gaugeMid" REAL,
-    "gaugeHigh" REAL,
-    "gaugeConfidence" TEXT
+    "gaugeLow" DOUBLE PRECISION,
+    "gaugeMid" DOUBLE PRECISION,
+    "gaugeHigh" DOUBLE PRECISION,
+    "gaugeConfidence" TEXT,
+
+    CONSTRAINT "listings_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
 CREATE TABLE "subscriptions" (
-    "id" TEXT NOT NULL PRIMARY KEY,
-    "createdAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "id" TEXT NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "channel" TEXT NOT NULL,
     "email" TEXT,
     "topics" TEXT NOT NULL DEFAULT '',
     "status" TEXT NOT NULL DEFAULT 'waitlist',
-    "confirmedAt" DATETIME
+    "confirmedAt" TIMESTAMP(3),
+
+    CONSTRAINT "subscriptions_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
 CREATE TABLE "screened_offers" (
-    "id" TEXT NOT NULL PRIMARY KEY,
-    "createdAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "id" TEXT NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "elementSymbol" TEXT NOT NULL,
     "form" TEXT NOT NULL,
     "purity" TEXT,
-    "quantityKg" REAL,
-    "pricePerKg" REAL NOT NULL,
+    "quantityKg" DOUBLE PRECISION,
+    "pricePerKg" DOUBLE PRECISION NOT NULL,
     "currency" TEXT NOT NULL DEFAULT 'USD',
     "sellerName" TEXT NOT NULL,
     "sellerCountry" TEXT,
     "sourceType" TEXT NOT NULL,
     "sourceUrl" TEXT,
     "observedDate" TEXT NOT NULL,
-    "confidence" REAL NOT NULL,
-    "valueScore" REAL NOT NULL,
-    "origin" TEXT NOT NULL DEFAULT 'screened'
+    "confidence" DOUBLE PRECISION NOT NULL,
+    "valueScore" DOUBLE PRECISION NOT NULL,
+    "origin" TEXT NOT NULL DEFAULT 'screened',
+
+    CONSTRAINT "screened_offers_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateIndex
@@ -66,3 +72,4 @@ CREATE INDEX "screened_offers_origin_idx" ON "screened_offers"("origin");
 
 -- CreateIndex
 CREATE INDEX "screened_offers_valueScore_idx" ON "screened_offers"("valueScore");
+
