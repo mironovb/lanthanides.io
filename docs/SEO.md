@@ -149,3 +149,48 @@ on the `/methodology` pattern:
   the WebSite/Dataset JSON-LD `license`, the footer, and the Atom `<rights>`.
 - The repo-root `robots.txt` / `humans.txt` Jekyll templates remain (harmless —
   Next serves only `public/` + the `app/robots.ts` route).
+
+## 8. Redesign pass (prompt 18): plain SEO voice
+
+A later redesign pass (separate from the original migration) reverts the app
+toward the last static site and strips em dashes site-wide. Prompt 18 of that
+pass is the SEO slice. What it found and changed:
+
+- **Titles and descriptions are plain and em-dash-free.** The earlier redesign
+  code and copy sweeps had already removed em dashes from every `.tsx`/`.ts`
+  metadata string (the per-page `buildMetadata({ title, description })` calls and
+  the shared `DESCRIPTION` constants), so no title or meta description carries an
+  em dash. The one remaining case was the `/framework/` page meta description
+  (front matter in `app/framework/framework.md`, which feeds `buildMetadata`): a
+  trailing "verified May 14, 2026" aside used an em dash, now a comma. That fix
+  shipped with the framework and methodology content cleanup (those two markdown
+  page bodies held the last em dashes under `app/`; per-element and per-article
+  metadata come from front matter cleaned in the content prompt).
+- **The title template is unchanged and simple:** `%s · lanthanides.io`
+  (`TITLE_SUFFIX` plus a middle-dot separator in `lib/seo.ts`). Page name, then
+  the site name. The home page uses its full descriptive title.
+- **Structured data is unchanged and still covers the right pages.** The real,
+  used types stay: WebSite plus Organization (site-wide), BreadcrumbList (section
+  and detail pages), FAQPage (home), Article (`/news/[slug]`), Product plus Offer
+  (`/elements/[symbol]`), Dataset (`/data`, `/regulatory`, `/offers`), and
+  WebApplication (the tool pages). Their description strings are plain, with no
+  em dash and no marketing voice (verified by grep over `components/seo`). The
+  ported FAQPage answers keep their ASCII-hyphen price ranges: preserved verbatim
+  editorial, not em or en dashes.
+- **URLs, sitemap, robots, and feeds are unchanged.** `app/sitemap.ts` still
+  emits 52 URLs (16 pages plus 31 case-sensitive elements plus 5 articles, the
+  elements and articles read live from the data layer), `app/robots.ts` still
+  allows `/` and disallows `/api/`, and both Atom feeds keep their exact paths
+  and plain titles. Only correctness was checked here; no URL changed.
+- **Canonical and Open Graph host unchanged:** `SITE_URL` stays
+  `https://www.lanthanides.io`; each page's canonical and `og:url` are
+  self-referential (the page's own path).
+- **Considered and deferred:** `og:site_name` and the WebSite JSON-LD `name`
+  still read `lanthanides.io · Strategic Materials Ledger`, a migration-era brand
+  string that is em-dash-free. The last static site used the plain
+  `lanthanides.io` for `og:site_name`. This was left intact to avoid rippling the
+  JSON-LD `name` and the feed titles, and is flagged for the final parity prompt
+  as a one-token edit if exact brand parity is wanted.
+
+No em dashes were added in this section. The migration sections above predate the
+redesign and are outside its sweep, so they keep their original text.
