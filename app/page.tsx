@@ -1,54 +1,48 @@
 /**
- * Home (/) — the investment-grade landing page (Prompt 13). Replaces the
- * migration placeholder with a focused above-the-fold value proposition (what
- * this is, who it's for, why it matters now), live proof stats, primary CTAs
- * into the real product surfaces, and a below-the-fold three-pillar product
- * story. Leads with the crown-jewel regulatory intelligence (AUDIT §6) and
- * drops the apologetic "sparse data" framing (AUDIT §4.5) in favour of
- * verified-first coverage presented as a strength.
- *
- * Every number comes from the live data layer — nothing is fabricated, and the
- * 238 records are labelled "sourced" (each carries provenance), not "verified"
- * (only a minority hold a verified status), per CLAUDE.md hard rule #1.
+ * Home (/). The plain reference home from the last deployed static site
+ * (_layouts/home.html), in its original block order: a hero with a stat ribbon,
+ * the category legend, the full element grid, the active controls banner, the
+ * recent articles, and the recent movements. Every number and list comes from
+ * the data layer; nothing is fabricated (CLAUDE.md hard rule #1).
  */
 import type { Metadata } from 'next';
 import {
+  getCategoryCounts,
   getControlledElementCount,
   getElements,
-  getPolicyEvents,
+  getElementsByCategory,
   getPriceRecords,
-  getRegulatoryNotices,
-  getSourceBreakdown,
+  getReferencePrices,
+  getRegulatedElements,
   getSources,
 } from '@/lib/data';
+import { getAllArticles } from '@/lib/content';
 import { buildMetadata } from '@/lib/seo';
 import { FaqJsonLd } from '@/components/seo';
 import { Container } from '@/components/layout';
 import { SectionHeading } from '@/components/ui';
-import {
-  MethodologyCallout,
-  SourceBreakdownPanel,
-  TelegramBadge,
-} from '@/components/trust';
+import { CATEGORY_ORDER } from '@/components/elements/categories';
+import { ElementCard } from '@/components/elements/ElementCard';
 import { Hero } from '@/components/home/Hero';
-import { ProofStats } from '@/components/home/ProofStats';
-import { PillarCards } from '@/components/home/PillarCards';
+import { CategoryLegend } from '@/components/home/CategoryLegend';
+import { RegulatoryBanner } from '@/components/regulatory/RegulatoryBanner';
+import { ArticleCard } from '@/components/news/ArticleCard';
 import { HomeMovements } from '@/components/movements/HomeMovements';
 
 const TITLE =
-  'lanthanides.io — Sourced Prices & Export-Control Intelligence for Rare Earths';
+  'lanthanides.io: Rare Earth Prices, Export Controls, and Strategic Materials Intelligence';
 
 const DESCRIPTION =
-  'Source-transparent pricing and Chinese export-control intelligence for 31 rare-earth and strategic-metal elements — every price tied to a seller, date, and quantity; every regulatory announcement cited to its source. Open data, CC BY 4.0.';
+  'Rare earth and strategic metal prices with source provenance: retail surveys, bulk benchmarks, and Chinese export-control tracking by MOFCOM announcement. Open data, CC BY 4.0.';
 
 export const metadata: Metadata = buildMetadata({
   // absoluteTitle bypasses the "%s · lanthanides.io" template so the home title
-  // isn't double-branded. WebSite + Organization JSON-LD is site-wide (root
-  // layout); the home page carries the FAQPage entity.
+  // is not double-branded. Site-wide WebSite + Organization JSON-LD lives in the
+  // root layout; the home page carries the FAQPage entity.
   absoluteTitle: TITLE,
   description: DESCRIPTION,
   keywords:
-    'rare earth prices, rare earth export controls, MOFCOM announcements, strategic metals pricing, critical minerals data, gallium germanium controls, rare earth supply chain, open data rare earth',
+    'rare earth prices, rare earth export controls, MOFCOM announcements, strategic metals pricing, critical minerals data, gallium germanium controls, open data rare earth',
   path: '/',
 });
 
@@ -57,71 +51,66 @@ export default function HomePage() {
   const records = getPriceRecords().length;
   const controlled = getControlledElementCount();
   const sources = getSources().length;
-  const announcements = getPolicyEvents().length;
-  const notices = getRegulatoryNotices().length;
-  const breakdown = getSourceBreakdown();
+  const counts = getCategoryCounts();
+  const regulated = getRegulatedElements();
+  const recentArticles = getAllArticles().slice(0, 3);
 
-  const stats = [
-    {
-      label: 'Elements tracked',
-      value: totalElements,
-      hint: 'Rare earths + strategic metals',
-    },
-    {
-      label: 'Sourced price records',
-      value: records,
-      hint: 'Each fully provenanced',
-    },
-    { label: 'Curated sources', value: sources, hint: 'Trust-tiered, reviewed' },
-    {
-      label: 'China-controlled',
-      value: controlled,
-      hint: `of ${totalElements} elements`,
-    },
-    {
-      label: 'Regulatory announcements',
-      value: announcements,
-      hint: 'Tracked since 2023',
-    },
-  ];
+  // All elements in one grid, ordered by category then atomic number, matching
+  // the old home grid (element-grid.html) rather than the split category
+  // sections used on /elements.
+  const byCategory = getElementsByCategory();
+  const orderedElements = CATEGORY_ORDER.flatMap((cat) =>
+    [...byCategory[cat]].sort((a, b) => a.atomic_number - b.atomic_number),
+  );
 
   return (
-    <Container as="main" className="pb-20">
+    <Container as="main" className="pb-16">
       <FaqJsonLd records={records} elements={totalElements} />
 
+      {/* 1. Hero + stat ribbon */}
       <Hero
         totalElements={totalElements}
+        records={records}
         controlled={controlled}
-        announcements={announcements}
+        sources={sources}
       />
 
-      <ProofStats stats={stats} />
+      {/* 2. Grid legend */}
+      <CategoryLegend counts={counts} />
 
-      {/* ── Trust signals: provenance mix · how we verify · live alert bot ─ */}
-      <section className="mt-16">
-        <SectionHeading
-          title="Why you can trust these numbers"
-          description="Provenance on every price, a method you can read, and a live monitor watching the controls that move the market."
-        />
-        <div className="mt-6 grid items-start gap-4 lg:grid-cols-2">
-          <SourceBreakdownPanel breakdown={breakdown} />
-          <div className="space-y-4">
-            <MethodologyCallout />
-            <TelegramBadge variant="panel" />
-          </div>
+      {/* 3. Element grid (all elements, one grid) */}
+      <section className="mt-4" aria-label="Element price grid">
+        <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5 xl:grid-cols-6">
+          {orderedElements.map((element) => {
+            const { retailRef, bulkRef } = getReferencePrices(element.symbol);
+            return (
+              <ElementCard
+                key={element.symbol}
+                element={element}
+                retail={retailRef}
+                bulk={bulkRef}
+              />
+            );
+          })}
         </div>
       </section>
 
-      <PillarCards
-        counts={{
-          records,
-          elements: totalElements,
-          announcements,
-          notices,
-          controlled,
-        }}
-      />
+      {/* 4. Active controls banner */}
+      <RegulatoryBanner elements={regulated} />
 
+      {/* 5. Recent articles */}
+      {recentArticles.length > 0 && (
+        <section className="mt-12">
+          <SectionHeading title="Recent Articles" />
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {recentArticles.map((article) => (
+              <ArticleCard key={article.slug} article={article} />
+            ))}
+          </div>
+        </section>
+      )}
+
+      {/* 6. Recent movements */}
       <HomeMovements />
     </Container>
   );
