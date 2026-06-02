@@ -1,7 +1,7 @@
 /**
  * /framework — REE Import/Export Operational Framework (SSG, Prompt 24).
  *
- * The operational companion to the crown-jewel regulatory tracker (AUDIT §5/§6:
+ * The operational companion to the regulatory tracker (AUDIT §5/§6:
  * "preserve verbatim and keep the /framework/ URL"). Ported on the /methodology
  * pattern: the ~440-line prose is relocated to app/framework/framework.md so the
  * Next build never reads legacy/ (hard rule #4), the Jekyll Liquid is resolved

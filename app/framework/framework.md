@@ -90,7 +90,7 @@ Verified active regime — see [/regulatory/](/regulatory/) for the full timelin
 |---|---|
 | Regs on Export Control of Dual-Use Items (State Council, Oct 19, 2024; effective Dec 1, 2024) | In force; Article 49 extraterritorial reach |
 | MOFCOM Announcement No. 46 (2024) — US military end-user firewall | Article 1 in force; Article 2 suspended through November 28, 2026 (by No. 72) |
-| **MOFCOM Announcement No. 18 (2025)** — seven medium/heavy REEs | **In force — never suspended.** Load-bearing HREE control |
+| **MOFCOM Announcement No. 18 (2025)** — seven medium/heavy REEs | **In force — never suspended.** Core HREE control |
 | MOFCOM Announcements 55–58, 61, 62 (2025) — extraterritorial + five more REEs (Ho, Er, Tm, Eu, Yb) | **Suspended through November 28, 2026** (by No. 70) |
 
 **Annc 18 controlled list:** Sm, Gd, Tb, Dy, Lu, Sc, Y + metals + alloys + oxides + compounds + permanent-magnet materials containing them. Every non-Chinese transaction in these elements passes through case-by-case MOFCOM licensing.
