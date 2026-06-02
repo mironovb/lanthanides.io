@@ -1,14 +1,14 @@
 /**
- * /elements — the merged element directory + price ledger (SSG, Prompt 6).
+ * /elements: the element directory and price ledger (SSG).
  *
  * All 31 elements grouped into the four categories, each a grid of linked
- * <ElementCard> tiles with category colour-coding, the China-export-control (❗)
- * and high-demand (🔥) indicators, the export-control status, and the retail +
- * bulk reference prices from `getReferencePrices()`. Ports the intent of
- * legacy/pages/elements.html + legacy/_includes/element-grid.html.
+ * ElementCard tiles with category colour, the China export control and high
+ * demand markers, the export control status, and the retail and bulk reference
+ * prices from getReferencePrices(). The grid and tiles match the last static
+ * site (element-grid.html, _sass/_home.scss).
  *
- * The old `/prices/` URL 301-redirects here; that redirect is wired in
- * next.config.mjs alongside the other commercial routes (MIGRATION §3.5).
+ * The old /prices/ URL 301-redirects here; that redirect is wired in
+ * next.config.mjs (MIGRATION section 3.5).
  */
 import type { Metadata } from 'next';
 import Link from 'next/link';
@@ -76,7 +76,7 @@ export default function ElementsIndexPage() {
               count={elements.length}
             />
 
-            <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
+            <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5 xl:grid-cols-6">
               {elements.map((element) => {
                 const { retailRef, bulkRef } = getReferencePrices(
                   element.symbol,
