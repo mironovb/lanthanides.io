@@ -21,6 +21,7 @@ invoices/*.csv
 # Redesign tooling — do not push. Anchored to repo root so these only ignore
 # top-level tooling dirs, not similarly-named nested dirs elsewhere.
 /prompts/
+/redesign-prompts/
 /logs/
 /run-all.sh
 
