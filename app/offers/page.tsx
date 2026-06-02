@@ -123,7 +123,7 @@ export default async function OffersPage() {
       </section>
 
       {/* ── How ranking works ────────────────────────────────────────────── */}
-      <section className="mt-12 grid gap-4 lg:grid-cols-2">
+      <section className="mt-12">
         <Callout tone="note" glyph={null} title="How offers are ranked">
           <p className="leading-relaxed">
             Each offer&rsquo;s <span className="font-mono text-fg-muted">valueScore</span>{' '}
@@ -138,17 +138,6 @@ export default async function OffersPage() {
             metal) or tiers. Read the full method on{' '}
             <Link href="/methodology/#verification-and-confidence">Methodology</Link>
             .
-          </p>
-        </Callout>
-
-        <Callout tone="note" glyph={null} title="Two sides, one reference">
-          <p className="leading-relaxed">
-            This feed is the demand side. The supply side,{' '}
-            <Link href="/sell/">listing material</Link> with an instant price
-            gauge, runs the same engine over the same{' '}
-            <Link href="/data/">open dataset</Link>. That reference stays free,
-            inspectable, and CC BY 4.0. An offer here is never auto-published
-            into it.
           </p>
         </Callout>
       </section>

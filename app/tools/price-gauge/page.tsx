@@ -24,8 +24,7 @@ import {
 } from '@/lib/data';
 import { estimatePrice } from '@/lib/price-gauge';
 import { Container, PageHeader, StoryLink } from '@/components/layout';
-import { Callout, Card, Panel, SectionHeading } from '@/components/ui';
-import { MethodologyCallout } from '@/components/trust';
+import { Callout, Panel } from '@/components/ui';
 import { PriceGaugeForm } from '@/components/tools/PriceGaugeForm';
 import { PriceGaugeResult } from '@/components/tools/PriceGaugeResult';
 import { buildElementOptions, parseGaugeQuery } from '@/components/tools/gauge';
@@ -153,61 +152,6 @@ export default function PriceGaugePage({
           )}
         </div>
       </div>
-
-      {/* ── Explainer: method + commercial direction ─────────────────────── */}
-      <section className="mt-16">
-        <SectionHeading
-          title="What the number means"
-          description="An estimate you can audit, built from the sourced records behind every element page."
-        />
-        <div className="mt-6 grid gap-4 lg:grid-cols-2">
-          <div className="space-y-4">
-            <MethodologyCallout variant="panel" />
-            <p className="text-sm leading-relaxed text-fg-muted">
-              The gauge takes a robust{' '}
-              <span className="text-fg">weighted interquartile range</span> (P25 /
-              P50 / P75) of the matching records, weighting each by confidence,
-              recency, and purity-proximity so a single tiny-quantity vial
-              can&rsquo;t skew the band. Retail and bulk are estimated{' '}
-              <span className="text-fg">strictly within one tier</span> and never
-              averaged together; when too few records match, it says so rather
-              than guessing.
-            </p>
-          </div>
-
-          <Card padding="lg" className="flex flex-col">
-            <p className="eyebrow">For sellers</p>
-            <h3 className="mt-3 font-serif text-xl font-semibold text-fg">
-              The same tool for sellers
-            </h3>
-            <p className="mt-2 flex-1 text-sm leading-relaxed text-fg-muted">
-              Sellers use this same engine to price a listing on{' '}
-              <Link
-                href="/sell/"
-                className="font-medium text-accent hover:text-accent-strong"
-              >
-                Sell / List
-              </Link>{' '}
-              and to screen incoming offers. It stays free to use, and the open
-              dataset underneath is CC&nbsp;BY&nbsp;4.0.
-            </p>
-            <div className="mt-4 flex flex-wrap gap-x-4 gap-y-1.5 border-t border-border pt-3 text-sm">
-              <Link
-                href="/about/"
-                className="font-medium text-accent transition-colors hover:text-accent-strong"
-              >
-                About →
-              </Link>
-              <Link
-                href="/data/"
-                className="font-medium text-accent transition-colors hover:text-accent-strong"
-              >
-                Open data →
-              </Link>
-            </div>
-          </Card>
-        </div>
-      </section>
     </Container>
   );
 }

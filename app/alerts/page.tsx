@@ -62,12 +62,10 @@ export default function AlertsPage() {
       {/* ── How this works today ─────────────────────────────────────────── */}
       <Callout tone="note" title="What this is" className="mt-8">
         <p className="leading-relaxed">
-          <span className="font-semibold text-fg">Telegram alerts run today</span>:
-          an automated monitor polls Chinese-government sources roughly every six
-          hours and fires on each significant new announcement.{' '}
-          <span className="font-semibold text-fg">Email is a waitlist:</span> we
-          store your address and topics so we can tell you when delivery opens. No
-          email is sent yet.
+          <span className="font-semibold text-fg">Telegram alerts run today</span>,
+          fired by the regulatory monitor on each new announcement.{' '}
+          <span className="font-semibold text-fg">Email is a waitlist</span>: we
+          store your address and chosen topics, and no email is sent yet.
         </p>
       </Callout>
 

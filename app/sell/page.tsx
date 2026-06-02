@@ -19,7 +19,7 @@ import { BreadcrumbJsonLd, WebApplicationJsonLd } from '@/components/seo';
 import { getElements, getPriceRecords } from '@/lib/data';
 import { prisma } from '@/lib/db';
 import { Container, PageHeader, StoryLink } from '@/components/layout';
-import { Callout, Card, SectionHeading } from '@/components/ui';
+import { Callout, SectionHeading } from '@/components/ui';
 import { buildElementOptions } from '@/components/tools/gauge';
 import {
   SellForm,
@@ -121,71 +121,6 @@ export default async function SellPage() {
           <ListingsTable listings={listings} />
         </div>
       </section>
-
-      {/* ── Two sides of the market ──────────────────────────────────────── */}
-      <section className="mt-16">
-        <SectionHeading
-          title="Two sides of one market"
-          description="The reference data stays open and free. The marketplace on top connects sellers and buyers through it."
-        />
-        <div className="mt-6 grid gap-4 lg:grid-cols-3">
-          <VisionCard
-            kicker="Supply side"
-            title="Price it, then list it"
-            body="Price a listing against a sourced low/mid/high range and a confidence grade, then submit it for review."
-            links={[
-              { label: 'Price Gauge', href: '/tools/price-gauge/' },
-              { label: 'Methodology', href: '/methodology/#display-price' },
-            ]}
-          />
-          <VisionCard
-            kicker="Demand side"
-            title="Screened offers for buyers"
-            body="The same engine screens incoming offers against the references and the live export-control status, so buyers see how each one compares."
-            links={[{ label: 'Offer Feed', href: '/offers/' }]}
-          />
-          <VisionCard
-            kicker="The base layer"
-            title="Open data, regardless"
-            body="The dataset every estimate is built from stays CC BY 4.0 and inspectable in git. The reference comes first; the marketplace sits on top."
-            links={[
-              { label: 'Open Data', href: '/data/' },
-              { label: 'About', href: '/about/' },
-            ]}
-          />
-        </div>
-      </section>
     </Container>
-  );
-}
-
-function VisionCard({
-  kicker,
-  title,
-  body,
-  links,
-}: {
-  kicker: string;
-  title: string;
-  body: string;
-  links: { label: string; href: string }[];
-}) {
-  return (
-    <Card padding="lg" className="flex flex-col">
-      <p className="eyebrow">{kicker}</p>
-      <h3 className="mt-2 font-serif text-lg font-semibold text-fg">{title}</h3>
-      <p className="mt-2 flex-1 text-sm leading-relaxed text-fg-muted">{body}</p>
-      <div className="mt-4 flex flex-wrap gap-x-4 gap-y-1.5 border-t border-border pt-3 text-sm">
-        {links.map((l) => (
-          <Link
-            key={l.href}
-            href={l.href}
-            className="font-medium text-accent transition-colors hover:text-accent-strong"
-          >
-            {l.label} →
-          </Link>
-        ))}
-      </div>
-    </Card>
   );
 }
