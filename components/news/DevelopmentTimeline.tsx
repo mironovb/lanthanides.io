@@ -10,11 +10,16 @@ import Link from 'next/link';
 import { formatDate } from '@/lib/format';
 import type { NewsItem } from '@/lib/types';
 
+// Status colors match the regulatory tracker: In Force is amber (an active
+// control), everything paused or past is gray.
 const STATUS_STYLE: Record<string, { label: string; classes: string }> = {
-  active: { label: 'In Force', classes: 'text-up bg-up/10 border border-up/25' },
+  active: {
+    label: 'In Force',
+    classes: 'text-risk-medium bg-risk-medium/10 border border-risk-medium/25',
+  },
   suspended: {
     label: 'Suspended',
-    classes: 'text-risk-medium bg-risk-medium/10 border border-risk-medium/25',
+    classes: 'text-fg-dim bg-surface border border-border',
   },
   superseded: {
     label: 'Superseded',
@@ -93,9 +98,11 @@ export function DevelopmentTimeline({ items }: { items: NewsItem[] }) {
             {item.references && item.references.length > 0 && (
               <ul className="mt-3 space-y-1 border-t border-border pt-2.5">
                 {item.references.map((ref, r) => (
-                  <li key={r} className="text-xs leading-relaxed text-fg-dim">
+                  <li key={r} className="text-xs leading-relaxed">
                     <span className="text-fg-muted">{ref.label}</span>
-                    {ref.note && <span> — {ref.note}</span>}
+                    {ref.note && (
+                      <span className="mt-0.5 block text-fg-dim">{ref.note}</span>
+                    )}
                   </li>
                 ))}
               </ul>
