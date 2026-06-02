@@ -22,7 +22,7 @@
   font-size: 1.375rem;
   font-weight: 600;
   color: theme('colors.fg.DEFAULT');
-  letter-spacing: -0.01em;
+  letter-spacing: 0;
   margin: 2.25rem 0 0.875rem;
   padding-bottom: 0.4rem;
   border-bottom: 1px solid theme('colors.border.strong');
@@ -112,9 +112,75 @@
   margin: 0.35rem 0;
 }
 
+/* ── Editorial modules authored in article markdown ─────────────────────── */
+.content-body .article-brief {
+  margin: 1.35rem 0 1.25rem;
+  padding: 1rem 1rem 1rem 1.1rem;
+  border: 1px solid theme('colors.border.DEFAULT');
+  border-left: 3px solid theme('colors.accent.DEFAULT');
+  background: theme('colors.raised');
+}
+.content-body .article-brief p {
+  margin: 0;
+}
+.content-body .article-brief p + p {
+  margin-top: 0.5rem;
+}
+.content-body .article-brief-label {
+  display: block;
+  margin-bottom: 0.45rem;
+  font-family: theme('fontFamily.mono');
+  font-size: 0.6875rem;
+  text-transform: uppercase;
+  color: theme('colors.fg.dim');
+}
+.content-body .article-media-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.75rem;
+  margin: 1.5rem 0 1.75rem;
+}
+.content-body .article-placeholder {
+  min-height: 9rem;
+  margin: 0;
+  padding: 0.85rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border: 1px solid theme('colors.border.DEFAULT');
+  background:
+    linear-gradient(to right, theme('colors.border.DEFAULT') 1px, transparent 1px),
+    linear-gradient(to bottom, theme('colors.border.DEFAULT') 1px, transparent 1px),
+    theme('colors.raised');
+  background-size: 2.25rem 2.25rem;
+}
+.content-body .article-placeholder-kicker {
+  font-family: theme('fontFamily.mono');
+  font-size: 0.6875rem;
+  text-transform: uppercase;
+  color: theme('colors.fg.dim');
+}
+.content-body .article-placeholder-title {
+  max-width: 9rem;
+  font-family: theme('fontFamily.serif');
+  font-size: 1rem;
+  line-height: 1.25;
+  color: theme('colors.fg.DEFAULT');
+}
+
+@media (max-width: 640px) {
+  .content-body .article-media-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
 /* ── Tables (GFM) ────────────────────────────────────────────────────────── */
 .content-body table {
-  width: 100%;
+  display: block;
+  width: max-content;
+  min-width: 100%;
+  max-width: 100%;
+  overflow-x: auto;
   border-collapse: collapse;
   font-size: 0.8125rem;
   margin: 1.25rem 0;

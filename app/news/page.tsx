@@ -27,6 +27,7 @@ export const metadata: Metadata = buildMetadata({
 
 export default function NewsIndexPage() {
   const articles = getAllArticles();
+  const [leadArticle, ...otherArticles] = articles;
   const developments = [...getNews()].sort((a, b) =>
     b.date.localeCompare(a.date),
   );
@@ -38,7 +39,7 @@ export default function NewsIndexPage() {
         crumbs={[{ label: 'Home', href: '/' }, { label: 'News' }]}
         eyebrow="Editorial"
         title="News & Analysis"
-        lead="Export controls, market research, and supply chain intelligence for rare earth and strategic metals."
+        lead="Source-linked explainers, market research, and supply-chain intelligence for rare earth and strategic metals."
         actions={
           <span className="font-mono text-xs text-fg-dim">
             {articles.length} article{articles.length !== 1 ? 's' : ''}
@@ -46,16 +47,34 @@ export default function NewsIndexPage() {
         }
       >
         <StoryLink>
-          For the structured, filterable record behind these developments, see
-          the <Link href="/regulatory/">Regulatory Tracker</Link>.
+          lanthanides.io maintains a public English-language tracker of Chinese
+          rare earth and strategic-metal export controls. For the structured
+          record behind these pieces, see the{' '}
+          <Link href="/regulatory/">Regulatory Tracker</Link>.
         </StoryLink>
       </PageHeader>
 
-      {/* ── Feature cards (the _articles collection, newest first) ───────── */}
-      {articles.length > 0 && (
-        <section className="mt-10">
+      {leadArticle && (
+        <section className="mt-10" aria-labelledby="lead-explainer">
+          <SectionHeading
+            id="lead-explainer"
+            title="Latest Explainer"
+            description="The lead article is selected by publication date from the versioned article collection."
+          />
+          <ArticleCard article={leadArticle} featured />
+        </section>
+      )}
+
+      {otherArticles.length > 0 && (
+        <section className="mt-12" aria-labelledby="analysis-library">
+          <SectionHeading
+            id="analysis-library"
+            title="Analysis Library"
+            count={`${otherArticles.length} pieces`}
+            description="Long-form briefings, methodology notes, and market surveys. Each piece links back to the underlying materials ledger where possible."
+          />
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {articles.map((article) => (
+            {otherArticles.map((article) => (
               <ArticleCard key={article.slug} article={article} />
             ))}
           </div>

@@ -61,6 +61,62 @@ const STATUS_BADGE: Record<string, { label: string; classes: string }> = {
   },
 };
 
+function ArticleHeroPlaceholder({
+  title,
+  elements,
+}: {
+  title: string;
+  elements?: string[];
+}) {
+  const chips = elements?.slice(0, 12) ?? [];
+  const rails = Array.from({ length: 9 }, (_, i) => i);
+
+  return (
+    <figure
+      className="mb-8 overflow-hidden border border-border bg-raised"
+      aria-label={`Editorial source-docket placeholder for ${title}`}
+    >
+      <div className="relative min-h-[18rem] sm:min-h-[22rem]">
+        <div className="absolute inset-0 grid grid-cols-9" aria-hidden="true">
+          {rails.map((rail) => (
+            <span
+              key={rail}
+              className="border-r border-border last:border-r-0"
+            />
+          ))}
+        </div>
+        <div className="absolute inset-x-5 top-5 flex items-center gap-3" aria-hidden="true">
+          <span className="font-mono text-2xs uppercase tracking-caps text-fg-dim">
+            Source docket
+          </span>
+          <span className="h-px flex-1 bg-border-strong" />
+        </div>
+        <div className="absolute inset-x-5 bottom-5" aria-hidden="true">
+          <div className="grid grid-cols-4 gap-2 sm:grid-cols-6">
+            {chips.length > 0
+              ? chips.map((sym) => (
+                  <span
+                    key={sym}
+                    className="border border-border bg-surface px-2 py-2 text-center font-mono text-xs text-fg-dim"
+                  >
+                    {sym}
+                  </span>
+                ))
+              : rails.slice(0, 6).map((rail) => (
+                  <span key={rail} className="h-8 border border-border bg-surface" />
+                ))}
+          </div>
+          <div className="mt-5 space-y-2">
+            <span className="block h-px w-full bg-border-strong" />
+            <span className="block h-px w-3/4 bg-border" />
+            <span className="block h-px w-5/6 bg-border" />
+          </div>
+        </div>
+      </div>
+    </figure>
+  );
+}
+
 export default function ArticlePage({ params }: { params: Params }) {
   const article = getArticleContent(params.slug);
   if (!article) notFound();
@@ -84,7 +140,7 @@ export default function ArticlePage({ params }: { params: Params }) {
           { name: fm.title, path: `/news/${params.slug}/` },
         ]}
       />
-      <div className="mx-auto max-w-prose">
+      <div className="mx-auto max-w-[54rem]">
         <Breadcrumbs
           className="mb-5"
           items={[
@@ -112,7 +168,7 @@ export default function ArticlePage({ params }: { params: Params }) {
               )}
             </div>
 
-            <h1 className="mt-3 font-serif text-3xl font-semibold leading-tight text-fg">
+            <h1 className="mt-3 font-serif text-3xl font-semibold leading-tight text-fg md:text-4xl">
               {fm.title}
             </h1>
             {fm.subtitle && (
@@ -149,8 +205,11 @@ export default function ArticlePage({ params }: { params: Params }) {
               />
             </figure>
           )}
+          {!fm.image && (
+            <ArticleHeroPlaceholder title={fm.title} elements={fm.elements} />
+          )}
 
-          <div className="content-body">
+          <div className="content-body mx-auto">
             <Markdown>{body}</Markdown>
           </div>
 

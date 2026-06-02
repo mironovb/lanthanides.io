@@ -1,8 +1,8 @@
 /**
  * ContributePanel: the contributor pipeline presented as a credibility feature
  * (Prompt 16): an open, auditable intake with TWO human checkpoints. It ports
- * the real flow documented on /methodology and in the repo: GitHub issue →
- * maintainer `approved` label → manually-dispatched PR → merge. It links the
+ * the real flow documented on /methodology and in the repo: GitHub issue,
+ * maintainer `approved` label, manually-dispatched PR, merge. It links the
  * existing structured issue templates, the contribution guide, and the repo.
  *
  * Every claim is checkable against the repository (CLAUDE.md hard rule #1): the
@@ -19,16 +19,19 @@ const GITHUB = 'https://github.com/mironovb/lanthanides.io';
 const TEMPLATES = [
   {
     label: 'Submit a price',
+    kind: 'Price intake',
     desc: 'A price you observed: seller, form, purity, quantity, and date.',
     href: `${GITHUB}/issues/new?template=price-update.yml`,
   },
   {
     label: 'Report a correction',
+    kind: 'Correction',
     desc: 'Flag a value that looks wrong, with a source for the fix.',
     href: `${GITHUB}/issues/new?template=data-correction.yml`,
   },
   {
     label: 'Share a market note',
+    kind: 'Market note',
     desc: 'A sourced supply-chain or regulatory development.',
     href: `${GITHUB}/issues/new?template=market-note.yml`,
   },
@@ -50,7 +53,7 @@ const STEPS: {
   },
   {
     title: 'A pull request opens',
-    body: 'A manually-dispatched workflow validates the fields with the same rules used for every price and opens a PR adding one observation. It never runs automatically on issue creation.',
+    body: 'A manually-dispatched workflow validates the fields, writes one observation, refreshes derived data, runs lint and build, then opens a PR. It never runs automatically on issue creation.',
   },
   {
     title: 'Review and merge',
@@ -62,7 +65,7 @@ const STEPS: {
 export function ContributePanel({ className }: { className?: string }) {
   return (
     <div className={className}>
-      {/* ── The pipeline ─────────────────────────────────────────────────── */}
+      {/* The pipeline */}
       <ol className="grid gap-3 sm:grid-cols-2">
         {STEPS.map((s, i) => (
           <li
@@ -98,7 +101,7 @@ export function ContributePanel({ className }: { className?: string }) {
         history is inspectable in the repository.
       </Callout>
 
-      {/* ── Templates ────────────────────────────────────────────────────── */}
+      {/* Templates */}
       <div className="mt-8 grid gap-3 md:grid-cols-3">
         {TEMPLATES.map((t) => (
           <a
@@ -112,6 +115,7 @@ export function ContributePanel({ className }: { className?: string }) {
               <span className="font-medium text-fg group-hover:text-accent-strong">
                 {t.label}
               </span>
+              <Badge variant="default">{t.kind}</Badge>
               <span aria-hidden="true" className="text-fg-dim group-hover:text-accent-strong">
                 ↗
               </span>
@@ -123,7 +127,7 @@ export function ContributePanel({ className }: { className?: string }) {
         ))}
       </div>
 
-      {/* ── Repo / guide (external → plain styled <a> for new-tab + rel) ──── */}
+      {/* Repo / guide links use plain anchors for new-tab behavior. */}
       <div className="mt-6 flex flex-wrap items-center gap-3">
         <a
           href={`${GITHUB}/issues/new/choose`}

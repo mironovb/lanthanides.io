@@ -1,7 +1,7 @@
 /**
  * /contribute: the contributor pipeline as a first-class credibility surface
  * (Prompt 16, task #3). Explains the open, auditable, double-human-review intake
- * (GitHub issue → maintainer `approved` label → manually-dispatched PR → merge),
+ * (GitHub issue, maintainer `approved` label, manually-dispatched PR, merge),
  * links the existing structured issue templates, and shows the live intake mix
  * so the openness is verifiable rather than asserted.
  *
@@ -17,7 +17,7 @@ import { buildMetadata } from '@/lib/seo';
 import { BreadcrumbJsonLd } from '@/components/seo';
 import { getSourceBreakdown } from '@/lib/data';
 import { Container, PageHeader, StoryLink } from '@/components/layout';
-import { Callout, SectionHeading } from '@/components/ui';
+import { Callout, SectionHeading, Table, TBody, TD, TH, THead, TR } from '@/components/ui';
 import {
   ContributePanel,
   MethodologyCallout,
@@ -27,6 +27,25 @@ import {
 const TITLE = 'Contribute Data';
 const DESCRIPTION =
   'How sourced prices and market intelligence enter lanthanides.io: an open, auditable contributor pipeline with two human checkpoints: GitHub issue, maintainer review, pull request, and merge. No fabricated or auto-published data.';
+
+const PIPELINE_CHECKS = [
+  {
+    stage: 'Issue gate',
+    check: 'The issue must use the price-update template and carry the maintainer-applied approved label.',
+  },
+  {
+    stage: 'Parser',
+    check: 'The intake script rejects unknown elements, missing fields, non-positive prices, future dates, and non-USD prices without a known FX rate.',
+  },
+  {
+    stage: 'Generated data',
+    check: 'Source breakdown, fluctuation, and movement files are refreshed from the updated price history.',
+  },
+  {
+    stage: 'Site gate',
+    check: 'The workflow runs lint and production build before it opens the review pull request.',
+  },
+] as const;
 
 export const metadata: Metadata = buildMetadata({
   title: TITLE,
@@ -68,6 +87,32 @@ export default function ContributePage() {
           description="Two checkpoints stand between a submission and the public dataset: a maintainer's review, and a merged pull request. Neither can be skipped."
         />
         <ContributePanel />
+
+        <div className="mt-6">
+          <SectionHeading
+            as="h3"
+            title="What the intake workflow checks"
+            description="The automation is narrow on purpose. It does not decide whether a source is credible; it proves the approved submission is well formed and safe to review as a diff."
+          />
+          <Table>
+            <THead>
+              <TR hover={false}>
+                <TH>Stage</TH>
+                <TH>Check</TH>
+              </TR>
+            </THead>
+            <TBody>
+              {PIPELINE_CHECKS.map((row) => (
+                <TR key={row.stage}>
+                  <TD className="whitespace-nowrap font-mono text-xs uppercase tracking-caps text-fg">
+                    {row.stage}
+                  </TD>
+                  <TD>{row.check}</TD>
+                </TR>
+              ))}
+            </TBody>
+          </Table>
+        </div>
       </section>
 
       {/* ── Standards + live intake mix ──────────────────────────────────── */}

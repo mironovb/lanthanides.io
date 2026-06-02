@@ -459,3 +459,44 @@ refs). Files touched: `tailwind.config.ts` (risk/category token darkening),
 `components/ui/{Button,FilterChips}.tsx`, `components/offers/OffersFeed.tsx`
 (`text-white`), `app/not-found.tsx` (new). Same browser caveat as §5: run
 Lighthouse + axe in a real browser before launch.
+
+## 8. Redesign final parity sign-off
+
+The full page-by-page parity record is `docs/OLD-DESIGN.md`. This is the closing
+verification after the last rebuilds (element detail, brand logo and images, tools
+copy), run 2026-06-02.
+
+### 8.1 What the last rebuilds changed
+
+- **Element detail** (`app/elements/[symbol]/page.tsx`, `ReferencePriceCard.tsx`):
+  dropped the methodology callout and the per-card confidence badge so the page
+  matches the old calm reference layout. Verification and confidence still travel
+  with every record in the sortable provenance table. Block order, premium
+  calculation, and keyboard-plus-mouse sorting confirmed against the old layout.
+- **Brand logo and images** (`SiteHeader.tsx`, `site.webmanifest`): the header now
+  uses the real `logo-48.png` via `next/image` at 24px with the wordmark, matching
+  the old `nav.html`. The manifest name is back to plain `lanthanides.io` (the em
+  dash is gone) and its `background_color` is white for the light theme. Every
+  `/assets/images/*` reference in the built output resolves to a file in `public/`.
+- **Tools copy** (`price-gauge`, `sell`, `offers`, `alerts`): removed the vision
+  and two-sided-market sections and trimmed the intros. Forms, validation, database
+  reads and writes, the price-gauge basis disclosure, and every honesty note
+  (review before publish, private contact never shown, feed seeded with screening
+  in development, email waitlist sends nothing) are kept.
+
+### 8.2 Closing checks
+
+- `npm run build` green; `npm run lint` clean.
+- Em and en dashes over `app components lib _elements _articles`: **0**. Config and
+  root code (`next.config.mjs`, `tailwind.config.ts`, `package.json`,
+  `prisma/seed.ts`, `app/layout.tsx`, the manifest): **0**.
+- Internal-link check over built HTML: **0** dangling links (the only unmatched
+  hrefs are `/_next/static/*` runtime assets, which Next serves).
+- Redirects intact: `/prices` to `/elements/`, `/vision` to `/about/`,
+  `/assets/data/elements.json` to `/api/export/json/`. Element URLs case-sensitive
+  (`dynamicParams = false`). Feed and export paths unchanged.
+- Chart gate still holds (**0** `<polyline>` in built output).
+
+Deliberate departures from the old site (the `/prices/` Ledger, the elements tile
+grid, the dropped dashboard movers board, the sources YAML card) are listed and
+justified in `docs/OLD-DESIGN.md` under "Accepted differences from the old site".

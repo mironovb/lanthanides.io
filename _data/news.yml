@@ -1,5 +1,24 @@
-# Regulatory & Trade Developments — China Export Controls Timeline
+# Regulatory & Trade Developments: China Export Controls Timeline
 # status: active | suspended | superseded | historic
+
+- date: 2026-06-05
+  headline: "China's MOFCOM export controls, explained"
+  body: >-
+    A plain-English explainer for journalists and analysts: what MOFCOM controls,
+    which rare earth and strategic metal notices are active or suspended, why
+    licensing is not the same as a simple ban, and how to cite the lanthanides.io
+    tracker without flattening the policy details.
+  status: active
+  tag: Explainer
+  article: mofcom-rare-earth-export-controls-explained
+  elements: [Sm, Gd, Tb, Dy, Lu, Sc, Y, Ga, Ge, Sb, W, Te, Bi, Mo, In, Ho, Er, Tm, Eu, Yb]
+  references:
+    - label: "MOFCOM/GAC Announcement No. 18 of 2025"
+      note: "English reference text for the April 2025 medium and heavy rare earth licensing regime"
+    - label: "MOFCOM Announcements No. 61, No. 62, and No. 70 of 2025"
+      note: "October 2025 expansion and November 2025 suspension package"
+    - label: "State Council Order No. 785"
+      note: "Rare Earth Management Regulations, effective 1 Oct 2024"
 
 - date: 2026-04-05
   headline: "The retail premium puzzle: why collector-grade rare earths cost multiples of wholesale"
@@ -7,7 +26,7 @@
     Structural economics behind retail-to-bulk price ratios of 5x to 100x: small lot
     processing, reactive metal handling, argon packaging, niche demand economics,
     and the widening gap driven by Chinese export controls. The retail premium is
-    not a market inefficiency — it is the equilibrium price of serving a market at
+    not a market inefficiency. It is the equilibrium price of serving a market at
     1/1,000,000th the scale of industrial consumption.
   status: active
   tag: Analysis
@@ -21,7 +40,7 @@
   headline: "eBay rare earth market research: who sells what, and at what price"
   body: >-
     Multi-platform survey of retail rare earth and strategic metal pricing across eBay,
-    Alibaba, and Amazon — April 2026. Documents every qualifying listing for 25+ elements,
+    Alibaba, and Amazon in April 2026. Documents every qualifying listing for 25+ elements,
     mapping the seller landscape from European specialists to Chinese industrial wholesalers.
     Retail premiums range from 1–2x (gallium) to over 100x (yttrium) versus bulk benchmarks.
   status: active
@@ -35,9 +54,9 @@
 - date: 2026-04-03
   headline: "China's invisible rare earth wall: why suspended controls don't mean available supply"
   body: >-
-    Analysis of the six-layer domestic regulatory architecture — production quotas, SOE
+    Analysis of the six-layer domestic regulatory architecture: production quotas, SOE
     duopoly, mandatory traceability, customs enforcement, VAT structure, and regulatory
-    ambiguity — that constrains rare earth trade regardless of whether MOFCOM export controls
+    ambiguity. These constraints shape rare earth trade regardless of whether MOFCOM export controls
     are formally active. Heavy REE mining quotas frozen at 19,150 t for six years; 80.7% of
     historical thulium supply was illegally produced; customs enforcement cases up 248% in 2025.
   status: active
@@ -46,11 +65,11 @@
   elements: [Sm, Gd, Tb, Dy, Lu, Sc, Y, Ho, Tm, Eu, Er, Yb]
   references:
     - label: "State Council Order No. 785, Rare Earth Management Regulations"
-      note: "稀土管理条例, effective 1 Oct 2024 — 32-article framework, never suspended"
+      note: "稀土管理条例, effective 1 Oct 2024; 32-article framework, never suspended"
     - label: "Zhang et al., Journal of Industrial Ecology, 2024"
       note: "80.7% of China's Tm production 2011–2020 from illegal mining (1,506 t cumulative)"
     - label: "MOFCOM/GAC enforcement data, 2025"
-      note: "Administrative cases: 91 (2024) → 317 (2025), +248%; max fine RMB 6.34M"
+      note: "Administrative cases rose from 91 in 2024 to 317 in 2025, +248%; max fine RMB 6.34M"
 
 - date: 2026-03-10
   headline: "Chinese export licence timelines: what February 2026 quotes reveal"
@@ -110,13 +129,13 @@
   references:
     - label: "MOFCOM Announcements No. 70 and No. 72 of 2025"
       note: "商务部公告2025年第70号 and 第72号, effective 7–9 Nov 2025"
-    - label: "Suspension expires 28 November 2026 — controls revert to pre-Oct 2025 baseline unless renewed"
+    - label: "Suspension expires 28 November 2026; controls revert to pre-Oct 2025 baseline unless renewed"
 
 - date: 2025-11-20
   headline: "MOFCOM October 2025 suspension: what Nos. 55–62 mean for Ho, Er, Tm"
   body: >-
     Analysis of the six October 2025 announcements that expanded export controls to
-    holmium, erbium, thulium, europium, and ytterbium — and their suspension one month
+    holmium, erbium, thulium, europium, and ytterbium, followed by their suspension one month
     later until November 28, 2026. The suspension is a diplomatic pause, not a policy
     reversal. Default outcome at expiry: controls reimpose automatically. Procurement
     window analysis for the suspension period.
@@ -148,7 +167,7 @@
   headline: "China imposes export controls on seven medium and heavy rare earths"
   body: >-
     Export licences required for samarium, gadolinium, terbium, dysprosium, lutetium,
-    scandium, and yttrium — covering metals, alloys, oxides, compounds, and permanent
+    scandium, and yttrium, covering metals, alloys, oxides, compounds, and permanent
     magnet materials. Announced in direct retaliation to escalating US tariffs. Targets
     the materials most critical for NdFeB permanent magnets and defence applications.
   status: active

@@ -1,6 +1,6 @@
 name: Community Submission Intake
 
-# Manual trigger ONLY. There is no `issues:` event here on purpose — an
+# Manual trigger ONLY. There is no `issues:` event here on purpose. An
 # unreviewed price-update issue must never make it into the price history.
 # The maintainer reads the issue, decides it is trustworthy, then comes
 # here and runs this workflow with the issue number. The workflow opens a
@@ -28,7 +28,7 @@ permissions:
 jobs:
   intake:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 20
 
     steps:
       - name: Validate issue number
@@ -66,7 +66,7 @@ jobs:
 
           # Hard gate: require an explicit `approved` label. The maintainer
           # adds this label only after reviewing the submission. The
-          # workflow refuses to proceed without it — this is the first of
+          # workflow refuses to proceed without it. This is the first of
           # the two human checkpoints.
           has_approved=$(jq -r '[.labels[].name] | index("approved") | tostring' .intake/issue.json)
           if [[ "$has_approved" == "null" ]]; then
@@ -104,7 +104,18 @@ jobs:
       - name: Stop here if dry_run requested
         if: ${{ inputs.dry_run == 'true' }}
         run: |
-          echo "dry_run=true — exiting before write/PR."
+          echo "dry_run=true: exiting before write/PR."
+
+      - name: Set up Node
+        if: ${{ inputs.dry_run != 'true' }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: npm
+
+      - name: Install Node dependencies
+        if: ${{ inputs.dry_run != 'true' }}
+        run: npm ci
 
       - name: Apply submission and open PR
         if: ${{ inputs.dry_run != 'true' }}
@@ -132,11 +143,24 @@ jobs:
             --issue-number "$ISSUE"
 
           if git diff --quiet _data/price_history/; then
-            echo "::error::no change to _data/price_history/ — observation may already exist (same date+tier+source)."
+            echo "::error::no change to _data/price_history/: observation may already exist (same date+tier+source)."
             exit 1
           fi
 
-          git add _data/price_history/
+          python scripts/source_breakdown.py
+          python scripts/fluctuations.py --verbose
+          python scripts/detect_movements.py --verbose
+
+          npm run lint
+          npm run build
+
+          git add \
+            _data/price_history/ \
+            _data/source_breakdown.yml \
+            _data/fluctuations.json \
+            _data/movements.yml \
+            assets/data/fluctuations.json
+
           author=$(cat .intake/author.txt)
           title=$(cat .intake/title.txt)
           git commit -m "data: ingest community submission from issue #$ISSUE
@@ -155,11 +179,12 @@ jobs:
           Ingests the community price submission from issue #$ISSUE.
 
           - **Submitter:** @$author
-          - **Issue:** #$ISSUE — $title
+          - **Issue:** #$ISSUE: $title
           - **Approval label:** present (\`approved\`)
-          - **Validation:** passed against the same rules used for
-            public listings and supplier quotes (positive price, non-future
-            date, known tier, known element, FX rate present for non-USD).
+          - **Validation:** passed community intake parsing, regenerated
+            derived data files, and passed \`npm run lint\` plus \`npm run build\`.
+          - **Data rules:** positive price, non-future date, known tier,
+            known element, and FX rate present for non-USD.
           - **Source type:** \`community_submission\`
           - **Issue reference:** stored as \`issue_number\` on the observation.
 
@@ -168,6 +193,7 @@ jobs:
           - [ ] The diff matches what the issue actually says.
           - [ ] The cited URL or seller still looks legitimate.
           - [ ] No private contact information appears in the diff.
+          - [ ] Generated source, fluctuation, and movement files are expected.
           - [ ] Date is within the freshness window we care about.
 
           Merging this PR is what publishes the observation. Closing it

@@ -1,220 +1,165 @@
 # Contributing to lanthanides.io
 
-lanthanides.io is an open-access rare earth and strategic materials pricing platform.
-Contributions of price data, corrections, and market intelligence are welcome from
-anyone who can provide sourced, verifiable information.
+lanthanides.io accepts sourced pricing data, data corrections, and market notes
+for rare earths and strategic metals. The rule is simple: every factual claim
+must be traceable to a source another person can inspect.
 
-## Ways to Contribute
+The public dataset is versioned in git. Community submissions never publish
+directly to the site. They pass through a structured GitHub issue, a maintainer
+approval label, a generated pull request, and a second review at merge.
 
-### Submit a Price Update
+## The Contribution Paths
 
-If you have a current price observation for any tracked element:
+### 1. Submit a Price Observation
 
-1. **Open an issue** using the [Price Update](https://github.com/mironovb/lanthanides.io/issues/new?template=price-update.yml) template
-2. **Or submit a PR** editing the relevant file in `_data/elements/` and adding a record to `_data/price_records.json`
+Use the [Price Update](https://github.com/mironovb/lanthanides.io/issues/new?template=price-update.yml)
+issue template when you have a specific observed price.
 
-A price update must include: element symbol, price, currency, unit, quantity, form,
-purity, source (seller name or URL), and the date you observed the price.
+A usable price observation includes:
 
-### Report a Data Error
+- Element
+- Price, currency, and unit, for example `60 USD/kg`
+- Material form, purity, and quantity or MOQ
+- Market tier: retail, bulk, or lab-grade
+- Source name or URL
+- Date observed in `YYYY-MM-DD` format
 
-If you spot incorrect data on the site:
+After review, a maintainer applies the `approved` label and runs the manual
+`Community Submission Intake` workflow. That workflow writes one observation to
+`_data/price_history/<symbol>.yml`, refreshes derived data files, runs lint and
+build checks, and opens a pull request. The observation is published only if that
+pull request is merged.
 
-1. **Open an issue** using the [Data Correction](https://github.com/mironovb/lanthanides.io/issues/new?template=data-correction.yml) template
-2. Include what's wrong, what it should be, and a source supporting the correction
+### 2. Report a Correction
 
-### Submit a Market Note
+Use the [Data Correction](https://github.com/mironovb/lanthanides.io/issues/new?template=data-correction.yml)
+template when a rendered value, source attribution, regulatory status, or element
+description appears wrong.
 
-If you have market intelligence, supply chain news, or regulatory developments:
+Include:
 
-1. **Open an issue** using the [Market Note](https://github.com/mironovb/lanthanides.io/issues/new?template=market-note.yml) template
-2. Or submit a PR adding an article to `_articles/`
+- What the site currently shows
+- What it should show
+- The source supporting the correction
+- The affected page or element, if applicable
 
-## Data Format
+Corrections usually become a normal maintainer pull request, because they may
+touch `_data/`, `_elements/`, `_articles/`, or page copy.
 
-### Element YAML files (`_data/elements/`)
+### 3. Share a Market Note
 
-Each element has a YAML file keyed by symbol (e.g., `Nd.yml`):
+Use the [Market Note](https://github.com/mironovb/lanthanides.io/issues/new?template=market-note.yml)
+template for a sourced supply-chain, pricing, or regulatory development.
 
-```yaml
-symbol: Nd
-name: Neodymium
-atomic_number: 60
-category: rare_earth_light   # rare_earth_light | rare_earth_heavy | strategic_metal | semiconductor
+Market notes can become a short item in `_data/news.yml` or a longer article in
+`_articles/`. They still need dated sources. Analysis is welcome when it is
+clearly labelled as analysis and not entered as price data.
 
-retail_reference:
-  price_per_kg: 600
-  source: "Description of source(s)"
-  date: 2026-04-04            # YYYY-MM-DD, the date the price was observed
-  form: "metal, oxide"
-  quantity_basis: "1 kg MOQ, retail"
+## Source Standards
 
-bulk_benchmark:
-  price_per_kg: 80
-  source: "Description of source(s)"
-  date: 2026-04-04
-  terms: FOB                   # FOB, EXW, CIF, CIP, etc.
+Acceptable sources should be:
 
-retail_premium_ratio: 7.5      # retail / bulk
+- Identifiable: the seller, publisher, agency, or reporting organization is named.
+- Dated: the observation has a real quote or publication date.
+- Specific: the material form, purity, quantity, and terms are clear enough to compare.
+- Verifiable: a reviewer can open the link, contact the seller, or inspect the citation.
 
-regulatory_status:
-  status_code: none            # none | active
-  active_notices: []
-  last_updated: null
+Do not submit:
 
-applications_summary: "Brief description of primary uses."
-supply_chain_notes: "Brief description of supply landscape."
-```
+- Forecasts, projections, or model outputs as observed prices.
+- Anonymous posts with no supporting evidence.
+- Aggregator summaries that do not identify the underlying source.
+- Private contact details that should not appear in a public git diff.
+- Guessed fields. If a value is missing, say it is missing.
 
-### Price records (`_data/price_records.json`)
+## Data Boundaries
 
-Individual price observations follow this schema:
+Reference data stays in versioned files:
 
-```json
-{
-  "id": "R-0001",
-  "element_symbol": "Nd",
-  "original_price_per_unit": 60,
-  "original_currency": "USD",
-  "normalized_usd_per_kg": 600,
-  "form": "metal",
-  "purity": "99.9% (3N)",
-  "market_tier": "retail",
-  "moq_kg": 1,
-  "source_type": "distributor_offer",
-  "source_id": "source-registry-key",
-  "seller_name": "Example Materials Co.",
-  "verification_status": "single_source_offer",
-  "confidence_score": 0.6,
-  "quote_date": "2026-04-04"
-}
-```
+- `_data/price_history/*.yml` stores observed price history.
+- `_data/price_records.json` stores the selected reference-price record set.
+- `_data/regulatory/` stores export-control notices and policy events.
+- `_elements/` and `_articles/` store editorial markdown.
 
-**Market tier** values: `retail`, `bulk`, `lab-grade`
+Runtime user data stays in Postgres through Prisma:
 
-**Verification status** values: `verified_invoice`, `corroborated`, `single_source_offer`, `benchmark_linked`, `stale`, `archived`
+- `Listing`
+- `Subscription`
+- `ScreenedOffer`
 
-**Confidence score**: 0.0-1.0. See [Methodology](/methodology/) for scoring criteria.
+Do not move open reference data into Prisma, and do not auto-publish runtime rows
+back into the open dataset.
 
-## Source Requirements
+## Maintainer Intake Runbook
 
-Acceptable sources must meet these general criteria:
+For a community price issue:
 
-- **Identifiable origin**: the seller, publisher, or reporting agency can be identified
-- **Dated**: the price observation has a specific date, not just "current"
-- **Specific**: the price is for a defined form, purity, and quantity
-- **Verifiable**: another person could, in principle, confirm the price by contacting the same source
+1. Read the issue and inspect the source.
+2. Confirm the element, form, purity, quantity, tier, price, unit, and date are present.
+3. Apply the `approved` label only if the submission is usable.
+4. Run a dry run:
 
-Sources that are **not** acceptable:
+   ```bash
+   gh workflow run community-intake.yml -f issue_number=123 -f dry_run=true
+   ```
 
-- Aggregator sites that republish prices without attribution
-- Undated or vaguely dated observations ("sometime in 2025")
-- Prices without a named seller or publisher
-- Estimates, projections, or model outputs presented as market prices
-- Anonymous forum posts or social media claims without supporting evidence
+5. If the dry run passes, run the real intake:
 
-If you are unsure whether your source qualifies, submit it anyway and note your uncertainty.
-We will review and make a determination.
+   ```bash
+   gh workflow run community-intake.yml -f issue_number=123 -f dry_run=false
+   ```
 
-## Code of Conduct
+6. Review the generated pull request. Confirm the diff matches the issue and that
+   no private contact information appears.
+7. Merge only after checks pass.
 
-All contributions must be:
-
-- **Factual**: based on observable, verifiable data
-- **Sourced**: every price claim must cite where it came from
-- **Non-speculative**: do not submit price forecasts, predictions, or opinions as data
-- **Good faith**: do not submit data you know to be false or misleading
-
-This project tracks what things cost, not what someone thinks they should cost.
-Speculation and market commentary are welcome in market notes if clearly labelled as
-analysis, but must never be entered as price data.
+The workflow intentionally has no `issues:` trigger. A submitted issue cannot
+write data by itself.
 
 ## Local Development
 
-### Prerequisites
-
-- **Ruby** (>= 2.7) and **Bundler**
-- **Python 3** (>= 3.8) with pip
-- **Git**
-
-### macOS Setup
+Requires Node 18.17 or newer, npm, Python 3, and a local Postgres if you need to
+exercise database-backed pages.
 
 ```bash
-# Install Ruby (if not using system Ruby)
-brew install ruby
-echo 'export PATH="/opt/homebrew/opt/ruby/bin:$PATH"' >> ~/.zshrc
-source ~/.zshrc
-
-# Install Bundler
-gem install bundler
-
-# Install Python 3 (if needed)
-brew install python3
-```
-
-### Linux Setup (Debian/Ubuntu)
-
-```bash
-sudo apt update
-sudo apt install ruby-full build-essential zlib1g-dev python3 python3-pip
-gem install bundler
-```
-
-### Running the Site
-
-```bash
-# Clone the repository
 git clone https://github.com/mironovb/lanthanides.io.git
 cd lanthanides.io
+npm install
 
-# Install Ruby dependencies
-bundle install
+cp .env.example .env
+npx prisma generate
 
-# Serve locally with live reload
-bundle exec jekyll serve --livereload
-# Site is now at http://localhost:4000
-
-# Or build without serving
-bundle exec jekyll build
+npm run lint
+npm run build
 ```
 
-### Running the Data Pipeline
+For database-backed surfaces, point `DATABASE_URL` and `DIRECT_URL` in `.env` at
+a local Postgres, then run:
 
 ```bash
-# Install Python dependencies
-pip3 install -r scripts/requirements.txt
-
-# Generate element data files from price records
-python3 scripts/generate_element_data.py
-
-# Import price offers from registered sources
-python3 scripts/import_offers.py
-
-# Validate data integrity
-python3 scripts/validate_data.py
-
-# Or run everything
-bash run-all.sh
+npx prisma migrate deploy
+npx prisma db seed
+npm run dev
 ```
 
-### Adding a Price Record Manually
+## Pull Request Checklist
 
-1. Add the record to `_data/price_records.json` following the schema above
-2. Run `python3 scripts/generate_element_data.py` to update element YAML files
-3. Run `bundle exec jekyll serve` and verify the element page looks correct
-4. Submit a PR
+Before opening a pull request:
 
-## Submitting a Pull Request
+- Run `npm run lint`.
+- Run `npm run build`.
+- Keep sourced data and editorial claims tied to citations.
+- Do not commit credentials, private contact details, or real `.env` files.
+- Do not fabricate missing values to complete a record.
 
-1. Fork the repository and create a branch
-2. Make your changes
-3. Test locally (`bundle exec jekyll serve`)
-4. Run data validation (`python3 scripts/validate_data.py`)
-5. Push and open a PR using the pull request template
+If your change edits price history or derived data, refresh the generated files:
 
-See the [Methodology](/methodology/) page for details on how prices are selected,
-normalised, and verified.
+```bash
+python scripts/source_breakdown.py
+python scripts/fluctuations.py --verbose
+python scripts/detect_movements.py --verbose
+```
 
-## Questions?
+## Questions
 
-Open an issue or email **hello@lanthanides.io**.
+Open an issue or email `hello@lanthanides.io`.
