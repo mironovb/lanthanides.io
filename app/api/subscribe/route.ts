@@ -1,7 +1,6 @@
 /**
  * /api/subscribe (Prompt 22): the write path for notification signups (the
- * Prisma `Subscription` model). This is the alerts layer of the thin commercial
- * app:
+ * Prisma `Subscription` model). This is the alerts write path:
  *
  *   POST /api/subscribe   { email, topics: ["regulatory","price-movements"], channel? }
  *     → validates server-side (same rules as the form), dedupes by email+channel,

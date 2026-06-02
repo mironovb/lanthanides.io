@@ -6,7 +6,7 @@ const nextConfig = {
 
   async redirects() {
     return [
-      // MIGRATION §3.5 — the one page URL that changes. The legacy interactive
+      // MIGRATION §3.5: the one page URL that changes. The legacy interactive
       // "Ledger" (/prices/) is merged into the canonical /elements/ directory.
       // statusCode: 301 (not `permanent: true`, which emits 308) to honour the
       // documented 301 contract verbatim.

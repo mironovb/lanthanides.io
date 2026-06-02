@@ -99,7 +99,7 @@ export default function PriceGaugePage({
         crumbs={[{ label: 'Home', href: '/' }, { label: 'Price Gauge' }]}
         eyebrow="Tools"
         title="Price Gauge"
-        lead="Estimate a fair price for a rare-earth or strategic-metal purchase. Enter what you're buying or selling and the gauge returns a low/mid/high range, how confident it is, and the exact sourced records behind the number, so you can tell a fair quote from an outlier."
+        lead="Estimate a fair price for a rare-earth or strategic-metal purchase. Enter what you're buying or selling and the gauge returns a low/mid/high range, how confident it is, and the exact sourced records behind the number."
         actions={
           <div className="flex flex-col items-start gap-1 text-xs md:items-end">
             <Link
@@ -157,8 +157,8 @@ export default function PriceGaugePage({
       {/* ── Explainer: method + commercial direction ─────────────────────── */}
       <section className="mt-16">
         <SectionHeading
-          title="What the number means, and where the gauge is going"
-          description="A transparent estimate you can audit today, and the supply-side pricing primitive the marketplace is being built around."
+          title="What the number means"
+          description="An estimate you can audit, built from the sourced records behind every element page."
         />
         <div className="mt-6 grid gap-4 lg:grid-cols-2">
           <div className="space-y-4">
@@ -176,29 +176,27 @@ export default function PriceGaugePage({
           </div>
 
           <Card padding="lg" className="flex flex-col">
-            <p className="eyebrow">From reference to transaction</p>
+            <p className="eyebrow">For sellers</p>
             <h3 className="mt-3 font-serif text-xl font-semibold text-fg">
-              The seller&rsquo;s pricing primitive
+              The same tool for sellers
             </h3>
             <p className="mt-2 flex-1 text-sm leading-relaxed text-fg-muted">
-              This same engine is the supply-side tool sellers will use to price a
-              listing on{' '}
+              Sellers use this same engine to price a listing on{' '}
               <Link
                 href="/sell/"
                 className="font-medium text-accent hover:text-accent-strong"
               >
                 Sell / List
               </Link>{' '}
-              (anchoring an asking price to evidence, not guesswork) and to
-              screen incoming offers. It stays open and free to use; the open
-              dataset underneath it is CC&nbsp;BY&nbsp;4.0 regardless.
+              and to screen incoming offers. It stays free to use, and the open
+              dataset underneath is CC&nbsp;BY&nbsp;4.0.
             </p>
             <div className="mt-4 flex flex-wrap gap-x-4 gap-y-1.5 border-t border-border pt-3 text-sm">
               <Link
                 href="/about/"
                 className="font-medium text-accent transition-colors hover:text-accent-strong"
               >
-                The vision →
+                About →
               </Link>
               <Link
                 href="/data/"

@@ -68,7 +68,7 @@ export default function DashboardPage() {
         crumbs={[{ label: 'Home', href: '/' }, { label: 'Market Dashboard' }]}
         eyebrow="Data"
         title="Market Dashboard"
-        lead="An at-a-glance view of the strategic materials market: where Chinese export control concentrates, how steep the retail markup runs over wholesale, and how much price data backs each element. Every figure is derived from the underlying observations. Nothing here is editorial."
+        lead="An overview of the strategic materials market: where Chinese export control concentrates, how steep the retail markup runs over wholesale, and how much price data backs each element. Every figure is derived from the underlying observations."
         actions={
           <div className="flex flex-col items-start gap-1 text-xs md:items-end">
             <span className="font-mono text-fg-dim">

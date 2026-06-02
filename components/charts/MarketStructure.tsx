@@ -1,7 +1,7 @@
 /**
  * MarketStructure: how China export control concentrates across the four
  * material categories, as a labeled bar-in-table (Prompt 10). Genuinely
- * informative: it shows at a glance that control is concentrated in the rare
+ * informative: it shows that control is concentrated in the rare
  * earths, not spread evenly. A bar-in-table (not a pie) keeps every count
  * legible (docs/VISUALIZATION-AUDIT.md).
  *

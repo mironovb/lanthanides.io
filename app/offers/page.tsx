@@ -92,7 +92,7 @@ export default async function OffersPage() {
         crumbs={[{ label: 'Home', href: '/' }, { label: 'Offer Feed' }]}
         eyebrow="Tools"
         title="Screened Offer Feed"
-        lead="Rare-earth and strategic-metal offers, ranked by value against each element’s same-form median and annotated with the export-control status that governs it. Filter by element, category, form, source, or confidence, the demand side of a market whose open reference stays free."
+        lead="Rare-earth and strategic-metal offers, ranked by value against each element’s same-form median and annotated with the export-control status that governs it. Filter by element, category, form, source, or confidence."
       >
         <StoryLink>
           Selling, not buying? Get an instant price check and list your material on{' '}
@@ -122,7 +122,7 @@ export default async function OffersPage() {
         <OffersFeed offers={offers} />
       </section>
 
-      {/* ── How ranking works + the two-sided framing ────────────────────── */}
+      {/* ── How ranking works ────────────────────────────────────────────── */}
       <section className="mt-12 grid gap-4 lg:grid-cols-2">
         <Callout tone="note" glyph={null} title="How offers are ranked">
           <p className="leading-relaxed">
@@ -146,9 +146,9 @@ export default async function OffersPage() {
             This feed is the demand side. The supply side,{' '}
             <Link href="/sell/">listing material</Link> with an instant price
             gauge, runs the same engine over the same{' '}
-            <Link href="/data/">open dataset</Link>. The marketplace is a thin
-            layer on top of a reference that stays free, inspectable, and CC BY
-            4.0. An offer here is never auto-published into that dataset.
+            <Link href="/data/">open dataset</Link>. That reference stays free,
+            inspectable, and CC BY 4.0. An offer here is never auto-published
+            into it.
           </p>
         </Callout>
       </section>

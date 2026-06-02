@@ -5,7 +5,7 @@
  * vocabulary and nothing else: the four element categories, the five regulatory
  * states (restricted/monitored/normal/active/suspended), the price-movement trio
  * (up/down/flat), plus `accent` and a neutral `default`. Status badges are mono
- * + uppercase (instrument-panel convention); category/tone badges are sans.
+ * + uppercase; category/tone badges are sans.
  *
  * `Chip` is a quieter, non-semantic tag: a key/label or legend entry, with an
  * optional leading color dot. For *interactive* multi-select filters use

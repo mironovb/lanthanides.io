@@ -25,7 +25,7 @@
  * `ingest()` is the only true stub: it is where live source adapters plug in.
  *
  * Server-only: `screen()` reads the dynamic store via `lib/db`. The honesty rule
- * (CLAUDE.md #1) is load-bearing here; a screened offer that cannot be
+ * (CLAUDE.md #1) is essential here; a screened offer that cannot be
  * normalized to USD/kg without a fabricated FX rate is dropped, never invented
  * (#3); a missing field is carried through as null, never filled.
  */

@@ -119,7 +119,7 @@ export default function DataPage() {
         crumbs={[{ label: 'Home', href: '/' }, { label: 'Open Data' }]}
         eyebrow="Open Data"
         title="Open Data"
-        lead="The full dataset behind lanthanides.io is open and inspectable. Every price carries source provenance; nothing is fabricated, interpolated, or model-generated. The data lives as versioned files in git, so it can be forked, audited, diffed, and cited, and is also served here as ready-to-use JSON and CSV exports."
+        lead="The full dataset behind lanthanides.io is open. Every price carries its source; nothing is fabricated or interpolated. The data lives as versioned files in git, and is served here as JSON and CSV exports."
       >
         <StoryLink>
           See any record in context on its{' '}
@@ -136,14 +136,14 @@ export default function DataPage() {
         ))}
       </StatGrid>
 
-      {/* ── Dataset at a glance (rebuilt, data-honest visualizations, P10) ── */}
+      {/* ── Views of the dataset (rebuilt, data-honest visualizations, P10) ─ */}
       <section className="mt-12">
         <SectionHeading
-          title="Dataset at a glance"
+          title="Views of the dataset"
           description={
             <>
-              A few honest views derived from the data below. Each states its own
-              sample size; nothing is drawn that the data cannot support. (Price
+              Views derived from the data below. Each states its own sample
+              size; nothing is drawn that the data cannot support. (Price
               trend lines live on each element page and appear only once a tier has
               enough distinct observation days. See{' '}
               <Link

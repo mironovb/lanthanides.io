@@ -62,9 +62,8 @@ export function OffersBanner({
           <>
             All{' '}
             <span className="font-mono tabular-nums text-fg">{seededCount}</span>{' '}
-            are <span className="text-fg">seeded</span> from the verified ledger.
-            We have <span className="text-fg">not</span> scanned the open web yet,
-            and won&rsquo;t pretend to:{' '}
+            are <span className="text-fg">seeded</span> from the verified ledger;
+            none come from scanning the open web yet.{' '}
           </>
         ) : (
           <>
@@ -74,7 +73,7 @@ export function OffersBanner({
             seeded.{' '}
           </>
         )}
-        live screening of external marketplaces (Chinese B2B platforms, eBay, and
+        Live screening of external marketplaces (Chinese B2B platforms, eBay, and
         specialty suppliers) is in development. When it lands, screened offers
         will appear here on the same value scale, each labelled by origin.
       </p>

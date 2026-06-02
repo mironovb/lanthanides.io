@@ -1,7 +1,7 @@
 /**
  * MethodologyCallout: the "how we verify" signpost (Prompt 16). Keeps the
- * rigorous methodology one click away from any price: the three load-bearing
- * ideas (two-reference model, confidence + verification, validated provenance)
+ * rigorous methodology one click away from any price: the three core ideas
+ * (two-reference model, confidence + verification, validated provenance)
  * each deep-link into the exact /methodology anchor.
  *
  * Two shapes: `panel` (a Callout, for page sections) and `inline` (a single

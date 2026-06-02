@@ -19,7 +19,7 @@ const LABEL: Record<Confidence, string> = {
 };
 
 const TITLE =
-  'Holistic confidence: from how many records matched, how many distinct sellers, how recent they are, whether the exact form was found, and how closely the prices agree. Conservative: thin or dispersed evidence grades low.';
+  'Overall confidence: from how many records matched, how many distinct sellers, how recent they are, whether the exact form was found, and how closely the prices agree. Thin or dispersed evidence grades low.';
 
 export function ConfidenceMeter({
   level,

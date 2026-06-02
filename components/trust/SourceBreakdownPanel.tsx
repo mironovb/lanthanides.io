@@ -1,13 +1,13 @@
 /**
  * SourceBreakdownPanel: the intake-path mix (`_data/source_breakdown.yml`) as a
  * compact, honest panel (Prompt 16). The detailed prose table lives on
- * /methodology (<SourceBreakdownTable>); this is the at-a-glance companion meant
+ * /methodology (<SourceBreakdownTable>); this is the compact companion meant
  * to be reused wherever the dataset's credibility should be legible (home,
  * dashboard, /contribute).
  *
  * Each row is a single-colour bar whose *length* (not colour) carries the share,
  * so it stays inside the design system's "colour = meaning" discipline and reads
- * as an instrument-panel readout, not a pie chart. Counts come from the file
+ * as a compact readout, not a pie chart. Counts come from the file
  * verbatim, including the source types that are currently 0 (community
  * submissions, supplier quotes, invoices), shown rather than hidden so the panel
  * never overstates how the data was gathered (CLAUDE.md hard rule #1).

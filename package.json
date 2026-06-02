@@ -2,7 +2,7 @@
   "name": "lanthanides.io",
   "version": "0.1.0",
   "private": true,
-  "description": "Strategic Materials Ledger — sourced pricing, supply-chain risk, and regulatory intelligence for rare-earth and strategic materials.",
+  "description": "Strategic Materials Ledger: sourced pricing, supply-chain risk, and regulatory intelligence for rare-earth and strategic materials.",
   "license": "MIT",
   "scripts": {
     "dev": "next dev",

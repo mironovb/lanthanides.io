@@ -1,6 +1,6 @@
 /**
  * /api/listings (Prompt 20): the write/read path for seller listings (the
- * Prisma `Listing` model). This is the supply side of the thin commercial layer:
+ * Prisma `Listing` model). This is the seller-listing write/read path:
  *
  *   POST /api/listings   { symbol, form, purity, quantityKg, askingPricePerKg,
  *                          currency, sellerName, sellerContact?, notes? }

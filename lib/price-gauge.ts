@@ -360,7 +360,7 @@ function insufficient(
  *      precision, and price agreement; conservative (thin matches → low).
  *
  * Quantity is handled purely via band selection: NO within-band per-kg
- * multiplier is applied, because the dataset does not support a defensible
+ * multiplier is applied, because the dataset does not support a justifiable
  * quantity-elasticity curve and inventing one would violate the no-fabrication
  * rule. The `opts.asOf` override exists for callers that want wall-clock
  * staleness; by default recency is measured against the freshest record present.

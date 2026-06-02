@@ -1,23 +1,23 @@
 /**
  * Seed for the demand-side `ScreenedOffer` feed (rendered at /offers, P8).
  *
- * Reads the PUBLIC price dataset through the typed data layer (`lib/data`) — it
+ * Reads the PUBLIC price dataset through the typed data layer (`lib/data`), it
  * does NOT re-parse `_data/` (CLAUDE.md: one reader, the Python pipeline owns
  * those files). Every qualifying price record becomes one `ScreenedOffer` row
  * marked `origin: 'seed'`, so the feed has real content before the live
  * screening/ingestion pipeline exists (a later prompt; those rows will carry
- * `origin: 'screened'`). No data is invented — gaps (missing purity, missing
+ * `origin: 'screened'`). No data is invented, gaps (missing purity, missing
  * seller country) are carried through as NULL, never filled (CLAUDE.md rule #1).
  *
  * ── What qualifies ───────────────────────────────────────────────────────────
  * An "offer" implies a seller. Pure reference indices/benchmarks are price
  * SIGNALS, not offers, so records whose `source_type` is one of
  * BENCHMARK_SOURCE_TYPES are excluded from the feed (they still inform the
- * benchmark median below). Counts are logged — nothing is silently dropped.
+ * benchmark median below). Counts are logged, nothing is silently dropped.
  *
  * ── valueScore (the documented rank input) ───────────────────────────────────
  * For each element+form, `median` = the median `normalized_usd_per_kg` across
- * ALL of that element's records of that form (offers + benchmark indices) — a
+ * ALL of that element's records of that form (offers + benchmark indices), a
  * like-for-like "going rate" that avoids mixing oxide vs metal price levels.
  *
  *     discount   = clamp((median − pricePerKg) / median, −1, +1)
@@ -110,7 +110,7 @@ async function main(): Promise<void> {
         elementSymbol: r.element_symbol,
         form: r.form,
         purity: nullableStr(r.purity),
-        quantityKg: r.quoted_quantity_kg, // number | null — carried through
+        quantityKg: r.quoted_quantity_kg, // number | null, carried through
         pricePerKg: r.normalized_usd_per_kg,
         currency: 'USD', // pricePerKg is the normalized USD/kg value
         sellerName: r.seller_name,
@@ -125,7 +125,7 @@ async function main(): Promise<void> {
     },
   );
 
-  // Idempotent: clear only seed-origin rows, then bulk-insert — atomically.
+  // Idempotent: clear only seed-origin rows, then bulk-insert, atomically.
   const [{ count: cleared }] = await prisma.$transaction([
     prisma.screenedOffer.deleteMany({ where: { origin: 'seed' } }),
     prisma.screenedOffer.createMany({ data: rows }),

@@ -107,9 +107,9 @@ export default function ContributePage() {
           <SourceBreakdownPanel breakdown={breakdown} />
           <Callout tone="info" glyph={null} className="mt-4">
             Community submissions read{' '}
-            <span className="font-mono tabular-nums text-fg">0</span> today, the
+            <span className="font-mono tabular-nums text-fg">0</span> today. The
             pipeline is open and ready, but the dataset is still maintainer- and
-            benchmark-collected. This page is the invitation to change that.
+            benchmark-collected.
           </Callout>
         </div>
       </section>
