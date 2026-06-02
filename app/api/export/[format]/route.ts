@@ -1,9 +1,9 @@
 /**
- * GET /api/export/[format] — the open-data export of the canonical price-records
- * dataset (Prompt 8). `format` is `json` or `csv`; both are generated from the
- * same `lib/data` accessor so the export can never drift from what the site
- * renders. Licensed CC BY 4.0 (surfaced in the response headers + the /data
- * page). This is the always-fresh companion to the preserved static export at
+ * GET /api/export/[format]: the open-data export of the canonical price-records
+ * dataset. `format` is `json` or `csv`; both are generated from the same
+ * `lib/data` accessor so the export can never drift from what the site renders.
+ * Licensed CC BY 4.0 (surfaced in the response headers and on the /data page).
+ * This is the always-fresh companion to the preserved static export at
  * /assets/data/fluctuations.json (docs/MIGRATION.md §3.4).
  *
  * Pre-rendered at build for both formats (generateStaticParams +

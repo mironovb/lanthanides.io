@@ -1,13 +1,12 @@
 /**
- * /news/[slug] — long-form article page (SSG, case-sensitive slugs, Prompt 8).
+ * /news/[slug]: long-form article page (SSG, case-sensitive slugs).
  *
  * Statically generated for the five `_articles/*.md` files via
- * generateStaticParams(); `dynamicParams = false` 404s anything else. Ports the
- * intent of legacy/_layouts/article.html — dateline + status badge, title +
- * subtitle, related-element tags, optional hero image, the markdown body, and a
- * back-link. Per-article metadata (title/description/keywords/canonical/OG)
- * comes from the front matter via the Metadata API; the full JSON-LD sweep is
- * Prompt 24.
+ * generateStaticParams(); `dynamicParams = false` 404s anything else. The layout
+ * matches the old article page: dateline and status badge, title and subtitle,
+ * related-element tags, optional hero image, the markdown body, and a back-link.
+ * Per-article metadata (title/description/keywords/canonical/OG) comes from the
+ * front matter via the Metadata API.
  */
 import type { Metadata } from 'next';
 import Link from 'next/link';

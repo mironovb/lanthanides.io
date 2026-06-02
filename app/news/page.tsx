@@ -1,12 +1,11 @@
 /**
- * /news — News & Analysis index (SSG, Prompt 8). Combines the two sources the
- * task calls for:
- *   • the `_articles` collection → featured long-form analysis tiles, and
- *   • `_data/news.yml` → the full "Regulatory & Trade Developments" timeline,
+ * /news: News & Analysis index (SSG). Combines two sources:
+ *   • the `_articles` collection, shown as featured long-form analysis tiles, and
+ *   • `_data/news.yml`, the full "Regulatory & Trade Developments" timeline,
  *     whose article-backed entries link through to the full pieces.
  *
- * Ports the intent of legacy/pages/news.html (the article grid) and surfaces the
- * regulatory developments feed that previously had no standalone home.
+ * The article grid matches the old news page, and adds the regulatory
+ * developments feed that previously had no standalone home.
  */
 import type { Metadata } from 'next';
 import Link from 'next/link';

@@ -1,11 +1,11 @@
 /**
- * /data — the open-data landing page (SSG, Prompt 8). Describes the dataset, its
- * provenance and CC BY 4.0 licence, and links every download: the canonical
- * price-records export (JSON/CSV via /api/export), the preserved fluctuations
- * export, the regulatory dataset, and the git source of truth.
+ * /data: the open-data landing page (SSG). Describes the dataset, its provenance
+ * and CC BY 4.0 licence, and links every download: the canonical price-records
+ * export (JSON/CSV via /api/export), the preserved fluctuations export, the
+ * regulatory dataset, and the git source of truth.
  *
  * Counts come from the live data layer so the page can never overstate coverage
- * (CLAUDE.md hard rule #1). Full Dataset JSON-LD lands in the Prompt 24 sweep.
+ * (CLAUDE.md hard rule #1).
  */
 import type { Metadata } from 'next';
 import Link from 'next/link';
@@ -28,10 +28,13 @@ import { CoverageGrid } from '@/components/charts/CoverageGrid';
 import { MarketStructure } from '@/components/charts/MarketStructure';
 import { PremiumLeaderboard } from '@/components/charts/PremiumLeaderboard';
 
+// Live record count drives both the metadata and the page body, so neither can
+// overstate coverage (CLAUDE.md hard rule #1).
+const RECORD_COUNT = getPriceRecords().length;
+
 export const metadata: Metadata = buildMetadata({
-  title: 'Open Data — Rare Earth & Strategic Metal Price Dataset',
-  description:
-    'Download the full rare earth and strategic metal price dataset: 238 sourced price records as JSON or CSV, plus regulatory and fluctuation data. Open data under CC BY 4.0.',
+  title: 'Open Data: Rare Earth & Strategic Metal Price Dataset',
+  description: `Download the full rare earth and strategic metal price dataset: ${RECORD_COUNT} sourced price records as JSON or CSV, plus regulatory and fluctuation data. Open data under CC BY 4.0.`,
   keywords:
     'rare earth price dataset, open data rare earth, strategic metals CSV, rare earth prices JSON, CC BY 4.0 commodity data',
   path: '/data/',
@@ -40,13 +43,13 @@ export const metadata: Metadata = buildMetadata({
 const REPO = 'https://github.com/mironovb/lanthanides.io';
 
 export default function DataPage() {
-  const priceRecords = getPriceRecords().length;
+  const priceRecords = RECORD_COUNT;
   const elements = getElements().length;
   const notices = getRegulatoryNotices().length;
   const sources = getSources().length;
   const observations = getSourceBreakdown().total_observations;
 
-  // Rebuilt, data-honest visualizations (Prompt 10).
+  // Data-honest visualizations, each stating its own sample size.
   const coverage = getElementCoverage();
   const coverageTally = getCoverageTally();
   const control = getControlByCategory();
@@ -62,19 +65,19 @@ export default function DataPage() {
 
   const downloads = [
     {
-      title: 'Price records — JSON',
+      title: 'Price records (JSON)',
       href: '/api/export/json/',
       meta: `${priceRecords} records · application/json`,
       desc: 'The canonical price store: every sourced, normalised USD/kg record with seller, date, form, purity, quantity, and verification status.',
     },
     {
-      title: 'Price records — CSV',
+      title: 'Price records (CSV)',
       href: '/api/export/csv/',
       meta: `${priceRecords} rows · text/csv`,
-      desc: 'The same dataset as a flat spreadsheet table — one row per record, every field as a column.',
+      desc: 'The same dataset as a flat spreadsheet table. One row per record, every field a column.',
     },
     {
-      title: 'Price fluctuations — JSON',
+      title: 'Price fluctuations (JSON)',
       href: '/assets/data/fluctuations.json',
       meta: 'Per-element windows · application/json',
       desc: 'Pre-computed price-change windows (7d/30d/90d/1y/all-time) per element and tier, with confidence and observation counts.',
@@ -90,8 +93,8 @@ export default function DataPage() {
         ]}
       />
       <DatasetJsonLd
-        name="lanthanides.io — Rare Earth & Strategic Metal Price Records"
-        description={`${priceRecords} sourced, normalised USD/kg price records across ${elements} rare-earth and strategic-metal elements — each tied to a seller, date, form, purity, quantity, and verification status — plus per-element price-fluctuation windows. Open data, CC BY 4.0.`}
+        name="lanthanides.io Rare Earth & Strategic Metal Price Records"
+        description={`${priceRecords} sourced, normalised USD/kg price records across ${elements} rare-earth and strategic-metal elements, each tied to a seller, date, form, purity, quantity, and verification status, plus per-element price-fluctuation windows. Open data, CC BY 4.0.`}
         path="/data/"
         keywords="rare earth prices, strategic metals, critical minerals, price dataset, export controls"
         distribution={[
@@ -116,7 +119,7 @@ export default function DataPage() {
         crumbs={[{ label: 'Home', href: '/' }, { label: 'Open Data' }]}
         eyebrow="Open Data"
         title="Open Data"
-        lead="The full dataset behind lanthanides.io is open and inspectable. Every price carries source provenance; nothing is fabricated, interpolated, or model-generated. The data lives as versioned files in git — so it can be forked, audited, diffed, and cited — and is also served here as ready-to-use JSON and CSV exports."
+        lead="The full dataset behind lanthanides.io is open and inspectable. Every price carries source provenance; nothing is fabricated, interpolated, or model-generated. The data lives as versioned files in git, so it can be forked, audited, diffed, and cited, and is also served here as ready-to-use JSON and CSV exports."
       >
         <StoryLink>
           See any record in context on its{' '}
@@ -142,7 +145,7 @@ export default function DataPage() {
               A few honest views derived from the data below. Each states its own
               sample size; nothing is drawn that the data cannot support. (Price
               trend lines live on each element page and appear only once a tier has
-              enough distinct observation days — see{' '}
+              enough distinct observation days. See{' '}
               <Link
                 href="/methodology/"
                 className="text-fg underline decoration-dotted underline-offset-2 hover:text-accent-strong"
@@ -158,7 +161,7 @@ export default function DataPage() {
           <SectionHeading
             as="h3"
             title="Coverage by element"
-            description="How much price data backs each tracked element. Thin coverage is shown, not hidden — transparency about data density is part of the provenance-first model. Each tile links to the element."
+            description="How much price data backs each tracked element. Thin coverage is shown, not hidden; transparency about data density is part of the provenance-first model. Each tile links to the element."
           />
           <CoverageGrid items={coverage} tally={coverageTally} />
         </div>
@@ -178,7 +181,7 @@ export default function DataPage() {
           <SectionHeading
             as="h3"
             title="Retail premium leaderboard"
-            description="The markup small-quantity buyers pay over commodity pricing — latest retail reference ÷ latest bulk benchmark, per element."
+            description="The markup small-quantity buyers pay over commodity pricing: latest retail reference ÷ latest bulk benchmark, per element."
           />
           <PremiumLeaderboard rows={premiums} />
         </div>
@@ -218,7 +221,7 @@ export default function DataPage() {
           >
             <div className="flex items-baseline justify-between gap-2">
               <span className="font-medium text-fg group-hover:text-accent-strong">
-                Regulatory tracker — {notices} notices
+                Regulatory tracker: {notices} notices
               </span>
               <span aria-hidden="true" className="text-fg-dim group-hover:text-accent-strong">
                 →
@@ -288,7 +291,7 @@ export default function DataPage() {
         <p className="mt-3 max-w-prose leading-relaxed">
           Suggested citation:{' '}
           <span className="text-fg">
-            lanthanides.io — Strategic Materials Ledger, price-records dataset (CC
+            lanthanides.io Strategic Materials Ledger, price-records dataset (CC
             BY 4.0), www.lanthanides.io/data/.
           </span>{' '}
           See{' '}

@@ -1,20 +1,18 @@
 /**
- * /about — the investor-facing About / Vision page (SSG, Prompt 15).
+ * /about: the About / Vision page (SSG), in two clearly separated parts:
+ *   Part 01 "What this is today": the true description, the principles, and the
+ *     live coverage stats, kept as the factual spine.
+ *   Part 02 "Where it's going": the two-sided marketplace and alerts vision,
+ *     with a candid Now/In progress/Planned roadmap that labels every stub and
+ *     links each pillar to its live entry point.
  *
- * Reframed from the Prompt 8 port into two clearly separated parts:
- *   Part 01 "What this is today"  — the existing, true description + the
- *     principles + the live coverage stats, kept as the factual spine.
- *   Part 02 "Where it's going"    — the two-sided marketplace + alerts vision,
- *     framed for an investor, with a candid Now/In progress/Planned roadmap that
- *     labels every stub and links each pillar to its live entry point.
+ * `/vision` resolves here via a 301 in next.config.mjs.
  *
- * `/vision` resolves here via a 301 in next.config.mjs (investors search for it).
- *
- * HONESTY (CLAUDE.md hard rule #1): the 238 price records are labelled
- * "sourced", NOT "verified" — only the 27 that carry a `verified` status are
- * called verified (computed live below, never hard-coded). The roadmap states,
- * stub-by-stub, what is running today vs. a stub; no traction, revenue, or
- * partnership is implied anywhere on the page.
+ * HONESTY (CLAUDE.md hard rule #1): the sourced price records are labelled
+ * "sourced", NOT "verified". Only those that carry a `verified` status are
+ * called verified (counts computed live below, never hard-coded). The roadmap
+ * states, stub by stub, what is running today versus what is not; no traction,
+ * revenue, or partnership is implied anywhere on the page.
  */
 import type { Metadata } from 'next';
 import Link from 'next/link';
@@ -49,7 +47,7 @@ const GITHUB = 'https://github.com/mironovb/lanthanides.io';
 
 const TITLE = 'About & Vision';
 const DESCRIPTION =
-  'What lanthanides.io is today — an open, source-transparent reference for rare-earth and strategic-metal pricing and Chinese export-control intelligence — and where it is going: a two-sided marketplace and alerts layer built on that dataset. Open data, CC BY 4.0.';
+  'What lanthanides.io is today, an open and source-transparent reference for rare-earth and strategic-metal pricing and Chinese export-control intelligence, and where it is going next: a two-sided marketplace and alerts layer built on that dataset. Open data, CC BY 4.0.';
 
 export const metadata: Metadata = buildMetadata({
   title: TITLE,
@@ -101,7 +99,7 @@ export default function AboutPage() {
   const elementCount = elements.length;
   const records = getPriceRecords();
   const recordCount = records.length;
-  // Truthful split: of the 238 sourced records, only these carry `verified`.
+  // Truthful split: of the sourced records, only these carry `verified`.
   const verifiedCount = records.filter(
     (r) => r.verification_status === 'verified',
   ).length;
@@ -126,7 +124,7 @@ export default function AboutPage() {
   ];
 
   // Stage reflects what runs TODAY, not a delivery date. The two stubs the
-  // page must own up to — the offer-screening backend and email alerts — are
+  // page must own up to, the offer-screening backend and email alerts, are
   // spelled out in the `status` column below.
   const roadmap: Array<{
     capability: string;
@@ -138,14 +136,14 @@ export default function AboutPage() {
     {
       capability: 'MOFCOM regulatory tracker',
       stage: 'now',
-      status: 'Live — every announcement cited to its primary source.',
+      status: 'Live. Every announcement cited to its primary source.',
       href: '/regulatory/',
       cta: 'Open tracker',
     },
     {
       capability: 'Provenance-first price dataset',
       stage: 'now',
-      status: `Live — ${recordCount} sourced records, downloadable under CC BY 4.0.`,
+      status: `Live. ${recordCount} sourced records, downloadable under CC BY 4.0.`,
       href: '/elements/',
       cta: 'Browse elements',
     },
@@ -175,7 +173,7 @@ export default function AboutPage() {
       capability: 'Offer-screening feed (demand side)',
       stage: 'progress',
       status:
-        'Live — seeded from the dataset and ranked by value; the live screening backend (ingest, score, dedup) is a stub.',
+        'Live, seeded from the dataset and ranked by value; the live screening backend (ingest, score, dedup) is a stub.',
       href: '/offers/',
       cta: 'Offer feed',
     },
@@ -183,7 +181,7 @@ export default function AboutPage() {
       capability: 'Email & per-element alerts',
       stage: 'planned',
       status:
-        'Not built — Telegram is the live channel; email, double opt-in, and routing are next.',
+        'Not built. Telegram is the live channel; email, double opt-in, and routing are next.',
       href: '/alerts/',
       cta: 'Alerts',
     },
@@ -202,7 +200,7 @@ export default function AboutPage() {
         crumbs={[{ label: 'Home', href: '/' }, { label: 'About & Vision' }]}
         eyebrow="About / Vision"
         title="About & Vision"
-        lead="What lanthanides.io is today — an open, source-transparent reference for rare-earth pricing and Chinese export controls — and where it is going: a two-sided marketplace and an alerts layer built on top of that dataset."
+        lead="What lanthanides.io is today, an open and source-transparent reference for rare-earth pricing and Chinese export controls, and where it is going: a two-sided marketplace and an alerts layer built on top of that dataset."
       >
         <StoryLink>
           See the work itself: the{' '}
@@ -211,7 +209,7 @@ export default function AboutPage() {
         </StoryLink>
       </PageHeader>
 
-      {/* ════════════════ PART 01 — WHAT THIS IS TODAY ════════════════ */}
+      {/* PART 01: WHAT THIS IS TODAY */}
       <PartHeader
         part="01"
         chip={<Chip dot="bg-up">Live today</Chip>}
@@ -231,7 +229,7 @@ export default function AboutPage() {
         <p>
           It covers{' '}
           <span className="font-mono tabular-nums text-fg">{elementCount}</span>{' '}
-          elements across four categories — light and heavy rare earths,
+          elements across four categories: light and heavy rare earths,
           strategic metals, and semiconductor metals. The{' '}
           <span className="font-mono tabular-nums text-fg">{recordCount}</span>{' '}
           price records are <span className="text-fg">sourced</span>, not
@@ -245,9 +243,8 @@ export default function AboutPage() {
           Alongside the prices sits the{' '}
           <Link href="/regulatory/" className={INLINE_LINK}>
             export-control tracker
-          </Link>{' '}
-          — a continuously maintained, English-language record of the Chinese
-          MOFCOM/GAC announcements that govern these materials:{' '}
+          </Link>, a continuously maintained, English-language record of the
+          Chinese MOFCOM/GAC announcements that govern these materials:{' '}
           <span className="font-mono tabular-nums text-fg">
             {announcementCount}
           </span>{' '}
@@ -266,8 +263,7 @@ export default function AboutPage() {
             className={INLINE_LINK}
           >
             CC BY 4.0
-          </a>{' '}
-          — versioned in git, forkable, and auditable.
+          </a>, versioned in git, forkable, and auditable.
         </p>
       </section>
 
@@ -279,8 +275,8 @@ export default function AboutPage() {
             market tiers. Commodity benchmarks from major reporting agencies sit
             behind expensive subscriptions. Retail prices vary by orders of
             magnitude depending on form, purity, and quantity. Chinese regulatory
-            developments — which fundamentally determine supply availability for
-            heavy rare earths — are poorly tracked in English-language sources.
+            developments, which fundamentally determine supply availability for
+            heavy rare earths, are poorly tracked in English-language sources.
           </p>
           <p>
             This project exists because procurement analysts, researchers, and
@@ -380,12 +376,12 @@ export default function AboutPage() {
         </p>
       </section>
 
-      {/* ════════════════ PART 02 — WHERE IT'S GOING (VISION) ════════════════ */}
+      {/* PART 02: WHERE IT'S GOING (VISION) */}
       <PartHeader
         part="02"
         chip={<Chip dot="bg-accent">Roadmap</Chip>}
         title="Where it’s going"
-        lead="The dataset is the foundation for a thin commercial layer — never a replacement for it. Three products extend the open reference into a working market. Each already has a data model and a live entry point, and each is candid about what is real today versus what is still a stub."
+        lead="The dataset is the foundation the commercial features build on, not a replacement for it. Three products extend the open reference into a working market. Each already has a data model and a live entry point, and each is candid about what is real today versus what is still a stub."
       />
 
       <div className="mt-8 grid gap-4 lg:grid-cols-3">
@@ -402,9 +398,9 @@ export default function AboutPage() {
             Rare-earth supply is scattered across fragmented Chinese platforms,
             eBay listings, and specialty distributors, with no standard pricing.
             The demand-side engine screens those sources and surfaces high-yield
-            offers — verified, priced against our references, and ranked — so a
+            offers, verified, priced against our references, and ranked, so a
             buyer sees the best available material without trawling a dozen
-            marketplaces. Today the feed is live — seeded from the verified
+            marketplaces. Today the feed is live, seeded from the verified
             dataset and ranked by value; the live screening and ingestion backend
             is not built yet.
           </p>
@@ -430,9 +426,9 @@ export default function AboutPage() {
           <p className="mt-2 flex-1 text-sm leading-relaxed text-fg-muted">
             Sellers entering a market with no standardized pricing don&rsquo;t
             know what their material is worth. The supply side lets a seller list
-            product and get a real-time price gauge — what this form and purity
+            product and get a real-time price gauge: what this form and purity
             is actually worth, drawn straight from our dataset&rsquo;s retail and
-            bulk references — lowering the friction of entering the market. The
+            bulk references, lowering the friction of entering the market. The
             selection logic that powers the gauge is already built and runs over
             the live records; the interactive tool and listing flow are in
             development.
@@ -465,7 +461,7 @@ export default function AboutPage() {
           <p className="mt-2 flex-1 text-sm leading-relaxed text-fg-muted">
             A single MOFCOM announcement can reprice or halt a supply line
             overnight. The alerts layer pushes regulatory notifications the moment
-            they&rsquo;re detected — Telegram fires today through the six-hourly
+            they&rsquo;re detected. Telegram fires today through the six-hourly
             monitor. Next, it expands toward email delivery and full
             price-movement and per-element regulatory routing.
           </p>
@@ -485,7 +481,7 @@ export default function AboutPage() {
         <SectionHeading
           as="h3"
           title="Staged roadmap"
-          description="What is running today versus what is still a stub — mapped to a stage, not a delivery date. Each row links to its live entry point so the vision is clickable."
+          description="What is running today versus what is still a stub, mapped to a stage, not a delivery date. Each row links to its live entry point so the vision is clickable."
         />
         <Table>
           <THead>
@@ -519,15 +515,15 @@ export default function AboutPage() {
         <p className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-1.5 text-2xs text-fg-dim">
           <span className="inline-flex items-center gap-1.5">
             <span className={`inline-block h-1.5 w-1.5 rounded-full ${STAGE.now.dot}`} aria-hidden="true" />
-            Now — live and in use
+            Now: live and in use
           </span>
           <span className="inline-flex items-center gap-1.5">
             <span className={`inline-block h-1.5 w-1.5 rounded-full ${STAGE.progress.dot}`} aria-hidden="true" />
-            In progress — engine built, surface in development
+            In progress: engine built, surface in development
           </span>
           <span className="inline-flex items-center gap-1.5">
             <span className={`inline-block h-1.5 w-1.5 rounded-full ${STAGE.planned.dot}`} aria-hidden="true" />
-            Planned — modelled, not yet built
+            Planned: modelled, not yet built
           </span>
         </p>
       </section>
@@ -538,7 +534,7 @@ export default function AboutPage() {
         <div className="space-y-3 text-base leading-relaxed text-fg-muted">
           <p>
             Rare earths and a handful of strategic metals sit on the fault line
-            of US&ndash;China decoupling — indispensable to magnets,
+            of US-China decoupling, indispensable to magnets,
             semiconductors, and defense systems, with highly concentrated supply.
             Since gallium and germanium in July 2023, MOFCOM has issued{' '}
             <span className="font-mono tabular-nums text-fg">
@@ -557,7 +553,7 @@ export default function AboutPage() {
             aware of; the price dataset is provenance-first, every figure
             inspectable in git rather than asserted behind a paywall. A
             marketplace built on a credible, auditable reference is hard to copy
-            without first rebuilding the reference — and the reference is already
+            without first rebuilding the reference, and the reference is already
             live.
           </p>
         </div>
@@ -583,7 +579,7 @@ export default function AboutPage() {
         <SectionHeading as="h3" title="Contact" />
         {/* TODO(owner): set the real project contact address. hello@lanthanides.io
             is a neutral placeholder on the project's own domain (replaces the old
-            .edu address per AUDIT §4.1) — confirm the alias is live before launch. */}
+            .edu address per AUDIT §4.1). Confirm the alias is live before launch. */}
         <p className="text-base leading-relaxed text-fg-muted">
           For data corrections, source submissions, partnership or investment
           questions:{' '}

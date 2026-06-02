@@ -1,15 +1,14 @@
 /**
- * /methodology — how prices are collected, normalised, verified, and displayed
- * (SSG, Prompt 8). A primary trust asset: the full methodology prose is ported
- * verbatim from the (relocated) `methodology.md`, and the one dynamic block — the
- * "Data sources breakdown" table — is re-implemented live from
- * `_data/source_breakdown.yml` via <SourceBreakdownTable>, spliced in exactly
- * where the legacy Liquid loop sat.
+ * /methodology: how prices are collected, normalised, verified, and displayed
+ * (SSG). A primary trust asset. The full methodology prose comes from the
+ * co-located `methodology.md`, and the one dynamic block, the "Data sources
+ * breakdown" table, is rendered live from `_data/source_breakdown.yml` via
+ * <SourceBreakdownTable>, spliced in where the breakdown belongs.
  *
- * The markdown is co-located (app/methodology/methodology.md) so the Next build
- * never depends on legacy/ (CLAUDE.md hard rule #4 — legacy/ is removed in P25).
- * Deep-link anchors (#display-price, #oxide-to-metal, #provenance-chain,
- * #data-sources-breakdown) are preserved by the heading-id plugin in <Markdown>.
+ * The markdown is co-located (app/methodology/methodology.md) so the build reads
+ * no external template. Deep-link anchors (#display-price, #oxide-to-metal,
+ * #provenance-chain, #data-sources-breakdown) are preserved by the heading-id
+ * plugin in <Markdown>.
  */
 import { readFileSync } from 'node:fs';
 import { join } from 'node:path';

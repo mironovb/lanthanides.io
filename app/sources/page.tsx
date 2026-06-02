@@ -1,12 +1,12 @@
 /**
- * /sources — the curated data-source registry + trust tiers (SSG, Prompt 8).
+ * /sources: the curated data-source registry and trust tiers (SSG).
  *
- * Ports legacy/pages/sources.html: the trust-tier reference table (from
- * `_data/site_settings.yml` → source_trust_tiers) and the registered-source
- * table (from `_data/source_registry.yml` → name, type, trust tier, country,
- * supported elements, parse status, review status). Only fields that actually
- * exist in the registry are shown — absent legacy columns (url, last_fetch,
- * ingestion_method) are dropped rather than fabricated (CLAUDE.md hard rule #1).
+ * The trust-tier reference table comes from `_data/site_settings.yml`
+ * (source_trust_tiers) and the registered-source table from
+ * `_data/source_registry.yml` (name, type, trust tier, country, supported
+ * elements, parse status, review status). Only fields that exist in the registry
+ * are shown; columns with no data (url, last_fetch, ingestion_method) are dropped
+ * rather than fabricated (CLAUDE.md hard rule #1).
  */
 import type { Metadata } from 'next';
 import Link from 'next/link';
@@ -18,13 +18,13 @@ import { buildMetadata } from '@/lib/seo';
 import { BreadcrumbJsonLd } from '@/components/seo';
 
 export const metadata: Metadata = buildMetadata({
-  title: 'Rare Earth Price Data Sources — Trust Tiers & Registry',
+  title: 'Rare Earth Price Data Sources: Trust Tiers & Registry',
   description:
     'Registry of curated data sources for rare earth and strategic metal pricing. Trust tier classifications, ingestion status, and data quality methodology.',
   path: '/sources/',
 });
 
-/** Tier → reliability label + tone, matching the legacy badge mapping. */
+/** Tier to reliability label and tone, matching the old site's badge mapping. */
 const TIER_RELIABILITY: Record<number, { label: string; classes: string }> = {
   1: { label: 'Highest', classes: 'text-up bg-up/10 border border-up/25' },
   2: { label: 'High', classes: 'text-accent-strong bg-accent/10 border border-accent/25' },
@@ -174,7 +174,7 @@ export default function SourcesPage() {
         )}
       </section>
 
-      {/* ── Disclaimer (legacy disclaimer.html) ──────────────────────────── */}
+      {/* ── Disclaimer ───────────────────────────────────────────────────── */}
       <Callout tone="note" glyph={null} className="mt-12">
         <strong className="text-fg">Disclaimer:</strong> All prices shown require
         source provenance. No data is fabricated or interpolated. Prices are
