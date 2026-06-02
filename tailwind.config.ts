@@ -1,23 +1,26 @@
 import type { Config } from 'tailwindcss';
 
 /**
- * Design tokens — the lanthanides.io "Strategic Materials Ledger" system
- * (Prompt 11, formalizing the Prompt 3 baseline).
+ * Design tokens — the lanthanides.io "Strategic Materials Ledger" system.
  *
- * The feel is an instrument panel a procurement officer trusts: dense, legible,
- * understated. Graphite/near-black surfaces, a single disciplined teal accent,
- * sharp corners, subtle borders over heavy shadows, and monospace tabular
- * numerics. Color ONLY ever encodes meaning — price movement (up/down/flat),
- * regulatory status (restricted/monitored/normal/active/suspended), and the
- * four element categories. There is no decorative color anywhere in the system.
+ * LIGHT MODE — a clean white "print intelligence brief" matching the last
+ * deployed static (Jekyll) site (`_sass/_variables.scss`): white surfaces,
+ * near-black text, a single disciplined deep-teal accent (#1A5C6B), saturated
+ * category hues, and monospace tabular numerics. Color ONLY ever encodes
+ * meaning — price movement (up/down/flat), regulatory status
+ * (restricted/monitored/normal/active/suspended), and the four element
+ * categories. There is no decorative color anywhere in the system.
  *
- * ── Theme reconciliation (read before touching colors) ──────────────────────
- * `.impeccable.md` describes a future LIGHT-mode brand ("a well-designed print
- * intelligence brief"). The system shipped here is the dark instrument-panel
- * theme that every page (Prompts 6–10) already composes from. Tokens are kept
- * strictly semantic by name (`surface`, `fg`, `accent`, `risk-*`, `category-*`)
- * so the eventual light switch is a token-value edit, never a utility-class
- * rewrite — see docs/DESIGN-SYSTEM.md §"Theme & the light-mode path".
+ * ── History (read before touching colors) ───────────────────────────────────
+ * The migration first shipped a DARK instrument-panel theme; this is the
+ * light-mode flip the design system was built for. Because every component
+ * references tokens by SEMANTIC name (`surface`, `fg`, `accent`, `risk-*`,
+ * `category-*`) and never a literal color, the switch is a token-value edit, not
+ * a utility-class rewrite (docs/DESIGN-SYSTEM.md §"Theme & the light-mode path").
+ *
+ * A few static-site values were darkened to meet WCAG AA (the project's Prompt-23
+ * commitment, docs/QA.md): dim text, the suspended gray, the amber/gold used for
+ * text, and the form-field border — each kept in-family, just contrast-safe.
  *
  * NOTE: tokens are hex (not `rgb(var() / <alpha-value>)`) on purpose. The
  * markdown/prose stylesheets (the `*-body.css` files) resolve these via the
@@ -36,82 +39,101 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        // ── Surfaces — near-black page → graphite panels → hovered rows. ──
-        base: '#0b0d10', // page background
-        surface: '#14171c', // panels / cards
-        raised: '#1a1d23', // raised surface, table headers
-        overlay: '#1f242b', // popovers / hovered rows / tooltips
+        // ── Surfaces — white page & cards; faint grays for raised/hover. ──
+        base: '#ffffff', // page background
+        surface: '#ffffff', // panels / cards (separated by border + subtle shadow)
+        raised: '#f8f9fa', // table headers, raised strips
+        overlay: '#e9ecef', // popovers / hovered rows / tooltips
         border: {
-          DEFAULT: '#262b33', // hairline dividers, default panel edge
-          strong: '#333b46', // emphasized edge, separators, sort glyphs
-          // Form-control boundary. ≥3:1 against both the field fill (`base`) and
-          // the enclosing panel (`surface`) so inputs meet WCAG 1.4.11 (non-text
-          // contrast); the lighter `border`/`border-strong` stay for decorative
-          // hairline dividers (which 1.4.11 exempts). See docs/QA.md.
-          field: '#606b7b',
+          DEFAULT: '#dee2e6', // hairline dividers, default panel edge
+          strong: '#ced4da', // emphasized edge, separators, sort glyphs
+          // Form-control boundary. ≥3:1 against the white field fill so inputs
+          // meet WCAG 1.4.11 (non-text contrast); the lighter `border`/
+          // `border-strong` stay for decorative hairlines (which 1.4.11 exempts).
+          // Darkened from the static site's #ADB5BD (1.6:1, failed). See docs/QA.md.
+          field: '#868d95',
         },
-        // ── Foreground text — three deliberate steps of emphasis. ──
+        // ── Foreground text — three deliberate steps of emphasis (all AA). ──
         fg: {
-          DEFAULT: '#e6e8eb', // primary text / numerics
-          muted: '#9aa3ad', // body, secondary text
-          // Labels, captions, fine print, table headers, eyebrows. Lightened
-          // from #6b7178 so it clears WCAG AA (4.5:1) for normal text on base/
-          // surface/raised (5.5 / 5.1 / 4.8); the old value failed at 3.4–4.0.
-          dim: '#828993',
+          DEFAULT: '#1a1a1a', // primary text / numerics (near-black)
+          muted: '#4a4e54', // body, secondary text — ~8.7:1 on white
+          // Labels, captions, fine print, table headers, eyebrows. Darkened from
+          // the static #999 (2.8:1, failed) to clear AA on white/raised/overlay.
+          dim: '#5a616a', // ~5.9:1 white · ~5.0:1 overlay
         },
-        // ── The one restrained accent (terminal teal, from brand #1A5C6B). ──
+        // ── The one restrained accent (deep brand teal #1A5C6B). ──
         accent: {
-          DEFAULT: '#2f9bb7', // links, active state, focus ring
-          strong: '#3fb0cd', // hover / emphasis
-          dim: '#16323a', // accent tint (selection, active row wash)
+          DEFAULT: '#1a5c6b', // links, active state, focus ring
+          strong: '#14505d', // hover / emphasis (≈ darken 10%)
+          dim: '#d4eaf0', // accent tint (selection, active row wash)
         },
         // ── Price-movement semantics (financial up / down / flat). ──
-        up: '#3fb27f', // gain — green
-        down: '#e5564b', // loss — red
-        neutral: '#8a929c', // flat — gray
-        flat: '#8a929c', // alias of `neutral` for the up/down/flat trio
-        // ── Regulatory-status semantics (teal / amber / red / gray). ──
+        up: '#2e7a4e', // gain — green (AA on white)
+        down: '#b5342b', // loss — red
+        neutral: '#6c757d', // flat — gray
+        flat: '#6c757d', // alias of `neutral` for the up/down/flat trio
+        // ── Regulatory-status semantics (green / amber / red / gray). ──
         // The five named states map onto this 4-stop scale (Badge resolves them):
         //   normal → low · monitored/active → medium · restricted → high · suspended.
+        // Green-for-clear matches the static site (reg-none = green); amber and
+        // suspended gray are darkened from the static gold/#888 to clear AA.
         risk: {
-          low: '#2f9bb7', // normal / monitored baseline — teal
-          medium: '#d4a847', // export-controlled / active licence — amber
-          high: '#e5564b', // restricted / presumptive denial — red
-          suspended: '#6b7178', // suspended — gray
+          low: '#2e7a4e', // normal / clear — green
+          medium: '#9a6b00', // export-controlled / active licence — dark gold
+          high: '#b5342b', // restricted / presumptive denial — red
+          suspended: '#6b7178', // suspended — gray (AA)
         },
-        // ── Element-category accents (from legacy/_sass, tuned for dark). ──
+        // ── Element-category accents (static palette, all AA on white). ──
         category: {
-          'ree-light': '#4b8bf5', // azure — light rare earth
-          'ree-heavy': '#9b6bf0', // violet — heavy rare earth
-          strategic: '#cc7a33', // copper — strategic metal
-          semiconductor: '#1fae7a', // emerald — semiconductor metal
+          'ree-light': '#2563eb', // azure — light rare earth
+          'ree-heavy': '#7c3aed', // violet — heavy rare earth
+          strategic: '#b45309', // copper — strategic metal
+          semiconductor: '#047857', // emerald — semiconductor metal
         },
       },
       fontFamily: {
         sans: ['var(--font-sans)'],
         mono: ['var(--font-mono)'],
+        // The static site unified headings onto Inter too; --font-serif is
+        // mapped to --font-sans in globals.css, so "serif" classes render Inter
+        // without churning every heading's class name.
         serif: ['var(--font-serif)'],
       },
-      // ── Type scale — small dense base for data, serif display for headings. ──
-      // 2xs→base are overridden for density; md is net-new (lead/prose); lg→5xl
-      // inherit Tailwind's defaults (18/20/24/30/36/48) and are documented as
-      // the heading ramp. Numerics always render in the mono family + tabular.
+      // ── Type scale — comfortable 16px base (static site), serif/sans display. ──
+      // Mirrors the static `_variables.scss` ramp: 11/12/14/16/17 → 20/24/30/38/48.
+      // Numerics always render in the mono family + tabular.
       fontSize: {
         '2xs': ['0.6875rem', { lineHeight: '0.95rem' }], // 11px — badges, eyebrows, fine print
         xs: ['0.75rem', { lineHeight: '1.05rem' }], // 12px — table headers, mono meta
-        sm: ['0.8125rem', { lineHeight: '1.2rem' }], // 13px — data tables, compact body (base)
-        base: ['0.875rem', { lineHeight: '1.45rem' }], // 14px — body
-        md: ['0.9375rem', { lineHeight: '1.6rem' }], // 15px — lead paragraphs, section intros
+        sm: ['0.875rem', { lineHeight: '1.35rem' }], // 14px — nav, captions, compact body
+        base: ['1rem', { lineHeight: '1.55rem' }], // 16px — body
+        md: ['1.0625rem', { lineHeight: '1.7rem' }], // 17px — lead paragraphs, prose
+        lg: ['1.25rem', { lineHeight: '1.6rem' }], // 20px — h3, card titles
+        xl: ['1.5rem', { lineHeight: '1.85rem' }], // 24px — h2, section headings
+        '2xl': ['1.875rem', { lineHeight: '2.2rem' }], // 30px — h1, article titles
+        '3xl': ['2.375rem', { lineHeight: '2.6rem' }], // 38px — page hero titles
+        '4xl': ['3rem', { lineHeight: '1.1' }], // 48px — display
+        '5xl': ['3.5rem', { lineHeight: '1.05' }], // 56px — large hero
       },
-      // Sharp corners — no rounded SaaS cards (.impeccable.md "no decorative layer").
+      // Soft, restrained corners (static site: 2/3/4/6px) — gentle, not SaaS-round.
       borderRadius: {
         none: '0',
-        sm: '1px',
+        sm: '2px',
         DEFAULT: '2px',
         md: '3px',
+        lg: '4px',
+        xl: '6px',
+      },
+      // Subtle elevation to match the static white cards (borders still carry most
+      // of the separation; shadows are barely-there, never dramatic).
+      boxShadow: {
+        sm: '0 1px 2px rgba(0, 0, 0, 0.04)',
+        DEFAULT: '0 1px 3px rgba(0, 0, 0, 0.06)',
+        md: '0 1px 4px rgba(0, 0, 0, 0.06)',
+        lg: '0 2px 8px rgba(0, 0, 0, 0.08)',
       },
       maxWidth: {
-        content: '72rem', // page column (header/footer/page gutters align to this)
+        content: '75rem', // page column (static $content-width 1200px ≈ 75rem)
         prose: '46rem', // reading measure for long-form prose
       },
       spacing: {

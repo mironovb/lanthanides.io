@@ -23,7 +23,7 @@ export function ElementCard({ element, retail, bulk }: ElementCardProps) {
   return (
     <Link
       href={`/elements/${element.symbol}/`}
-      className={`flex flex-col border border-t-2 border-border ${cat.borderTop} bg-surface p-3 transition-colors hover:bg-overlay`}
+      className={`flex flex-col rounded-lg border border-t-2 border-border ${cat.borderTop} bg-surface p-3 shadow-sm transition-shadow duration-fast hover:shadow-md`}
     >
       <div className="flex items-center justify-between">
         <span className={`text-2xs font-semibold uppercase tracking-wide ${cat.text}`}>

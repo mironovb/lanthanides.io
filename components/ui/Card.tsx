@@ -37,10 +37,10 @@ export function Card({
   return (
     <Tag
       className={cn(
-        'border border-border bg-surface',
+        'rounded-lg border border-border bg-surface shadow-sm',
         PADDING[padding],
         interactive &&
-          'transition-colors duration-fast hover:border-border-strong',
+          'transition-shadow duration-fast hover:border-border-strong hover:shadow-md',
         className,
       )}
     >
@@ -75,8 +75,13 @@ export function Panel({
   bodyClassName,
 }: PanelProps) {
   return (
-    <section className={cn('border border-border bg-surface', className)}>
-      <header className="flex items-baseline gap-3 border-b border-border px-4 py-2.5">
+    <section
+      className={cn(
+        'overflow-hidden rounded-lg border border-border bg-surface shadow-sm',
+        className,
+      )}
+    >
+      <header className="flex items-baseline gap-3 border-b border-border bg-raised px-4 py-2.5">
         <div className="min-w-0">
           {eyebrow ? <p className="eyebrow">{eyebrow}</p> : null}
           <TitleTag className="truncate font-serif text-base font-semibold text-fg">

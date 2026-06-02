@@ -142,15 +142,28 @@ A skip-to-content link targets `#main` (the flex-1 wrapper around `children`).
 
 ## 5. Theme & the light-mode path
 
-The shipped theme is the **dark instrument-panel** theme every page (Prompts
-6–10) already composes from. `.impeccable.md` describes a future **light-mode**
-brand ("a well-designed print intelligence brief"). These are reconciled, not in
-conflict, by keeping tokens **strictly semantic**:
+The shipped theme is now the **light "print intelligence brief"** — white
+surfaces, near-black text, a single deep-teal accent (`#1A5C6B`), and the
+saturated category hues — matching the last deployed static (Jekyll) site
+(`_sass/_variables.scss`) and the `.impeccable.md` brand. It replaced the
+original dark instrument-panel theme via a pure **token-value edit**: the switch
+touched only `tailwind.config.ts` (colors + type scale + radii/shadows),
+`app/globals.css` (16px base, Inter headings), the font imports in
+`app/layout.tsx` (Inter + JetBrains Mono), and three components that opted into
+subtle white-card elevation (`Card`/`Panel`, `SiteHeader`, `ElementCard`). No
+page changed a single color utility — proof the semantic-token discipline held:
 
 - No page or component names a literal color — they reference `surface`, `fg`,
-  `accent`, `risk-*`, `category-*`. So switching to light mode is a
+  `accent`, `risk-*`, `category-*`. So switching the theme was a
   **token-value edit** (change the hex in `tailwind.config.ts`), never a
-  utility-class rewrite.
+  utility-class rewrite. A few static-site values were darkened to clear WCAG AA
+  on white (dim text, the suspended gray, the gold used for text, the field
+  border); all text pairs now pass 4.5:1 (see docs/QA.md).
+- **The two inversion seams that made this safe:** primary buttons / active
+  chips set their text color to the `base` token (page background) on an
+  `accent` fill, and a few tiles set `fg`-colored text on a `bg-fg` chip — both
+  flip together with the surface tokens, so light-on-teal and light-on-dark
+  stay correct without per-component edits.
 - **Why hex, not CSS variables:** a `rgb(var(--x) / <alpha-value>)` token layer
   would let a `[data-theme]` attribute swap themes at runtime — but it would
   break the ~150 `theme('colors.*')` calls in the `*-body.css` prose

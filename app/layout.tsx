@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from 'next';
-import { IBM_Plex_Sans, IBM_Plex_Mono, Source_Serif_4 } from 'next/font/google';
+import { Inter, JetBrains_Mono } from 'next/font/google';
 import './globals.css';
 import { SiteHeader, SiteFooter } from '@/components/layout';
 import { SiteJsonLd } from '@/components/seo';
@@ -18,15 +18,16 @@ import {
  * external stylesheet), subset to `latin`, with `display: swap` and
  * auto-generated size-adjusted fallback metrics so swapping in the web font
  * causes no layout shift. Each exposes a CSS variable consumed by Tailwind's
- * fontFamily (tailwind.config.ts) — the same --font-* seam the prior <link>
- * setup used, so this is a swap, not a rewrite.
+ * fontFamily (tailwind.config.ts) — the same --font-* seam used throughout, so
+ * the type pairing is a swap, not a rewrite.
  *
- * IBM Plex Sans/Mono ship as static weights (so we enumerate them); Source
- * Serif 4 is a variable font (so weight is omitted to fetch the full axis).
+ * The pairing matches the last deployed static site: Inter (UI) + JetBrains Mono
+ * (all numerics). The static site also set headings in Inter, so --font-serif is
+ * bound to Inter as well — every `font-serif` heading class renders Inter without
+ * churning class names. Inter is a variable font (weight axis fetched whole).
  */
-const sans = IBM_Plex_Sans({
+const sans = Inter({
   subsets: ['latin'],
-  weight: ['400', '500', '600', '700'],
   display: 'swap',
   variable: '--font-sans',
   fallback: [
@@ -41,7 +42,7 @@ const sans = IBM_Plex_Sans({
   ],
 });
 
-const mono = IBM_Plex_Mono({
+const mono = JetBrains_Mono({
   subsets: ['latin'],
   weight: ['400', '500', '600'],
   display: 'swap',
@@ -56,11 +57,25 @@ const mono = IBM_Plex_Mono({
   ],
 });
 
-const serif = Source_Serif_4({
+/**
+ * Headings: Inter (the static site unified its serif onto Inter). Bound to a
+ * second CSS variable so `font-serif` classes resolve to Inter site-wide. Using
+ * the same Inter import keeps it to one downloaded family.
+ */
+const serif = Inter({
   subsets: ['latin'],
   display: 'swap',
   variable: '--font-serif',
-  fallback: ['ui-serif', 'Georgia', 'Cambria', 'Times New Roman', 'serif'],
+  fallback: [
+    'ui-sans-serif',
+    'system-ui',
+    '-apple-system',
+    'Segoe UI',
+    'Roboto',
+    'Helvetica',
+    'Arial',
+    'sans-serif',
+  ],
 });
 
 /*

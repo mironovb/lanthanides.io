@@ -10,7 +10,7 @@ import { SiteNav } from './SiteNav';
 
 export function SiteHeader() {
   return (
-    <header className="sticky top-0 z-50 border-b border-border bg-surface">
+    <header className="sticky top-0 z-50 border-b border-border bg-surface shadow-sm">
       <Container className="flex h-12 items-center justify-between gap-4">
         <Link
           href="/"
@@ -18,7 +18,7 @@ export function SiteHeader() {
           aria-label="lanthanides.io — home"
         >
           <span
-            className="inline-block h-4 w-4 shrink-0 bg-accent"
+            className="inline-block h-5 w-5 shrink-0 rounded-md bg-accent"
             aria-hidden="true"
           />
           <span className="font-mono text-sm font-semibold tracking-tightish text-fg">

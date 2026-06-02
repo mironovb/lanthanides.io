@@ -3,21 +3,22 @@
 @tailwind utilities;
 
 /* ──────────────────────────────────────────────────────────────────────────
-   Design tokens — the Strategic Materials Ledger system (Prompt 11)
+   Design tokens — the Strategic Materials Ledger system
 
-   Terminal-adjacent, dense, understated. Colors live in tailwind.config.ts
-   (hex, so the prose stylesheets' theme() calls stay valid).
+   Clean white "print intelligence brief" matching the last deployed static
+   site. Colors live in tailwind.config.ts (hex, so the prose stylesheets'
+   theme() calls stay valid).
 
    FONTS: self-hosted via next/font/google (app/layout.tsx), which subsets to
    latin, uses `display: swap`, and injects size-adjusted fallback metrics (no
    layout shift). It defines the --font-sans / --font-mono / --font-serif
    variables on <html> — Tailwind's fontFamily reads them — so the type pairing
-   is still a swap, not a utility-class rewrite. No render-blocking external
-   stylesheet, no runtime request to Google.
+   is a swap, not a utility-class rewrite. No render-blocking external
+   stylesheet, no runtime request to Google. The pairing is Inter (UI +
+   headings) + JetBrains Mono (numerics); --font-serif is bound to Inter too.
 
-   THEME: dark instrument-panel theme is the shipped default. The token names
-   are semantic, so the future light-mode brand (.impeccable.md) is a
-   token-value edit — see docs/DESIGN-SYSTEM.md §"Theme & the light-mode path".
+   THEME: light mode. Token names are semantic, so the theme is a token-value
+   edit — see docs/DESIGN-SYSTEM.md §"Theme & the light-mode path".
    ────────────────────────────────────────────────────────────────────────── */
 @layer base {
   html {
@@ -27,10 +28,12 @@
 
   body {
     @apply bg-base text-fg font-sans antialiased;
-    font-size: 0.8125rem; /* 13px — dense baseline */
-    line-height: 1.5;
+    font-size: 1rem; /* 16px — comfortable reading baseline (static site) */
+    line-height: 1.55;
     text-rendering: optimizeLegibility;
-    font-feature-settings: 'kern' 1;
+    font-feature-settings: 'kern' 1, 'liga' 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 
   h1,
