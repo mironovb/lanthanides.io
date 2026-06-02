@@ -18,9 +18,12 @@ import type { Config } from 'tailwindcss';
  * `category-*`) and never a literal color, the switch is a token-value edit, not
  * a utility-class rewrite (docs/DESIGN-SYSTEM.md §"Theme & the light-mode path").
  *
- * A few static-site values were darkened to meet WCAG AA (the project's Prompt-23
- * commitment, docs/QA.md): dim text, the suspended gray, the amber/gold used for
- * text, and the form-field border, each kept in-family, just contrast-safe.
+ * A few static-site values were darkened to meet WCAG AA (docs/QA.md): dim text,
+ * the form-field border, and the regulatory + category hues. The last group is
+ * the redesign accessibility pass (docs/QA.md "Light-palette badge contrast"):
+ * badge/tag text sits on a same-hue /10 tint, and on that tint the lighter
+ * static-site hues fell below 4.5:1 after the light-mode flip, so each is darkened
+ * one step to clear AA on the tint. All kept in-family, just contrast-safe.
  *
  * NOTE: tokens are hex (not `rgb(var() / <alpha-value>)`) on purpose. The
  * markdown/prose stylesheets (the `*-body.css` files) resolve these via the
@@ -68,27 +71,34 @@ const config: Config = {
           dim: '#d4eaf0', // accent tint (selection, active row wash)
         },
         // ── Price-movement semantics (financial up / down / flat). ──
-        up: '#2e7a4e', // gain, green (AA on white)
-        down: '#b5342b', // loss, red
+        // Left at the static-site hues: these render as text/numerics on white
+        // (gain 5.2:1, loss 6.0:1, both AA), not on a tint, so no darkening needed.
+        up: '#2e7a4e', // gain, green (AA as text on white)
+        down: '#b5342b', // loss, red (AA as text on white)
         neutral: '#6c757d', // flat, gray
         flat: '#6c757d', // alias of `neutral` for the up/down/flat trio
         // ── Regulatory-status semantics (green / amber / red / gray). ──
         // The five named states map onto this 4-stop scale (Badge resolves them):
         //   normal → low · monitored/active → medium · restricted → high · suspended.
-        // Green-for-clear matches the static site (reg-none = green); amber and
-        // suspended gray are darkened from the static gold/#888 to clear AA.
+        // These are badge/tag/card TEXT colors and sit on a same-hue /10 tint, so
+        // each is darkened one step to clear WCAG AA on that tint over white, raised,
+        // and the overlay hover (all ≥4.7:1; docs/QA.md). Green-for-clear matches the
+        // static site (reg-none = green).
         risk: {
-          low: '#2e7a4e', // normal / clear, green
-          medium: '#9a6b00', // export-controlled / active licence, dark gold
-          high: '#b5342b', // restricted / presumptive denial, red
-          suspended: '#6b7178', // suspended, gray (AA)
+          low: '#256b43', // normal / clear, green
+          medium: '#7a5500', // export-controlled / active licence, dark gold
+          high: '#a02b22', // restricted / presumptive denial, red
+          suspended: '#56606b', // suspended, gray
         },
-        // ── Element-category accents (static palette, all AA on white). ──
+        // ── Element-category accents (static azure/violet/copper/emerald). ──
+        // Used as bright tile bands/swatches AND as badge text on a /10 tint;
+        // darkened one shade from the static hues so the badge text clears AA on the
+        // tint (≥4.7:1) while the bands/swatches stay clearly the same hue. docs/QA.md.
         category: {
-          'ree-light': '#2563eb', // azure, light rare earth
-          'ree-heavy': '#7c3aed', // violet, heavy rare earth
-          strategic: '#b45309', // copper, strategic metal
-          semiconductor: '#047857', // emerald, semiconductor metal
+          'ree-light': '#1d4ed8', // azure, light rare earth
+          'ree-heavy': '#6d28d9', // violet, heavy rare earth
+          strategic: '#92400e', // copper, strategic metal
+          semiconductor: '#065f46', // emerald, semiconductor metal
         },
       },
       fontFamily: {

@@ -42,7 +42,7 @@ export function FilterChips({
     cn(
       base,
       active
-        ? 'border-accent bg-accent text-base'
+        ? 'border-accent bg-accent text-white'
         : 'border-border bg-raised text-fg-muted hover:border-accent hover:text-accent-strong',
     );
 

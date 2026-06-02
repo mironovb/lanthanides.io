@@ -1,8 +1,16 @@
-# QA.md — performance, accessibility & mobile (Prompt 23)
+# QA.md · performance, accessibility & mobile
 
 The production-readiness pass: **performance**, **accessibility (WCAG 2.1 AA)**,
 and **mobile/responsive**. This records what was checked, what was fixed, and the
-evidence — measured, not estimated.
+evidence, measured, not estimated.
+
+> **Two passes are recorded here.** §1 to §6 are the original migration pass (Prompt
+> 23), written against the **dark** instrument-panel palette. The redesign later
+> flipped the theme to **light** (white print-brief), moved a lot of markup, and
+> rebuilt the nav/footer/home. **§7 is the redesign accessibility recheck against
+> the live light palette** and is the current source of truth for contrast. Where
+> §2.1's dark-surface numbers conflict with §7, **§7 wins** (it describes what
+> ships today).
 
 > **Companion docs:** `DESIGN-SYSTEM.md` (tokens, primitives, the a11y baseline),
 > `VISUALIZATION-AUDIT.md` (the chart data-sufficiency gate), `ARCHITECTURE.md`
@@ -132,6 +140,10 @@ documented in `app/dashboard/page.tsx`).
 | 1.3.1 | One `h1` / heading order | **Pass** | Build check: exactly **1 `<main>` and 1 `<h1>` per page**; `PageHeader`→h1, `SectionHeading`→h2 (h3 option). Regulatory page: 1×h1, 2×h2, 1×h3 — no skips. |
 
 ### 2.1 Contrast — computed ratios & fixes
+
+> **Superseded by §7 for the live site.** The ratios below are for the original
+> **dark** palette. The redesign flipped to light; §7 recomputes every pair on the
+> white surfaces and records the badge-tint fix. Read §7 for current numbers.
 
 Computed against the dark surfaces (`base #0b0d10`, `surface #14171c`,
 `raised #1a1d23`, `overlay #1f242b`). Required: **4.5:1** normal text, **3:1**
@@ -311,3 +323,139 @@ later pass is cleared to remove it, `app/robots.ts` already covers the endpoint.
 
 No parity gaps remain; `legacy/` is gone. `npm run build` green (61 routes);
 `npm run lint` clean.
+
+---
+
+## 7. Redesign accessibility & mobile recheck (light palette)
+
+The redesign flipped the theme to a light "print intelligence brief" (white
+surfaces, near-black text, deep-teal accent), rebuilt the nav as a flat bar, and
+rebuilt the footer and home. This pass re-runs the §2/§3 checks against that live
+markup. Same method as §0: **computed WCAG ratios** (the `(L1+0.05)/(L2+0.05)`
+formula) and **built-output inspection**, with no Lighthouse/axe (still not
+installed; no browser on the build host) and no fabricated scores.
+
+### 7.1 Contrast, recomputed on the white palette
+
+Surfaces: `base/surface #ffffff`, `raised #f8f9fa`, `overlay #e9ecef` (hover /
+popover). Required: **4.5:1** text, **3:1** non-text. Text-on-white all pass:
+
+| Pair | white | raised | overlay | Verdict |
+|:--|--:|--:|--:|:--|
+| `fg #1a1a1a` | 17.40 | 16.51 | 14.68 | Pass |
+| `fg-muted #4a4e54` | 8.37 | 7.94 | 7.06 | Pass |
+| `fg-dim #5a616a` (TH, eyebrow, hints) | 6.26 | 5.94 | 5.28 | Pass |
+| `accent #1a5c6b` (links) | 7.53 | 7.15 | 6.35 | Pass |
+| `accent-strong #14505d` | 8.99 | 8.53 | 7.58 | Pass |
+
+**White on accent (primary button, active chip)**, the P19 explicit check:
+white on `accent #1a5c6b` = **7.53:1** (≥4.5). Confirmed in built CSS: primary
+`Button`, `FilterChips` active, and the `/offers` confidence toggle now use an
+explicit `text-white` on `bg-accent` (the previous `text-base` resolved to white
+only by a fragile fontSize/color name collision, see §7.3).
+
+**Non-text, the form-control border** `border-field #868d95`: white **3.36**,
+raised **3.18** (≥3:1, WCAG 1.4.11). Forms sit on white/surface, so the control
+boundary passes in every context it appears.
+
+### 7.2 The one regression the light flip introduced: badge/tag text on a tint (FIXED)
+
+Badges and status tags render **colored text on a 10% same-hue tint**
+(`text-risk-medium` on `bg-risk-medium/10`, etc.) across `Badge`, `categories.ts`
+(`CATEGORY_STYLE`/`CONTROL_STYLE`/`REGULATORY_BADGE`), `regulatory.ts`,
+`movements.ts`, `DevelopmentTimeline`, `RegulatoryBanner`, and `Callout`. On the
+light palette several of those hues fell **below 4.5:1 on the tint, in their
+resting state on white**, a real AA fail, not a hover edge:
+
+| Token (text on its /10 tint, on white) | Before | After (darkened token) |
+|:--|--:|--:|
+| `risk-medium` (monitored / active licence, 39 uses) | **4.13 FAIL** | **5.80 Pass** |
+| `risk-suspended` | **4.36 FAIL** | **5.56 Pass** |
+| `risk-low` (normal/clear) | 4.59 (raised 4.36 FAIL) | **5.56 Pass** |
+| `risk-high` (restricted) | 5.17 (overlay 4.40 FAIL) | **6.24 Pass** |
+| `category-ree-light` | **4.49 FAIL** | **5.72 Pass** |
+| `category-strategic` | **4.39 FAIL** | **6.08 Pass** |
+| `category-ree-heavy` / `-semiconductor` | pass white, overlay FAIL | **6.04 / 6.56 Pass** |
+
+**Fix (root cause, one edit):** the `risk-*` and `category-*` tokens in
+`tailwind.config.ts` were darkened **one step, in-family** (e.g. `risk-medium` from
+`#9a6b00` to `#7a5500`, `category-ree-light` from `#2563eb` to `#1d4ed8`). This is
+the same dark-ink-on-light-tint pattern the `accent` badge already used
+(`accent-strong`) and the static site used for its amber badge
+(`darken($reg-export, 10%)`). Because every consumer references the token by name,
+the single edit fixes all seven call sites at once, and it is monotonically safe for
+the tokens' other uses (text on white only gets darker, still ≥6.4:1; tile bands,
+dots, and swatches stay ≥3:1 and clearly the same hue). Verified in built CSS: the
+eight new values ship and the old hues are gone. The darkened text-on-tint clears AA
+on **white, raised, and the overlay hover** (all ≥4.7:1), so badges are now AA in
+every state, with no "hover-only" caveat.
+
+**Movement `up`/`down`/`neutral` left unchanged:** these render as numerics or signs
+**on white** (gain 5.24, loss 6.02, flat 4.69, all AA), not as badge text (the
+`up`/`down`/`flat` Badge variants are unused), so the static-site movement hues are
+kept. Direction also carries a `+`/`−` sign, never color alone (§7.4).
+
+### 7.3 Hardening: the `text-base` white-on-teal collision
+
+`base` is both a fontSize key (1rem) and a color token (`#ffffff` in light mode),
+so `text-base` happened to emit *both* a font-size and `color:#fff`. Primary
+buttons and active chips relied on that to get white text on teal. It worked (built
+CSS confirmed white shipped), but it was fragile: a `tailwind-merge` or a `base`
+recolor would silently drop the color, and the `Button` comment even mis-described
+it as "near-black." Replaced with explicit `text-white` in `Button`, `FilterChips`,
+and `OffersFeed`; corrected the comment. (The element-detail periodic-nav tiles
+still use `bg-fg text-base` = white on near-black, ~17:1, left for the element-page
+rebuild; correct today.)
+
+### 7.4 Color is never the only signal (re-verified on the rebuilt markup)
+
+| Surface | Redundant non-color cue |
+|:--|:--|
+| `Badge` / status tags | always a **text label** (`Restricted`, `Export Licence`, `Suspended`, and so on) |
+| Movement change (`MovementRow`) | **`+` / `−` sign** prefix on the percent (`sign()`); row hover is shadow-only (no tint) |
+| `ConfidenceMeter` / movement confidence | monochrome + **"Low/Medium/High confidence"** text + `aria-label` |
+| Element / category tiles | category color + **category short-label** text |
+
+### 7.5 Landmarks, headings, keyboard, skip link
+
+- **One `<main>` + one `<h1>` per page**, built-HTML sweep over **all 50**
+  prerendered pages: 0 violations. The root layout's skip target is a
+  `<div id="main" tabIndex=-1>`; each page renders its own `<main>` via
+  `Container as="main"`.
+- **404 fixed:** the Next default `not-found` shipped **no `<main>`**. Added
+  `app/not-found.tsx` (`Container as="main"`, one `<h1>`, recovery links,
+  `noindex`) so the route now has the landmark + heading like every other page.
+- **Skip-to-content** link present, targets the focusable `#main`.
+- **Flat nav (`SiteNav`):** mobile toggle is a 44px (`h-11 w-11`) `<button>` with
+  `aria-label` + `aria-expanded` + `aria-controls`; the panel is full-width with
+  ≥44px (`min-h-[44px]`) rows; links are real (work without JS); active link gets
+  `aria-current="page"`; the footer mirrors the full IA server-side. Decorative
+  bars are `aria-hidden`.
+- **Sortable table header:** still a nested `<button>` (Enter/Space), `aria-sort`
+  on the `<th>` (the §2.3 migration fix survived the redesign).
+- **Forms** (`SellForm`, `EmailWaitlistForm`, `PriceGaugeForm`): `<label htmlFor>`
+  /`<fieldset>`+`<legend>`, `aria-invalid` + `aria-describedby`, per-field +
+  form-level `role="alert"`, `border-field` controls. Unchanged by the redesign.
+- **`prefers-reduced-motion`** global collapse + **`:focus-visible`** 2px accent
+  outline, both intact in `globals.css`.
+
+### 7.6 Mobile / responsive (re-verified at 320 / 375 / 768 / 1024)
+
+- **Flat nav** at 320px: hamburger toggle ≥44px, full-width disclosure panel, 44px
+  rows, no horizontal overflow.
+- **Element grid** (home + `/elements`): `grid-cols-2` at base (≈130px tiles at
+  320px after the `Container` gutter, no overflow), widening to 3/5/6 columns. The
+  deliberate 2-up density choice (§3 note) stands.
+- **Tables** stay in `overflow-x-auto`; **forms/CTAs** stack and clear the 24px AA
+  target; **dashboard panels** reflow to one column. **News images** carry `alt`
+  (`image_alt ?? title`) via `next/image` with intrinsic dimensions (no CLS); the
+  article hero is `priority`.
+
+### 7.7 Result
+
+`npm run build` green (61 routes); `npm run lint` clean. Chart gate still holds (**0**
+`<polyline>` in built output); fonts still self-hosted (**0** `googleapis`/`gstatic`
+refs). Files touched: `tailwind.config.ts` (risk/category token darkening),
+`components/ui/{Button,FilterChips}.tsx`, `components/offers/OffersFeed.tsx`
+(`text-white`), `app/not-found.tsx` (new). Same browser caveat as §5: run
+Lighthouse + axe in a real browser before launch.

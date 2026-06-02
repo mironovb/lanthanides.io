@@ -6,7 +6,7 @@
  * Variants are restrained: one `primary` (the teal accent), a bordered
  * `secondary`, a chromeless `ghost`, and `danger`. Sharp corners, fast hover,
  * and the global focus-visible outline (no custom ring) keep keyboard users
- * covered. `primary` uses near-black text (`text-base`) for AA contrast on teal.
+ * covered. `primary` uses white text on the deep-teal accent (7.5:1, AA).
  */
 import Link from 'next/link';
 import type { ComponentProps } from 'react';
@@ -17,7 +17,7 @@ export type ButtonSize = 'sm' | 'md';
 
 const VARIANT: Record<ButtonVariant, string> = {
   primary:
-    'border-accent bg-accent text-base hover:border-accent-strong hover:bg-accent-strong',
+    'border-accent bg-accent text-white hover:border-accent-strong hover:bg-accent-strong',
   secondary:
     'border-border-strong bg-surface text-fg hover:border-accent hover:text-accent-strong',
   ghost:

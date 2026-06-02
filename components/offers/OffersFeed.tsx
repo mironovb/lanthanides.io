@@ -103,7 +103,7 @@ export function OffersFeed({ offers }: { offers: OfferDTO[] }) {
             className={cn(
               'rounded-sm border px-2.5 py-1.5 font-mono text-2xs font-semibold uppercase tracking-caps transition-colors duration-fast',
               filters.mediumPlusOnly
-                ? 'border-accent bg-accent text-base'
+                ? 'border-accent bg-accent text-white'
                 : 'border-border-strong bg-raised text-fg-muted hover:border-accent hover:text-accent-strong',
             )}
             title="Hide low-confidence offers (keep medium and high, confidence ≥ 0.50)"
