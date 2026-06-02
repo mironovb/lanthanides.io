@@ -1,12 +1,12 @@
 /**
- * RegulatorySnapshot — the dashboard's at-a-glance regulatory band (Prompt 17).
- * Two count breakdowns of all tracked elements: Chinese export-control posture
- * (restricted / monitored / unrestricted) and current regulatory state (active /
- * suspended / clear). Every tile links into the Regulatory Tracker — the crown-
- * jewel surface this band ties the dashboard into.
+ * RegulatorySnapshot: the dashboard's at-a-glance regulatory band. Two count
+ * breakdowns of all tracked elements: Chinese export control posture
+ * (restricted, monitored, unrestricted) and current regulatory state (active,
+ * suspended, clear). Every tile links into the Regulatory Tracker, where the
+ * announcement-level detail behind these counts lives.
  *
- * Server component, presentational. Colour is semantic only — it reuses the
- * regulatory-risk scale via <Badge>, never an arbitrary palette. Counts come
+ * Server component, presentational. Colour is semantic only: it reuses the
+ * regulatory risk scale via <Badge>, never an arbitrary palette. Counts come
  * straight from the catalog (getRegulatorySnapshot); nothing is fabricated.
  */
 import Link from 'next/link';
@@ -15,7 +15,7 @@ import { Badge, type BadgeVariant } from '@/components/ui';
 
 interface Cell {
   count: number;
-  variant: BadgeVariant; // the regulatory/control state — drives the badge colour
+  variant: BadgeVariant; // the regulatory/control state, drives the badge colour
   label: string;
   desc: string;
 }

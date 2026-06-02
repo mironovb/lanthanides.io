@@ -1,7 +1,7 @@
 'use client';
 
 /**
- * PremiumLeaderboard — retail-to-bulk price premium per element, ranked
+ * PremiumLeaderboard: retail-to-bulk price premium per element, ranked
  * (KEEP, docs/AUDIT.md §3 #6). A table, not a chart: the premium ratio is a
  * genuine differentiator (small-quantity buyers pay a steep markup over
  * commodity pricing), and a sortable table conveys it cleanly.
@@ -12,7 +12,7 @@
  * disclosure.
  *
  * A client island purely so headers sort in place (mirrors ProvenanceTable /
- * PriceHistoryTable); fully present in the SSR HTML, works without JS. No I/O —
+ * PriceHistoryTable); fully present in the SSR HTML, works without JS. No I/O:
  * rows are passed in from the server. Composes the shared Table primitives (P12).
  */
 import { useMemo, useState } from 'react';
@@ -49,7 +49,7 @@ export function PremiumLeaderboard({
   flagInverse = false,
 }: {
   rows: PremiumLeaderboardRow[];
-  /** Mark inverse (<1×) rows — retail undercuts bulk — distinctly (default off). */
+  /** Mark inverse (<1×) rows, where retail undercuts bulk, distinctly (default off). */
   flagInverse?: boolean;
 }) {
   const [sort, setSort] = useState<{ key: SortKey; dir: SortDir }>({
@@ -121,12 +121,12 @@ export function PremiumLeaderboard({
                 {flagInverse && r.premium < 1 ? (
                   <span
                     className="font-semibold text-neutral"
-                    title="Inverse — retail undercuts the bulk benchmark"
+                    title="Inverse: retail undercuts the bulk benchmark"
                   >
                     {fmtPremium(r.premium)}×
                   </span>
                 ) : (
-                  <span className="font-semibold text-accent-strong">
+                  <span className="font-semibold text-fg">
                     {fmtPremium(r.premium)}×
                   </span>
                 )}
@@ -143,7 +143,7 @@ export function PremiumLeaderboard({
       <p className="mt-3 text-xs leading-relaxed text-fg-muted">
         Latest retail reference ÷ latest bulk benchmark, ranked by premium. The
         <span className="text-fg-dim"> Basis</span> column shows the form each
-        side is quoted in — a metal-retail ÷ oxide-bulk ratio is not a
+        side is quoted in. A metal-retail ÷ oxide-bulk ratio is not a
         like-for-like spread. Click a column to sort.
       </p>
     </div>

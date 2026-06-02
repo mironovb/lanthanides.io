@@ -1,20 +1,19 @@
 /**
- * /dashboard — Market Dashboard (Prompt 17). A single-screen, terminal-grade
- * overview of the ledger for a procurement officer: the regulatory snapshot
- * (export-control posture + state), the retail-premium leaderboard, and the
- * data-coverage map. Every figure is derived from `_data/` via lib/data —
- * nothing here is editorial or fabricated (CLAUDE.md hard rule #1).
+ * /dashboard: Market Dashboard. A single screen overview of the ledger: the
+ * regulatory snapshot (export control posture and state), the retail premium
+ * leaderboard, and the data coverage map. Every figure is derived from `_data/`
+ * via lib/data. Nothing here is editorial or fabricated (CLAUDE.md hard rule #1).
  *
- * No "30-day movers" board: the 2-distinct-day windows that fed it produce
- * oxide→metal artefacts (e.g. La 30d +761,400%), not real moves
- * (docs/VISUALIZATION-AUDIT.md §2). Genuine threshold-crossing events — each with
- * its confidence and sample size — live in the factual /movements feed, which the
- * footer links to instead.
+ * There is no "30-day movers" board. The two distinct day windows that fed it
+ * produce oxide to metal artefacts (for example La 30d +761,400%), not real
+ * moves (docs/VISUALIZATION-AUDIT.md section 2). Genuine threshold crossing
+ * events, each with its confidence and sample size, live in the /movements feed,
+ * which the footer links to instead.
  *
  * Rendered SSG, like every other reference surface: the data layer memoises its
  * `_data/` reads per process (lib/data/load.ts), so the page refreshes when the
- * 6-hourly pipeline commit triggers a rebuild — an ISR `revalidate` would only
- * re-render against the same cached snapshot, so it is deliberately omitted.
+ * 6-hourly pipeline commit triggers a rebuild. An ISR revalidate would only
+ * re-render against the same cached snapshot, so it is left off.
  */
 import type { Metadata } from 'next';
 import Link from 'next/link';
@@ -36,10 +35,10 @@ import { PremiumLeaderboard } from '@/components/charts/PremiumLeaderboard';
 import { RegulatorySnapshot } from '@/components/dashboard/RegulatorySnapshot';
 
 const DESCRIPTION =
-  'A single-screen market overview for rare earths and strategic metals: retail-to-bulk price premiums, China export-control posture, and data coverage — every figure derived from the underlying observations, no editorial interpretation.';
+  'A single screen market overview for rare earths and strategic metals: retail to bulk price premiums, China export control posture, and data coverage. Every figure is derived from the underlying observations, with no editorial interpretation.';
 
 export const metadata: Metadata = buildMetadata({
-  title: 'Market Dashboard — Premiums, Export Controls & Coverage',
+  title: 'Market Dashboard: Premiums, Export Controls & Coverage',
   description: DESCRIPTION,
   keywords:
     'rare earth market dashboard, strategic metals overview, retail premium ratio, China export control snapshot, rare earth data coverage',
@@ -69,7 +68,7 @@ export default function DashboardPage() {
         crumbs={[{ label: 'Home', href: '/' }, { label: 'Market Dashboard' }]}
         eyebrow="Data"
         title="Market Dashboard"
-        lead="A single-screen read on the strategic-materials market: where Chinese export control concentrates, how steep the retail markup runs over wholesale, and how much price data backs each element. Every figure is derived from the underlying observations — nothing here is editorial."
+        lead="An at-a-glance view of the strategic materials market: where Chinese export control concentrates, how steep the retail markup runs over wholesale, and how much price data backs each element. Every figure is derived from the underlying observations. Nothing here is editorial."
         actions={
           <div className="flex flex-col items-start gap-1 text-xs md:items-end">
             <span className="font-mono text-fg-dim">
@@ -88,14 +87,14 @@ export default function DashboardPage() {
         }
       >
         <StoryLink>
-          Drill into the controls in the{' '}
-          <Link href="/regulatory/">Regulatory Tracker</Link>, or see every
-          detected price &amp; control change in{' '}
+          See the detail behind these numbers in the{' '}
+          <Link href="/regulatory/">Regulatory Tracker</Link>, or every detected
+          price and control change in{' '}
           <Link href="/movements/">Market Movements</Link>.
         </StoryLink>
       </PageHeader>
 
-      {/* ── Regulatory snapshot (ties in the crown-jewel tracker) ────────── */}
+      {/* Regulatory snapshot */}
       <section className="mt-10">
         <SectionHeading
           title="Regulatory snapshot"
@@ -112,7 +111,7 @@ export default function DashboardPage() {
         <RegulatorySnapshot snapshot={snapshot} />
       </section>
 
-      {/* ── Retail-premium leaderboard ──────────────────────────────────── */}
+      {/* Retail premium leaderboard */}
       <section className="mt-12">
         <SectionHeading
           title="Retail premium leaderboard"
@@ -126,10 +125,10 @@ export default function DashboardPage() {
           }
           description={
             <>
-              Latest retail reference ÷ latest bulk benchmark, ranked by markup —
-              what small-quantity buyers pay over wholesale. {premiums.length} of{' '}
-              {total} elements are priced in both tiers, so a premium can be
-              computed.{' '}
+              Latest retail reference ÷ latest bulk benchmark, ranked by markup,
+              the premium small-quantity buyers pay over wholesale.{' '}
+              {premiums.length} of {total} elements are priced in both tiers, so
+              a premium can be computed.{' '}
               {inverseCount > 0
                 ? `${inverseCount} inverse ${inverseCount === 1 ? 'case' : 'cases'} (below 1×, where retail undercuts bulk) ${inverseCount === 1 ? 'is' : 'are'} flagged.`
                 : 'Inverse cases (below 1×, where retail undercuts bulk) are flagged when they occur.'}{' '}
@@ -140,7 +139,7 @@ export default function DashboardPage() {
         <PremiumLeaderboard rows={premiums} flagInverse />
       </section>
 
-      {/* ── Data-coverage map ───────────────────────────────────────────── */}
+      {/* Data coverage map */}
       <section className="mt-12">
         <SectionHeading
           title="Data coverage"
@@ -152,18 +151,18 @@ export default function DashboardPage() {
               Open data →
             </Link>
           }
-          description="One tile per element, graded by how many distinct days of price observations back it. Thin coverage is shown, not hidden — sparse elements get a small count, never a fabricated trend. Each tile links to the element."
+          description="One tile per element, graded by how many distinct days of price observations back it. Thin coverage is shown, not hidden. Sparse elements get a small count, never a fabricated trend. Each tile links to the element."
         />
         <CoverageGrid items={coverage} tally={coverageTally} />
       </section>
 
-      {/* ── Why there is no "movers" board (point to the factual feed) ───── */}
+      {/* No movers board: point to the factual movements feed */}
       <p className="mt-12 border-t border-border pt-6 text-sm leading-relaxed text-fg-muted">
-        Looking for the biggest moves? This dashboard deliberately omits a
-        &ldquo;30-day movers&rdquo; board: most price windows span only two
-        observation days, so ranking them would surface oxide-vs-metal artefacts
-        as if they were real moves. Genuine threshold-crossing events — each shown
-        with its confidence and sample size — live in the{' '}
+        Looking for the biggest moves? This dashboard leaves out a
+        &ldquo;30-day movers&rdquo; board on purpose. Most price windows span
+        only two observation days, so ranking them would surface oxide versus
+        metal artefacts as if they were real moves. Genuine threshold crossing
+        events, each shown with its confidence and sample size, live in the{' '}
         <Link
           href="/movements/"
           className="text-accent hover:text-accent-strong"
