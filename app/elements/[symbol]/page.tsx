@@ -3,10 +3,11 @@
  *
  * Statically generated for all 31 catalog symbols via generateStaticParams();
  * `dynamicParams = false` 404s anything else (URLs are case-sensitive: /Dy/, not
- * /dy/). Ports legacy/_layouts/element-detail.html: header + badges, the two
- * reference-price cards, the Price Movement table, the inline regulatory notice,
- * the editorial body (with its embedded provenance table), related elements, and
- * prev/next navigation. Per-page metadata comes from the `_elements/*.md` front
+ * /dy/). Ports the old element-detail layout (Jekyll, git 56e980f): header +
+ * badges, the two reference-price cards, the Price Movement table, the price
+ * history observations table, the inline regulatory notice, the editorial body
+ * (with its embedded provenance table), related elements, prev/next, and the
+ * all-element nav bar. Per-page metadata comes from the `_elements/*.md` front
  * matter via the Next Metadata API.
  */
 import type { Metadata } from 'next';
@@ -36,7 +37,6 @@ import {
   CATEGORY_STYLE,
   REGULATORY_BADGE,
 } from '@/components/elements/categories';
-import { MethodologyCallout } from '@/components/trust';
 import { ElementBody } from '@/components/elements/ElementBody';
 import { fmtPremium } from '@/components/elements/format';
 import { PriceHistoryTable } from '@/components/elements/PriceHistoryTable';
@@ -202,7 +202,7 @@ export default function ElementDetailPage({ params }: { params: Params }) {
       </header>
 
       {/* ── Two reference-price cards ──────────────────────────────────── */}
-      <div className="grid gap-4 md:grid-cols-2">
+      <div className="mb-8 grid gap-4 md:grid-cols-2">
         <ReferencePriceCard
           label="Retail Reference"
           record={retailRef}
@@ -217,9 +217,6 @@ export default function ElementDetailPage({ params }: { params: Params }) {
           kind="bulk"
         />
       </div>
-
-      {/* ── How these two prices are selected & verified ───────────────── */}
-      <MethodologyCallout variant="inline" className="mb-8 mt-3" />
 
       {/* ── Price Movement % table ─────────────────────────────────────── */}
       <PriceMovementTable fluctuation={fluctuation} symbol={element.symbol} />

@@ -1,13 +1,13 @@
 /**
  * One of the two reference-price cards (Retail Reference · Bulk Benchmark) on an
- * element detail page, a port of the two-card row in
- * legacy/_layouts/element-detail.html. The retail card additionally shows the
- * quoted quantity and the retail-premium multiple; the bulk card shows the
- * incoterm. Records come pre-selected from `getReferencePrices()`. Composes the
- * shared Card primitive (Prompt 12).
+ * element detail page, a port of the two-card row in the old element-detail
+ * layout (Jekyll, git 56e980f). The retail card additionally shows the quoted
+ * quantity and the retail-premium multiple; the bulk card shows the incoterm.
+ * Records come pre-selected from `getReferencePrices()`. Composes the shared
+ * Card primitive. Per-record verification and confidence live in the full
+ * provenance table below, not on the card, matching the old reference card.
  */
 import { Card } from '@/components/ui';
-import { ProvenanceBadge } from '@/components/trust';
 import type { PriceRecord } from '@/lib/types';
 import { capitalize, fmtQuantity, fmtUsdPrice, formatDate } from './format';
 
@@ -57,16 +57,12 @@ export function ReferencePriceCard({
             {formatDate(record.quote_date)}
           </div>
 
-          {/* Trust footer: premium (retail) + per-record provenance, so the
-              verification status & confidence travel with the headline price. */}
-          <div className="mt-3 space-y-2 border-t border-dotted border-border pt-2">
-            {kind === 'retail' && premium && (
-              <div className="font-mono text-sm font-semibold text-risk-medium">
-                Retail Premium: {premium}×
-              </div>
-            )}
-            <ProvenanceBadge record={record} />
-          </div>
+          {/* Retail premium over bulk, the way the old card showed it. */}
+          {kind === 'retail' && premium && (
+            <div className="mt-3 border-t border-dotted border-border pt-2 font-mono text-sm font-semibold text-risk-medium">
+              Retail Premium: {premium}×
+            </div>
+          )}
         </>
       ) : (
         <>
