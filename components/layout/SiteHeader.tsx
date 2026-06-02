@@ -4,9 +4,10 @@
  * (active state, mobile toggle) is the <SiteNav> island. `sticky` makes the
  * header the positioning context for the mobile panel (top-full).
  *
- * The brand mark is a teal square for now; prompt 13 swaps in the real logo
- * image at the same 24px footprint.
+ * The brand mark is the real logo image at a 24px footprint with the wordmark
+ * beside it, matching the old _includes/nav.html.
  */
+import Image from 'next/image';
 import Link from 'next/link';
 import { Container } from './Container';
 import { SiteNav } from './SiteNav';
@@ -20,9 +21,13 @@ export function SiteHeader() {
           className="flex items-center gap-2"
           aria-label="lanthanides.io home"
         >
-          <span
-            className="inline-block h-6 w-6 shrink-0 rounded-md bg-accent"
-            aria-hidden="true"
+          <Image
+            src="/assets/images/logo-48.png"
+            alt="lanthanides.io"
+            width={24}
+            height={24}
+            className="h-6 w-6 shrink-0"
+            priority
           />
           <span className="font-mono text-sm font-semibold tracking-tightish text-fg">
             lanthanides.io
