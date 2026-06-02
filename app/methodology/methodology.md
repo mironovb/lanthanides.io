@@ -24,30 +24,30 @@ Each element page shows two headline prices representing distinct market tiers.
 ### Retail Reference
 
 The **retail reference** is the lowest verified, in-stock price from an established Western
-retailer for a practical quantity (roughly 10–100 g). It answers the question: *what would
+retailer for a practical quantity (roughly 10 to 100 g). It answers the question: *what would
 it cost to buy this element today?*
 
 Selection criteria:
 
 - **Source:** Established retailers with public storefronts and track records. Anonymous or
   unverified marketplace listings are excluded.
-- **Stock:** Must be currently available — not sold out, backordered, or "notify me" status.
+- **Stock:** Must be currently available, not sold out, backordered, or "notify me" status.
 - **Form:** Metal is preferred when available. Where only oxide or other forms are sold at
   retail, the form is stated explicitly.
-- **Quantity band:** The listing in the 10–100 g range yielding the lowest normalised cost
+- **Quantity band:** The listing in the 10 to 100 g range yielding the lowest normalised cost
   (USD/kg) is selected. Listings under 5 g are excluded to avoid small-quantity premiums
   that distort the rate. Listings over 1 kg are excluded as wholesale.
-- **Purity:** The most commonly available commercial purity, generally 99.9%–99.99% for
+- **Purity:** The most commonly available commercial purity, generally 99.9% to 99.99% for
   rare earths.
 - **Confidence:** The selected record must have a confidence score ≥ 0.5.
 
 The retail reference is a *single observed price*, not a computed average. It is directly
-actionable — a reader can visit the cited seller and purchase at or near this price.
+actionable. A reader can visit the cited seller and purchase at or near this price.
 
 ### Bulk Benchmark
 
 The **bulk benchmark** is the most recent credible price for industrial-scale quantities of
-the element's primary trade form — usually oxide for rare earths. It answers the question:
+the element's primary trade form, usually oxide for rare earths. It answers the question:
 *what is this material worth at commodity scale?*
 
 Source hierarchy (in order of preference):
@@ -58,7 +58,7 @@ Source hierarchy (in order of preference):
 4. Procurement index (BusinessAnalytiq or equivalent), labelled as index-derived
 
 Delivery basis is stated with each benchmark (e.g., EXW China, FOB China, CIP NE Asia).
-Where no commodity benchmark exists, the field displays "—" with an explanatory note.
+Where no commodity benchmark exists, the field displays "n/a" with an explanatory note.
 
 ### Retail Premium
 
@@ -75,7 +75,7 @@ records. This was retired because averaging across structurally different market
 (collector specimens, bullion bars, laboratory reagents, investment platforms) produces
 a number that corresponds to no real transaction. A PEGUYS 10 g vial, an RWMM bullion
 ingot, and a Sigma-Aldrich 1 g reagent jar are not three noisy observations of the same
-price — they are three different products.
+price. They are three different products.
 
 Commodity price benchmarks (Fastmarkets, Argus, SMM) solve this by defining a single
 reference product with fixed specifications and surveying transaction prices for that
@@ -100,7 +100,7 @@ brokers. MOQ typically ≥ 25 kg. Often require direct quotation with negotiated
 
 ### Lab-grade
 Research-quantity purchases from scientific suppliers (Alfa Aesar, Sigma-Aldrich,
-Chemsavers, MSE Supplies). Per-gram costs are often 10–1,000× above commodity prices
+Chemsavers, MSE Supplies). Per-gram costs are often 10 to 1,000× above commodity prices
 due to certification, packaging, and ultra-high purity. These records are included in
 the offers table for completeness but are never selected as the retail reference due
 to their extreme per-kilogram rates.
@@ -152,7 +152,7 @@ where *A*<sub>RE</sub> is the atomic mass of the rare earth and *A*<sub>O</sub> 
 
 *P*<sub>metal,est</sub> = (*P*<sub>oxide</sub> / *f*<sub>RE</sub>) × *m*
 
-where *m* is the metal-over-oxide multiple, typically 1.5–3.0× for rare earths,
+where *m* is the metal-over-oxide multiple, typically 1.5 to 3.0× for rare earths,
 reflecting reduction costs (calcium or lithium reduction under vacuum or inert
 atmosphere).
 
@@ -188,14 +188,14 @@ forms or purities occurs in the headline display.
 
 | Range | Interpretation |
 |-------|---------------|
-| 0.8–1.0 | High — invoice-backed or well-corroborated |
-| 0.5–0.79 | Medium — plausible, limited corroboration |
-| 0.0–0.49 | Low — single source, unclear provenance |
+| 0.8 to 1.0 | High: invoice-backed or well-corroborated |
+| 0.5 to 0.79 | Medium: plausible, limited corroboration |
+| 0.0 to 0.49 | Low: single source, unclear provenance |
 
 Confidence is assigned during ingestion based on source type, parse quality,
 corroboration, and recency. The confidence score determines eligibility for
 reference-price selection (minimum 0.5 for retail reference, 0.6 for bulk benchmark)
-but does not affect a weighted average — there is no weighted average.
+but does not affect a weighted average. There is no weighted average.
 
 ---
 
@@ -219,7 +219,7 @@ reference due to extreme per-kilogram rates at laboratory scale.
 ### Chinese trading platforms and manufacturers
 Alibaba-verified suppliers, direct manufacturer quotes, and Chinese commodity
 indices. These sources provide bulk benchmark pricing. For export-controlled
-elements, listed prices may not reflect obtainable export pricing — the applicable
+elements, listed prices may not reflect obtainable export pricing. The applicable
 regulatory status is always noted alongside.
 
 ### Direct supplier quotes and invoices
@@ -249,7 +249,7 @@ which:
 The `source_type` tag lets the front end and downstream analysis distinguish
 maintainer-collected quotes from public-listing prices. If a supplier omits
 a value (purity, form, exchange-rate context), the corresponding field is
-left blank rather than guessed — no prices are invented. Suppliers can
+left blank rather than guessed. No prices are invented. Suppliers can
 withdraw consent at any time and are removed from outreach immediately; the
 observations they previously contributed remain in place, attributed to them
 by id and dated as of the original reply.
@@ -267,15 +267,15 @@ Excluded sources are not named publicly but are tracked internally.
 ## Provenance Chain {#provenance-chain}
 
 Every price observation in the database arrives through one of three intake
-paths. All three apply the same validation rules — positive price, non-future
-date, known tier, known element, FX rate present for non-USD — and every
+paths. All three apply the same validation rules (positive price, non-future
+date, known tier, known element, FX rate present for non-USD) and every
 observation carries an explicit `source_type` tag identifying which path it
 came from. No observation is ever fabricated, interpolated, or synthesised
 from a model.
 
 ### Public listings (`source_type: public_listing`)
 
-Prices observed on a public storefront — specialty retailers, eBay sellers
+Prices observed on a public storefront: specialty retailers, eBay sellers
 with verifiable feedback histories, Alibaba pages, lab-supply catalogues.
 Collected by the maintainer or the data pipeline with the seller name, date,
 form, purity, quantity, and (where available) the original URL recorded
@@ -294,7 +294,7 @@ The path has **two human checkpoints** by design:
    the difference and records that decision by labelling the issue.
 2. **A pull request opens with the data change.** The maintainer-triggered
    workflow at `.github/workflows/community-intake.yml` (manual
-   `workflow_dispatch` only — never automatic on issue creation) parses the
+   `workflow_dispatch` only, never automatic on issue creation) parses the
    approved issue, validates the fields with the same rules used for
    listings and quotes, and opens a PR adding one observation to
    `_data/price_history/<symbol>.yml`. Merging the PR is what publishes
@@ -313,7 +313,7 @@ registry. The opt-in is recorded with a date and a short note describing
 where consent came from; a supplier without `consent.opted_in: true` is
 never contacted and never has a quote recorded against them. When a
 supplier replies, the maintainer reads the message and runs
-`outreach/intake.py` to enter the structured fields by hand — no scraping,
+`outreach/intake.py` to enter the structured fields by hand: no scraping,
 no auto-parsing of free-form text, no live FX API. The original quoted
 price, original currency, and FX rate used are preserved alongside the
 USD-normalised value, and the contact is recorded in the registry so the
@@ -328,7 +328,7 @@ original reply.
   validator: positive `price_per_kg`, non-future `date`, known `tier`
   (`retail`, `bulk`, `lab`), known `source_type`, non-empty `source`.
 - **Dated.** Every observation carries the date it was observed, quoted,
-  or invoiced — never an ingestion date dressed up as a quote date.
+  or invoiced, never an ingestion date dressed up as a quote date.
 - **Attributed.** Every observation names its source. For listings, that's
   the seller and (where available) URL. For quotes, the supplier id from
   the registry. For community submissions, the seller / URL the submitter
@@ -343,7 +343,7 @@ original reply.
 
 The mix of observations currently in the database, by intake path.
 Regenerated by `scripts/source_breakdown.py` from
-`_data/price_history/*.yml` — this table reflects what the data actually
+`_data/price_history/*.yml`. This table reflects what the data actually
 contains, not an aspirational target.
 
 {% assign breakdown = site.data.source_breakdown %}
@@ -361,18 +361,18 @@ contains, not an aspirational target.
 
 ## Source Trust Tiers
 
-1. Uploaded invoices — direct transactional evidence
-2. Direct distributor/manufacturer offers — explicit quantity, date, price
-3. Manually reviewed public offers — curator-verified marketplace listings
-4. Benchmark references — industry indices and published benchmarks
-5. News/context only — not used as primary price sources
+1. Uploaded invoices: direct transactional evidence
+2. Direct distributor/manufacturer offers: explicit quantity, date, price
+3. Manually reviewed public offers: curator-verified marketplace listings
+4. Benchmark references: industry indices and published benchmarks
+5. News/context only: not used as primary price sources
 
 ---
 
 ## Data Freshness
 
 - **Fresh:** Quoted within 90 days
-- **Stale:** 90–180 days old; flagged visually
+- **Stale:** 90 to 180 days old; flagged visually
 - **Archived:** Older than 180 days or manually archived
 
 ---
