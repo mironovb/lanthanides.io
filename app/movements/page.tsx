@@ -1,12 +1,11 @@
 /**
- * /movements — the Market Movements feed (SSG, Prompt 7). A reverse-chronological
- * feed of factual price-movement and regulatory-change events from
- * _data/movements.yml, with the detection-threshold/window footer and event
- * count. A port of legacy/pages/movements.html.
+ * /movements: the Market Movements feed (SSG).
  *
- * Honest by design: every row is a deterministic summary of what the observation
- * data shows — no editorial interpretation (that lives in /news). The Atom feed
- * at /movements.xml carries the same events.
+ * A reverse-chronological feed of factual price-movement and regulatory-change
+ * events from _data/movements.yml, with the detection-threshold and window
+ * footer and the event count. Every row is a plain summary of what the
+ * observation data shows. There is no editorial interpretation here; that lives
+ * in /news. The Atom feed at /movements.xml carries the same events.
  */
 import type { Metadata } from 'next';
 import Link from 'next/link';
@@ -19,10 +18,10 @@ import { buildMetadata } from '@/lib/seo';
 import { BreadcrumbJsonLd } from '@/components/seo';
 
 const DESCRIPTION =
-  'Reverse-chronological feed of significant price movements (>10% in 30 days) and regulatory state changes across tracked rare earth and strategic metals. Auto-generated from the underlying observation data — no editorial interpretation.';
+  'Reverse-chronological feed of significant price movements (>10% in 30 days) and regulatory state changes across tracked rare earth and strategic metals. Auto-generated from the underlying observation data, with no editorial interpretation.';
 
 export const metadata: Metadata = buildMetadata({
-  title: 'Market Movements — Auto-Generated Price & Regulatory Alerts',
+  title: 'Market Movements: Auto-Generated Price & Regulatory Alerts',
   description: DESCRIPTION,
   keywords:
     'rare earth price alerts, price movement feed, strategic metals price spikes, regulatory change feed, rare earth market signals',
@@ -42,7 +41,7 @@ export default function MovementsPage() {
         crumbs={[{ label: 'Home', href: '/' }, { label: 'Market Movements' }]}
         eyebrow="Market Feed"
         title="Market Movements"
-        lead={`Auto-generated factual events from the underlying observation data — significant price movements (default threshold ${threshold}% over the ${windowLabel} window) and regulatory state changes. No editorial interpretation: each entry is a deterministic summary of what the data shows.`}
+        lead={`Auto-generated events from the price observation data: significant price movements (default threshold ${threshold}% over the ${windowLabel} window) and regulatory state changes. Each entry is a plain summary of what the data shows, with no editorial interpretation.`}
         actions={
           <>
             <span className="font-mono text-xs text-fg-dim">

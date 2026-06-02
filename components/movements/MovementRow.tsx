@@ -1,9 +1,8 @@
 /**
- * One row in the Market Movements feed — a port of the full (non-compact)
- * branch of legacy/_includes/movement-row.html. Renders the event head (date,
- * type chip, tier/window/confidence badges, element link, permalink anchor), the
+ * One row in the Market Movements feed. Renders the event head (date, type chip,
+ * tier, window and confidence badges, element link, permalink anchor), the
  * factual description, the sparkline when present, and the type-specific meta
- * block. Purely presentational; the data is the deterministic detector output,
+ * block. Purely presentational: the data is the deterministic detector output,
  * shown verbatim with no editorial interpretation.
  */
 import Link from 'next/link';
@@ -22,7 +21,7 @@ import {
 
 const BADGE = 'rounded-sm bg-overlay px-1.5 py-0.5 font-mono text-2xs text-fg-muted';
 
-/** Signed prefix matching the legacy feed: '+' up, U+2212 minus down, none flat. */
+/** Signed prefix: '+' up, U+2212 minus down, none flat. */
 function sign(direction?: string): string {
   if (direction === 'up') return '+';
   if (direction === 'down') return '−';
@@ -37,7 +36,7 @@ export function MovementRow({ event }: { event: MovementEvent }) {
   return (
     <li
       id={`mv-${event.id}`}
-      className={`flex scroll-mt-6 flex-col gap-3 border border-l-[3px] border-border ${style.border} bg-surface px-4 py-4`}
+      className={`flex scroll-mt-6 flex-col gap-3 rounded-md border border-l-[3px] border-border ${style.border} bg-surface px-4 py-4 transition duration-fast hover:shadow-sm`}
     >
       {/* ── Head ──────────────────────────────────────────────────────── */}
       <div className="flex flex-wrap items-center gap-x-3 gap-y-2">
@@ -87,14 +86,14 @@ export function MovementRow({ event }: { event: MovementEvent }) {
         {event.description}
       </p>
 
-      {/* ── Sparkline (gated) ─────────────────────────────────────────────
+      {/* Sparkline (gated).
           Minimum-data threshold via the shared gate (components/charts/
           sufficiency.ts, MIN_SPARKLINE_POINTS = 3): a 2-point sparkline is a
           fixed slope set by direction, not by data, so it implies a shape the
-          series can't support. We render the curve only when it clears the gate;
-          below that it is suppressed and the factual from→to / change /
+          series cannot support. We render the curve only when it clears the
+          gate. Below that it is suppressed, and the factual from/to, change, and
           observation count survive in the Meta block below. The same rule that
-          gates the price line gates this — see docs/VISUALIZATION-AUDIT.md. */}
+          gates the price line gates this. See docs/VISUALIZATION-AUDIT.md. */}
       {event.sparkline?.path &&
         meetsThreshold(event.sparkline.point_count, MIN_SPARKLINE_POINTS) && (
         <div className="flex items-center gap-3">
@@ -127,7 +126,7 @@ export function MovementRow({ event }: { event: MovementEvent }) {
             {event.sparkline.point_count} pts ·{' '}
             {event.start_price_per_kg != null && event.end_price_per_kg != null
               ? `${fmtUsdPrice(event.start_price_per_kg)} → ${fmtUsdPrice(event.end_price_per_kg)}`
-              : `${fmtUsdPrice(event.sparkline.min_price)}–${fmtUsdPrice(event.sparkline.max_price)}`}
+              : `${fmtUsdPrice(event.sparkline.min_price)} to ${fmtUsdPrice(event.sparkline.max_price)}`}
           </span>
         </div>
       )}

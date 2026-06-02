@@ -1,11 +1,11 @@
 /**
- * Presentation tokens for the market-movements feed — a remap of the SCSS in
- * legacy/_sass/_movements.scss onto the project's semantic colour tokens.
+ * Presentation tokens for the market-movements feed, remapped onto the project's
+ * semantic color tokens to match the static site.
  *
- * Note the deliberate, ported semantics: a *price spike* reads red (a rising
- * strategic-materials price is the alarming signal), while a *price drop* reads
- * azure rather than the financial green — colour encodes "this moved", not
- * "good/bad". Direction colours mirror the chip colours so a row is internally
+ * Note the deliberate, ported semantics: a price spike reads red (a rising
+ * strategic-materials price is the alarming signal), while a price drop reads
+ * azure rather than the financial green. Color encodes "this moved", not "good
+ * or bad". Direction colors mirror the chip colors so a row is internally
  * consistent. Every class is a full literal so Tailwind emits it.
  */
 import type { Direction, MovementType } from '@/lib/types';

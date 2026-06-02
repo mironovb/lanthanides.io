@@ -1,12 +1,12 @@
 /**
- * /movements.xml — the Market Movements Atom feed (Prompt 7). A faithful port of
- * the legacy Jekyll `movements.xml` template: same feed metadata, same entry
- * shape (title, tag-scheme id, categories, text summary + HTML content), and the
+ * /movements.xml: the Market Movements Atom feed. A faithful port of the static
+ * site's Jekyll movements.xml template: same feed metadata, same entry shape
+ * (title, tag-scheme id, categories, text summary plus HTML content), and the
  * same 50-event cap, regenerated from _data/movements.yml.
  *
- * The URL is preserved exactly (`/movements.xml`, no trailing slash — a
- * machine-readable endpoint, CLAUDE.md URL contract). `force-static` emits it as
- * a build-time file alongside the SSG pages.
+ * The URL is preserved exactly: /movements.xml, no trailing slash, a
+ * machine-readable endpoint per the CLAUDE.md URL contract. force-static emits
+ * it as a build-time file alongside the SSG pages.
  */
 import { getMovements } from '@/lib/data';
 import type { MovementEvent } from '@/lib/types';
@@ -17,7 +17,7 @@ const SITE = 'https://www.lanthanides.io';
 const SITE_TITLE =
   'lanthanides.io — Rare Earth Prices, Export Controls & Strategic Materials Intelligence';
 const SITE_AUTHOR = 'Bogdan Mironov';
-// Host for the tag: URI scheme — scheme and all slashes stripped (legacy logic).
+// Host for the tag URI scheme: scheme and all slashes stripped (same as the static site).
 const HOST = SITE.replace(/^https?:\/\//, '').replace(/\//g, '');
 const FEED_LIMIT = 50;
 
@@ -43,7 +43,7 @@ function rubyFloat(n: number): string {
   return Number.isInteger(n) ? n.toFixed(1) : String(n);
 }
 
-/** Signed prefix: '+' up, U+2212 minus down, none otherwise (matches the legacy feed). */
+/** Signed prefix: '+' up, U+2212 minus down, none otherwise (matches the static site's feed). */
 function sign(direction?: string): string {
   if (direction === 'up') return '+';
   if (direction === 'down') return '−';

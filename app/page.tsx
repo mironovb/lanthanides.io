@@ -33,6 +33,7 @@ import {
 import { Hero } from '@/components/home/Hero';
 import { ProofStats } from '@/components/home/ProofStats';
 import { PillarCards } from '@/components/home/PillarCards';
+import { HomeMovements } from '@/components/movements/HomeMovements';
 
 const TITLE =
   'lanthanides.io — Sourced Prices & Export-Control Intelligence for Rare Earths';
@@ -120,6 +121,8 @@ export default function HomePage() {
           controlled,
         }}
       />
+
+      <HomeMovements />
     </Container>
   );
 }
