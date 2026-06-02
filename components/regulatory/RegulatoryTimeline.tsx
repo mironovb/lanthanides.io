@@ -1,13 +1,12 @@
 /**
- * The announcement timeline — a port of `.reg-timeline` in
- * legacy/pages/regulatory.html. A clean vertical timeline of published
- * export-control announcements (a KEEP visualization, AUDIT §3 — rendered as a
- * crisp connected list, not a choppy chart). Newest first.
+ * The announcement timeline: a clean vertical timeline of published
+ * export-control announcements, newest first. It is a connected list, not a
+ * chart.
  *
- * Receives an already-filtered, already-sorted list of policy events from
- * <RegulatoryView>; rendering only the entries to show means the connecting
- * line clips naturally at the first/last visible entry (no DOM juggling like the
- * legacy JS). Presentational only.
+ * It receives an already-filtered, already-sorted list of policy events from
+ * RegulatoryView. Rendering only the entries to show means the connecting line
+ * clips naturally at the first and last visible entry, with no DOM juggling.
+ * Presentational only.
  */
 import Link from 'next/link';
 import type { PolicyEvent } from '@/lib/types';

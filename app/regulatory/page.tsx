@@ -1,12 +1,11 @@
 /**
- * /regulatory — the China export-control tracker (SSG, Prompt 7). The crown-
- * jewel surface: the most prominent, fast, and filterable view on the site.
+ * /regulatory: the China export-control tracker (SSG).
  *
- * Ports legacy/pages/regulatory.html — the element-filter strip, the
- * active-control-regime cards (from _data/regulatory/*.yml), the announcement
- * timeline (from _data/policy_events.yml), and the key-legal-references aside.
- * Server-rendered for full crawlability; an island client component
- * (<RegulatoryView>) adds instant element filtering as progressive enhancement.
+ * Shows the element filter strip, the active control regime cards (from
+ * _data/regulatory/*.yml), the announcement timeline (from
+ * _data/policy_events.yml), and the key legal references aside. The page is
+ * server-rendered so it reads and crawls fully without JavaScript. A small
+ * client island (RegulatoryView) adds instant element filtering on top.
  */
 import type { Metadata } from 'next';
 import { buildMetadata } from '@/lib/seo';
@@ -19,11 +18,10 @@ import {
 import Link from 'next/link';
 import { Container, PageHeader, StoryLink } from '@/components/layout';
 import { Callout } from '@/components/ui';
-import { TelegramBadge } from '@/components/trust';
 import { RegulatoryView } from '@/components/regulatory/RegulatoryView';
 
 const DESCRIPTION =
-  'MOFCOM rare earth and strategic metal export-control timeline 2023–2026: announcement numbers, effective dates, affected elements, and current status.';
+  'MOFCOM rare earth and strategic metal export-control timeline from 2023 to 2026: announcement numbers, effective dates, affected elements, and current status.';
 
 export const metadata: Metadata = buildMetadata({
   title: 'China Rare Earth Export Controls Tracker 2026',
@@ -42,12 +40,6 @@ export default function RegulatoryPage() {
     b.date.localeCompare(a.date),
   );
   const filterElements = getRegulatedAndSuspendedElements().map((e) => e.symbol);
-
-  // dateModified for the Dataset = the latest dated fact across both feeds.
-  const lastModified = [
-    ...notices.map((n) => n.date_effective),
-    ...events.map((e) => e.date),
-  ].sort((a, b) => b.localeCompare(a))[0];
 
   return (
     <Container as="main" className="py-10">
@@ -74,7 +66,7 @@ export default function RegulatoryPage() {
         crumbs={[{ label: 'Home', href: '/' }, { label: 'Regulatory Tracker' }]}
         eyebrow="Export Controls"
         title="China Rare Earth Export Controls Tracker"
-        lead="Every published Chinese export-control announcement affecting rare earths, strategic metals, and semiconductor materials since 2023 — announcement numbers, effective dates, affected elements, and current status. Filter by element to isolate the regime and announcements that touch it."
+        lead="Every published Chinese export-control announcement affecting rare earths, strategic metals, and semiconductor materials since 2023. Each entry lists the announcement number, effective date, affected elements, and current status. Filter by element to narrow the page to the controls that touch it."
       >
         <StoryLink>
           See how these controls move prices in{' '}
@@ -83,19 +75,6 @@ export default function RegulatoryPage() {
           <Link href="/elements/">directory</Link>.
         </StoryLink>
       </PageHeader>
-
-      {/* Live alerting on these announcements (no fabricated bot link). */}
-      <TelegramBadge variant="panel" className="mt-8" />
-      <p className="mt-2 text-xs leading-relaxed text-fg-dim">
-        Want these the moment they land?{' '}
-        <Link
-          href="/alerts/"
-          className="font-medium text-accent hover:text-accent-strong"
-        >
-          Set up alerts
-        </Link>{' '}
-        — Telegram now, or join the email waitlist.
-      </p>
 
       <RegulatoryView
         notices={notices}

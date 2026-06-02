@@ -1,13 +1,13 @@
 /**
- * Shared presentation tokens for the regulatory tracker — the classification of
- * each control notice and the colour-coding for policy-event types. Mirrors the
- * Liquid logic in legacy/pages/regulatory.html and the SCSS in
- * legacy/_sass/_regulatory-banner.scss, remapped onto the project's semantic
- * risk tokens (teal/amber/red/gray — colour only ever encodes meaning).
+ * Shared presentation tokens for the regulatory tracker: how each control notice
+ * is classified, and the color coding for policy event types. This mirrors the
+ * classification logic and the styles from the static site, remapped onto the
+ * project's semantic risk tokens (teal, amber, red, gray). Color only ever
+ * encodes meaning.
  *
  * Tailwind only emits classes it can see as complete literals, so every class
- * string here is spelled out in full (no runtime construction). Pure module: no
- * I/O, safe in both Server and Client Components.
+ * string here is spelled out in full (no runtime construction). Pure module with
+ * no I/O, safe in both Server and Client Components.
  */
 import { formatDate } from '@/lib/format';
 import type { PolicyEventType, RegulatoryNotice } from '@/lib/types';
@@ -27,9 +27,9 @@ export interface NoticeStyle {
 }
 
 /**
- * Classify a notice exactly as the legacy template did, in order:
- *   Japan target → country prohibition; suspended; presumptive denial; else
- *   the baseline export-licence requirement.
+ * Classify a notice the same way the static site did, in order: a Japan target
+ * is a country prohibition, then suspended, then presumptive denial, then the
+ * baseline export licence requirement.
  */
 export function classifyNotice(notice: RegulatoryNotice): NoticeKind {
   if (notice.target_country === 'JP') return 'japan';
@@ -93,8 +93,8 @@ export const EVENT_TYPE_STYLE: Record<
 };
 
 /**
- * Long date shared by the cards and timeline — delegates to the shared
- * `formatDate` so every editorial/feed surface formats dates identically
+ * Long date shared by the cards and timeline. Delegates to the shared
+ * `formatDate` so every editorial and feed surface formats dates identically
  * ("Apr 9, 2025"); see lib/format.ts. Returns the input unchanged if unparseable.
  */
 export function fmtLongDate(iso: string): string {

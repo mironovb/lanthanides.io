@@ -1,10 +1,9 @@
 /**
- * One active-control-regime card — a port of `.reg-notice-card` in
- * legacy/pages/regulatory.html. Shows the notice id, issuing authority, the
- * classified status (export licence / presumptive denial / suspended / country
- * prohibition) with its risk-coloured dot, the affected-element chips (each a
+ * One active control regime card. Shows the notice id, issuing authority, the
+ * classified status (export licence, presumptive denial, suspended, or country
+ * prohibition) with its risk-colored dot, the affected element chips (each a
  * link to the element page), the effective date and target, and the suspension
- * expiry when present. Presentational only — no I/O, no state.
+ * expiry when present. Presentational only, with no I/O and no state.
  */
 import Link from 'next/link';
 import type { RegulatoryNotice } from '@/lib/types';

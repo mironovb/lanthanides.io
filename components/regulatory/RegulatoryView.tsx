@@ -1,16 +1,14 @@
 'use client';
 
 /**
- * Interactive shell for the regulatory tracker: owns the selected-element state,
- * renders the filter strip, and filters the notice cards + announcement timeline
- * by `affected_elements` in real time (the work legacy/assets/js/
- * regulatory-timeline.js did over server-rendered DOM).
+ * Interactive shell for the regulatory tracker. It owns the selected-element
+ * state, renders the filter strip, and filters the notice cards and announcement
+ * timeline by `affected_elements` in real time.
  *
  * Everything is server-rendered in the initial HTML (this client component is
- * SSR'd with `selected = null`, i.e. all notices + events visible), so the page
- * is fully readable and crawlable without JS — filtering is pure progressive
- * enhancement, exactly as the original promised. Composes the shared FilterChips
- * + SectionHeading primitives (Prompt 12).
+ * SSR'd with `selected = null`, so all notices and events are visible), so the
+ * page reads and crawls fully without JavaScript. Filtering is pure progressive
+ * enhancement. It composes the shared FilterChips and SectionHeading primitives.
  */
 import { useMemo, useState } from 'react';
 import type { PolicyEvent, RegulatoryNotice } from '@/lib/types';
@@ -82,7 +80,7 @@ export function RegulatoryView({
         <SectionHeading
           title="Announcement Timeline"
           count={visibleEvents.length}
-          description="All published Chinese export-control announcements affecting rare earths, strategic metals, and semiconductor materials — newest first."
+          description="All published Chinese export-control announcements affecting rare earths, strategic metals, and semiconductor materials, newest first."
         />
 
         {visibleEvents.length > 0 ? (
