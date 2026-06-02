@@ -15,85 +15,82 @@ and are deleted in prompt 25.
 
 ```
 lanthanides.io/
-├── app/                              # Next.js App Router — routes + route handlers
-│   ├── layout.tsx                    # root shell: <head>/SEO, nav, footer, JSON-LD WebSite
-│   ├── page.tsx                      # /  (home — crown-jewel-forward hero)
-│   ├── not-found.tsx                 # 404
-│   ├── (reference)/                  # route group — SSG/ISR open-data reference (no URL segment)
-│   │   ├── elements/page.tsx         #   /elements           (merged directory + ledger)
-│   │   ├── elements/[symbol]/page.tsx#   /elements/[symbol]   (31, case-sensitive)
-│   │   ├── regulatory/page.tsx       #   /regulatory          (crown jewel)
-│   │   ├── framework/page.tsx        #   /framework           (crown-jewel companion — preserve verbatim)
-│   │   ├── movements/page.tsx        #   /movements
-│   │   ├── dashboard/page.tsx        #   /dashboard
-│   │   ├── methodology/page.tsx      #   /methodology
-│   │   ├── sources/page.tsx          #   /sources
-│   │   ├── about/page.tsx            #   /about
-│   │   ├── news/page.tsx             #   /news
-│   │   ├── news/[slug]/page.tsx      #   /news/[slug]         (5 articles)
-│   │   └── data/page.tsx             #   /data                (open-data landing — NEW)
-│   ├── (commercial)/                 # route group — dynamic / DB-backed (no URL segment)
-│   │   ├── tools/price-gauge/page.tsx#   /tools/price-gauge   STUB
-│   │   ├── sell/page.tsx             #   /sell                STUB (supply side)
-│   │   ├── offers/page.tsx           #   /offers              STUB (demand side)
-│   │   └── alerts/page.tsx           #   /alerts              STUB (alerts layer)
+├── app/                              # Next.js App Router — routes + route handlers (flat; segment === URL)
+│   ├── layout.tsx                    # root shell: <head>/SEO, nav, footer, site-wide JSON-LD (WebSite+Organization)
+│   ├── page.tsx                      # /                     (home — crown-jewel-forward hero)
+│   ├── not-found.tsx                 # 404                   (replaces Jekyll 404.html)
+│   ├── elements/page.tsx             # /elements             (merged directory + ledger; /prices 301→here)
+│   ├── elements/[symbol]/page.tsx    # /elements/[symbol]    (31, case-sensitive; generateStaticParams)
+│   ├── regulatory/page.tsx           # /regulatory           (crown jewel)
+│   ├── framework/page.tsx            # /framework            (crown-jewel companion — preserve verbatim) ★
+│   ├── movements/page.tsx            # /movements
+│   ├── dashboard/page.tsx            # /dashboard
+│   ├── methodology/page.tsx          # /methodology          (preserve #-anchors)
+│   ├── sources/page.tsx              # /sources
+│   ├── about/page.tsx                # /about                (reframed About/Vision; /vision 301→here)
+│   ├── news/page.tsx                 # /news
+│   ├── news/[slug]/page.tsx          # /news/[slug]          (5 articles; generateStaticParams)
+│   ├── data/page.tsx                 # /data                 (open-data landing — NEW)
+│   ├── tools/price-gauge/page.tsx    # /tools/price-gauge    STUB (supply side)
+│   ├── sell/page.tsx                 # /sell                 STUB (supply side)
+│   ├── offers/page.tsx               # /offers               STUB (demand side)
+│   ├── alerts/page.tsx               # /alerts               STUB (alerts layer)
 │   ├── api/                          # route handlers (server)
 │   │   ├── price-gauge/route.ts      #   POST /api/price-gauge
 │   │   ├── listings/route.ts         #   GET/POST /api/listings
 │   │   ├── subscribe/route.ts        #   POST /api/subscribe
-│   │   └── export/[format]/route.ts  #   GET /api/export/[format]  (json|csv)
+│   │   └── export/[format]/route.ts  #   GET /api/export/[format]   (json|csv)
 │   ├── sitemap.ts                    # /sitemap.xml
 │   ├── robots.ts                     # /robots.txt
 │   ├── feed.xml/route.ts             # /feed.xml      (Atom — replaces jekyll-feed)
 │   └── movements.xml/route.ts        # /movements.xml (custom Atom — port)
-├── components/                       # React components (server-first)
-│   ├── structured-data/              # JSON-LD emitters (WebSite+FAQPage, Product+Offer, Article, Breadcrumb)
-│   ├── charts/                       # visualizations, rebuilt per AUDIT §3 (≤2-days ⇒ no line/no %move)
-│   ├── price/                        # two-price cards, ledger table, movement panel, provenance table
-│   ├── regulatory/                   # notice cards, announcement timeline, banner
-│   ├── layout/                       # nav, footer, freshness badge, disclaimer
-│   └── ui/                           # token-driven primitives
+├── components/                       # React components (server-first); the set grows as each prompt lands its pages
+│   ├── layout/                       # nav, footer, freshness badge, disclaimer, page header
+│   ├── seo/                          # JSON-LD emitters (WebSite+FAQPage, Product+Offer[], Article, BreadcrumbList, Dataset)
+│   ├── charts/                       # visualizations, rebuilt per AUDIT §3 (≤2 distinct days ⇒ no line / no %move)
+│   ├── elements/                     # two-price cards, sortable provenance table, movement + price-history tables
+│   ├── regulatory/                   # notice cards, announcement timeline, element filter, banner
+│   ├── ui/                           # token-driven primitives (Table/SortableTable, Card, Badge, Stat, Button, …)
+│   └── …                             # home/, news/, movements/, dashboard/, content/, tools/, sell/, offers/, alerts/, trust/ (each added by its prompt)
 ├── lib/
-│   ├── data/                         # typed data-access layer over _data/ (build-time reads)
-│   │   ├── elements.ts               #   element_catalog.yml + _elements/*.md bodies
-│   │   ├── prices.ts                 #   price_records.json (canonical price store)
-│   │   ├── price-history.ts          #   price_history/*.yml
-│   │   ├── fluctuations.ts           #   fluctuations.json
-│   │   ├── movements.ts              #   movements.yml
-│   │   ├── regulatory.ts             #   regulatory/*.yml + policy_events.yml
-│   │   ├── sources.ts                #   source_registry.yml + source_breakdown.yml
-│   │   ├── articles.ts               #   _articles/*.md
-│   │   ├── settings.ts               #   site_settings.yml
-│   │   └── index.ts
+│   ├── data/                         # typed data-access layer over _data/ (build-time reads, process-memoised)
+│   │   ├── types.ts                  #   the §3 data contracts (schema source of truth)
+│   │   ├── load.ts                   #   raw file readers (yaml / json / gray-matter)
+│   │   ├── index.ts                  #   typed accessors (getElements, getPriceRecords, getRegulatoryNotices, …)
+│   │   └── verify.ts                 #   build-time validation: a malformed file (e.g. the La.yml placeholder, §4.4) fails the build
+│   ├── types.ts                      # public re-export of lib/data/types.ts (the import surface for pages/components)
 │   ├── price-gauge.ts                # port of price-selection.html (retail_ref / bulk_ref selection)
-│   ├── types.ts                      # the §3 data contracts (single source of schema truth)
-│   ├── seo.ts                        # metadata + JSON-LD helpers
-│   └── db.ts                         # Prisma client singleton
+│   ├── seo.ts                        # metadata builder + JSON-LD helpers
+│   └── db.ts                         # Prisma client singleton (commercial layer only)
 ├── prisma/
 │   ├── schema.prisma                 # Listing, Subscription, ScreenedOffer (provider: sqlite dev / postgres prod)
-│   └── seed.ts                       # seeds ScreenedOffer (and demo Listings/Subscriptions)
+│   └── seed.ts                       # seeds ScreenedOffer from the public dataset (idempotent; origin:'seed')
 ├── _data/                            # UNCHANGED — versioned reference + provenance (MIGRATION §2.1)
 ├── _elements/                        # UNCHANGED — 31 element bodies (.md, read in place)
 ├── _articles/                        # UNCHANGED — 5 articles (.md, read in place)
-├── scripts/                          # UNCHANGED — Python pipeline + regulatory-monitor
+├── scripts/                          # UNCHANGED — Python pipeline + regulatory-monitor (commits _data/ every 6h)
 ├── public/
 │   └── assets/
-│       ├── images/                   # favicons, og-default.png, logos, site.webmanifest (paths fixed)
-│       └── data/                     # elements.json, fluctuations.json (open-data; generated at build)
+│       ├── images/                   # favicons, og-default.png, logos, site.webmanifest (paths fixed, §4.8)
+│       └── data/                     # fluctuations.json (open-data export — exact URL preserved; MIGRATION §3.4.1)
 ├── docs/                             # AUDIT.md, MIGRATION.md, ARCHITECTURE.md
-├── legacy/                           # quarantined Jekyll build files (deleted in prompt 25)
-├── next.config.ts                    # trailingSlash: true; redirects (/prices → /elements); rewrites
+├── legacy/                           # quarantined Jekyll build files (never imported by the Next build; deleted in prompt 25)
+├── next.config.mjs                   # trailingSlash: true; redirects (/prices→/elements, /vision→/about, elements.json→export)
 ├── tailwind.config.ts                # brand tokens (IBM Plex Sans/Mono + Source Serif 4)
 ├── tsconfig.json
 └── package.json
 ```
 
+> **Routes are flat, not grouped.** Each `app/<segment>/page.tsx` maps 1:1 onto its URL — no `(group)` route groups —
+> so the file tree reads as the URL contract (`MIGRATION.md` §3). The reference (SSG/ISR) vs commercial (dynamic/DB)
+> split is a *rendering* distinction (per-route `dynamic`/`revalidate` exports + the route map below), not a directory one.
+
 **`content/` vs in-place `_elements`/`_articles` — decision: keep in place.** The `_elements/*.md` and `_articles/*.md`
 files carry Jekyll-era front matter consumed by `scripts/` (`generate_element_data.py`, validators) and by the
 contributor PR flow. Their bodies are HTML-rich markdown (tables, `<div>` blocks, footnote refs, `&thinsp;` entities).
 A new `content/` directory is **not** introduced — moving 36 files would inflate the diff and risk the pipeline for no
-benefit. The data layer (`lib/data/elements.ts`, `articles.ts`) reads them in place with `gray-matter` for front matter
-and a markdown/HTML renderer for the body.
+benefit. The data layer (`lib/data`) reads them in place with `gray-matter` for front matter and a markdown/HTML
+renderer for the body.
 
 ---
 
@@ -134,16 +131,23 @@ sequencing; forward-looking).
 
 > ★ `/framework` is included per `AUDIT.md` §2/§5/§6 even though the prompt's enumerated list omitted it — see
 > `MIGRATION.md` §3.1 note. Preserve its anchors (`#pricing`, `#us-side-tariff-stack-may-14-2026`).
-> `/assets/data/elements.json` and `/assets/data/fluctuations.json` keep their exact URLs as build-generated static
-> files in `public/` (`MIGRATION.md` §3.4); `/api/export/[format]` is the on-demand companion.
+> The two legacy open-data URLs are handled per `MIGRATION.md` §3.4.1: `/assets/data/fluctuations.json` keeps its exact
+> URL as a static file in `public/`, while `/assets/data/elements.json` **301s → `/api/export/json/`** (the canonical,
+> always-fresh export; the legacy file was a Jekyll template feeding the retired ledger JS, not a committed static file).
 
 ---
 
 ## 3. TypeScript data contracts
 
-These live in `lib/types.ts` and are the single source of schema truth. **Field names match the actual data files
-verbatim** (snake_case as authored). The data-access layer (`lib/data/*`) returns these types; validation runs at the
-data-layer boundary so a malformed file fails the build loudly (e.g. the `La.yml` placeholder, `AUDIT.md` §4.4).
+These live in `lib/data/types.ts` (re-exported from `lib/types.ts`) and are the single source of schema truth. **Field
+names match the actual data files verbatim** (snake_case as authored). The data-access layer (`lib/data/*`) returns
+these types; validation runs at the data-layer boundary so a malformed file fails the build loudly (e.g. the `La.yml`
+placeholder, `AUDIT.md` §4.4).
+
+> **Two distinct tier vocabularies — do not conflate them.** `price_records.json.market_tier` is
+> `retail | bulk | wholesale` (no `lab`); the time-series/aggregation axis (`price_history.tier`,
+> `fluctuations.tiers` keys, the `latest_*_price` blocks) is `retail | bulk | lab` (no `wholesale`). They are modelled
+> as two separate types (`MarketTier` and `PriceTier`).
 
 ```ts
 // ── Shared scalars ──────────────────────────────────────────────────────────
@@ -155,14 +159,15 @@ type ElementCategory =
 
 type ExportControlStatus = 'restricted' | 'monitored' | 'normal';
 type RegulatoryStatus    = 'active' | 'suspended' | 'none';
-type MarketTier          = 'retail' | 'bulk' | 'lab';
+type MarketTier          = 'retail' | 'bulk' | 'wholesale'; // price_records.json `market_tier`
+type PriceTier           = 'retail' | 'bulk' | 'lab';       // price_history `tier` + fluctuations `tiers` keys
 type Confidence          = 'low' | 'medium' | 'high';
 type Direction           = 'up' | 'down' | 'flat';
 type WindowKey           = '7d' | '30d' | '90d' | '1y' | 'all_time';
 type ISODate             = string; // 'YYYY-MM-DD'
 type ISODateTime         = string; // RFC3339, e.g. '2026-03-26T00:00:00Z'
 
-// ── Element  (from _data/element_catalog.yml) ────────────────────────────────
+// ── Element  (from _data/element_catalog.yml — a flat list of 31) ────────────
 interface Element {
   symbol: string;                       // 'Dy' — case-sensitive; used in the URL
   name: string;                         // 'Dysprosium'
@@ -179,45 +184,49 @@ interface Element {
   price_tier: number;                   // 1–4
   high_demand: boolean;
   cn_export_control: boolean;
-  purity_range?: string;                // optional — '99.9%–99.99%' (present on some entries)
+  purity_range?: string;                // optional — '99.9%–99.99%' (present on 11 of 31 entries)
 }
 
-// ── PriceRecord  (from _data/price_records.json — 238 records) ───────────────
+// ── PriceRecord  (from _data/price_records.json — 238 records, a flat array) ──
+// Always present & non-null: id, element_symbol, element_name, normalized_usd_per_kg, form,
+// market_tier, quoted_quantity_kg, source_type, seller_name, verification_status,
+// confidence_score, quote_date. Everything below the divider is nullable in the current corpus.
 interface PriceRecord {
   id: string;                           // 'R-0001'
   element_symbol: string;               // 'La'  (FK → Element.symbol)
   element_name: string;                 // 'Lanthanum'
-  invoice_ref: string | null;
-  original_price_per_unit: number;
-  original_currency: string;            // 'USD'
-  original_unit: string;                // 'kg'
-  normalized_usd_per_kg: number;
-  exchange_rate_used: number;           // 1.0
-  exchange_rate_date: ISODate;
-  form: string;                         // 'oxide' | 'metal' | 'compound' | ...
-  purity: string;                       // '99.9% (3N)'
-  market_tier: MarketTier;
-  moq_kg: number | null;
-  quoted_quantity_kg: number | null;
-  incoterm: string | null;              // 'DDP' | 'FOB' | ...
-  taxes_included: boolean;
-  shipping_included: boolean;
-  source_type: string;                  // 'distributor_offer' | 'public_listing' | 'benchmark' | ...
-  source_id: string;                    // FK → Source.id, OR free-text seller for non-registry sources
-  source_url: string | null;
-  seller_name: string;
-  seller_country: string;               // ISO-2
-  verification_status: string;          // 'single_source_offer' | 'corroborated' | 'verified_invoice' | ...
+  normalized_usd_per_kg: number;        // the canonical display price (the single price the site renders)
+  form: string;                         // 'oxide' | 'metal' | 'powder' | 'alloy' | 'compound'
+  market_tier: MarketTier;              // 'retail' | 'bulk' | 'wholesale'  (NB: never 'lab')
+  quoted_quantity_kg: number;           // quantity the quote is for
+  source_type: string;                  // 13 values, e.g. 'distributor_offer' | 'marketplace_listing' | 'benchmark' | 'lab_supplier' | 'market_index'
+  seller_name: string;                  // 'Stanford Advanced Materials'
+  verification_status: string;          // 10 values, e.g. 'verified' | 'corroborated' | 'cross_referenced' | 'single_source_offer' | 'benchmark_linked'
   confidence_score: number;             // 0..1
-  notes: string | null;
   quote_date: ISODate;                  // newest drives the footer freshness badge
-  ingestion_timestamp: ISODateTime;
+  // ── nullable in the current corpus ──
+  invoice_ref: string | null;           // null on every current record
+  original_price_per_unit: number | null;
+  original_currency: string | null;     // 'USD'
+  original_unit: string | null;         // 'kg'
+  exchange_rate_used: number | null;    // 1.0
+  exchange_rate_date: ISODate | null;
+  purity: string | null;                // '99.9% (3N)'
+  moq_kg: number | null;
+  incoterm: string | null;              // 'DDP' | 'FOB' | 'CIF' | 'CIP' | 'EXW' | 'Domestic' | ...
+  taxes_included: boolean | null;
+  shipping_included: boolean | null;
+  source_id: string | null;             // FK → Source.id when the seller is a registry source, else null
+  source_url: string | null;            // null on every current record
+  seller_country: string | null;        // ISO-2
+  notes: string | null;
+  ingestion_timestamp: ISODateTime | null;
 }
 
-// ── PriceHistory  (from _data/price_history/<Symbol>.yml — 285 observations) ──
+// ── PriceHistory  (from _data/price_history/<Symbol>.yml — 31 files / 285 observations) ──
 interface PriceObservation {
   date: ISODate;
-  tier: MarketTier;
+  tier: PriceTier;                      // 'retail' | 'bulk' | 'lab'
   price_per_kg: number;
   currency: string;                     // 'USD'
   source: string;                       // Source.id | free-text seller | 'median_aggregate'
@@ -265,18 +274,21 @@ interface TierFluctuation {
   windows: Record<WindowKey, FluctuationWindow | null>;  // null when the window has no data
 }
 interface Fluctuation {                  // one per element (the per-symbol value in `elements`)
-  data_quality: 'sparse' | 'moderate' | 'rich';   // the three values present in the data; mostly low given the 2-day corpus
+  data_quality: 'sparse' | 'moderate' | 'rich';   // current corpus carries only 'sparse'/'moderate' (the 2-day corpus, AUDIT §3)
   data_since: ISODate;
   data_until: ISODate;
   distinct_days: number;
+  latest_retail_price: LatestPrice | null;
   latest_bulk_price: LatestPrice | null;
   latest_lab_price: LatestPrice | null;
-  latest_retail_price: LatestPrice | null;
   observation_count: number;
-  tiers: Record<MarketTier, TierFluctuation>;       // keys: 'retail' | 'bulk' | 'lab'
+  tiers: Record<PriceTier, TierFluctuation>;        // keys: 'retail' | 'bulk' | 'lab'
 }
 interface FluctuationsFile {
-  elements: Record<string, Fluctuation>;            // keyed by element symbol
+  elements: Record<string, Fluctuation>;            // keyed by element symbol (31)
+  windows: WindowKey[];                             // ['7d','30d','90d','1y','all_time']
+  flat_threshold_pct: number;                       // 1.0 — |pct_change| below this reads as 'flat'
+  generated_at: ISODateTime;                        // pipeline stamp; drives the dashboard "data as of"
 }
 
 // ── RegulatoryNotice  (from _data/regulatory/*.yml — 5 notices) ──────────────
@@ -324,7 +336,7 @@ interface RegulatoryNotice {
   status: 'active' | 'suspended';
   affected_elements: string[];          // element symbols
   controlled_forms: string[];           // ['metal','alloy','oxide','compound', ...]
-  measure_type: string;                 // 'export_licence_required' | 'presumptive_denial' | ...
+  measure_type: string;                 // 'export_licence_required' | 'presumptive_denial' | 'export_licence_suspension_and_escalation' | 'country_prohibition_and_entity_sanctions'
   description: string;
   compliance_requirements: {
     end_user_certificate?: ComplianceRequirement;
@@ -332,9 +344,9 @@ interface RegulatoryNotice {
   };
   notes: string[];
   // optional / variant fields (present only on some notices):
-  suspension?: NoticeSuspension;
-  newly_controlled_elements?: string[]; // Nos. 55–62: [Ho, Er, Tm, Eu, Yb]
-  individual_announcements?: IndividualAnnouncement[];
+  suspension?: NoticeSuspension;        // mofcom_55_62_2025
+  newly_controlled_elements?: string[]; // mofcom_55_62_2025: [Ho, Er, Tm, Eu, Yb]
+  individual_announcements?: IndividualAnnouncement[]; // mofcom_55_62_2025, mofcom_1_17_2026
   articles?: NoticeArticle[];           // gac_46_2024
   related_notices?: string[];           // gac_46_2024
   target_country?: string;              // mofcom_1_17_2026: 'JP'
@@ -364,7 +376,7 @@ interface Source {
   id: string;                           // 'stanford-advanced-materials-01'
   name: string;                         // 'Stanford Advanced Materials'
   type: SourceType;
-  trust_tier: number;                   // 1 (highest) .. 5
+  trust_tier: number;                   // 1 (highest)..5 scale (site_settings); current registry uses tiers 2–3
   country: string;                      // ISO-2
   supported_elements: string[];         // element symbols this source quotes
   parse_status: string;                 // 'active'
@@ -373,9 +385,11 @@ interface Source {
 ```
 
 > Supporting (non-required) contracts the data layer also exposes: `Movement` (from `movements.yml` events, incl. the
-> `sparkline` geometry block), `SourceBreakdown` (from `source_breakdown.yml`), `SiteSettings` (from `site_settings.yml`),
-> and `Article` (front matter of `_articles/*.md`: `title`, `subtitle?`, `description`, `keywords`, `date`, `status`,
-> `elements: string[]`). These follow the same verbatim-field-name rule.
+> `sparkline` geometry block), `SourceBreakdown` (from `source_breakdown.yml`: `generated_on`, `total_observations`
+> (285), and `by_source_type[]` of `{ source_type, label, description, count, percent }`), `SiteSettings` (from
+> `site_settings.yml`: thresholds + the `verification_labels` / `source_trust_tiers` (1–5) / `category_labels` /
+> `export_control_labels` maps), and `Article` (front matter of `_articles/*.md`: `title`, `subtitle?`, `description`,
+> `keywords`, `date`, `status`, `elements: string[]`). These follow the same verbatim-field-name rule.
 
 ---
 
@@ -462,6 +476,12 @@ code": no app/query code moves — only the datasource config and the secret.
   regenerates its own Postgres baseline (point `DATABASE_URL` at a Postgres dev DB and run `npx prisma migrate dev`, or
   use `prisma migrate diff`) rather than replaying SQLite SQL against Postgres. The schema is the source of truth; the
   SQL is derived. `npx prisma db seed` then (re)builds the feed on Postgres with zero code changes.
+
+> **Deploy-time reconciliation.** The dev engine is revisited when the host is chosen: the production deploy may
+> standardize on **Postgres for local dev too** (one engine everywhere, pointed at a local/Docker Postgres) to remove the
+> SQLite↔Postgres SQL-dialect gap. That decision is recorded at the deployment step (`docs/DEPLOYMENT.md`), not here; the
+> SQLite-dev plan above is the migration-phase baseline. Either way the application code is unchanged — only the
+> `datasource` config and `DATABASE_URL`/`DIRECT_URL` differ.
 
 ---
 
