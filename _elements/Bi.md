@@ -4,7 +4,7 @@ symbol: Bi
 name: Bismuth
 atomic_number: 83
 category: strategic_metal
-title: "Bismuth Price 2026 — Metal & Bi₂O₃ per kg"
+title: "Bismuth Price 2026: Metal & Bi₂O₃ per kg"
 description: "Bismuth metal ingot retail and bulk benchmarks per kg. Lead-free solder, pharmaceuticals, and Bi alloys. Under MOFCOM No. 10/2025 Chinese export controls."
 keywords: "bismuth price, bismuth price per kg, bismuth metal price, bismuth ingot price, Bi2O3 price, bismuth export controls, buy bismuth"
 element_name: "Bismuth"
@@ -18,7 +18,7 @@ permalink: /elements/Bi/
     <p>Bismuth has been under MOFCOM/GAC export licensing since 4&thinsp;February&thinsp;2025 (Announcement No.&thinsp;10/2025), alongside W, Te, Mo, and In [2]. The control covers Bi metal, Bi<sub>2</sub>O<sub>3</sub>, bismuth subsalicylate, and a range of compounds.</p>
     <p>Western bismuth spot prices have moved sharply since the controls took effect, with several FOB-China benchmarks more than doubling between Q4 2024 and Q4 2025.</p>
   </div>
-  <div class="banner-key-date">Key date: 28&thinsp;November&thinsp;2026 &mdash; expanded controls suspension expires.</div>
+  <div class="banner-key-date">Key date: 28&thinsp;November&thinsp;2026, expanded controls suspension expires.</div>
 </div>
 
 <div class="element-section info-block">
@@ -35,7 +35,7 @@ permalink: /elements/Bi/
       </tr>
       <tr>
         <td>Lead-free solder &amp; alloys</td>
-        <td>Sn&ndash;Bi, Sn&ndash;Ag&ndash;Bi solders and Bi-based fusible alloys</td>
+        <td>Sn-Bi, Sn-Ag-Bi solders and Bi-based fusible alloys</td>
         <td>RoHS-compliant solder alternative; low-melting alloys for fire sprinklers, fuses, casting molds</td>
       </tr>
       <tr>
@@ -50,7 +50,7 @@ permalink: /elements/Bi/
       </tr>
       <tr>
         <td>Catalysts</td>
-        <td>Bi&ndash;Mo oxide catalyst (acrylonitrile production)</td>
+        <td>Bi-Mo oxide catalyst (acrylonitrile production)</td>
         <td>SOHIO process for converting propylene + ammonia to acrylonitrile</td>
       </tr>
     </tbody>
@@ -85,15 +85,15 @@ permalink: /elements/Bi/
       </div>
       <div class="stat-row">
         <span class="stat-label">Bi metal benchmark</span>
-        <span class="stat-value">$10&ndash;$22/lb (Argus FOB China)</span>
+        <span class="stat-value">$10 to $22/lb (Argus FOB China)</span>
       </div>
       <div class="stat-row">
         <span class="stat-label">Retail metal (1&thinsp;kg)</span>
-        <span class="stat-value">$60&ndash;$150/kg</span>
+        <span class="stat-value">$60 to $150/kg</span>
       </div>
       <div class="stat-row">
         <span class="stat-label">Retail crystal art</span>
-        <span class="stat-value">$120&ndash;$400/kg</span>
+        <span class="stat-value">$120 to $400/kg</span>
       </div>
     </div>
   </div>
@@ -101,7 +101,7 @@ permalink: /elements/Bi/
 
 <div class="element-section info-block">
   <h2 class="section-title">Verified Offers</h2>
-  <p class="section-intro">Bismuth is one of the most retail-accessible elements on this site &mdash; ingots, shot, and hopper-crystal art pieces are widely sold on Amazon, eBay, and Alibaba at sub-kilogram scale. The auto-rendered table shows tracked listings.</p>
+  <p class="section-intro">Bismuth is one of the most retail-accessible elements on this site. Ingots, shot, and hopper-crystal art pieces are widely sold on Amazon, eBay, and Alibaba at sub-kilogram scale. The auto-rendered table shows tracked listings.</p>
   {% include provenance-table.html symbol=page.symbol %}
 </div>
 
@@ -118,7 +118,7 @@ permalink: /elements/Bi/
     </div>
     <div class="note-item">
       <strong>Pharmaceutical exposure</strong>
-      Bismuth subsalicylate (Pepto-Bismol) and bismuth subcitrate (H. pylori triple therapy) are off-patent OTC and Rx products. A meaningful Chinese Bi licensing slowdown would propagate into hospital and OTC supply within 6&ndash;12 months.
+      Bismuth subsalicylate (Pepto-Bismol) and bismuth subcitrate (H. pylori triple therapy) are off-patent OTC and Rx products. A meaningful Chinese Bi licensing slowdown would propagate into hospital and OTC supply within 6 to 12 months.
     </div>
   </div>
 </div>
@@ -134,7 +134,7 @@ permalink: /elements/Bi/
   <ol class="references-list">
     <li id="ref-1">Wolfram Alpha, &ldquo;Bismuth element.&rdquo; <a href="https://www.wolframalpha.com/input?i=bismuth+element" target="_blank" rel="noopener">wolframalpha.com</a>.</li>
     <li id="ref-2">MOFCOM Announcement No.&thinsp;10 of 2025, &ldquo;Export Control of Tungsten, Tellurium, Bismuth, Molybdenum and Indium Related Items,&rdquo; effective 4&thinsp;February&thinsp;2025.</li>
-    <li id="ref-3">MOFCOM Announcements No.&thinsp;70 and 72 of 2025 (suspension orders), 7&ndash;9&thinsp;November&thinsp;2025.</li>
+    <li id="ref-3">MOFCOM Announcements No.&thinsp;70 and 72 of 2025 (suspension orders), 7 to 9&thinsp;November&thinsp;2025.</li>
     <li id="ref-4">United States Geological Survey, <em>Mineral Commodity Summaries 2025: Bismuth</em>, January&thinsp;2025.</li>
   </ol>
 </div>

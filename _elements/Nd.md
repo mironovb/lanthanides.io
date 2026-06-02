@@ -4,7 +4,7 @@ symbol: Nd
 name: Neodymium
 atomic_number: 60
 category: rare_earth_light
-title: "Neodymium Price 2026 — Metal, Nd₂O₃ & NdFeB per kg"
+title: "Neodymium Price 2026: Metal, Nd₂O₃ & NdFeB per kg"
 description: "Neodymium metal and oxide price per kg with retail and bulk benchmarks. Drives NdFeB permanent magnets for EVs, wind turbines, and electronics."
 keywords: "neodymium price, neodymium price per kg, neodymium metal price, neodymium oxide price, Nd2O3 price, NdFeB magnet price, buy neodymium"
 element_name: "Neodymium"
@@ -41,7 +41,7 @@ permalink: /elements/Nd/
       </tr>
       <tr>
         <td>Magnetostrictive alloys</td>
-        <td>Tb&ndash;Dy&ndash;Fe (Terfenol-D) trace Nd</td>
+        <td>Tb-Dy-Fe (Terfenol-D) trace Nd</td>
         <td>Sonar transducers and precision actuators (small volume)</td>
       </tr>
     </tbody>
@@ -76,15 +76,15 @@ permalink: /elements/Nd/
       </div>
       <div class="stat-row">
         <span class="stat-label">NdPr oxide bulk benchmark</span>
-        <span class="stat-value">$50&ndash;$70/kg (FOB China)</span>
+        <span class="stat-value">$50 to $70/kg (FOB China)</span>
       </div>
       <div class="stat-row">
         <span class="stat-label">Pure Nd oxide retail</span>
-        <span class="stat-value">$80&ndash;$200/kg</span>
+        <span class="stat-value">$80 to $200/kg</span>
       </div>
       <div class="stat-row">
         <span class="stat-label">Metal retail (gram-scale)</span>
-        <span class="stat-value">$300&ndash;$1,500/kg</span>
+        <span class="stat-value">$300 to $1,500/kg</span>
       </div>
     </div>
   </div>
@@ -101,11 +101,11 @@ permalink: /elements/Nd/
   <div class="notes-block">
     <div class="note-item">
       <strong>Not on the MOFCOM control list</strong>
-      Nd is excluded from the No.&thinsp;18/2025 medium/heavy REE control basket. However, finished NdFeB magnets containing controlled HREE additives (Dy, Tb) are subject to dual classification &mdash; magnet rotors with high Dy/Tb content require Chinese export licences as of April 2025.
+      Nd is excluded from the No.&thinsp;18/2025 medium/heavy REE control basket. However, finished NdFeB magnets containing controlled HREE additives (Dy, Tb) are subject to dual classification: magnet rotors with high Dy/Tb content require Chinese export licences as of April 2025.
     </div>
     <div class="note-item">
       <strong>EV demand is the dominant variable</strong>
-      Each EV traction motor uses 1&ndash;2&thinsp;kg of NdFeB magnet. Each direct-drive offshore wind turbine uses ~600&thinsp;kg per MW. The combined EV+wind growth narrative drives long-run Nd demand forecasts and the global REE separation buildout.
+      Each EV traction motor uses 1 to 2&thinsp;kg of NdFeB magnet. Each direct-drive offshore wind turbine uses ~600&thinsp;kg per MW. The combined EV+wind growth narrative drives long-run Nd demand forecasts and the global REE separation buildout.
     </div>
     <div class="note-item">
       <strong>Magnet recycling emerging</strong>

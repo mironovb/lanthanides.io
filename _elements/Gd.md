@@ -4,7 +4,7 @@ symbol: Gd
 name: Gadolinium
 atomic_number: 64
 category: rare_earth_heavy
-title: "Gadolinium Price 2026 — Metal & Oxide (Gd₂O₃) per kg"
+title: "Gadolinium Price 2026: Metal & Oxide (Gd₂O₃) per kg"
 description: "Gadolinium metal and oxide price per kg. Used in MRI contrast agents and neutron-shielding alloys. Active MOFCOM No. 18/2025 export controls."
 keywords: "gadolinium price, gadolinium price per kg, gadolinium metal price, gadolinium oxide price, Gd2O3 price, MRI contrast, buy gadolinium"
 element_name: "Gadolinium"
@@ -15,10 +15,10 @@ permalink: /elements/Gd/
 <div class="regulatory-banner banner-active">
   <div class="banner-title">Active Export Control</div>
   <div class="banner-body">
-    <p>MOFCOM/GAC Announcement No.&thinsp;18/2025 (effective 4&thinsp;April&thinsp;2025) controls all gadolinium forms &mdash; metal, oxide (Gd<sub>2</sub>O<sub>3</sub>), alloys, compounds &mdash; under item 1C907 [2]. Gadolinium is one of the seven medium and heavy rare earths covered by the Announcement.</p>
+    <p>MOFCOM/GAC Announcement No.&thinsp;18/2025 (effective 4&thinsp;April&thinsp;2025) controls all gadolinium forms (metal, oxide (Gd<sub>2</sub>O<sub>3</sub>), alloys, compounds) under item 1C907 [2]. Gadolinium is one of the seven medium and heavy rare earths covered by the Announcement.</p>
     <p>The October&thinsp;2025 escalation measures are suspended until 28&thinsp;November&thinsp;2026 [3], but the underlying No.&thinsp;18/2025 controls remain fully in force.</p>
   </div>
-  <div class="banner-key-date">Key date: 28&thinsp;November&thinsp;2026 &mdash; expanded controls suspension expires.</div>
+  <div class="banner-key-date">Key date: 28&thinsp;November&thinsp;2026, expanded controls suspension expires.</div>
 </div>
 
 <div class="element-section info-block">
@@ -45,7 +45,7 @@ permalink: /elements/Gd/
       </tr>
       <tr>
         <td>Magnetocaloric refrigeration</td>
-        <td>Gd metal and Gd&ndash;Si&ndash;Ge alloys</td>
+        <td>Gd metal and Gd-Si-Ge alloys</td>
         <td>Active material in magnetic refrigeration prototypes; Curie temperature ~20&thinsp;&deg;C makes it ideal for room-temperature cooling research</td>
       </tr>
       <tr>
@@ -85,15 +85,15 @@ permalink: /elements/Gd/
       </div>
       <div class="stat-row">
         <span class="stat-label">Oxide retail (1&thinsp;kg)</span>
-        <span class="stat-value">$36&ndash;$55/kg</span>
+        <span class="stat-value">$36 to $55/kg</span>
       </div>
       <div class="stat-row">
         <span class="stat-label">Bulk metal (Alibaba/eBay)</span>
-        <span class="stat-value">$450&ndash;$1,200/kg</span>
+        <span class="stat-value">$450 to $1,200/kg</span>
       </div>
       <div class="stat-row">
         <span class="stat-label">Hand-portioned metal</span>
-        <span class="stat-value">$2,600&ndash;$10,000/kg</span>
+        <span class="stat-value">$2,600 to $10,000/kg</span>
       </div>
     </div>
   </div>
@@ -101,7 +101,7 @@ permalink: /elements/Gd/
 
 <div class="element-section info-block">
   <h2 class="section-title">Verified Offers</h2>
-  <p class="section-intro">Gadolinium has the deepest tracked retail dataset of the controlled rare earths, with multiple bulk metal listings on eBay/Alibaba in the $450&ndash;$1,200/kg band and oxide consistently at $36&ndash;$55/kg. The auto-rendered table shows all qualifying records.</p>
+  <p class="section-intro">Gadolinium has the deepest tracked retail dataset of the controlled rare earths, with multiple bulk metal listings on eBay/Alibaba in the $450 to $1,200/kg band and oxide consistently at $36 to $55/kg. The auto-rendered table shows all qualifying records.</p>
   {% include provenance-table.html symbol=page.symbol %}
 </div>
 
@@ -110,15 +110,15 @@ permalink: /elements/Gd/
   <div class="notes-block">
     <div class="note-item note-warning">
       <strong>Export controls in force</strong>
-      Gadolinium is one of the seven medium and heavy rare earths controlled under MOFCOM/GAC Announcement No.&thinsp;18/2025 [2]. All forms &mdash; metal, oxide, alloys, compounds, and finished magnet rotors containing Gd &mdash; require Chinese export licences.
+      Gadolinium is one of the seven medium and heavy rare earths controlled under MOFCOM/GAC Announcement No.&thinsp;18/2025 [2]. All forms (metal, oxide, alloys, compounds, and finished magnet rotors containing Gd) require Chinese export licences.
     </div>
     <div class="note-item">
       <strong>Healthcare supply implication</strong>
-      MRI contrast agents are an FDA-approved drug class with multi-month qualification cycles. A meaningful Gd licensing slowdown would propagate into hospital imaging volumes within 6&ndash;12 months. The contrast-agent supply chain (Bayer Magnevist, GE Pharmaceuticals Omniscan, Bracco MultiHance) is critically dependent on Chinese Gd<sub>2</sub>O<sub>3</sub>.
+      MRI contrast agents are an FDA-approved drug class with multi-month qualification cycles. A meaningful Gd licensing slowdown would propagate into hospital imaging volumes within 6 to 12 months. The contrast-agent supply chain (Bayer Magnevist, GE Pharmaceuticals Omniscan, Bracco MultiHance) is critically dependent on Chinese Gd<sub>2</sub>O<sub>3</sub>.
     </div>
     <div class="note-item">
       <strong>Magnet additive substitution</strong>
-      NdFeB manufacturers historically used Dy/Tb to boost coercivity at high temperature. Recent grain-boundary diffusion processes substitute Gd at lower cost. As Dy/Tb prices spiked under controls, Gd demand from this segment grew &mdash; tightening the Gd market simultaneously.
+      NdFeB manufacturers historically used Dy/Tb to boost coercivity at high temperature. Recent grain-boundary diffusion processes substitute Gd at lower cost. As Dy/Tb prices spiked under controls, Gd demand from this segment grew, tightening the Gd market simultaneously.
     </div>
   </div>
 </div>
@@ -134,7 +134,7 @@ permalink: /elements/Gd/
   <ol class="references-list">
     <li id="ref-1">Wolfram Alpha, &ldquo;Gadolinium element.&rdquo; <a href="https://www.wolframalpha.com/input?i=gadolinium+element" target="_blank" rel="noopener">wolframalpha.com</a>.</li>
     <li id="ref-2">Ministry of Commerce / General Administration of Customs of the People&rsquo;s Republic of China, Announcement No.&thinsp;18 of 2025, &ldquo;Export Control of Medium and Heavy Rare Earth Related Items,&rdquo; 4&thinsp;April&thinsp;2025.</li>
-    <li id="ref-3">MOFCOM Announcements No.&thinsp;70 and No.&thinsp;72 of 2025 (suspension orders), 7&ndash;9&thinsp;November&thinsp;2025.</li>
+    <li id="ref-3">MOFCOM Announcements No.&thinsp;70 and No.&thinsp;72 of 2025 (suspension orders), 7 to 9&thinsp;November&thinsp;2025.</li>
   </ol>
 </div>
 

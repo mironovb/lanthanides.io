@@ -4,7 +4,7 @@ symbol: V
 name: Vanadium
 atomic_number: 23
 category: strategic_metal
-title: "Vanadium Price 2026 — Metal, V₂O₅ & FeV per kg"
+title: "Vanadium Price 2026: Metal, V₂O₅ & FeV per kg"
 description: "Vanadium metal from $402/kg retail (Metallos.de). V₂O₅ at $5.43/lb near multi-year lows. No Chinese export controls. VRFB demand rising."
 keywords: "vanadium price, vanadium price per kg, vanadium metal price, V2O5 price, ferrovanadium price, vanadium pentoxide price, buy vanadium, VRFB"
 element_name: "Vanadium"
@@ -21,28 +21,28 @@ permalink: /elements/V/
     <tbody>
       <tr>
         <td>HSLA and rebar steel</td>
-        <td>0.01&ndash;0.5% V as grain-refining micro-alloy; increases yield strength by 70&ndash;100&thinsp;MPa per 0.1% V</td>
-        <td>~85&ndash;90% of global V demand. China&rsquo;s Sep 2024 rebar standards expected to add 8,000&ndash;18,000&thinsp;t annual demand [1][2]</td>
+        <td>0.01 to 0.5% V as grain-refining micro-alloy; increases yield strength by 70 to 100&thinsp;MPa per 0.1% V</td>
+        <td>~85 to 90% of global V demand. China&rsquo;s Sep 2024 rebar standards expected to add 8,000 to 18,000&thinsp;t annual demand [1][2]</td>
       </tr>
       <tr>
         <td>Ti-6Al-4V aerospace alloy</td>
         <td>4% V stabilises alpha+beta phase; improves strength-to-weight ratio</td>
-        <td>Single most important titanium alloy. <strong>No substitute for vanadium</strong> &mdash; critical defence material [3][4]</td>
+        <td>Single most important titanium alloy. <strong>No substitute for vanadium</strong>, critical defence material [3][4]</td>
       </tr>
       <tr>
         <td>VRFB energy storage</td>
         <td>V<sup>2+</sup>/V<sup>3+</sup> and V<sup>4+</sup>/V<sup>5+</sup> electrolyte pairs in sulfuric acid; power and energy independently scalable</td>
-        <td>Fastest-growing segment: 1.8% of V demand (2018&ndash;2021) &rarr; 7.2% (H1 2023) &rarr; projected 17% by 2033. ~15,000&thinsp;t in batteries globally in 2025 [5][6][7]</td>
+        <td>Fastest-growing segment: 1.8% of V demand (2018 to 2021) &rarr; 7.2% (H1 2023) &rarr; projected 17% by 2033. ~15,000&thinsp;t in batteries globally in 2025 [5][6][7]</td>
       </tr>
       <tr>
         <td>Chemical catalysts</td>
         <td>V₂O₅ in the contact process (sulfuric acid production) and maleic anhydride synthesis</td>
-        <td>3&ndash;5% of demand; no practical substitute at industrial scale [3]</td>
+        <td>3 to 5% of demand; no practical substitute at industrial scale [3]</td>
       </tr>
       <tr>
         <td>Advanced alloys &amp; superconductors</td>
         <td>V-4Cr-4Ti fusion blanket material; V₃Ga superconductors; coloured glass and ceramics</td>
-        <td>2&ndash;3% of demand. Long-term strategic for nuclear fusion programmes [3]</td>
+        <td>2 to 3% of demand. Long-term strategic for nuclear fusion programmes [3]</td>
       </tr>
     </tbody>
   </table>
@@ -66,7 +66,7 @@ permalink: /elements/V/
       </div>
       <div class="stat-row">
         <span class="stat-label">US primary production</span>
-        <span class="stat-value">Zero &mdash; last mine closed 2020; 8,200&thinsp;t secondary recovery [3]</span>
+        <span class="stat-value">Zero. Last mine closed 2020; 8,200&thinsp;t secondary recovery [3]</span>
       </div>
     </div>
     <div class="market-stats">
@@ -80,7 +80,7 @@ permalink: /elements/V/
       </div>
       <div class="stat-row">
         <span class="stat-label">Pure V metal wholesale (CN)</span>
-        <span class="stat-value">$580&ndash;605/kg (99.9% granules) [9]</span>
+        <span class="stat-value">$580 to 605/kg (99.9% granules) [9]</span>
       </div>
       <div class="stat-row">
         <span class="stat-label">Pure V metal retail (DE)</span>
@@ -97,14 +97,14 @@ permalink: /elements/V/
     <tbody>
       <tr><td>2016</td><td class="mono">~3.50</td><td class="mono">~6</td><td>Multi-year lows</td></tr>
       <tr><td>2018 (peak)</td><td class="mono"><strong>33.10</strong></td><td class="mono">~65</td><td>China rebar standards + speculative hoarding; 840% rally [11][12]</td></tr>
-      <tr><td>2019</td><td class="mono">~7.00</td><td class="mono">~20</td><td>Crash &mdash; ferroniobium substitution, supply response</td></tr>
-      <tr><td>2020</td><td class="mono">6.47</td><td>&mdash;</td><td>COVID demand collapse</td></tr>
+      <tr><td>2019</td><td class="mono">~7.00</td><td class="mono">~20</td><td>Crash: ferroniobium substitution, supply response</td></tr>
+      <tr><td>2020</td><td class="mono">6.47</td><td>n/a</td><td>COVID demand collapse</td></tr>
       <tr><td>2022</td><td class="mono">9.29</td><td class="mono">~23.80</td><td>Post-COVID recovery</td></tr>
       <tr><td>2024</td><td class="mono">5.45</td><td class="mono">12.84</td><td>China real estate slump; rebar &minus;8% [3]</td></tr>
-      <tr><td>Mar 2026</td><td class="mono">5.43 (EU)</td><td>&mdash;</td><td>Near trough; CRU forecasts recovery from late 2026 [13]</td></tr>
+      <tr><td>Mar 2026</td><td class="mono">5.43 (EU)</td><td>n/a</td><td>Near trough; CRU forecasts recovery from late 2026 [13]</td></tr>
     </tbody>
   </table>
-  <p class="table-note">Current European V₂O₅ price is 28&ndash;42% below the 2000&ndash;2024 real average of $8.98/lb (CRU Group).</p>
+  <p class="table-note">Current European V₂O₅ price is 28 to 42% below the 2000 to 2024 real average of $8.98/lb (CRU Group).</p>
 
   <h3 class="subsection-title">Key producers</h3>
   <table class="data-table">
@@ -183,7 +183,7 @@ permalink: /elements/V/
       <tr>
         <td>2026-03</td><td>99.9%</td><td class="mono">590</td><td>1&thinsp;kg MOQ</td>
         <td>Alibaba (multiple CN suppliers)</td>
-        <td>CN</td><td>Wholesale</td><td>V granules; $580&ndash;605/kg range; standard CN supplier verification caveats [9]</td>
+        <td>CN</td><td>Wholesale</td><td>V granules; $580 to 605/kg range; standard CN supplier verification caveats [9]</td>
       </tr>
       <tr>
         <td>2026-03</td><td>99.9% (3N)</td><td class="mono">1,530</td><td>31.1&thinsp;g</td>
@@ -221,17 +221,17 @@ permalink: /elements/V/
         <td>US</td><td>Lab-grade</td><td>V powder &minus;325 mesh [22]</td>
       </tr>
       <tr>
-        <td>&mdash;</td><td>various</td><td>quote</td><td>&mdash;</td>
+        <td>n/a</td><td>various</td><td>quote</td><td>n/a</td>
         <td><a href="https://www.americanelements.com" class="supplier-link" target="_blank" rel="noopener">American Elements</a></td>
         <td>US</td><td>Industrial</td><td>All forms; RFQ only [23]</td>
       </tr>
       <tr>
-        <td>&mdash;</td><td>&ge;99.9%</td><td>quote</td><td>&mdash;</td>
+        <td>n/a</td><td>&ge;99.9%</td><td>quote</td><td>n/a</td>
         <td><a href="https://www.samaterials.com" class="supplier-link" target="_blank" rel="noopener">Stanford Advanced Materials</a></td>
         <td>US</td><td>Industrial</td><td>Metal, powder, sputtering targets [24]</td>
       </tr>
       <tr>
-        <td>&mdash;</td><td>various</td><td>quote</td><td>&mdash;</td>
+        <td>n/a</td><td>various</td><td>quote</td><td>n/a</td>
         <td><a href="https://www.espimetals.com" class="supplier-link" target="_blank" rel="noopener">ESPI Metals</a></td>
         <td>US</td><td>Industrial</td><td>Foil, sheet, rod, powder [25]</td>
       </tr>
@@ -243,20 +243,20 @@ permalink: /elements/V/
   <h2 class="section-title">Important Notes</h2>
   <div class="notes-block">
     <div class="note-item">
-      <strong>No Chinese export controls &mdash; a notable absence</strong>
+      <strong>No Chinese export controls: a notable absence</strong>
       Despite China&rsquo;s escalating campaign of critical mineral restrictions since July 2023 (gallium, germanium, graphite, antimony, tungsten, seven rare earths), <strong>vanadium has not been placed on any export control, licensing, or ban list</strong> as of March 2026 [26][27]. This is significant given China&rsquo;s 70% production share. Analysts at Trivium China identify vanadium as a potential future candidate; its current exemption reflects the fact that Chinese domestic prices typically offer better margins than export [28]. This could change if Western capacity shrinks further or geopolitical tensions escalate.
     </div>
     <div class="note-item">
       <strong>VRFB deployment: the long-term structural catalyst</strong>
-      Vanadium redox flow batteries offer &gt;15,000-cycle life, 20&ndash;30-year lifespan, non-flammability, and fully recyclable electrolyte. The Dalian project (Rongke Power, 200&thinsp;MW / 800&thinsp;MWh) is the world&rsquo;s largest installation. Sumitomo Electric&rsquo;s 2025-generation VRFB promises 30-year life, 15% higher energy density, and 30% cost reduction [5][6]. CRU Group estimates 15,000&thinsp;t of V went into batteries in 2025, up from &lt;1,000&thinsp;t in 2020 [7]. If the battery share reaches 17% by 2033 (USGS projection), this represents a fundamentally new demand floor that steel-cycle weakness cannot erase.
+      Vanadium redox flow batteries offer &gt;15,000-cycle life, 20 to 30-year lifespan, non-flammability, and fully recyclable electrolyte. The Dalian project (Rongke Power, 200&thinsp;MW / 800&thinsp;MWh) is the world&rsquo;s largest installation. Sumitomo Electric&rsquo;s 2025-generation VRFB promises 30-year life, 15% higher energy density, and 30% cost reduction [5][6]. CRU Group estimates 15,000&thinsp;t of V went into batteries in 2025, up from &lt;1,000&thinsp;t in 2020 [7]. If the battery share reaches 17% by 2033 (USGS projection), this represents a fundamentally new demand floor that steel-cycle weakness cannot erase.
     </div>
     <div class="note-item">
       <strong>Pure metal production: ~2 companies globally</strong>
-      Approximately 90% of vanadium is consumed as ferrovanadium or V-N alloy for steelmaking, never requiring reduction to pure metal. Electron beam melting (EBM) is the industrial standard for achieving 99.9% (3N); electrolytic refining in molten salt (KCl-LiCl-VCl₂) reaches 4N. Only Taiyo Koko (Kobe, Japan) and one or two Chinese producers operate EBM furnaces at scale [16][29]. This extreme concentration in pure metal production &mdash; versus the much broader V₂O₅ and FeV market &mdash; explains why retail V metal at $402/kg trades at ~19&times; the V₂O₅ contained-vanadium value of ~$21/kg.
+      Approximately 90% of vanadium is consumed as ferrovanadium or V-N alloy for steelmaking, never requiring reduction to pure metal. Electron beam melting (EBM) is the industrial standard for achieving 99.9% (3N); electrolytic refining in molten salt (KCl-LiCl-VCl₂) reaches 4N. Only Taiyo Koko (Kobe, Japan) and one or two Chinese producers operate EBM furnaces at scale [16][29]. This extreme concentration in pure metal production (versus the much broader V₂O₅ and FeV market) explains why retail V metal at $402/kg trades at ~19&times; the V₂O₅ contained-vanadium value of ~$21/kg.
     </div>
     <div class="note-item note-caution">
-      <strong>Commodity at cyclical lows &mdash; recovery expected</strong>
-      V₂O₅ at $5.43/lb sits 28&ndash;42% below the 2000&ndash;2024 real average. The weakness reflects China&rsquo;s real estate downturn (rebar production &minus;8% in 2024), persistent oversupply, and speculative disinterest after the 2018 crash [8][13]. Western producers are under severe margin pressure: Bushveld Minerals entered bankruptcy, Glencore&rsquo;s Rhovan went on care-and-maintenance. CRU Group forecasts recovery from late 2026 as supply discipline, new Chinese rebar standards (Sep 2024), and accelerating VRFB deployment tighten the market. The consensus is bearish near-term through mid-2026, turning bullish thereafter [13].
+      <strong>Commodity at cyclical lows: recovery expected</strong>
+      V₂O₅ at $5.43/lb sits 28 to 42% below the 2000 to 2024 real average. The weakness reflects China&rsquo;s real estate downturn (rebar production &minus;8% in 2024), persistent oversupply, and speculative disinterest after the 2018 crash [8][13]. Western producers are under severe margin pressure: Bushveld Minerals entered bankruptcy, Glencore&rsquo;s Rhovan went on care-and-maintenance. CRU Group forecasts recovery from late 2026 as supply discipline, new Chinese rebar standards (Sep 2024), and accelerating VRFB deployment tighten the market. The consensus is bearish near-term through mid-2026, turning bullish thereafter [13].
     </div>
   </div>
 </div>
@@ -270,21 +270,21 @@ permalink: /elements/V/
 <div class="element-section info-block">
   <h2 class="section-title">References</h2>
   <ol class="references-list">
-    <li id="ref-1">CRU Group / Ferroalloynet, &ldquo;China&rsquo;s September 2024 Rebar Standards and Vanadium Demand Implications,&rdquo; 2024&ndash;2025. <a href="https://www.crugroup.com" target="_blank" rel="noopener">crugroup.com</a>.</li>
-    <li id="ref-2">IMARC Group / Ferroalloynet, &ldquo;New Chinese Rebar Standards Expected to Add 8,000&ndash;18,000 Tonnes Annual V Demand.&rdquo;</li>
+    <li id="ref-1">CRU Group / Ferroalloynet, &ldquo;China&rsquo;s September 2024 Rebar Standards and Vanadium Demand Implications,&rdquo; 2024 to 2025. <a href="https://www.crugroup.com" target="_blank" rel="noopener">crugroup.com</a>.</li>
+    <li id="ref-2">IMARC Group / Ferroalloynet, &ldquo;New Chinese Rebar Standards Expected to Add 8,000 to 18,000 Tonnes Annual V Demand.&rdquo;</li>
     <li id="ref-3">USGS Mineral Commodity Summaries, &ldquo;Vanadium,&rdquo; Jan&thinsp;2025. <a href="https://pubs.usgs.gov/periodicals/mcs2025/mcs2025-vanadium.pdf" target="_blank" rel="noopener">pubs.usgs.gov</a>.</li>
-    <li id="ref-4">USGS, &ldquo;Vanadium &mdash; Critical Mineral; No Substitute in Ti-6Al-4V.&rdquo; <a href="https://www.usgs.gov" target="_blank" rel="noopener">usgs.gov</a>.</li>
+    <li id="ref-4">USGS, &ldquo;Vanadium: Critical Mineral; No Substitute in Ti-6Al-4V.&rdquo; <a href="https://www.usgs.gov" target="_blank" rel="noopener">usgs.gov</a>.</li>
     <li id="ref-5">ESMAP / World Bank, &ldquo;Vanadium Redox Flow Batteries for Grid-Scale Energy Storage.&rdquo; <a href="https://www.esmap.org" target="_blank" rel="noopener">esmap.org</a>.</li>
     <li id="ref-6">Grand View Research / Vanitec, &ldquo;VRFB Market Size and Share Analysis.&rdquo; <a href="https://www.grandviewresearch.com" target="_blank" rel="noopener">grandviewresearch.com</a>.</li>
     <li id="ref-7">CRU Group, &ldquo;15,000 Tonnes of Vanadium in Batteries Globally in 2025.&rdquo; <a href="https://www.crugroup.com" target="_blank" rel="noopener">crugroup.com</a>.</li>
     <li id="ref-8">Fastmarkets via vanadiumprice.com, V₂O₅ 98% and FeV80 Europe spot prices, 10&thinsp;Mar&thinsp;2026. <a href="https://vanadiumprice.com" target="_blank" rel="noopener">vanadiumprice.com</a>.</li>
-    <li id="ref-9">Alibaba B2B marketplace, V metal granules 99.9%, multiple Chinese suppliers, Mar&thinsp;2026. $580&ndash;605/kg range.</li>
+    <li id="ref-9">Alibaba B2B marketplace, V metal granules 99.9%, multiple Chinese suppliers, Mar&thinsp;2026. $580 to 605/kg range.</li>
     <li id="ref-10"><a href="https://metallos.de" target="_blank" rel="noopener">Metallos.de</a>. V metal pieces 99.9% and 99.995%, 10&thinsp;g to 1&thinsp;kg, Mar&thinsp;2026.</li>
     <li id="ref-11">Lipmann Walton &amp; Co, &ldquo;China&rsquo;s New Rebar Standards and the 2018 Vanadium Price Spike.&rdquo; <a href="https://www.lipmann.co.uk" target="_blank" rel="noopener">lipmann.co.uk</a>.</li>
     <li id="ref-12">PR Newswire, &ldquo;China Rebar Standards to Add ~12,000 Tonnes Annual V Demand,&rdquo; 2018.</li>
     <li id="ref-13">CRU Group / Investing News Network, &ldquo;Vanadium Price Forecast: Recovery Expected from Late 2026.&rdquo; <a href="https://investingnews.com" target="_blank" rel="noopener">investingnews.com</a>.</li>
     <li id="ref-14">Largo Resources / SkyQuest, &ldquo;Largo Clean Energy &amp; Stryten Energy JV for US Vanadium Electrolyte,&rdquo; Feb&thinsp;2025. <a href="https://www.largoinc.com" target="_blank" rel="noopener">largoinc.com</a>.</li>
-    <li id="ref-15">Shanghai Metals Market / Asianmetal, US Vanadium LLC expansion plans, 2025&ndash;2027.</li>
+    <li id="ref-15">Shanghai Metals Market / Asianmetal, US Vanadium LLC expansion plans, 2025 to 2027.</li>
     <li id="ref-16">Japan Metal Bulletin, &ldquo;Taiyo Koko Electron Beam Furnace Operations, Ako Plant.&rdquo; <a href="https://www.japanmetalbulletin.com" target="_blank" rel="noopener">japanmetalbulletin.com</a>.</li>
     <li id="ref-17"><a href="https://rwmmint.com" target="_blank" rel="noopener">Rare World Metals Mint (RWMM)</a>. V metal 1 troy oz listing, Mar&thinsp;2026.</li>
     <li id="ref-18"><a href="https://peguys.com" target="_blank" rel="noopener">PEGUYS LLC</a>. V crystal 99.99%, Mar&thinsp;2026.</li>
@@ -295,10 +295,10 @@ permalink: /elements/V/
     <li id="ref-23"><a href="https://www.americanelements.com" target="_blank" rel="noopener">American Elements</a>. V metal and compound product pages.</li>
     <li id="ref-24"><a href="https://www.samaterials.com" target="_blank" rel="noopener">Stanford Advanced Materials</a>. V products.</li>
     <li id="ref-25"><a href="https://www.espimetals.com" target="_blank" rel="noopener">ESPI Metals</a>, Ashland, Oregon.</li>
-    <li id="ref-26">CSET (Georgetown) / Exiger, &ldquo;Timeline of China&rsquo;s Critical Mineral Export Controls, 2023&ndash;2025.&rdquo;</li>
+    <li id="ref-26">CSET (Georgetown) / Exiger, &ldquo;Timeline of China&rsquo;s Critical Mineral Export Controls, 2023 to 2025.&rdquo;</li>
     <li id="ref-27">Pillsbury Winthrop Shaw Pittman LLP / Al Jazeera, &ldquo;China&rsquo;s Escalating Export Restrictions on Critical Minerals.&rdquo;</li>
     <li id="ref-28">Trivium China, &ldquo;Vanadium as a Potential Future Export Control Candidate.&rdquo; <a href="https://triviumchina.com" target="_blank" rel="noopener">triviumchina.com</a>.</li>
-    <li id="ref-29">Various: Calphad / BYU, &ldquo;Vanadium Metal Production Methods&rdquo;; ScienceDirect, &ldquo;Electrolytic Refining of V in Molten Salt&rdquo;; ScienceDirect, &ldquo;Van Arkel&ndash;de Boer Iodide Process.&rdquo;</li>
+    <li id="ref-29">Various: Calphad / BYU, &ldquo;Vanadium Metal Production Methods&rdquo;; ScienceDirect, &ldquo;Electrolytic Refining of V in Molten Salt&rdquo;; ScienceDirect, &ldquo;Van Arkel-de Boer Iodide Process.&rdquo;</li>
     <li id="ref-30">Wolfram Alpha, &ldquo;Vanadium element.&rdquo; <a href="https://www.wolframalpha.com/input?i=vanadium+element" target="_blank" rel="noopener">wolframalpha.com</a>.</li>
   </ol>
 </div>

@@ -4,8 +4,8 @@ symbol: Lu
 name: Lutetium
 atomic_number: 71
 category: rare_earth_heavy
-title: "Lutetium Price 2026 — Metal & Oxide (Lu₂O₃) per kg"
-description: "Lutetium oxide at $650–740/kg (SMM). Widespread retail stockouts. Active controls MOFCOM No. 18. Drives $2.1B Lu-177 radiopharmaceutical market."
+title: "Lutetium Price 2026: Metal & Oxide (Lu₂O₃) per kg"
+description: "Lutetium oxide at $650 to 740/kg (SMM). Widespread retail stockouts. Active controls MOFCOM No. 18. Drives $2.1B Lu-177 radiopharmaceutical market."
 keywords: "lutetium price, lutetium price per kg, lutetium metal price, lutetium oxide price, Lu2O3 price, lutetium export controls, buy lutetium, Lu-177"
 element_name: "Lutetium"
 element_symbol: "Lu"
@@ -13,20 +13,20 @@ permalink: /elements/Lu/
 ---
 
 <div class="regulatory-banner banner-active">
-  <div class="banner-title">Active Export Control &mdash; Announcement No.&thinsp;18/2025</div>
+  <div class="banner-title">Active Export Control: Announcement No.&thinsp;18/2025</div>
   <div class="banner-body">
-    <p>MOFCOM/GAC <strong>Announcement No.&thinsp;18</strong> (effective 4&thinsp;April&thinsp;2025) requires export licensing for lutetium in all forms: metals and alloys (1C906.a, HS&thinsp;2805301910), oxides and mixtures (1C906.b, HS&thinsp;2846901800), and all lutetium-containing compounds (1C906.c) [1][2]. The licensing process requires individual MOFCOM dual-use export licences with a nominal 45-working-day review that in practice extends to 3&ndash;4+ months [3].</p>
-    <p>These controls were <strong>explicitly excluded from the November&thinsp;2025 suspension</strong>. Announcements No.&thinsp;70 and 72 suspended only the October&thinsp;9 measures (Nos.&thinsp;55&ndash;58, 61&ndash;62). Multiple law firms (Clark Hill, Pillsbury, Morrison Foerster) confirmed that No.&thinsp;18 &ldquo;has not been suspended&rdquo; [4][5].</p>
+    <p>MOFCOM/GAC <strong>Announcement No.&thinsp;18</strong> (effective 4&thinsp;April&thinsp;2025) requires export licensing for lutetium in all forms: metals and alloys (1C906.a, HS&thinsp;2805301910), oxides and mixtures (1C906.b, HS&thinsp;2846901800), and all lutetium-containing compounds (1C906.c) [1][2]. The licensing process requires individual MOFCOM dual-use export licences with a nominal 45-working-day review that in practice extends to 3 to 4+ months [3].</p>
+    <p>These controls were <strong>explicitly excluded from the November&thinsp;2025 suspension</strong>. Announcements No.&thinsp;70 and 72 suspended only the October&thinsp;9 measures (Nos.&thinsp;55 to 58, 61 to 62). Multiple law firms (Clark Hill, Pillsbury, Morrison Foerster) confirmed that No.&thinsp;18 &ldquo;has not been suspended&rdquo; [4][5].</p>
     <p>The downstream impact is severe: Luciteria, RWMM, and Metallos.de are sold out of lutetium metal. Sigma-Aldrich shows &ldquo;pricing and availability not currently available&rdquo; for high-purity Lu. European spot prices reached 6&times; Chinese domestic levels for controlled elements [6].</p>
     <table class="data-table" style="margin-top: 12px;">
       <thead>
         <tr><th>Instrument</th><th>Covers Lu?</th><th>Status (April&thinsp;2026)</th></tr>
       </thead>
       <tbody>
-        <tr><td>No.&thinsp;18/2025 (April 2025)</td><td>Yes</td><td><strong>Active</strong> &mdash; never suspended</td></tr>
-        <tr><td>No.&thinsp;46/2024 Art.&thinsp;1 (military end-use)</td><td>Yes (as dual-use item)</td><td>Active &mdash; prohibits export to US military end-users</td></tr>
-        <tr><td>Nos.&thinsp;55&ndash;58, 61&ndash;62 (Oct 2025)</td><td>No</td><td>Suspended until 10&thinsp;Nov&thinsp;2026</td></tr>
-        <tr><td>RE Management Regs (2024)</td><td>Yes</td><td>Active &mdash; domestic controls</td></tr>
+        <tr><td>No.&thinsp;18/2025 (April 2025)</td><td>Yes</td><td><strong>Active</strong>, never suspended</td></tr>
+        <tr><td>No.&thinsp;46/2024 Art.&thinsp;1 (military end-use)</td><td>Yes (as dual-use item)</td><td>Active, prohibits export to US military end-users</td></tr>
+        <tr><td>Nos.&thinsp;55 to 58, 61 to 62 (Oct 2025)</td><td>No</td><td>Suspended until 10&thinsp;Nov&thinsp;2026</td></tr>
+        <tr><td>RE Management Regs (2024)</td><td>Yes</td><td>Active, domestic controls</td></tr>
       </tbody>
     </table>
   </div>
@@ -43,7 +43,7 @@ permalink: /elements/Lu/
       <tr>
         <td>Lu-177 radiopharmaceuticals</td>
         <td>Pluvicto (mCRPC/mHSPC prostate cancer) and Lutathera (neuroendocrine tumours); targeted radionuclide therapy</td>
-        <td><strong>$2.1&thinsp;B</strong> Novartis revenue in 2024. FDA expanded Pluvicto to pre-chemotherapy patients (Mar&thinsp;2025), ~tripling eligible population. Target &gt;$5&thinsp;B peak sales. Broader Lu-177 market projected $6.4&ndash;14.7&thinsp;B by early 2030s [7][8][9]</td>
+        <td><strong>$2.1&thinsp;B</strong> Novartis revenue in 2024. FDA expanded Pluvicto to pre-chemotherapy patients (Mar&thinsp;2025), ~tripling eligible population. Target &gt;$5&thinsp;B peak sales. Broader Lu-177 market projected $6.4 to 14.7&thinsp;B by early 2030s [7][8][9]</td>
       </tr>
       <tr>
         <td>LYSO/LSO PET scintillation crystals</td>
@@ -79,21 +79,21 @@ permalink: /elements/Lu/
       </div>
       <div class="stat-row">
         <span class="stat-label">China HREE separation share</span>
-        <span class="stat-value">90&ndash;95% [16][17]</span>
+        <span class="stat-value">90 to 95% [16][17]</span>
       </div>
       <div class="stat-row">
         <span class="stat-label">Dedicated lutetium mines worldwide</span>
-        <span class="stat-value">Zero &mdash; all Lu is a byproduct of broader RE processing [16]</span>
+        <span class="stat-value">Zero. All Lu is a byproduct of broader RE processing [16]</span>
       </div>
       <div class="stat-row">
         <span class="stat-label">Raw oxide market value</span>
-        <span class="stat-value">~$90&ndash;150&thinsp;M; enables &gt;$5&thinsp;B downstream applications [16]</span>
+        <span class="stat-value">~$90 to 150&thinsp;M; enables &gt;$5&thinsp;B downstream applications [16]</span>
       </div>
     </div>
     <div class="market-stats">
       <div class="stat-row">
         <span class="stat-label">Lu₂O₃ 4N, China domestic (SMM)</span>
-        <span class="stat-value">~$653&ndash;738/kg (ex-VAT / with VAT), Jan&thinsp;2026 [18]</span>
+        <span class="stat-value">~$653 to 738/kg (ex-VAT / with VAT), Jan&thinsp;2026 [18]</span>
       </div>
       <div class="stat-row">
         <span class="stat-label">Lu₂O₃ 4N, NE Asia (BusinessAnalytiq)</span>
@@ -101,11 +101,11 @@ permalink: /elements/Lu/
       </div>
       <div class="stat-row">
         <span class="stat-label">Ex-China spot (small lots, May 2025)</span>
-        <span class="stat-value">$10,000&ndash;16,000/kg (10&ndash;20&times; domestic) [20]</span>
+        <span class="stat-value">$10,000 to 16,000/kg (10 to 20&times; domestic) [20]</span>
       </div>
       <div class="stat-row">
         <span class="stat-label">USGS risk designation</span>
-        <span class="stat-value">&ldquo;Highest risk&rdquo; &mdash; required price ceiling to prevent model divergence [21]</span>
+        <span class="stat-value">&ldquo;Highest risk&rdquo;, required price ceiling to prevent model divergence [21]</span>
       </div>
     </div>
   </div>
@@ -118,13 +118,13 @@ permalink: /elements/Lu/
     <tbody>
       <tr><td>Earthrarest.com (aggregated)</td><td>&ge;99.99%</td><td class="mono">~640</td><td>3-mo spot avg, CN</td><td>Aggregates SMM data [22]</td></tr>
       <tr><td>SMM (Jan&thinsp;2026)</td><td>&ge;99.99%</td><td class="mono">~653</td><td>China domestic ex-VAT</td><td>Most authoritative benchmark [18]</td></tr>
-      <tr><td>Alibaba (low end)</td><td>~99.9%</td><td class="mono">690&ndash;900</td><td>FOB China</td><td>Various suppliers [23]</td></tr>
-      <tr><td>BusinessAnalytiq (Mar&thinsp;2026)</td><td>&mdash;</td><td class="mono">707</td><td>NE Asia</td><td>&minus;0.5% m/m [19]</td></tr>
+      <tr><td>Alibaba (low end)</td><td>~99.9%</td><td class="mono">690 to 900</td><td>FOB China</td><td>Various suppliers [23]</td></tr>
+      <tr><td>BusinessAnalytiq (Mar&thinsp;2026)</td><td>n/a</td><td class="mono">707</td><td>NE Asia</td><td>&minus;0.5% m/m [19]</td></tr>
       <tr><td>SMM (Jan&thinsp;2026, incl. VAT)</td><td>&ge;99.99%</td><td class="mono">~738</td><td>China domestic</td><td>With 13% VAT [18]</td></tr>
-      <tr><td>Ganzhou Wanfeng (M-I-C)</td><td>99.9%</td><td class="mono">800&ndash;1,100</td><td>FOB China</td><td>MOQ 1&thinsp;kg; 15 working days [24]</td></tr>
-      <tr><td>IMARC Q3&thinsp;2025</td><td>&mdash;</td><td class="mono">875</td><td>China regional</td><td>Blended forms; peak pricing [25]</td></tr>
+      <tr><td>Ganzhou Wanfeng (M-I-C)</td><td>99.9%</td><td class="mono">800 to 1,100</td><td>FOB China</td><td>MOQ 1&thinsp;kg; 15 working days [24]</td></tr>
+      <tr><td>IMARC Q3&thinsp;2025</td><td>n/a</td><td class="mono">875</td><td>China regional</td><td>Blended forms; peak pricing [25]</td></tr>
       <tr><td>Ganzhou Wanfeng (M-I-C)</td><td>99.99%</td><td class="mono">1,200+</td><td>FOB China</td><td>MOQ 1&thinsp;kg [24]</td></tr>
-      <tr><td>Alibaba (high purity)</td><td>99.99%+</td><td class="mono">2,500&ndash;5,000</td><td>FOB China</td><td>Small lots [23]</td></tr>
+      <tr><td>Alibaba (high purity)</td><td>99.99%+</td><td class="mono">2,500 to 5,000</td><td>FOB China</td><td>Small lots [23]</td></tr>
     </tbody>
   </table>
 </div>
@@ -207,17 +207,17 @@ permalink: /elements/Lu/
         <td>US</td><td>Retail</td><td>Serialised 1 troy oz ingot; $465; <strong>sold out</strong> [31]</td>
       </tr>
       <tr>
-        <td>&mdash;</td><td>99.9%</td><td class="mono">&mdash;</td><td>50&thinsp;mm rod</td>
+        <td>n/a</td><td>99.9%</td><td class="mono">n/a</td><td>50&thinsp;mm rod</td>
         <td><a href="https://chemsavers.com" class="supplier-link" target="_blank" rel="noopener">Chemsavers</a></td>
         <td>US</td><td>Lab-grade</td><td>6.35&thinsp;mm dia. rod, $1,868 per 50&thinsp;mm length [32]</td>
       </tr>
     </tbody>
   </table>
-  <p class="table-note">Widespread stock depletion across Western retailers. Luciteria lists seven Lu products all &ldquo;get notified when in stock.&rdquo; Sigma-Aldrich shows &ldquo;pricing and availability not currently available&rdquo; for 99.99% dendritic pieces &mdash; a likely indicator of supply disruption.</p>
+  <p class="table-note">Widespread stock depletion across Western retailers. Luciteria lists seven Lu products all &ldquo;get notified when in stock.&rdquo; Sigma-Aldrich shows &ldquo;pricing and availability not currently available&rdquo; for 99.99% dendritic pieces, a likely indicator of supply disruption.</p>
 </div>
 
 <div class="element-section info-block">
-  <h2 class="section-title">Oxide Offers (Lu<sub>2</sub>O<sub>3</sub>) &mdash; Laboratory Retail</h2>
+  <h2 class="section-title">Oxide Offers (Lu<sub>2</sub>O<sub>3</sub>): Laboratory Retail</h2>
   <table class="data-table">
     <thead>
       <tr><th>Date</th><th>Purity</th><th>$/kg</th><th>Qty</th><th>Seller</th><th>Country</th><th>Category</th><th>Notes</th></tr>
@@ -273,15 +273,15 @@ permalink: /elements/Lu/
   <div class="notes-block">
     <div class="note-item note-caution">
       <strong>Export controls are permanent and fully enforced</strong>
-      Announcement No.&thinsp;18/2025 has no sunset clause. It was one of the first seven elements controlled in April 2025 and was explicitly excluded from the November 2025 suspension. Multiple international law firms have confirmed it &ldquo;has not been suspended&rdquo; [4][5]. Chinese customs enforcement surged 248% in 2025, and Japan formally complained at the WTO about licence processing delays [35]. The USGS disruption model for lutetium required imposing a price ceiling to prevent mathematical divergence &mdash; a unique indicator of extreme supply vulnerability [21].
+      Announcement No.&thinsp;18/2025 has no sunset clause. It was one of the first seven elements controlled in April 2025 and was explicitly excluded from the November 2025 suspension. Multiple international law firms have confirmed it &ldquo;has not been suspended&rdquo; [4][5]. Chinese customs enforcement surged 248% in 2025, and Japan formally complained at the WTO about licence processing delays [35]. The USGS disruption model for lutetium required imposing a price ceiling to prevent mathematical divergence, a unique indicator of extreme supply vulnerability [21].
     </div>
     <div class="note-item note-caution">
       <strong>Retail inventory depletion signals real supply stress</strong>
-      The most telling indicator is not the commodity benchmark (which rose only 10&ndash;15%) but the retail picture: Luciteria, RWMM, and Metallos.de are all sold out of lutetium metal. Sigma-Aldrich shows disrupted availability for high-purity Lu. The best-stocked remaining Western retailer (Smart-Elements, Vienna) holds only tens of grams across all products [28]. Ex-China small-lot specialty pricing has reached $10,000&ndash;16,000/kg &mdash; 10&ndash;20&times; the Chinese domestic benchmark [20].
+      The most telling indicator is not the commodity benchmark (which rose only 10 to 15%) but the retail picture: Luciteria, RWMM, and Metallos.de are all sold out of lutetium metal. Sigma-Aldrich shows disrupted availability for high-purity Lu. The best-stocked remaining Western retailer (Smart-Elements, Vienna) holds only tens of grams across all products [28]. Ex-China small-lot specialty pricing has reached $10,000 to 16,000/kg, 10 to 20&times; the Chinese domestic benchmark [20].
     </div>
     <div class="note-item">
       <strong>Extraordinary downstream value multiplier</strong>
-      Raw lutetium oxide worth perhaps $90&ndash;150&thinsp;M globally enables Novartis Lu-177 drugs generating $2.1&thinsp;B in 2024 revenue, a PET scanner industry worth $2.5&thinsp;B in devices and $19.9&thinsp;B in scanning services, and fundamental physics experiments at CERN [7][10][12][36]. The value multiplier from raw material to end application exceeds 50&times; &mdash; among the highest of any element.
+      Raw lutetium oxide worth perhaps $90 to 150&thinsp;M globally enables Novartis Lu-177 drugs generating $2.1&thinsp;B in 2024 revenue, a PET scanner industry worth $2.5&thinsp;B in devices and $19.9&thinsp;B in scanning services, and fundamental physics experiments at CERN [7][10][12][36]. The value multiplier from raw material to end application exceeds 50&times;, among the highest of any element.
     </div>
     <div class="note-item">
       <strong>Lutetium hydride superconductivity claim: discredited</strong>
@@ -300,33 +300,33 @@ permalink: /elements/Lu/
   <h2 class="section-title">References</h2>
   <ol class="references-list">
     <li id="ref-1">MOFCOM/GAC, Announcement No.&thinsp;18/2025, &ldquo;Export Control of Medium and Heavy Rare Earth Related Items,&rdquo; effective 4&thinsp;Apr&thinsp;2025. <a href="https://english.mofcom.gov.cn" target="_blank" rel="noopener">english.mofcom.gov.cn</a>.</li>
-    <li id="ref-2">Holland &amp; Knight LLP, &ldquo;China&rsquo;s Rare Earth Export Controls: Scope, Implementation, and Impact,&rdquo; Apr&ndash;May&thinsp;2025. <a href="https://www.hklaw.com" target="_blank" rel="noopener">hklaw.com</a>.</li>
+    <li id="ref-2">Holland &amp; Knight LLP, &ldquo;China&rsquo;s Rare Earth Export Controls: Scope, Implementation, and Impact,&rdquo; Apr to May&thinsp;2025. <a href="https://www.hklaw.com" target="_blank" rel="noopener">hklaw.com</a>.</li>
     <li id="ref-3">CIRS Group, &ldquo;MOFCOM Dual-Use Export Licensing: Processing Times and Requirements,&rdquo; 2025. <a href="https://www.cirs-group.com" target="_blank" rel="noopener">cirs-group.com</a>.</li>
     <li id="ref-4">Clark Hill PLC, &ldquo;China&rsquo;s Export Controls: Tracking the Suspensions and Still-Active Measures,&rdquo; Nov&thinsp;2025. <a href="https://www.clarkhill.com" target="_blank" rel="noopener">clarkhill.com</a>.</li>
     <li id="ref-5">Pillsbury Winthrop Shaw Pittman LLP, &ldquo;China Suspends Export Controls on Certain Critical Minerals,&rdquo; Nov&thinsp;2025. <a href="https://www.pillsburylaw.com" target="_blank" rel="noopener">pillsburylaw.com</a>.</li>
     <li id="ref-6">International Energy Agency, &ldquo;European Rare Earth Prices Reach Up to Six Times Chinese Domestic Levels,&rdquo; 2025. <a href="https://www.iea.org" target="_blank" rel="noopener">iea.org</a>.</li>
     <li id="ref-7">Precision Medicine Online, &ldquo;Novartis Pluvicto and Lutathera 2024 Revenue: $2.1 Billion Combined,&rdquo; Feb&thinsp;2026. <a href="https://www.precisionmedicineonline.com" target="_blank" rel="noopener">precisionmedicineonline.com</a>.</li>
     <li id="ref-8">Fierce Pharma, &ldquo;FDA Expands Pluvicto Indication to Pre-Chemotherapy mCRPC,&rdquo; Mar&thinsp;2025. <a href="https://www.fiercepharma.com" target="_blank" rel="noopener">fiercepharma.com</a>.</li>
-    <li id="ref-9">IMARC Group, &ldquo;Lu-177 Radiopharmaceutical Market: Projected $6.4&ndash;14.7 Billion by Early 2030s,&rdquo; 2025&ndash;2026. <a href="https://www.imarcgroup.com" target="_blank" rel="noopener">imarcgroup.com</a>.</li>
+    <li id="ref-9">IMARC Group, &ldquo;Lu-177 Radiopharmaceutical Market: Projected $6.4 to 14.7 Billion by Early 2030s,&rdquo; 2025 to 2026. <a href="https://www.imarcgroup.com" target="_blank" rel="noopener">imarcgroup.com</a>.</li>
     <li id="ref-10">Epic-Scintillator / Wallson, &ldquo;LYSO and LSO Scintillation Crystal Properties,&rdquo; technical reference. <a href="https://www.epic-crystal.com" target="_blank" rel="noopener">epic-crystal.com</a>.</li>
     <li id="ref-11">Siemens Healthineers, &ldquo;Biograph PET/CT Detector Technology,&rdquo; product documentation. <a href="https://www.siemens-healthineers.com" target="_blank" rel="noopener">siemens-healthineers.com</a>.</li>
     <li id="ref-12">Polaris Market Research, &ldquo;PET/CT Scanner Market: ~$2.5 Billion in 2024.&rdquo; <a href="https://www.polarismarketresearch.com" target="_blank" rel="noopener">polarismarketresearch.com</a>.</li>
     <li id="ref-13">CERN, &ldquo;CMS Barrel Timing Layer: LYSO-Based Upgrade for HL-LHC.&rdquo; <a href="https://cms.cern" target="_blank" rel="noopener">cms.cern</a>.</li>
     <li id="ref-14">Thermo Fisher Scientific, Goodfellow, and MSE Supplies product catalogues; Lu₂O₃ applications. Various.</li>
     <li id="ref-15">NovaElements and Made-in-China.com, LuAG phosphor and optics product listings.</li>
-    <li id="ref-16">Earthrarest.com, &ldquo;Lutetium: Market Size, Production, and Supply Chain Overview,&rdquo; 2025&ndash;2026. <a href="https://www.earthrarest.com" target="_blank" rel="noopener">earthrarest.com</a>. Corroborated by RWMM, Luciteria, Wikipedia.</li>
+    <li id="ref-16">Earthrarest.com, &ldquo;Lutetium: Market Size, Production, and Supply Chain Overview,&rdquo; 2025 to 2026. <a href="https://www.earthrarest.com" target="_blank" rel="noopener">earthrarest.com</a>. Corroborated by RWMM, Luciteria, Wikipedia.</li>
     <li id="ref-17">DiscoveryAlert, &ldquo;China&rsquo;s Heavy Rare Earth Separation Capacity,&rdquo; 2025. <a href="https://www.discoveryalert.com.au" target="_blank" rel="noopener">discoveryalert.com.au</a>.</li>
     <li id="ref-18">Shanghai Metals Market (SMM), Lu₂O₃ 4N pricing, Jan&thinsp;2026. CNY&thinsp;5,150/kg (~$653 ex-VAT, ~$738 with VAT).</li>
     <li id="ref-19">BusinessAnalytiq, &ldquo;Lutetium Oxide Price Index,&rdquo; $706.88/kg NE Asia, Mar&thinsp;2026. <a href="https://businessanalytiq.com" target="_blank" rel="noopener">businessanalytiq.com</a>.</li>
-    <li id="ref-20">Raremetals.net, small-lot specialty pricing: $10,000&ndash;12,000/kg FOB China, $14,000&ndash;16,000/kg European spot, May&thinsp;2025. <a href="https://www.raremetals.net" target="_blank" rel="noopener">raremetals.net</a>.</li>
+    <li id="ref-20">Raremetals.net, small-lot specialty pricing: $10,000 to 12,000/kg FOB China, $14,000 to 16,000/kg European spot, May&thinsp;2025. <a href="https://www.raremetals.net" target="_blank" rel="noopener">raremetals.net</a>.</li>
     <li id="ref-21">USGS, Mineral Commodity Summaries: Rare Earths, Jan&thinsp;2025. &ldquo;Highest risk&rdquo; designation; price ceiling required for disruption model. <a href="https://pubs.usgs.gov" target="_blank" rel="noopener">pubs.usgs.gov</a>.</li>
     <li id="ref-22">Earthrarest.com, 3-month Lu₂O₃ spot average, ~$640/kg. <a href="https://www.earthrarest.com" target="_blank" rel="noopener">earthrarest.com</a>.</li>
-    <li id="ref-23">Various Alibaba listings: Lu₂O₃ $690&ndash;$5,000/kg depending on purity and lot size, surveyed Mar&thinsp;2026.</li>
+    <li id="ref-23">Various Alibaba listings: Lu₂O₃ $690 to $5,000/kg depending on purity and lot size, surveyed Mar&thinsp;2026.</li>
     <li id="ref-24">Ganzhou Wanfeng Advanced Materials, Made-in-China.com listing: Lu₂O₃ and Lu metal, MOQ 1&thinsp;kg, FOB Shanghai/Qingdao.</li>
     <li id="ref-25">IMARC Group, Q3&thinsp;2025 regional data: China at $874.50/kg. <a href="https://www.imarcgroup.com" target="_blank" rel="noopener">imarcgroup.com</a>.</li>
     <li id="ref-26">eBay marketplace listings (Luciteria, chineseelements, bacy6014, NovaElements), surveyed Mar&thinsp;2026.</li>
     <li id="ref-27"><a href="https://peguys.com" target="_blank" rel="noopener">PEGUYS LLC</a>. Lu metal 1&thinsp;g listing, Mar&thinsp;2026.</li>
-    <li id="ref-28"><a href="https://smart-elements.com" target="_blank" rel="noopener">Smart-Elements GmbH</a>, Vienna. Lu metal product listings (0.85&ndash;24.75&thinsp;g), Mar&thinsp;2026.</li>
+    <li id="ref-28"><a href="https://smart-elements.com" target="_blank" rel="noopener">Smart-Elements GmbH</a>, Vienna. Lu metal product listings (0.85 to 24.75&thinsp;g), Mar&thinsp;2026.</li>
     <li id="ref-29"><a href="https://www.thermofisher.com" target="_blank" rel="noopener">Thermo Fisher Scientific / Alfa Aesar</a>. Lu metal and Lu₂O₃ listings, Mar&thinsp;2026.</li>
     <li id="ref-30"><a href="https://metallos.de" target="_blank" rel="noopener">Metallos.de</a>. Lu metal 1&thinsp;kg listing, &euro;3,499; sold out, Mar&thinsp;2026.</li>
     <li id="ref-31"><a href="https://rwmmint.com" target="_blank" rel="noopener">Rare World Metals Mint (RWMM)</a>. Lu 1 troy oz serialised ingot, $465; sold out, Mar&thinsp;2026.</li>

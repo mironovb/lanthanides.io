@@ -4,7 +4,7 @@ symbol: Zr
 name: Zirconium
 atomic_number: 40
 category: strategic_metal
-title: "Zirconium Price 2026 — Sponge, Metal & ZrO₂ per kg"
+title: "Zirconium Price 2026: Sponge, Metal & ZrO₂ per kg"
 description: "Zirconium sponge and oxide price per kg. Critical for nuclear fuel cladding (zircaloy), hafnium-free reactor grade, and advanced structural ceramics."
 keywords: "zirconium price, zirconium price per kg, zirconium sponge price, zirconium oxide price, ZrO2 price, zircaloy price, buy zirconium, nuclear fuel cladding"
 element_name: "Zirconium"
@@ -32,7 +32,7 @@ permalink: /elements/Zr/
       <tr>
         <td>Ceramic opacifier</td>
         <td>Milled zircon in ceramic glazes and tiles</td>
-        <td>White opacifier in ceramic floor and wall tiles &mdash; the largest single zircon end-use globally</td>
+        <td>White opacifier in ceramic floor and wall tiles, the largest single zircon end-use globally</td>
       </tr>
       <tr>
         <td>Advanced ceramics</td>
@@ -76,15 +76,15 @@ permalink: /elements/Zr/
       </div>
       <div class="stat-row">
         <span class="stat-label">Zircon FOB benchmark</span>
-        <span class="stat-value">$1,500&ndash;$2,200/t (premium)</span>
+        <span class="stat-value">$1,500 to $2,200/t (premium)</span>
       </div>
       <div class="stat-row">
         <span class="stat-label">Zr sponge (nuclear)</span>
-        <span class="stat-value">$60&ndash;$120/kg</span>
+        <span class="stat-value">$60 to $120/kg</span>
       </div>
       <div class="stat-row">
         <span class="stat-label">Retail metal (1&thinsp;kg)</span>
-        <span class="stat-value">$80&ndash;$300/kg</span>
+        <span class="stat-value">$80 to $300/kg</span>
       </div>
     </div>
   </div>

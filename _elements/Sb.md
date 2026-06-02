@@ -4,7 +4,7 @@ symbol: Sb
 name: Antimony
 atomic_number: 51
 category: strategic_metal
-title: "Antimony Price 2026 — Metal Ingot & Sb₂O₃ per kg"
+title: "Antimony Price 2026: Metal Ingot & Sb₂O₃ per kg"
 description: "Antimony metal and trioxide price per kg. Used in flame retardants, ammunition primers, and lead-acid batteries. Active Chinese export controls."
 keywords: "antimony price, antimony price per kg, antimony metal price, antimony trioxide price, Sb2O3 price, antimony export controls, buy antimony, flame retardant"
 element_name: "Antimony"
@@ -18,7 +18,7 @@ permalink: /elements/Sb/
     <p>Antimony has been under Chinese MOFCOM export licensing since 15&thinsp;August&thinsp;2024 (Announcement No.&thinsp;33/2024) [2]. On 3&thinsp;December&thinsp;2024, MOFCOM Announcement No.&thinsp;46/2024 banned all dual-use Sb exports to the United States outright [3]. The October&thinsp;2025 escalation tightened licensing further; Article&thinsp;2 of No.&thinsp;46/2024 was suspended on 9&thinsp;November&thinsp;2025 by Announcement No.&thinsp;72/2025 until 28&thinsp;November&thinsp;2026 [4], but the No.&thinsp;33/2024 baseline licence requirement remains in force.</p>
     <p>Western antimony spot prices roughly tripled between mid-2024 and Q4 2025, from ~$12,000/t to over $38,000/t.</p>
   </div>
-  <div class="banner-key-date">Key date: 28&thinsp;November&thinsp;2026 &mdash; US-targeted ban suspension expires.</div>
+  <div class="banner-key-date">Key date: 28&thinsp;November&thinsp;2026, US-targeted ban suspension expires.</div>
 </div>
 
 <div class="element-section info-block">
@@ -35,7 +35,7 @@ permalink: /elements/Sb/
       </tr>
       <tr>
         <td>Lead-acid batteries</td>
-        <td>Sb hardener in Pb&ndash;Sb grid alloys</td>
+        <td>Sb hardener in Pb-Sb grid alloys</td>
         <td>Improves grid strength and casting in starter, deep-cycle, and stationary lead-acid batteries</td>
       </tr>
       <tr>
@@ -46,7 +46,7 @@ permalink: /elements/Sb/
       <tr>
         <td>Photovoltaic glass</td>
         <td>Sb<sub>2</sub>O<sub>3</sub> as a solar-glass clarifying agent</td>
-        <td>Improves transmittance of cover glass for crystalline-silicon PV modules &mdash; the fastest-growing Sb segment</td>
+        <td>Improves transmittance of cover glass for crystalline-silicon PV modules, the fastest-growing Sb segment</td>
       </tr>
       <tr>
         <td>PET catalyst</td>
@@ -89,11 +89,11 @@ permalink: /elements/Sb/
       </div>
       <div class="stat-row">
         <span class="stat-label">Q4 2025 spot</span>
-        <span class="stat-value">$38,000&ndash;$42,000/t</span>
+        <span class="stat-value">$38,000 to $42,000/t</span>
       </div>
       <div class="stat-row">
         <span class="stat-label">Retail metal (gram-scale)</span>
-        <span class="stat-value">$200&ndash;$1,800/kg</span>
+        <span class="stat-value">$200 to $1,800/kg</span>
       </div>
     </div>
   </div>
@@ -114,7 +114,7 @@ permalink: /elements/Sb/
     </div>
     <div class="note-item">
       <strong>Defence stockpile pressure</strong>
-      The US Defense Logistics Agency holds a small Sb stockpile and has issued multiple FY2024&ndash;2026 solicitations to rebuild it. Domestic production is restarting at Perpetua Resources&rsquo; Stibnite Gold project in Idaho but is not expected before 2028.
+      The US Defense Logistics Agency holds a small Sb stockpile and has issued multiple FY2024 to 2026 solicitations to rebuild it. Domestic production is restarting at Perpetua Resources&rsquo; Stibnite Gold project in Idaho but is not expected before 2028.
     </div>
     <div class="note-item">
       <strong>Tripled spot price</strong>
@@ -135,7 +135,7 @@ permalink: /elements/Sb/
     <li id="ref-1">Wolfram Alpha, &ldquo;Antimony element.&rdquo; <a href="https://www.wolframalpha.com/input?i=antimony+element" target="_blank" rel="noopener">wolframalpha.com</a>.</li>
     <li id="ref-2">MOFCOM Announcement No.&thinsp;33 of 2024, &ldquo;Export Control of Antimony and Superhard Material Related Items,&rdquo; effective 15&thinsp;August&thinsp;2024.</li>
     <li id="ref-3">MOFCOM Announcement No.&thinsp;46 of 2024, &ldquo;Strengthening Export Controls on Dual-Use Items to the United States,&rdquo; 3&thinsp;December&thinsp;2024.</li>
-    <li id="ref-4">MOFCOM Announcements No.&thinsp;70 and 72 of 2025 (suspension orders), 7&ndash;9&thinsp;November&thinsp;2025.</li>
+    <li id="ref-4">MOFCOM Announcements No.&thinsp;70 and 72 of 2025 (suspension orders), 7 to 9&thinsp;November&thinsp;2025.</li>
     <li id="ref-5">United States Geological Survey, <em>Mineral Commodity Summaries 2025: Antimony</em>, January&thinsp;2025.</li>
   </ol>
 </div>

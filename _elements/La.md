@@ -4,7 +4,7 @@ symbol: La
 name: Lanthanum
 atomic_number: 57
 category: rare_earth_light
-title: "Lanthanum Price 2026 — Metal & Oxide (La₂O₃) per kg"
+title: "Lanthanum Price 2026: Metal & Oxide (La₂O₃) per kg"
 description: "Lanthanum metal and oxide price per kg with retail and bulk benchmarks. Used in FCC catalysts, NiMH batteries, and high-index optical glass."
 keywords: "lanthanum price, lanthanum price per kg, lanthanum metal price, lanthanum oxide price, La2O3 price, FCC catalyst, buy lanthanum"
 element_name: "Lanthanum"
@@ -76,15 +76,15 @@ permalink: /elements/La/
       </div>
       <div class="stat-row">
         <span class="stat-label">Oxide bulk benchmark</span>
-        <span class="stat-value">$2&ndash;$4/kg (FOB China)</span>
+        <span class="stat-value">$2 to $4/kg (FOB China)</span>
       </div>
       <div class="stat-row">
         <span class="stat-label">Oxide retail (1&thinsp;kg)</span>
-        <span class="stat-value">$30&ndash;$60/kg</span>
+        <span class="stat-value">$30 to $60/kg</span>
       </div>
       <div class="stat-row">
         <span class="stat-label">Metal retail (gram-scale)</span>
-        <span class="stat-value">$300&ndash;$1,500/kg</span>
+        <span class="stat-value">$300 to $1,500/kg</span>
       </div>
     </div>
   </div>
@@ -105,7 +105,7 @@ permalink: /elements/La/
     </div>
     <div class="note-item">
       <strong>FCC catalyst demand floor</strong>
-      Refinery FCC unit demand for La-zeolite catalysts establishes a global price floor independent of magnet/EV demand swings. La supply &mdash; like Ce &mdash; is structurally co-produced with Nd/Pr, so chronic oversupply persists when magnet demand drives the basket.
+      Refinery FCC unit demand for La-zeolite catalysts establishes a global price floor independent of magnet/EV demand swings. La supply, like Ce, is structurally co-produced with Nd/Pr, so chronic oversupply persists when magnet demand drives the basket.
     </div>
     <div class="note-item">
       <strong>NiMH legacy decline</strong>

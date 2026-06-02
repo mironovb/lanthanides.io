@@ -4,7 +4,7 @@ symbol: Sc
 name: Scandium
 atomic_number: 21
 category: rare_earth_light
-title: "Scandium Price 2026 — Metal & Oxide (Sc₂O₃) per kg"
+title: "Scandium Price 2026: Metal & Oxide (Sc₂O₃) per kg"
 description: "Scandium metal at $5,250/kg EXW China. 14+ retail sources surveyed. Active export controls under MOFCOM No. 18/2025. Rio Tinto sole non-Chinese source."
 keywords: "scandium price, scandium price per kg, scandium metal price, scandium oxide price, Sc2O3 price, scandium export controls, buy scandium"
 element_name: "Scandium"
@@ -15,10 +15,10 @@ permalink: /elements/Sc/
 <div class="regulatory-banner banner-active">
   <div class="banner-title">Active Export Control</div>
   <div class="banner-body">
-    <p>MOFCOM/GAC Announcement No.&thinsp;18/2025 (effective 4&thinsp;April&thinsp;2025) controls all scandium forms &mdash; metal, oxide, alloys, compounds &mdash; under item 1C907 [2]. Controls apply to <em>all countries</em> and require case-by-case licensing. These controls were never suspended.</p>
+    <p>MOFCOM/GAC Announcement No.&thinsp;18/2025 (effective 4&thinsp;April&thinsp;2025) controls all scandium forms (metal, oxide, alloys, compounds) under item 1C907 [2]. Controls apply to <em>all countries</em> and require case-by-case licensing. These controls were never suspended.</p>
     <p>China&rsquo;s expanded October&thinsp;2025 controls (equipment, technology, and an extraterritorial FDPR covering &ge;0.1% China-origin rare earths) are suspended until 10&thinsp;November&thinsp;2026 [9]. Reinstatement could shut off remaining scandium flows entirely.</p>
   </div>
-  <div class="banner-key-date">Key date: 10&thinsp;November&thinsp;2026 &mdash; expanded controls suspension expires.</div>
+  <div class="banner-key-date">Key date: 10&thinsp;November&thinsp;2026, expanded controls suspension expires.</div>
 </div>
 
 <div class="element-section info-block">
@@ -30,7 +30,7 @@ permalink: /elements/Sc/
     <tbody>
       <tr>
         <td>Aerospace alloys</td>
-        <td>Al&ndash;Sc master alloys (2%&thinsp;Sc); grain refinement</td>
+        <td>Al-Sc master alloys (2%&thinsp;Sc); grain refinement</td>
         <td>High-strength weldable aluminium for fighter jets, spacecraft [3]</td>
       </tr>
       <tr>
@@ -50,7 +50,7 @@ permalink: /elements/Sc/
       </tr>
       <tr>
         <td>Defence</td>
-        <td>Al&ndash;Sc alloys for lightweight armour, missiles, naval structures</td>
+        <td>Al-Sc alloys for lightweight armour, missiles, naval structures</td>
         <td>DLA seeking $40M Sc<sub>2</sub>O<sub>3</sub> for National Defense Stockpile [3]</td>
       </tr>
     </tbody>
@@ -93,7 +93,7 @@ permalink: /elements/Sc/
       </div>
       <div class="stat-row">
         <span class="stat-label">Oxide post-controls</span>
-        <span class="stat-value">$3,500&ndash;$4,200/kg [5]</span>
+        <span class="stat-value">$3,500 to $4,200/kg [5]</span>
       </div>
     </div>
   </div>
@@ -108,7 +108,7 @@ permalink: /elements/Sc/
         <td>Rio Tinto (Sorel-Tracy)</td>
         <td>Quebec, Canada</td>
         <td>12&thinsp;t/year</td>
-        <td>Operating &mdash; only significant non-Chinese source [3]</td>
+        <td>Operating, only significant non-Chinese source [3]</td>
       </tr>
       <tr>
         <td>NioCorp (Elk Creek)</td>
@@ -136,7 +136,7 @@ permalink: /elements/Sc/
       </tr>
     </tbody>
   </table>
-  <p class="table-note">Non-Chinese production not expected at scale until 2027&ndash;2029. Analysts warn of 30&ndash;50% further price spikes if China&rsquo;s controls escalate post-November&thinsp;2026 [5].</p>
+  <p class="table-note">Non-Chinese production not expected at scale until 2027 to 2029. Analysts warn of 30 to 50% further price spikes if China&rsquo;s controls escalate post-November&thinsp;2026 [5].</p>
 </div>
 
 <div class="element-section info-block">
@@ -198,7 +198,7 @@ permalink: /elements/Sc/
       </tr>
     </tbody>
   </table>
-  <p class="table-note">Chinese bulk quotes (~$5,000/kg) are roughly half the Western retail rate but require a 4-month export licensing process with no guarantee of approval [2]. Smart-Elements also offers 2&ndash;8% volume discounts and a 10% coupon code (GETMINUS10NOW) [7].</p>
+  <p class="table-note">Chinese bulk quotes (~$5,000/kg) are roughly half the Western retail rate but require a 4-month export licensing process with no guarantee of approval [2]. Smart-Elements also offers 2 to 8% volume discounts and a 10% coupon code (GETMINUS10NOW) [7].</p>
 </div>
 
 <div class="element-section info-block">
@@ -214,9 +214,9 @@ permalink: /elements/Sc/
         <td>US</td><td>Retail</td><td>Pre-controls benchmark [3]</td>
       </tr>
       <tr>
-        <td>2026-03</td><td>various</td><td class="mono">3,500&ndash;4,200</td><td>bulk</td>
+        <td>2026-03</td><td>various</td><td class="mono">3,500 to 4,200</td><td>bulk</td>
         <td>International market (est.)</td>
-        <td>&mdash;</td><td>Benchmark</td><td>Post-April 2025; +35&ndash;40% [5]</td>
+        <td>n/a</td><td>Benchmark</td><td>Post-April 2025; +35 to 40% [5]</td>
       </tr>
       <tr>
         <td>2026-03</td><td>99.99%</td><td class="mono">4,370</td><td>~1&thinsp;kg</td>
@@ -229,7 +229,7 @@ permalink: /elements/Sc/
         <td>US</td><td>Lab-grade</td><td>5N research grade [8]</td>
       </tr>
       <tr>
-        <td>2026-03</td><td>99.9&ndash;99.99%</td><td class="mono">650&ndash;3,500</td><td>1&ndash;5&thinsp;kg</td>
+        <td>2026-03</td><td>99.9 to 99.99%</td><td class="mono">650 to 3,500</td><td>1 to 5&thinsp;kg</td>
         <td>Alibaba (China)</td>
         <td>CN</td><td>Wholesale</td><td>Availability uncertain under controls [2]</td>
       </tr>
@@ -241,12 +241,12 @@ permalink: /elements/Sc/
   <h2 class="section-title">Gallery</h2>
   <div class="photo-gallery">
     <figure class="gallery-figure">
-      <div class="gallery-placeholder">Sc metal &mdash; dendritic crystalline</div>
+      <div class="gallery-placeholder">Sc metal, dendritic crystalline</div>
       <figcaption><strong>Fig.&thinsp;1.</strong> Dendritic crystalline scandium metal, 99.99% (4N), ~6&thinsp;g specimen. Dendritic growth is characteristic of vacuum-distilled scandium. Source: Smart-Elements GmbH [7].</figcaption>
     </figure>
     <figure class="gallery-figure">
       <div class="gallery-placeholder">Sc<sub>2</sub>O<sub>3</sub> powder</div>
-      <figcaption><strong>Fig.&thinsp;2.</strong> Scandium oxide (Sc<sub>2</sub>O<sub>3</sub>), white crystalline powder, 99.99%. Primary trade form for SOFC electrolytes and Al&ndash;Sc master alloy feedstock.</figcaption>
+      <figcaption><strong>Fig.&thinsp;2.</strong> Scandium oxide (Sc<sub>2</sub>O<sub>3</sub>), white crystalline powder, 99.99%. Primary trade form for SOFC electrolytes and Al-Sc master alloy feedstock.</figcaption>
     </figure>
   </div>
 </div>
@@ -256,11 +256,11 @@ permalink: /elements/Sc/
   <div class="notes-block">
     <div class="note-item note-warning">
       <strong>Export controls in force</strong>
-      MOFCOM/GAC Announcement No.&thinsp;18/2025 (effective 4&thinsp;April&thinsp;2025) controls all scandium forms &mdash; metal, oxide, alloys, compounds &mdash; under item 1C907 [2]. Controls apply to <em>all countries</em> and require case-by-case licensing. These controls were never suspended.
+      MOFCOM/GAC Announcement No.&thinsp;18/2025 (effective 4&thinsp;April&thinsp;2025) controls all scandium forms (metal, oxide, alloys, compounds) under item 1C907 [2]. Controls apply to <em>all countries</em> and require case-by-case licensing. These controls were never suspended.
     </div>
     <div class="note-item">
       <strong>Price bifurcation</strong>
-      Chinese bulk metal at $4,500&ndash;$5,250/kg requires a 4-month licensing process with no guarantee of approval. Western retail starts at ~$9,700/kg. Laboratory-grade scandium (Alfa Aesar, 2&thinsp;g) reaches $261/g &mdash; a 50&times; markup over Chinese bulk [3].
+      Chinese bulk metal at $4,500 to $5,250/kg requires a 4-month licensing process with no guarantee of approval. Western retail starts at ~$9,700/kg. Laboratory-grade scandium (Alfa Aesar, 2&thinsp;g) reaches $261/g, a 50&times; markup over Chinese bulk [3].
     </div>
     <div class="note-item">
       <strong>Supply deficit</strong>
@@ -281,7 +281,7 @@ permalink: /elements/Sc/
     <li id="ref-1">Wolfram Alpha, &ldquo;Scandium element.&rdquo; <a href="https://www.wolframalpha.com/input?i=scandium+element" target="_blank" rel="noopener">wolframalpha.com</a>.</li>
     <li id="ref-2">Ministry of Commerce / General Administration of Customs of the People&rsquo;s Republic of China, Announcement No.&thinsp;18 of 2025, &ldquo;Export Control of Medium and Heavy Rare Earth Related Items,&rdquo; 4&thinsp;April&thinsp;2025.</li>
     <li id="ref-3">United States Geological Survey, <em>Mineral Commodity Summaries 2025: Scandium</em>, January&thinsp;2025.</li>
-    <li id="ref-4">NioCorp Developments Ltd., corporate filings and investor presentations, 2025&ndash;2026. <a href="https://niocorp.com" target="_blank" rel="noopener">niocorp.com</a>.</li>
+    <li id="ref-4">NioCorp Developments Ltd., corporate filings and investor presentations, 2025 to 2026. <a href="https://niocorp.com" target="_blank" rel="noopener">niocorp.com</a>.</li>
     <li id="ref-5">DiscoveryAlert / Rare Earth Exchanges, &ldquo;Scandium supply impact assessment post-April 2025 controls,&rdquo; various reports, 2025.</li>
     <li id="ref-6">United States Department of Defense, &ldquo;DoD Awards $29.9M to ElementUS Minerals for Domestic Gallium and Scandium Production,&rdquo; November&thinsp;2025.</li>
     <li id="ref-7">Smart-Elements GmbH, Vienna, Austria. <a href="https://smart-elements.com" target="_blank" rel="noopener">smart-elements.com</a>.</li>

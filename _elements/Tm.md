@@ -4,7 +4,7 @@ symbol: Tm
 name: Thulium
 atomic_number: 69
 category: rare_earth_heavy
-title: "Thulium Price 2026 — Metal & Oxide (Tm₂O₃) per kg"
+title: "Thulium Price 2026: Metal & Oxide (Tm₂O₃) per kg"
 description: "Thulium metal at $1,750/kg EXW China. 19 retailers surveyed. Chinese production cannot reach 4N purity. Suspended controls, 3-week export licence."
 keywords: "thulium price, thulium price per kg, thulium metal price, thulium oxide price, Tm2O3 price, thulium export controls, buy thulium"
 element_name: "Thulium"
@@ -13,24 +13,24 @@ permalink: /elements/Tm/
 ---
 
 <div class="regulatory-banner banner-suspended">
-  <div class="banner-title">Suspended Export Control &mdash; Regulation exists but is not enforced</div>
+  <div class="banner-title">Suspended Export Control: Regulation exists but is not enforced</div>
   <div class="banner-body">
     <p>Thulium was <strong>not</strong> included in China&rsquo;s April&thinsp;4, 2025 export controls (Announcement No.&thinsp;18/2025), which restricted Sm, Gd, Tb, Dy, Lu, Sc, and Y [3].</p>
     <p>Thulium <strong>was</strong> added on October&thinsp;9, 2025 (Announcement No.&thinsp;57/2025, item 1C909) covering metallic Tm, Tm alloys, Tm targets, Tm crystal and magnetic refrigeration materials, and all Tm oxides and compounds [4][5].</p>
-    <p>Announcement No.&thinsp;57 was <strong>suspended</strong> before taking effect. MOFCOM Announcement No.&thinsp;70 (7&thinsp;November&thinsp;2025) paused all six October&thinsp;9 announcements until 10&thinsp;November&thinsp;2026 [6]. The regulation is legally intact but unenforced. Until the suspension expires, standard export licences apply (~3-week processing time, compared to 4&ndash;6 months for April-controlled elements).</p>
+    <p>Announcement No.&thinsp;57 was <strong>suspended</strong> before taking effect. MOFCOM Announcement No.&thinsp;70 (7&thinsp;November&thinsp;2025) paused all six October&thinsp;9 announcements until 10&thinsp;November&thinsp;2026 [6]. The regulation is legally intact but unenforced. Until the suspension expires, standard export licences apply (~3-week processing time, compared to 4 to 6 months for April-controlled elements).</p>
     <p>Separately, China&rsquo;s Rare Earth Management Regulations (effective 1&thinsp;October&thinsp;2024) impose domestic traceability, production quotas, and supply-chain controls on all 17 rare earth elements including thulium [7]. These were never suspended.</p>
     <table class="data-table" style="margin-top: 12px;">
       <thead>
         <tr><th>Instrument</th><th>Covers Tm?</th><th>Status (March 2026)</th></tr>
       </thead>
       <tbody>
-        <tr><td>No.&thinsp;18/2025 (April 2025)</td><td>No</td><td>Active &mdash; does not apply</td></tr>
+        <tr><td>No.&thinsp;18/2025 (April 2025)</td><td>No</td><td>Active, does not apply</td></tr>
         <tr><td>No.&thinsp;57/2025 (October 2025)</td><td>Yes</td><td>Suspended until 10&thinsp;Nov&thinsp;2026</td></tr>
-        <tr><td>RE Management Regs (2024)</td><td>Yes</td><td>Active &mdash; domestic controls</td></tr>
+        <tr><td>RE Management Regs (2024)</td><td>Yes</td><td>Active, domestic controls</td></tr>
       </tbody>
     </table>
   </div>
-  <div class="banner-key-date">Key date: 10&thinsp;November&thinsp;2026 &mdash; suspension expires. Controls can reactivate without new legislation.</div>
+  <div class="banner-key-date">Key date: 10&thinsp;November&thinsp;2026, suspension expires. Controls can reactivate without new legislation.</div>
 </div>
 
 <div class="element-section info-block">
@@ -52,7 +52,7 @@ permalink: /elements/Tm/
       </tr>
       <tr>
         <td>Thulium-doped fibre amplifiers (TDFAs)</td>
-        <td>Optical gain in the S-band (1,460&ndash;1,530&thinsp;nm); extends usable telecom spectrum beyond C- and L-band</td>
+        <td>Optical gain in the S-band (1,460 to 1,530&thinsp;nm); extends usable telecom spectrum beyond C- and L-band</td>
         <td>Critical enabler for future wideband wavelength-division multiplexing; no established substitute at this wavelength [11]</td>
       </tr>
       <tr>
@@ -75,7 +75,7 @@ permalink: /elements/Tm/
     <div class="market-stats">
       <div class="stat-row">
         <span class="stat-label">Global Tm₂O₃ output</span>
-        <span class="stat-value">~200&ndash;300&thinsp;t/y (estimated) [13]</span>
+        <span class="stat-value">~200 to 300&thinsp;t/y (estimated) [13]</span>
       </div>
       <div class="stat-row">
         <span class="stat-label">China refined supply share</span>
@@ -83,7 +83,7 @@ permalink: /elements/Tm/
       </div>
       <div class="stat-row">
         <span class="stat-label">Illegal-mining share of CN output</span>
-        <span class="stat-value">80.7% (2011&ndash;2020 cumulative) [15]</span>
+        <span class="stat-value">80.7% (2011 to 2020 cumulative) [15]</span>
       </div>
       <div class="stat-row">
         <span class="stat-label">Oxide FOB, direct sellers</span>
@@ -101,7 +101,7 @@ permalink: /elements/Tm/
       </div>
       <div class="stat-row">
         <span class="stat-label">4N premium over 3N metal</span>
-        <span class="stat-value">~30&times; &mdash; driven by vacuum sublimation step [18]</span>
+        <span class="stat-value">~30&times;, driven by vacuum sublimation step [18]</span>
       </div>
       <div class="stat-row">
         <span class="stat-label">Retail-to-bulk premium</span>
@@ -187,17 +187,17 @@ permalink: /elements/Tm/
         <td>AT</td><td>Lab-grade</td><td>1&thinsp;g sublimed; unit premium over 5&thinsp;g lot [18]</td>
       </tr>
       <tr>
-        <td>&mdash;</td><td>various</td><td>quote</td><td>&mdash;</td>
+        <td>n/a</td><td>various</td><td>quote</td><td>n/a</td>
         <td><a href="https://www.americanelements.com/tm.html" class="supplier-link" target="_blank" rel="noopener">American Elements</a></td>
         <td>US</td><td>Industrial</td><td>All forms incl. sputtering targets; RFQ only [26]</td>
       </tr>
       <tr>
-        <td>&mdash;</td><td>&ge;99.9%</td><td>quote</td><td>&mdash;</td>
+        <td>n/a</td><td>&ge;99.9%</td><td>quote</td><td>n/a</td>
         <td><a href="https://www.samaterials.com/thulium/" class="supplier-link" target="_blank" rel="noopener">Stanford Advanced Materials</a></td>
         <td>US</td><td>Industrial</td><td>Ingot, foil, rod, powder [27]</td>
       </tr>
       <tr>
-        <td>&mdash;</td><td>various</td><td>quote</td><td>&mdash;</td>
+        <td>n/a</td><td>various</td><td>quote</td><td>n/a</td>
         <td><a href="https://edge-techind.com" class="supplier-link" target="_blank" rel="noopener">Edgetech Industries</a></td>
         <td>US/CN</td><td>Industrial</td><td>Metal, sputtering targets, foil [28]</td>
       </tr>
@@ -233,12 +233,12 @@ permalink: /elements/Tm/
         <td>US</td><td>Lab-grade</td><td>1&thinsp;g lot; 4N Tm₂O₃ [25]</td>
       </tr>
       <tr>
-        <td>&mdash;</td><td>various</td><td>quote</td><td>&mdash;</td>
+        <td>n/a</td><td>various</td><td>quote</td><td>n/a</td>
         <td><a href="https://www.americanelements.com/tm.html" class="supplier-link" target="_blank" rel="noopener">American Elements</a></td>
         <td>US</td><td>Industrial</td><td>Oxide and salts; RFQ only [26]</td>
       </tr>
       <tr>
-        <td>&mdash;</td><td>&ge;99.9%</td><td>quote</td><td>&mdash;</td>
+        <td>n/a</td><td>&ge;99.9%</td><td>quote</td><td>n/a</td>
         <td><a href="https://www.samaterials.com/thulium/" class="supplier-link" target="_blank" rel="noopener">Stanford Advanced Materials</a></td>
         <td>US</td><td>Industrial</td><td>Oxide powder; RFQ [27]</td>
       </tr>
@@ -255,11 +255,11 @@ permalink: /elements/Tm/
     </div>
     <div class="note-item">
       <strong>4N purity ceiling: the vacuum sublimation step</strong>
-      Industrial vacuum metallothermic reduction of Tm₂O₃ yields metal at 99.5&ndash;99.9% (2N5&ndash;3N). Achieving 4N (99.99%) requires a separate vacuum sublimation purification step, made possible by thulium&rsquo;s uniquely low boiling point among lanthanides (1,950&thinsp;&deg;C, compared to &gt;3,000&thinsp;&deg;C for most others). The step is energy-intensive, low-yield, and performed by only a handful of specialised producers worldwide. The result is a ~30&times; price premium for 4N over bulk 3N metal, and a hard practical ceiling on available purity for volume buyers [18][29].
+      Industrial vacuum metallothermic reduction of Tm₂O₃ yields metal at 99.5 to 99.9% (2N5 to 3N). Achieving 4N (99.99%) requires a separate vacuum sublimation purification step, made possible by thulium&rsquo;s uniquely low boiling point among lanthanides (1,950&thinsp;&deg;C, compared to &gt;3,000&thinsp;&deg;C for most others). The step is energy-intensive, low-yield, and performed by only a handful of specialised producers worldwide. The result is a ~30&times; price premium for 4N over bulk 3N metal, and a hard practical ceiling on available purity for volume buyers [18][29].
     </div>
     <div class="note-item">
       <strong>Supply fragility: illegal mining dominance</strong>
-      A 2024 study (Zhang et al., <em>Journal of Industrial Ecology</em>) estimated that 80.7% of China&rsquo;s cumulative thulium production from 2011 to 2020 originated from illegal mining operations [15]. This structural dependence on informal supply chains means the traceability and quota requirements introduced under the 2024 Rare Earth Management Regulations may be difficult to enforce&mdash;and that rigorous application could cause significant supply disruption without any change to export control status.
+      A 2024 study (Zhang et al., <em>Journal of Industrial Ecology</em>) estimated that 80.7% of China&rsquo;s cumulative thulium production from 2011 to 2020 originated from illegal mining operations [15]. This structural dependence on informal supply chains means the traceability and quota requirements introduced under the 2024 Rare Earth Management Regulations may be difficult to enforce, and that rigorous application could cause significant supply disruption without any change to export control status.
     </div>
     <div class="note-item">
       <strong>TFL laser demand: a rapidly growing structural driver</strong>
@@ -277,7 +277,7 @@ permalink: /elements/Tm/
 <div class="element-section info-block">
   <h2 class="section-title">References</h2>
   <ol class="references-list">
-    <li id="ref-1">IMARC Group, &ldquo;Thulium Prices 2026: Market Outlook and Price Analysis,&rdquo; Feb&ndash;Mar&thinsp;2026. <a href="https://www.imarcgroup.com" target="_blank" rel="noopener">imarcgroup.com</a>.</li>
+    <li id="ref-1">IMARC Group, &ldquo;Thulium Prices 2026: Market Outlook and Price Analysis,&rdquo; Feb to Mar&thinsp;2026. <a href="https://www.imarcgroup.com" target="_blank" rel="noopener">imarcgroup.com</a>.</li>
     <li id="ref-2">BusinessAnalytiq, &ldquo;Thulium Oxide Price Index,&rdquo; Mar&thinsp;2026. <a href="https://businessanalytiq.com" target="_blank" rel="noopener">businessanalytiq.com</a>.</li>
     <li id="ref-3">MOFCOM/GAC, Announcement No.&thinsp;18/2025, &ldquo;Export Control of Medium and Heavy Rare Earth Related Items,&rdquo; 4&thinsp;Apr&thinsp;2025. <a href="https://english.mofcom.gov.cn" target="_blank" rel="noopener">english.mofcom.gov.cn</a>.</li>
     <li id="ref-4">SFA (Oxford), &ldquo;China&rsquo;s Rare Earth Export Controls and Their Impact on Global Supply Chains,&rdquo; Oct&thinsp;2025. <a href="https://www.sfa-oxford.com" target="_blank" rel="noopener">sfa-oxford.com</a>.</li>

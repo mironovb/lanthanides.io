@@ -4,7 +4,7 @@ symbol: Ga
 name: Gallium
 atomic_number: 31
 category: semiconductor_metal
-title: "Gallium Price 2026 — Metal, GaAs & GaN per kg"
+title: "Gallium Price 2026: Metal, GaAs & GaN per kg"
 description: "Gallium metal price per kg with retail and bulk benchmarks. Used in GaAs, GaN semiconductors, and 5G RF chips. Active Chinese export controls since 2023."
 keywords: "gallium price, gallium price per kg, gallium metal price, GaAs price, GaN price, gallium export controls, buy gallium, semiconductor metals"
 element_name: "Gallium"
@@ -18,7 +18,7 @@ permalink: /elements/Ga/
     <p>Gallium has been under MOFCOM export licensing since 1&thinsp;August&thinsp;2023 (Announcement No.&thinsp;23/2023), the first of China&rsquo;s critical-mineral export-control orders [2]. On 3&thinsp;December&thinsp;2024, MOFCOM Announcement No.&thinsp;46/2024 banned all dual-use Ga exports to the United States outright [3]; that ban&rsquo;s Article&thinsp;2 was suspended on 9&thinsp;November&thinsp;2025 by Announcement No.&thinsp;72/2025 until 28&thinsp;November&thinsp;2026 [4].</p>
     <p>The general No.&thinsp;23/2023 licensing requirement remains in force. China refines roughly 98% of global primary low-purity gallium.</p>
   </div>
-  <div class="banner-key-date">Key date: 28&thinsp;November&thinsp;2026 &mdash; US-targeted ban suspension expires.</div>
+  <div class="banner-key-date">Key date: 28&thinsp;November&thinsp;2026, US-targeted ban suspension expires.</div>
 </div>
 
 <div class="element-section info-block">
@@ -85,15 +85,15 @@ permalink: /elements/Ga/
       </div>
       <div class="stat-row">
         <span class="stat-label">Ga metal benchmark</span>
-        <span class="stat-value">$420&ndash;$580/kg (FOB China)</span>
+        <span class="stat-value">$420 to $580/kg (FOB China)</span>
       </div>
       <div class="stat-row">
         <span class="stat-label">7N high-purity</span>
-        <span class="stat-value">2&ndash;5&times; bulk price</span>
+        <span class="stat-value">2 to 5&times; bulk price</span>
       </div>
       <div class="stat-row">
         <span class="stat-label">Retail metal (gram-scale)</span>
-        <span class="stat-value">$700&ndash;$2,200/kg</span>
+        <span class="stat-value">$700 to $2,200/kg</span>
       </div>
     </div>
   </div>
@@ -135,7 +135,7 @@ permalink: /elements/Ga/
     <li id="ref-1">Wolfram Alpha, &ldquo;Gallium element.&rdquo; <a href="https://www.wolframalpha.com/input?i=gallium+element" target="_blank" rel="noopener">wolframalpha.com</a>.</li>
     <li id="ref-2">MOFCOM Announcement No.&thinsp;23 of 2023, &ldquo;Export Control of Gallium and Germanium Related Items,&rdquo; effective 1&thinsp;August&thinsp;2023.</li>
     <li id="ref-3">MOFCOM Announcement No.&thinsp;46 of 2024, &ldquo;Strengthening Export Controls on Dual-Use Items to the United States,&rdquo; 3&thinsp;December&thinsp;2024.</li>
-    <li id="ref-4">MOFCOM Announcements No.&thinsp;70 and 72 of 2025 (suspension orders), 7&ndash;9&thinsp;November&thinsp;2025.</li>
+    <li id="ref-4">MOFCOM Announcements No.&thinsp;70 and 72 of 2025 (suspension orders), 7 to 9&thinsp;November&thinsp;2025.</li>
     <li id="ref-5">United States Geological Survey, <em>Mineral Commodity Summaries 2025: Gallium</em>, January&thinsp;2025.</li>
   </ol>
 </div>

@@ -4,7 +4,7 @@ symbol: Li
 name: Lithium
 atomic_number: 3
 category: strategic_metal
-title: "Lithium Price 2026 — Carbonate, Hydroxide & Metal per kg"
+title: "Lithium Price 2026: Carbonate, Hydroxide & Metal per kg"
 description: "Lithium carbonate, hydroxide, and metal price per kg. Track Li pricing for spodumene concentrate, battery-grade Li2CO3, and LiOH used in EV batteries."
 keywords: "lithium price, lithium price per kg, lithium carbonate price, lithium hydroxide price, Li2CO3 price, spodumene price, battery lithium"
 element_name: "Lithium"
@@ -36,7 +36,7 @@ permalink: /elements/Li/
       </tr>
       <tr>
         <td>Aerospace alloys</td>
-        <td>Al&ndash;Li alloys (e.g. AA2195, AA2050)</td>
+        <td>Al-Li alloys (e.g. AA2195, AA2050)</td>
         <td>Lighter, stiffer aluminium for aircraft fuselage and rocket structures (SpaceX, Airbus)</td>
       </tr>
       <tr>
@@ -76,15 +76,15 @@ permalink: /elements/Li/
       </div>
       <div class="stat-row">
         <span class="stat-label">Battery-grade Li<sub>2</sub>CO<sub>3</sub></span>
-        <span class="stat-value">$8&ndash;$14/kg (CIF China, 2025)</span>
+        <span class="stat-value">$8 to $14/kg (CIF China, 2025)</span>
       </div>
       <div class="stat-row">
         <span class="stat-label">Battery-grade LiOH</span>
-        <span class="stat-value">$10&ndash;$16/kg</span>
+        <span class="stat-value">$10 to $16/kg</span>
       </div>
       <div class="stat-row">
         <span class="stat-label">Spodumene 6%</span>
-        <span class="stat-value">$700&ndash;$1,100/t (FOB)</span>
+        <span class="stat-value">$700 to $1,100/t (FOB)</span>
       </div>
     </div>
   </div>
@@ -92,7 +92,7 @@ permalink: /elements/Li/
 
 <div class="element-section info-block">
   <h2 class="section-title">Verified Offers</h2>
-  <p class="section-intro">Lithium metal is rarely sold retail because of its reactivity &mdash; most listings are mineral-oil-sealed ampules or under-argon storage. The auto-rendered table shows tracked listings, predominantly small lab-grade quantities.</p>
+  <p class="section-intro">Lithium metal is rarely sold retail because of its reactivity, with most listings being mineral-oil-sealed ampules or under-argon storage. The auto-rendered table shows tracked listings, predominantly small lab-grade quantities.</p>
   {% include provenance-table.html symbol=page.symbol %}
 </div>
 
@@ -100,12 +100,12 @@ permalink: /elements/Li/
   <h2 class="section-title">Important Notes</h2>
   <div class="notes-block">
     <div class="note-item">
-      <strong>Massive 2022&ndash;2024 price cycle</strong>
+      <strong>Massive 2022 to 2024 price cycle</strong>
       Battery-grade Li<sub>2</sub>CO<sub>3</sub> spiked from ~$6/kg in early 2021 to over $80/kg in late 2022, then collapsed below $10/kg by mid-2024 as Chinese cathode plants destocked. The cycle wiped out marginal high-cost producers and remade the sector cost curve.
     </div>
     <div class="note-item">
       <strong>Australian spodumene dominant</strong>
-      Australia&rsquo;s Greenbushes, Pilgangoora, and Mt Marion mines supply roughly 50% of global Li raw material. Australian concentrate is shipped to Chinese refineries for conversion to battery-grade Li<sub>2</sub>CO<sub>3</sub>/LiOH &mdash; the supply chain&rsquo;s key chokepoint.
+      Australia&rsquo;s Greenbushes, Pilgangoora, and Mt Marion mines supply roughly 50% of global Li raw material. Australian concentrate is shipped to Chinese refineries for conversion to battery-grade Li<sub>2</sub>CO<sub>3</sub>/LiOH, the supply chain&rsquo;s key chokepoint.
     </div>
     <div class="note-item">
       <strong>DLE technology emerging</strong>

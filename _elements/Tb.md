@@ -4,7 +4,7 @@ symbol: Tb
 name: Terbium
 atomic_number: 65
 category: rare_earth_heavy
-title: "Terbium Price 2026 — Metal & Oxide (Tb₄O₇) per kg"
+title: "Terbium Price 2026: Metal & Oxide (Tb₄O₇) per kg"
 description: "Terbium at $2,090/kg EXW China. SMM benchmark $804/kg oxide domestic. Active export controls MOFCOM No. 18/2025. Lynas first non-Chinese HREE producer."
 keywords: "terbium price, terbium price per kg, terbium metal price, terbium oxide price, Tb4O7 price, terbium export controls, buy terbium"
 element_name: "Terbium"
@@ -13,12 +13,12 @@ permalink: /elements/Tb/
 ---
 
 <div class="regulatory-banner banner-active">
-  <div class="banner-title">Active Export Control &mdash; Phase 1 in force</div>
+  <div class="banner-title">Active Export Control: Phase 1 in force</div>
   <div class="banner-body">
-    <p>MOFCOM Announcement No.&thinsp;18/2025 (effective 4&thinsp;April&thinsp;2025) controls all terbium forms &mdash; metals, oxides, alloys, compounds, mixtures, and permanent magnets &mdash; across 33 HS codes [2]. Exporters must apply for dual-use export licences, submit end-user certificates, and disclose application details. Military end-use is automatically denied. These controls have <em>not</em> been suspended.</p>
-    <p>China&rsquo;s expanded October&thinsp;2025 controls (Phase&thinsp;2) &mdash; covering five additional rare earths, a &ge;0.1% de minimis rule, and a foreign direct product rule &mdash; are suspended until November&thinsp;2026 following a Xi&ndash;Trump meeting [2].</p>
+    <p>MOFCOM Announcement No.&thinsp;18/2025 (effective 4&thinsp;April&thinsp;2025) controls all terbium forms (metals, oxides, alloys, compounds, mixtures, and permanent magnets) across 33 HS codes [2]. Exporters must apply for dual-use export licences, submit end-user certificates, and disclose application details. Military end-use is automatically denied. These controls have <em>not</em> been suspended.</p>
+    <p>China&rsquo;s expanded October&thinsp;2025 controls (Phase&thinsp;2), covering five additional rare earths, a &ge;0.1% de minimis rule, and a foreign direct product rule, are suspended until November&thinsp;2026 following a Xi-Trump meeting [2].</p>
   </div>
-  <div class="banner-key-date">Key date: 10&thinsp;November&thinsp;2026 &mdash; Phase 2 suspension expires. Reinstatement could sharply escalate the existing bifurcation.</div>
+  <div class="banner-key-date">Key date: 10&thinsp;November&thinsp;2026, Phase 2 suspension expires. Reinstatement could sharply escalate the existing bifurcation.</div>
 </div>
 
 <div class="element-section info-block">
@@ -63,7 +63,7 @@ permalink: /elements/Tb/
     <div class="market-stats">
       <div class="stat-row">
         <span class="stat-label">Global production</span>
-        <span class="stat-value">~400&ndash;450&thinsp;tonnes/year [3]</span>
+        <span class="stat-value">~400 to 450&thinsp;tonnes/year [3]</span>
       </div>
       <div class="stat-row">
         <span class="stat-label">Projected demand (2028)</span>
@@ -106,8 +106,8 @@ permalink: /elements/Tb/
     <tbody>
       <tr>
         <td>Late 2024</td>
-        <td class="mono">$600&ndash;700/kg</td>
-        <td class="mono">$980&ndash;1,100/kg</td>
+        <td class="mono">$600 to 700/kg</td>
+        <td class="mono">$980 to 1,100/kg</td>
         <td>Pre-controls baseline [3]</td>
       </tr>
       <tr>
@@ -118,7 +118,7 @@ permalink: /elements/Tb/
       </tr>
       <tr>
         <td>July 2025</td>
-        <td class="mono">$730&ndash;795/kg</td>
+        <td class="mono">$730 to 795/kg</td>
         <td>Elevated</td>
         <td>Halted exports reduced domestic demand</td>
       </tr>
@@ -136,7 +136,7 @@ permalink: /elements/Tb/
       </tr>
     </tbody>
   </table>
-  <p class="table-note">European spot prices have reached 3&ndash;6&times; Chinese domestic levels [3]. Benchmark Mineral Intelligence projects the domestic-to-export gap will widen from 4.4&times; in 2025 to 8.3&times; by 2027 [6].</p>
+  <p class="table-note">European spot prices have reached 3 to 6&times; Chinese domestic levels [3]. Benchmark Mineral Intelligence projects the domestic-to-export gap will widen from 4.4&times; in 2025 to 8.3&times; by 2027 [6].</p>
 
   <h3 class="subsection-title">Non-Chinese supply pipeline</h3>
   <table class="data-table">
@@ -167,7 +167,7 @@ permalink: /elements/Tb/
       <tr>
         <td>ReElement Technologies</td>
         <td>United States</td>
-        <td>Recycled REE recovery demonstrated at $25&ndash;35/kg, 99.5%+ purity [6]</td>
+        <td>Recycled REE recovery demonstrated at $25 to 35/kg, 99.5%+ purity [6]</td>
       </tr>
     </tbody>
   </table>
@@ -193,7 +193,7 @@ permalink: /elements/Tb/
         <td>US</td><td>Retail</td><td>Metal turnings, element bottle; in stock</td>
       </tr>
       <tr>
-        <td>2026-03</td><td>99.9%+</td><td class="mono">6,490&ndash;6,850</td><td>82.19&thinsp;g</td>
+        <td>2026-03</td><td>99.9%+</td><td class="mono">6,490 to 6,850</td><td>82.19&thinsp;g</td>
         <td><a href="https://smart-elements.com" class="supplier-link" target="_blank" rel="noopener">Smart-Elements</a></td>
         <td>AT</td><td>Retail</td><td>Density cube 10&thinsp;cm<sup>3</sup>; in stock</td>
       </tr>
@@ -213,17 +213,17 @@ permalink: /elements/Tb/
         <td>AT</td><td>Retail</td><td>Metal pieces under argon; in stock</td>
       </tr>
       <tr>
-        <td>2026-03</td><td>various</td><td class="mono">4,029</td><td>&mdash;</td>
+        <td>2026-03</td><td>various</td><td class="mono">4,029</td><td>n/a</td>
         <td>Strategic Metals Invest</td>
         <td>DE</td><td>Retail</td><td>Investment/retail platform; includes storage [5]</td>
       </tr>
       <tr>
         <td>2026-03</td><td>99.9%</td><td class="mono">2,090</td><td>10&thinsp;kg</td>
         <td>China Direct Seller</td>
-        <td>CN</td><td>Wholesale</td><td>Dual-use licence required; ~2&ndash;3&thinsp;months [2][3]</td>
+        <td>CN</td><td>Wholesale</td><td>Dual-use licence required; ~2 to 3&thinsp;months [2][3]</td>
       </tr>
       <tr>
-        <td>2026-03</td><td>various</td><td class="mono">1,450&ndash;2,050</td><td>1&thinsp;kg</td>
+        <td>2026-03</td><td>various</td><td class="mono">1,450 to 2,050</td><td>1&thinsp;kg</td>
         <td>Shanghai Epoch (Made-in-China)</td>
         <td>CN</td><td>Wholesale</td><td>Export compliance applies [3]</td>
       </tr>
@@ -234,7 +234,7 @@ permalink: /elements/Tb/
 
 <div class="element-section info-block">
   <h2 class="section-title">Oxide Offers (Tb<sub>4</sub>O<sub>7</sub>)</h2>
-  <p class="section-intro">Tb<sub>4</sub>O<sub>7</sub> (tetraterbium heptaoxide) is the dominant commercial form and global pricing benchmark. Price reporting agencies &mdash; Argus, Fastmarkets, Shanghai Metals Market &mdash; anchor assessments to 99.99% (4N) purity. On 19&thinsp;March&thinsp;2026, Fastmarkets launched a new global benchmark (MB-TB-0004) for terbium oxide 99.99% CIP global [8].</p>
+  <p class="section-intro">Tb<sub>4</sub>O<sub>7</sub> (tetraterbium heptaoxide) is the dominant commercial form and global pricing benchmark. Price reporting agencies (Argus, Fastmarkets, Shanghai Metals Market) anchor assessments to 99.99% (4N) purity. On 19&thinsp;March&thinsp;2026, Fastmarkets launched a new global benchmark (MB-TB-0004) for terbium oxide 99.99% CIP global [8].</p>
   <table class="data-table">
     <thead>
       <tr><th>Date</th><th>Purity</th><th>$/kg</th><th>Qty</th><th>Seller</th><th>Country</th><th>Category</th><th>Notes</th></tr>
@@ -267,14 +267,14 @@ permalink: /elements/Tb/
       </tr>
     </tbody>
   </table>
-  <p class="table-note">The massive spread between laboratory retail ($29&ndash;44/g) and industrial bulk ($0.80&ndash;1.18/g) reflects packaging, handling, purity verification, and dealer margins [3].</p>
+  <p class="table-note">The massive spread between laboratory retail ($29 to 44/g) and industrial bulk ($0.80 to 1.18/g) reflects packaging, handling, purity verification, and dealer margins [3].</p>
 </div>
 
 <div class="element-section info-block">
   <h2 class="section-title">Gallery</h2>
   <div class="photo-gallery">
     <figure class="gallery-figure">
-      <div class="gallery-placeholder">Tb metal &mdash; ampoule under argon</div>
+      <div class="gallery-placeholder">Tb metal, ampoule under argon</div>
       <figcaption><strong>Fig.&thinsp;1.</strong> Terbium metal pieces sealed under argon atmosphere, 99.95% (3N5), 10&thinsp;g ampoule. Terbium is a silvery-grey metal that tarnishes slowly in air. Source: Smart-Elements GmbH [4].</figcaption>
     </figure>
     <figure class="gallery-figure">
@@ -289,7 +289,7 @@ permalink: /elements/Tb/
   <div class="notes-block">
     <div class="note-item note-warning">
       <strong>Phase 1 export controls in force</strong>
-      MOFCOM Announcement No.&thinsp;18/2025 controls all terbium forms across 33 HS codes [2]. Chinese rare earth magnet exports fell roughly 75% in April&ndash;May&thinsp;2025; the two-tier pricing structure has become entrenched [3].
+      MOFCOM Announcement No.&thinsp;18/2025 controls all terbium forms across 33 HS codes [2]. Chinese rare earth magnet exports fell roughly 75% in April to May&thinsp;2025; the two-tier pricing structure has become entrenched [3].
     </div>
     <div class="note-item note-caution">
       <strong>Three-tier pricing</strong>
@@ -297,7 +297,7 @@ permalink: /elements/Tb/
     </div>
     <div class="note-item">
       <strong>Supply deficit</strong>
-      Global production (~400&ndash;450&thinsp;tonnes/year) falls short of projected demand (~700&thinsp;tonnes by 2028) [3]. CRU forecasts a combined Dy+Tb oxide deficit of ~2,920&thinsp;tonnes by 2035 [7]. Near-total sellout at retail element dealers and removal of public pricing by scientific suppliers signal tight supply [3].
+      Global production (~400 to 450&thinsp;tonnes/year) falls short of projected demand (~700&thinsp;tonnes by 2028) [3]. CRU forecasts a combined Dy+Tb oxide deficit of ~2,920&thinsp;tonnes by 2035 [7]. Near-total sellout at retail element dealers and removal of public pricing by scientific suppliers signal tight supply [3].
     </div>
   </div>
 </div>
@@ -313,10 +313,10 @@ permalink: /elements/Tb/
   <ol class="references-list">
     <li id="ref-1">Wolfram Alpha, &ldquo;Terbium element.&rdquo; <a href="https://www.wolframalpha.com/input?i=terbium+element" target="_blank" rel="noopener">wolframalpha.com</a>.</li>
     <li id="ref-2">Ministry of Commerce of the People&rsquo;s Republic of China, Announcement No.&thinsp;18 of 2025, &ldquo;Export Control of Medium and Heavy Rare Earth Related Items,&rdquo; 4&thinsp;April&thinsp;2025. See also: Argus Media; Global Trade Alert; Clark Hill PLC analysis of October&thinsp;2025 suspension.</li>
-    <li id="ref-3">Compiled from: Rare-earth-mining.com, Crux Investor, Strategic Metals Invest, IMARC Group, Fastmarkets, Shanghai Metals Market, BusinessAnalytiq, and Made-in-China.com supplier listings, various dates 2025&ndash;2026.</li>
+    <li id="ref-3">Compiled from: Rare-earth-mining.com, Crux Investor, Strategic Metals Invest, IMARC Group, Fastmarkets, Shanghai Metals Market, BusinessAnalytiq, and Made-in-China.com supplier listings, various dates 2025 to 2026.</li>
     <li id="ref-4">Retail supplier pricing verified March&thinsp;2026: Chemsavers, Smart-Elements GmbH (<a href="https://smart-elements.com" target="_blank" rel="noopener">smart-elements.com</a>), MSE Supplies LLC (<a href="https://www.msesupplies.com" target="_blank" rel="noopener">msesupplies.com</a>), Sigma-Aldrich, eBay marketplace sellers.</li>
-    <li id="ref-5">Strategic Metals Invest, retail and investment-grade terbium pricing and supply reports, 2025&ndash;2026. Luciteria stock depletion observed March&thinsp;2026.</li>
-    <li id="ref-6">Benchmark Mineral Intelligence, heavy rare earth supply dependency projections, 2025. Lynas Rare Earths quarterly reports; MP Materials, Neo Performance Materials, and Australian Strategic Materials corporate announcements, 2025&ndash;2026.</li>
+    <li id="ref-5">Strategic Metals Invest, retail and investment-grade terbium pricing and supply reports, 2025 to 2026. Luciteria stock depletion observed March&thinsp;2026.</li>
+    <li id="ref-6">Benchmark Mineral Intelligence, heavy rare earth supply dependency projections, 2025. Lynas Rare Earths quarterly reports; MP Materials, Neo Performance Materials, and Australian Strategic Materials corporate announcements, 2025 to 2026.</li>
     <li id="ref-7">CRU Group, &ldquo;Dysprosium and Terbium Oxide Supply-Demand Forecast to 2035.&rdquo; See also: MINING.COM; Seltene Erden; DiscoveryAlert; SFA (Oxford).</li>
     <li id="ref-8">Fastmarkets, &ldquo;Launch of terbium oxide 99.99% CIP global benchmark (MB-TB-0004),&rdquo; 19&thinsp;March&thinsp;2026.</li>
     <li id="ref-9">RWMM (Rare World Metals Mint). <a href="https://rwmm.com" target="_blank" rel="noopener">rwmm.com</a>. PEGUYS: <a href="https://peguys.com" target="_blank" rel="noopener">peguys.com</a>.</li>

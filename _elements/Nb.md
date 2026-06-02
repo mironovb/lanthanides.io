@@ -4,7 +4,7 @@ symbol: Nb
 name: Niobium
 atomic_number: 41
 category: strategic_metal
-title: "Niobium Price 2026 — Metal, FeNb & Nb₂O₅ per kg"
+title: "Niobium Price 2026: Metal, FeNb & Nb₂O₅ per kg"
 description: "Niobium metal, ferroniobium, and oxide price per kg. Used in HSLA steel, NbTi/Nb₃Sn superconducting magnets, and superalloys. Brazil-dominated supply."
 keywords: "niobium price, niobium price per kg, niobium metal price, ferroniobium price, FeNb price, Nb2O5 price, niobium superconductor, buy niobium"
 element_name: "Niobium"
@@ -21,12 +21,12 @@ permalink: /elements/Nb/
     <tbody>
       <tr>
         <td>HSLA steel microalloying</td>
-        <td>Ferroniobium (FeNb) addition at 0.02&ndash;0.10%</td>
-        <td>~90% of Nb demand. Pipeline steel, automotive structural steel, bridge plate &mdash; small Nb additions yield massive grain refinement and strength gains.</td>
+        <td>Ferroniobium (FeNb) addition at 0.02 to 0.10%</td>
+        <td>~90% of Nb demand. Pipeline steel, automotive structural steel, and bridge plate all benefit: small Nb additions yield massive grain refinement and strength gains.</td>
       </tr>
       <tr>
         <td>NbTi superconducting wire</td>
-        <td>Nb&ndash;46.5%Ti alloy filaments in Cu matrix</td>
+        <td>Nb-46.5%Ti alloy filaments in Cu matrix</td>
         <td>MRI magnets (every clinical scanner), particle accelerator dipoles, NMR magnets. Mature, low-cost LTSC.</td>
       </tr>
       <tr>
@@ -66,7 +66,7 @@ permalink: /elements/Nb/
       </div>
       <div class="stat-row">
         <span class="stat-label">Dominant supplier</span>
-        <span class="stat-value">CBMM (Brazil) &mdash; ~75% global</span>
+        <span class="stat-value">CBMM (Brazil), ~75% global</span>
       </div>
     </div>
     <div class="market-stats">
@@ -76,15 +76,15 @@ permalink: /elements/Nb/
       </div>
       <div class="stat-row">
         <span class="stat-label">Ferroniobium FOB</span>
-        <span class="stat-value">$40&ndash;$48/kg Nb (Argus)</span>
+        <span class="stat-value">$40 to $48/kg Nb (Argus)</span>
       </div>
       <div class="stat-row">
         <span class="stat-label">Nb<sub>2</sub>O<sub>5</sub> retail</span>
-        <span class="stat-value">$70&ndash;$200/kg</span>
+        <span class="stat-value">$70 to $200/kg</span>
       </div>
       <div class="stat-row">
         <span class="stat-label">Nb metal retail</span>
-        <span class="stat-value">$180&ndash;$1,200/kg</span>
+        <span class="stat-value">$180 to $1,200/kg</span>
       </div>
     </div>
   </div>

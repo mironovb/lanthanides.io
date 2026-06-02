@@ -4,7 +4,7 @@ symbol: Er
 name: Erbium
 atomic_number: 68
 category: rare_earth_heavy
-title: "Erbium Price 2026 — Metal & Oxide (Er₂O₃) per kg"
+title: "Erbium Price 2026: Metal & Oxide (Er₂O₃) per kg"
 description: "Erbium metal and oxide price per kg. Used in EDFA fiber-optic amplifiers, pink-tint glass, and dental lasers. Suspended MOFCOM No. 57 controls."
 keywords: "erbium price, erbium price per kg, erbium metal price, erbium oxide price, Er2O3 price, EDFA erbium, buy erbium"
 element_name: "Erbium"
@@ -15,10 +15,10 @@ permalink: /elements/Er/
 <div class="regulatory-banner banner-suspended">
   <div class="banner-title">Suspended Export Control</div>
   <div class="banner-body">
-    <p>Erbium was added to China&rsquo;s expanded heavy rare earth control scope under the October&thinsp;2025 escalation announcements (Nos.&thinsp;55&ndash;58, 61, 62) [2]. The Er licensing requirement was suspended on 7&ndash;9&thinsp;November&thinsp;2025 by Announcements Nos.&thinsp;70 and 72 of 2025 [3].</p>
+    <p>Erbium was added to China&rsquo;s expanded heavy rare earth control scope under the October&thinsp;2025 escalation announcements (Nos.&thinsp;55 to 58, 61, 62) [2]. The Er licensing requirement was suspended on 7 to 9&thinsp;November&thinsp;2025 by Announcements Nos.&thinsp;70 and 72 of 2025 [3].</p>
     <p>Suspension runs until 28&thinsp;November&thinsp;2026. The risk to global telecom infrastructure is significant: Er<sup>3+</sup> is the optical gain medium in every long-haul fibre-optic amplifier in service today.</p>
   </div>
-  <div class="banner-key-date">Key date: 28&thinsp;November&thinsp;2026 &mdash; suspension expires; controls may snap back.</div>
+  <div class="banner-key-date">Key date: 28&thinsp;November&thinsp;2026, suspension expires; controls may snap back.</div>
 </div>
 
 <div class="element-section info-block">
@@ -31,7 +31,7 @@ permalink: /elements/Er/
       <tr>
         <td>EDFA optical amplifiers</td>
         <td>Er<sup>3+</sup> dopant in silica fibre, pumped at 980/1480&thinsp;nm</td>
-        <td>The basis of every long-haul fibre-optic communications link &mdash; subsea cables, terrestrial backbones, data-centre interconnects. Operates in the 1550&thinsp;nm telecom window. No substitute exists.</td>
+        <td>The basis of every long-haul fibre-optic communications link, including subsea cables, terrestrial backbones, and data-centre interconnects. Operates in the 1550&thinsp;nm telecom window. No substitute exists.</td>
       </tr>
       <tr>
         <td>Erbium lasers</td>
@@ -85,11 +85,11 @@ permalink: /elements/Er/
       </div>
       <div class="stat-row">
         <span class="stat-label">Oxide retail (1&thinsp;kg)</span>
-        <span class="stat-value">$28&ndash;$38/kg</span>
+        <span class="stat-value">$28 to $38/kg</span>
       </div>
       <div class="stat-row">
         <span class="stat-label">Metal retail (gram-scale)</span>
-        <span class="stat-value">$3,700&ndash;$27,500/kg</span>
+        <span class="stat-value">$3,700 to $27,500/kg</span>
       </div>
       <div class="stat-row">
         <span class="stat-label">Snap-back risk</span>
@@ -101,7 +101,7 @@ permalink: /elements/Er/
 
 <div class="element-section info-block">
   <h2 class="section-title">Verified Offers</h2>
-  <p class="section-intro">Erbium oxide remains cheap (~$30/kg) but the gram-scale metal market is highly fragmented &mdash; the auto-rendered table shows quotations spanning an order of magnitude depending on purity, form factor, and seller.</p>
+  <p class="section-intro">Erbium oxide remains cheap (~$30/kg) but the gram-scale metal market is highly fragmented. The auto-rendered table shows quotations spanning an order of magnitude depending on purity, form factor, and seller.</p>
   {% include provenance-table.html symbol=page.symbol %}
 </div>
 
@@ -134,7 +134,7 @@ permalink: /elements/Er/
   <ol class="references-list">
     <li id="ref-1">Wolfram Alpha, &ldquo;Erbium element.&rdquo; <a href="https://www.wolframalpha.com/input?i=erbium+element" target="_blank" rel="noopener">wolframalpha.com</a>.</li>
     <li id="ref-2">MOFCOM Announcements No.&thinsp;55, 56, 57, 58, 61, and 62 of 2025 (October 2025 escalation), effective 9&thinsp;October&thinsp;2025.</li>
-    <li id="ref-3">MOFCOM Announcements No.&thinsp;70 and No.&thinsp;72 of 2025 (suspension orders), 7&ndash;9&thinsp;November&thinsp;2025.</li>
+    <li id="ref-3">MOFCOM Announcements No.&thinsp;70 and No.&thinsp;72 of 2025 (suspension orders), 7 to 9&thinsp;November&thinsp;2025.</li>
   </ol>
 </div>
 

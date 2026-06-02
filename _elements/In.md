@@ -4,7 +4,7 @@ symbol: In
 name: Indium
 atomic_number: 49
 category: semiconductor_metal
-title: "Indium Price 2026 — Metal Ingot & ITO per kg"
+title: "Indium Price 2026: Metal Ingot & ITO per kg"
 description: "Indium metal ingot price per kg with retail and bulk benchmarks. Used in ITO touchscreen coatings, CIGS solar, and InP semiconductors. Active controls."
 keywords: "indium price, indium price per kg, indium metal price, indium ingot price, ITO price, indium export controls, buy indium, semiconductor metals"
 element_name: "Indium"
@@ -18,7 +18,7 @@ permalink: /elements/In/
     <p>Indium has been under MOFCOM/GAC export licensing since 4&thinsp;February&thinsp;2025 (Announcement No.&thinsp;10/2025), alongside W, Te, Bi, and Mo [2]. The control covers In metal, ITO targets, In compounds, and InP/InAs semiconductor wafers.</p>
     <p>Indium is co-produced with zinc; ~85% of refined In comes from China and South Korea. The licensing regime introduces qualification delays for ITO sputter targets used in display and touchscreen manufacturing.</p>
   </div>
-  <div class="banner-key-date">Key date: 28&thinsp;November&thinsp;2026 &mdash; expanded controls suspension expires.</div>
+  <div class="banner-key-date">Key date: 28&thinsp;November&thinsp;2026, expanded controls suspension expires.</div>
 </div>
 
 <div class="element-section info-block">
@@ -40,17 +40,17 @@ permalink: /elements/In/
       </tr>
       <tr>
         <td>InP &amp; InGaAs semiconductors</td>
-        <td>III&ndash;V wafers for laser diodes, photodetectors, RF</td>
+        <td>III-V wafers for laser diodes, photodetectors, RF</td>
         <td>1310/1550&thinsp;nm telecom laser diodes, photodetectors, mmWave RF transistors</td>
       </tr>
       <tr>
         <td>Low-melting alloys</td>
-        <td>In&ndash;Sn, In&ndash;Bi, Field&rsquo;s metal, fusible alloys</td>
+        <td>In-Sn, In-Bi, Field&rsquo;s metal, fusible alloys</td>
         <td>Cryogenic seals, thermal interface materials, soft solders for compound semiconductors</td>
       </tr>
       <tr>
         <td>Nuclear control rods</td>
-        <td>Ag&ndash;In&ndash;Cd alloy in PWR control rods</td>
+        <td>Ag-In-Cd alloy in PWR control rods</td>
         <td>Standard PWR neutron absorber rod composition</td>
       </tr>
     </tbody>
@@ -85,15 +85,15 @@ permalink: /elements/In/
       </div>
       <div class="stat-row">
         <span class="stat-label">In metal benchmark</span>
-        <span class="stat-value">$280&ndash;$340/kg (FOB China)</span>
+        <span class="stat-value">$280 to $340/kg (FOB China)</span>
       </div>
       <div class="stat-row">
         <span class="stat-label">Retail metal (ingot)</span>
-        <span class="stat-value">$400&ndash;$1,200/kg</span>
+        <span class="stat-value">$400 to $1,200/kg</span>
       </div>
       <div class="stat-row">
         <span class="stat-label">ITO target premium</span>
-        <span class="stat-value">2&ndash;3&times; metal price</span>
+        <span class="stat-value">2 to 3&times; metal price</span>
       </div>
     </div>
   </div>
@@ -101,7 +101,7 @@ permalink: /elements/In/
 
 <div class="element-section info-block">
   <h2 class="section-title">Verified Offers</h2>
-  <p class="section-intro">Indium is one of the more liquid retail metals tracked here &mdash; ingots and shot are common on Alibaba and eBay at sub-kilogram scale. The auto-rendered table shows tracked listings.</p>
+  <p class="section-intro">Indium is one of the more liquid retail metals tracked here. Ingots and shot are common on Alibaba and eBay at sub-kilogram scale. The auto-rendered table shows tracked listings.</p>
   {% include provenance-table.html symbol=page.symbol %}
 </div>
 
@@ -114,7 +114,7 @@ permalink: /elements/In/
     </div>
     <div class="note-item">
       <strong>Co-production with zinc</strong>
-      Indium is recovered from Zn smelter residues. Production cannot scale independently of zinc &mdash; In supply is structurally bounded by global Zn refining throughput (~13&thinsp;Mt/year) and the In content of feed concentrates.
+      Indium is recovered from Zn smelter residues. Production cannot scale independently of zinc. In supply is structurally bounded by global Zn refining throughput (~13&thinsp;Mt/year) and the In content of feed concentrates.
     </div>
     <div class="note-item">
       <strong>Display industry concentration</strong>
@@ -134,7 +134,7 @@ permalink: /elements/In/
   <ol class="references-list">
     <li id="ref-1">Wolfram Alpha, &ldquo;Indium element.&rdquo; <a href="https://www.wolframalpha.com/input?i=indium+element" target="_blank" rel="noopener">wolframalpha.com</a>.</li>
     <li id="ref-2">MOFCOM Announcement No.&thinsp;10 of 2025, &ldquo;Export Control of Tungsten, Tellurium, Bismuth, Molybdenum and Indium Related Items,&rdquo; effective 4&thinsp;February&thinsp;2025.</li>
-    <li id="ref-3">MOFCOM Announcements No.&thinsp;70 and 72 of 2025 (suspension orders), 7&ndash;9&thinsp;November&thinsp;2025.</li>
+    <li id="ref-3">MOFCOM Announcements No.&thinsp;70 and 72 of 2025 (suspension orders), 7 to 9&thinsp;November&thinsp;2025.</li>
     <li id="ref-4">United States Geological Survey, <em>Mineral Commodity Summaries 2025: Indium</em>, January&thinsp;2025.</li>
   </ol>
 </div>

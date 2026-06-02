@@ -4,7 +4,7 @@ symbol: Ho
 name: Holmium
 atomic_number: 67
 category: rare_earth_heavy
-title: "Holmium Price 2026 — Metal & Oxide (Ho₂O₃) per kg"
+title: "Holmium Price 2026: Metal & Oxide (Ho₂O₃) per kg"
 description: "Holmium metal retail at $2,420/kg (Smart-Elements). Chinese sellers refuse to quote despite suspended controls. MOFCOM No. 57 suspended until Nov 2026."
 keywords: "holmium price, holmium price per kg, holmium metal price, holmium oxide price, Ho2O3 price, holmium export controls, buy holmium"
 element_name: "Holmium"
@@ -13,7 +13,7 @@ permalink: /elements/Ho/
 ---
 
 <div class="regulatory-banner banner-suspended">
-  <div class="banner-title">Suspended Export Control &mdash; Regulation exists but is not enforced</div>
+  <div class="banner-title">Suspended Export Control: Regulation exists but is not enforced</div>
   <div class="banner-body">
     <p>Holmium was <strong>not</strong> included in China&rsquo;s April&thinsp;4, 2025 export controls (Announcement No.&thinsp;18/2025) that restrict Sm, Gd, Tb, Dy, Lu, Sc, and Y [3].</p>
     <p>Holmium <strong>was</strong> added on October&thinsp;9, 2025 (Announcement No.&thinsp;57/2025, item 1C909) covering metallic Ho, Ho alloys, Ho targets, Ho permanent magnets, Ho crystal and magnetic refrigeration materials, and all Ho oxides and compounds [4][5].</p>
@@ -24,13 +24,13 @@ permalink: /elements/Ho/
         <tr><th>Instrument</th><th>Covers Ho?</th><th>Status (March 2026)</th></tr>
       </thead>
       <tbody>
-        <tr><td>No.&thinsp;18/2025 (April 2025)</td><td>No</td><td>Active &mdash; does not apply</td></tr>
+        <tr><td>No.&thinsp;18/2025 (April 2025)</td><td>No</td><td>Active, does not apply</td></tr>
         <tr><td>No.&thinsp;57/2025 (October 2025)</td><td>Yes</td><td>Suspended until 10&thinsp;Nov&thinsp;2026</td></tr>
-        <tr><td>RE Management Regs (2024)</td><td>Yes</td><td>Active &mdash; domestic controls</td></tr>
+        <tr><td>RE Management Regs (2024)</td><td>Yes</td><td>Active, domestic controls</td></tr>
       </tbody>
     </table>
   </div>
-  <div class="banner-key-date">Key date: 10&thinsp;November&thinsp;2026 &mdash; suspension expires. Controls can reactivate without new legislation.</div>
+  <div class="banner-key-date">Key date: 10&thinsp;November&thinsp;2026, suspension expires. Controls can reactivate without new legislation.</div>
 </div>
 
 <div class="element-section info-block">
@@ -62,7 +62,7 @@ permalink: /elements/Ho/
       </tr>
       <tr>
         <td>Fibre optic calibration</td>
-        <td>Sharp absorption bands at 200&ndash;900&thinsp;nm (Ho<sub>2</sub>O<sub>3</sub> in glass)</td>
+        <td>Sharp absorption bands at 200 to 900&thinsp;nm (Ho<sub>2</sub>O<sub>3</sub> in glass)</td>
         <td>Wavelength reference standard in telecommunications [25]</td>
       </tr>
     </tbody>
@@ -79,7 +79,7 @@ permalink: /elements/Ho/
       </div>
       <div class="stat-row">
         <span class="stat-label">China refined supply share</span>
-        <span class="stat-value">95&ndash;99% [25][26]</span>
+        <span class="stat-value">95 to 99% [25][26]</span>
       </div>
       <div class="stat-row">
         <span class="stat-label">Oxide, EXW China</span>
@@ -87,25 +87,25 @@ permalink: /elements/Ho/
       </div>
       <div class="stat-row">
         <span class="stat-label">Oxide, NE Asia index</span>
-        <span class="stat-value">$82&ndash;106/kg [19][1]</span>
+        <span class="stat-value">$82 to 106/kg [19][1]</span>
       </div>
     </div>
     <div class="market-stats">
       <div class="stat-row">
         <span class="stat-label">Ex-China premium (heavy REEs)</span>
-        <span class="stat-value">3&ndash;4&times; domestic; projected 8.3&times; by 2027 [27][28]</span>
+        <span class="stat-value">3 to 4&times; domestic; projected 8.3&times; by 2027 [27][28]</span>
       </div>
       <div class="stat-row">
-        <span class="stat-label">Price change, Sep&ndash;Dec 2025</span>
+        <span class="stat-label">Price change, Sep to Dec 2025</span>
         <span class="stat-value">&minus;8.2% (to $77.62/kg) [1]</span>
       </div>
       <div class="stat-row">
-        <span class="stat-label">Price change, Jan&ndash;Feb 2026</span>
+        <span class="stat-label">Price change, Jan to Feb 2026</span>
         <span class="stat-value">+35.9% (to $105.51/kg) [1]</span>
       </div>
       <div class="stat-row">
         <span class="stat-label">Western retail metal</span>
-        <span class="stat-value">$2,400&ndash;27,000/kg [8][10]</span>
+        <span class="stat-value">$2,400 to 27,000/kg [8][10]</span>
       </div>
     </div>
   </div>
@@ -168,7 +168,7 @@ permalink: /elements/Ho/
         <td>AT</td><td><strong>Retail ref.</strong></td><td>Sublimed dendritic; best established rate [8]</td>
       </tr>
       <tr>
-        <td>2026-03</td><td>99.5%</td><td class="mono">est. 3,900&ndash;4,800</td><td>31.1&thinsp;g</td>
+        <td>2026-03</td><td>99.5%</td><td class="mono">est. 3,900 to 4,800</td><td>31.1&thinsp;g</td>
         <td><a href="https://rwmmint.com/products/holmium-metal" class="supplier-link" target="_blank" rel="noopener">RWMM</a></td>
         <td>US</td><td>Retail</td><td>Serialised bullion, assay certificate [10]</td>
       </tr>
@@ -198,27 +198,27 @@ permalink: /elements/Ho/
         <td>US</td><td>Lab-grade</td><td>Same product, larger qty [12]</td>
       </tr>
       <tr>
-        <td>&mdash;</td><td>various</td><td>quote</td><td>&mdash;</td>
+        <td>n/a</td><td>various</td><td>quote</td><td>n/a</td>
         <td><a href="https://www.americanelements.com/ho.html" class="supplier-link" target="_blank" rel="noopener">American Elements</a></td>
         <td>US</td><td>Industrial</td><td>All forms; RFQ only [13]</td>
       </tr>
       <tr>
-        <td>&mdash;</td><td>&ge;99.9%</td><td>quote</td><td>&mdash;</td>
+        <td>n/a</td><td>&ge;99.9%</td><td>quote</td><td>n/a</td>
         <td><a href="https://www.samaterials.com/holmium/" class="supplier-link" target="_blank" rel="noopener">Stanford Advanced Materials</a></td>
         <td>US</td><td>Industrial</td><td>Ingot, foil, rod, powder [14]</td>
       </tr>
       <tr>
-        <td>&mdash;</td><td>various</td><td>quote</td><td>&mdash;</td>
+        <td>n/a</td><td>various</td><td>quote</td><td>n/a</td>
         <td><a href="https://www.espimetals.com" class="supplier-link" target="_blank" rel="noopener">ESPI Metals</a></td>
         <td>US</td><td>Industrial</td><td>Foil, sheet, rod, powder [15]</td>
       </tr>
       <tr>
-        <td>&mdash;</td><td>various</td><td>quote</td><td>&mdash;</td>
+        <td>n/a</td><td>various</td><td>quote</td><td>n/a</td>
         <td><a href="https://edge-techind.com/category/Holmium-Ho-30-1.html" class="supplier-link" target="_blank" rel="noopener">Edgetech Industries</a></td>
         <td>US/CN</td><td>Industrial</td><td>Metal, sputtering targets [16]</td>
       </tr>
       <tr>
-        <td>&mdash;</td><td>various</td><td>quote</td><td>&mdash;</td>
+        <td>n/a</td><td>various</td><td>quote</td><td>n/a</td>
         <td><a href="https://www.goodfellow.com" class="supplier-link" target="_blank" rel="noopener">GoodFellow</a></td>
         <td>UK</td><td>Lab/Industrial</td><td>Powder, pellets, foil; login required [17]</td>
       </tr>
@@ -241,15 +241,15 @@ permalink: /elements/Ho/
       <tr class="table-highlight">
         <td>2026-03</td><td>99.5%+</td><td class="mono"><strong>82</strong></td><td>bulk</td>
         <td>BusinessAnalytiq (NE Asia)</td>
-        <td>&mdash;</td><td><strong>Benchmark ref.</strong></td><td>Regional composite index [19]</td>
+        <td>n/a</td><td><strong>Benchmark ref.</strong></td><td>Regional composite index [19]</td>
       </tr>
       <tr>
-        <td>2026-02</td><td>&mdash;</td><td class="mono">106</td><td>bulk</td>
+        <td>2026-02</td><td>n/a</td><td class="mono">106</td><td>bulk</td>
         <td>IMARC (NE Asia)</td>
-        <td>&mdash;</td><td>Benchmark</td><td>Metal-equiv. basis; +36% YTD [1]</td>
+        <td>n/a</td><td>Benchmark</td><td>Metal-equiv. basis; +36% YTD [1]</td>
       </tr>
       <tr>
-        <td>2026-03</td><td>99.5&ndash;99.95%</td><td class="mono">145&ndash;150</td><td>1&thinsp;kg</td>
+        <td>2026-03</td><td>99.5 to 99.95%</td><td class="mono">145 to 150</td><td>1&thinsp;kg</td>
         <td><a href="https://www.made-in-china.com/products-search/hot-china-products/Holmium_Price.html" class="supplier-link" target="_blank" rel="noopener">Made-in-China.com</a> (Ganzhou Wanfeng et al.)</td>
         <td>CN</td><td>Wholesale</td><td>FOB China [24]</td>
       </tr>
@@ -284,7 +284,7 @@ permalink: /elements/Ho/
         <td>US</td><td>Lab-grade</td><td>5N; smallest available qty [23]</td>
       </tr>
       <tr>
-        <td>&mdash;</td><td>various</td><td>quote</td><td>&mdash;</td>
+        <td>n/a</td><td>various</td><td>quote</td><td>n/a</td>
         <td><a href="https://www.samaterials.com/holmium/" class="supplier-link" target="_blank" rel="noopener">Stanford Advanced Materials</a></td>
         <td>US</td><td>Industrial</td><td>RFQ only [14]</td>
       </tr>
@@ -309,7 +309,7 @@ permalink: /elements/Ho/
     </div>
     <div class="note-item">
       <strong>Supply concentration</strong>
-      China supplies 95&ndash;99% of global refined holmium. No non-Chinese project currently produces separated holmium oxide at commercial scale. Lynas and Iluka may add capacity from 2026, but meaningful volumes are not expected before 2027&ndash;2028.
+      China supplies 95 to 99% of global refined holmium. No non-Chinese project currently produces separated holmium oxide at commercial scale. Lynas and Iluka may add capacity from 2026, but meaningful volumes are not expected before 2027 to 2028.
     </div>
   </div>
 </div>
@@ -323,7 +323,7 @@ permalink: /elements/Ho/
 <div class="element-section info-block">
   <h2 class="section-title">References</h2>
   <ol class="references-list">
-    <li id="ref-1">IMARC Group, &ldquo;Holmium Prices 2026: Latest Price Chart, Index &amp; Forecast,&rdquo; Feb&ndash;Mar&thinsp;2026. <a href="https://www.imarcgroup.com/holmium-pricing-report" target="_blank" rel="noopener">imarcgroup.com</a>.</li>
+    <li id="ref-1">IMARC Group, &ldquo;Holmium Prices 2026: Latest Price Chart, Index &amp; Forecast,&rdquo; Feb to Mar&thinsp;2026. <a href="https://www.imarcgroup.com/holmium-pricing-report" target="_blank" rel="noopener">imarcgroup.com</a>.</li>
     <li id="ref-2">Rare Earth Exchanges, &ldquo;China Rare Earth Price Index Climbs to 295.4,&rdquo; Mar&thinsp;2026. <a href="https://rareearthexchanges.com" target="_blank" rel="noopener">rareearthexchanges.com</a>.</li>
     <li id="ref-3">MOFCOM/GAC, Announcement No.&thinsp;18/2025, &ldquo;Export Control of Medium and Heavy Rare Earth Related Items,&rdquo; 4&thinsp;Apr&thinsp;2025. <a href="https://english.mofcom.gov.cn" target="_blank" rel="noopener">english.mofcom.gov.cn</a>.</li>
     <li id="ref-4">SFA (Oxford), &ldquo;China&rsquo;s Rare Earth Export Controls and Their Impact on Global Supply Chains,&rdquo; Oct&thinsp;2025. <a href="https://www.sfa-oxford.com" target="_blank" rel="noopener">sfa-oxford.com</a>.</li>
@@ -349,7 +349,7 @@ permalink: /elements/Ho/
     <li id="ref-24"><a href="https://www.made-in-china.com/products-search/hot-china-products/Holmium_Price.html" target="_blank" rel="noopener">Made-in-China.com</a>. Ho and Ho<sub>2</sub>O<sub>3</sub> supplier listings.</li>
     <li id="ref-25">SFA (Oxford), &ldquo;The Holmium (Ho) Market: Market and Price Drivers.&rdquo; <a href="https://www.sfa-oxford.com" target="_blank" rel="noopener">sfa-oxford.com</a>.</li>
     <li id="ref-26">Global Policy Watch, &ldquo;Heavy Rare Earth Elements: Rising Supply Chain Risks and Emerging Policy Responses,&rdquo; Feb&thinsp;2026. <a href="https://globalpolicywatch.com" target="_blank" rel="noopener">globalpolicywatch.com</a>.</li>
-    <li id="ref-27">Benchmark Mineral Intelligence, &ldquo;Ex-China Rare Earths Premium to Grow, Especially for Heavies,&rdquo; 2025&ndash;2026. <a href="https://source.benchmarkminerals.com" target="_blank" rel="noopener">source.benchmarkminerals.com</a>.</li>
+    <li id="ref-27">Benchmark Mineral Intelligence, &ldquo;Ex-China Rare Earths Premium to Grow, Especially for Heavies,&rdquo; 2025 to 2026. <a href="https://source.benchmarkminerals.com" target="_blank" rel="noopener">source.benchmarkminerals.com</a>.</li>
     <li id="ref-28">Crux Investor, &ldquo;China&rsquo;s Rare Earth Export Controls and the Repricing of Supply Chains,&rdquo; 2025. <a href="https://cruxinvestor.com" target="_blank" rel="noopener">cruxinvestor.com</a>.</li>
     <li id="ref-29">Investing News Network, &ldquo;Lynas Becomes First Heavy Rare Earths Producer Outside China,&rdquo; 2025. <a href="https://investingnews.com" target="_blank" rel="noopener">investingnews.com</a>.</li>
     <li id="ref-30">Various: Mining Technology; CSIS, &ldquo;Developing Rare Earth Processing Hubs,&rdquo; 2026; Investing News Network, &ldquo;Rare Earth Elements Prices 101.&rdquo;</li>

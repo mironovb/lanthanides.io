@@ -4,7 +4,7 @@ symbol: Co
 name: Cobalt
 atomic_number: 27
 category: strategic_metal
-title: "Cobalt Price 2026 — Metal, Sulfate & LME per kg"
+title: "Cobalt Price 2026: Metal, Sulfate & LME per kg"
 description: "Cobalt metal price per kg with LME and retail benchmarks. Track Co pricing for sulfate, hydroxide, and metal used in Li-ion batteries and superalloys."
 keywords: "cobalt price, cobalt price per kg, cobalt metal price, cobalt sulfate price, LME cobalt, buy cobalt, cobalt battery materials"
 element_name: "Cobalt"
@@ -31,7 +31,7 @@ permalink: /elements/Co/
       </tr>
       <tr>
         <td>Cemented carbide binder</td>
-        <td>Co binder phase in WC&ndash;Co cutting tools</td>
+        <td>Co binder phase in WC-Co cutting tools</td>
         <td>Standard ductile binder for tungsten carbide cutting inserts and mining tools</td>
       </tr>
       <tr>
@@ -41,7 +41,7 @@ permalink: /elements/Co/
       </tr>
       <tr>
         <td>Catalysts</td>
-        <td>Co-based Fischer&ndash;Tropsch and HDS catalysts</td>
+        <td>Co-based Fischer-Tropsch and HDS catalysts</td>
         <td>Gas-to-liquids fuel synthesis (Sasol, Shell Pearl) and refinery hydrodesulfurisation</td>
       </tr>
     </tbody>
@@ -76,15 +76,15 @@ permalink: /elements/Co/
       </div>
       <div class="stat-row">
         <span class="stat-label">LME cobalt</span>
-        <span class="stat-value">$22&ndash;$32/kg (2025)</span>
+        <span class="stat-value">$22 to $32/kg (2025)</span>
       </div>
       <div class="stat-row">
         <span class="stat-label">Co sulfate (battery-grade)</span>
-        <span class="stat-value">$10&ndash;$14/kg (Co content)</span>
+        <span class="stat-value">$10 to $14/kg (Co content)</span>
       </div>
       <div class="stat-row">
         <span class="stat-label">Retail metal (1&thinsp;kg)</span>
-        <span class="stat-value">$80&ndash;$220/kg</span>
+        <span class="stat-value">$80 to $220/kg</span>
       </div>
     </div>
   </div>
@@ -101,7 +101,7 @@ permalink: /elements/Co/
   <div class="notes-block">
     <div class="note-item">
       <strong>DRC concentration risk</strong>
-      Roughly 75% of global Co mine output comes from the Democratic Republic of the Congo, much of it through Chinese-owned operations (CMOC, Huayou). Artisanal mining accounts for ~15&ndash;20%, raising ESG and child-labour scrutiny.
+      Roughly 75% of global Co mine output comes from the Democratic Republic of the Congo, much of it through Chinese-owned operations (CMOC, Huayou). Artisanal mining accounts for ~15 to 20%, raising ESG and child-labour scrutiny.
     </div>
     <div class="note-item">
       <strong>LFP cathode shift suppresses Co demand growth</strong>
@@ -109,7 +109,7 @@ permalink: /elements/Co/
     </div>
     <div class="note-item">
       <strong>Indonesian HPAL nickel-cobalt</strong>
-      New Indonesian high-pressure acid leach (HPAL) projects produce mixed hydroxide precipitate containing Ni and Co. This creates a non-DRC Co supply stream &mdash; mostly Chinese-financed &mdash; and pressures DRC pricing.
+      New Indonesian high-pressure acid leach (HPAL) projects produce mixed hydroxide precipitate containing Ni and Co. This creates a non-DRC Co supply stream (mostly Chinese-financed) and pressures DRC pricing.
     </div>
   </div>
 </div>

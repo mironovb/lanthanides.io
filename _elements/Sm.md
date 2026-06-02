@@ -4,7 +4,7 @@ symbol: Sm
 name: Samarium
 atomic_number: 62
 category: rare_earth_light
-title: "Samarium Price 2026 — Metal & Oxide (Sm₂O₃) per kg"
+title: "Samarium Price 2026: Metal & Oxide (Sm₂O₃) per kg"
 description: "Samarium metal and oxide price per kg. Drives SmCo permanent magnets for aerospace, defense, and missile guidance. Active MOFCOM No. 18/2025 controls."
 keywords: "samarium price, samarium price per kg, samarium metal price, samarium oxide price, Sm2O3 price, SmCo magnet price, samarium export controls, buy samarium"
 element_name: "Samarium"
@@ -15,10 +15,10 @@ permalink: /elements/Sm/
 <div class="regulatory-banner banner-active">
   <div class="banner-title">Active Export Control</div>
   <div class="banner-body">
-    <p>MOFCOM/GAC Announcement No.&thinsp;18/2025 (effective 4&thinsp;April&thinsp;2025) controls all samarium forms &mdash; metal, oxide, alloys, compounds, and SmCo permanent magnets &mdash; under item 1C907 [2]. Controls apply to <em>all countries</em> on a case-by-case licensing basis.</p>
-    <p>China&rsquo;s expanded October&thinsp;2025 measures (Nos.&thinsp;55&ndash;58, 61, 62) are suspended until 28&thinsp;November&thinsp;2026 [3], but the underlying No.&thinsp;18/2025 controls remain fully in force throughout the suspension window.</p>
+    <p>MOFCOM/GAC Announcement No.&thinsp;18/2025 (effective 4&thinsp;April&thinsp;2025) controls all samarium forms (metal, oxide, alloys, compounds, and SmCo permanent magnets) under item 1C907 [2]. Controls apply to <em>all countries</em> on a case-by-case licensing basis.</p>
+    <p>China&rsquo;s expanded October&thinsp;2025 measures (Nos.&thinsp;55 to 58, 61, 62) are suspended until 28&thinsp;November&thinsp;2026 [3], but the underlying No.&thinsp;18/2025 controls remain fully in force throughout the suspension window.</p>
   </div>
-  <div class="banner-key-date">Key date: 28&thinsp;November&thinsp;2026 &mdash; expanded controls suspension expires.</div>
+  <div class="banner-key-date">Key date: 28&thinsp;November&thinsp;2026, expanded controls suspension expires.</div>
 </div>
 
 <div class="element-section info-block">
@@ -89,11 +89,11 @@ permalink: /elements/Sm/
       </div>
       <div class="stat-row">
         <span class="stat-label">Oxide bulk benchmark</span>
-        <span class="stat-value">$3&ndash;$5/kg (FOB China)</span>
+        <span class="stat-value">$3 to $5/kg (FOB China)</span>
       </div>
       <div class="stat-row">
         <span class="stat-label">Metal retail (small qty)</span>
-        <span class="stat-value">$3,800&ndash;$10,000/kg</span>
+        <span class="stat-value">$3,800 to $10,000/kg</span>
       </div>
     </div>
   </div>
@@ -101,7 +101,7 @@ permalink: /elements/Sm/
 
 <div class="element-section info-block">
   <h2 class="section-title">Verified Offers</h2>
-  <p class="section-intro">All in-stock retail and bulk listings normalised to USD/kg. Sourced from primary surveys of eBay, Alibaba, and Western specialist retailers. The retail premium for hand-portioned metal samples is dramatic &mdash; the auto-rendered table below shows oxide bulk at single-digit dollars per kilogram while gram-scale metal trades above $9,000/kg.</p>
+  <p class="section-intro">All in-stock retail and bulk listings normalised to USD/kg. Sourced from primary surveys of eBay, Alibaba, and Western specialist retailers. The retail premium for hand-portioned metal samples is dramatic: the auto-rendered table below shows oxide bulk at single-digit dollars per kilogram while gram-scale metal trades above $9,000/kg.</p>
   {% include provenance-table.html symbol=page.symbol %}
 </div>
 
@@ -134,7 +134,7 @@ permalink: /elements/Sm/
   <ol class="references-list">
     <li id="ref-1">Wolfram Alpha, &ldquo;Samarium element.&rdquo; <a href="https://www.wolframalpha.com/input?i=samarium+element" target="_blank" rel="noopener">wolframalpha.com</a>.</li>
     <li id="ref-2">Ministry of Commerce / General Administration of Customs of the People&rsquo;s Republic of China, Announcement No.&thinsp;18 of 2025, &ldquo;Export Control of Medium and Heavy Rare Earth Related Items,&rdquo; 4&thinsp;April&thinsp;2025.</li>
-    <li id="ref-3">MOFCOM Announcements No.&thinsp;70 and No.&thinsp;72 of 2025 (suspension orders), 7&ndash;9&thinsp;November&thinsp;2025.</li>
+    <li id="ref-3">MOFCOM Announcements No.&thinsp;70 and No.&thinsp;72 of 2025 (suspension orders), 7 to 9&thinsp;November&thinsp;2025.</li>
     <li id="ref-4">United States Geological Survey, <em>Mineral Commodity Summaries 2025: Rare Earths</em>, January&thinsp;2025.</li>
   </ol>
 </div>

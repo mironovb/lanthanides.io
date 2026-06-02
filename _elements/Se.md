@@ -4,7 +4,7 @@ symbol: Se
 name: Selenium
 atomic_number: 34
 category: semiconductor_metal
-title: "Selenium Price 2026 — Metal Powder, Shot & SeO₂ per kg"
+title: "Selenium Price 2026: Metal Powder, Shot & SeO₂ per kg"
 description: "Selenium metal price per kg with retail and bulk benchmarks. Used in glass decolourising, CIGS thin-film solar, rectifiers, and feed additives."
 keywords: "selenium price, selenium price per kg, selenium metal price, selenium powder price, selenium shot price, CIGS selenium, buy selenium, SeO2 price"
 element_name: "Selenium"
@@ -76,15 +76,15 @@ permalink: /elements/Se/
       </div>
       <div class="stat-row">
         <span class="stat-label">Se metal benchmark</span>
-        <span class="stat-value">$15&ndash;$22/kg (Argus FOB)</span>
+        <span class="stat-value">$15 to $22/kg (Argus FOB)</span>
       </div>
       <div class="stat-row">
         <span class="stat-label">Se shot retail (1&thinsp;kg)</span>
-        <span class="stat-value">$35&ndash;$80/kg</span>
+        <span class="stat-value">$35 to $80/kg</span>
       </div>
       <div class="stat-row">
         <span class="stat-label">High-purity 5N retail</span>
-        <span class="stat-value">$150&ndash;$400/kg</span>
+        <span class="stat-value">$150 to $400/kg</span>
       </div>
     </div>
   </div>
@@ -105,7 +105,7 @@ permalink: /elements/Se/
     </div>
     <div class="note-item">
       <strong>Demand softness</strong>
-      Two of Se&rsquo;s historical end-uses &mdash; xerographic drums and decorative red glass &mdash; are in long-term decline. CIGS solar growth has not offset legacy demand losses, leaving Se in chronic mild oversupply.
+      Two of Se&rsquo;s historical end-uses (xerographic drums and decorative red glass) are in long-term decline. CIGS solar growth has not offset legacy demand losses, leaving Se in chronic mild oversupply.
     </div>
     <div class="note-item">
       <strong>Toxicity in feed formulation</strong>

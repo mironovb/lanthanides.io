@@ -4,7 +4,7 @@ symbol: Ta
 name: Tantalum
 atomic_number: 73
 category: strategic_metal
-title: "Tantalum Price 2026 — Powder, Wire & Ingot per kg"
+title: "Tantalum Price 2026: Powder, Wire & Ingot per kg"
 description: "Tantalum metal price per kg with retail and bulk benchmarks. Capacitor-grade powder, sputtering targets, and corrosion-resistant chemical equipment."
 keywords: "tantalum price, tantalum price per kg, tantalum metal price, tantalum powder price, tantalum capacitor price, buy tantalum, conflict mineral, 3TG"
 element_name: "Tantalum"
@@ -22,11 +22,11 @@ permalink: /elements/Ta/
       <tr>
         <td>Tantalum capacitors</td>
         <td>Sintered Ta powder anodes with Ta<sub>2</sub>O<sub>5</sub> dielectric</td>
-        <td>~40% of Ta demand. Smartphones, defence electronics, automotive ECUs &mdash; Ta caps offer high volumetric capacitance and stability over MLCCs.</td>
+        <td>~40% of Ta demand. Smartphones, defence electronics, automotive ECUs. Ta caps offer high volumetric capacitance and stability over MLCCs.</td>
       </tr>
       <tr>
         <td>Sputtering targets</td>
-        <td>Ta and Ta&ndash;N diffusion barriers in IC interconnects</td>
+        <td>Ta and Ta-N diffusion barriers in IC interconnects</td>
         <td>Standard barrier between Cu interconnect and dielectric in advanced CMOS nodes</td>
       </tr>
       <tr>
@@ -66,7 +66,7 @@ permalink: /elements/Ta/
       </div>
       <div class="stat-row">
         <span class="stat-label">Conflict-mineral status</span>
-        <span class="stat-value">3TG (Dodd&ndash;Frank, EU CMR)</span>
+        <span class="stat-value">3TG (Dodd-Frank, EU CMR)</span>
       </div>
     </div>
     <div class="market-stats">
@@ -76,15 +76,15 @@ permalink: /elements/Ta/
       </div>
       <div class="stat-row">
         <span class="stat-label">Ta concentrate</span>
-        <span class="stat-value">$160&ndash;$200/kg Ta<sub>2</sub>O<sub>5</sub></span>
+        <span class="stat-value">$160 to $200/kg Ta<sub>2</sub>O<sub>5</sub></span>
       </div>
       <div class="stat-row">
         <span class="stat-label">Capacitor-grade powder</span>
-        <span class="stat-value">$400&ndash;$700/kg</span>
+        <span class="stat-value">$400 to $700/kg</span>
       </div>
       <div class="stat-row">
         <span class="stat-label">Ta metal retail</span>
-        <span class="stat-value">$300&ndash;$1,500/kg</span>
+        <span class="stat-value">$300 to $1,500/kg</span>
       </div>
     </div>
   </div>
@@ -92,7 +92,7 @@ permalink: /elements/Ta/
 
 <div class="element-section info-block">
   <h2 class="section-title">Verified Offers</h2>
-  <p class="section-intro">Tantalum is one of the four conflict minerals (3TG: tin, tantalum, tungsten, gold) under Dodd&ndash;Frank Section 1502. Responsible-sourcing audits (RMI/RMAP) are mandatory for ITRI smelter qualification. The auto-rendered table shows tracked retail listings.</p>
+  <p class="section-intro">Tantalum is one of the four conflict minerals (3TG: tin, tantalum, tungsten, gold) under Dodd-Frank Section 1502. Responsible-sourcing audits (RMI/RMAP) are mandatory for ITRI smelter qualification. The auto-rendered table shows tracked retail listings.</p>
   {% include provenance-table.html symbol=page.symbol %}
 </div>
 
@@ -101,7 +101,7 @@ permalink: /elements/Ta/
   <div class="notes-block">
     <div class="note-item">
       <strong>Conflict-mineral compliance</strong>
-      Tantalum is the &ldquo;Ta&rdquo; in 3TG. SEC reporting issuers and EU importers must perform supply-chain due diligence under Dodd&ndash;Frank 1502 and the EU Conflict Minerals Regulation. Coltan from artisanal mines in eastern DRC dominates the responsible-sourcing conversation.
+      Tantalum is the &ldquo;Ta&rdquo; in 3TG. SEC reporting issuers and EU importers must perform supply-chain due diligence under Dodd-Frank 1502 and the EU Conflict Minerals Regulation. Coltan from artisanal mines in eastern DRC dominates the responsible-sourcing conversation.
     </div>
     <div class="note-item">
       <strong>MLCC substitution capping demand</strong>

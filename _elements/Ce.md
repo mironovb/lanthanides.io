@@ -4,7 +4,7 @@ symbol: Ce
 name: Cerium
 atomic_number: 58
 category: rare_earth_light
-title: "Cerium Price 2026 — Metal, CeO₂ & Polishing per kg"
+title: "Cerium Price 2026: Metal, CeO₂ & Polishing per kg"
 description: "Cerium oxide and metal price per kg with retail and bulk benchmarks. Light rare earth used in glass polishing, catalytic converters, and FCC catalysts."
 keywords: "cerium price, cerium price per kg, cerium oxide price, CeO2 price, cerium metal price, cerium polishing, buy cerium, light rare earth"
 element_name: "Cerium"
@@ -76,15 +76,15 @@ permalink: /elements/Ce/
       </div>
       <div class="stat-row">
         <span class="stat-label">Oxide bulk benchmark</span>
-        <span class="stat-value">$1.50&ndash;$3/kg (FOB China)</span>
+        <span class="stat-value">$1.50 to $3/kg (FOB China)</span>
       </div>
       <div class="stat-row">
         <span class="stat-label">Polishing-grade slurry</span>
-        <span class="stat-value">$10&ndash;$30/kg</span>
+        <span class="stat-value">$10 to $30/kg</span>
       </div>
       <div class="stat-row">
         <span class="stat-label">Metal retail (gram-scale)</span>
-        <span class="stat-value">$200&ndash;$1,200/kg</span>
+        <span class="stat-value">$200 to $1,200/kg</span>
       </div>
     </div>
   </div>
@@ -105,7 +105,7 @@ permalink: /elements/Ce/
     </div>
     <div class="note-item">
       <strong>Co-production overhang</strong>
-      Ce is produced in massive surplus relative to its end-use demand because Nd/Pr economics drive the basket. The result is chronic Ce oversupply and very low oxide pricing &mdash; the inverse of the heavy-RE supply tightness.
+      Ce is produced in massive surplus relative to its end-use demand because Nd/Pr economics drive the basket. The result is chronic Ce oversupply and very low oxide pricing, the inverse of the heavy-RE supply tightness.
     </div>
     <div class="note-item">
       <strong>Display polishing dependency</strong>

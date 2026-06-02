@@ -4,7 +4,7 @@ symbol: W
 name: Tungsten
 atomic_number: 74
 category: strategic_metal
-title: "Tungsten Price 2026 — Metal, APT & Carbide per kg"
+title: "Tungsten Price 2026: Metal, APT & Carbide per kg"
 description: "Tungsten metal, APT, and carbide price per kg. Critical for cemented carbide cutting tools, kinetic penetrators, and superalloys. Active Chinese controls."
 keywords: "tungsten price, tungsten price per kg, tungsten metal price, APT price, ammonium paratungstate, tungsten carbide price, tungsten export controls, buy tungsten"
 element_name: "Tungsten"
@@ -18,7 +18,7 @@ permalink: /elements/W/
     <p>Tungsten was added to China&rsquo;s export-control list under MOFCOM/GAC Announcement No.&thinsp;10/2025 (effective 4&thinsp;February&thinsp;2025), alongside Te, Bi, Mo and In [2]. The control covers tungsten metal, ferrotungsten, ammonium paratungstate (APT), tungsten carbide powder, and a range of tungsten compounds.</p>
     <p>The October&thinsp;2025 escalation announcements expanded the scope further; suspension Announcements Nos.&thinsp;70 and 72/2025 [3] roll back the October additions until 28&thinsp;November&thinsp;2026, but the No.&thinsp;10/2025 baseline licensing requirement remains fully in force.</p>
   </div>
-  <div class="banner-key-date">Key date: 28&thinsp;November&thinsp;2026 &mdash; expanded controls suspension expires.</div>
+  <div class="banner-key-date">Key date: 28&thinsp;November&thinsp;2026, expanded controls suspension expires.</div>
 </div>
 
 <div class="element-section info-block">
@@ -30,7 +30,7 @@ permalink: /elements/W/
     <tbody>
       <tr>
         <td>Cemented carbide tooling</td>
-        <td>WC&ndash;Co cutting inserts, drill bits, mining tools</td>
+        <td>WC-Co cutting inserts, drill bits, mining tools</td>
         <td>~60% of W demand. Indispensable for metal machining, mining, and oil &amp; gas drilling. No economic substitute.</td>
       </tr>
       <tr>
@@ -85,15 +85,15 @@ permalink: /elements/W/
       </div>
       <div class="stat-row">
         <span class="stat-label">APT benchmark (FOB China)</span>
-        <span class="stat-value">~$340&ndash;$420/mtu</span>
+        <span class="stat-value">~$340 to $420/mtu</span>
       </div>
       <div class="stat-row">
         <span class="stat-label">Carbide retail (1&thinsp;kg)</span>
-        <span class="stat-value">$80&ndash;$160/kg</span>
+        <span class="stat-value">$80 to $160/kg</span>
       </div>
       <div class="stat-row">
         <span class="stat-label">Pure W metal retail</span>
-        <span class="stat-value">$120&ndash;$700/kg</span>
+        <span class="stat-value">$120 to $700/kg</span>
       </div>
     </div>
   </div>
@@ -110,7 +110,7 @@ permalink: /elements/W/
   <div class="notes-block">
     <div class="note-item note-warning">
       <strong>Export controls in force</strong>
-      MOFCOM No.&thinsp;10/2025 [2] requires Chinese export licences for W metal, APT, ferrotungsten, carbide powder, and major W compounds. Western buyers should expect 30&ndash;60 day licence approval delays and increased scrutiny on military end-users.
+      MOFCOM No.&thinsp;10/2025 [2] requires Chinese export licences for W metal, APT, ferrotungsten, carbide powder, and major W compounds. Western buyers should expect 30 to 60 day licence approval delays and increased scrutiny on military end-users.
     </div>
     <div class="note-item">
       <strong>Defence supply chain exposure</strong>
@@ -134,7 +134,7 @@ permalink: /elements/W/
   <ol class="references-list">
     <li id="ref-1">Wolfram Alpha, &ldquo;Tungsten element.&rdquo; <a href="https://www.wolframalpha.com/input?i=tungsten+element" target="_blank" rel="noopener">wolframalpha.com</a>.</li>
     <li id="ref-2">MOFCOM Announcement No.&thinsp;10 of 2025, &ldquo;Export Control of Tungsten, Tellurium, Bismuth, Molybdenum and Indium Related Items,&rdquo; effective 4&thinsp;February&thinsp;2025.</li>
-    <li id="ref-3">MOFCOM Announcements No.&thinsp;70 and 72 of 2025 (suspension orders), 7&ndash;9&thinsp;November&thinsp;2025.</li>
+    <li id="ref-3">MOFCOM Announcements No.&thinsp;70 and 72 of 2025 (suspension orders), 7 to 9&thinsp;November&thinsp;2025.</li>
     <li id="ref-4">United States Geological Survey, <em>Mineral Commodity Summaries 2025: Tungsten</em>, January&thinsp;2025.</li>
   </ol>
 </div>

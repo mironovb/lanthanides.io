@@ -4,7 +4,7 @@ symbol: Pr
 name: Praseodymium
 atomic_number: 59
 category: rare_earth_light
-title: "Praseodymium Price 2026 — Metal & Pr₆O₁₁ per kg"
+title: "Praseodymium Price 2026: Metal & Pr₆O₁₁ per kg"
 description: "Praseodymium metal and oxide price per kg. Used in NdPr magnet alloys, didymium welding glass, and high-strength magnesium aerospace alloys."
 keywords: "praseodymium price, praseodymium price per kg, praseodymium metal price, praseodymium oxide price, Pr6O11 price, NdPr magnet, didymium, buy praseodymium"
 element_name: "Praseodymium"
@@ -31,7 +31,7 @@ permalink: /elements/Pr/
       </tr>
       <tr>
         <td>Magnesium aerospace alloys</td>
-        <td>Mg&ndash;Pr alloy additions (Elektron series)</td>
+        <td>Mg-Pr alloy additions (Elektron series)</td>
         <td>High-strength, creep-resistant magnesium alloys for aerospace gearboxes and missile structures</td>
       </tr>
       <tr>
@@ -76,15 +76,15 @@ permalink: /elements/Pr/
       </div>
       <div class="stat-row">
         <span class="stat-label">NdPr oxide bulk benchmark</span>
-        <span class="stat-value">$50&ndash;$70/kg (FOB China)</span>
+        <span class="stat-value">$50 to $70/kg (FOB China)</span>
       </div>
       <div class="stat-row">
         <span class="stat-label">Pure Pr oxide retail</span>
-        <span class="stat-value">$80&ndash;$200/kg</span>
+        <span class="stat-value">$80 to $200/kg</span>
       </div>
       <div class="stat-row">
         <span class="stat-label">Metal retail (gram-scale)</span>
-        <span class="stat-value">$300&ndash;$1,800/kg</span>
+        <span class="stat-value">$300 to $1,800/kg</span>
       </div>
     </div>
   </div>
@@ -92,7 +92,7 @@ permalink: /elements/Pr/
 
 <div class="element-section info-block">
   <h2 class="section-title">Verified Offers</h2>
-  <p class="section-intro">Praseodymium is rarely sold as a pure oxide outside lab quantities &mdash; the bulk magnet market trades NdPr as a fixed-ratio mix. The auto-rendered table shows tracked retail listings for separated Pr.</p>
+  <p class="section-intro">Praseodymium is rarely sold as a pure oxide outside lab quantities, as the bulk magnet market trades NdPr as a fixed-ratio mix. The auto-rendered table shows tracked retail listings for separated Pr.</p>
   {% include provenance-table.html symbol=page.symbol %}
 </div>
 
