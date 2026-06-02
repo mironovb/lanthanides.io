@@ -2,8 +2,8 @@
    Long-form content prose (Prompt 8)
 
    Styles the markdown bodies rendered by <Markdown> on /methodology and
-   /news/[slug] — headings, paragraphs, lists, links, tables (GFM), blockquotes,
-   code, and footnote-style references — mapped onto the dark baseline tokens
+   /news/[slug]: headings, paragraphs, lists, links, tables (GFM), blockquotes,
+   code, and footnote-style references, mapped onto the dark baseline tokens
    (tailwind.config.ts via theme()). Scoped under `.content-body` so it only
    touches rendered editorial content, never the page chrome (Tailwind utilities).
    Prompt 11 folds this into the full design system.

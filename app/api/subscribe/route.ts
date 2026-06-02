@@ -1,5 +1,5 @@
 /**
- * /api/subscribe (Prompt 22) — the write path for notification signups (the
+ * /api/subscribe (Prompt 22): the write path for notification signups (the
  * Prisma `Subscription` model). This is the alerts layer of the thin commercial
  * app:
  *
@@ -11,7 +11,7 @@
  *       failure · 500 on a DB error.
  *
  * Honest + private (CLAUDE.md hard rules #1/#3 + the task's privacy ask): NO
- * external calls and NO email is ever sent — email is a waitlist, and we say so.
+ * external calls and NO email is ever sent; email is a waitlist, and we say so.
  * We store only what a channel needs to deliver (email + topics), never anything
  * that tracks a visitor, and a subscription is never published into the open
  * dataset. There is deliberately no GET: the subscriber list is private and is
@@ -42,7 +42,7 @@ function json(body: unknown, status = 200): Response {
 }
 
 export async function POST(request: Request): Promise<Response> {
-  // 1. Parse the body — must be a JSON object.
+  // 1. Parse the body: must be a JSON object.
   let body: Partial<Record<SubscriptionField, unknown>>;
   try {
     const parsed: unknown = await request.json();
@@ -52,12 +52,12 @@ export async function POST(request: Request): Promise<Response> {
     body = parsed as Partial<Record<SubscriptionField, unknown>>;
   } catch {
     return json(
-      { ok: false, error: 'Invalid JSON body — expected an object of fields.' },
+      { ok: false, error: 'Invalid JSON body. Expected an object of fields.' },
       400,
     );
   }
 
-  // 2. Validate server-side (authoritative — mirrors the form's client checks).
+  // 2. Validate server-side (authoritative, mirrors the form's client checks).
   const { clean, fieldErrors } = validateSubscription(body);
   if (!clean) {
     return json(
@@ -72,7 +72,7 @@ export async function POST(request: Request): Promise<Response> {
 
   const topicsCsv = serializeTopics(clean.topics);
 
-  // 3. Dedupe by channel + email (app-level — the user's own address, queried
+  // 3. Dedupe by channel + email (app-level, the user's own address, queried
   //    only to avoid a duplicate row; no unique-constraint migration needed). An
   //    email channel always carries an email (validation guarantees it).
   try {
@@ -99,7 +99,7 @@ export async function POST(request: Request): Promise<Response> {
       }
     }
 
-    // 4. Create the waitlist row. Status is always 'waitlist' here — confirmation
+    // 4. Create the waitlist row. Status is always 'waitlist' here; confirmation
     //    (double opt-in) and delivery are later prompts; nothing is sent now.
     const row: Subscription = await prisma.subscription.create({
       data: {

@@ -1,7 +1,7 @@
 'use client';
 
 /**
- * FilterChips — a controlled single-select chip strip (the generalized base of
+ * FilterChips: a controlled single-select chip strip (the generalized base of
  * the regulatory tracker's element filter). The parent owns the selection;
  * this renders one <button> per option (plus an optional "All" that clears),
  * keyboard-accessible with `aria-pressed`. Clicking the active chip clears it.

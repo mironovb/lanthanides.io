@@ -1,17 +1,17 @@
 /**
- * ListingGaugeResult — the instant, dataset-derived response shown after a seller
+ * ListingGaugeResult: the instant, dataset-derived response shown after a seller
  * submits a listing. It renders the engine's price RANGE (weighted P25/P50/P75
  * USD/kg) + confidence + basis, and positions the seller's own asking price
  * against that band (below / in / above), so they immediately see where their
  * number sits relative to the sourced evidence.
  *
  * Honesty (CLAUDE.md hard rule #1): a zero-match query renders the engine's
- * explicit "insufficient data" path — no fabricated range to compare against. The
+ * explicit "insufficient data" path, no fabricated range to compare against. The
  * positioning is computed only for USD asking prices, because the dataset is
  * USD-normalized and we apply no live exchange rate (hard rule #3); a non-USD
  * quote shows the USD band with a plain note rather than a cross-converted guess.
  *
- * Presentational only (no hooks) — safe inside the client form bundle.
+ * Presentational only (no hooks), safe inside the client form bundle.
  */
 import Link from 'next/link';
 import { Callout, Panel, cn } from '@/components/ui';
@@ -37,10 +37,10 @@ const POSITION_GLYPH: Record<PricePosition, string> = {
 
 const POSITION_NOTE: Record<PricePosition, string> = {
   below:
-    'Your asking price sits under the P25 of the matching sourced records — it would read as keenly priced against the dataset. Double-check you’re not under-selling.',
-  in: 'Your asking price sits inside the interquartile band of the matching sourced records — consistent with what the data shows for this material.',
+    'Your asking price sits under the P25 of the matching sourced records. It would read as keenly priced against the dataset. Double-check you’re not under-selling.',
+  in: 'Your asking price sits inside the interquartile band of the matching sourced records, consistent with what the data shows for this material.',
   above:
-    'Your asking price sits over the P75 of the matching sourced records — buyers comparing against sourced quotes may treat it as a premium. Be ready to justify it (purity, form, lot size, provenance).',
+    'Your asking price sits over the P75 of the matching sourced records. Buyers comparing against sourced quotes may treat it as a premium. Be ready to justify it (purity, form, lot size, provenance).',
 };
 
 export function ListingGaugeResult({
@@ -67,7 +67,7 @@ export function ListingGaugeResult({
           {gauge.message}
         </Callout>
         <p className="mt-4 text-sm leading-relaxed text-fg-muted">
-          Your listing is saved either way — we just won’t invent a benchmark to
+          Your listing is saved either way. We just won’t invent a benchmark to
           rate it against. On file for {elementName}:{' '}
           <span className="font-mono text-fg">{b.availableByTier.retail}</span>{' '}
           retail and{' '}
@@ -88,10 +88,10 @@ export function ListingGaugeResult({
 
   const dateSpan =
     b.dateRange && b.dateRange.from !== b.dateRange.to
-      ? `${formatDate(b.dateRange.from)} – ${formatDate(b.dateRange.to)}`
+      ? `${formatDate(b.dateRange.from)} to ${formatDate(b.dateRange.to)}`
       : b.dateRange
         ? formatDate(b.dateRange.from)
-        : '—';
+        : 'n/a';
 
   return (
     <div className="space-y-4">
@@ -162,14 +162,14 @@ export function ListingGaugeResult({
           <Fact label="Tier band" value={tierLabel} />
           <Fact
             label="Forms in sample"
-            value={b.matchedForms.map(capitalize).join(', ') || '—'}
+            value={b.matchedForms.map(capitalize).join(', ') || 'n/a'}
           />
           <Fact
             label="Observed price range"
             value={
               b.observedRange
-                ? `${fmtUsdPrice(b.observedRange.min)} – ${fmtUsdPrice(b.observedRange.max)}`
-                : '—'
+                ? `${fmtUsdPrice(b.observedRange.min)} to ${fmtUsdPrice(b.observedRange.max)}`
+                : 'n/a'
             }
           />
         </dl>
@@ -232,7 +232,7 @@ function Verdict({
         </div>
         <p
           className="flex items-center gap-1.5 font-mono text-2xs font-semibold uppercase tracking-caps text-fg"
-          title="Where your asking price falls relative to the weighted P25–P75 of the matching sourced records."
+          title="Where your asking price falls relative to the weighted P25 to P75 of the matching sourced records."
         >
           <span aria-hidden="true" className="text-base leading-none">
             {POSITION_GLYPH[position]}
@@ -288,7 +288,7 @@ function Fact({ label, value }: { label: string; value: React.ReactNode }) {
 /**
  * A static, non-animated bar placing the interquartile band [low, high], the
  * median, and (for a USD quote) the seller's asking-price marker on the axis of
- * all observed prices [min, max]. Faithful to the numbers stated above — not a
+ * all observed prices [min, max]. Faithful to the numbers stated above, not a
  * trend line, so the visualization audit's low-data gate doesn't apply. The
  * asking marker is monochrome (fg) to stay off the teal band; the axis stretches
  * to include the asking price when it lands outside the observed window.
@@ -344,7 +344,7 @@ function GaugeBar({
         <span>
           {asking != null
             ? 'band (teal) · your price (white)'
-            : 'observed min – max'}
+            : 'observed min to max'}
         </span>
         <span>{fmtUsdPrice(axisMax)}</span>
       </div>

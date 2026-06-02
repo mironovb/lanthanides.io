@@ -1,5 +1,5 @@
 /**
- * /api/price-gauge (Prompt 18) — the HTTP face of the price-gauge engine
+ * /api/price-gauge (Prompt 18): the HTTP face of the price-gauge engine
  * (`lib/price-gauge.ts`). Estimates a fair price RANGE + confidence for a
  * requested {element, form, purity, quantity}, computed entirely from the
  * sourced price records. It never fabricates a price: an element/band with no
@@ -9,9 +9,9 @@
  *   POST /api/price-gauge   { "symbol":"Dy", "form":"oxide", "quantityKg":0.05, ... }
  *
  * Responses:
- *   200 — a valid query (engine result, whether or not data was sufficient)
- *   400 — missing symbol, or unknown form / tier / quantity (with the allowed set)
- *   404 — unknown element
+ *   200: a valid query (engine result, whether or not data was sufficient)
+ *   400: missing symbol, or unknown form / tier / quantity (with the allowed set)
+ *   404: unknown element
  *
  * Dynamic + Node runtime: it reads request input and transitively touches `fs`
  * (via `lib/data`), so it can't be statically optimised or run on the edge.
@@ -81,7 +81,7 @@ function validate(raw: RawParams): Validated {
     return s.length > 0 ? s : undefined;
   };
 
-  // symbol — required.
+  // symbol: required.
   const symbolRaw = str(raw.symbol);
   if (!symbolRaw) {
     return {
@@ -92,11 +92,11 @@ function validate(raw: RawParams): Validated {
         usage:
           '/api/price-gauge?symbol=Dy&form=oxide&quantityKg=0.05 (also accepts POST JSON)',
         parameters: {
-          symbol: 'required — element symbol, e.g. "Dy" (case-insensitive)',
-          form: `optional — one of ${knownForms().join(', ')}`,
-          purity: 'optional — e.g. "99.9%" (soft-weights toward like purity)',
-          quantityKg: 'optional — selects the tier band when "tier" is omitted',
-          tier: `optional — one of ${TIERS.join(', ')} (overrides quantity)`,
+          symbol: 'required: element symbol, e.g. "Dy" (case-insensitive)',
+          form: `optional: one of ${knownForms().join(', ')}`,
+          purity: 'optional: e.g. "99.9%" (soft-weights toward like purity)',
+          quantityKg: 'optional: selects the tier band when "tier" is omitted',
+          tier: `optional: one of ${TIERS.join(', ')} (overrides quantity)`,
         },
       },
     };
@@ -110,7 +110,7 @@ function validate(raw: RawParams): Validated {
     };
   }
 
-  // tier — optional, but if present must be retail|bulk.
+  // tier: optional, but if present must be retail|bulk.
   let tier: TierBand | undefined;
   const tierRaw = str(raw.tier);
   if (tierRaw) {
@@ -125,7 +125,7 @@ function validate(raw: RawParams): Validated {
     tier = t as TierBand;
   }
 
-  // quantityKg — optional, but if present must be a positive finite number.
+  // quantityKg: optional, but if present must be a positive finite number.
   let quantityKg: number | undefined;
   const qtyRaw = raw.quantityKg;
   if (qtyRaw !== undefined && qtyRaw !== null && String(qtyRaw).trim() !== '') {
@@ -135,14 +135,14 @@ function validate(raw: RawParams): Validated {
         ok: false,
         status: 400,
         body: {
-          error: `Invalid quantityKg "${String(qtyRaw)}" — expected a positive number of kilograms.`,
+          error: `Invalid quantityKg "${String(qtyRaw)}". Expected a positive number of kilograms.`,
         },
       };
     }
     quantityKg = n;
   }
 
-  // form — optional, but if present must be a form the dataset actually carries.
+  // form: optional, but if present must be a form the dataset actually carries.
   let form: string | undefined;
   const formRaw = str(raw.form);
   if (formRaw) {
@@ -168,7 +168,7 @@ function run(raw: RawParams): Response {
   if (!v.ok) return json(v.body, v.status);
 
   const result = estimatePrice(v.input, getPriceRecords());
-  // 200 even when sufficient:false — the query was valid, the honest answer is
+  // 200 even when sufficient:false, the query was valid, the honest answer is
   // "no data for this element/band". GET results are cacheable (the underlying
   // dataset only changes on a pipeline-triggered rebuild).
   return json({ query: v.input, ...result }, 200, 'public, max-age=300');
@@ -196,7 +196,7 @@ export async function POST(request: Request): Promise<Response> {
     body = parsed as Record<string, unknown>;
   } catch {
     return json(
-      { error: 'Invalid JSON body — expected an object of query parameters.' },
+      { error: 'Invalid JSON body. Expected an object of query parameters.' },
       400,
     );
   }

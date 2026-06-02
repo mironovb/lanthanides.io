@@ -1,5 +1,5 @@
 /**
- * Canonical display formatters — the single source of truth for how strings,
+ * Canonical display formatters: the single source of truth for how strings,
  * prices, quantities, premiums, and dates render across the whole site. Pure, no
  * I/O, safe in both Server and Client Components.
  *
@@ -26,15 +26,15 @@ export function fmtUsd(n: number): string {
 }
 
 /**
- * USD with a leading `$` (e.g. `$1,234.5`) — the common case for a standalone
- * price. Null/undefined/non-finite renders as the honest "—" gap (hard rule #1)
+ * USD with a leading `$` (e.g. `$1,234.5`), the common case for a standalone
+ * price. Null/undefined/non-finite renders as the honest "n/a" gap (hard rule #1)
  * rather than `$NaN`, so an optional price field can be passed safely.
  */
 export function fmtUsdPrice(n: number | null | undefined): string {
-  return n == null || !Number.isFinite(n) ? '—' : `$${fmtUsd(n)}`;
+  return n == null || !Number.isFinite(n) ? 'n/a' : `$${fmtUsd(n)}`;
 }
 
-/** Quoted/MOQ quantity: grams below 1 kg, else kg — the legacy retail-card rule. */
+/** Quoted/MOQ quantity: grams below 1 kg, else kg; the legacy retail-card rule. */
 export function fmtQuantity(kg: number): string {
   const grams = Math.round(kg * 1000);
   return grams >= 1000 ? `${kg} kg` : `${grams} g`;
@@ -49,7 +49,7 @@ export function fmtPremium(premium: number): string {
 }
 
 /**
- * Editorial date — "May 31, 2026" (abbreviated month). Parsed in UTC so a bare
+ * Editorial date: "May 31, 2026" (abbreviated month). Parsed in UTC so a bare
  * `YYYY-MM-DD` never shifts a day across timezones, and SSG output is
  * deterministic. Falls back to the raw string if it can't be parsed, so a
  * malformed value surfaces honestly rather than rendering "Invalid Date".

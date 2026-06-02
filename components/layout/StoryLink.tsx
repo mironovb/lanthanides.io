@@ -1,8 +1,8 @@
 /**
- * StoryLink — the one-line cross-link that ties each page to the adjacent step
+ * StoryLink: the one-line cross-link that ties each page to the adjacent step
  * in the product story (Prompt 14). Rendered just under a page's lead (as
  * <PageHeader> children, inside the masthead rule), it tells the reader where
- * this surface leads next — e.g. Elements → "export-control status in the
+ * this surface leads next, e.g. Elements → "export-control status in the
  * Regulatory Tracker". One consistent treatment site-wide: a leading accent
  * glyph, muted prose, and any nested link auto-styled as an accent link so
  * callers just write `<Link href=…>…</Link>`.

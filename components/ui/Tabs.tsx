@@ -1,7 +1,7 @@
 'use client';
 
 /**
- * Tabs — an accessible tab set following the WAI-ARIA pattern: roving tabindex,
+ * Tabs. An accessible tab set following the WAI-ARIA pattern: roving tabindex,
  * Left/Right/Home/End arrow navigation, and `role=tab`/`tabpanel` wiring. All
  * panels stay in the DOM (inactive ones `hidden`) so content is crawlable and
  * focus is preserved. Self-contained/uncontrolled; pass `defaultTabId` to pick

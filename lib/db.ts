@@ -1,5 +1,5 @@
 /**
- * Prisma client singleton — the one handle to the dynamic, user-generated store
+ * Prisma client singleton: the one handle to the dynamic, user-generated store
  * (the three Prisma models: `Listing`, `Subscription`, `ScreenedOffer`). The
  * reference/provenance dataset is NEVER read from here; that stays the typed
  * file layer in `lib/data/` (CLAUDE.md hybrid-data rule).
@@ -12,7 +12,7 @@
  * for Next.js.
  *
  * Server-only: import from route handlers / Server Components, never a Client
- * Component. SQLite locally, Postgres in prod — switched by DATABASE_URL alone
+ * Component. SQLite locally, Postgres in prod, switched by DATABASE_URL alone
  * (prisma/schema.prisma), so nothing here changes between engines.
  */
 import { PrismaClient } from '@prisma/client';

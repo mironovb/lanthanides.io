@@ -1,10 +1,10 @@
 /**
- * Callout — a bordered, tinted aside for methodology notes, caveats, and data
+ * Callout: a bordered, tinted aside for methodology notes, caveats, and data
  * limitations (the site's honesty-about-uncertainty surfaces). A left accent
  * rule carries the tone; the tint is faint so it never competes with data.
  *
  * Server component. Tone is the only color decision: `note`/`info` (teal),
- * `warning` (amber), `danger` (red), `success` (green) — all from the semantic
+ * `warning` (amber), `danger` (red), `success` (green), all from the semantic
  * scale, never decorative.
  */
 import { cn } from './cn';

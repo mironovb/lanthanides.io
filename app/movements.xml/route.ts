@@ -15,7 +15,7 @@ export const dynamic = 'force-static';
 
 const SITE = 'https://www.lanthanides.io';
 const SITE_TITLE =
-  'lanthanides.io — Rare Earth Prices, Export Controls & Strategic Materials Intelligence';
+  'lanthanides.io · Rare Earth Prices, Export Controls & Strategic Materials Intelligence';
 const SITE_AUTHOR = 'Bogdan Mironov';
 // Host for the tag URI scheme: scheme and all slashes stripped (same as the static site).
 const HOST = SITE.replace(/^https?:\/\//, '').replace(/\//g, '');
@@ -52,7 +52,7 @@ function sign(direction?: string): string {
 
 function entryTitle(e: MovementEvent): string {
   let title = `${KIND[e.type] ?? 'Movement'} · ${e.element_name} (${e.element})`;
-  if (e.tier_label) title += ` — ${e.tier_label}`;
+  if (e.tier_label) title += ` · ${e.tier_label}`;
   if (e.abs_magnitude_pct != null) {
     title += ` ${sign(e.direction)}${rubyFloat(e.abs_magnitude_pct)}%`;
   }
@@ -105,7 +105,7 @@ export function GET(): Response {
 
   const xml = `<?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
-  <title>${xmlEscape(`${SITE_TITLE} — Market Movements`)}</title>
+  <title>${xmlEscape(`${SITE_TITLE} · Market Movements`)}</title>
   <subtitle>Auto-generated price-movement and regulatory-change alerts for rare earth and strategic metals.</subtitle>
   <link href="${SITE}/movements.xml" rel="self" type="application/atom+xml"/>
   <link href="${SITE}/movements/" rel="alternate" type="text/html"/>
@@ -116,7 +116,7 @@ export function GET(): Response {
     <name>${xmlEscape(SITE_AUTHOR)}</name>
     <uri>${SITE}/</uri>
   </author>
-  <rights>CC BY 4.0 — https://creativecommons.org/licenses/by/4.0/</rights>
+  <rights>CC BY 4.0: https://creativecommons.org/licenses/by/4.0/</rights>
 ${entries}
 </feed>
 `;

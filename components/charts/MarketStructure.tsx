@@ -1,11 +1,11 @@
 /**
- * MarketStructure — how China export control concentrates across the four
+ * MarketStructure: how China export control concentrates across the four
  * material categories, as a labeled bar-in-table (Prompt 10). Genuinely
  * informative: it shows at a glance that control is concentrated in the rare
  * earths, not spread evenly. A bar-in-table (not a pie) keeps every count
  * legible (docs/VISUALIZATION-AUDIT.md).
  *
- * Server component. Counts come straight from the catalog — no fabrication.
+ * Server component. Counts come straight from the catalog. No fabrication.
  */
 import type { CategoryControl } from '@/lib/types';
 import { CATEGORY_STYLE } from '@/components/elements/categories';
@@ -35,7 +35,7 @@ export function MarketStructure({ rows }: { rows: CategoryControl[] }) {
       <p className="mt-3 text-xs leading-relaxed text-fg-muted">
         Bars show the share of each category currently under active Chinese
         export control ({totalControlled} of {total} tracked elements). Control
-        is concentrated in the rare earths — the count beside each bar is the
+        is concentrated in the rare earths. The count beside each bar is the
         exact figure (controlled / total in the category).
       </p>
     </div>

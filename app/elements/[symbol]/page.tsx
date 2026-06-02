@@ -1,9 +1,9 @@
 /**
- * /elements/[symbol] — per-element detail page (SSG, case-sensitive, Prompt 6).
+ * /elements/[symbol]: per-element detail page (SSG, case-sensitive, Prompt 6).
  *
  * Statically generated for all 31 catalog symbols via generateStaticParams();
  * `dynamicParams = false` 404s anything else (URLs are case-sensitive: /Dy/, not
- * /dy/). Ports legacy/_layouts/element-detail.html — header + badges, the two
+ * /dy/). Ports legacy/_layouts/element-detail.html: header + badges, the two
  * reference-price cards, the Price Movement table, the inline regulatory notice,
  * the editorial body (with its embedded provenance table), related elements, and
  * prev/next navigation. Per-page metadata comes from the `_elements/*.md` front
@@ -112,7 +112,7 @@ export default function ElementDetailPage({ params }: { params: Params }) {
           { name: 'Home', path: '/' },
           { name: 'Elements', path: '/elements/' },
           {
-            name: `${element.symbol} — ${element.name}`,
+            name: `${element.symbol} · ${element.name}`,
             path: `/elements/${element.symbol}/`,
           },
         ]}
@@ -122,7 +122,7 @@ export default function ElementDetailPage({ params }: { params: Params }) {
         items={[
           { label: 'Home', href: '/' },
           { label: 'Elements', href: '/elements/' },
-          { label: `${element.symbol} — ${element.name}` },
+          { label: `${element.symbol} · ${element.name}` },
         ]}
       />
 
@@ -224,7 +224,7 @@ export default function ElementDetailPage({ params }: { params: Params }) {
       {/* ── Price Movement % table ─────────────────────────────────────── */}
       <PriceMovementTable fluctuation={fluctuation} symbol={element.symbol} />
 
-      {/* ── Price Trend (gated line — renders only for a tier with ≥5
+      {/* ── Price Trend (gated line, renders only for a tier with ≥5
           distinct days; today no tier qualifies, so the observations table
           below stands in for every element). docs/VISUALIZATION-AUDIT.md ── */}
       <PriceHistoryChart history={priceHistory} elementName={element.name} />

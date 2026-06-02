@@ -1,16 +1,16 @@
 /**
- * PriceGaugeResult — renders one engine result transparently: the price RANGE
+ * PriceGaugeResult renders one engine result transparently: the price RANGE
  * (weighted P25 / P50 / P75 USD/kg), a confidence grade, and a full BASIS
  * disclosure (how many records, how many sellers, the date span, the method, and
  * the contributing record ids linking back to the element's provenance table) so
  * the number is auditable, never a black box.
  *
  * Honesty (CLAUDE.md hard rule #1): a zero-match query renders the engine's
- * explicit "insufficient data" path with guidance — no fabricated price. A thin
+ * explicit "insufficient data" path with guidance, no fabricated price. A thin
  * but non-empty match renders the range with a prominent "indicative only"
  * caveat. Form-widening and multi-form samples are called out, not hidden.
  *
- * Server component — pure presentation over the engine result passed in.
+ * Server component, pure presentation over the engine result passed in.
  */
 import Link from 'next/link';
 import { Callout, LinkButton, Panel, cn } from '@/components/ui';
@@ -34,7 +34,7 @@ export function PriceGaugeResult({
   if (!result.sufficient) {
     return (
       <Panel
-        title="No estimate — insufficient data"
+        title="No estimate: insufficient data"
         eyebrow={`${element.name} (${element.symbol})`}
       >
         <Callout tone="warning" title="Not enough matching records">
@@ -89,7 +89,7 @@ export function PriceGaugeResult({
   }
   if (result.confidence === 'low') {
     caveats.push(
-      `Indicative only — based on ${b.matchedRecords} record${
+      `Indicative only, based on ${b.matchedRecords} record${
         b.matchedRecords === 1 ? '' : 's'
       } from ${b.distinctSellers} seller${
         b.distinctSellers === 1 ? '' : 's'
@@ -105,10 +105,10 @@ export function PriceGaugeResult({
 
   const dateSpan =
     b.dateRange && b.dateRange.from !== b.dateRange.to
-      ? `${formatDate(b.dateRange.from)} – ${formatDate(b.dateRange.to)}`
+      ? `${formatDate(b.dateRange.from)} to ${formatDate(b.dateRange.to)}`
       : b.dateRange
         ? formatDate(b.dateRange.from)
-        : '—';
+        : 'n/a';
 
   return (
     <div className="space-y-4">
@@ -163,22 +163,22 @@ export function PriceGaugeResult({
           <Fact label="Tier band" value={tierLabel} />
           <Fact
             label="Forms in sample"
-            value={b.matchedForms.map(capitalize).join(', ') || '—'}
+            value={b.matchedForms.map(capitalize).join(', ') || 'n/a'}
           />
           <Fact
             label="Avg record confidence"
             value={
               b.avgConfidenceScore != null
                 ? b.avgConfidenceScore.toFixed(2)
-                : '—'
+                : 'n/a'
             }
           />
           <Fact
             label="Observed price range"
             value={
               b.observedRange
-                ? `${fmtUsdPrice(b.observedRange.min)} – ${fmtUsdPrice(b.observedRange.max)}`
-                : '—'
+                ? `${fmtUsdPrice(b.observedRange.min)} to ${fmtUsdPrice(b.observedRange.max)}`
+                : 'n/a'
             }
           />
           <Fact label="Match mode" value={b.matchMode.replace(/-/g, ' ')} />
@@ -267,7 +267,7 @@ function Fact({ label, value }: { label: string; value: React.ReactNode }) {
 
 /**
  * A static, non-animated bar placing the interquartile band [low, high] and the
- * median marker on the axis of ALL observed prices [min, max] — a faithful
+ * median marker on the axis of ALL observed prices [min, max], a faithful
  * picture of the numbers already stated above (not a trend line; the
  * visualization audit's low-data gate doesn't apply to a single-value summary).
  * Skipped when the observed prices collapse to one value.
@@ -306,7 +306,7 @@ function GaugeBar({
       </div>
       <div className="mt-1 flex justify-between font-mono text-2xs text-fg-dim">
         <span>{fmtUsdPrice(observed.min)}</span>
-        <span>observed min – max</span>
+        <span>observed min to max</span>
         <span>{fmtUsdPrice(observed.max)}</span>
       </div>
     </div>

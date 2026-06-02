@@ -1,5 +1,5 @@
 /**
- * Seller-listing feature (Prompt 20) — the supply-side entry point at /sell.
+ * Seller-listing feature (Prompt 20): the supply-side entry point at /sell.
  * Import from `@/components/sell`.
  */
 export { SellForm } from './SellForm';

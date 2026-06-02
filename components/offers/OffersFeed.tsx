@@ -1,14 +1,14 @@
 'use client';
 
 /**
- * OffersFeed — the interactive shell for the screened-offer feed (Prompt 21).
+ * OffersFeed: the interactive shell for the screened-offer feed (Prompt 21).
  * Owns the multi-dimension filter state (element · category · form · source type
  * · a medium-plus-confidence toggle) and renders the dense, sortable offer table,
  * value-ranked by default.
  *
  * Everything is server-rendered in the initial HTML (this island is SSR'd with
  * EMPTY_FILTERS, i.e. all offers visible, sorted by value), so the feed is fully
- * readable and crawlable without JS — filtering + re-sorting are pure progressive
+ * readable and crawlable without JS; filtering + re-sorting are pure progressive
  * enhancement. Composes the shared SortableTable + FilterChips primitives; colour
  * stays on the system's meaning axes only (category/regulatory badges), with the
  * value rank and confidence shown MONOCHROME (they are not a colour axis).
@@ -106,7 +106,7 @@ export function OffersFeed({ offers }: { offers: OfferDTO[] }) {
                 ? 'border-accent bg-accent text-base'
                 : 'border-border-strong bg-raised text-fg-muted hover:border-accent hover:text-accent-strong',
             )}
-            title="Hide low-confidence offers (keep medium and high — confidence ≥ 0.50)"
+            title="Hide low-confidence offers (keep medium and high, confidence ≥ 0.50)"
           >
             {filters.mediumPlusOnly ? '✓ ' : ''}Medium+ confidence
           </button>
@@ -155,7 +155,7 @@ export function OffersFeed({ offers }: { offers: OfferDTO[] }) {
           footnote={
             <>
               Value rank = how far the offer sits below (＋) or above (－) its
-              element&rsquo;s same-form median, scaled by source confidence — the
+              element&rsquo;s same-form median, scaled by source confidence, the
               seed&rsquo;s <span className="text-fg-muted">valueScore</span>.
               Click any column header to re-sort; confidence and value are shown
               monochrome (not a colour axis).
@@ -247,7 +247,7 @@ const COLUMNS: Column<OfferDTO>[] = [
 // ── Cell components ───────────────────────────────────────────────────────────
 
 function Dash() {
-  return <span className="text-fg-dim">—</span>;
+  return <span className="text-fg-dim">n/a</span>;
 }
 
 /** Diverging monochrome bar: center = median, right = below-median (favourable). */
@@ -258,7 +258,7 @@ function ValueCell({ score }: { score: number }) {
   return (
     <div
       className="flex flex-col gap-1"
-      title={`valueScore ${score.toFixed(4)} — ${band.hint}`}
+      title={`valueScore ${score.toFixed(4)}: ${band.hint}`}
     >
       <span className="font-sans text-2xs font-semibold text-fg">
         {band.label}
@@ -338,13 +338,13 @@ function ControlBadge({ o }: { o: OfferDTO }) {
 
 const CONF_FILLED: Record<Confidence, number> = { low: 1, medium: 2, high: 3 };
 
-/** Compact monochrome confidence meter + the raw 0–1 score (matches ProvenanceBadge). */
+/** Compact monochrome confidence meter + the raw 0 to 1 score (matches ProvenanceBadge). */
 function ConfBars({ score, band }: { score: number; band: Confidence }) {
   const filled = CONF_FILLED[band];
   return (
     <span
       className="inline-flex items-center gap-1.5"
-      title={`Confidence ${score.toFixed(2)} — ${capitalize(band)} (high ≥ 0.80, medium 0.50–0.79, low < 0.50). Assigned at ingestion.`}
+      title={`Confidence ${score.toFixed(2)}: ${capitalize(band)} (high ≥ 0.80, medium 0.50 to 0.79, low < 0.50). Assigned at ingestion.`}
     >
       <span aria-hidden="true" className="flex items-end gap-0.5">
         {[0, 1, 2].map((i) => (

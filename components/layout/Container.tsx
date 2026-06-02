@@ -1,5 +1,5 @@
 /**
- * Container — the one content column. Centers at the `content` max-width
+ * Container: the one content column. Centers at the `content` max-width
  * (72rem) with consistent gutters, so the header, footer, and every page align
  * to the same measure. Pages keep rendering their own <main>; the root layout
  * does NOT wrap children in a Container (pages own their vertical rhythm), it is

@@ -1,9 +1,9 @@
 /**
- * PageHeader — the standard interior-page masthead: breadcrumb trail, an
+ * PageHeader. The standard interior-page masthead: breadcrumb trail, an
  * optional mono eyebrow, the serif H1, an optional lead paragraph, and an
  * optional right-aligned actions slot (e.g. a feed link). Replaces the
  * hand-rolled `<nav aria-label="Breadcrumb"> + <h1> + intro` block that every
- * page (Prompts 6–8) copied with slight drift, so headings, spacing rhythm, and
+ * page (Prompts 6 to 8) copied with slight drift, so headings, spacing rhythm, and
  * the lead measure are identical site-wide (Prompt 12).
  *
  * Server component. The visual breadcrumb is presentational; machine-readable
@@ -26,7 +26,7 @@ export function PageHeader({
   title: React.ReactNode;
   /** Lead paragraph (rendered at the `md` lead size, constrained to the prose measure). */
   lead?: React.ReactNode;
-  /** Right-aligned controls (feed link, count) — sits beside the title block on wide screens. */
+  /** Right-aligned controls (feed link, count). Sits beside the title block on wide screens. */
   actions?: React.ReactNode;
   /** Extra content rendered below the lead, still inside the header rule. */
   children?: React.ReactNode;

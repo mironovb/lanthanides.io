@@ -1,7 +1,7 @@
 'use client';
 
 /**
- * useSortable + SortableTable — the sortable-header table, generalized from the
+ * useSortable + SortableTable: the sortable-header table, generalized from the
  * provenance table's proven sort logic (null values always sort last; numbers
  * compare numerically, everything else by locale string). Renders entirely in
  * the initial HTML, so it works without JS and stays crawlable; sorting is the

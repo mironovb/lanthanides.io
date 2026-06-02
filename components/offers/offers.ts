@@ -1,13 +1,13 @@
 /**
- * Offer-feed — pure, framework-agnostic helpers shared by the server page
+ * Offer-feed: pure, framework-agnostic helpers shared by the server page
  * (app/offers/page.tsx) and the client filter/sort island (OffersFeed.tsx).
  * Nothing here does I/O or imports the server-only data/screening layers, so it
  * is safe in the client bundle: the page reads the seeded rows + catalog and
  * hands the projected `OfferDTO[]` down; the island filters and sorts them.
  *
  * It never fabricates data (CLAUDE.md hard rule #1): every field is the row's own
- * value (or an honest "—" gap), and the value band / confidence band are coarse
- * labels OVER the numbers the seed already computed — the precise numbers stay
+ * value (or an honest "n/a" gap), and the value band / confidence band are coarse
+ * labels OVER the numbers the seed already computed; the precise numbers stay
  * visible and sortable, so nothing is hidden behind a bucket.
  */
 import type {
@@ -21,7 +21,7 @@ import { capitalize, humanize } from '@/lib/format';
 // ── The public projection of one screened offer (what the feed renders) ───────
 
 /**
- * Structural shape of a screened-offer row — mirrors `RankedOffer` (lib/screening)
+ * Structural shape of a screened-offer row. It mirrors `RankedOffer` (lib/screening)
  * / the Prisma `ScreenedOffer` model WITHOUT importing either (keeps this module
  * client-safe). The page maps rows through `toOfferDTO`, enriching with element
  * metadata, so the display projection is defined in exactly one place.
@@ -87,7 +87,7 @@ export function sourceTypeLabel(sourceType: string): string {
 
 /**
  * Confidence band from methodology #verification-and-confidence (high ≥ 0.80,
- * medium ≥ 0.50, else low) — the same thresholds the per-record ProvenanceBadge
+ * medium ≥ 0.50, else low): the same thresholds the per-record ProvenanceBadge
  * uses, so a confidence reads identically everywhere on the site.
  */
 export function confidenceBand(score: number): Confidence {
@@ -96,14 +96,14 @@ export function confidenceBand(score: number): Confidence {
   return 'low';
 }
 
-// ── Value band — a coarse, honest label over the continuous valueScore ────────
+// ── Value band: a coarse, honest label over the continuous valueScore ────────
 // valueScore = clamp((sameFormMedian − price) / median, −1, 1) × confidence
 // (prisma/seed.ts). Positive ⇒ below the element's same-form median (favourable).
 // The band is presentation only; the signed number stays visible + sortable.
 
 export type ValueBandKey = 'below' | 'near' | 'above';
 
-/** Magnitude under this is "near the median" — neither a clear discount nor premium. */
+/** Magnitude under this is "near the median", neither a clear discount nor premium. */
 export const VALUE_NEAR_THRESHOLD = 0.1;
 
 export interface ValueBand {
@@ -117,7 +117,7 @@ const VALUE_BANDS: Record<ValueBandKey, ValueBand> = {
   below: {
     key: 'below',
     label: 'Below median',
-    hint: 'Priced below the element’s same-form median — a discount, scaled by source confidence.',
+    hint: 'Priced below the element’s same-form median, a discount, scaled by source confidence.',
   },
   near: {
     key: 'near',
@@ -127,7 +127,7 @@ const VALUE_BANDS: Record<ValueBandKey, ValueBand> = {
   above: {
     key: 'above',
     label: 'Above median',
-    hint: 'Priced above the element’s same-form median — a premium.',
+    hint: 'Priced above the element’s same-form median, a premium.',
   },
 };
 
@@ -146,7 +146,7 @@ export function toOfferDTO(row: OfferRow, meta: ElementMeta | undefined): OfferD
     elementSymbol: row.elementSymbol,
     elementName: meta?.name ?? row.elementSymbol,
     category: meta?.category ?? 'strategic_metal',
-    categoryLabel: meta?.categoryLabel ?? '—',
+    categoryLabel: meta?.categoryLabel ?? 'n/a',
     exportControl: meta?.exportControl ?? 'normal',
     regulatory: meta?.regulatory ?? 'none',
     form: row.form,
@@ -205,7 +205,7 @@ export interface SelectOption {
 }
 
 export interface OfferFilterOptions {
-  elements: SelectOption[]; // value = symbol, label = "Sym — Name"
+  elements: SelectOption[]; // value = symbol, label = "Sym · Name"
   categories: { value: ElementCategory; label: string }[];
   forms: SelectOption[];
   sourceTypes: SelectOption[];
@@ -219,7 +219,7 @@ export function buildOfferFilterOptions(offers: OfferDTO[]): OfferFilterOptions 
   const sourceTypes = new Map<string, string>();
 
   for (const o of offers) {
-    elements.set(o.elementSymbol, `${o.elementSymbol} — ${o.elementName}`);
+    elements.set(o.elementSymbol, `${o.elementSymbol} · ${o.elementName}`);
     categories.set(o.category, o.categoryLabel);
     forms.add(o.form);
     sourceTypes.set(o.sourceType, o.sourceTypeLabel);

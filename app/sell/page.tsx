@@ -1,12 +1,12 @@
 /**
- * /sell — Sell / List Material (Prompt 20). The supply-side entry point: a seller
- * submits a structured listing and gets an INSTANT, dataset-derived gauge — their
- * asking price positioned against the sourced low/mid/high range — while the row
+ * /sell: Sell / List Material (Prompt 20). The supply-side entry point: a seller
+ * submits a structured listing and gets an INSTANT, dataset-derived gauge (their
+ * asking price positioned against the sourced low/mid/high range) while the row
  * persists to the `Listing` table as `status:'pending'` (write path:
  * POST /api/listings). The page also renders the live listings table so the loop
  * is visible end-to-end (submission → pending row → maintainer review).
  *
- * Honest framing (CLAUDE.md): storage only — no email/payment/notification side
+ * Honest framing (CLAUDE.md): storage only, no email/payment/notification side
  * effects; the gauge never fabricates a price (hard rule #1); a listing is NEVER
  * auto-published into the open `_data/` dataset (that stays the reviewed git-PR
  * flow). Dynamic + Node runtime: it reads the live DB (via lib/db) and `fs` (via
@@ -32,9 +32,9 @@ export const dynamic = 'force-dynamic';
 export const runtime = 'nodejs';
 
 const DESCRIPTION =
-  "List rare-earth or strategic-metal material for sale and get an instant, sourced price check — your asking price positioned against the dataset's fair-value range before it reaches a buyer. Submissions are reviewed before publishing.";
+  "List rare-earth or strategic-metal material for sale and get an instant, sourced price check, with your asking price positioned against the dataset's fair-value range before it reaches a buyer. Submissions are reviewed before publishing.";
 export const metadata: Metadata = buildMetadata({
-  title: 'Sell / List Material — Instant Sourced Price Check',
+  title: 'Sell / List Material: Instant Sourced Price Check',
   description: DESCRIPTION,
   keywords:
     'sell rare earth, list rare earth material, sell strategic metals, rare earth seller listing, oxide metal asking price, rare earth marketplace, dysprosium neodymium sell',
@@ -66,7 +66,7 @@ export default async function SellPage() {
   return (
     <Container as="main" className="py-10">
       <WebApplicationJsonLd
-        name="Sell / List Material — lanthanides.io"
+        name="Sell / List Material · lanthanides.io"
         description={DESCRIPTION}
         path="/sell/"
       />
@@ -81,12 +81,12 @@ export default async function SellPage() {
         crumbs={[{ label: 'Home', href: '/' }, { label: 'Sell / List' }]}
         eyebrow="Tools"
         title="Sell / List Material"
-        lead="List rare-earth or strategic-metal material and get an instant, sourced price check — your asking price positioned against the dataset’s fair-value range before it reaches a buyer. Every submission is reviewed by a maintainer before publishing; nothing auto-publishes into the open dataset."
+        lead="List rare-earth or strategic-metal material and get an instant, sourced price check, with your asking price positioned against the dataset’s fair-value range before it reaches a buyer. Every submission is reviewed by a maintainer before publishing; nothing auto-publishes into the open dataset."
       >
         <StoryLink>
           The gauge here runs the same engine as the{' '}
           <Link href="/tools/price-gauge/">Price Gauge</Link>, over the records
-          behind every <Link href="/elements/">element page</Link> — the supply
+          behind every <Link href="/elements/">element page</Link>, the supply
           side of a two-sided market whose demand side is the{' '}
           <Link href="/offers/">screened Offer Feed</Link>.
         </StoryLink>
@@ -101,7 +101,7 @@ export default async function SellPage() {
       <section className="mt-16">
         <SectionHeading
           title="Submitted listings"
-          description="Every submission lands here immediately, marked pending. Publishing is a maintainer step — the same double-checked, human-reviewed flow that governs the open dataset."
+          description="Every submission lands here immediately, marked pending. Publishing is a maintainer step, the same double-checked, human-reviewed flow that governs the open dataset."
         />
         <div className="mt-5 space-y-4">
           <Callout tone="note" title="Review before publish">
@@ -132,7 +132,7 @@ export default async function SellPage() {
           <VisionCard
             kicker="Supply side"
             title="Price it, then list it"
-            body="Anchor an asking price to evidence — a sourced low/mid/high range and a confidence grade — instead of guesswork, then capture the listing for review."
+            body="Anchor an asking price to evidence (a sourced low/mid/high range and a confidence grade) instead of guesswork, then capture the listing for review."
             links={[
               { label: 'Price Gauge', href: '/tools/price-gauge/' },
               { label: 'Methodology', href: '/methodology/#display-price' },
@@ -147,7 +147,7 @@ export default async function SellPage() {
           <VisionCard
             kicker="The base layer"
             title="Open data, regardless"
-            body="The dataset every estimate is built from stays CC BY 4.0 and inspectable in git — the open reference is the product; the marketplace is a thin layer on top."
+            body="The dataset every estimate is built from stays CC BY 4.0 and inspectable in git. The open reference is the product; the marketplace is a thin layer on top."
             links={[
               { label: 'Open Data', href: '/data/' },
               { label: 'The vision', href: '/about/' },

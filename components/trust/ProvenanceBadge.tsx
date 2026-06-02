@@ -1,14 +1,14 @@
 /**
- * ProvenanceBadge — the per-record trust-signal cluster (Prompt 16). Given one
+ * ProvenanceBadge: the per-record trust-signal cluster (Prompt 16). Given one
  * PriceRecord it surfaces the three things that make a displayed price
  * *checkable* rather than asserted: its source/intake type, its verification
  * status, and its confidence. It's the compact companion to the full
- * ProvenanceTable — dropped beside a headline reference price so the trust
+ * ProvenanceTable, dropped beside a headline reference price so the trust
  * context travels with the number.
  *
  * HONESTY (CLAUDE.md hard rule #1): every value rendered is read straight off
- * the record — the source type and verification status are the literal fields
- * (humanised), and the confidence band is derived from the record's own 0–1
+ * the record: the source type and verification status are the literal fields
+ * (humanised), and the confidence band is derived from the record's own 0 to 1
  * score against the published methodology thresholds. Nothing is inferred or
  * upgraded. The confidence meter is intentionally monochrome: the design system
  * reserves colour for price-movement / regulatory-risk / category meaning, so
@@ -73,7 +73,7 @@ export function ProvenanceBadge({
   const filled = CONFIDENCE_FILLED[level];
   const score = record.confidence_score.toFixed(2);
   const strong = STRONG_VERIFICATION.test(record.verification_status);
-  const confTitle = `Confidence ${score} — ${CONFIDENCE_LABEL[level]} (high ≥ 0.80, medium 0.50–0.79, low < 0.50). Assigned at ingestion from source type, corroboration, and recency.`;
+  const confTitle = `Confidence ${score}: ${CONFIDENCE_LABEL[level]} (high ≥ 0.80, medium 0.50 to 0.79, low < 0.50). Assigned at ingestion from source type, corroboration, and recency.`;
 
   return (
     <div
@@ -82,7 +82,7 @@ export function ProvenanceBadge({
       {showSource ? (
         <span
           className="inline-flex items-center gap-1 rounded-sm border border-border bg-raised px-1.5 py-0.5 font-mono uppercase tracking-caps text-fg-dim"
-          title={`Source type — how this price entered the ledger: ${humanize(
+          title={`Source type, how this price entered the ledger: ${humanize(
             record.source_type,
           )}`}
         >
@@ -95,7 +95,7 @@ export function ProvenanceBadge({
         variant={strong ? 'accent' : 'default'}
         title={`Verification status: ${humanize(
           record.verification_status,
-        )} — see Methodology for what each status means.`}
+        )}. See Methodology for what each status means.`}
       >
         {humanize(record.verification_status)}
       </Badge>

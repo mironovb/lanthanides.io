@@ -1,13 +1,13 @@
 /**
  * Cached, build-time loaders over the repo-root `_data/` directory.
  *
- * Read-only: this layer NEVER writes to `_data/` (CLAUDE.md hard rule — the
+ * Read-only: this layer NEVER writes to `_data/` (CLAUDE.md hard rule: the
  * Python pipeline owns those files). Each loader parses once and memoises the
  * result per process. JSON is read via `fs` + `JSON.parse`; YAML via the `yaml`
  * package. Light structural validation runs at parse time so a malformed file
  * fails `npm run build` loudly (docs/ARCHITECTURE.md §3).
  *
- * These modules use `fs`, so they are server-only by construction — import them
+ * These modules use `fs`, so they are server-only by construction; import them
  * from Server Components and route handlers, never from a Client Component.
  */
 import { readFileSync, readdirSync } from 'node:fs';

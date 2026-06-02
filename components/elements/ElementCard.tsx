@@ -100,7 +100,7 @@ function PriceRow({
           </span>
         </>
       ) : (
-        <span className="text-fg-dim">—</span>
+        <span className="text-fg-dim">n/a</span>
       )}
     </div>
   );

@@ -1,5 +1,5 @@
 /**
- * /framework — REE Import/Export Operational Framework (SSG, Prompt 24).
+ * /framework: REE Import/Export Operational Framework (SSG, Prompt 24).
  *
  * The operational companion to the regulatory tracker (AUDIT §5/§6:
  * "preserve verbatim and keep the /framework/ URL"). Ported on the /methodology
@@ -7,7 +7,7 @@
  * Next build never reads legacy/ (hard rule #4), the Jekyll Liquid is resolved
  * (relative_url filters → bare paths; the breadcrumb/disclaimer includes become
  * the BreadcrumbList JSON-LD + a Callout here), and the in-page anchors are
- * preserved — `#pricing` via a raw <a id> (rehype-raw) and
+ * preserved: `#pricing` via a raw <a id> (rehype-raw) and
  * `#us-side-tariff-stack-may-14-2026` via the heading-id slugger in <Markdown>.
  */
 import { readFileSync } from 'node:fs';

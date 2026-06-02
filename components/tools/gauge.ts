@@ -1,11 +1,11 @@
 /**
- * Price-gauge tool — pure, framework-agnostic helpers shared by the server page
+ * Price-gauge tool: pure, framework-agnostic helpers shared by the server page
  * (app/tools/price-gauge/page.tsx) and the client form (PriceGaugeForm.tsx).
  *
  * Nothing here does I/O or imports the server-only data layer, so it is safe in
  * the client bundle: the page reads `_data/` and passes the derived structures
  * down. These helpers only echo and validate the request into a ready-to-run
- * `PriceGaugeInput` — the estimate itself is produced by the engine
+ * `PriceGaugeInput`. The estimate itself is produced by the engine
  * (`lib/price-gauge` → `estimatePrice`), which never fabricates a price
  * (CLAUDE.md hard rule #1).
  */
@@ -46,9 +46,9 @@ export function quantityToKg(quantity: string, unit: UnitValue): number | null {
 // ── Tier override options ─────────────────────────────────────────────────────
 // `QUANTITY_TIER_THRESHOLD_KG` in the engine is 25 kg; the labels echo that cut.
 export const TIER_OPTIONS = [
-  { value: '', label: 'Auto — choose from quantity' },
-  { value: 'retail', label: 'Retail — small quantity' },
-  { value: 'bulk', label: 'Bulk — 25 kg and up' },
+  { value: '', label: 'Auto (choose from quantity)' },
+  { value: 'retail', label: 'Retail (small quantity)' },
+  { value: 'bulk', label: 'Bulk (25 kg and up)' },
 ] as const;
 
 // ── Per-element availability (drives the form's element + form selects) ───────
@@ -65,7 +65,7 @@ export interface ElementOption {
 }
 
 /**
- * Fold a dataset market tier into one of the two methodology bands — mirrors the
+ * Fold a dataset market tier into one of the two methodology bands. This mirrors the
  * private `bandOf()` in lib/price-gauge so the form's per-band counts match what
  * the engine will actually estimate over (the function is kept private there).
  */
@@ -77,7 +77,7 @@ function bandOf(tier: PriceRecord['market_tier']): TierBand {
 
 /**
  * One option per catalog element, carrying the forms it is actually quoted in and
- * how many records sit in each band — everything the form needs to constrain its
+ * how many records sit in each band: everything the form needs to constrain its
  * own selects to real data, so no element/form combination is offered that the
  * dataset can't speak to. Catalog order is preserved.
  */
@@ -183,7 +183,7 @@ export function parseGaugeQuery(
 
   const fieldErrors: Partial<Record<GaugeField, string>> = {};
 
-  // symbol — required; resolve case-insensitively to the canonical catalog form.
+  // symbol: required; resolve case-insensitively to the canonical catalog form.
   const symbol =
     ctx.symbols.find((s) => s === symbolRaw) ??
     ctx.symbols.find((s) => s.toLowerCase() === symbolRaw.toLowerCase()) ??
@@ -194,7 +194,7 @@ export function parseGaugeQuery(
     fieldErrors.symbol = `“${symbolRaw}” isn’t a tracked element.`;
   }
 
-  // form — optional; '' / 'any' means all forms in the band. If named, it must
+  // form: optional; '' / 'any' means all forms in the band. If named, it must
   // be a form the dataset actually carries.
   let form: string | undefined;
   if (formRaw && formRaw !== 'any') {
@@ -202,7 +202,7 @@ export function parseGaugeQuery(
     else fieldErrors.form = `“${formRaw}” isn’t a form we hold prices for.`;
   }
 
-  // quantity — optional; if present it must be a positive number.
+  // quantity: optional; if present it must be a positive number.
   let quantityKg: number | undefined;
   if (quantity) {
     const kg = quantityToKg(quantity, unit);
@@ -210,7 +210,7 @@ export function parseGaugeQuery(
     else quantityKg = kg;
   }
 
-  // tier — optional; '' = auto.
+  // tier: optional; '' = auto.
   let tier: TierBand | undefined;
   if (tierRaw) {
     if (tierRaw === 'retail' || tierRaw === 'bulk') tier = tierRaw;

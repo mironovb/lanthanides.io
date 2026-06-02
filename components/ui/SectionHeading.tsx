@@ -1,5 +1,5 @@
 /**
- * SectionHeading — the standard section title used across reference and content
+ * SectionHeading. The standard section title used across reference and content
  * pages: an optional category/status swatch, a serif heading, an optional
  * right-aligned count or actions slot, an underline rule, and an optional
  * description below. Replaces the hand-rolled `<h2 class="… border-b …">`
@@ -12,7 +12,7 @@ import { cn } from './cn';
 
 export interface SectionHeadingProps {
   title: React.ReactNode;
-  /** Heading level — `h2` (default) or `h3`. */
+  /** Heading level: `h2` (default) or `h3`. */
   as?: 'h2' | 'h3';
   /** Deep-link anchor id (e.g. `display-price`). */
   id?: string;

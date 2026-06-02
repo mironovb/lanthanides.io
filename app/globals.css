@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 /* ──────────────────────────────────────────────────────────────────────────
-   Design tokens — the Strategic Materials Ledger system
+   Design tokens: the Strategic Materials Ledger system
 
    Clean white "print intelligence brief" matching the last deployed static
    site. Colors live in tailwind.config.ts (hex, so the prose stylesheets'
@@ -12,13 +12,13 @@
    FONTS: self-hosted via next/font/google (app/layout.tsx), which subsets to
    latin, uses `display: swap`, and injects size-adjusted fallback metrics (no
    layout shift). It defines the --font-sans / --font-mono / --font-serif
-   variables on <html> — Tailwind's fontFamily reads them — so the type pairing
+   variables on <html> (Tailwind's fontFamily reads them), so the type pairing
    is a swap, not a utility-class rewrite. No render-blocking external
    stylesheet, no runtime request to Google. The pairing is Inter (UI +
    headings) + JetBrains Mono (numerics); --font-serif is bound to Inter too.
 
    THEME: light mode. Token names are semantic, so the theme is a token-value
-   edit — see docs/DESIGN-SYSTEM.md §"Theme & the light-mode path".
+   edit: see docs/DESIGN-SYSTEM.md §"Theme & the light-mode path".
    ────────────────────────────────────────────────────────────────────────── */
 @layer base {
   html {
@@ -28,7 +28,7 @@
 
   body {
     @apply bg-base text-fg font-sans antialiased;
-    font-size: 1rem; /* 16px — comfortable reading baseline (static site) */
+    font-size: 1rem; /* 16px, comfortable reading baseline (static site) */
     line-height: 1.55;
     text-rendering: optimizeLegibility;
     font-feature-settings: 'kern' 1, 'liga' 1;
@@ -86,7 +86,7 @@
 }
 
 /* ──────────────────────────────────────────────────────────────────────────
-   Component classes — the two recurring "house" patterns, named once so pages
+   Component classes: the two recurring "house" patterns, named once so pages
    stop hand-rolling them. Everything else is a React component in components/ui.
    ────────────────────────────────────────────────────────────────────────── */
 @layer components {

@@ -1,8 +1,8 @@
 /**
- * OffersBanner — the feed's headline honesty statement (Prompt 21). It sets
+ * OffersBanner: the feed's headline honesty statement (Prompt 21). It sets
  * expectations plainly: the feed is REAL but SEEDED from the verified price
  * dataset; live internet screening is in development. No "scanned 10,000
- * listings" theatre (CLAUDE.md hard rule #1) — it states the actual provenance
+ * listings" theatre (CLAUDE.md hard rule #1); it states the actual provenance
  * and counts, derived from the rows the page passes in.
  *
  * Presentational server component. The page computes the counts (from `screen()`
@@ -24,7 +24,7 @@ export function OffersBanner({
   elementCount: number;
   /** Rows sourced from the seeded dataset (origin='seed'). */
   seededCount: number;
-  /** Rows from live screening (origin='screened') — 0 today. */
+  /** Rows from live screening (origin='screened'), 0 today. */
   screenedCount: number;
 }) {
   return (
@@ -52,7 +52,7 @@ export function OffersBanner({
 
       <p className="mt-3 max-w-prose text-sm leading-relaxed text-fg-muted">
         Every offer below is a real, sourced price record from our open
-        dataset —{' '}
+        dataset.{' '}
         <span className="font-mono tabular-nums text-fg">{total}</span> offers
         across{' '}
         <span className="font-mono tabular-nums text-fg">{elementCount}</span>{' '}
@@ -74,8 +74,8 @@ export function OffersBanner({
             seeded.{' '}
           </>
         )}
-        live screening of external marketplaces — Chinese B2B platforms, eBay, and
-        specialty suppliers — is in development. When it lands, screened offers
+        live screening of external marketplaces (Chinese B2B platforms, eBay, and
+        specialty suppliers) is in development. When it lands, screened offers
         will appear here on the same value scale, each labelled by origin.
       </p>
 

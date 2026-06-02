@@ -1,11 +1,11 @@
 /**
- * Public data-access layer over `_data/` — the accessors every page and route
+ * Public data-access layer over `_data/`: the accessors every page and route
  * handler uses. Read-only; SSG/ISR-friendly (all reads are build-time file
  * reads, memoised per process by `lib/data/load.ts`).
  *
  * Integrity is checked once, lazily, on first access: each accessor calls
  * `ensureVerified()`, which runs `assertDataIntegrity()` a single time and
- * throws if the datasets violate their invariants — so a broken `_data/` fails
+ * throws if the datasets violate their invariants, so a broken `_data/` fails
  * `npm run build` rather than rendering wrong pages.
  *
  * Server-only (transitively uses `fs`): import from Server Components / route
@@ -82,7 +82,7 @@ const elementBySymbol = (() => {
     (map ??= new Map(loadElementCatalog().map((e) => [e.symbol, e])));
 })();
 
-/** Case-sensitive lookup ('Dy', not 'dy') — symbols are used verbatim in URLs. */
+/** Case-sensitive lookup ('Dy', not 'dy'); symbols are used verbatim in URLs. */
 export function getElementBySymbol(symbol: string): Element | null {
   ensureVerified();
   return elementBySymbol().get(symbol) ?? null;
@@ -123,7 +123,7 @@ export function getFluctuation(symbol: string): Fluctuation | null {
 }
 
 /**
- * Generation timestamp of the fluctuations dataset (RFC3339) — the "data as of"
+ * Generation timestamp of the fluctuations dataset (RFC3339), the "data as of"
  * stamp on the dashboard. Read verbatim from `fluctuations.json` `generated_at`,
  * the freshest derived artefact the 6-hourly pipeline writes.
  */
@@ -155,7 +155,7 @@ export function getPolicyEvents(): PolicyEvent[] {
 
 /**
  * Elements currently under an active Chinese export-licence requirement
- * (regulatory_status === 'active'). Mirrors the legacy regulatory banner's set —
+ * (regulatory_status === 'active'). Mirrors the legacy regulatory banner's set,
  * distinct from `getControlledElementCount()` (the broader cn_export_control tally).
  */
 export function getRegulatedElements(): Element[] {
@@ -165,7 +165,7 @@ export function getRegulatedElements(): Element[] {
 
 /**
  * Every element with a non-'none' regulatory status (active OR suspended), in
- * atomic-number order — the set the regulatory tracker's element-filter strip
+ * atomic-number order: the set the regulatory tracker's element-filter strip
  * is built from (legacy regulatory.html: `regulatory_status != 'none'`).
  */
 export function getRegulatedAndSuspendedElements(): Element[] {
@@ -222,7 +222,7 @@ export function getCategoryCounts(): Record<ElementCategory, number> {
 }
 
 /**
- * Count of CN-export-controlled elements (cn_export_control === true) — the
+ * Count of CN-export-controlled elements (cn_export_control === true), the
  * "CN-controlled" stat on the legacy home page (`_layouts/home.html`).
  */
 export function getControlledElementCount(): number {
@@ -281,7 +281,7 @@ export function getCoverageTally(): CoverageTally {
 
 /**
  * Per-element price-data coverage (symbol, name, category, quality grade, and
- * observation count) in catalog order — the rows behind the data-coverage grid.
+ * observation count) in catalog order: the rows behind the data-coverage grid.
  * `quality` is 'none' when an element has no fluctuation entry or zero
  * observations.
  */
@@ -303,7 +303,7 @@ export function getElementCoverage(): ElementCoverage[] {
 }
 
 /**
- * China-export-control counts per element category, in `CATEGORY_ORDER` — the
+ * China-export-control counts per element category, in `CATEGORY_ORDER`: the
  * rows behind the market-structure bars. `controlled` counts elements with
  * `cn_export_control === true`.
  */
@@ -322,7 +322,7 @@ export function getControlByCategory(): CategoryControl[] {
 
 /**
  * Element counts by Chinese export-control posture (restricted/monitored/normal)
- * and current regulatory state (active/suspended/none) — the dashboard
+ * and current regulatory state (active/suspended/none): the dashboard
  * regulatory snapshot (Prompt 17). Both breakdowns partition all catalog
  * elements; counts come straight from the catalog (no fabrication).
  */

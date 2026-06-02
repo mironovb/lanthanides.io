@@ -1,5 +1,5 @@
 /**
- * Offer-feed components (Prompt 21) — the demand-side screened-offer feed.
+ * Offer-feed components (Prompt 21): the demand-side screened-offer feed.
  * Import from `@/components/offers`.
  */
 export { OffersBanner } from './OffersBanner';

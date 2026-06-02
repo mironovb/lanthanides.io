@@ -2,7 +2,7 @@
  * Shared server-side markdown renderer for the long-form content collections
  * (`/methodology`, `/news/[slug]`). react-markdown runs at build time (remark-gfm
  * for tables/strikethrough, rehype-raw to keep authored inline HTML such as
- * `<sub>`/`<sup>`), so nothing hydrates — the HTML ships complete and crawlable.
+ * `<sub>`/`<sup>`), so nothing hydrates. The HTML ships complete and crawlable.
  * Body styling lives in content-body.css, imported by the page.
  *
  * Heading anchors are preserved: kramdown-style `## Heading {#explicit-id}`

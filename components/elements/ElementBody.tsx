@@ -2,7 +2,7 @@
  * Renders an element's editorial markdown body (HTML-rich, from `_elements/*.md`)
  * and resolves the embedded Jekyll include
  * `{% include provenance-table.html symbol=… %}` by splicing the live
- * <ProvenanceTable> in at that point — the Next equivalent of Jekyll expanding
+ * <ProvenanceTable> in at that point, the Next equivalent of Jekyll expanding
  * the include before markdown rendering.
  *
  * Server Component: react-markdown (+ remark-gfm for tables, rehype-raw to keep

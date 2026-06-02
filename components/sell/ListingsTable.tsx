@@ -1,14 +1,14 @@
 /**
- * ListingsTable — the server-rendered view of submitted listings (Prompt 20),
+ * ListingsTable: the server-rendered view of submitted listings (Prompt 20),
  * demonstrating the seller loop end-to-end: a submission appears here the moment
- * it is saved (the form calls `router.refresh()`). Presentational only — the page
+ * it is saved (the form calls `router.refresh()`). Presentational only, the page
  * reads the DB via `lib/db` and passes the SAFE projection (`ListingDTO`), which
  * never carries the private `sellerContact` (schema contract: contact is never
  * published).
  *
  * Status is a workflow state (pending → reviewed → published), NOT one of the
  * design system's meaning axes (price / regulatory / category), so it renders as
- * a neutral monochrome pill rather than a semantic Badge — colour stays reserved.
+ * a neutral monochrome pill rather than a semantic Badge; colour stays reserved.
  * The table states plainly that publishing is a maintainer step, consistent with
  * the contributor-pipeline ethos.
  */
@@ -26,8 +26,8 @@ function StatusPill({ status }: { status: string }) {
 }
 
 function gaugeRange(l: ListingDTO): string {
-  if (l.gaugeLow == null || l.gaugeHigh == null) return '—';
-  return `${fmtUsdPrice(l.gaugeLow)} – ${fmtUsdPrice(l.gaugeHigh)}`;
+  if (l.gaugeLow == null || l.gaugeHigh == null) return 'n/a';
+  return `${fmtUsdPrice(l.gaugeLow)} to ${fmtUsdPrice(l.gaugeHigh)}`;
 }
 
 export function ListingsTable({ listings }: { listings: ListingDTO[] }) {
@@ -36,7 +36,7 @@ export function ListingsTable({ listings }: { listings: ListingDTO[] }) {
       <div className="border border-border bg-surface px-4 py-8 text-center">
         <p className="text-sm text-fg-muted">No listings submitted yet.</p>
         <p className="mt-1 text-xs text-fg-dim">
-          Submit the form above and your listing appears here instantly — marked
+          Submit the form above and your listing appears here instantly, marked
           pending until a maintainer reviews it.
         </p>
       </div>
@@ -97,7 +97,7 @@ export function ListingsTable({ listings }: { listings: ListingDTO[] }) {
               {gaugeRange(l)}
             </TD>
             <TD className="font-mono text-2xs uppercase text-fg-dim">
-              {l.gaugeConfidence ?? '—'}
+              {l.gaugeConfidence ?? 'n/a'}
             </TD>
             <TD>
               <StatusPill status={l.status} />

@@ -1,7 +1,7 @@
 'use client';
 
 /**
- * The full provenance / all-offers table for one element — every tracked price
+ * The full provenance / all-offers table for one element: every tracked price
  * record with its seller, origin, date, form, purity, quantity, MOQ, normalized
  * USD/kg, original price + currency, source type, verification status, and
  * confidence. This provenance is a core trust asset (Prompt 6), so the table is
@@ -39,18 +39,18 @@ interface Column {
 const COLUMNS: Column[] = [
   { label: 'Date', sortKey: 'quote_date', render: (r) => r.quote_date },
   { label: 'Form', sortKey: 'form', render: (r) => capitalize(r.form) },
-  { label: 'Purity', render: (r) => r.purity || '—' },
+  { label: 'Purity', render: (r) => r.purity || 'n/a' },
   {
     label: 'Qty',
     sortKey: 'quoted_quantity_kg',
     numeric: true,
     render: (r) =>
-      r.quoted_quantity_kg != null ? `${r.quoted_quantity_kg} kg` : '—',
+      r.quoted_quantity_kg != null ? `${r.quoted_quantity_kg} kg` : 'n/a',
   },
   {
     label: 'MOQ',
     numeric: true,
-    render: (r) => (r.moq_kg != null ? `${r.moq_kg} kg` : '—'),
+    render: (r) => (r.moq_kg != null ? `${r.moq_kg} kg` : 'n/a'),
   },
   {
     label: 'USD/kg',
@@ -66,14 +66,14 @@ const COLUMNS: Column[] = [
         ? `${fmtUsd(r.original_price_per_unit)} ${r.original_currency ?? ''}/${
             r.original_unit ?? ''
           }`
-        : '—',
+        : 'n/a',
   },
   { label: 'Source', render: (r) => humanize(r.source_type) },
-  { label: 'Seller', sortKey: 'seller_name', render: (r) => r.seller_name || '—' },
+  { label: 'Seller', sortKey: 'seller_name', render: (r) => r.seller_name || 'n/a' },
   {
     label: 'Country',
     sortKey: 'seller_country',
-    render: (r) => r.seller_country || '—',
+    render: (r) => r.seller_country || 'n/a',
   },
   { label: 'Verification', render: (r) => humanize(r.verification_status) },
   {

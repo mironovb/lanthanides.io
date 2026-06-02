@@ -1,5 +1,5 @@
 /**
- * MethodologyCallout — the "how we verify" signpost (Prompt 16). Keeps the
+ * MethodologyCallout: the "how we verify" signpost (Prompt 16). Keeps the
  * rigorous methodology one click away from any price: the three load-bearing
  * ideas (two-reference model, confidence + verification, validated provenance)
  * each deep-link into the exact /methodology anchor.
@@ -9,7 +9,7 @@
  *
  * Anchor contract: #display-price and #provenance-chain are explicit kramdown
  * ids; #verification-and-confidence is the slug the <Markdown> heading renderer
- * assigns to "## Verification and Confidence" (both preserved — AUDIT §2).
+ * assigns to "## Verification and Confidence" (both preserved, AUDIT §2).
  */
 import Link from 'next/link';
 import { Callout, cn } from '@/components/ui';
@@ -26,12 +26,12 @@ const POINTS = [
   {
     href: '/methodology/#verification-and-confidence',
     label: 'Confidence + verification',
-    desc: 'every record carries a 0–1 confidence score and an explicit verification status.',
+    desc: 'every record carries a 0 to 1 confidence score and an explicit verification status.',
   },
   {
     href: '/methodology/#provenance-chain',
     label: 'Validated provenance',
-    desc: 'three intake paths, each one named, dated, attributed, and validated — never invented.',
+    desc: 'three intake paths, each one named, dated, attributed, and validated, never invented.',
   },
 ];
 
@@ -71,7 +71,7 @@ export function MethodologyCallout({
             <Link href={p.href} className="font-semibold">
               {p.label}
             </Link>
-            <span className="text-fg-muted"> — {p.desc}</span>
+            <span className="text-fg-muted">: {p.desc}</span>
           </li>
         ))}
       </ul>

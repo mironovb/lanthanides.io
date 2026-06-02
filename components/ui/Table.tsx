@@ -1,5 +1,5 @@
 /**
- * Table primitives — compact, zebra-free, hairline-ruled. Numeric cells are
+ * Table primitives: compact, zebra-free, hairline-ruled. Numeric cells are
  * monospace, tabular, and right-aligned (the core data convention). These are
  * plain presentational components with no hooks, so they render in BOTH server
  * components (static tables) and client components (the sortable table below).
@@ -7,7 +7,7 @@
  * `TH` carries the sortable affordance: pass `sortable` plus `sortDir`
  * ('asc' | 'desc' | null) and `onSort`. The clickable target is a real nested
  * <button> (not a click handler on the <th>), so sorting is fully keyboard-
- * operable — Tab to focus, Enter/Space to sort (WCAG 2.1.1) — with the global
+ * operable, Tab to focus and Enter/Space to sort (WCAG 2.1.1), with the global
  * focus-visible ring; `aria-sort` stays on the <th> and the ↑/↓/↕ glyph is
  * decorative. Compose them, or use <SortableTable> for the common case.
  */

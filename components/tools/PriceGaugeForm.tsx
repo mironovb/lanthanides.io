@@ -1,12 +1,12 @@
 'use client';
 
 /**
- * PriceGaugeForm — the gauge's input island. It is a plain `method="get"` form
+ * PriceGaugeForm: the gauge's input island. It is a plain `method="get"` form
  * that submits back to /tools/price-gauge/, so it works with NO JavaScript
  * (the server reads the query, runs the engine, and re-renders the result). The
  * only thing JS adds is progressive enhancement: narrowing the Form select to
  * the forms the chosen element is actually quoted in, and a live record-count
- * hint — exactly the "constrain to forms present where possible" requirement.
+ * hint, exactly the "constrain to forms present where possible" requirement.
  *
  * Accessibility: every control has an associated <label>; validation messages
  * are wired with `aria-invalid` + `aria-describedby` and announced via
@@ -45,7 +45,7 @@ export function PriceGaugeForm({
   fieldErrors,
 }: {
   options: ElementOption[];
-  /** Every form present in the dataset (lower-case) — the no-JS fallback list. */
+  /** Every form present in the dataset (lower-case), the no-JS fallback list. */
   forms: string[];
   values: GaugeValues;
   fieldErrors: Partial<Record<GaugeField, string>>;
@@ -96,7 +96,7 @@ export function PriceGaugeForm({
             <option value="">Select an element…</option>
             {options.map((o) => (
               <option key={o.symbol} value={o.symbol}>
-                {o.symbol} — {o.name}
+                {o.symbol} · {o.name}
               </option>
             ))}
           </select>

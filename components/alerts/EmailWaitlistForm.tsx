@@ -1,18 +1,18 @@
 'use client';
 
 /**
- * EmailWaitlistForm — the email-capture island (Prompt 22). A controlled form that
+ * EmailWaitlistForm: the email-capture island (Prompt 22). A controlled form that
  * collects an email + the alert topics to follow, validates it the same way the
  * server does (`validateSubscription`), and on submit POSTs to `/api/subscribe`.
  * The server persists a `Subscription` row (`channel:'email'`, `status:'waitlist'`)
- * and we render an explicit "you're on the waitlist — email alerts are in
+ * and we render an explicit "you're on the waitlist: email alerts are in
  * development" confirmation.
  *
  * Honest by construction (CLAUDE.md hard rule #1): we NEVER claim an email was
- * sent — the success copy says alerts are in development and nothing has been
+ * sent. The success copy says alerts are in development and nothing has been
  * dispatched. No subscriber list is shown (privacy), so there is no router refresh.
  *
- * The write path is a JSON POST (a mutation — not a no-JS idempotent GET), so a
+ * The write path is a JSON POST (a mutation, not a no-JS idempotent GET), so a
  * <noscript> notice points JS-disabled visitors to the always-available Telegram
  * option, which is a plain link.
  *
@@ -106,7 +106,7 @@ export function EmailWaitlistForm() {
       setFieldErrors({});
     } catch {
       setFormError(
-        'Network error — your signup was not saved. Please try again.',
+        'Network error. Your signup was not saved. Please try again.',
       );
       setStatus('error');
     }
@@ -137,12 +137,12 @@ export function EmailWaitlistForm() {
         >
           <p className="leading-relaxed">
             {response.alreadySubscribed
-              ? 'This address is already on the email waitlist — we’ve saved your latest topic choices.'
+              ? 'This address is already on the email waitlist. We’ve saved your latest topic choices.'
               : 'Your address is saved to the email waitlist.'}{' '}
             <span className="font-semibold text-fg">
               Email alerts are still in development
             </span>{' '}
-            — nothing has been sent to you, and no message will be until the
+            and nothing has been sent to you, with no message to come until the
             delivery layer ships.
           </p>
           {chosen.length > 0 ? (
@@ -157,7 +157,7 @@ export function EmailWaitlistForm() {
         </Callout>
         <p className="text-xs leading-relaxed text-fg-dim">
           Want alerts <span className="text-fg-muted">today</span>? The Telegram
-          bot is live now — subscribe with one tap from the panel beside this form.
+          bot is live now. Subscribe with one tap from the panel beside this form.
         </p>
         <button
           type="button"
@@ -181,7 +181,7 @@ export function EmailWaitlistForm() {
 
       <p className="mb-4 text-sm leading-relaxed text-fg-muted">
         Leave your email to be told when alert delivery opens. We store only your
-        address and the topics you pick — nothing is sent until it ships, and your
+        address and the topics you pick. Nothing is sent until it ships, and your
         address is never published.
       </p>
 
@@ -274,7 +274,7 @@ export function EmailWaitlistForm() {
           <Button type="submit" variant="primary" disabled={submitting}>
             {submitting ? 'Joining…' : 'Join the email waitlist'}
           </Button>
-          <span className="text-2xs text-fg-dim">No email is sent — waitlist only.</span>
+          <span className="text-2xs text-fg-dim">No email is sent, waitlist only.</span>
         </div>
 
         {formError && status === 'error' ? (

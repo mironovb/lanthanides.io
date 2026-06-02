@@ -1,5 +1,5 @@
 /**
- * Stat & StatGrid — big-number callouts for the dense "instrument readout"
+ * Stat & StatGrid: big-number callouts for the dense "instrument readout"
  * blocks (coverage tallies, price headlines, dashboard summaries). The value is
  * always monospace + tabular; an optional delta carries up/down/flat color.
  *

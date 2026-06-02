@@ -1,7 +1,7 @@
 /**
- * Card & Panel — the two container primitives.
+ * Card & Panel: the two container primitives.
  *
- * `Card` is a bare bordered graphite surface (sharp corners, no shadow — the
+ * `Card` is a bare bordered graphite surface (sharp corners, no shadow, since the
  * system uses borders for separation, never elevation). `Panel` adds a header
  * bar with an optional eyebrow, a serif title, and an actions slot, with the
  * body padded below a divider. Both are server components.

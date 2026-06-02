@@ -1,6 +1,6 @@
 /**
  * Markdown-body loader for the in-place Jekyll content collections
- * (`_elements/*.md` and `_articles/*.md` — see docs/ARCHITECTURE.md §1,
+ * (`_elements/*.md` and `_articles/*.md`; see docs/ARCHITECTURE.md §1,
  * "keep in place").
  *
  * The element/article markdown carries Jekyll-era YAML front matter plus an
@@ -44,7 +44,7 @@ const elementCache = new Map<string, ElementContent | null>();
 
 /**
  * Load the editorial body + front matter for an element symbol (case-sensitive,
- * e.g. 'Dy'). Returns `null` when no `_elements/<symbol>.md` exists — the detail
+ * e.g. 'Dy'). Returns `null` when no `_elements/<symbol>.md` exists; the detail
  * page then falls back to the auto-rendered offers table (legacy
  * `element-detail.html` behaviour). Symbol is validated to keep the filename a
  * plain element symbol (defence-in-depth against path traversal, though callers
@@ -148,7 +148,7 @@ export function getArticleContent(slug: string): ArticleContent | null {
   return result;
 }
 
-/** Every article, newest first by `date` — the source for the `/news` index. */
+/** Every article, newest first by `date`; the source for the `/news` index. */
 export function getAllArticles(): ArticleContent[] {
   return getArticleSlugs()
     .map((slug) => getArticleContent(slug))

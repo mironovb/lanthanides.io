@@ -1,12 +1,12 @@
 /**
- * CoverageGrid — the data-coverage heatmap (KEEP/REBUILD, docs/AUDIT.md §3 #7).
+ * CoverageGrid: the data-coverage heatmap (KEEP/REBUILD, docs/AUDIT.md §3 #7).
  * A categorical tile per element, shaded by how much price data backs it, with
  * the observation count printed on every tile. This is the honest meta-view of
  * sparsity: it turns thin coverage into a transparency signal rather than hiding
  * it.
  *
  * It is a heatmap-style grid, not a trend chart, so the line sufficiency gate
- * does not apply — but every tile still states its own sample size, and the
+ * does not apply, but every tile still states its own sample size, and the
  * legend states the per-grade totals. Shading is a single monochrome teal
  * density ramp (one meaning: data density), deliberately NOT reusing the
  * price/risk colours.
@@ -19,7 +19,7 @@ import type { CoverageTally, ElementCoverage } from '@/lib/types';
 type Grade = ElementCoverage['quality'];
 
 /**
- * Teal density ramp — darker = more data. Standard Tailwind opacity steps only
+ * Teal density ramp: darker = more data. Standard Tailwind opacity steps only
  * (/25, /10, /5), so every class is guaranteed to emit; full literals so the
  * content scanner sees them.
  */

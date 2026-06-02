@@ -1,10 +1,10 @@
 /**
- * BarTable — a labeled horizontal bar-in-table. The deliberate, honest
+ * BarTable: a labeled horizontal bar-in-table. The deliberate, honest
  * alternative to a pie/donut for categorical magnitudes (docs/AUDIT.md §3,
  * Prompt 10): every row shows its label, a proportional bar, and the exact
  * number, so the value is always legible without decoding angles or colour.
  *
- * No data-sufficiency gate is needed — this charts categorical counts, not a
+ * No data-sufficiency gate is needed because this charts categorical counts, not a
  * trend, so it never implies movement. No animation (bar widths are static
  * inline styles). Server component, presentational only.
  */

@@ -18,12 +18,12 @@ import {
  * external stylesheet), subset to `latin`, with `display: swap` and
  * auto-generated size-adjusted fallback metrics so swapping in the web font
  * causes no layout shift. Each exposes a CSS variable consumed by Tailwind's
- * fontFamily (tailwind.config.ts) — the same --font-* seam used throughout, so
+ * fontFamily (tailwind.config.ts), the same --font-* seam used throughout, so
  * the type pairing is a swap, not a rewrite.
  *
  * The pairing matches the last deployed static site: Inter (UI) + JetBrains Mono
  * (all numerics). The static site also set headings in Inter, so --font-serif is
- * bound to Inter as well — every `font-serif` heading class renders Inter without
+ * bound to Inter as well; every `font-serif` heading class renders Inter without
  * churning class names. Inter is a variable font (weight axis fetched whole).
  */
 const sans = Inter({
@@ -89,7 +89,7 @@ export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
     default: SITE_NAME,
-    template: `%s · ${SITE_NAME.split(' — ')[0]}`,
+    template: `%s · ${SITE_NAME.split(' · ')[0]}`,
   },
   description: DEFAULT_DESCRIPTION,
   keywords: DEFAULT_KEYWORDS,
@@ -101,8 +101,8 @@ export const metadata: Metadata = {
   alternates: {
     types: {
       'application/atom+xml': [
-        { url: '/feed.xml', title: `${SITE_NAME} — News` },
-        { url: '/movements.xml', title: `${SITE_NAME} — Market Movements` },
+        { url: '/feed.xml', title: `${SITE_NAME} · News` },
+        { url: '/movements.xml', title: `${SITE_NAME} · Market Movements` },
       ],
     },
   },

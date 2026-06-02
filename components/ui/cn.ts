@@ -1,7 +1,7 @@
 /**
- * Minimal class-name joiner — filters out falsy values and joins the rest with
+ * Minimal class-name joiner that filters out falsy values and joins the rest with
  * a space. Lets the base components express conditional classes inline without
- * pulling in `clsx`/`tailwind-merge` (no runtime dependency, no merge magic —
+ * pulling in `clsx`/`tailwind-merge` (no runtime dependency, no merge magic, since
  * the design system never needs to override a Tailwind class with another of
  * the same property, so last-wins merging is unnecessary).
  */

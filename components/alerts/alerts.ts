@@ -1,5 +1,5 @@
 /**
- * Notification-signup — pure, framework-agnostic helpers shared by the client
+ * Notification-signup: pure, framework-agnostic helpers shared by the client
  * waitlist form (EmailWaitlistForm.tsx) and the server write path
  * (app/api/subscribe/route.ts). Nothing here does I/O or imports the server-only
  * data/DB layer, so it is safe in the client bundle: the form validates exactly
@@ -7,10 +7,10 @@
  * signup.
  *
  * Privacy by construction (the task's privacy ask + CLAUDE.md): we model only what
- * a channel needs to deliver — an email address and the chosen topics — and never
+ * a channel needs to deliver (an email address and the chosen topics), and never
  * anything that could track a visitor. Nothing here sends an email: the email
  * channel is captured as a WAITLIST (`status:'waitlist'`), and that honesty is the
- * whole point (hard rule #1 — we never claim a message was sent).
+ * whole point (hard rule #1: we never claim a message was sent).
  */
 
 // ── Channels ──────────────────────────────────────────────────────────────────
@@ -40,14 +40,14 @@ export const TOPICS = [
 ] as const;
 
 export type Topic = (typeof TOPICS)[number]['id'];
-/** Canonical topic order — the single source of truth for serialization order. */
+/** Canonical topic order: the single source of truth for serialization order. */
 export const TOPIC_IDS: readonly Topic[] = TOPICS.map((t) => t.id);
 
 // ── Bounds ──────────────────────────────────────────────────────────────────
 export const LIMITS = { email: 254 } as const; // RFC 5321 practical maximum
 
 // A pragmatic single-line email check: a non-empty local part, an @, and a dotted
-// domain. Deliberately permissive (we never claim to verify deliverability — that
+// domain. Deliberately permissive (we never claim to verify deliverability; that
 // would need a paid service, hard rule #3); it only rejects the obviously invalid.
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -67,7 +67,7 @@ function str(v: unknown): string {
 
 /**
  * Coerce topics from a form array OR the DB's CSV column into a validated,
- * de-duplicated subset in canonical order. Unknown ids are dropped — never a way
+ * de-duplicated subset in canonical order. Unknown ids are dropped, never a way
  * to smuggle an arbitrary value into the store.
  */
 export function parseTopics(raw: unknown): Topic[] {
@@ -100,7 +100,7 @@ export type SubscriptionField = 'email' | 'topics' | 'channel';
 
 export const EMPTY_SUBSCRIPTION_VALUES: SubscriptionValues = {
   email: '',
-  // Default both topics on — a single uncheck is an explicit narrowing, not a trap.
+  // Default both topics on: a single uncheck is an explicit narrowing, not a trap.
   topics: [...TOPIC_IDS],
 };
 
@@ -143,7 +143,7 @@ export function validateSubscription(raw: {
 
   if (!channel) fieldErrors.channel = 'Unsupported alert channel.';
 
-  // email — required for the email channel; validated whenever present.
+  // email: required for the email channel; validated whenever present.
   let email: string | null = null;
   if (channel === 'email' || emailRaw) {
     if (!emailRaw) fieldErrors.email = 'Enter your email address.';
@@ -152,7 +152,7 @@ export function validateSubscription(raw: {
     else email = normalizeEmail(emailRaw);
   }
 
-  // topics — at least one.
+  // topics: at least one.
   if (topics.length === 0)
     fieldErrors.topics = 'Choose at least one alert type.';
 
@@ -168,21 +168,21 @@ export function validateSubscription(raw: {
   };
 }
 
-// ── API response shape (POST /api/subscribe) — shared client/server contract ───
+// ── API response shape (POST /api/subscribe): shared client/server contract ───
 
-/** Public projection of a stored subscription — NEVER carries the email value. */
+/** Public projection of a stored subscription. NEVER carries the email value. */
 export interface SubscriptionDTO {
   id: string;
   createdAt: string;
   channel: string;
   topics: Topic[];
   status: string;
-  /** Whether an email was stored — the address itself is never returned. */
+  /** Whether an email was stored. The address itself is never returned. */
   hasEmail: boolean;
 }
 
 /**
- * Structural shape of a stored row — matches the Prisma `Subscription` model
+ * Structural shape of a stored row. It matches the Prisma `Subscription` model
  * without importing `@prisma/client` (keeps this module client-safe). Both the API
  * route and any reader project rows through `toSubscriptionDTO`, so the public
  * projection (which drops the private email) is defined in exactly one place.

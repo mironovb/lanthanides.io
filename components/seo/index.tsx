@@ -2,7 +2,7 @@
  * Structured-data (JSON-LD) components (Prompt 24).
  *
  * Server-first ports of the four legacy `_includes/structured-data-*.html`
- * blocks — WebSite + FAQPage, BreadcrumbList, Article, Product/Offer — plus a
+ * blocks (WebSite + FAQPage, BreadcrumbList, Article, Product/Offer), plus a
  * Dataset entity for the open dataset and a WebApplication entity for the
  * tool surfaces. Each builds a plain schema.org object and renders it through
  * the shared <JsonLd>. Pages compose these instead of hand-writing `<script>`
@@ -88,7 +88,7 @@ export function BreadcrumbJsonLd({ items }: { items: BreadcrumbCrumb[] }) {
   );
 }
 
-// ── FAQPage (home) — ported verbatim from structured-data-site.html ─────────
+// ── FAQPage (home): ported verbatim from structured-data-site.html ─────────
 export function FaqJsonLd({
   records,
   elements,
@@ -130,7 +130,7 @@ export function FaqJsonLd({
   );
 }
 
-// ── Article (news/[slug]) — ported from structured-data-article.html ────────
+// ── Article (news/[slug]): ported from structured-data-article.html ────────
 export function ArticleJsonLd({
   slug,
   title,
@@ -172,7 +172,7 @@ export function ArticleJsonLd({
   );
 }
 
-// ── Product + Offer[] (elements/[symbol]) — from structured-data-element.html ─
+// ── Product + Offer[] (elements/[symbol]): from structured-data-element.html ─
 const CATEGORY_LABEL: Record<Element['category'], string> = {
   rare_earth_light: 'Light Rare Earth Element',
   rare_earth_heavy: 'Heavy Rare Earth Element',
@@ -180,7 +180,7 @@ const CATEGORY_LABEL: Record<Element['category'], string> = {
   semiconductor_metal: 'Semiconductor Metal',
 };
 
-/** quote_date (YYYY-MM-DD) + 90 days, in UTC — mirrors the legacy +7776000s. */
+/** quote_date (YYYY-MM-DD) + 90 days, in UTC, mirrors the legacy +7776000s. */
 function priceValidUntil(quoteDate: string): string {
   const d = new Date(`${quoteDate}T00:00:00Z`);
   d.setUTCDate(d.getUTCDate() + 90);
@@ -215,12 +215,12 @@ export function ElementJsonLd({
   const offers = [];
   if (retailRef)
     offers.push(
-      offerNode(`Retail Reference — ${element.name} metal price per kg`, retailRef),
+      offerNode(`Retail Reference: ${element.name} metal price per kg`, retailRef),
     );
   if (bulkRef)
     offers.push(
       offerNode(
-        `Bulk Benchmark — ${element.name} industrial price per kg`,
+        `Bulk Benchmark: ${element.name} industrial price per kg`,
         bulkRef,
       ),
     );
@@ -230,7 +230,7 @@ export function ElementJsonLd({
       data={{
         '@context': 'https://schema.org',
         '@type': 'Product',
-        name: `${element.name} (${element.symbol}) — Price per kg`,
+        name: `${element.name} (${element.symbol}): Price per kg`,
         ...(description ? { description } : {}),
         url: abs(`/elements/${element.symbol}/`),
         brand: { '@type': 'Brand', name: element.name },

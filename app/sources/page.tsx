@@ -131,7 +131,7 @@ export default function SourcesPage() {
                   </TD>
                   <TD>{capitalize(source.type)}</TD>
                   <TD className="font-mono tabular-nums">{source.trust_tier}</TD>
-                  <TD className="font-mono">{source.country || '—'}</TD>
+                  <TD className="font-mono">{source.country || 'n/a'}</TD>
                   <TD>
                     <span className="mb-1 block font-mono text-2xs text-fg-dim">
                       {source.supported_elements.length} elements

@@ -1,5 +1,5 @@
 /**
- * Notification signup — the alerts layer surfaces (Prompt 22): the live Telegram
+ * Notification signup. The alerts layer surfaces (Prompt 22): the live Telegram
  * subscribe column, the email-waitlist form island, and the pure helpers shared
  * with the `/api/subscribe` write path. Import from `@/components/alerts`.
  */

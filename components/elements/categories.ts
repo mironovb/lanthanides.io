@@ -1,6 +1,6 @@
 /**
  * Shared presentation tokens for the four element categories, export-control
- * status, and regulatory status — the colour-coding that recurs across the
+ * status, and regulatory status: the colour-coding that recurs across the
  * elements index tiles, the detail header, and the bottom navigation chips.
  *
  * Tailwind only emits classes it can see as complete literals, so every class

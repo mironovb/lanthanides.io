@@ -1,11 +1,11 @@
 /**
- * LineChart — the shared, dependency-light inline-SVG trend primitive with the
+ * LineChart: the shared, dependency-light inline-SVG trend primitive with the
  * data-sufficiency gate built in. This is the ONE component that draws a line;
  * everything else on the site is a table.
  *
  * The gate (components/charts/sufficiency.ts): a series is only plotted when it
  * has at least `min` DISTINCT points (default `MIN_LINE_POINTS`). The filter is
- * applied PER SERIES — a 2-point retail line is never drawn just because the bulk
+ * applied PER SERIES: a 2-point retail line is never drawn just because the bulk
  * series alongside it is longer. If NO series clears the bar, the chart refuses
  * to render and returns `fallback` (typically a table) instead, so a choppy
  * 2-dot "trend" can never ship.

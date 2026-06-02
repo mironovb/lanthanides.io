@@ -1,5 +1,5 @@
 /**
- * Base component library — the terminal-grade primitives every page composes
+ * Base component library: the terminal-grade primitives every page composes
  * from (Prompt 11). Import from `@/components/ui`:
  *
  *   import { Panel, Stat, StatGrid, Badge, SortableTable } from '@/components/ui';

@@ -1,13 +1,13 @@
 /**
- * Build a per-day price series for one tier from an element's price history —
- * the data prep behind the gated <LineChart>. Pure, no I/O (safe on server or
+ * Build a per-day price series for one tier from an element's price history.
+ * This is the data prep behind the gated <LineChart>. Pure, no I/O (safe on server or
  * client).
  *
  * Mirrors the aggregation the legacy chart did (legacy/assets/js/charts.js
  * `aggregateByDay`): collapse each day's raw observations within a tier to their
  * MEDIAN, and exclude the derived `median_aggregate` rows so the chart never
  * double-counts the daily medians it would otherwise summarise. One point per
- * distinct day — which is exactly the unit the sufficiency gate counts.
+ * distinct day, which is exactly the unit the sufficiency gate counts.
  */
 import type {
   FluctuationTier,
@@ -18,7 +18,7 @@ import type {
 export interface SeriesPoint {
   /** ISO 'YYYY-MM-DD'. */
   date: string;
-  /** Epoch ms (Date.parse of `date`) — used for time-proportional x scaling. */
+  /** Epoch ms (Date.parse of `date`), used for time-proportional x scaling. */
   t: number;
   /** Per-day median USD/kg across the day's raw observations in this tier. */
   value: number;
@@ -26,7 +26,7 @@ export interface SeriesPoint {
   n: number;
 }
 
-/** Derived daily-median rows are not real offers — never plot them. */
+/** Derived daily-median rows are not real offers, so never plot them. */
 function isAggregate(o: PriceObservation): boolean {
   return (
     o.source === 'median_aggregate' ||

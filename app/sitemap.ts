@@ -1,5 +1,5 @@
 /**
- * /sitemap.xml (Prompt 24) — replaces jekyll-sitemap. Covers every indexable
+ * /sitemap.xml (Prompt 24): replaces jekyll-sitemap. Covers every indexable
  * page: the static reference/commercial routes, all 31 case-sensitive element
  * pages, and all 5 news articles. URLs are absolute (via metadataBase/SITE_URL)
  * and carry the trailing slash that matches the canonical contract. Machine
@@ -7,7 +7,7 @@
  * intentionally excluded.
  *
  * lastModified uses the dataset's generated-at stamp for data-backed pages and
- * the article date for each article — both real values, never fabricated.
+ * the article date for each article, both real values, never fabricated.
  */
 import type { MetadataRoute } from 'next';
 import { getDataGeneratedAt, getElements } from '@/lib/data';
@@ -18,7 +18,7 @@ export const dynamic = 'force-static';
 
 type ChangeFreq = MetadataRoute.Sitemap[number]['changeFrequency'];
 
-// [path, priority, changeFrequency] — ordered roughly by importance.
+// [path, priority, changeFrequency], ordered roughly by importance.
 const STATIC_PAGES: Array<[string, number, ChangeFreq]> = [
   ['/', 1.0, 'daily'],
   ['/elements/', 0.9, 'daily'],

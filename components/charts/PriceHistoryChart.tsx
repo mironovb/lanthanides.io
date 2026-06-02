@@ -1,11 +1,11 @@
 /**
- * PriceHistoryChart — the element-page price trend, gated. Renders an inline-SVG
+ * PriceHistoryChart: the element-page price trend, gated. Renders an inline-SVG
  * line ONLY for tiers that clear the sufficiency gate (≥ MIN_LINE_POINTS distinct
  * days in that tier); otherwise it renders nothing and the always-present Price
  * History observations table (Prompt 9) stands in below it.
  *
  * Measured against the live data on 2026-05-31, no single tier reaches the
- * threshold — the deepest are Sc and Te at 4 distinct *bulk* days — so this
+ * threshold (the deepest are Sc and Te at 4 distinct *bulk* days), so this
  * component returns null for ALL 31 elements today, and every element shows the
  * table. That is the intended, honest outcome (docs/VISUALIZATION-AUDIT.md): the
  * gate provably prevents choppy output. The line activates automatically when
@@ -20,7 +20,7 @@ import { LineChart, type LineChartSeries } from './LineChart';
 import { dailyMedianSeries, type SeriesPoint } from './price-series';
 import { MIN_LINE_POINTS } from './sufficiency';
 
-/** Tier presentation — full literal classes so Tailwind emits them. */
+/** Tier presentation: full literal classes so Tailwind emits them. */
 const TIERS: {
   key: 'retail' | 'bulk';
   label: string;
@@ -65,7 +65,7 @@ export function PriceHistoryChart({
     points: dailyMedianSeries(history, t.key),
   })).filter((t) => t.points.length >= MIN_LINE_POINTS);
 
-  // No tier deep enough for an honest line — the table below carries the data.
+  // No tier deep enough for an honest line. The table below carries the data.
   if (built.length === 0) return null;
 
   const series: LineChartSeries[] = built.map((t) => ({
@@ -115,7 +115,7 @@ export function PriceHistoryChart({
         <p>
           Each point is a per-day median of that day&rsquo;s recorded offers;
           derived aggregate rows are excluded. A tier is only drawn once it spans
-          at least {MIN_LINE_POINTS} distinct observation days — otherwise it
+          at least {MIN_LINE_POINTS} distinct observation days. Otherwise it
           appears in the Price History table below instead of as a line.
         </p>
       </div>

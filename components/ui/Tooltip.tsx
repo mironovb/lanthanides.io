@@ -1,11 +1,11 @@
 'use client';
 
 /**
- * Tooltip — a small hover/focus popover for definitions and caveats (e.g.
+ * Tooltip: a small hover/focus popover for definitions and caveats (e.g.
  * explaining "normalized USD/kg" or a confidence score). Accessible: the
  * trigger is focusable and `aria-describedby` the tooltip; it opens on hover
- * AND keyboard focus, and Escape dismisses it. Content must be supplementary —
- * never hide essential information here.
+ * AND keyboard focus, and Escape dismisses it. Content must be supplementary.
+ * Never hide essential information here.
  */
 import { useId, useState } from 'react';
 import { cn } from './cn';

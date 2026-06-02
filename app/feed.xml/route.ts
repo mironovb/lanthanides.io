@@ -1,14 +1,14 @@
 /**
- * /feed.xml — the News & Analysis Atom feed (Prompt 24).
+ * /feed.xml: the News & Analysis Atom feed (Prompt 24).
  *
  * Replaces jekyll-feed. The legacy plugin fed from `site.posts`, but this repo
- * has no `_posts` — the news content lives in the `_articles` collection — so
+ * has no `_posts` (the news content lives in the `_articles` collection), so
  * the legacy feed shipped empty. This handler populates the same `/feed.xml`
  * URL from the five articles (newest first), so feed discovery (advertised via
  * `<link rel="alternate">` on every page) resolves to real content. Mirrors the
  * shape and conventions of the companion /movements.xml feed.
  *
- * The URL is preserved exactly (`/feed.xml`, no trailing slash — a machine
+ * The URL is preserved exactly (`/feed.xml`, no trailing slash, a machine
  * endpoint). `force-static` emits it as a build-time file.
  */
 import { getAllArticles } from '@/lib/content';
@@ -17,7 +17,7 @@ import { SITE_NAME, SITE_URL } from '@/lib/seo';
 export const dynamic = 'force-static';
 
 const AUTHOR = 'Bogdan Mironov';
-// Host for the tag: URI scheme — scheme + slashes stripped (matches movements.xml).
+// Host for the tag: URI scheme, scheme + slashes stripped (matches movements.xml).
 const HOST = SITE_URL.replace(/^https?:\/\//, '').replace(/\//g, '');
 
 /** Escape the five XML metacharacters. */
@@ -62,7 +62,7 @@ export function GET(): Response {
 
   const xml = `<?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
-  <title>${xmlEscape(SITE_NAME)} — News &amp; Analysis</title>
+  <title>${xmlEscape(SITE_NAME)} · News &amp; Analysis</title>
   <subtitle>Long-form research and developments on rare earth and strategic-metal markets and Chinese export controls.</subtitle>
   <link href="${SITE_URL}/feed.xml" rel="self" type="application/atom+xml"/>
   <link href="${SITE_URL}/news/" rel="alternate" type="text/html"/>
@@ -72,7 +72,7 @@ export function GET(): Response {
     <name>${xmlEscape(AUTHOR)}</name>
     <uri>${SITE_URL}/</uri>
   </author>
-  <rights>CC BY 4.0 — https://creativecommons.org/licenses/by/4.0/</rights>
+  <rights>CC BY 4.0: https://creativecommons.org/licenses/by/4.0/</rights>
 ${entries}
 </feed>
 `;

@@ -1,15 +1,15 @@
 'use client';
 
 /**
- * SellForm — the seller listing island (Prompt 20). A controlled form that
+ * SellForm: the seller listing island (Prompt 20). A controlled form that
  * collects a structured listing (element, form, purity, quantity, asking price +
  * currency, seller name, optional contact + notes), validates it the same way the
  * server does (`validateListing`), and on submit POSTs to `/api/listings`. The
  * server persists the row (`status: 'pending'`) with a frozen price-gauge snapshot
- * and returns the full gauge result, which we render inline as the "instant gauge"
- * — the seller's asking price positioned against the sourced low/mid/high band.
+ * and returns the full gauge result, which we render inline as the "instant gauge":
+ * the seller's asking price positioned against the sourced low/mid/high band.
  *
- * The write path is a JSON POST (a mutation — it can't be a no-JS idempotent GET
+ * The write path is a JSON POST (a mutation; it can't be a no-JS idempotent GET
  * like the read-only Price Gauge tool), so a <noscript> notice points JS-disabled
  * visitors to the always-available Price Gauge. Everything else on /sell (the
  * vision framing and the live listings table) is server-rendered and works without
@@ -54,7 +54,7 @@ export function SellForm({
   forms,
 }: {
   options: ElementOption[];
-  /** Every form present in the dataset (lower-case) — the fallback list. */
+  /** Every form present in the dataset (lower-case), the fallback list. */
   forms: string[];
 }) {
   const router = useRouter();
@@ -121,7 +121,7 @@ export function SellForm({
       router.refresh();
     } catch {
       setFormError(
-        'Network error — your listing was not saved. Please try again.',
+        'Network error. Your listing was not saved. Please try again.',
       );
       setStatus('error');
     }
@@ -168,7 +168,7 @@ export function SellForm({
                 <option value="">Select an element…</option>
                 {options.map((o) => (
                   <option key={o.symbol} value={o.symbol}>
-                    {o.symbol} — {o.name}
+                    {o.symbol} · {o.name}
                   </option>
                 ))}
               </select>
@@ -225,7 +225,7 @@ export function SellForm({
               <p className={HINT}>
                 {current.forms.length > 0
                   ? `${current.name} is quoted in: ${current.forms.map(capitalize).join(', ')}.`
-                  : `No sourced prices on file yet for ${current.name} — you can still list, but there’ll be no range to gauge against.`}
+                  : `No sourced prices on file yet for ${current.name}. You can still list, but there’ll be no range to gauge against.`}
               </p>
             ) : null}
 
@@ -350,7 +350,7 @@ export function SellForm({
                 value={values.sellerContact}
                 onChange={(e) => set('sellerContact', e.target.value)}
                 disabled={submitting}
-                placeholder="Email or phone — never shown publicly"
+                placeholder="Email or phone, never shown publicly"
                 autoComplete="email"
                 aria-invalid={!!fieldErrors.sellerContact}
                 aria-describedby={
@@ -362,7 +362,7 @@ export function SellForm({
                 <FieldError id="sl-contact-error" msg={fieldErrors.sellerContact} />
               ) : (
                 <p id="sl-contact-hint" className={HINT}>
-                  Kept private for the reviewer — it’s never published or shown in
+                  Kept private for the reviewer. It’s never published or shown in
                   the listings table.
                 </p>
               )}
@@ -417,9 +417,9 @@ export function SellForm({
       <div className="space-y-4">
         {status === 'success' && response ? (
           <>
-            <Callout tone="success" title="Listing captured — pending review">
+            <Callout tone="success" title="Listing captured, pending review">
               Saved as a <span className="font-mono">pending</span> submission. A
-              maintainer reviews every listing before it’s published — we never
+              maintainer reviews every listing before it’s published. We never
               auto-publish into the open dataset. No account or email is needed,
               and nothing has been sent to you.
             </Callout>
@@ -442,7 +442,7 @@ function FieldError({ id, msg }: { id: string; msg?: string }) {
   );
 }
 
-/** Pre-submit empty state — sets expectations for what the gauge returns. */
+/** Pre-submit empty state: sets expectations for what the gauge returns. */
 function SellIntro() {
   return (
     <Panel title="What you’ll get back" eyebrow="Instant gauge">
@@ -453,7 +453,7 @@ function SellIntro() {
       <ul className="mt-4 space-y-3 text-sm leading-relaxed text-fg-muted">
         <li>
           <span className="font-semibold text-fg">A fair-price range.</span> The
-          weighted P25 / P50 / P75 of the matching sourced records, in USD/kg —
+          weighted P25 / P50 / P75 of the matching sourced records, in USD/kg,
           the same engine behind the{' '}
           <Link href="/tools/price-gauge/" className="text-accent hover:text-accent-strong">
             Price Gauge
@@ -462,19 +462,19 @@ function SellIntro() {
         </li>
         <li>
           <span className="font-semibold text-fg">Your price, positioned.</span>{' '}
-          Whether your asking price sits below, within, or above that band — with
+          Whether your asking price sits below, within, or above that band, with
           the gap to the median.
         </li>
         <li>
           <span className="font-semibold text-fg">The full basis.</span> Records
-          matched, distinct sellers, date span, and method — each traceable to the
+          matched, distinct sellers, date span, and method, each traceable to the
           element’s provenance table. If too few records match, it says so rather
           than inventing a number.
         </li>
       </ul>
       <p className="mt-4 border-t border-border pt-4 text-xs leading-relaxed text-fg-dim">
         Your submission is stored as pending and reviewed by a maintainer before
-        publishing — listings never auto-publish into the open dataset.
+        publishing. Listings never auto-publish into the open dataset.
       </p>
       <div className="mt-4">
         <LinkButton href="/tools/price-gauge/" variant="secondary" size="sm">

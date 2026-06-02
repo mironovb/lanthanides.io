@@ -1,6 +1,6 @@
 /**
  * One of the two reference-price cards (Retail Reference · Bulk Benchmark) on an
- * element detail page — a port of the two-card row in
+ * element detail page, a port of the two-card row in
  * legacy/_layouts/element-detail.html. The retail card additionally shows the
  * quoted quantity and the retail-premium multiple; the bulk card shows the
  * incoterm. Records come pre-selected from `getReferencePrices()`. Composes the
@@ -57,7 +57,7 @@ export function ReferencePriceCard({
             {formatDate(record.quote_date)}
           </div>
 
-          {/* Trust footer — premium (retail) + per-record provenance, so the
+          {/* Trust footer: premium (retail) + per-record provenance, so the
               verification status & confidence travel with the headline price. */}
           <div className="mt-3 space-y-2 border-t border-dotted border-border pt-2">
             {kind === 'retail' && premium && (
@@ -70,7 +70,7 @@ export function ReferencePriceCard({
         </>
       ) : (
         <>
-          <div className="mt-2 font-mono text-2xl text-fg-dim">—</div>
+          <div className="mt-2 font-mono text-2xl text-fg-dim">n/a</div>
           <div className="mt-1 text-sm text-fg-muted">{emptyText}</div>
         </>
       )}

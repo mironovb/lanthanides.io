@@ -1,9 +1,9 @@
 /**
- * TelegramBadge — marks the MOFCOM export-control alert bot as LIVE (Prompt 16).
+ * TelegramBadge: marks the MOFCOM export-control alert bot as LIVE (Prompt 16).
  * The regulatory monitor really does poll Chinese-government sources roughly
  * every six hours and dispatch a Telegram alert on each significant new
  * announcement (AUDIT §1.9/§5), so "Live" is a true claim about a running
- * capability — not a promise.
+ * capability, not a promise.
  *
  * The public bot *handle*, however, is not hardcoded. The CTA reads
  * `NEXT_PUBLIC_TELEGRAM_BOT_URL` (a build-inlined public var): when it points at

@@ -1,11 +1,11 @@
 /**
- * /tools/price-gauge — Price Gauge tool (Prompt 19). A buyer or seller enters an
+ * /tools/price-gauge: Price Gauge tool (Prompt 19). A buyer or seller enters an
  * element, form, purity, and quantity and gets an estimated fair-price RANGE with
  * a confidence grade and a full basis disclosure, computed live by the engine
  * (`lib/price-gauge` → `estimatePrice`) over the sourced price records.
  *
  * The page is a Server Component that reads the request query: the form submits
- * via a plain `method="get"`, so the whole tool works with NO JavaScript — the
+ * via a plain `method="get"`, so the whole tool works with NO JavaScript. The
  * engine runs server-side and the result is server-rendered (JS only enhances the
  * form's element→form constraint). It never fabricates a price: a zero-match
  * query renders the engine's explicit "insufficient data" path (hard rule #1).
@@ -31,10 +31,10 @@ import { PriceGaugeResult } from '@/components/tools/PriceGaugeResult';
 import { buildElementOptions, parseGaugeQuery } from '@/components/tools/gauge';
 
 const DESCRIPTION =
-  'Estimate a fair price range for a rare-earth or strategic-metal purchase — pick the element, form, purity, and quantity and get a transparent low/mid/high band, a confidence grade, and the exact sourced records behind it. No opaque index, no fabricated number.';
+  'Estimate a fair price range for a rare-earth or strategic-metal purchase. Pick the element, form, purity, and quantity and get a transparent low/mid/high band, a confidence grade, and the exact sourced records behind it. No opaque index, no fabricated number.';
 
 export const metadata: Metadata = buildMetadata({
-  title: 'Price Gauge — Benchmark a Rare-Earth or Strategic-Metal Quote',
+  title: 'Price Gauge: Benchmark a Rare-Earth or Strategic-Metal Quote',
   description: DESCRIPTION,
   keywords:
     'rare earth price estimate, rare earth fair price, strategic metals price gauge, oxide metal price per kg, dysprosium price estimate, neodymium price benchmark, rare earth quote check',
@@ -84,7 +84,7 @@ export default function PriceGaugePage({
   return (
     <Container as="main" className="py-10">
       <WebApplicationJsonLd
-        name="Price Gauge — lanthanides.io"
+        name="Price Gauge · lanthanides.io"
         description={DESCRIPTION}
         path="/tools/price-gauge/"
       />
@@ -99,7 +99,7 @@ export default function PriceGaugePage({
         crumbs={[{ label: 'Home', href: '/' }, { label: 'Price Gauge' }]}
         eyebrow="Tools"
         title="Price Gauge"
-        lead="Estimate a fair price for a rare-earth or strategic-metal purchase. Enter what you're buying or selling and the gauge returns a low/mid/high range, how confident it is, and the exact sourced records behind the number — so you can tell a fair quote from an outlier."
+        lead="Estimate a fair price for a rare-earth or strategic-metal purchase. Enter what you're buying or selling and the gauge returns a low/mid/high range, how confident it is, and the exact sourced records behind the number, so you can tell a fair quote from an outlier."
         actions={
           <div className="flex flex-col items-start gap-1 text-xs md:items-end">
             <Link
@@ -120,7 +120,7 @@ export default function PriceGaugePage({
         <StoryLink>
           The estimate is built from the same provenanced records behind every{' '}
           <Link href="/elements/">element page</Link> and the{' '}
-          <Link href="/data/">Open Data</Link> exports — nothing is interpolated.
+          <Link href="/data/">Open Data</Link> exports. Nothing is interpolated.
         </StoryLink>
       </PageHeader>
 
@@ -157,7 +157,7 @@ export default function PriceGaugePage({
       {/* ── Explainer: method + commercial direction ─────────────────────── */}
       <section className="mt-16">
         <SectionHeading
-          title="What the number means — and where the gauge is going"
+          title="What the number means, and where the gauge is going"
           description="A transparent estimate you can audit today, and the supply-side pricing primitive the marketplace is being built around."
         />
         <div className="mt-6 grid gap-4 lg:grid-cols-2">
@@ -189,7 +189,7 @@ export default function PriceGaugePage({
               >
                 Sell / List
               </Link>{' '}
-              — anchoring an asking price to evidence, not guesswork — and to
+              (anchoring an asking price to evidence, not guesswork) and to
               screen incoming offers. It stays open and free to use; the open
               dataset underneath it is CC&nbsp;BY&nbsp;4.0 regardless.
             </p>
@@ -214,7 +214,7 @@ export default function PriceGaugePage({
   );
 }
 
-/** Pre-submit empty state — sets expectations for the three outputs. */
+/** Pre-submit empty state: sets expectations for the three outputs. */
 function GaugeIntro() {
   return (
     <Panel title="What you'll get" eyebrow="Result">
@@ -225,7 +225,7 @@ function GaugeIntro() {
       <ul className="mt-4 space-y-3 text-sm leading-relaxed text-fg-muted">
         <li>
           <span className="font-semibold text-fg">A range, not a point.</span> A
-          low / mid / high band in USD per kg — the robust interquartile spread
+          low / mid / high band in USD per kg, the robust interquartile spread
           of the matching sourced records.
         </li>
         <li>
@@ -235,13 +235,13 @@ function GaugeIntro() {
         </li>
         <li>
           <span className="font-semibold text-fg">A full basis.</span> The record
-          count, seller count, date span, method, and the contributing record ids
-          — each traceable to the element&rsquo;s provenance table.
+          count, seller count, date span, method, and the contributing record ids,
+          each traceable to the element&rsquo;s provenance table.
         </li>
       </ul>
       <p className="mt-4 border-t border-border pt-4 text-xs leading-relaxed text-fg-dim">
         If too few records match your request, the gauge tells you plainly and
-        suggests how to widen it — it never fabricates a price.
+        suggests how to widen it. It never fabricates a price.
       </p>
     </Panel>
   );

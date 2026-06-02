@@ -1,9 +1,9 @@
 /**
- * Breadcrumbs — the trail shown under the header on interior pages. Formalizes
+ * Breadcrumbs: the trail shown under the header on interior pages. Formalizes
  * the inline `<nav aria-label="Breadcrumb">` markup that every page currently
  * hand-rolls. The last item is the current page (no link, `aria-current`).
  *
- * Server component. Visual-only — the machine-readable BreadcrumbList JSON-LD
+ * Server component, visual-only. The machine-readable BreadcrumbList JSON-LD
  * is emitted separately by the structured-data layer, so this stays presentational.
  */
 import Link from 'next/link';

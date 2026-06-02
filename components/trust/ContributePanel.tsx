@@ -1,8 +1,8 @@
 /**
- * ContributePanel — the contributor pipeline presented as a credibility feature
+ * ContributePanel: the contributor pipeline presented as a credibility feature
  * (Prompt 16): an open, auditable intake with TWO human checkpoints. It ports
- * the real flow documented on /methodology and in the repo — GitHub issue →
- * maintainer `approved` label → manually-dispatched PR → merge — and links the
+ * the real flow documented on /methodology and in the repo: GitHub issue →
+ * maintainer `approved` label → manually-dispatched PR → merge. It links the
  * existing structured issue templates, the contribution guide, and the repo.
  *
  * Every claim is checkable against the repository (CLAUDE.md hard rule #1): the
@@ -19,7 +19,7 @@ const GITHUB = 'https://github.com/mironovb/lanthanides.io';
 const TEMPLATES = [
   {
     label: 'Submit a price',
-    desc: 'A price you observed — seller, form, purity, quantity, and date.',
+    desc: 'A price you observed: seller, form, purity, quantity, and date.',
     href: `${GITHUB}/issues/new?template=price-update.yml`,
   },
   {
@@ -41,7 +41,7 @@ const STEPS: {
 }[] = [
   {
     title: 'Open a structured issue',
-    body: 'Use one of the templates below. Required fields — element, price, form, purity, quantity, source, and date — are enforced by the form, so a submission arrives complete.',
+    body: 'Use one of the templates below. Required fields (element, price, form, purity, quantity, source, and date) are enforced by the form, so a submission arrives complete.',
   },
   {
     title: 'Maintainer reads and labels it',
@@ -50,12 +50,12 @@ const STEPS: {
   },
   {
     title: 'A pull request opens',
-    body: 'A manually-dispatched workflow validates the fields with the same rules used for every price and opens a PR adding one observation — it never runs automatically on issue creation.',
+    body: 'A manually-dispatched workflow validates the fields with the same rules used for every price and opens a PR adding one observation. It never runs automatically on issue creation.',
   },
   {
     title: 'Review and merge',
     checkpoint: 'Human checkpoint 2',
-    body: 'Merging the PR is what publishes the change — as a reviewable git diff, attributed and dated. Closing it without merging discards the submission cleanly.',
+    body: 'Merging the PR is what publishes the change, as a reviewable git diff, attributed and dated. Closing it without merging discards the submission cleanly.',
   },
 ];
 
@@ -94,7 +94,7 @@ export function ContributePanel({ className }: { className?: string }) {
       >
         There is no path from an unreviewed, unlabelled, or malformed issue into
         the published data. A maintainer decides what is real (the label), and a
-        merge — a public, attributable git diff — is what publishes it. The whole
+        merge (a public, attributable git diff) is what publishes it. The whole
         history is inspectable in the repository.
       </Callout>
 

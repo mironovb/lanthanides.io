@@ -1,5 +1,5 @@
 /**
- * /api/listings (Prompt 20) — the write/read path for seller listings (the
+ * /api/listings (Prompt 20): the write/read path for seller listings (the
  * Prisma `Listing` model). This is the supply side of the thin commercial layer:
  *
  *   POST /api/listings   { symbol, form, purity, quantityKg, askingPricePerKg,
@@ -13,9 +13,9 @@
  *   GET  /api/listings[?status=published&limit=50]
  *     → lists listings for the admin/preview view, newest first. Defaults to
  *       `published`; `status` also accepts pending|reviewed|all. NEVER returns the
- *       private `sellerContact` (schema contract — contact is never published).
+ *       private `sellerContact` (schema contract: contact is never published).
  *
- * Storage only (CLAUDE.md): no email/payment/notification side effects — the
+ * Storage only (CLAUDE.md): no email/payment/notification side effects; the
  * "we'll review it" messaging is on the page, nothing is sent. A listing is NEVER
  * auto-published into the open `_data/` dataset (that stays the reviewed git-PR
  * flow); this only writes the dynamic Prisma store. Node runtime + force-dynamic:
@@ -61,7 +61,7 @@ function validationContext(): { symbols: string[]; forms: string[] } {
 }
 
 export async function POST(request: Request): Promise<Response> {
-  // 1. Parse the body — must be a JSON object.
+  // 1. Parse the body: must be a JSON object.
   let body: Partial<Record<ListingField, unknown>>;
   try {
     const parsed: unknown = await request.json();
@@ -71,12 +71,12 @@ export async function POST(request: Request): Promise<Response> {
     body = parsed as Partial<Record<ListingField, unknown>>;
   } catch {
     return json(
-      { ok: false, error: 'Invalid JSON body — expected an object of fields.' },
+      { ok: false, error: 'Invalid JSON body. Expected an object of fields.' },
       400,
     );
   }
 
-  // 2. Validate server-side (authoritative — mirrors the form's client checks).
+  // 2. Validate server-side (authoritative, mirrors the form's client checks).
   const { clean, fieldErrors } = validateListing(body, validationContext());
   if (!clean) {
     return json(
@@ -129,7 +129,7 @@ export async function POST(request: Request): Promise<Response> {
     );
   }
 
-  // 5. Position the asking price against the band — only when comparable:
+  // 5. Position the asking price against the band, only when comparable:
   //    a sufficient gauge AND a USD quote (no live FX rate, hard rules #1/#3).
   let assessment: CreateListingResponse['assessment'] = null;
   let assessmentNote: string | null = null;

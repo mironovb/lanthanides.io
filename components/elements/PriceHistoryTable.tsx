@@ -1,19 +1,19 @@
 'use client';
 
 /**
- * Price History — a sortable TABLE of an element's dated price observations
+ * Price History: a sortable TABLE of an element's dated price observations
  * (date · tier · form · USD/kg · source). This is the deliberate replacement
  * for the legacy per-element inline-SVG price-history line chart
  * (legacy/_includes/price-chart.html + legacy/assets/js/charts.js), per
  * docs/AUDIT.md §3 (#1) and docs/VISUALIZATION-AUDIT.md.
  *
  * Why a table, never a line: across the catalog the price series is essentially
- * two collection days — 29 of 31 elements have ≤2 distinct observation days, and
+ * two collection days. 29 of 31 elements have ≤2 distinct observation days, and
  * the richest has 3. A polyline drawn through ≤2 points is either flat, choppy,
  * or reads as a trend the data cannot support. So we draw NO line at any point
  * count; we list every observation and state the sample size honestly.
  *
- * Derived `median_aggregate` rows are excluded — they are computed daily medians,
+ * Derived `median_aggregate` rows are excluded. They are computed daily medians,
  * not recorded offers, and would double-count the raw listings they summarise
  * (the legacy chart excluded them too). Renders nothing when an element has no
  * recorded raw observation, so no empty section ever ships.
@@ -45,7 +45,7 @@ interface Column {
 const COLUMNS: Column[] = [
   { label: 'Date', sortKey: 'date', render: (o) => o.date },
   { label: 'Tier', sortKey: 'tier', render: (o) => capitalize(o.tier) },
-  { label: 'Form', sortKey: 'form', render: (o) => (o.form ? capitalize(o.form) : '—') },
+  { label: 'Form', sortKey: 'form', render: (o) => (o.form ? capitalize(o.form) : 'n/a') },
   {
     label: 'USD/kg',
     sortKey: 'price_per_kg',
@@ -90,7 +90,7 @@ export function PriceHistoryTable({
     dir: 'desc',
   });
 
-  // Recorded observations only — drop the derived daily medians.
+  // Recorded observations only. Drop the derived daily medians.
   const observations = useMemo(
     () =>
       (history?.observations ?? []).filter(

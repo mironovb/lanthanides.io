@@ -1,5 +1,5 @@
 /**
- * Badge & Chip — the small inline status/label primitives.
+ * Badge & Chip: the small inline status/label primitives.
  *
  * `Badge` is the semantic, color-coded tag. Its variants are the site's meaning
  * vocabulary and nothing else: the four element categories, the five regulatory
@@ -7,7 +7,7 @@
  * (up/down/flat), plus `accent` and a neutral `default`. Status badges are mono
  * + uppercase (instrument-panel convention); category/tone badges are sans.
  *
- * `Chip` is a quieter, non-semantic tag — a key/label or legend entry, with an
+ * `Chip` is a quieter, non-semantic tag: a key/label or legend entry, with an
  * optional leading color dot. For *interactive* multi-select filters use
  * <FilterChips> instead.
  *

@@ -1,10 +1,10 @@
 /**
- * lib/screening — the offer-screening pipeline (Prompt 21).
+ * lib/screening: the offer-screening pipeline (Prompt 21).
  *
  * This is the demand-side intake: the machinery that will one day discover real
  * buy/sell offers across the open internet (Chinese B2B platforms, eBay,
  * specialty suppliers), normalize them onto the project's price schema, score
- * them against the references, dedup, and surface the best value — feeding the
+ * them against the references, dedup, and surface the best value, feeding the
  * `ScreenedOffer` table that `/offers` renders.
  *
  * ┌─ STATUS ────────────────────────────────────────────────────────────────┐
@@ -12,20 +12,20 @@
  * │ `ingest()` returns nothing; `screen()` returns the SEEDED dataset rows     │
  * │ (the 220 `ScreenedOffer` rows with `origin:'seed'`, built from the public  │
  * │ price dataset in prisma/seed.ts). The feed is therefore real and honest    │
- * │ today — it is just sourced from our own verified dataset, not from live    │
+ * │ today, it is just sourced from our own verified dataset, not from live     │
  * │ screening. The full design (target sources, adapters, dedup, the human-    │
  * │ review checkpoint) is specified in docs/OFFER-SCREENING.md.                │
  * └────────────────────────────────────────────────────────────────────────┘
  *
  * The three pipeline stages are typed and wired so the architecture is legible
  * from the code: `ingest()` → `normalize()` → `rank()`. Two of them (`normalize`,
- * `rank`) carry their REAL, pure implementations — `rank()` is the exact
+ * `rank`) carry their REAL, pure implementations: `rank()` is the exact
  * same-form-median discount × confidence formula prisma/seed.ts uses, so when
  * live ingestion lands the seeded and screened rows rank on one identical scale.
  * `ingest()` is the only true stub: it is where live source adapters plug in.
  *
  * Server-only: `screen()` reads the dynamic store via `lib/db`. The honesty rule
- * (CLAUDE.md #1) is load-bearing here — a screened offer that cannot be
+ * (CLAUDE.md #1) is load-bearing here; a screened offer that cannot be
  * normalized to USD/kg without a fabricated FX rate is dropped, never invented
  * (#3); a missing field is carried through as null, never filled.
  */
@@ -65,7 +65,7 @@ export interface IngestSource {
 }
 
 /**
- * A raw offer as scraped, before normalization — strings as they appear on the
+ * A raw offer as scraped, before normalization: strings as they appear on the
  * page, original currency/unit untouched. Mirrors what scripts/import_offers.py
  * extracts before scripts/normalize_prices.py runs.
  */
@@ -90,7 +90,7 @@ export interface RawOffer {
 /**
  * A normalized offer: resolved to a catalog element symbol, canonical form,
  * USD/kg. `pricePerKg` is null when it could not be normalized WITHOUT inventing
- * an FX rate (hard rule #1/#3) — such rows are dropped downstream, never guessed.
+ * an FX rate (hard rule #1/#3); such rows are dropped downstream, never guessed.
  */
 export interface NormalizedOffer {
   elementSymbol: string | null; // null ⇒ couldn't resolve to a catalog element
@@ -109,7 +109,7 @@ export interface NormalizedOffer {
 }
 
 /**
- * A ranked, ready-to-persist offer — the shape of one `ScreenedOffer` row.
+ * A ranked, ready-to-persist offer: the shape of one `ScreenedOffer` row.
  * `valueScore` is the favourability rank (see `rank()`); `origin` records whether
  * the row was seeded from the dataset or produced by live screening.
  */
@@ -139,23 +139,23 @@ export interface ScreeningRunResult {
   status: ScreeningBackendStatus;
   /** Human-readable provenance of these rows. */
   feedSource: (typeof SCREENING_BACKEND)['feedSource'];
-  /** True when a cap was applied — surfaced, never silent (CLAUDE.md). */
+  /** True when a cap was applied; surfaced, never silent (CLAUDE.md). */
   truncated: boolean;
   note: string;
 }
 
-// ── Stage 1 · ingest() — STUB: where live source adapters plug in ─────────────
+// ── Stage 1 · ingest(), STUB: where live source adapters plug in ─────────────
 
 /**
  * Fetch raw offers from the configured sources.
  *
- * STUB — returns nothing. There are no live source adapters yet, so the feed is
+ * STUB: returns nothing. There are no live source adapters yet, so the feed is
  * served entirely from the seeded dataset (see `screen()`).
  *
  * TODO(screening): build per-source adapters and wire them here. The polling +
  * caching + dedup-of-seen infrastructure already exists in Python:
- *   • scripts/scraper/monitor.py  — the 6-hourly poller (sources in sources.yaml)
- *   • scripts/import_offers.py     — per-source price extraction → record schema
+ *   • scripts/scraper/monitor.py: the 6-hourly poller (sources in sources.yaml)
+ *   • scripts/import_offers.py: per-source price extraction → record schema
  * Each adapter must respect the target's robots.txt / ToS and rate limits, and
  * record a `sourceUrl` so every screened offer stays auditable. See
  * docs/OFFER-SCREENING.md §2 for the target source list.
@@ -163,11 +163,11 @@ export interface ScreeningRunResult {
 export async function ingest(
   _sources: IngestSource[] = [],
 ): Promise<RawOffer[]> {
-  // No live ingestion wired. Intentionally empty — not a placeholder dataset.
+  // No live ingestion wired. Intentionally empty, not a placeholder dataset.
   return [];
 }
 
-// ── Stage 2 · normalize() — REAL (pure): raw → USD/kg on the canonical vocab ──
+// ── Stage 2 · normalize(), REAL (pure): raw → USD/kg on the canonical vocab ──
 
 /** Units → kilograms (mirrors scripts/normalize_prices.py UNIT_TO_KG_FACTOR). */
 const UNIT_TO_KG: Record<string, number> = {
@@ -190,7 +190,7 @@ function parsePrice(text: string): number | null {
  *
  * REAL, pure, and honest about FX: it converts the original currency to USD only
  * if a rate is supplied in `ctx.fxToUsd`. We never apply a live/guessed rate (no
- * paid FX service — hard rule #3; an invented rate would violate hard rule #1),
+ * paid FX service, hard rule #3; an invented rate would violate hard rule #1),
  * so an un-convertible quote yields `pricePerKg: null` and is dropped by the
  * caller rather than fabricated. Element resolution uses the catalog the caller
  * passes in (symbol or name, case-insensitive); unresolved ⇒ `elementSymbol:null`.
@@ -207,7 +207,7 @@ export function normalize(
   const fx: Record<string, number> = { USD: 1, ...(ctx.fxToUsd ?? {}) };
   const text = `${raw.elementText} ${raw.formText ?? ''}`.toLowerCase();
 
-  // element — resolve by exact symbol token, else by name substring.
+  // element: resolve by exact symbol token, else by name substring.
   const bySymbol = ctx.catalog.find((e) =>
     new RegExp(`\\b${e.symbol.toLowerCase()}\\b`).test(text),
   );
@@ -223,7 +223,7 @@ export function normalize(
   const pricePerKg =
     original != null && rate != null && perKgFactor != null
       ? (original * rate) / perKgFactor
-      : null; // un-convertible (missing FX/unit) — never fabricated
+      : null; // un-convertible (missing FX/unit), never fabricated
 
   let quantityKg: number | null = null;
   if (raw.quantityText != null) {
@@ -247,7 +247,7 @@ export function normalize(
   };
 }
 
-// ── Stage 3 · rank() — REAL (pure): the favourability score ───────────────────
+// ── Stage 3 · rank(), REAL (pure): the favourability score ───────────────────
 
 const clamp = (v: number, lo: number, hi: number): number =>
   Math.max(lo, Math.min(hi, v));
@@ -260,12 +260,12 @@ function median(values: number[]): number {
     : sorted[mid];
 }
 
-/** `${symbol}::${form}` basis key — same convention as prisma/seed.ts. */
+/** `${symbol}::${form}` basis key, same convention as prisma/seed.ts. */
 export const basisKey = (symbol: string, form: string): string =>
   `${symbol}::${form}`;
 
 /**
- * Per element+form median USD/kg across a basis set of records — the like-for-
+ * Per element+form median USD/kg across a basis set of records: the like-for-
  * like "going rate" the discount is measured against. Avoids mixing oxide vs
  * metal price levels. Identical to the median basis prisma/seed.ts builds.
  */
@@ -283,7 +283,7 @@ export function sameFormMedians(
 }
 
 /**
- * The favourability score for one offer — IDENTICAL to prisma/seed.ts so seeded
+ * The favourability score for one offer, IDENTICAL to prisma/seed.ts so seeded
  * and (future) screened rows share one scale:
  *
  *     discount   = clamp((median − pricePerKg) / median, −1, +1)
@@ -306,10 +306,10 @@ export function valueScore(
 
 /**
  * Rank normalized offers by value. Pure: drops rows with no normalized price
- * (un-convertible — never invented), then attaches `valueScore` from the basis
+ * (un-convertible, never invented), then attaches `valueScore` from the basis
  * medians. Sorted best-value first. `origin` is stamped 'screened' (these came
  * from live ingestion, not the seed). Persisting + dedup + the human-review
- * checkpoint happen in the caller (docs/OFFER-SCREENING.md §4–§6) — not here.
+ * checkpoint happen in the caller (docs/OFFER-SCREENING.md §4 to §6), not here.
  */
 export function rank(
   offers: NormalizedOffer[],
@@ -343,7 +343,7 @@ export function rank(
     .sort((a, b) => b.valueScore - a.valueScore);
 }
 
-// ── Orchestrator · screen() — returns the SEEDED feed today ───────────────────
+// ── Orchestrator · screen(), returns the SEEDED feed today ───────────────────
 
 /** Hard cap so a runaway table can never render unbounded. Surfaced, not silent. */
 const MAX_FEED_ROWS = 1000;
@@ -352,14 +352,14 @@ const MAX_FEED_ROWS = 1000;
  * Return the screened-offer feed, best value first.
  *
  * TODAY (stub): this reads the SEEDED `ScreenedOffer` rows (built from the public
- * price dataset in prisma/seed.ts) — real, verified data, just not live-screened.
+ * price dataset in prisma/seed.ts), real, verified data, just not live-screened.
  *
  * WHEN LIVE: the body becomes, roughly,
  *     const raw = await ingest(SOURCES)
  *     const normalized = raw.map((r) => normalize(r, { catalog, fxToUsd }))
  *     const basis = sameFormMedians([...datasetRecords, ...normalized])
  *     const fresh = rank(normalized, basis)            // origin: 'screened'
- *     await persistWithDedupAndReview(fresh)           // §5–§6
+ *     await persistWithDedupAndReview(fresh)           // §5 to §6
  * and this read returns seeded + screened rows merged on the one `valueScore`
  * scale. Until then `ingest()` yields nothing and the seeds stand in.
  *

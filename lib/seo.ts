@@ -1,9 +1,9 @@
 /**
  * Centralised SEO metadata helper (Prompt 24).
  *
- * Ports the legacy `_includes/head.html` meta contract — title template,
+ * Ports the legacy `_includes/head.html` meta contract: title template,
  * default description/keywords, canonical, Open Graph, Twitter card, and the
- * Atom feed discovery links — into one typed builder so every route ships
+ * Atom feed discovery links, into one typed builder so every route ships
  * complete, consistent metadata via the Next Metadata API. Page files call
  * `buildMetadata({ title, description, keywords, path, … })` instead of
  * hand-assembling an `openGraph`/`twitter` block each time.
@@ -16,11 +16,11 @@ import type { Metadata } from 'next';
 export const SITE_URL = 'https://www.lanthanides.io';
 
 /** Brand name used for og:site_name and the Organization/WebSite JSON-LD. */
-export const SITE_NAME = 'lanthanides.io — Strategic Materials Ledger';
+export const SITE_NAME = 'lanthanides.io · Strategic Materials Ledger';
 
 /** Default/home title (legacy head.html fallback `<title>`). */
 export const SITE_TAGLINE_TITLE =
-  'lanthanides.io — Rare Earth Prices, Export Controls & Strategic Materials Intelligence';
+  'lanthanides.io · Rare Earth Prices, Export Controls & Strategic Materials Intelligence';
 
 /** Brand suffix + separator for the `%s · lanthanides.io` title template. */
 export const TITLE_SUFFIX = 'lanthanides.io';
@@ -38,8 +38,8 @@ export const DEFAULT_OG_IMAGE = '/assets/images/og-default.png';
 /** The two site Atom feeds, surfaced as `<link rel="alternate">` on every page. */
 const FEED_ALTERNATES = {
   'application/atom+xml': [
-    { url: '/feed.xml', title: `${SITE_NAME} — News` },
-    { url: '/movements.xml', title: `${SITE_NAME} — Market Movements` },
+    { url: '/feed.xml', title: `${SITE_NAME} · News` },
+    { url: '/movements.xml', title: `${SITE_NAME} · Market Movements` },
   ],
 };
 
@@ -50,7 +50,7 @@ export interface PageMetadataInput {
   absoluteTitle?: string;
   description?: string;
   keywords?: string | string[];
-  /** Canonical path, e.g. `/elements/` — also becomes og:url. Keep the slash. */
+  /** Canonical path, e.g. `/elements/`; also becomes og:url. Keep the slash. */
   path: string;
   ogType?: 'website' | 'article';
   /** OG/Twitter image path (defaults to the site card). */
@@ -83,7 +83,7 @@ export function buildMetadata(input: PageMetadataInput): Metadata {
     noindex,
   } = input;
 
-  // The branded string the <title> tag resolves to — reused verbatim for the
+  // The branded string the <title> tag resolves to, reused verbatim for the
   // og:title / twitter:title so the card headline matches the browser tab.
   const brandedTitle = absoluteTitle
     ? absoluteTitle

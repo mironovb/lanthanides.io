@@ -1,6 +1,6 @@
 /**
  * TypeScript data contracts for the versioned reference + provenance datasets
- * in `_data/` (docs/ARCHITECTURE.md §3 — the single source of schema truth).
+ * in `_data/` (docs/ARCHITECTURE.md §3, the single source of schema truth).
  *
  * Field names match the authored data files VERBATIM (snake_case). Optionality
  * here reflects what is actually present in the files today: a field is marked
@@ -44,10 +44,10 @@ export type DataQuality = 'sparse' | 'moderate' | 'rich';
 export type ISODate = string; // 'YYYY-MM-DD'
 export type ISODateTime = string; // RFC3339, e.g. '2026-03-26T00:00:00Z'
 
-// ── Element  (from _data/element_catalog.yml — 31 entries) ───────────────────
+// ── Element  (from _data/element_catalog.yml, 31 entries) ───────────────────
 
 export interface Element {
-  symbol: string; // 'Dy' — case-sensitive; used in the URL
+  symbol: string; // 'Dy', case-sensitive; used in the URL
   name: string; // 'Dysprosium'
   atomic_number: number; // 66
   category: ElementCategory; // 'rare_earth_heavy'
@@ -59,13 +59,13 @@ export interface Element {
   origin_countries: string[]; // ['CN','US','AU']
   trade_form: string; // 'Oxide (Dy₂O₃)'
   notes: string;
-  price_tier: number; // 1–4
+  price_tier: number; // 1 to 4
   high_demand: boolean;
   cn_export_control: boolean;
-  purity_range?: string; // '99.9%–99.99%' — present on 11 of 31 entries only
+  purity_range?: string; // '99.9% to 99.99%', present on 11 of 31 entries only
 }
 
-// ── PriceRecord  (from _data/price_records.json — 238 records) ───────────────
+// ── PriceRecord  (from _data/price_records.json, 238 records) ───────────────
 // Two shapes coexist: the full early rows (R-0001..R-0128) carry the original
 // currency / exchange / provenance fields; the leaner later rows (R-0129+) omit
 // them. Fields below the divider are absent on the leaner rows.
@@ -104,7 +104,7 @@ export interface PriceRecord {
   ingestion_timestamp?: ISODateTime;
 }
 
-// ── PriceHistory  (from _data/price_history/<Symbol>.yml — 285 observations) ──
+// ── PriceHistory  (from _data/price_history/<Symbol>.yml, 285 observations) ──
 
 export interface PriceObservation {
   date: ISODate;
@@ -113,7 +113,7 @@ export interface PriceObservation {
   currency: string; // 'USD'
   source: string; // Source.id | free-text seller | 'median_aggregate'
   source_type: string; // 'public_listing' | 'aggregate' | 'benchmark'
-  record_id?: string; // 'R-0036' — absent on aggregate rows
+  record_id?: string; // 'R-0036', absent on aggregate rows
   form?: string; // 'oxide' | 'metal' | 'metal, oxide'
   purity?: string;
   seller?: string; // present on registry-source rows
@@ -126,7 +126,7 @@ export interface PriceHistory {
   observations: PriceObservation[];
 }
 
-// ── Fluctuation  (from _data/fluctuations.json — keyed by symbol) ────────────
+// ── Fluctuation  (from _data/fluctuations.json, keyed by symbol) ────────────
 
 export interface LatestPrice {
   contributing_observations: number;
@@ -180,7 +180,7 @@ export interface FluctuationsFile {
   windows: WindowKey[]; // ['7d','30d','90d','1y','all_time']
 }
 
-// ── RegulatoryNotice  (from _data/regulatory/*.yml — 5 notices) ──────────────
+// ── RegulatoryNotice  (from _data/regulatory/*.yml, 5 notices) ──────────────
 // The shape is the union across the 5 notices; variant fields appear only where
 // relevant.
 
@@ -241,7 +241,7 @@ export interface RegulatoryNotice {
   notes: string[];
   // variant fields (present only on some notices):
   suspension?: NoticeSuspension;
-  newly_controlled_elements?: string[]; // Nos. 55–62: [Ho, Er, Tm, Eu, Yb]
+  newly_controlled_elements?: string[]; // Nos. 55 to 62: [Ho, Er, Tm, Eu, Yb]
   individual_announcements?: IndividualAnnouncement[];
   articles?: NoticeArticle[]; // gac_46_2024
   related_notices?: string[]; // gac_46_2024
@@ -249,7 +249,7 @@ export interface RegulatoryNotice {
   sanctioned_entities?: SanctionedEntities; // mofcom_1_17_2026
 }
 
-// ── PolicyEvent  (from _data/policy_events.yml — 11 events) ──────────────────
+// ── PolicyEvent  (from _data/policy_events.yml, 11 events) ──────────────────
 
 export type PolicyEventType =
   | 'export_control'
@@ -272,7 +272,7 @@ export interface PolicyEvent {
   notes: string; // includes the Chinese reference string
 }
 
-// ── Movements  (from _data/movements.yml — auto-generated event feed) ────────
+// ── Movements  (from _data/movements.yml, auto-generated event feed) ────────
 // Written by scripts/detect_movements.py: factual price-movement and
 // regulatory-change events. `events` is the reverse-chronological feed; `config`
 // and `state` drive the page footer + the Atom feed's <updated> stamp. Fields
@@ -297,7 +297,7 @@ export interface MovementSparkline {
 
 export interface MovementEvent {
   // always present (every event)
-  id: string; // 'Y-retail-30d-2026-04-04' — anchors #mv-<id>
+  id: string; // 'Y-retail-30d-2026-04-04', anchors #mv-<id>
   date: ISODate;
   element: string; // 'Y' (FK → Element.symbol)
   element_name: string; // 'Yttrium'
@@ -332,7 +332,7 @@ export interface MovementEvent {
 }
 
 export interface MovementsConfig {
-  threshold_pct: number; // 10.0 — the detection threshold
+  threshold_pct: number; // 10.0, the detection threshold
   window: string; // '30d'
   tiers: string[]; // ['retail','bulk','lab']
 }
@@ -349,7 +349,7 @@ export interface MovementsFile {
   events: MovementEvent[]; // reverse-chronological as authored
 }
 
-// ── Source  (from _data/source_registry.yml — 5 sources) ─────────────────────
+// ── Source  (from _data/source_registry.yml, 5 sources) ─────────────────────
 
 export type SourceType = 'distributor' | 'marketplace';
 
@@ -380,7 +380,7 @@ export interface SourceBreakdown {
   by_source_type: SourceBreakdownEntry[];
 }
 
-// ── News  (from _data/news.yml — 16 items) ───────────────────────────────────
+// ── News  (from _data/news.yml, 16 items) ───────────────────────────────────
 
 export interface NewsReference {
   label: string;
@@ -444,7 +444,7 @@ export interface CoverageTally {
   none: number;
 }
 
-/** Per-element price-data coverage — drives the data-coverage grid (Prompt 10). */
+/** Per-element price-data coverage. Drives the data-coverage grid (Prompt 10). */
 export interface ElementCoverage {
   symbol: string;
   name: string;
@@ -454,7 +454,7 @@ export interface ElementCoverage {
 }
 
 /**
- * China-export-control tally for one element category — drives the
+ * China-export-control tally for one element category. It drives the
  * market-structure bars (Prompt 10). `controlled` counts elements with
  * `cn_export_control === true`.
  */
@@ -465,7 +465,7 @@ export interface CategoryControl {
 }
 
 /**
- * Dashboard regulatory snapshot — element counts by Chinese export-control
+ * Dashboard regulatory snapshot: element counts by Chinese export-control
  * posture and current regulatory state (Prompt 17). Each breakdown partitions
  * all `total` catalog elements; counts come straight from the catalog.
  */

@@ -1,5 +1,5 @@
 /**
- * Button & LinkButton — the action primitives. Same visual language; `Button`
+ * Button & LinkButton: the action primitives. Same visual language; `Button`
  * is a native <button>, `LinkButton` is a Next <Link> styled identically (use
  * it for navigation, never a button with an onClick that routes).
  *

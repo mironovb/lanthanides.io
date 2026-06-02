@@ -1,24 +1,24 @@
 /**
- * The data-sufficiency gate — the single, centralized rule that decides whether a
+ * The data-sufficiency gate: the single, centralized rule that decides whether a
  * trend visualization (line / area / sparkline) has enough DISTINCT data points
  * to be drawn honestly, or must fall back to a table or stat.
  *
  * Why this exists (docs/AUDIT.md §3, §4.9 and docs/VISUALIZATION-AUDIT.md): the
  * price corpus is essentially one or two collection days for most elements. A
- * polyline drawn through ≤2 — or even 3–4 unevenly spaced — points implies a
+ * polyline drawn through ≤2 (or even 3 to 4 unevenly spaced) points implies a
  * shape the data cannot support and reads as broken. So every chart obeys ONE
  * rule defined here; no visualization re-derives its own threshold inline.
  *
  * The unit a line plots is a single SERIES (one tier). So the gate is applied
  * per-series, never per-element: an element whose retail tier has 2 days and bulk
  * tier has 4 days has NO series that clears the line threshold, and is drawn as a
- * table — even though its union of distinct days is 6.
+ * table, even though its union of distinct days is 6.
  */
 
 /**
  * Trend lines / areas require ≥5 DISTINCT points (e.g. distinct observation
  * days in one tier). Measured against the live data on 2026-05-31, NO single
- * tier in the catalog reaches 5 distinct days — the deepest are Sc and Te at 4
+ * tier in the catalog reaches 5 distinct days. The deepest are Sc and Te at 4
  * distinct *bulk* days, and those four even mix forms (oxide→metal→compound). So
  * the price-trend line currently renders for ZERO elements; all 31 degrade to
  * the observations table, by design. The line activates automatically the moment

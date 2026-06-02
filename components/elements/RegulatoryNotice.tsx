@@ -1,5 +1,5 @@
 /**
- * Inline regulatory notice shown on controlled / suspended element pages — a
+ * Inline regulatory notice shown on controlled / suspended element pages, a
  * port of the auto-generated `.reg-notice-inline` block in
  * legacy/_layouts/element-detail.html. Renders nothing for unregulated elements
  * (the caller only mounts it for 'active' / 'suspended'). Composes the shared

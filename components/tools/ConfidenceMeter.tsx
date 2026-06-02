@@ -1,5 +1,5 @@
 /**
- * ConfidenceMeter — a compact three-segment meter for the gauge's holistic
+ * ConfidenceMeter: a compact three-segment meter for the gauge's holistic
  * confidence grade (low / medium / high), computed by the engine from match
  * count, seller diversity, recency, form precision, and price agreement.
  *
@@ -19,7 +19,7 @@ const LABEL: Record<Confidence, string> = {
 };
 
 const TITLE =
-  'Holistic confidence — from how many records matched, how many distinct sellers, how recent they are, whether the exact form was found, and how closely the prices agree. Conservative: thin or dispersed evidence grades low.';
+  'Holistic confidence: from how many records matched, how many distinct sellers, how recent they are, whether the exact form was found, and how closely the prices agree. Conservative: thin or dispersed evidence grades low.';
 
 export function ConfidenceMeter({
   level,

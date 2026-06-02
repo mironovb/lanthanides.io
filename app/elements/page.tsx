@@ -25,7 +25,7 @@ import {
 import { ElementCard } from '@/components/elements/ElementCard';
 
 export const metadata: Metadata = buildMetadata({
-  title: 'All Rare Earth & Strategic Metal Prices — Element Directory',
+  title: 'All Rare Earth & Strategic Metal Prices: Element Directory',
   description:
     'Compare prices per kg for all 31 rare earth elements, strategic metals, and semiconductor materials. Retail and bulk benchmarks with export-control status.',
   keywords:

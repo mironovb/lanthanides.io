@@ -1,11 +1,11 @@
 /**
- * Price Movement panel — the factual rolling-window percent-change table for an
+ * Price Movement panel: the factual rolling-window percent-change table for an
  * element's retail and bulk tiers across 7d / 30d / 90d / 1y windows. A port of
  * legacy/_includes/price-movement-panel.html.
  *
- * Note (AUDIT §3): this is a *table*, not the per-observation line chart — the
- * line chart is deliberately deferred to Prompts 9–10. Missing windows render as
- * "—" rather than a fabricated zero; the panel renders nothing when the element
+ * Note (AUDIT §3): this is a *table*, not the per-observation line chart. The
+ * line chart is deliberately deferred to Prompts 9 to 10. Missing windows render as
+ * "n/a" rather than a fabricated zero; the panel renders nothing when the element
  * has no fluctuation entry. Composes the shared Panel primitive (Prompt 12).
  */
 import { Panel } from '@/components/ui';
@@ -152,7 +152,7 @@ function MovementCell({
         className={`px-3 py-3 text-right font-mono text-fg-dim ${border}`}
         title="No qualifying observation in this window"
       >
-        —
+        n/a
       </td>
     );
   }
@@ -177,7 +177,7 @@ function MovementCell({
   }
   return (
     <td className={`${cell} text-neutral`} title={tip}>
-      <span aria-hidden="true">—</span> flat
+      flat
     </td>
   );
 }
