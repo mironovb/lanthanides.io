@@ -17,6 +17,23 @@
 > + `scripts/scraper|triage|notify`) that keeps the regulatory data fresh. This revision
 > adds both and corrects the nav link count (8 → 9). Every other count and claim below was
 > re-verified against the working tree and stands unchanged.
+>
+> **Re-evaluation note (2026-06-02):** re-ran this audit's verification against the
+> post-migration working tree (HEAD `65d4060`). The migration this document scoped is now
+> **complete** (Prompts 1–25). `legacy/` — the quarantined Jekyll source for the `pages/`,
+> `_layouts/`, `_includes/`, `assets/js/`, and `_sass/` paths cited throughout §1 — was
+> removed in **Prompt 25**, so those paths are now historical: §1 documents the *pre*-migration
+> site as audited, by design. Every load-bearing count still resolves **exactly** against the
+> data files retained at repo root: **31** `_elements/*.md`, **5** `_articles/*.md` (slugs per
+> §2), **238** records in `price_records.json`, **285** `price_history` observations across **31**
+> files (= `source_breakdown.yml` `total_observations`, confirming the §4.3 285 ≠ 238 split),
+> **11** `policy_events`, **5** `regulatory/*.yml` notices, **5** `source_registry` sources; the
+> regulatory-monitor pipeline (`scripts/run_monitor.py`, `scripts/scraper/`, `scripts/triage.py`,
+> `scripts/notify/`) and all three `.github/workflows/*` are intact. **One §4 finding has since
+> been resolved:** §4.4's broken/placeholder `_data/elements/La.yml` was repaired during the
+> data-model phase exactly as that section prescribed — it now carries a real `retail_reference`
+> ($685.0/kg, sourced) and well-formed YAML. §4.4 is retained verbatim as the as-audited record.
+> Everything else stands unchanged.
 
 ---
 
