@@ -258,19 +258,20 @@ pooler needed.
 ## 8. Keeping reference data fresh after deploy
 
 Reference data (`_data/`) is read at **build time** (SSG/ISR), and two GitHub
-Actions already commit updates to the repo:
+Actions open review PRs for updates:
 
-- `price-update.yml` — weekly (Sun 06:00 UTC) → commits `_data/` + `assets/data/fluctuations.json`.
+- `price-update.yml` — weekly (Sun 06:00 UTC) → opens a PR with `_data/` +
+  `assets/data/fluctuations.json` changes after `npm run lint` and `npm run build`.
 - `regulatory-monitor.yml` — every 6h → runs the monitor, fires Telegram alerts,
-  commits scraper state.
+  and opens or updates a PR with scraper state.
 
-**To turn those commits into live updates, connect the host to the repo so a push
-triggers a redeploy** (Vercel/Railway/Render do this automatically for the
-production branch). That's the whole mechanism — the pipeline pushes, the host
-rebuilds. No extra cron on the web host.
+**To turn those PRs into live updates, merge them into the production branch.**
+The Node host should be connected to the repo so production-branch merges trigger
+a redeploy. Vercel, Railway, and Render do this automatically for the production
+branch. No extra cron on the web host.
 
-- If you self-host (VPS) or disable auto-deploy, add a **deploy hook**: have the
-  workflow `curl` the host's deploy webhook after it pushes.
+- If you self-host (VPS) or disable auto-deploy, add a **deploy hook** that runs
+  after the PR is merged, not from the scheduled data workflow itself.
 - ISR pages (`/dashboard` etc.) also refresh on rebuild; the data layer memoises
   `_data/` per process, so a fresh build is what picks up new files.
 

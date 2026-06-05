@@ -143,7 +143,7 @@ lib/          data/ (typed readers over _data/), types.ts, price-gauge.ts, scree
 prisma/       schema.prisma (Listing, Subscription, ScreenedOffer), seed.ts
 _data/        versioned reference + provenance (yml/json), open data, the product
 _elements/    31 element bodies (.md)   ·   _articles/   5 articles (.md)
-scripts/      Python pipeline + regulatory monitor (commits _data/ every 6h)
+scripts/      Python pipeline + regulatory monitor (scheduled PR updates)
 public/       static assets (favicons, og image, manifest, open-data exports)
 docs/         architecture, migration, audit, design system, QA, SEO, offer-screening, investor walkthrough
 ```
@@ -236,9 +236,10 @@ verification is in [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md).**
 3. **Domain.** `CNAME` (`www.lanthanides.io`) is preserved; only the host binding
    moves. No public URL changes. Every legacy permalink resolves or 301-redirects
    (the URL contract is in `docs/MIGRATION.md` §3).
-4. **The data pipeline** (`scripts/`, Python) runs independently on a six-hour
-   cron (GitHub Actions) and commits `_data/` updates; the site picks them up on
-   its next build. It is not part of the web app's deploy.
+4. **The data pipeline** (`scripts/`, Python) runs independently on scheduled
+   GitHub Actions and opens review PRs for data or monitor-state updates. The
+   site picks merged data changes up on its next build. It is not part of the
+   web app's deploy.
 
 ---
 

@@ -7,6 +7,11 @@ on:
 
 permissions:
   contents: write
+  pull-requests: write
+
+concurrency:
+  group: weekly-price-update
+  cancel-in-progress: false
 
 jobs:
   collect-and-update:
@@ -16,6 +21,24 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Prepare update branch
+        env:
+          BRANCH: automation/weekly-price-update
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git fetch origin main
+          git fetch origin "$BRANCH" 2>/dev/null || true
+          if git rev-parse --verify "origin/$BRANCH" >/dev/null 2>&1; then
+            git checkout -B "$BRANCH" "origin/$BRANCH"
+            git rebase origin/main
+          else
+            git checkout -B "$BRANCH" origin/main
+          fi
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -63,11 +86,49 @@ jobs:
             echo "changed=true" >> "$GITHUB_OUTPUT"
           fi
 
-      - name: Commit and push updates
+      - name: Set up Node
+        if: steps.changes.outputs.changed == 'true'
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: npm
+
+      - name: Install Node dependencies
+        if: steps.changes.outputs.changed == 'true'
+        run: npm ci
+
+      - name: Validate site build
         if: steps.changes.outputs.changed == 'true'
         run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          npm run lint
+          npm run build
+
+      - name: Commit updates and open PR
+        if: steps.changes.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPO: ${{ github.repository }}
+          BRANCH: automation/weekly-price-update
+        run: |
+          set -euo pipefail
           git add _data/price_records.json _data/price_history/ _data/snapshots/ _data/fluctuations.json _data/movements.yml assets/data/fluctuations.json
           git commit -m "data: weekly price update $(date -u +%Y-%m-%d)"
-          git push
+          git push --force-with-lease origin "$BRANCH"
+
+          existing_pr=$(gh pr list \
+            --repo "$REPO" \
+            --head "$BRANCH" \
+            --state open \
+            --json number \
+            --jq '.[0].number // empty')
+
+          if [[ -n "$existing_pr" ]]; then
+            echo "updated existing weekly price update PR #$existing_pr"
+          else
+            gh pr create \
+              --repo "$REPO" \
+              --base main \
+              --head "$BRANCH" \
+              --title "data: weekly price update" \
+              --body "Updates price data, fluctuations, and market movements from the scheduled collector. This workflow pushes an automation branch and opens a PR instead of pushing to main, so it cannot trigger a branch-based GitHub Pages deployment directly. Validation run: npm run lint; npm run build."
+          fi

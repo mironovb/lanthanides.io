@@ -8,8 +8,8 @@ on:
   workflow_dispatch:      # also manually triggerable
 
 permissions:
-  contents: write         # for committing run_state.json updates
-  pull-requests: write    # reserved for future autonomous-PR layer
+  contents: write         # for pushing the monitor-state branch
+  pull-requests: write    # for opening/updating the monitor-state PR
   issues: write           # reserved for future GitHub-issue alerts
 
 concurrency:
@@ -24,8 +24,24 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          fetch-depth: 1
-          persist-credentials: true   # needed so we can commit state back
+          fetch-depth: 0
+          persist-credentials: true
+
+      - name: Prepare state branch
+        env:
+          BRANCH: automation/regulatory-monitor-state
+        run: |
+          set -euo pipefail
+          git config user.name 'regulatory-monitor'
+          git config user.email 'regulatory-monitor@users.noreply.github.com'
+          git fetch origin main
+          git fetch origin "$BRANCH" 2>/dev/null || true
+          if git rev-parse --verify "origin/$BRANCH" >/dev/null 2>&1; then
+            git checkout -B "$BRANCH" "origin/$BRANCH"
+            git rebase origin/main
+          else
+            git checkout -B "$BRANCH" origin/main
+          fi
 
       - uses: actions/setup-python@v5
         with:
@@ -55,15 +71,36 @@ jobs:
           CRITICAL_THRESHOLD: "7"
         run: python scripts/run_monitor.py
 
-      - name: Commit state changes (if any)
+      - name: Commit state changes and open PR
         if: success()
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPO: ${{ github.repository }}
+          BRANCH: automation/regulatory-monitor-state
         run: |
-          git config --global user.name 'regulatory-monitor'
-          git config --global user.email 'regulatory-monitor@users.noreply.github.com'
+          set -euo pipefail
           if [[ -n "$(git status --porcelain scripts/run_state.json scripts/scraper/data/seen.sqlite scripts/scraper/data/articles)" ]]; then
             git add scripts/run_state.json scripts/scraper/data/
             git commit -m "monitor: state update $(date -u +%Y-%m-%dT%H:%M:%SZ)"
-            git push
+            git push --force-with-lease origin "$BRANCH"
+
+            existing_pr=$(gh pr list \
+              --repo "$REPO" \
+              --head "$BRANCH" \
+              --state open \
+              --json number \
+              --jq '.[0].number // empty')
+
+            if [[ -n "$existing_pr" ]]; then
+              echo "updated existing regulatory monitor state PR #$existing_pr"
+            else
+              gh pr create \
+                --repo "$REPO" \
+                --base main \
+                --head "$BRANCH" \
+                --title "monitor: regulatory state update" \
+                --body "Updates regulatory monitor state from the scheduled scraper. This workflow pushes an automation branch and opens a PR instead of pushing to main, so it cannot trigger a branch-based GitHub Pages deployment directly."
+            fi
           else
             echo "no state changes to commit"
           fi
