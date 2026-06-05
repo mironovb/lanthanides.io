@@ -53,7 +53,7 @@ const STEPS: {
   },
   {
     title: 'A pull request opens',
-    body: 'A manually-dispatched workflow validates the fields, writes one observation, refreshes derived data, runs lint and build, then opens a PR. It never runs automatically on issue creation.',
+    body: 'A manually-dispatched workflow validates the fields, writes one observation, refreshes derived data, then opens a PR. It never runs automatically on issue creation, and it never deploys the site.',
   },
   {
     title: 'Review and merge',

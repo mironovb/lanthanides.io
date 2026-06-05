@@ -106,17 +106,6 @@ jobs:
         run: |
           echo "dry_run=true: exiting before write/PR."
 
-      - name: Set up Node
-        if: ${{ inputs.dry_run != 'true' }}
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-          cache: npm
-
-      - name: Install Node dependencies
-        if: ${{ inputs.dry_run != 'true' }}
-        run: npm ci
-
       - name: Apply submission and open PR
         if: ${{ inputs.dry_run != 'true' }}
         env:
@@ -151,9 +140,6 @@ jobs:
           python scripts/fluctuations.py --verbose
           python scripts/detect_movements.py --verbose
 
-          npm run lint
-          npm run build
-
           git add \
             _data/price_history/ \
             _data/source_breakdown.yml \
@@ -182,7 +168,8 @@ jobs:
           - **Issue:** #$ISSUE: $title
           - **Approval label:** present (\`approved\`)
           - **Validation:** passed community intake parsing, regenerated
-            derived data files, and passed \`npm run lint\` plus \`npm run build\`.
+            derived data files, and opened a review PR. Vercel owns site builds
+            and deployments after merge.
           - **Data rules:** positive price, non-future date, known tier,
             known element, and FX rate present for non-USD.
           - **Source type:** \`community_submission\`

@@ -219,8 +219,8 @@ pre-computed `/assets/data/fluctuations.json` export keeps its original URL.
 
 ## Deployment
 
-A Node server is required (API route handlers, dynamic rendering, Prisma), so the
-site runs on a **Node host. Vercel is the natural fit** for Next.js App Router.
+A Node server is required (API route handlers, dynamic rendering, Prisma), and the
+site is deployed on **Vercel** for Next.js App Router.
 **Full step-by-step host setup, Postgres wiring, DNS cutover, and post-cutover
 verification is in [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md).**
 
@@ -237,9 +237,8 @@ verification is in [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md).**
    moves. No public URL changes. Every legacy permalink resolves or 301-redirects
    (the URL contract is in `docs/MIGRATION.md` §3).
 4. **The data pipeline** (`scripts/`, Python) runs independently on scheduled
-   GitHub Actions and opens review PRs for data or monitor-state updates. The
-   site picks merged data changes up on its next build. It is not part of the
-   web app's deploy.
+   GitHub Actions and opens review PRs for data or monitor-state updates. It does
+   not deploy the web app. Vercel builds and deploys after merges to `main`.
 
 ---
 

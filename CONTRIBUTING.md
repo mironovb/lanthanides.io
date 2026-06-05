@@ -26,9 +26,9 @@ A usable price observation includes:
 
 After review, a maintainer applies the `approved` label and runs the manual
 `Community Submission Intake` workflow. That workflow writes one observation to
-`_data/price_history/<symbol>.yml`, refreshes derived data files, runs lint and
-build checks, and opens a pull request. The observation is published only if that
-pull request is merged.
+`_data/price_history/<symbol>.yml`, refreshes derived data files, and opens a
+pull request. Vercel owns site builds and deployments after the pull request is
+merged. The observation is published only if that pull request is merged.
 
 ### 2. Report a Correction
 

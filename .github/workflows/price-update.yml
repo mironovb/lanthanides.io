@@ -86,23 +86,6 @@ jobs:
             echo "changed=true" >> "$GITHUB_OUTPUT"
           fi
 
-      - name: Set up Node
-        if: steps.changes.outputs.changed == 'true'
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-          cache: npm
-
-      - name: Install Node dependencies
-        if: steps.changes.outputs.changed == 'true'
-        run: npm ci
-
-      - name: Validate site build
-        if: steps.changes.outputs.changed == 'true'
-        run: |
-          npm run lint
-          npm run build
-
       - name: Commit updates and open PR
         if: steps.changes.outputs.changed == 'true'
         env:
@@ -130,5 +113,5 @@ jobs:
               --base main \
               --head "$BRANCH" \
               --title "data: weekly price update" \
-              --body "Updates price data, fluctuations, and market movements from the scheduled collector. This workflow pushes an automation branch and opens a PR instead of pushing to main, so it cannot trigger a branch-based GitHub Pages deployment directly. Validation run: npm run lint; npm run build."
+              --body "Updates price data, fluctuations, and market movements from the scheduled collector. This workflow opens a data PR only. Vercel owns site builds and deployments after merge."
           fi

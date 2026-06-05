@@ -99,7 +99,7 @@ jobs:
                 --base main \
                 --head "$BRANCH" \
                 --title "monitor: regulatory state update" \
-                --body "Updates regulatory monitor state from the scheduled scraper. This workflow pushes an automation branch and opens a PR instead of pushing to main, so it cannot trigger a branch-based GitHub Pages deployment directly."
+                --body "Updates regulatory monitor state from the scheduled scraper. This workflow opens a monitor-state PR only. Vercel owns site builds and deployments after merge."
             fi
           else
             echo "no state changes to commit"

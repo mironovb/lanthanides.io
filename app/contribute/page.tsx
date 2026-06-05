@@ -42,8 +42,8 @@ const PIPELINE_CHECKS = [
     check: 'Source breakdown, fluctuation, and movement files are refreshed from the updated price history.',
   },
   {
-    stage: 'Site gate',
-    check: 'The workflow runs lint and production build before it opens the review pull request.',
+    stage: 'Vercel gate',
+    check: 'GitHub Actions opens a data PR only. Vercel owns the site build and deploy after the PR is merged.',
   },
 ] as const;
 

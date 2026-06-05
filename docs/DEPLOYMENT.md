@@ -1,17 +1,18 @@
-# DEPLOYMENT.md — shipping the dynamic site & moving the domain
+# DEPLOYMENT.md: Vercel deployment
 
-How to take the Next.js app live and repoint **lanthanides.io** from GitHub Pages
-to a Node host. Grounded in the actual repo config (`next.config.mjs`,
-`prisma/schema.prisma`, `lib/seo.ts`, the GitHub Actions pipelines) — not generic
-advice. Skim the TL;DR; the one thing to get exactly right is the **domain
-cutover** (§6 — `www` is canonical). Everything else is routine.
+How **lanthanides.io** is deployed on Vercel after moving off GitHub Pages.
+Grounded in the actual repo config (`next.config.mjs`, `prisma/schema.prisma`,
+`lib/seo.ts`, and the data-only GitHub Actions pipelines), not generic advice.
+The key operational rule: **Vercel is the only web deployer.** GitHub Actions can
+collect data and open PRs, but they do not deploy the site.
 
 ---
 
 ## TL;DR
 
 1. The site is no longer static. GitHub Pages **cannot** serve it (API routes,
-   per-request rendering, a database). You need a **Node host + a Postgres DB**.
+   per-request rendering, a database). The production host is **Vercel**, backed
+   by Postgres.
 2. **Database is Postgres, already wired in the repo.** `prisma/schema.prisma` is
    `provider = "postgresql"` (with `directUrl`) and a Postgres migration baseline is
    committed — so deploying is just: set `DATABASE_URL`/`DIRECT_URL`, run
@@ -20,10 +21,9 @@ cutover** (§6 — `www` is canonical). Everything else is routine.
    hardcoded in `lib/seo.ts` and matching `CNAME`. **`www` is the primary
    domain**; the apex (`lanthanides.io`) must 301 → `www`. Get this backwards and
    every canonical URL, the sitemap, and the feeds point at the wrong host.
-4. Deploy to **Vercel** (the project's stated target — `docs/MIGRATION.md` §"hosting
-   moves off GitHub Pages"), or any Node host (Railway/Render/Fly/VPS).
+4. Deploy to **Vercel**. No GitHub Actions workflow deploys the web app.
 5. Move DNS: release the domain from GitHub Pages, point `www` (CNAME) + apex (A)
-   at the new host, let it issue TLS, then run the [parity checks](#6-post-cutover-verification).
+   at Vercel, let it issue TLS, then run the [parity checks](#6-post-cutover-verification).
 
 ---
 
@@ -40,8 +40,8 @@ that **require a running Node server**:
 | The 3 redirects + `trailingSlash` | Served by Next from `next.config.mjs` |
 
 `next.config.mjs` has **no `output: 'export'`** (verified), so this is a standard
-Next server build — `next build` then `next start` (or a serverless host that does
-the equivalent). Do **not** add `output: 'export'`; it would strip the API routes,
+Next server build. Vercel runs the serverless equivalent of `next build` plus the
+Next runtime. Do **not** add `output: 'export'`; it would strip the API routes,
 the DB pages, and the redirects.
 
 ---
@@ -69,7 +69,7 @@ Inventory of what the deploy must satisfy (the preservation contract from
   `/framework/#pricing`, `/framework/#us-side-tariff-stack-may-14-2026`.
 
 Because `trailingSlash` and the redirects live in `next.config.mjs`, they travel
-with the app on **any** Node host — you do not configure them at the host level.
+with the app to Vercel. You do not configure them at the host level.
 
 ---
 
@@ -116,7 +116,6 @@ Any managed Postgres works. Pick one:
 | **Neon** | Serverless Postgres, generous free tier, branchable, built-in pooler — pairs well with Vercel. |
 | **Vercel Postgres** | One dashboard if you host on Vercel (Neon under the hood). |
 | **Supabase** | Postgres + pooler (port 6543). |
-| **Railway / Render** | Bundled Postgres add-on if you also run the app there. |
 
 Capture two connection strings (most providers give both):
 
@@ -136,9 +135,8 @@ The web app reads these (canonical list from `.env.example` + `CLAUDE.md`):
 | `NEXT_PUBLIC_TELEGRAM_BOT_URL` | recommended | `https://t.me/<handle>` — the real MOFCOM alert bot. **`NEXT_PUBLIC_` is inlined into the client bundle at build**, so it must be public-safe (a bot link, never a token). Unset → the "Get alerts" CTAs route to `/alerts/` instead of a dead link. |
 | `SCREENING_BACKEND` | optional | Controls the `/offers` honesty banner status (per `CLAUDE.md`). Leave unset for the stubbed state. |
 
-Set these in the **host's** secret store (Vercel: Project → Settings →
-Environment Variables; Railway/Render: service variables). `NODE_ENV=production`
-is set by the host.
+Set these in **Vercel Project Settings -> Environment Variables**. `NODE_ENV=production`
+is set by Vercel.
 
 > **Pipeline secrets are separate.** `TELEGRAM_BOT_TOKEN`, `TELEGRAM_CHAT_ID`,
 > `EMAIL_RECIPIENT`, `DEEPL_API_KEY` belong to the **GitHub Actions** regulatory
@@ -147,9 +145,7 @@ is set by the host.
 
 ---
 
-## 5. Deploy the app
-
-### Path A — Vercel (recommended)
+## 5. Deploy the app on Vercel
 
 1. **Import** the GitHub repo at vercel.com → New Project. Framework preset:
    **Next.js** (auto-detected).
@@ -175,22 +171,9 @@ is set by the host.
    `origin:'seed'` in one transaction) — safe to re-run; it never touches
    `Listing`, `Subscription`, or live `screened` rows.
 
-### Path B — Node server (Railway / Render / Fly / VPS)
-
-Use this if you want app + DB on one platform with **persistent** DB connections
-(no pooler needed).
-
-- **Build:** `npm ci && npx prisma generate && npx prisma migrate deploy && npm run build`
-- **Start:** `npm run start` (`next start` binds to `$PORT`)
-- **DB:** attach the platform's Postgres add-on → set `DATABASE_URL`.
-- **Seed once:** `npx prisma db seed` (same as above).
-- **VPS specifics:** run `next start` under a process manager (PM2/systemd),
-  reverse-proxy with Nginx/Caddy for TLS, and trigger redeploys on git push (a
-  small webhook/CI step) — see [§8](#8-keeping-reference-data-fresh).
-
 ---
 
-## 6. Move the domain (GitHub Pages → new host)
+## 6. Move the domain from GitHub Pages to Vercel
 
 The canonical origin is **`https://www.lanthanides.io`** (`lib/seo.ts:16`,
 `CNAME` = `www.lanthanides.io`). So **`www` is primary; the apex 301s to `www`.**
@@ -200,25 +183,23 @@ The canonical origin is **`https://www.lanthanides.io`** (`lib/seo.ts:16`,
 At your DNS registrar, drop the TTL on the existing `lanthanides.io` records to
 **300s** so the cutover propagates fast and rollback is quick.
 
-### 6.2 Add the domain on the new host
+### 6.2 Add the domain on Vercel
 
 - **Vercel:** Project → Settings → Domains → add **`www.lanthanides.io`** and set
   it **Primary**; add `lanthanides.io` and choose **Redirect → www**. Vercel shows
   the exact DNS records to create — use those.
-- **Railway/Render:** add both domains in the service's Domains/Custom-Domain
-  panel; it prints the CNAME/target to use.
 
 ### 6.3 Release the domain from GitHub Pages
 
 In the **GitHub repo → Settings → Pages**, clear the **Custom domain** field
-(this removes GitHub's domain hold so the new host can verify). The root `CNAME`
+(this removes GitHub's domain hold so Vercel can verify). The root `CNAME`
 file (`www.lanthanides.io`) is a GitHub-Pages artifact — it is **not** served by
 Next (it's in the repo root, not `public/`), so it's harmless to leave; remove it
 only if you want to.
 
 ### 6.4 Update DNS records at the registrar
 
-Replace the GitHub Pages records with the host's. Typical Vercel values (confirm
+Replace the GitHub Pages records with Vercel's. Typical values (confirm
 against what your dashboard shows):
 
 | Record | Host/Name | Value | Replaces |
@@ -226,12 +207,9 @@ against what your dashboard shows):
 | `CNAME` | `www` | `cname.vercel-dns.com` | old `www` CNAME → `<user>.github.io` |
 | `A` | `@` (apex) | `76.76.21.21` | GitHub Pages A records `185.199.108–111.153` |
 
-(If your registrar supports `ALIAS`/`ANAME` at the apex, you can point it at the
-host target instead of an A record — better for failover.)
-
 ### 6.5 TLS + verify
 
-The host auto-issues a Let's Encrypt cert once DNS resolves (minutes to a couple
+Vercel auto-issues a Let's Encrypt cert once DNS resolves (minutes to a couple
 of hours). Confirm both `https://www.lanthanides.io/` loads and
 `https://lanthanides.io/` 301s to `www`.
 
@@ -250,9 +228,6 @@ level:
   `directUrl = env("DIRECT_URL")`, so `prisma migrate` bypasses the pooler.
 - Or use **Prisma Accelerate** and skip the manual pooler.
 
-On a long-running Node server (Path B), the singleton holds a normal pool — no
-pooler needed.
-
 ---
 
 ## 8. Keeping reference data fresh after deploy
@@ -261,17 +236,14 @@ Reference data (`_data/`) is read at **build time** (SSG/ISR), and two GitHub
 Actions open review PRs for updates:
 
 - `price-update.yml` — weekly (Sun 06:00 UTC) → opens a PR with `_data/` +
-  `assets/data/fluctuations.json` changes after `npm run lint` and `npm run build`.
+  `assets/data/fluctuations.json` changes.
 - `regulatory-monitor.yml` — every 6h → runs the monitor, fires Telegram alerts,
   and opens or updates a PR with scraper state.
 
 **To turn those PRs into live updates, merge them into the production branch.**
-The Node host should be connected to the repo so production-branch merges trigger
-a redeploy. Vercel, Railway, and Render do this automatically for the production
-branch. No extra cron on the web host.
-
-- If you self-host (VPS) or disable auto-deploy, add a **deploy hook** that runs
-  after the PR is merged, not from the scheduled data workflow itself.
+Vercel is connected to the repo, so production-branch merges trigger the web
+deploy. No GitHub Actions workflow deploys the site, calls a deploy hook, or
+builds a GitHub Pages artifact.
 - ISR pages (`/dashboard` etc.) also refresh on rebuild; the data layer memoises
   `_data/` per process, so a fresh build is what picks up new files.
 
@@ -320,15 +292,8 @@ Also eyeball:
 
 ## 10. Rollback
 
-Because you lowered TTL ([§6.1](#61-lower-ttl-first-do-this-a-day-ahead-if-you-can)):
-
-1. Revert the DNS records to the GitHub Pages values (A → `185.199.108–111.153`,
-   `www` CNAME → `<user>.github.io`).
-2. Re-add the custom domain in GitHub repo → Settings → Pages.
-
-The old static deployment is still in git history, so GitHub Pages can re-serve it
-while you debug. Keep the new host's project around — no need to delete it to roll
-back DNS.
+Rollback is a Vercel operation: redeploy a previous successful Vercel deployment
+or revert the commit on `main`. Do not re-enable GitHub Pages as a rollback path.
 
 ---
 
