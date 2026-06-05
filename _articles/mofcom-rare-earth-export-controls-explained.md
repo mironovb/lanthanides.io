@@ -5,6 +5,9 @@ description: "The journalist's explainer to China's MOFCOM export controls on ra
 keywords: "MOFCOM export controls explained, China rare earth export controls, rare earth export licence, Chinese strategic metals, Announcement No. 18 2025, gallium germanium antimony ban"
 date: 2026-06-05
 status: active
+image: china-rare-earth-controls-1200.jpg
+image_thumb: china-rare-earth-controls-600.jpg
+image_alt: "Periodic table element blocks for rare earth metals displayed against the Chinese flag"
 elements: [Sm, Gd, Tb, Dy, Lu, Sc, Y, Ga, Ge, Sb, W, Te, Bi, Mo, In, Ho, Er, Tm, Eu, Yb]
 ---
 
