@@ -20,9 +20,33 @@ function ArticleVisual({
   featured?: boolean;
 }) {
   const { frontMatter: fm } = article;
+  const image = fm.image_thumb ?? fm.image;
+
+  if (image) {
+    return (
+      <Link
+        href={href}
+        aria-label={`Read ${fm.title}`}
+        className={cn(
+          'relative block overflow-hidden bg-raised',
+          featured
+            ? 'min-h-[18rem] border-t border-border md:h-full md:border-l md:border-t-0'
+            : 'aspect-[16/9] border-b border-border',
+        )}
+      >
+        <Image
+          src={`/assets/images/${image}`}
+          alt=""
+          fill
+          sizes={featured ? '(max-width: 768px) 100vw, 42vw' : '(max-width: 640px) 100vw, 33vw'}
+          className="object-cover"
+        />
+      </Link>
+    );
+  }
+
   const chips = fm.elements?.slice(0, featured ? 8 : 5) ?? [];
   const rails = Array.from({ length: 7 }, (_, i) => i);
-  const image = fm.image_thumb ?? fm.image;
 
   return (
     <Link
@@ -35,31 +59,18 @@ function ArticleVisual({
           : 'aspect-[16/9] border-b border-border',
       )}
     >
-      {image ? (
-        <>
-          <Image
-            src={`/assets/images/${image}`}
-            alt=""
-            fill
-            sizes={featured ? '(max-width: 768px) 100vw, 42vw' : '(max-width: 640px) 100vw, 33vw'}
-            className="object-cover"
+      <div className="absolute inset-0 grid grid-cols-7 opacity-80" aria-hidden="true">
+        {rails.map((rail) => (
+          <span
+            key={rail}
+            className="border-r border-border last:border-r-0"
           />
-          <span className="absolute inset-0 bg-base/35" aria-hidden="true" />
-        </>
-      ) : (
-        <div className="absolute inset-0 grid grid-cols-7 opacity-80" aria-hidden="true">
-          {rails.map((rail) => (
-            <span
-              key={rail}
-              className="border-r border-border last:border-r-0"
-            />
-          ))}
-        </div>
-      )}
+        ))}
+      </div>
       <div className="absolute inset-x-4 top-4 flex items-center gap-2" aria-hidden="true">
         <span className="h-px flex-1 bg-border-strong" />
-        <span className="border border-border bg-base/80 px-1.5 py-0.5 font-mono text-2xs uppercase tracking-caps text-fg-dim">
-          {image ? 'Feature image' : 'Source docket'}
+        <span className="font-mono text-2xs uppercase tracking-caps text-fg-dim">
+          Source docket
         </span>
       </div>
       <div className="absolute inset-x-4 bottom-4 space-y-3" aria-hidden="true">
