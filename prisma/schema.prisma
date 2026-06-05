@@ -1,19 +1,19 @@
-// lanthanides.io — Prisma schema (Prompt 5: dynamic, user-generated side).
+// lanthanides.io - Prisma schema (dynamic, user-generated side).
 //
 // Only genuinely dynamic, user-generated data lives here. The reference /
 // provenance dataset stays in versioned files under _data/ and is read by the
-// typed data layer in lib/data/ — it is NEVER mirrored into the database, and a
+// typed data layer in lib/data/. It is NEVER mirrored into the database, and a
 // row here is NEVER auto-published back into the open dataset (that stays the
 // reviewed git-PR flow). See docs/ARCHITECTURE.md §4.
 //
-// Postgres everywhere — local dev AND production (the migration's original
+// Postgres everywhere: local dev AND production (the migration's original
 // "SQLite for dev" stance was superseded at deploy; see docs/DEPLOYMENT.md).
 // `DATABASE_URL` is the connection used at runtime (point it at a POOLED endpoint
 // on serverless hosts); `DIRECT_URL` is the direct connection Prisma Migrate uses
 // (set both to the same direct URL for a local/Docker Postgres). The schema still
-// avoids engine-specific constructs — no native `enum` (status/channel/origin are
+// avoids engine-specific constructs: no native `enum` (status/channel/origin are
 // "enum-like" Strings) and no scalar lists (`topics` is a CSV String, not
-// String[]) — so it stays simple and easy to reason about.
+// String[]), so it stays simple and easy to reason about.
 
 generator client {
   provider = "prisma-client-js"
@@ -26,7 +26,7 @@ datasource db {
 }
 
 /// Seller submissions captured at /sell (write path: POST /api/listings, P8).
-/// Storage-only here — moderation/approval, contact reveal, payments, and public
+/// Storage-only here: moderation/approval, contact reveal, payments, and public
 /// display are later prompts. A Listing is NEVER auto-published into the open
 /// dataset in _data/ (docs/ARCHITECTURE.md §4.2).
 model Listing {
@@ -43,12 +43,12 @@ model Listing {
   askingPricePerKg Float
   currency         String @default("USD")
 
-  // Seller identity. `sellerContact` is private and OPTIONAL — never published.
+  // Seller identity. `sellerContact` is private and OPTIONAL, never published.
   sellerName    String
   sellerContact String?
   notes         String?
 
-  // Workflow state — enum-like String (SQLite has no native enum):
+  // Workflow state: enum-like String:
   // 'pending' (captured) | 'reviewed' | 'published'. Portable to Postgres as-is.
   status String @default("pending")
 
@@ -56,7 +56,7 @@ model Listing {
   // dataset), frozen so the listing records where the asking price sat vs the
   // retail/bulk references the day it was created. All nullable: the gauge may
   // resolve no reference for a thinly-covered element (surface the gap, never
-  // fabricate — CLAUDE.md hard rule #1).
+  // fabricate. See hard rule #1.
   gaugeLow        Float?
   gaugeMid        Float?
   gaugeHigh       Float?
@@ -76,19 +76,18 @@ model Subscription {
   id        String   @id @default(cuid())
   createdAt DateTime @default(now())
 
-  // Delivery channel — enum-like String: 'telegram' | 'email'.
+  // Delivery channel: enum-like String: 'telegram' | 'email'.
   channel String
 
   // Destination. OPTIONAL because a Telegram signup may carry no email (chat-id
   // wiring is a later prompt); never store more than the channel needs.
   email String?
 
-  // Topics of interest — CSV of 'regulatory' | 'price-movements' (SQLite has no
-  // scalar-list type; a CSV String keeps the schema identical on Postgres).
+  // Topics of interest: CSV of 'regulatory' | 'price-movements'.
   // Empty string ⇒ all topics.
   topics String @default("")
 
-  // Lifecycle — enum-like String: 'waitlist' (captured, not yet delivering) |
+  // Lifecycle: enum-like String: 'waitlist' (captured, not yet delivering) |
   // 'active'. `confirmedAt` is set when a double-opt-in completes (later prompt).
   status      String    @default("waitlist")
   confirmedAt DateTime?
@@ -127,7 +126,7 @@ model ScreenedOffer {
   confidence Float
   valueScore Float
 
-  // Provenance of the row itself — enum-like String: 'seed' (public dataset,
+  // Provenance of the row itself: enum-like String: 'seed' (public dataset,
   // this prompt) | 'screened' (live pipeline, later prompt).
   origin String @default("screened")
 
@@ -135,4 +134,53 @@ model ScreenedOffer {
   @@index([origin])
   @@index([valueScore])
   @@map("screened_offers")
+}
+
+/// Discussion threads captured at /discussion (write path:
+/// POST /api/discussion/threads). This is dynamic, user-generated coordination
+/// content: market notes, source tips, regulatory questions, and site/meta
+/// discussion. It is NEVER written into the open reference dataset in _data/.
+model DiscussionThread {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  title        String
+  category     String // 'source-tip' | 'price-question' | 'regulatory-question' | 'data-correction' | 'market-note' | 'site-meta'
+  authorName   String
+  organization String?
+  body         String
+
+  // Workflow state: enum-like String:
+  // 'open' | 'answered' | 'locked' | 'hidden'. Hidden rows are not public.
+  status String @default("open")
+
+  replies DiscussionReply[]
+
+  @@index([category])
+  @@index([status])
+  @@index([createdAt])
+  @@map("discussion_threads")
+}
+
+/// Replies on discussion threads (write path:
+/// POST /api/discussion/threads/[id]/replies). Replies carry no private contact
+/// field and are stored separately from reference/provenance data.
+model DiscussionReply {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+
+  threadId String
+  thread   DiscussionThread @relation(fields: [threadId], references: [id], onDelete: Cascade)
+
+  authorName String
+  body       String
+
+  // Moderation state: enum-like String: 'visible' | 'hidden'.
+  status String @default("visible")
+
+  @@index([threadId])
+  @@index([status])
+  @@index([createdAt])
+  @@map("discussion_replies")
 }

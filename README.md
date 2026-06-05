@@ -123,9 +123,9 @@ Two stores with opposite needs, never mixed:
    `lib/data/` and rendered SSG/ISR. It is open data (CC BY 4.0), and the Python
    pipeline in `scripts/` reads and writes it on a six-hour cadence. It is **never**
    moved into the database.
-2. **Only genuinely dynamic, user-generated rows live in Prisma**: three models
-   (`Listing`, `Subscription`, `ScreenedOffer`). Runtime writes, often private,
-   **never** auto-published into the open dataset.
+2. **Only genuinely dynamic, user-generated rows live in Prisma**: listings,
+   subscriptions, screened offers, and discussion threads/replies. Runtime writes,
+   often private, **never** auto-published into the open dataset.
 
 The full rationale, route map, and data contracts are in the docs:
 
@@ -140,7 +140,7 @@ The full rationale, route map, and data contracts are in the docs:
 app/          Next.js App Router routes + handlers (api/, sitemap.ts, robots.ts, feed.xml/, movements.xml/)
 components/   server-first React (seo/, charts/, elements/, regulatory/, trust/, layout/, ui/, …)
 lib/          data/ (typed readers over _data/), types.ts, price-gauge.ts, screening/, seo.ts, db.ts, format.ts
-prisma/       schema.prisma (Listing, Subscription, ScreenedOffer), seed.ts
+prisma/       schema.prisma (Listing, Subscription, ScreenedOffer, DiscussionThread, DiscussionReply), seed.ts
 _data/        versioned reference + provenance (yml/json), open data, the product
 _elements/    31 element bodies (.md)   ·   _articles/   5 articles (.md)
 scripts/      Python pipeline + regulatory monitor (scheduled PR updates)
@@ -197,14 +197,16 @@ stubbed.
 
 ## Data model & open data
 
-Three Prisma models hold all runtime, user-generated state, and nothing that
-belongs in the open dataset:
+Prisma models hold all runtime, user-generated state, and nothing that belongs
+in the open dataset:
 
 | Model | Source surface | Holds |
 |:--|:--|:--|
 | `Listing` | `/sell` | Seller submissions + a frozen price-gauge snapshot. `status: pending -> reviewed -> published`. Private `sellerContact` is never returned or rendered. |
 | `Subscription` | `/alerts` | Notification signups (`channel`, optional `email`, `topics` CSV, `status: waitlist`). Deduped by email+channel. Never enumerated. |
 | `ScreenedOffer` | `/offers` | The value-ranked offer feed. `origin: seed` (from the dataset) vs `screened` (live pipeline, not built). |
+| `DiscussionThread` | `/discussion` | Public discussion threads for source tips, price questions, regulatory questions, corrections, market notes, and site/meta coordination. |
+| `DiscussionReply` | `/discussion/[id]` | Public replies on discussion threads. Hidden replies are excluded from the public render. |
 
 A row is **never** auto-published back into the open dataset. That stays the
 reviewed git-PR flow.

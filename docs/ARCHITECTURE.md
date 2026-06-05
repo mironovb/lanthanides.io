@@ -120,6 +120,8 @@ sequencing; forward-looking).
 | `/sell` | Dynamic | `Listing` (write) | P8 | — (NEW) STUB |
 | `/offers` | ISR | `ScreenedOffer` (seeded) | P8 | — (NEW) STUB |
 | `/alerts` | Dynamic | `Subscription` (write) | P8 | — (NEW) STUB |
+| `/discussion` | Dynamic | `DiscussionThread` + visible reply count | post-P25 | — (NEW) |
+| `/discussion/[id]` | Dynamic | `DiscussionThread` + visible `DiscussionReply` rows | post-P25 | — (NEW) |
 | `/sitemap.xml` | Handler | all routes | P7 | `/sitemap.xml` |
 | `/robots.txt` | Handler | — | P7 | `/robots.txt` |
 | `/feed.xml` | Handler | articles | P7 | `/feed.xml` |
@@ -127,6 +129,8 @@ sequencing; forward-looking).
 | `/api/price-gauge` | Handler (POST) | price_records via `lib/price-gauge.ts` | P8 | — (NEW) |
 | `/api/listings` | Handler (GET/POST) | `Listing` | P8 | — (NEW) |
 | `/api/subscribe` | Handler (POST) | `Subscription` | P8 | — (NEW) |
+| `/api/discussion/threads` | Handler (POST) | `DiscussionThread` | post-P25 | — (NEW) |
+| `/api/discussion/threads/[id]/replies` | Handler (POST) | `DiscussionReply` | post-P25 | — (NEW) |
 | `/api/export/[format]` | Handler (GET) | canonical dataset → json/csv | P8 | — (open-data export; `/assets/data/*.json` preserved separately) |
 
 > ★ `/framework` is included per `AUDIT.md` §2/§5/§6 even though the prompt's enumerated list omitted it — see
@@ -395,8 +399,8 @@ interface Source {
 
 ## 4. Feature module map (the two-sided commercial direction)
 
-Where the commercial vision lives, and the hard line between what is **real** tonight and what is **STUB**. All three
-modules are backed by the three Prisma models (`MIGRATION.md` §2.2); the reference data is never touched by them.
+Where the commercial vision lives, and the hard line between what is **real** tonight and what is **STUB**. These
+app surfaces are backed by Prisma models (`MIGRATION.md` §2.2); the reference data is never touched by them.
 
 ### 4.1 Demand side — offer-screening feed → `/offers`
 
@@ -426,66 +430,58 @@ modules are backed by the three Prisma models (`MIGRATION.md` §2.2); the refere
   `Subscription` table into the monitor's notify step) are not built tonight. The subscribe form captures and stores
   intent; delivery wiring is a later prompt.
 
-### 4.4 Prisma models (sketch — finalized in prompt 8)
+### 4.4 Discussion board → `/discussion`
+
+- **Real tonight:** `/discussion` and `/discussion/[id]` read and write `DiscussionThread` / `DiscussionReply` rows
+  through POST routes. Threads and replies publish visibly today unless later hidden by a maintainer; locked threads
+  reject replies.
+- **Boundary:** discussion is coordination and source review, not publication into `_data/`. Factual price claims,
+  corrections, and source tips still require the reviewed contribution pipeline before changing the open dataset.
+
+### 4.5 Prisma models
 
 | Model | Key fields (indicative) | Notes |
 |:--|:--|:--|
 | `Listing` | `id`, `element_symbol`, `form`, `purity`, `price_per_kg`, `currency`, `quantity_kg`, `incoterm`, `seller_contact`, `status` (pending/screened/published), `created_at` | supply side; never auto-enters `_data/` |
 | `Subscription` | `id`, `channel` (telegram/email), `destination`, `elements` (csv/relation), `events` (regulatory/price), `verified`, `created_at` | alerts layer; private, never published |
 | `ScreenedOffer` | `id`, `element_symbol`, `side` (buy/sell), `price_per_kg`, `currency`, `quantity_kg`, `source`, `screened_score`, `status`, `created_at` | demand side; **seeded** tonight |
+| `DiscussionThread` | `id`, `title`, `category`, `author_name`, `organization`, `body`, `status`, `created_at`, `updated_at` | discussion board; public, user-generated, never auto-enters `_data/` |
+| `DiscussionReply` | `id`, `thread_id`, `author_name`, `body`, `status`, `created_at` | replies; hidden replies are excluded from public pages |
 
-> `provider` in `schema.prisma` is `sqlite` for local/dev and `postgresql` for production — switched by environment, not
-> by code (`MIGRATION.md` §1). The reference dataset stays in `_data/` files and is **never** mirrored into these tables.
+> `provider` in `schema.prisma` is `postgresql`. Local development and production both point at Postgres through
+> `DATABASE_URL`/`DIRECT_URL`; no runtime row is mirrored into `_data/`.
 
 ---
 
-## 5. Database: local SQLite → production Postgres
+## 5. Database: Postgres everywhere
 
-The three Prisma models (§4.4) are the only place dynamic, user-generated rows live. Local/dev runs on a SQLite file;
-production runs on Postgres. The move is config-only — the schema is written to be portable so application code never
-changes between engines.
+The Prisma models (§4.5) are the only place dynamic, user-generated rows live. Local/dev and production run on Postgres.
+The schema is written to be portable and avoids provider-specific constructs where the app does not need them.
 
-**Same Prisma Client, two engines.** Every query path — route handlers, `lib/db.ts`, `prisma/seed.ts` — is
-engine-agnostic and never branches on the database. The only environment-specific surface is the `datasource` block in
-`schema.prisma` and the `DATABASE_URL` env var:
+**Same Prisma Client, one engine.** Every query path, including route handlers, `lib/db.ts`, and `prisma/seed.ts`, uses
+the same Postgres-backed Prisma Client. The environment-specific surface is the connection string, not application code:
 
 | | `provider` (in `schema.prisma`) | `DATABASE_URL` |
 |:--|:--|:--|
-| local / dev | `sqlite` | `file:./dev.db` (in `.env`, gitignored) |
-| production | `postgresql` | `postgresql://…` (host secret store; never committed) |
-
-Prisma requires `provider` to be a static literal — only `url` may use `env()`. So production flips the datasource
-`provider` to `postgresql`; this is a **datasource-config** change, not an **application-code** change (models, queries,
-and the seed are untouched). That is the precise meaning of `MIGRATION.md` §1's "switch by connection string, not by
-code": no app/query code moves — only the datasource config and the secret.
+| local / dev | `postgresql` | local/Docker Postgres in `.env` (gitignored) |
+| production | `postgresql` | hosted Postgres secret in the platform store; never committed |
 
 **Portable by construction.** The schema deliberately avoids engine-specific constructs so the switch is clean:
 
-- no native `enum` — `Listing.status`, `Subscription.channel`/`status`, `ScreenedOffer.origin` are documented enum-like
-  `String`s;
+- no native `enum` — `Listing.status`, `Subscription.channel`/`status`, `ScreenedOffer.origin`,
+  `DiscussionThread.status`, and `DiscussionReply.status` are documented enum-like `String`s;
 - no scalar lists — `Subscription.topics` is a CSV `String` (a Postgres `text[]` has no SQLite equivalent);
 - `@default(cuid())` ids — generated by the client, so Postgres needs no `pgcrypto`/`uuid-ossp` extension.
 
-**Migrations are provider-specific; no data is committed.**
+**Migrations are committed; runtime data is not.**
 
 - **Committed:** `prisma/schema.prisma`, the `prisma/migrations/**` SQL + `migration_lock.toml`, and `prisma/seed.ts`.
-- **Never committed:** the SQLite `*.db` file and any `.env` (both gitignored). No seeded or runtime row ever enters git —
-  the demand-side feed is reproducible from the public `_data/` dataset via `npx prisma db seed` (idempotent: it
+- **Never committed:** `.env`, connection strings, and any runtime/user rows. No seeded or runtime row ever enters git.
+  The demand-side feed is reproducible from the public `_data/` dataset via `npx prisma db seed` (idempotent: it
   clear-then-inserts only `origin: 'seed'` rows).
-- The generated SQL is engine-specific and `migration_lock.toml` pins `provider = "sqlite"`. Production therefore
-  regenerates its own Postgres baseline (point `DATABASE_URL` at a Postgres dev DB and run `npx prisma migrate dev`, or
-  use `prisma migrate diff`) rather than replaying SQLite SQL against Postgres. The schema is the source of truth; the
-  SQL is derived. `npx prisma db seed` then (re)builds the feed on Postgres with zero code changes.
-
-> **Deploy-time reconciliation.** The dev engine is revisited when the host is chosen: the production deploy may
-> standardize on **Postgres for local dev too** (one engine everywhere, pointed at a local/Docker Postgres) to remove the
-> SQLite↔Postgres SQL-dialect gap. That decision is recorded at the deployment step (`docs/DEPLOYMENT.md`), not here; the
-> SQLite-dev plan above is the migration-phase baseline. Either way the application code is unchanged — only the
-> `datasource` config and `DATABASE_URL`/`DIRECT_URL` differ.
 
 ---
 
 *End of architecture. Read with `docs/AUDIT.md` (what exists) and `docs/MIGRATION.md` (why this stack, the URL contract,
 the build-green sequencing). §2 is the route map every page prompt follows; §3 is the schema every data-layer prompt
-implements; §4 is the boundary every commercial-stub prompt must respect; §5 is the SQLite→Postgres switch every
-deployment follows.*
+implements; §4 is the boundary every app-surface prompt must respect; §5 is the Postgres runtime contract.*

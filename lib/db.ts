@@ -1,7 +1,7 @@
 /**
  * Prisma client singleton: the one handle to the dynamic, user-generated store
- * (the three Prisma models: `Listing`, `Subscription`, `ScreenedOffer`). The
- * reference/provenance dataset is NEVER read from here; that stays the typed
+ * (Prisma models for listings, subscriptions, screened offers, and discussion).
+ * The reference/provenance dataset is NEVER read from here; that stays the typed
  * file layer in `lib/data/` (CLAUDE.md hybrid-data rule).
  *
  * Why a singleton: Next.js dev (and any hot-reload) re-evaluates modules on each
