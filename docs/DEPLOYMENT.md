@@ -138,10 +138,10 @@ The web app reads these (canonical list from `.env.example` + `CLAUDE.md`):
 Set these in **Vercel Project Settings -> Environment Variables**. `NODE_ENV=production`
 is set by Vercel.
 
-> **Pipeline secrets are separate.** `TELEGRAM_BOT_TOKEN`, `TELEGRAM_CHAT_ID`,
-> `EMAIL_RECIPIENT`, `DEEPL_API_KEY` belong to the **GitHub Actions** regulatory
-> monitor (`.github/workflows/regulatory-monitor.yml`), **not** the web host.
-> Leave them in GitHub repo → Settings → Secrets. The web app never uses them.
+> **Pipeline secrets are separate.** The web app never uses monitor secrets such
+> as `TELEGRAM_BOT_TOKEN`, `TELEGRAM_CHAT_ID`, `EMAIL_RECIPIENT`, or
+> `DEEPL_API_KEY`. The scheduled regulatory-monitor GitHub Action has been
+> removed, so do not add those to Vercel.
 
 ---
 
@@ -232,13 +232,11 @@ level:
 
 ## 8. Keeping reference data fresh after deploy
 
-Reference data (`_data/`) is read at **build time** (SSG/ISR), and two GitHub
-Actions open review PRs for updates:
+Reference data (`_data/`) is read at **build time** (SSG/ISR). One GitHub Action
+currently opens review PRs for updates:
 
 - `price-update.yml` — weekly (Sun 06:00 UTC) → opens a PR with `_data/` +
   `assets/data/fluctuations.json` changes.
-- `regulatory-monitor.yml` — every 6h → runs the monitor, fires Telegram alerts,
-  and opens or updates a PR with scraper state.
 
 **To turn those PRs into live updates, merge them into the production branch.**
 Vercel is connected to the repo, so production-branch merges trigger the web

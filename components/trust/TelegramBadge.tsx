@@ -1,9 +1,8 @@
 /**
- * TelegramBadge: marks the MOFCOM export-control alert bot as LIVE (Prompt 16).
- * The regulatory monitor really does poll Chinese-government sources roughly
- * every six hours and dispatch a Telegram alert on each significant new
- * announcement (AUDIT §1.9/§5), so "Live" is a true claim about a running
- * capability, not a promise.
+ * TelegramBadge: marks the MOFCOM export-control alert bot endpoint. Automated
+ * dispatch is currently paused because the scheduled GitHub Actions monitor was
+ * removed while the site runs from Vercel. This component therefore avoids any
+ * "live monitor" claim.
  *
  * The public bot *handle*, however, is not hardcoded. The CTA reads
  * `NEXT_PUBLIC_TELEGRAM_BOT_URL` (a build-inlined public var): when it points at
@@ -11,7 +10,7 @@
  * the CTA routes to /alerts/ instead of shipping a guessed/fake link
  * (CLAUDE.md hard rule #1 + Prompt-16 task #4). See `.env.example`.
  *
- * Two shapes: `inline` (a compact LIVE pill) and `panel` (a CTA block). Server
+ * Two shapes: `inline` (a compact status pill) and `panel` (a CTA block). Server
  * component.
  */
 import Link from 'next/link';
@@ -33,11 +32,11 @@ export function getTelegramBotUrl(): string | null {
   return raw;
 }
 
-function LiveDot() {
+function PausedDot() {
   return (
     <span
       aria-hidden="true"
-      className="inline-block h-1.5 w-1.5 rounded-full bg-up"
+      className="inline-block h-1.5 w-1.5 rounded-full bg-risk-medium"
     />
   );
 }
@@ -59,9 +58,11 @@ export function TelegramBadge({
           className,
         )}
       >
-        <LiveDot />
-        <span className="font-mono uppercase tracking-caps text-up">Live</span>
-        <span className="text-fg-muted">Telegram MOFCOM alert bot</span>
+        <PausedDot />
+        <span className="font-mono uppercase tracking-caps text-risk-medium">
+          Paused
+        </span>
+        <span className="text-fg-muted">Telegram MOFCOM alert endpoint</span>
         {botUrl ? (
           <a
             href={botUrl}
@@ -91,19 +92,18 @@ export function TelegramBadge({
       )}
     >
       <div className="flex items-center gap-2">
-        <LiveDot />
-        <p className="eyebrow text-up">Live</p>
+        <PausedDot />
+        <p className="eyebrow text-risk-medium">Paused</p>
         <p className="font-mono text-2xs uppercase tracking-caps text-fg-dim">
           Telegram
         </p>
       </div>
       <h3 className="mt-2 font-serif text-base font-semibold text-fg">
-        MOFCOM export-control alert bot
+        MOFCOM export-control alert endpoint
       </h3>
       <p className="mt-1.5 text-sm leading-relaxed text-fg-muted">
-        An automated monitor polls Chinese-government sources roughly every six
-        hours and fires a Telegram alert on each significant new export-control
-        announcement.
+        The Telegram endpoint can be configured, but automated dispatch is paused
+        while the scheduled regulatory-monitor GitHub Action is removed.
       </p>
       <div className="mt-3">
         {botUrl ? (
@@ -123,8 +123,8 @@ export function TelegramBadge({
       </div>
       {!botUrl ? (
         <p className="mt-2 text-2xs leading-relaxed text-fg-dim">
-          The public bot handle is being set up; subscriptions open on the alerts
-          page.
+          The public bot handle is not set. Use the regulatory tracker directly
+          for now.
         </p>
       ) : null}
     </section>

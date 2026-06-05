@@ -3,9 +3,8 @@
  * Chinese export-control announcement lands or a tracked price moves. Two
  * channels, each honest about status:
  *
- *   • Telegram: LIVE. The regulatory monitor already dispatches alerts; this
- *     places the prompt-16 TelegramBadge subscribe CTA (real bot link via
- *     NEXT_PUBLIC_TELEGRAM_BOT_URL, else routes here with a maintainer note).
+ *   • Telegram: PAUSED. The endpoint can be configured, but automated dispatch is
+ *     paused after removing the scheduled regulatory-monitor GitHub Action.
  *   • Email: WAITLIST. A capture form POSTs to /api/subscribe, persisting a
  *     `Subscription` (channel:'email', status:'waitlist'). Nothing is sent; the
  *     confirmation says so (CLAUDE.md hard rule #1).
@@ -24,7 +23,7 @@ import { Callout, Chip, Panel, SectionHeading } from '@/components/ui';
 import { TelegramSubscribe, EmailWaitlistForm } from '@/components/alerts';
 
 const DESCRIPTION =
-  'Get notified the moment a new Chinese export-control announcement lands or a tracked rare-earth price moves, by Telegram (live now) or email (join the waitlist). Scoped to the events you care about; your address is never published.';
+  'Alert channels for Chinese export-control announcements and tracked rare-earth price moves. Telegram automation is paused; email is a waitlist. Your address is never published.';
 
 export const metadata: Metadata = buildMetadata({
   title: 'Alerts: Export-Control & Price Notifications by Telegram or Email',
@@ -50,20 +49,21 @@ export default function AlertsPage() {
         crumbs={[{ label: 'Home', href: '/' }, { label: 'Alerts' }]}
         eyebrow="Alerts"
         title="Get alerts when something moves"
-        lead="Know the moment a new Chinese export-control announcement lands or a tracked reference price moves, scoped to the elements and events you pick. Telegram is live today; email is a waitlist."
+        lead="Alert channels for Chinese export-control announcements and tracked reference-price moves. Telegram automation is paused today; email is a waitlist."
       >
         <StoryLink>
-          Alerts cover export-control announcements now (live via Telegram) and{' '}
-          <Link href="/movements/">price movements</Link> next. They watch the same
-          feeds as the <Link href="/regulatory/">Regulatory Tracker</Link>.
+          For live regulatory context, use the{' '}
+          <Link href="/regulatory/">Regulatory Tracker</Link>. Price-movement
+          alerts remain tied to the <Link href="/movements/">market movements</Link>{' '}
+          feed.
         </StoryLink>
       </PageHeader>
 
       {/* ── How this works today ─────────────────────────────────────────── */}
       <Callout tone="note" title="What this is" className="mt-8">
         <p className="leading-relaxed">
-          <span className="font-semibold text-fg">Telegram alerts run today</span>,
-          fired by the regulatory monitor on each new announcement.{' '}
+          <span className="font-semibold text-fg">Telegram automation is paused</span>{' '}
+          after removing the scheduled regulatory-monitor GitHub Action.{' '}
           <span className="font-semibold text-fg">Email is a waitlist</span>: we
           store your address and chosen topics, and no email is sent yet.
         </p>
@@ -73,10 +73,10 @@ export default function AlertsPage() {
       <section className="mt-10">
         <SectionHeading
           title="Choose how you’re notified"
-          description="Two channels, scoped to the events you pick. Telegram is live now; email is opening as a waitlist."
+          description="Two channels, both honest about current status. Telegram dispatch is paused; email is opening as a waitlist."
         />
         <div className="mt-5 grid items-start gap-6 lg:grid-cols-2">
-          {/* Telegram (LIVE) */}
+          {/* Telegram (PAUSED) */}
           <TelegramSubscribe />
 
           {/* Email (COMING SOON) */}

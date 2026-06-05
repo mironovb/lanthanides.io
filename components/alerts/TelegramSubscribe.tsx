@@ -1,24 +1,16 @@
 /**
- * TelegramSubscribe: the live Telegram column of the alerts page (Prompt 22). It
- * places the prompt-16 `TelegramBadge` CTA (the real subscribe button to the
- * MOFCOM export-control alert bot, driven by `NEXT_PUBLIC_TELEGRAM_BOT_URL`) and
- * surrounds it with the page-specific detail the task asks for: what a subscriber
- * actually gets, and, when the public bot handle isn't configured yet, a
- * maintainer note instructing the owner to set the env var.
- *
- * Why this is honestly "Live": the regulatory monitor already polls Chinese-
- * government sources roughly every six hours and dispatches a Telegram alert on
- * each significant new announcement (AUDIT §1.9/§5). The only thing the owner must
- * supply is the public bot link; until then the CTA routes to this page rather
- * than shipping a guessed/dead link (hard rule #1). Server component.
+ * TelegramSubscribe: the Telegram column of the alerts page. The endpoint can
+ * still be configured through `NEXT_PUBLIC_TELEGRAM_BOT_URL`, but automated
+ * dispatch is paused because the scheduled regulatory-monitor GitHub Action was
+ * removed. Server component.
  */
 import { Callout, Card } from '@/components/ui';
 import { TelegramBadge, getTelegramBotUrl } from '@/components/trust';
 
 const PERKS = [
-  'A push the moment a new MOFCOM / GAC export-control announcement is detected.',
-  'Each alert carries the announcement number, the affected elements, and a link straight to the regulatory tracker.',
-  'Polled from Chinese-government sources on a roughly six-hourly cadence, with no digest delay on critical changes.',
+  'The public Telegram endpoint can still be configured when dispatch is restored.',
+  'The regulatory tracker remains the canonical place to verify MOFCOM / GAC announcements.',
+  'Automated polling is paused; no six-hourly GitHub Action currently sends alerts.',
 ];
 
 export function TelegramSubscribe() {
@@ -50,7 +42,8 @@ export function TelegramSubscribe() {
           <span className="font-mono text-fg">NEXT_PUBLIC_TELEGRAM_BOT_URL</span>{' '}
           at the real <span className="font-mono text-fg">https://t.me/&lt;handle&gt;</span>{' '}
           (see <span className="font-mono text-fg">.env.example</span>) and the CTA
-          opens Telegram directly. The monitor’s alerting itself is already running.
+          opens Telegram directly. Automated alert dispatch is paused until a
+          maintainer restores a monitor outside the removed GitHub Action.
         </Callout>
       ) : null}
     </div>

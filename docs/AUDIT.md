@@ -13,8 +13,8 @@
 > import/export operational reference") and `0628880`/`44fdc1d` (the regulatory-monitor
 > automation). That pass omitted **(a)** the served **`/framework/` page** from the
 > inventory (§1.4), the permalink contract (§2), the navigation (§1.3), and the crown-jewel
-> discussion (§6); and **(b)** the **regulatory-monitor pipeline** (`.github/workflows/regulatory-monitor.yml`
-> + `scripts/scraper|triage|notify`) that keeps the regulatory data fresh. This revision
+> discussion (§6); and **(b)** the **regulatory-monitor pipeline** (`scripts/scraper|triage|notify`)
+> that previously ran through GitHub Actions. The scheduled workflow has since been removed. This revision
 > adds both and corrects the nav link count (8 → 9). Every other count and claim below was
 > re-verified against the working tree and stands unchanged.
 >
@@ -59,7 +59,7 @@
 | `.github/PULL_REQUEST_TEMPLATE.md` | PR template. |
 | `.github/workflows/community-intake.yml` | **Manual-dispatch-only** workflow: ingests an `approved`-labelled price-update issue → opens a PR (two human checkpoints; never auto-runs on issue creation). |
 | `.github/workflows/price-update.yml` | Scheduled/again-manual price refresh workflow. |
-| `.github/workflows/regulatory-monitor.yml` | **Regulatory-monitor automation** (added `0628880`, refined `44fdc1d`): cron every 6h (+ manual dispatch) → runs `scripts/run_monitor.py` (polls Chinese-gov sources via `scripts/scraper/`, scores significance via `scripts/triage.py`, alerts via `scripts/notify/{telegram,email}.py`), commits `scripts/run_state.json` back as the **`regulatory-monitor` bot** (the frequent "monitor: state update" commits). Keeps the crown-jewel regulatory data current; see §1.9, §5, §6. |
+| `.github/workflows/regulatory-monitor.yml` | **Removed**. The old cron workflow ran `scripts/run_monitor.py` every 6h and opened monitor-state updates; it was removed after the site moved to the Vercel app path. The Python monitor scripts remain for manual or future external use. |
 
 ### 1.2 Layouts (`_layouts/`)
 
@@ -159,7 +159,7 @@
 
 `scripts/*.py` (validate, normalize, generate, import invoices/offers, detect movements, build snapshots, fluctuations, source breakdown, placeholder generator), `outreach/*.py` (consent-gated supplier intake), `invoices/`, `logs/`, `prompts/`. Excluded via `_config.yml`/`.gitignore`.
 
-**Regulatory-monitor pipeline** (out-of-build, but a real asset — see §5/§6): `scripts/run_monitor.py` + `scripts/run_state.json` (orchestrator + dedup/seen state), `scripts/scraper/monitor.py` + `scripts/scraper/sources.yaml` (polls MOFCOM homepage, gov.cn, and RSS/Atom feeds for REE-relevant announcements), `scripts/triage.py` (rule-based 1–10 significance scorer, biased low to avoid false-positive alerts), `scripts/notify/{telegram,email}.py` (alert channels). Driven by `.github/workflows/regulatory-monitor.yml`; its automated commits are authored by the `regulatory-monitor` bot.
+**Regulatory-monitor pipeline** (out-of-build, currently manual/paused — see §5/§6): `scripts/run_monitor.py` + `scripts/run_state.json` (orchestrator + dedup/seen state), `scripts/scraper/monitor.py` + `scripts/scraper/sources.yaml` (polls MOFCOM homepage, gov.cn, and RSS/Atom feeds for REE-relevant announcements), `scripts/triage.py` (rule-based 1–10 significance scorer, biased low to avoid false-positive alerts), `scripts/notify/{telegram,email}.py` (alert channels). The scheduled GitHub Actions driver was removed; no automated monitor-state commits run today.
 
 ---
 
@@ -299,8 +299,8 @@ These are real, hard-won, and differentiating. Carry every one forward.
 - `.github/ISSUE_TEMPLATE/{price-update,data-correction,market-note}.yml` + `PULL_REQUEST_TEMPLATE.md`.
 - `.github/workflows/community-intake.yml` — the manual-dispatch, `approved`-label-gated, PR-opening "two human checkpoints" flow (and the matching `outreach/community_intake.py`). This consent-/review-gated provenance model is itself a credibility asset and is documented on `/methodology/`.
 
-**Regulatory-monitoring automation** (the freshness engine behind the crown jewel)
-- `.github/workflows/regulatory-monitor.yml` + `scripts/scraper/` (`monitor.py`, `sources.yaml` — Chinese-gov + RSS pollers), `scripts/triage.py` (rule-based significance scorer), `scripts/notify/{telegram,email}.py`, `scripts/run_monitor.py` + `run_state.json` (dedup state). Runs every 6h and alerts only on critical announcements. This is what makes "updated as announcements land" literally true; carry the pipeline (and its bot-commit cadence) into the migration's ops story even though `scripts/` itself isn't served.
+**Regulatory-monitoring scripts** (currently manual/paused)
+- `scripts/scraper/` (`monitor.py`, `sources.yaml` — Chinese-gov + RSS pollers), `scripts/triage.py` (rule-based significance scorer), `scripts/notify/{telegram,email}.py`, `scripts/run_monitor.py` + `run_state.json` (dedup state). The old scheduled GitHub Actions driver has been removed, so these scripts no longer run every 6h or fire automatic alerts.
 
 **Content (the substance)**
 - All **31 element pages** (`_elements/*.md`) — sourced applications, market/supply stats, notes, properties, references.
@@ -313,13 +313,13 @@ These are real, hard-won, and differentiating. Carry every one forward.
 
 ## 6. Crown jewel — the MOFCOM/GAC regulatory tracker
 
-**The strongest, least-replicable asset on the site is the Chinese export-control tracker** (`pages/regulatory.html`, `_data/regulatory/*.yml`, `_data/policy_events.yml`) — now a *cluster* with its operational companion `/framework/` and an automated monitoring pipeline (fourth bullet below) — and the migration should make it the centerpiece, not a tab buried mid-nav.
+**The strongest, least-replicable asset on the site is the Chinese export-control tracker** (`pages/regulatory.html`, `_data/regulatory/*.yml`, `_data/policy_events.yml`) — now a *cluster* with its operational companion `/framework/` and paused/manual monitor scripts — and the migration should make it the centerpiece, not a tab buried mid-nav.
 
 Why it's the differentiator:
 - **Depth and primary sourcing.** `_data/regulatory/mofcom_18_2025.yml` (and siblings) carry the **announcement number**, the **Chinese reference** (`商务部 海关总署公告2025年第18号`), issuing authority, issue/effective dates, exact affected elements and controlled forms, the **legal basis** (Article 15, Export Control Law of the PRC; 2024 Dual-Use Items Regulations), the **45-working-day** review period, and **suspension state** (e.g. "No. 18 was never suspended; Oct-2025 Nos. 55–62 suspended until 28 Nov 2026"). `policy_events.yml` strings 11 events from the July-2023 Ga/Ge controls through the Feb-2026 Japan sanctions into one coherent timeline.
 - **It answers the question the audience actually has.** The brief's primary user (investor/journalist/analyst) needs "is this element controlled, by which announcement, since when, and is it suspended?" — and almost no English-language source assembles this with citations. The element pages already reflect it inline (`Dy.md` banner cites No. 18/2025 + the 28-Nov-2026 suspension key date), and the dashboard/regulatory snapshot quantify it.
 - **It's defensible.** Prices are thin and will always be contestable; the regulatory corpus is deep, dated, sourced, and updated as announcements land. It is the thing a funder can verify in five minutes and not find elsewhere.
-- **It now ships with two force-multipliers the prior pass missed.** (1) The **`/framework/` operational reference** (`pages/framework.md`) converts the tracker's *what/when* into procurement *how* — three-tier classification (uncontrolled / general-licence / case-by-case), the live post-IEEPA US tariff stack, a multiplicative realised-price model, four-axis landed-cost decomposition with worked examples, and a 2026 decision-trigger calendar — all reconciled against the same `_data/regulatory/*.yml` corpus, in ~450 lines of confident, sourced, decision-oriented prose (the clearest in-repo counter-example to the apologetic voice of §4.5). (2) An **automated monitoring pipeline** (`.github/workflows/regulatory-monitor.yml` → `scripts/scraper/` → `scripts/triage.py` → `scripts/notify/`) polls Chinese-government sources every six hours, scores each item's regulatory significance, and fires Telegram/email alerts only on critical announcements — the machinery that makes "updated as announcements land" literally true. Treat tracker + framework + monitor as one crown-jewel cluster; nav already keeps the first two adjacent (Regulatory → Framework).
+- **It now ships with the operational companion the prior pass missed.** The **`/framework/` operational reference** (`pages/framework.md`) converts the tracker's *what/when* into procurement *how* — three-tier classification (uncontrolled / general-licence / case-by-case), the live post-IEEPA US tariff stack, a multiplicative realised-price model, four-axis landed-cost decomposition with worked examples, and a 2026 decision-trigger calendar — all reconciled against the same `_data/regulatory/*.yml` corpus, in ~450 lines of confident, sourced, decision-oriented prose (the clearest in-repo counter-example to the apologetic voice of §4.5). The old scheduled regulatory-monitor workflow has been removed; the scripts remain available for manual or future external monitoring.
 
 **Implication for the migration:** elevate the tracker to a hero position (home above-the-fold + a first-class destination), keep its data model intact, and let the (transparent) thin price data play a *supporting* role behind the regulatory intelligence rather than leading with apologies about sparse coverage (§4.5).
 

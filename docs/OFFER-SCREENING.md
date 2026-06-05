@@ -83,13 +83,13 @@ trust-tiered sources already curated in `_data/source_registry.yml`.
 Poll each configured source, extract candidate offers, cache responses, and emit
 `RawOffer[]` (original currency/unit/text untouched). Returns `[]` today.
 
-- **Reuse:** `scripts/scraper/monitor.py` is the existing 6-hourly poller
+- **Reuse:** `scripts/scraper/monitor.py` is the existing monitor script
   (sources in `scripts/scraper/sources.yaml`; dedup-of-seen in
   `scripts/scraper/data/seen.sqlite`); `scripts/import_offers.py` already fetches
   the source registry, runs per-source price extraction, and caches to
   `scripts/.offer_cache/`. The offer adapters extend that, not a new stack.
 - **TODO(screening):** per-source HTML/JSON adapters; ToS/robots compliance + rate
-  limiting; Chinese→English translation (the monitor already wires DeepL);
+  limiting; Chinese→English translation (the monitor scripts include DeepL wiring);
   response caching with ETag/last-seen.
 
 ### 3.2 `normalize()` — to USD/kg on the canonical vocab — **REAL (pure)**

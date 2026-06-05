@@ -249,7 +249,7 @@ Every must-preserve asset from `AUDIT.md` §5, with its new home. Nothing on thi
 | ◑ **Open-data export** (`/assets/data/elements.json`, `/assets/data/fluctuations.json`) | P8: `/api/export/[format]` (json/csv) is canonical; `fluctuations.json` preserved as a static file in `public/`; `elements.json` 301s to the export. See §3.4.1. |
 | ☐ **CC BY 4.0 + MIT dual license** | `LICENSE` unchanged; surfaced in footer, `<head>` `rel="license"`, and Atom `<rights>` |
 | ☐ **Contributor pipeline** (issue templates, PR template, `community-intake.yml`, two-human-checkpoint flow) | unchanged — data stays in `_data/`, flow stays a git-PR flow |
-| ☐ **Regulatory-monitor pipeline** (`regulatory-monitor.yml`, `scripts/scraper/`, `triage.py`, `notify/`, `run_monitor.py`, `run_state.json`) | `scripts/` unchanged; still commits to `_data/` on its 6-hour cadence |
+| ☐ **Regulatory-monitor scripts** (`scripts/scraper/`, `triage.py`, `notify/`, `run_monitor.py`, `run_state.json`) | `scripts/` unchanged, but the scheduled GitHub Actions driver was removed; no 6-hour cadence runs today |
 | ☐ **`CNAME`** (`www.lanthanides.io`) | preserved; host binding moves to the Node host (no public URL change) |
 | ☐ **31 element pages + 5 articles + `/framework/`** | `_elements/`, `_articles/` in place; `/framework/` ported verbatim with anchors |
 | ☐ **Two-price model + `price-selection` logic** | `lib/price-gauge.ts` (typed port of `retail_ref`/`bulk_ref`) |

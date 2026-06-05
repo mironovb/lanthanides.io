@@ -63,12 +63,12 @@ lanthanides.io/
 │   ├── seo.ts                        # metadata builder + JSON-LD helpers
 │   └── db.ts                         # Prisma client singleton (commercial layer only)
 ├── prisma/
-│   ├── schema.prisma                 # Listing, Subscription, ScreenedOffer (provider: sqlite dev / postgres prod)
+│   ├── schema.prisma                 # Listing, Subscription, ScreenedOffer, Discussion* (provider: postgres)
 │   └── seed.ts                       # seeds ScreenedOffer from the public dataset (idempotent; origin:'seed')
 ├── _data/                            # UNCHANGED — versioned reference + provenance (MIGRATION §2.1)
 ├── _elements/                        # UNCHANGED — 31 element bodies (.md, read in place)
 ├── _articles/                        # UNCHANGED — 5 articles (.md, read in place)
-├── scripts/                          # UNCHANGED — Python pipeline + regulatory-monitor (commits _data/ every 6h)
+├── scripts/                          # UNCHANGED — Python pipeline; regulatory monitor script is manual/paused
 ├── public/
 │   └── assets/
 │       ├── images/                   # favicons, og-default.png, logos, site.webmanifest (paths fixed, §4.8)
@@ -423,9 +423,9 @@ app surfaces are backed by Prisma models (`MIGRATION.md` §2.2); the reference d
 
 ### 4.3 Alerts layer — subscriptions → `/alerts`
 
-- **Real tonight:** `/alerts` + `/api/subscribe` write a `Subscription` row (channel + destination). **Telegram now** —
-  the regulatory-monitor already ships `scripts/notify/telegram.py` and fires on critical announcements (`AUDIT.md` §1.9),
-  so the channel exists end-to-end.
+- **Real tonight:** `/alerts` + `/api/subscribe` write a `Subscription` row (channel + destination). The Telegram
+  endpoint can be configured, but automated dispatch is paused after removing the scheduled regulatory-monitor
+  GitHub Action.
 - **STUB boundary:** **email next** — email delivery, double-opt-in, and per-element alert routing (wiring the
   `Subscription` table into the monitor's notify step) are not built tonight. The subscribe form captures and stores
   intent; delivery wiring is a later prompt.

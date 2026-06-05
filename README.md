@@ -89,11 +89,11 @@ layer is early and labelled stub-by-stub.
 | Surface | Status | Notes |
 |:--|:--|:--|
 | Reference data, element pages, regulatory tracker, `/framework`, dashboard, open-data exports | **Live** | Statically generated from versioned files; the whole open dataset. |
-| **Telegram regulatory alerts** | **Live** | The six-hourly monitor (`scripts/`) polls Chinese-government sources and fires Telegram alerts on significant announcements. |
+| **Telegram regulatory alerts** | **Paused** | The Telegram endpoint can be configured, but the scheduled GitHub Actions monitor has been removed. Use `/regulatory/` for live site context. |
 | Price gauge (`/tools/price-gauge`) | **Live** | A working estimator over the live records: pick element/form/purity/quantity, get a transparent low/mid/high USD/kg band + confidence + full basis. |
 | Seller listings (`/sell` -> `POST /api/listings`) | **Live (storage-only)** | Captures a structured listing + a frozen price-gauge snapshot to the database. Publishing into the open dataset is a maintainer git-PR step, never automatic. |
 | Screened-offer feed (`/offers`) | **Live, backend stubbed** | The feed is real and value-ranked, **seeded from the verified dataset** (220 rows). The live internet ingestion/screening backend is a documented stub (`lib/screening`, `docs/OFFER-SCREENING.md`). |
-| **Email alerts** (`/alerts` -> `POST /api/subscribe`) | **Waitlist only** | Captures an email + topics to a waitlist. **Nothing is sent**: no email provider, no external calls. Telegram is the live channel. |
+| **Email alerts** (`/alerts` -> `POST /api/subscribe`) | **Waitlist only** | Captures an email + topics to a waitlist. **Nothing is sent**: no email provider, no external calls. |
 
 No paid services, no credentials, no live-ingestion theatre: anything external is
 stubbed behind environment variables and placeholders.

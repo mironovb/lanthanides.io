@@ -146,13 +146,14 @@ theatre.
 
 ### 10. Alerts — `/alerts/`
 
-Two channels, each honest about status. **Telegram is live** — the six-hourly
-monitor (`scripts/`) polls Chinese-government sources and fires alerts on
-significant announcements. **Email is a waitlist** — it captures an address and
-topics, and the confirmation states plainly that nothing is sent yet.
+Two channels, each honest about status. **Telegram automation is paused** after
+removing the scheduled regulatory-monitor GitHub Action. **Email is a waitlist**
+that captures an address and topics, and the confirmation states plainly that
+nothing is sent yet.
 
-> **What it demonstrates:** the alerting machinery that makes "updated as
-> announcements land" literally true is already running for the live channel.
+> **What it demonstrates:** the site keeps alerting claims tied to what is
+> actually operating, while preserving the storage path for future notification
+> work.
 
 **Worth a detour:** `/news/` (5 footnoted analysis articles), `/methodology/` (how
 prices are selected, normalized, and verified), `/sources/` (the trust-tiered
@@ -170,10 +171,10 @@ Planned table on `/about/`).
 | | Capability | Reality today |
 |:--|:--|:--|
 | ✅ **Live** | Regulatory tracker, framework, element/provenance pages, dashboard, open-data exports | Built, running, free. The defensible core. |
-| ✅ **Live** | Telegram regulatory alerts | Firing via the six-hourly monitor. |
+| ⏸ **Paused** | Telegram regulatory alerts | Scheduled GitHub Actions monitor removed; no automatic dispatch today. |
 | ✅ **Live** | Price gauge, seller-listing capture, screened-offer feed | Working surfaces over the real dataset. |
 | 🟡 **Stubbed** | Live offer-screening ingest (parse / score / dedup real web offers) | Interface defined (`lib/screening`, [OFFER-SCREENING.md](OFFER-SCREENING.md)); the feed is dataset-seeded until it lands. |
-| 🟡 **Stubbed** | Email alert delivery, double opt-in, per-element routing | Waitlist captured; no provider wired. Telegram is the live channel. |
+| 🟡 **Stubbed** | Email alert delivery, double opt-in, per-element routing | Waitlist captured; no provider wired. |
 | ⚪ **Planned** | Full marketplace — listing moderation at scale, contact reveal, matching, transactions | Data model in place; flows not built. |
 
 **What this page does not claim:** no traction, revenue, users, or partnerships.

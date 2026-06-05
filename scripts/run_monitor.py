@@ -3,8 +3,9 @@
 Top-level orchestrator for the regulatory-monitor workflow.
 
 Runs the scraper, identifies new articles since the last invocation, and
-dispatches a Telegram digest. Designed for invocation by GitHub Actions
-every 6 hours (see .github/workflows/regulatory-monitor.yml).
+dispatches a Telegram digest. The scheduled GitHub Actions workflow that used to
+invoke this script has been removed; run it manually or from a future external
+monitor if the alerting pipeline is restored.
 
 This script does no analysis itself. New articles are surfaced to a
 human via Telegram; triage and any data/framework updates happen in a
