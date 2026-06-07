@@ -28,13 +28,14 @@ import {
   getElementCoverage,
   getElements,
   getPremiumLeaderboard,
+  getPriceRecords,
   getRegulatorySnapshot,
 } from '@/lib/data';
-import { formatDate } from '@/lib/format';
 import { Container, PageHeader, StoryLink } from '@/components/layout';
 import { Callout, SectionHeading } from '@/components/ui';
 import { CoverageGrid } from '@/components/charts/CoverageGrid';
 import { PremiumLeaderboard } from '@/components/charts/PremiumLeaderboard';
+import { MarketSnapshot } from '@/components/dashboard/MarketSnapshot';
 import { RegulatorySnapshot } from '@/components/dashboard/RegulatorySnapshot';
 
 const DESCRIPTION =
@@ -51,12 +52,16 @@ export const metadata: Metadata = buildMetadata({
 export default function DashboardPage() {
   const generatedAt = getDataGeneratedAt();
   const total = getElements().length;
+  const records = getPriceRecords().length;
   const snapshot = getRegulatorySnapshot();
   const premiums = getPremiumLeaderboard();
   const coverage = getElementCoverage();
   const coverageTally = getCoverageTally();
 
   const inverseCount = premiums.filter((p) => p.premium < 1).length;
+  // Elements named in a Chinese export-control regime, whether in force or paused.
+  const controlled =
+    snapshot.regulatory.active + snapshot.regulatory.suspended;
 
   return (
     <Container as="main" className="py-10">
@@ -73,20 +78,12 @@ export default function DashboardPage() {
         title="Market Dashboard"
         lead="An overview of the strategic materials market: where Chinese export control concentrates, how steep the retail markup runs over wholesale, and how much price data backs each element. Every figure is derived from the underlying observations."
         actions={
-          <div className="flex flex-col items-start gap-1 text-xs md:items-end">
-            <span className="font-mono text-fg-dim">
-              Data as of{' '}
-              <time dateTime={generatedAt} className="text-fg-muted">
-                {formatDate(generatedAt)}
-              </time>
-            </span>
-            <Link
-              href="/methodology/"
-              className="text-accent hover:text-accent-strong"
-            >
-              Methodology →
-            </Link>
-          </div>
+          <Link
+            href="/methodology/"
+            className="text-xs text-accent hover:text-accent-strong"
+          >
+            Methodology →
+          </Link>
         }
       >
         <StoryLink>
@@ -96,6 +93,16 @@ export default function DashboardPage() {
           <Link href="/movements/">Market Movements</Link>.
         </StoryLink>
       </PageHeader>
+
+      {/* Snapshot band: headline ledger figures, all derived from _data/ */}
+      <MarketSnapshot
+        className="mt-8"
+        totalElements={total}
+        priceRecords={records}
+        dualTierElements={premiums.length}
+        controlledElements={controlled}
+        generatedAt={generatedAt}
+      />
 
       {/* Scope: set expectations that this is a derived, build-time snapshot */}
       <Callout tone="note" title="Dashboard scope" className="mt-8">
