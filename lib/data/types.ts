@@ -434,6 +434,16 @@ export interface PremiumLeaderboardRow {
   premium: number; // retail ÷ bulk
   retail_form: string; // form the retail reference is quoted in (e.g. 'metal')
   bulk_form: string; // form the bulk benchmark is quoted in (e.g. 'oxide')
+  // Source dates of the two reference records (the basis disclosure on the
+  // leaderboard): a premium is only a clean snapshot when both sides are quoted
+  // close in time, so each side carries its own quote date.
+  retail_date: ISODate; // quote_date of the retail reference
+  bulk_date: ISODate; // quote_date of the bulk benchmark
+  // Purity each side is quoted at. Surfaced in the row tooltip (not a column) so
+  // a reader can see that even a same-form premium may not be strictly
+  // like-for-like; null where the source did not state a purity.
+  retail_purity: string | null;
+  bulk_purity: string | null;
 }
 
 /** Counts of elements by their fluctuation `data_quality`, plus uncovered ('none'). */

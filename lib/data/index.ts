@@ -255,6 +255,12 @@ export function getPremiumLeaderboard(limit?: number): PremiumLeaderboardRow[] {
         premium: retailPremium,
         retail_form: retailRef.form,
         bulk_form: bulkRef.form,
+        retail_date: retailRef.quote_date,
+        bulk_date: bulkRef.quote_date,
+        // Some leaner records carry no purity; coalesce to null (not '') so the
+        // UI can distinguish "unstated" from an empty string.
+        retail_purity: retailRef.purity ?? null,
+        bulk_purity: bulkRef.purity ?? null,
       });
     }
   }

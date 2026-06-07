@@ -100,7 +100,6 @@ export function DashboardLens({
   const matrix = useMemo(() => buildRiskMatrix(scope), [scope]);
 
   const active = lensActive(filters);
-  const inverseCount = filteredPremiums.filter((p) => p.premium < 1).length;
 
   return (
     <div>
@@ -214,22 +213,20 @@ export function DashboardLens({
               <>
                 Latest retail reference ÷ latest bulk benchmark, ranked by
                 markup. {filteredPremiums.length} of {premiums.length} dual-tier
-                elements fall within the current filter.{' '}
-                {inverseNote(inverseCount)} Sort by any column.
+                elements fall within the current filter.
               </>
             ) : (
               <>
                 Latest retail reference ÷ latest bulk benchmark, ranked by
                 markup, the premium small-quantity buyers pay over wholesale.{' '}
                 {premiums.length} of {total} elements are priced in both tiers,
-                so a premium can be computed. {inverseNote(inverseCount)} Sort by
-                any column.
+                so a premium can be computed.
               </>
             )
           }
         />
         {filteredPremiums.length > 0 ? (
-          <PremiumLeaderboard rows={filteredPremiums} flagInverse />
+          <PremiumLeaderboard rows={filteredPremiums} />
         ) : (
           <EmptyHint>
             No elements in this filter are priced in both the retail and bulk
@@ -275,14 +272,6 @@ export function DashboardLens({
       </section>
     </div>
   );
-}
-
-/** Inline inverse-case sentence, accurate for the current (filtered) row set. */
-function inverseNote(count: number): string {
-  if (count > 0) {
-    return `${count} inverse ${count === 1 ? 'case' : 'cases'} (below 1×, where retail undercuts bulk) ${count === 1 ? 'is' : 'are'} flagged.`;
-  }
-  return 'Inverse cases (below 1×, where retail undercuts bulk) are flagged when they occur.';
 }
 
 function EmptyHint({ children }: { children: React.ReactNode }) {
