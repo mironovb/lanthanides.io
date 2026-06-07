@@ -17,6 +17,7 @@ import {
   statusLabel,
   statusVariant,
 } from './discussion';
+import { ThreadRefs } from './ThreadRefs';
 
 export function DiscussionThreadList({
   threads,
@@ -96,16 +97,16 @@ export function DiscussionThreadList({
                     {thread.authorName}
                     {thread.organization ? ` · ${thread.organization}` : ''}
                   </p>
-                  {thread.elementSymbol || thread.sourceDate || thread.sourceUrl ? (
+                  {thread.elementSymbol || thread.noticeId ? (
+                    <div className="mt-1.5">
+                      <ThreadRefs
+                        elementSymbol={thread.elementSymbol}
+                        noticeId={thread.noticeId}
+                      />
+                    </div>
+                  ) : null}
+                  {thread.sourceDate || thread.sourceUrl ? (
                     <p className="mt-1 flex flex-wrap items-center gap-x-2 gap-y-0.5 text-2xs text-fg-dim">
-                      {thread.elementSymbol ? (
-                        <Link
-                          href={`/elements/${thread.elementSymbol}/`}
-                          className="font-mono text-fg-muted transition-colors duration-fast hover:text-accent"
-                        >
-                          {thread.elementSymbol}
-                        </Link>
-                      ) : null}
                       {thread.sourceDate ? (
                         <time dateTime={thread.sourceDate} className="font-mono">
                           {formatDate(thread.sourceDate)}

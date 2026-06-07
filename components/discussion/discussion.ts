@@ -193,6 +193,26 @@ function checkElementSymbol(
     : { value: raw, error: 'Use a valid element symbol, for example Dy.' };
 }
 
+/** A regulatory control notice id (e.g. 'MOFCOM No. 46/2024'). Like the element
+ *  symbol, membership is enforced when the caller supplies the live notice list
+ *  (`allowed`) — the same rule on the client (from the form's notice list) and
+ *  the server (from lib/data). Without it, fall back to a length bound. */
+function checkNoticeId(
+  v: unknown,
+  allowed?: readonly string[],
+): { value: string; error?: string } {
+  const raw = str(v);
+  if (!raw) return { value: '' };
+  if (allowed && allowed.length > 0) {
+    return allowed.includes(raw)
+      ? { value: raw }
+      : { value: raw, error: 'Choose a control notice from the list.' };
+  }
+  return raw.length <= 80
+    ? { value: raw }
+    : { value: raw, error: 'Unknown control notice.' };
+}
+
 export function categoryLabel(category: string): string {
   return (
     DISCUSSION_CATEGORIES.find((c) => c.id === category)?.label ??
@@ -352,13 +372,15 @@ export function discussionHref(query: {
 export interface ThreadValues {
   title: string;
   category: string;
+  // Reference links (optional; navigational context, valid on any category).
+  elementSymbol: string;
+  noticeId: string;
   authorName: string;
   organization: string;
   body: string;
   // Source-tip lead fields (optional; only meaningful on the source-tip category).
   sourceUrl: string;
   sourceDate: string;
-  elementSymbol: string;
 }
 
 export type ThreadField = keyof ThreadValues;
@@ -366,12 +388,13 @@ export type ThreadField = keyof ThreadValues;
 export const EMPTY_THREAD_VALUES: ThreadValues = {
   title: '',
   category: 'source-tip',
+  elementSymbol: '',
+  noticeId: '',
   authorName: '',
   organization: '',
   body: '',
   sourceUrl: '',
   sourceDate: '',
-  elementSymbol: '',
 };
 
 export interface ThreadClean {
@@ -380,10 +403,12 @@ export interface ThreadClean {
   authorName: string;
   organization: string | null;
   body: string;
+  // Reference links: navigational context, persisted on any category.
+  elementSymbol: string | null;
+  noticeId: string | null;
   // Persisted only for source tips; null on every other category.
   sourceUrl: string | null;
   sourceDate: string | null;
-  elementSymbol: string | null;
 }
 
 export interface ThreadValidation {
@@ -399,6 +424,12 @@ export interface ThreadValidationOptions {
    * validated by the SAME rule on both sides. Omit for a defensive shape check.
    */
   elementSymbols?: readonly string[];
+  /**
+   * The live regulatory notice ids (getRegulatoryNotices().notice_id), supplied
+   * by both callers so noticeId membership is validated by the SAME rule on both
+   * sides. Omit for a defensive length check.
+   */
+  noticeIds?: readonly string[];
 }
 
 export function validateThread(
@@ -411,12 +442,13 @@ export function validateThread(
   const organization = str(raw.organization);
   const body = normalizeMultiline(raw.body);
 
-  // Source-tip fields are echoed back for every category (so the form keeps them
-  // if the user toggles category), but only validated + persisted for source
-  // tips — see the isSourceTip branch below.
+  // Reference links are echoed + validated for every category. Source URL/date
+  // are echoed for every category (so the form keeps them if the user toggles
+  // category) but only validated + persisted for source tips — see below.
+  const elementSymbol = str(raw.elementSymbol);
+  const noticeId = str(raw.noticeId);
   const sourceUrl = str(raw.sourceUrl);
   const sourceDate = str(raw.sourceDate);
-  const elementSymbol = str(raw.elementSymbol);
   const isSourceTip = category === SOURCE_TIP_CATEGORY;
 
   const fieldErrors: Partial<Record<ThreadField, string>> = {};
@@ -444,11 +476,23 @@ export function validateThread(
   else if (body.length > LIMITS.threadBodyMax)
     fieldErrors.body = `Keep the body under ${LIMITS.threadBodyMax} characters.`;
 
-  // Validate the lead fields only on a source tip; on any other category they
+  // Reference links (element + control notice) are navigational context, valid on
+  // ANY category — validated against the live lists when supplied, dropped to null
+  // when left blank.
+  let cleanElementSymbol: string | null = null;
+  const es = checkElementSymbol(elementSymbol, opts.elementSymbols);
+  if (es.error) fieldErrors.elementSymbol = es.error;
+  else cleanElementSymbol = es.value || null;
+
+  let cleanNoticeId: string | null = null;
+  const nt = checkNoticeId(noticeId, opts.noticeIds);
+  if (nt.error) fieldErrors.noticeId = nt.error;
+  else cleanNoticeId = nt.value || null;
+
+  // Source URL/date are source-tip lead fields only; on any other category they
   // are dropped (set to null in `clean`), never stored on the wrong record.
   let cleanSourceUrl: string | null = null;
   let cleanSourceDate: string | null = null;
-  let cleanElementSymbol: string | null = null;
   if (isSourceTip) {
     const u = checkSourceUrl(sourceUrl);
     if (u.error) fieldErrors.sourceUrl = u.error;
@@ -457,10 +501,6 @@ export function validateThread(
     const sd = checkSourceDate(sourceDate);
     if (sd.error) fieldErrors.sourceDate = sd.error;
     else cleanSourceDate = sd.value || null;
-
-    const es = checkElementSymbol(elementSymbol, opts.elementSymbols);
-    if (es.error) fieldErrors.elementSymbol = es.error;
-    else cleanElementSymbol = es.value || null;
   }
 
   const clean: ThreadClean | null =
@@ -471,9 +511,10 @@ export function validateThread(
           authorName,
           organization: organization || null,
           body,
+          elementSymbol: cleanElementSymbol,
+          noticeId: cleanNoticeId,
           sourceUrl: cleanSourceUrl,
           sourceDate: cleanSourceDate,
-          elementSymbol: cleanElementSymbol,
         }
       : null;
 
@@ -481,12 +522,13 @@ export function validateThread(
     values: {
       title,
       category,
+      elementSymbol,
+      noticeId,
       authorName,
       organization,
       body,
       sourceUrl,
       sourceDate,
-      elementSymbol,
     },
     fieldErrors,
     clean,
@@ -562,9 +604,10 @@ export interface DiscussionThreadRow {
   status: string;
   // Optional so older call sites / partial selects still satisfy the type; a row
   // read after the migration carries them (null when unset).
+  elementSymbol?: string | null;
+  noticeId?: string | null;
   sourceUrl?: string | null;
   sourceDate?: string | null;
-  elementSymbol?: string | null;
   _count?: { replies: number };
 }
 
@@ -588,10 +631,12 @@ export interface DiscussionThreadDTO {
   organization: string | null;
   body: string;
   status: string;
+  // Reference links: navigational context, null unless the author set them.
+  elementSymbol: string | null;
+  noticeId: string | null;
   // Source-tip lead metadata; null unless set on a source-tip thread.
   sourceUrl: string | null;
   sourceDate: string | null;
-  elementSymbol: string | null;
   replyCount: number;
 }
 
@@ -620,9 +665,10 @@ export function toThreadDTO(row: DiscussionThreadRow): DiscussionThreadDTO {
     organization: row.organization,
     body: row.body,
     status: row.status,
+    elementSymbol: row.elementSymbol ?? null,
+    noticeId: row.noticeId ?? null,
     sourceUrl: row.sourceUrl ?? null,
     sourceDate: row.sourceDate ?? null,
-    elementSymbol: row.elementSymbol ?? null,
     replyCount: row._count?.replies ?? 0,
   };
 }

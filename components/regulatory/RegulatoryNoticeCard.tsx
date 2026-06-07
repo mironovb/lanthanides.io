@@ -7,7 +7,12 @@
  */
 import Link from 'next/link';
 import type { RegulatoryNotice } from '@/lib/types';
-import { classifyNotice, fmtLongDate, NOTICE_STYLE } from './regulatory';
+import {
+  classifyNotice,
+  fmtLongDate,
+  noticeAnchor,
+  NOTICE_STYLE,
+} from './regulatory';
 
 const ELEM_CHIP =
   'rounded-sm border border-border bg-raised px-1.5 py-px font-mono text-2xs font-semibold text-fg-muted transition-colors hover:border-accent hover:text-accent-strong';
@@ -18,7 +23,8 @@ export function RegulatoryNoticeCard({ notice }: { notice: RegulatoryNotice }) {
 
   return (
     <div
-      className={`flex flex-col border border-l-[3px] border-border ${style.border} bg-surface p-4`}
+      id={noticeAnchor(notice.notice_id)}
+      className={`flex scroll-mt-24 flex-col border border-l-[3px] border-border ${style.border} bg-surface p-4`}
     >
       <div className="flex items-baseline justify-between gap-2">
         <span className="font-mono text-sm font-bold text-fg">

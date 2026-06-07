@@ -100,3 +100,18 @@ export const EVENT_TYPE_STYLE: Record<
 export function fmtLongDate(iso: string): string {
   return formatDate(iso);
 }
+
+/**
+ * Stable in-page anchor id for a control notice, derived purely from its
+ * notice_id so a deep link (`/regulatory/#<anchor>`) and the card's own id always
+ * agree. Used by RegulatoryNoticeCard (the scroll target) and by anything that
+ * cross-links to a notice (the discussion board). Slugifies to lowercase ascii +
+ * single hyphens, e.g. 'MOFCOM No. 46/2024' -> 'notice-mofcom-no-46-2024'.
+ */
+export function noticeAnchor(noticeId: string): string {
+  const slug = noticeId
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '');
+  return `notice-${slug}`;
+}

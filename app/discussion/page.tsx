@@ -12,7 +12,7 @@ import type { Metadata } from 'next';
 import type { Prisma } from '@prisma/client';
 import Link from 'next/link';
 import { prisma } from '@/lib/db';
-import { getElements } from '@/lib/data';
+import { getElements, getRegulatoryNotices } from '@/lib/data';
 import { requiresApproval } from '@/lib/discussion-moderation';
 import { buildMetadata } from '@/lib/seo';
 import { BreadcrumbJsonLd, WebApplicationJsonLd } from '@/components/seo';
@@ -118,11 +118,15 @@ export default async function DiscussionPage({
   });
   const threads = rows.map(toThreadDTO);
 
-  // Catalog for the source-tip element picker (and its server-side validation
-  // mirror). Read from the versioned _data/ files, never the DB.
+  // Catalog + control-notice list for the reference-link pickers (and their
+  // server-side validation mirror). Read from the versioned _data/ files, never
+  // the DB.
   const elements = getElements()
     .map((e) => ({ symbol: e.symbol, name: e.name }))
     .sort((a, b) => a.name.localeCompare(b.name));
+  const notices = [...getRegulatoryNotices()]
+    .sort((a, b) => b.date_effective.localeCompare(a.date_effective))
+    .map((n) => ({ id: n.notice_id, label: n.notice_id }));
 
   const filtersActive = Boolean(category || status || q);
   // Distinguish "no threads exist at all" from "the filters/search excluded
@@ -237,7 +241,11 @@ export default async function DiscussionPage({
 
         <div className="mt-4 grid items-start gap-6 xl:grid-cols-[minmax(0,1fr)_390px]">
           <DiscussionThreadList threads={threads} boardEmpty={boardEmpty} />
-          <DiscussionThreadForm elements={elements} requireApproval={requireApproval} />
+          <DiscussionThreadForm
+            elements={elements}
+            notices={notices}
+            requireApproval={requireApproval}
+          />
         </div>
       </section>
     </Container>

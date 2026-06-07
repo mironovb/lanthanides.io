@@ -18,6 +18,7 @@ import {
   statusLabel,
   statusVariant,
 } from './discussion';
+import { ThreadRefs } from './ThreadRefs';
 
 function Field({
   label,
@@ -37,6 +38,20 @@ function Field({
 export function ThreadMeta({ thread }: { thread: DiscussionThreadDTO }) {
   return (
     <Card className="mt-6">
+      {thread.elementSymbol || thread.noticeId ? (
+        <div className="mb-4 border-b border-border pb-4">
+          <p className="eyebrow mb-2">References</p>
+          <ThreadRefs
+            elementSymbol={thread.elementSymbol}
+            noticeId={thread.noticeId}
+          />
+          <p className="mt-2 text-2xs leading-relaxed text-fg-dim">
+            Community note linking to reference pages, not a provenance row. A
+            linked element or control notice does not mean the open dataset
+            changed.
+          </p>
+        </div>
+      ) : null}
       <dl className="grid grid-cols-2 gap-x-6 gap-y-4 sm:grid-cols-3 lg:grid-cols-4">
         <Field label="Category">
           <Badge>{thread.categoryLabel}</Badge>
@@ -64,16 +79,6 @@ export function ThreadMeta({ thread }: { thread: DiscussionThreadDTO }) {
         {thread.organization ? (
           <Field label="Organization">
             <span className="break-words">{thread.organization}</span>
-          </Field>
-        ) : null}
-        {thread.elementSymbol ? (
-          <Field label="Element">
-            <Link
-              href={`/elements/${thread.elementSymbol}/`}
-              className="font-mono text-fg transition-colors duration-fast hover:text-accent"
-            >
-              {thread.elementSymbol}
-            </Link>
           </Field>
         ) : null}
         {thread.sourceDate ? (
