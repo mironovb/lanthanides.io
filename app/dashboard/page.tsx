@@ -14,9 +14,11 @@
  *
  * There is no "30-day movers" board. The two distinct day windows that fed it
  * produce oxide to metal artefacts (for example La 30d +761,400%), not real
- * moves (docs/VISUALIZATION-AUDIT.md section 2). Genuine threshold crossing
- * events, each with its confidence and sample size, live in the /movements feed,
- * which the footer links to instead.
+ * moves (docs/VISUALIZATION-AUDIT.md section 2). Instead, the movement-events
+ * summary panel (MovementsSummary) reports the feed's availability and how thin
+ * those windows are (most rest on just two observation days), making that
+ * omission legible in counts, and links to the /movements feed where each event
+ * carries its own confidence and sample size.
  *
  * Rendered SSG, like every other reference surface: the data layer memoises its
  * `_data/` reads per process (lib/data/load.ts), so a fresh build is what picks
@@ -34,6 +36,7 @@ import {
   getDataGeneratedAt,
   getElementCoverage,
   getElements,
+  getMovements,
   getPremiumLeaderboard,
   getPriceRecords,
 } from '@/lib/data';
@@ -41,6 +44,8 @@ import { Container, PageHeader, StoryLink } from '@/components/layout';
 import { Callout } from '@/components/ui';
 import { MarketSnapshot } from '@/components/dashboard/MarketSnapshot';
 import { DashboardLens } from '@/components/dashboard/DashboardLens';
+import { MovementsSummary } from '@/components/dashboard/MovementsSummary';
+import { summarizeMovements } from '@/components/dashboard/movement-summary';
 import type { ElementLensMeta } from '@/components/dashboard/lens';
 
 const DESCRIPTION =
@@ -61,6 +66,8 @@ export default function DashboardPage() {
   const records = getPriceRecords().length;
   const premiums = getPremiumLeaderboard();
   const coverage = getElementCoverage();
+  const movements = getMovements();
+  const movementSummary = summarizeMovements(movements.events);
 
   // Lean catalog slice the lens scopes by; the authoritative element set, passed
   // to the client island which derives the in-scope subset and per-panel views.
@@ -134,21 +141,15 @@ export default function DashboardPage() {
         coverage={coverage}
       />
 
-      {/* No movers board: point to the factual movements feed */}
-      <p className="mt-12 border-t border-border pt-6 text-sm leading-relaxed text-fg-muted">
-        Looking for the biggest moves? This dashboard leaves out a
-        &ldquo;30-day movers&rdquo; board on purpose. Most price windows span
-        only two observation days, so ranking them would surface oxide versus
-        metal artefacts as if they were real moves. Genuine threshold crossing
-        events, each shown with its confidence and sample size, live in the{' '}
-        <Link
-          href="/movements/"
-          className="text-accent hover:text-accent-strong"
-        >
-          Market Movements
-        </Link>{' '}
-        feed.
-      </p>
+      {/* Movement-events summary: the feed's availability and per-window data
+          sufficiency, which is also the (now numbers-backed) case for leaving
+          out a movers board. Feed-wide, so it sits outside the element lens. */}
+      <MovementsSummary
+        className="mt-12"
+        summary={movementSummary}
+        threshold={movements.config?.threshold_pct ?? 10}
+        windowLabel={movements.config?.window ?? '30d'}
+      />
     </Container>
   );
 }
