@@ -14,7 +14,6 @@ import { CATEGORY_ORDER, CATEGORY_STYLE } from '@/components/elements/categories
 import type {
   ElementCategory,
   ExportControlStatus,
-  RegulatorySnapshot,
   RegulatoryStatus,
 } from '@/lib/types';
 
@@ -107,20 +106,105 @@ export function scopeElements(
   );
 }
 
+// ── Regulatory risk matrix (category × current control posture) ──────────────
+
 /**
- * Recompute the regulatory-snapshot counts over an in-scope element subset, so
- * the snapshot can report "within filter" figures (never a fabricated count;
- * every figure is a real tally of the scoped catalog rows).
+ * The four mutually-exclusive control postures the risk matrix crosses against
+ * element category. They are the export-control statuses (restricted /
+ * monitored / normal) with `suspended` overlaid, so they partition every
+ * element exactly once.
  */
-export function snapshotOf(scope: ElementLensMeta[]): RegulatorySnapshot {
-  const snapshot: RegulatorySnapshot = {
-    export_control: { restricted: 0, monitored: 0, normal: 0 },
-    regulatory: { active: 0, suspended: 0, none: 0 },
-    total: scope.length,
+export type ControlPosture = 'restricted' | 'monitored' | 'suspended' | 'normal';
+
+/** Column order, most-controlling first, then paused, then unrestricted. */
+export const POSTURE_ORDER: readonly ControlPosture[] = [
+  'restricted',
+  'monitored',
+  'suspended',
+  'normal',
+];
+
+/**
+ * One element's current control posture. A suspended regime is reported as
+ * `suspended` (its export listing is currently paused) rather than its
+ * underlying export-control class, so the pause is visible and the four
+ * postures stay mutually exclusive; otherwise it is the element's
+ * export_control_status. Pure projection of authored catalog fields, never a
+ * fabricated state.
+ */
+export function postureOf(e: ElementLensMeta): ControlPosture {
+  return e.regulatory === 'suspended' ? 'suspended' : e.control;
+}
+
+/** One matrix cell: the elements in a given category and posture. */
+export interface RiskCell {
+  posture: ControlPosture;
+  count: number;
+  /** Symbols in this cell, in the order supplied; drives the cell tooltip. */
+  symbols: string[];
+}
+
+/** One matrix row: a category, its four posture cells, and row summaries. */
+export interface RiskRow {
+  category: ElementCategory;
+  cells: RiskCell[]; // in POSTURE_ORDER
+  total: number;
+  /** restricted + monitored + suspended (every posture except unrestricted). */
+  underControl: number;
+}
+
+export interface RiskMatrix {
+  rows: RiskRow[]; // categories present in scope, in CATEGORY_ORDER
+  columnTotals: Record<ControlPosture, number>;
+  total: number;
+  underControlTotal: number;
+}
+
+/**
+ * Cross-tabulate the in-scope elements by category × current control posture.
+ * Every count is a real tally of the scoped catalog rows (never a fabricated
+ * figure); rows appear only for categories present in scope, in canonical
+ * CATEGORY_ORDER, so a filtered view never invents an empty category.
+ */
+export function buildRiskMatrix(scope: ElementLensMeta[]): RiskMatrix {
+  const byCategory = new Map<ElementCategory, Map<ControlPosture, string[]>>();
+  const columnTotals: Record<ControlPosture, number> = {
+    restricted: 0,
+    monitored: 0,
+    suspended: 0,
+    normal: 0,
   };
+
   for (const e of scope) {
-    snapshot.export_control[e.control] += 1;
-    snapshot.regulatory[e.regulatory] += 1;
+    const posture = postureOf(e);
+    columnTotals[posture] += 1;
+    let row = byCategory.get(e.category);
+    if (!row) {
+      row = new Map();
+      byCategory.set(e.category, row);
+    }
+    const symbols = row.get(posture);
+    if (symbols) symbols.push(e.symbol);
+    else row.set(posture, [e.symbol]);
   }
-  return snapshot;
+
+  const rows: RiskRow[] = [];
+  for (const category of CATEGORY_ORDER) {
+    const row = byCategory.get(category);
+    if (!row) continue; // category absent from the current scope
+    const cells: RiskCell[] = POSTURE_ORDER.map((posture) => {
+      const symbols = row.get(posture) ?? [];
+      return { posture, symbols, count: symbols.length };
+    });
+    const total = cells.reduce((n, c) => n + c.count, 0);
+    const normal = row.get('normal')?.length ?? 0;
+    rows.push({ category, cells, total, underControl: total - normal });
+  }
+
+  return {
+    rows,
+    columnTotals,
+    total: scope.length,
+    underControlTotal: scope.length - columnTotals.normal,
+  };
 }

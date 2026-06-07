@@ -21,7 +21,7 @@ import Link from 'next/link';
 import { FilterChips, SectionHeading } from '@/components/ui';
 import { CoverageGrid } from '@/components/charts/CoverageGrid';
 import { PremiumLeaderboard } from '@/components/charts/PremiumLeaderboard';
-import { RegulatorySnapshot } from './RegulatorySnapshot';
+import { RegulatoryRiskMatrix } from './RegulatoryRiskMatrix';
 import type {
   CoverageTally,
   ElementCategory,
@@ -33,11 +33,11 @@ import {
   CATEGORY_OPTIONS,
   CONTROL_OPTIONS,
   EMPTY_LENS,
+  buildRiskMatrix,
   lensActive,
   lensToSearchParams,
   parseLensFromSearch,
   scopeElements,
-  snapshotOf,
   type ElementLensMeta,
   type LensFilters,
 } from './lens';
@@ -97,7 +97,7 @@ export function DashboardLens({
     for (const c of filteredCoverage) t[c.quality] += 1;
     return t;
   }, [filteredCoverage]);
-  const snapshot = useMemo(() => snapshotOf(scope), [scope]);
+  const matrix = useMemo(() => buildRiskMatrix(scope), [scope]);
 
   const active = lensActive(filters);
   const inverseCount = filteredPremiums.filter((p) => p.premium < 1).length;
@@ -152,10 +152,10 @@ export function DashboardLens({
         />
       </section>
 
-      {/* ── Regulatory snapshot ───────────────────────────────────────────── */}
+      {/* ── Regulatory risk matrix ────────────────────────────────────────── */}
       <section className="mt-10">
         <SectionHeading
-          title="Regulatory snapshot"
+          title="Regulatory risk matrix"
           actions={
             <Link
               href="/regulatory/"
@@ -168,14 +168,16 @@ export function DashboardLens({
             active ? (
               <>
                 Within the current filter: {scope.length} of {total} tracked
-                elements, by China&rsquo;s export-control posture and current
-                regulatory state. The Regulatory Tracker holds the
-                announcement-level detail.
+                elements, cross-tabulated by category and current export-control
+                posture. The Regulatory Tracker holds the announcement-level
+                detail.
               </>
             ) : (
               <>
-                All {total} tracked elements, classified by China&rsquo;s
-                export-control posture and current regulatory state. The
+                All {total} tracked elements, cross-tabulated by element category
+                against current Chinese export-control posture. The Suspended
+                column shows where paused regimes concentrate; the Under-control
+                summary shows which categories carry the most exposure. The
                 Regulatory Tracker holds the announcement-level detail behind
                 these counts.
               </>
@@ -189,7 +191,7 @@ export function DashboardLens({
           </p>
         ) : null}
         {scope.length > 0 ? (
-          <RegulatorySnapshot snapshot={snapshot} />
+          <RegulatoryRiskMatrix matrix={matrix} />
         ) : (
           <EmptyHint>No elements match this filter.</EmptyHint>
         )}

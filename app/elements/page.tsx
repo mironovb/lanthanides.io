@@ -69,7 +69,10 @@ export default function ElementsIndexPage() {
         const style = CATEGORY_STYLE[cat];
 
         return (
-          <section key={cat} className="mt-12">
+          // id is the category key so other surfaces (e.g. the dashboard's
+          // regulatory risk matrix) can deep-link straight to a category's
+          // tiles; scroll-mt keeps the heading clear of the sticky header.
+          <section key={cat} id={cat} className="mt-12 scroll-mt-24">
             <SectionHeading
               swatch={style.swatch}
               title={style.label}
