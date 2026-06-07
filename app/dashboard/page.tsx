@@ -97,12 +97,23 @@ export default function DashboardPage() {
         title="Market Dashboard"
         lead="An overview of the strategic materials market: where Chinese export control concentrates, how steep the retail markup runs over wholesale, and how much price data backs each element. Every figure is derived from the underlying observations."
         actions={
-          <Link
-            href="/methodology/"
-            className="text-xs text-accent hover:text-accent-strong"
-          >
-            Methodology →
-          </Link>
+          <>
+            {/* Brief: capture the dashboard's current derived facts as a
+                structured, cache-safe JSON snapshot (no DB rows, CC BY 4.0).
+                Plain <a>: it resolves to a route handler, not a page. */}
+            <a
+              href="/api/dashboard/brief/"
+              className="text-xs text-accent hover:text-accent-strong"
+            >
+              Brief (JSON) →
+            </a>
+            <Link
+              href="/methodology/"
+              className="text-xs text-accent hover:text-accent-strong"
+            >
+              Methodology →
+            </Link>
+          </>
         }
       >
         <StoryLink>
@@ -129,7 +140,14 @@ export default function DashboardPage() {
         figure is derived from the underlying{' '}
         <span className="font-mono">_data/</span> observations as of the data
         date shown above, and refreshes only when a data update is merged and the
-        site is rebuilt.
+        site is rebuilt. Capture this snapshot as a structured{' '}
+        <a
+          href="/api/dashboard/brief/"
+          className="text-accent hover:text-accent-strong"
+        >
+          brief
+        </a>{' '}
+        — the derived facts only, licensed CC BY 4.0, no private data.
       </Callout>
 
       {/* Element lens + the three filterable panels (snapshot, premiums,
