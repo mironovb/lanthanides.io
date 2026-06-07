@@ -454,13 +454,23 @@ export interface CoverageTally {
   none: number;
 }
 
-/** Per-element price-data coverage. Drives the data-coverage grid (Prompt 10). */
+/**
+ * Per-element price-data coverage. Drives the data-coverage grid (Prompt 10) and
+ * the coverage drilldown table on the dashboard. The grade is a function of the
+ * counts below, so the table can show exactly why each element earns its grade.
+ */
 export interface ElementCoverage {
   symbol: string;
   name: string;
   category: ElementCategory;
   quality: DataQuality | 'none'; // 'none' = no fluctuation entry / zero observations
-  observations: number;
+  observations: number; // individual (non-aggregate) observations — the grade's obs input
+  distinctDays: number; // distinct observation days across all tiers (the grade's primary driver); 0 when none
+  retailAvailable: boolean; // any retail-tier observations on file
+  bulkAvailable: boolean; // any bulk-tier observations on file
+  labAvailable: boolean; // any lab-tier observations on file (rare)
+  dataSince: ISODate | null; // earliest observation date; null when none
+  dataUntil: ISODate | null; // latest observation date; null when none
 }
 
 /**

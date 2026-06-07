@@ -288,10 +288,12 @@ export function getCoverageTally(): CoverageTally {
 }
 
 /**
- * Per-element price-data coverage (symbol, name, category, quality grade, and
- * observation count) in catalog order: the rows behind the data-coverage grid.
- * `quality` is 'none' when an element has no fluctuation entry or zero
- * observations.
+ * Per-element price-data coverage in catalog order: the rows behind the
+ * data-coverage grid and its drilldown table. Each row carries the grade plus
+ * the counts the grade is derived from (individual observations, distinct
+ * observation days), which market tiers back it (retail / bulk / lab), and the
+ * observation window. `quality` is 'none', and the counts/tiers empty, when an
+ * element has no fluctuation entry or zero observations.
  */
 export function getElementCoverage(): ElementCoverage[] {
   ensureVerified();
@@ -306,6 +308,12 @@ export function getElementCoverage(): ElementCoverage[] {
       category: el.category,
       quality,
       observations,
+      distinctDays: f?.distinct_days ?? 0,
+      retailAvailable: (f?.tiers.retail.observation_count ?? 0) > 0,
+      bulkAvailable: (f?.tiers.bulk.observation_count ?? 0) > 0,
+      labAvailable: (f?.tiers.lab.observation_count ?? 0) > 0,
+      dataSince: f?.data_since ?? null,
+      dataUntil: f?.data_until ?? null,
     };
   });
 }

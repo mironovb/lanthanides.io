@@ -9,35 +9,15 @@
  * does not apply, but every tile still states its own sample size, and the
  * legend states the per-grade totals. Shading is a single monochrome teal
  * density ramp (one meaning: data density), deliberately NOT reusing the
- * price/risk colours.
+ * price/risk colours. The CoverageTable drilldown below it decodes what each
+ * grade means in observations and distinct days, so the colour is never hidden
+ * meaning; grade vocabulary is shared via ./coverage so the two never drift.
  *
  * Server component, presentational only.
  */
 import Link from 'next/link';
 import type { CoverageTally, ElementCoverage } from '@/lib/types';
-
-type Grade = ElementCoverage['quality'];
-
-/**
- * Teal density ramp: darker = more data. Standard Tailwind opacity steps only
- * (/25, /10, /5), so every class is guaranteed to emit; full literals so the
- * content scanner sees them.
- */
-const GRADE_TILE: Record<Grade, string> = {
-  rich: 'border-accent/40 bg-accent/25 text-fg',
-  moderate: 'border-accent/25 bg-accent/10 text-fg',
-  sparse: 'border-border bg-accent/5 text-fg-muted',
-  none: 'border-dashed border-border bg-surface text-fg-dim',
-};
-
-const GRADE_LABEL: Record<Grade, string> = {
-  rich: 'Rich',
-  moderate: 'Moderate',
-  sparse: 'Sparse',
-  none: 'None',
-};
-
-const LEGEND_ORDER: Grade[] = ['rich', 'moderate', 'sparse', 'none'];
+import { GRADE_LABEL, GRADE_ORDER, GRADE_TILE } from './coverage';
 
 export function CoverageGrid({
   items,
@@ -70,7 +50,7 @@ export function CoverageGrid({
         <span className="font-mono uppercase tracking-wider text-fg-dim">
           {total} elements
         </span>
-        {LEGEND_ORDER.map((g) => (
+        {GRADE_ORDER.map((g) => (
           <span key={g} className="flex items-center gap-1.5">
             <span
               className={`inline-block h-3 w-3 border ${GRADE_TILE[g]}`}

@@ -20,6 +20,7 @@ import { useEffect, useMemo, useState } from 'react';
 import Link from 'next/link';
 import { FilterChips, SectionHeading } from '@/components/ui';
 import { CoverageGrid } from '@/components/charts/CoverageGrid';
+import { CoverageTable } from '@/components/charts/CoverageTable';
 import { PremiumLeaderboard } from '@/components/charts/PremiumLeaderboard';
 import { RegulatoryRiskMatrix } from './RegulatoryRiskMatrix';
 import type {
@@ -265,7 +266,17 @@ export function DashboardLens({
           }
         />
         {filteredCoverage.length > 0 ? (
-          <CoverageGrid items={filteredCoverage} tally={filteredTally} />
+          <>
+            <CoverageGrid items={filteredCoverage} tally={filteredTally} />
+            <div className="mt-8">
+              <SectionHeading
+                as="h3"
+                title="Coverage detail"
+                description="Why each element earns its grade: the observations, distinct days, and market tiers behind it. Thin and empty coverage stay visible, never hidden."
+              />
+              <CoverageTable items={filteredCoverage} />
+            </div>
+          </>
         ) : (
           <EmptyHint>No elements match this filter.</EmptyHint>
         )}
