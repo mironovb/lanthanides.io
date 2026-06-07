@@ -13,6 +13,7 @@ import {
 import { formatDate } from '@/lib/format';
 import {
   type DiscussionThreadDTO,
+  sourceHost,
   statusLabel,
   statusVariant,
 } from './discussion';
@@ -95,6 +96,33 @@ export function DiscussionThreadList({
                     {thread.authorName}
                     {thread.organization ? ` · ${thread.organization}` : ''}
                   </p>
+                  {thread.elementSymbol || thread.sourceDate || thread.sourceUrl ? (
+                    <p className="mt-1 flex flex-wrap items-center gap-x-2 gap-y-0.5 text-2xs text-fg-dim">
+                      {thread.elementSymbol ? (
+                        <Link
+                          href={`/elements/${thread.elementSymbol}/`}
+                          className="font-mono text-fg-muted transition-colors duration-fast hover:text-accent"
+                        >
+                          {thread.elementSymbol}
+                        </Link>
+                      ) : null}
+                      {thread.sourceDate ? (
+                        <time dateTime={thread.sourceDate} className="font-mono">
+                          {formatDate(thread.sourceDate)}
+                        </time>
+                      ) : null}
+                      {thread.sourceUrl ? (
+                        <a
+                          href={thread.sourceUrl}
+                          target="_blank"
+                          rel="nofollow ugc noopener noreferrer"
+                          className="break-all text-accent underline decoration-dotted underline-offset-2 transition-colors duration-fast hover:text-accent-strong"
+                        >
+                          {sourceHost(thread.sourceUrl)} ↗
+                        </a>
+                      ) : null}
+                    </p>
+                  ) : null}
                 </TD>
                 <TD>
                   <Badge>{thread.categoryLabel}</Badge>

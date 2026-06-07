@@ -12,6 +12,7 @@ import type { Metadata } from 'next';
 import type { Prisma } from '@prisma/client';
 import Link from 'next/link';
 import { prisma } from '@/lib/db';
+import { getElements } from '@/lib/data';
 import { buildMetadata } from '@/lib/seo';
 import { BreadcrumbJsonLd, WebApplicationJsonLd } from '@/components/seo';
 import { Container, PageHeader, StoryLink } from '@/components/layout';
@@ -115,6 +116,12 @@ export default async function DiscussionPage({
   });
   const threads = rows.map(toThreadDTO);
 
+  // Catalog for the source-tip element picker (and its server-side validation
+  // mirror). Read from the versioned _data/ files, never the DB.
+  const elements = getElements()
+    .map((e) => ({ symbol: e.symbol, name: e.name }))
+    .sort((a, b) => a.name.localeCompare(b.name));
+
   const filtersActive = Boolean(category || status || q);
   // Distinguish "no threads exist at all" from "the filters/search excluded
   // them". Only pay for the extra count when the filtered result is empty AND a
@@ -210,7 +217,7 @@ export default async function DiscussionPage({
 
         <div className="mt-4 grid items-start gap-6 xl:grid-cols-[minmax(0,1fr)_390px]">
           <DiscussionThreadList threads={threads} boardEmpty={boardEmpty} />
-          <DiscussionThreadForm />
+          <DiscussionThreadForm elements={elements} />
         </div>
       </section>
     </Container>

@@ -61,7 +61,15 @@ export const LIMITS = {
   threadBodyMax: 4000,
   replyBodyMin: 5,
   replyBodyMax: 2500,
+  sourceUrlMax: 500,
 } as const;
+
+/**
+ * The one category that carries structured "source tip" lead fields. Kept as a
+ * named constant so the form (progressive disclosure) and the validator (which
+ * fields it enforces + persists) agree on a single source of truth.
+ */
+export const SOURCE_TIP_CATEGORY: DiscussionCategory = 'source-tip';
 
 function str(v: unknown): string {
   if (v === undefined || v === null) return '';
@@ -77,6 +85,72 @@ function normalizeMultiline(v: unknown): string {
 
 function isCategory(v: string): v is DiscussionCategory {
   return (DISCUSSION_CATEGORY_IDS as readonly string[]).includes(v);
+}
+
+// ── Source-tip field validators ──────────────────────────────────────────────
+//
+// Each returns { value, error? }: `value` is the trimmed input echoed back to
+// the form (so a redraw keeps what the user typed), `error` is set when the
+// non-empty input is invalid. An empty input is always valid (these fields are
+// optional). Pure and client-safe like the rest of this module.
+
+const SOURCE_DATE_RE = /^\d{4}-\d{2}-\d{2}$/;
+
+/** A public link a reviewer can open. http/https only — never `javascript:` or
+ *  `data:`, since the value is later rendered as a clickable anchor. */
+function checkSourceUrl(v: unknown): { value: string; error?: string } {
+  const raw = str(v);
+  if (!raw) return { value: '' };
+  if (raw.length > LIMITS.sourceUrlMax)
+    return { value: raw, error: `Keep the URL under ${LIMITS.sourceUrlMax} characters.` };
+  let parsed: URL;
+  try {
+    parsed = new URL(raw);
+  } catch {
+    return { value: raw, error: 'Enter a full URL starting with http:// or https://.' };
+  }
+  if (parsed.protocol !== 'http:' && parsed.protocol !== 'https:')
+    return { value: raw, error: 'Use an http:// or https:// link.' };
+  if (!parsed.hostname)
+    return { value: raw, error: 'Enter a valid source URL.' };
+  return { value: raw };
+}
+
+/** Observed/published date as ISO `YYYY-MM-DD`. Validates a real calendar date
+ *  (rejects 2026-02-31) in a sane year range; stored verbatim, never as a
+ *  timezone-bearing DateTime. */
+function checkSourceDate(v: unknown): { value: string; error?: string } {
+  const raw = str(v);
+  if (!raw) return { value: '' };
+  if (!SOURCE_DATE_RE.test(raw))
+    return { value: raw, error: 'Use an ISO date in YYYY-MM-DD form.' };
+  const [y, m, d] = raw.split('-').map(Number);
+  const dt = new Date(Date.UTC(y, m - 1, d));
+  const realDate =
+    dt.getUTCFullYear() === y && dt.getUTCMonth() === m - 1 && dt.getUTCDate() === d;
+  if (!realDate || y < 1900 || y > 2100)
+    return { value: raw, error: 'Enter a real calendar date.' };
+  return { value: raw };
+}
+
+/** Case-sensitive catalog symbol (e.g. 'Dy'). When the caller supplies the live
+ *  catalog (`allowed`), membership is enforced — the identical rule runs on the
+ *  client (from the form's element list) and the server (from lib/data). Without
+ *  it, fall back to a defensive shape check. */
+function checkElementSymbol(
+  v: unknown,
+  allowed?: readonly string[],
+): { value: string; error?: string } {
+  const raw = str(v);
+  if (!raw) return { value: '' };
+  if (allowed && allowed.length > 0) {
+    return allowed.includes(raw)
+      ? { value: raw }
+      : { value: raw, error: 'Choose an element from the list.' };
+  }
+  return /^[A-Z][a-z]?$/.test(raw)
+    ? { value: raw }
+    : { value: raw, error: 'Use a valid element symbol, for example Dy.' };
 }
 
 export function categoryLabel(category: string): string {
@@ -95,6 +169,17 @@ export function statusVariant(status: string): 'accent' | 'normal' | 'suspended'
   if (status === 'locked') return 'suspended';
   if (status === 'open') return 'accent';
   return 'default';
+}
+
+/** Compact display text for a source link: the bare hostname (no `www.`), or the
+ *  raw value if it cannot be parsed. Pure/client-safe; used wherever a stored
+ *  sourceUrl is rendered. */
+export function sourceHost(url: string): string {
+  try {
+    return new URL(url).hostname.replace(/^www\./, '');
+  } catch {
+    return url;
+  }
 }
 
 // ── Sort + query parsing (board page) ────────────────────────────────────────
@@ -231,6 +316,10 @@ export interface ThreadValues {
   authorName: string;
   organization: string;
   body: string;
+  // Source-tip lead fields (optional; only meaningful on the source-tip category).
+  sourceUrl: string;
+  sourceDate: string;
+  elementSymbol: string;
 }
 
 export type ThreadField = keyof ThreadValues;
@@ -241,6 +330,9 @@ export const EMPTY_THREAD_VALUES: ThreadValues = {
   authorName: '',
   organization: '',
   body: '',
+  sourceUrl: '',
+  sourceDate: '',
+  elementSymbol: '',
 };
 
 export interface ThreadClean {
@@ -249,6 +341,10 @@ export interface ThreadClean {
   authorName: string;
   organization: string | null;
   body: string;
+  // Persisted only for source tips; null on every other category.
+  sourceUrl: string | null;
+  sourceDate: string | null;
+  elementSymbol: string | null;
 }
 
 export interface ThreadValidation {
@@ -257,14 +353,32 @@ export interface ThreadValidation {
   clean: ThreadClean | null;
 }
 
+export interface ThreadValidationOptions {
+  /**
+   * The live catalog symbols, supplied by both callers (the client form from its
+   * element list, the API route from lib/data) so elementSymbol membership is
+   * validated by the SAME rule on both sides. Omit for a defensive shape check.
+   */
+  elementSymbols?: readonly string[];
+}
+
 export function validateThread(
   raw: Partial<Record<ThreadField, unknown>>,
+  opts: ThreadValidationOptions = {},
 ): ThreadValidation {
   const title = str(raw.title);
   const category = str(raw.category) || EMPTY_THREAD_VALUES.category;
   const authorName = str(raw.authorName);
   const organization = str(raw.organization);
   const body = normalizeMultiline(raw.body);
+
+  // Source-tip fields are echoed back for every category (so the form keeps them
+  // if the user toggles category), but only validated + persisted for source
+  // tips — see the isSourceTip branch below.
+  const sourceUrl = str(raw.sourceUrl);
+  const sourceDate = str(raw.sourceDate);
+  const elementSymbol = str(raw.elementSymbol);
+  const isSourceTip = category === SOURCE_TIP_CATEGORY;
 
   const fieldErrors: Partial<Record<ThreadField, string>> = {};
 
@@ -291,6 +405,25 @@ export function validateThread(
   else if (body.length > LIMITS.threadBodyMax)
     fieldErrors.body = `Keep the body under ${LIMITS.threadBodyMax} characters.`;
 
+  // Validate the lead fields only on a source tip; on any other category they
+  // are dropped (set to null in `clean`), never stored on the wrong record.
+  let cleanSourceUrl: string | null = null;
+  let cleanSourceDate: string | null = null;
+  let cleanElementSymbol: string | null = null;
+  if (isSourceTip) {
+    const u = checkSourceUrl(sourceUrl);
+    if (u.error) fieldErrors.sourceUrl = u.error;
+    else cleanSourceUrl = u.value || null;
+
+    const sd = checkSourceDate(sourceDate);
+    if (sd.error) fieldErrors.sourceDate = sd.error;
+    else cleanSourceDate = sd.value || null;
+
+    const es = checkElementSymbol(elementSymbol, opts.elementSymbols);
+    if (es.error) fieldErrors.elementSymbol = es.error;
+    else cleanElementSymbol = es.value || null;
+  }
+
   const clean: ThreadClean | null =
     Object.keys(fieldErrors).length === 0 && isCategory(category)
       ? {
@@ -299,11 +432,23 @@ export function validateThread(
           authorName,
           organization: organization || null,
           body,
+          sourceUrl: cleanSourceUrl,
+          sourceDate: cleanSourceDate,
+          elementSymbol: cleanElementSymbol,
         }
       : null;
 
   return {
-    values: { title, category, authorName, organization, body },
+    values: {
+      title,
+      category,
+      authorName,
+      organization,
+      body,
+      sourceUrl,
+      sourceDate,
+      elementSymbol,
+    },
     fieldErrors,
     clean,
   };
@@ -376,6 +521,11 @@ export interface DiscussionThreadRow {
   organization: string | null;
   body: string;
   status: string;
+  // Optional so older call sites / partial selects still satisfy the type; a row
+  // read after the migration carries them (null when unset).
+  sourceUrl?: string | null;
+  sourceDate?: string | null;
+  elementSymbol?: string | null;
   _count?: { replies: number };
 }
 
@@ -399,6 +549,10 @@ export interface DiscussionThreadDTO {
   organization: string | null;
   body: string;
   status: string;
+  // Source-tip lead metadata; null unless set on a source-tip thread.
+  sourceUrl: string | null;
+  sourceDate: string | null;
+  elementSymbol: string | null;
   replyCount: number;
 }
 
@@ -427,6 +581,9 @@ export function toThreadDTO(row: DiscussionThreadRow): DiscussionThreadDTO {
     organization: row.organization,
     body: row.body,
     status: row.status,
+    sourceUrl: row.sourceUrl ?? null,
+    sourceDate: row.sourceDate ?? null,
+    elementSymbol: row.elementSymbol ?? null,
     replyCount: row._count?.replies ?? 0,
   };
 }

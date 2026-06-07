@@ -151,6 +151,16 @@ model DiscussionThread {
   organization String?
   body         String
 
+  // Structured "source tip" lead fields — ALL optional and public-safe, set only
+  // on category='source-tip' threads (see components/discussion/discussion.ts).
+  // They turn a free-text tip into a triagable lead for the human review pipeline
+  // (CONTRIBUTING.md: a source must be Identifiable, Dated, Specific, Verifiable),
+  // but a thread is STILL never auto-published into the open dataset in _data/ —
+  // that stays the reviewed git-PR flow. No private contact field is ever added.
+  sourceUrl     String? // a public link a reviewer can open (http/https only)
+  sourceDate    String? // observed/published date, ISO 'YYYY-MM-DD' (date-only, stored verbatim, mirrors ScreenedOffer.observedDate)
+  elementSymbol String? // case-sensitive catalog symbol (e.g. 'Dy'); logical FK to _data/, not DB-enforced
+
   // Workflow state: enum-like String:
   // 'open' | 'answered' | 'locked' | 'hidden'. Hidden rows are not public.
   status String @default("open")
@@ -160,6 +170,7 @@ model DiscussionThread {
   @@index([category])
   @@index([status])
   @@index([createdAt])
+  @@index([elementSymbol])
   @@map("discussion_threads")
 }
 

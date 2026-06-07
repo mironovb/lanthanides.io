@@ -6,11 +6,18 @@ import { Button, Callout, Panel } from '@/components/ui';
 import {
   DISCUSSION_CATEGORIES,
   EMPTY_THREAD_VALUES,
+  SOURCE_TIP_CATEGORY,
   type CreateThreadResponse,
   type ThreadField,
   type ThreadValues,
   validateThread,
 } from './discussion';
+
+/** A catalog element offered in the source-tip element picker. */
+export interface ThreadFormElement {
+  symbol: string;
+  name: string;
+}
 
 const FIELD =
   'w-full rounded-sm border bg-base px-2.5 py-1.5 text-sm text-fg placeholder:text-fg-dim transition-colors duration-fast disabled:cursor-not-allowed disabled:opacity-50';
@@ -33,7 +40,12 @@ function FieldError({ id, msg }: { id: string; msg?: string }) {
 
 type Status = 'idle' | 'submitting' | 'success' | 'error';
 
-export function DiscussionThreadForm() {
+export function DiscussionThreadForm({
+  elements = [],
+}: {
+  /** The live element catalog, used to populate + validate the element picker. */
+  elements?: ThreadFormElement[];
+}) {
   const router = useRouter();
   const [values, setValues] = useState<ThreadValues>(EMPTY_THREAD_VALUES);
   const [fieldErrors, setFieldErrors] = useState<
@@ -43,6 +55,8 @@ export function DiscussionThreadForm() {
   const [formError, setFormError] = useState<string | null>(null);
 
   const submitting = status === 'submitting';
+  const isSourceTip = values.category === SOURCE_TIP_CATEGORY;
+  const elementSymbols = elements.map((e) => e.symbol);
 
   function set<K extends ThreadField>(key: K, value: string) {
     setValues((v) => ({ ...v, [key]: value }));
@@ -50,7 +64,7 @@ export function DiscussionThreadForm() {
 
   async function onSubmit(e: React.FormEvent) {
     e.preventDefault();
-    const v = validateThread(values);
+    const v = validateThread(values, { elementSymbols });
     setFieldErrors(v.fieldErrors);
     if (!v.clean) {
       setStatus('error');
@@ -131,6 +145,100 @@ export function DiscussionThreadForm() {
           </select>
           <FieldError id="dt-category-error" msg={fieldErrors.category} />
         </div>
+
+        {isSourceTip ? (
+          <fieldset className="space-y-3 rounded-sm border border-border p-3">
+            <legend className="px-1 text-2xs font-semibold uppercase tracking-caps text-fg-dim">
+              Source tip details
+            </legend>
+            <p className={HINT}>
+              Optional, but they make a tip reviewable. Source tips are{' '}
+              <span className="text-fg-muted">leads, not accepted data</span> —
+              nothing here enters the open dataset without source review and a git
+              pull request.
+            </p>
+
+            <div>
+              <label htmlFor="dt-element" className={LABEL}>
+                Element
+              </label>
+              <select
+                id="dt-element"
+                name="elementSymbol"
+                value={values.elementSymbol}
+                onChange={(e) => set('elementSymbol', e.target.value)}
+                disabled={submitting}
+                aria-invalid={!!fieldErrors.elementSymbol}
+                aria-describedby={
+                  fieldErrors.elementSymbol ? 'dt-element-error' : undefined
+                }
+                className={fieldClass(!!fieldErrors.elementSymbol)}
+              >
+                <option value="">— Select element (optional) —</option>
+                {elements.map((el) => (
+                  <option key={el.symbol} value={el.symbol}>
+                    {el.symbol} — {el.name}
+                  </option>
+                ))}
+              </select>
+              <FieldError id="dt-element-error" msg={fieldErrors.elementSymbol} />
+            </div>
+
+            <div>
+              <label htmlFor="dt-source-url" className={LABEL}>
+                Source URL
+              </label>
+              <input
+                id="dt-source-url"
+                name="sourceUrl"
+                type="url"
+                inputMode="url"
+                value={values.sourceUrl}
+                onChange={(e) => set('sourceUrl', e.target.value)}
+                disabled={submitting}
+                placeholder="https://example.com/notice.pdf"
+                aria-invalid={!!fieldErrors.sourceUrl}
+                aria-describedby={
+                  fieldErrors.sourceUrl ? 'dt-source-url-error' : 'dt-source-url-hint'
+                }
+                className={fieldClass(!!fieldErrors.sourceUrl)}
+              />
+              {fieldErrors.sourceUrl ? (
+                <FieldError id="dt-source-url-error" msg={fieldErrors.sourceUrl} />
+              ) : (
+                <p id="dt-source-url-hint" className={HINT}>
+                  Public link only — a reviewer must be able to open it.
+                </p>
+              )}
+            </div>
+
+            <div>
+              <label htmlFor="dt-source-date" className={LABEL}>
+                Source date
+              </label>
+              <input
+                id="dt-source-date"
+                name="sourceDate"
+                type="date"
+                value={values.sourceDate}
+                onChange={(e) => set('sourceDate', e.target.value)}
+                disabled={submitting}
+                aria-invalid={!!fieldErrors.sourceDate}
+                aria-describedby={
+                  fieldErrors.sourceDate ? 'dt-source-date-error' : 'dt-source-date-hint'
+                }
+                className={fieldClass(!!fieldErrors.sourceDate)}
+              />
+              {fieldErrors.sourceDate ? (
+                <FieldError id="dt-source-date-error" msg={fieldErrors.sourceDate} />
+              ) : (
+                <p id="dt-source-date-hint" className={HINT}>
+                  When the source was observed or published.
+                </p>
+              )}
+            </div>
+          </fieldset>
+        ) : null}
 
         <div className="grid gap-3 sm:grid-cols-2">
           <div>

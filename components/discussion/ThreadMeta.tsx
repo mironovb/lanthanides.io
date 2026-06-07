@@ -12,7 +12,9 @@ import Link from 'next/link';
 import { Badge, Card } from '@/components/ui';
 import { formatDate } from '@/lib/format';
 import {
+  SOURCE_TIP_CATEGORY,
   type DiscussionThreadDTO,
+  sourceHost,
   statusLabel,
   statusVariant,
 } from './discussion';
@@ -64,6 +66,38 @@ export function ThreadMeta({ thread }: { thread: DiscussionThreadDTO }) {
             <span className="break-words">{thread.organization}</span>
           </Field>
         ) : null}
+        {thread.elementSymbol ? (
+          <Field label="Element">
+            <Link
+              href={`/elements/${thread.elementSymbol}/`}
+              className="font-mono text-fg transition-colors duration-fast hover:text-accent"
+            >
+              {thread.elementSymbol}
+            </Link>
+          </Field>
+        ) : null}
+        {thread.sourceDate ? (
+          <Field label="Source date">
+            <time
+              dateTime={thread.sourceDate}
+              className="font-mono text-xs text-fg-muted"
+            >
+              {formatDate(thread.sourceDate)}
+            </time>
+          </Field>
+        ) : null}
+        {thread.sourceUrl ? (
+          <Field label="Source">
+            <a
+              href={thread.sourceUrl}
+              target="_blank"
+              rel="nofollow ugc noopener noreferrer"
+              className="break-all text-accent underline decoration-dotted underline-offset-2 transition-colors duration-fast hover:text-accent-strong"
+            >
+              {sourceHost(thread.sourceUrl)} ↗
+            </a>
+          </Field>
+        ) : null}
         <Field label="Created">
           <time
             dateTime={thread.createdAt}
@@ -81,6 +115,13 @@ export function ThreadMeta({ thread }: { thread: DiscussionThreadDTO }) {
           </time>
         </Field>
       </dl>
+      {thread.category === SOURCE_TIP_CATEGORY ? (
+        <p className="mt-4 border-t border-border pt-3 text-2xs leading-relaxed text-fg-dim">
+          Source tip — an unverified lead for maintainer review, not accepted
+          data. It does not enter the open dataset without source review and a git
+          pull request.
+        </p>
+      ) : null}
     </Card>
   );
 }

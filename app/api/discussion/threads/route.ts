@@ -9,6 +9,7 @@
  */
 import type { DiscussionThread } from '@prisma/client';
 import { prisma } from '@/lib/db';
+import { getElements } from '@/lib/data';
 import {
   toThreadDTO,
   validateThread,
@@ -44,7 +45,11 @@ export async function POST(request: Request): Promise<Response> {
     );
   }
 
-  const { clean, fieldErrors } = validateThread(body);
+  // Validate elementSymbol against the live catalog with the SAME rule the client
+  // form uses (the form is fed the same list). lib/data reads versioned _data/
+  // files, never the DB.
+  const elementSymbols = getElements().map((e) => e.symbol);
+  const { clean, fieldErrors } = validateThread(body, { elementSymbols });
   if (!clean) {
     return json(
       {
@@ -64,6 +69,9 @@ export async function POST(request: Request): Promise<Response> {
         authorName: clean.authorName,
         organization: clean.organization,
         body: clean.body,
+        sourceUrl: clean.sourceUrl,
+        sourceDate: clean.sourceDate,
+        elementSymbol: clean.elementSymbol,
         status: 'open',
       },
     });
