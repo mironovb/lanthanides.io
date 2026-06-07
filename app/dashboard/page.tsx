@@ -11,9 +11,12 @@
  * which the footer links to instead.
  *
  * Rendered SSG, like every other reference surface: the data layer memoises its
- * `_data/` reads per process (lib/data/load.ts), so the page refreshes when the
- * 6-hourly pipeline commit triggers a rebuild. An ISR revalidate would only
- * re-render against the same cached snapshot, so it is left off.
+ * `_data/` reads per process (lib/data/load.ts), so a fresh build is what picks
+ * up new data. Reference data now lands via reviewed PRs (the weekly
+ * price-update workflow and the manual community intake), and Vercel rebuilds on
+ * merge; the old 6-hourly regulatory-monitor commit was removed, so there is no
+ * intraday auto-rebuild (docs/DEPLOYMENT.md section 8). An ISR revalidate would
+ * only re-render against the same cached snapshot, so it is left off.
  */
 import type { Metadata } from 'next';
 import Link from 'next/link';
@@ -29,7 +32,7 @@ import {
 } from '@/lib/data';
 import { formatDate } from '@/lib/format';
 import { Container, PageHeader, StoryLink } from '@/components/layout';
-import { SectionHeading } from '@/components/ui';
+import { Callout, SectionHeading } from '@/components/ui';
 import { CoverageGrid } from '@/components/charts/CoverageGrid';
 import { PremiumLeaderboard } from '@/components/charts/PremiumLeaderboard';
 import { RegulatorySnapshot } from '@/components/dashboard/RegulatorySnapshot';
@@ -93,6 +96,15 @@ export default function DashboardPage() {
           <Link href="/movements/">Market Movements</Link>.
         </StoryLink>
       </PageHeader>
+
+      {/* Scope: set expectations that this is a derived, build-time snapshot */}
+      <Callout tone="note" title="Dashboard scope" className="mt-8">
+        A build-time overview of the open dataset, not a live market feed. Every
+        figure is derived from the underlying{' '}
+        <span className="font-mono">_data/</span> observations as of the data
+        date shown above, and refreshes only when a data update is merged and the
+        site is rebuilt.
+      </Callout>
 
       {/* Regulatory snapshot */}
       <section className="mt-10">
