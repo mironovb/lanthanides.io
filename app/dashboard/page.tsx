@@ -4,6 +4,14 @@
  * leaderboard, and the data coverage map. Every figure is derived from `_data/`
  * via lib/data. Nothing here is editorial or fabricated (CLAUDE.md hard rule #1).
  *
+ * An element lens (category + China export-control posture) scopes those three
+ * panels. It is a client island (DashboardLens) so the page stays SSG: the full
+ * dashboard renders unfiltered in the static HTML (usable without JS), the lens
+ * filters client-side, and the selection is mirrored to the URL query so a
+ * filtered view is shareable (canonical /dashboard/ when cleared). The
+ * regulatory snapshot's counts are recomputed within the filter and labelled as
+ * such, never silently narrowed.
+ *
  * There is no "30-day movers" board. The two distinct day windows that fed it
  * produce oxide to metal artefacts (for example La 30d +761,400%), not real
  * moves (docs/VISUALIZATION-AUDIT.md section 2). Genuine threshold crossing
@@ -23,20 +31,17 @@ import Link from 'next/link';
 import { buildMetadata } from '@/lib/seo';
 import { BreadcrumbJsonLd } from '@/components/seo';
 import {
-  getCoverageTally,
   getDataGeneratedAt,
   getElementCoverage,
   getElements,
   getPremiumLeaderboard,
   getPriceRecords,
-  getRegulatorySnapshot,
 } from '@/lib/data';
 import { Container, PageHeader, StoryLink } from '@/components/layout';
-import { Callout, SectionHeading } from '@/components/ui';
-import { CoverageGrid } from '@/components/charts/CoverageGrid';
-import { PremiumLeaderboard } from '@/components/charts/PremiumLeaderboard';
+import { Callout } from '@/components/ui';
 import { MarketSnapshot } from '@/components/dashboard/MarketSnapshot';
-import { RegulatorySnapshot } from '@/components/dashboard/RegulatorySnapshot';
+import { DashboardLens } from '@/components/dashboard/DashboardLens';
+import type { ElementLensMeta } from '@/components/dashboard/lens';
 
 const DESCRIPTION =
   'A single screen market overview for rare earths and strategic metals: retail to bulk price premiums, China export control posture, and data coverage. Every figure is derived from the underlying observations, with no editorial interpretation.';
@@ -51,17 +56,24 @@ export const metadata: Metadata = buildMetadata({
 
 export default function DashboardPage() {
   const generatedAt = getDataGeneratedAt();
-  const total = getElements().length;
+  const elements = getElements();
+  const total = elements.length;
   const records = getPriceRecords().length;
-  const snapshot = getRegulatorySnapshot();
   const premiums = getPremiumLeaderboard();
   const coverage = getElementCoverage();
-  const coverageTally = getCoverageTally();
 
-  const inverseCount = premiums.filter((p) => p.premium < 1).length;
+  // Lean catalog slice the lens scopes by; the authoritative element set, passed
+  // to the client island which derives the in-scope subset and per-panel views.
+  const elementMeta: ElementLensMeta[] = elements.map((e) => ({
+    symbol: e.symbol,
+    category: e.category,
+    control: e.export_control_status,
+    regulatory: e.regulatory_status,
+  }));
   // Elements named in a Chinese export-control regime, whether in force or paused.
-  const controlled =
-    snapshot.regulatory.active + snapshot.regulatory.suspended;
+  const controlled = elementMeta.filter(
+    (e) => e.regulatory === 'active' || e.regulatory === 'suspended',
+  ).length;
 
   return (
     <Container as="main" className="py-10">
@@ -113,67 +125,14 @@ export default function DashboardPage() {
         site is rebuilt.
       </Callout>
 
-      {/* Regulatory snapshot */}
-      <section className="mt-10">
-        <SectionHeading
-          title="Regulatory snapshot"
-          actions={
-            <Link
-              href="/regulatory/"
-              className="text-xs font-normal text-accent hover:text-accent-strong"
-            >
-              Open tracker →
-            </Link>
-          }
-          description={`All ${total} tracked elements, classified by China's export-control posture and current regulatory state. The Regulatory Tracker holds the announcement-level detail behind these counts.`}
-        />
-        <RegulatorySnapshot snapshot={snapshot} />
-      </section>
-
-      {/* Retail premium leaderboard */}
-      <section className="mt-12">
-        <SectionHeading
-          title="Retail premium leaderboard"
-          actions={
-            <Link
-              href="/elements/"
-              className="text-xs font-normal text-accent hover:text-accent-strong"
-            >
-              Browse elements →
-            </Link>
-          }
-          description={
-            <>
-              Latest retail reference ÷ latest bulk benchmark, ranked by markup,
-              the premium small-quantity buyers pay over wholesale.{' '}
-              {premiums.length} of {total} elements are priced in both tiers, so
-              a premium can be computed.{' '}
-              {inverseCount > 0
-                ? `${inverseCount} inverse ${inverseCount === 1 ? 'case' : 'cases'} (below 1×, where retail undercuts bulk) ${inverseCount === 1 ? 'is' : 'are'} flagged.`
-                : 'Inverse cases (below 1×, where retail undercuts bulk) are flagged when they occur.'}{' '}
-              Sort by any column.
-            </>
-          }
-        />
-        <PremiumLeaderboard rows={premiums} flagInverse />
-      </section>
-
-      {/* Data coverage map */}
-      <section className="mt-12">
-        <SectionHeading
-          title="Data coverage"
-          actions={
-            <Link
-              href="/data/"
-              className="text-xs font-normal text-accent hover:text-accent-strong"
-            >
-              Open data →
-            </Link>
-          }
-          description="One tile per element, graded by how many distinct days of price observations back it. Thin coverage is shown, not hidden. Sparse elements get a small count, never a fabricated trend. Each tile links to the element."
-        />
-        <CoverageGrid items={coverage} tally={coverageTally} />
-      </section>
+      {/* Element lens + the three filterable panels (snapshot, premiums,
+          coverage). The lens is a client island so the page stays SSG; it is
+          SSR'd unfiltered, so the full dashboard is present without JS. */}
+      <DashboardLens
+        elements={elementMeta}
+        premiums={premiums}
+        coverage={coverage}
+      />
 
       {/* No movers board: point to the factual movements feed */}
       <p className="mt-12 border-t border-border pt-6 text-sm leading-relaxed text-fg-muted">
