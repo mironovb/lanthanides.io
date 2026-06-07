@@ -40,3 +40,4 @@ export { DiscussionFilters } from './DiscussionFilters';
 export { DiscussionReplyForm } from './DiscussionReplyForm';
 export { DiscussionThreadForm } from './DiscussionThreadForm';
 export { DiscussionThreadList } from './DiscussionThreadList';
+export { ThreadMeta } from './ThreadMeta';

@@ -4,6 +4,12 @@
  * Hidden threads 404. Hidden replies are excluded. Locked threads remain
  * readable but do not accept replies. This is dynamic user-generated content in
  * Prisma, not reference data.
+ *
+ * Layout: a masthead + a compact metadata "record" strip (ThreadMeta), then the
+ * original post and an anchored, individually-linkable reply list in the main
+ * column, with the reply form (or a locked notice) and a quiet dataset-boundary
+ * note in the aside. A footer nav links back to the board and to sibling threads
+ * in the same category — both plain links, so no extra queries are issued.
  */
 import type { Metadata } from 'next';
 import Link from 'next/link';
@@ -16,7 +22,8 @@ import { Badge, Callout, Panel } from '@/components/ui';
 import { formatDate } from '@/lib/format';
 import {
   DiscussionReplyForm,
-  categoryLabel,
+  ThreadMeta,
+  discussionHref,
   statusLabel,
   statusVariant,
   toReplyDTO,
@@ -73,6 +80,61 @@ export async function generateMetadata({
   });
 }
 
+/** Empty reply state — branches on lock so a locked thread never invites a reply. */
+function RepliesEmpty({ locked }: { locked: boolean }) {
+  if (locked) {
+    return (
+      <p className="text-sm leading-relaxed text-fg-muted">
+        No replies were posted before this thread was locked.
+      </p>
+    );
+  }
+  return (
+    <p className="text-sm leading-relaxed text-fg-muted">
+      No replies yet. Be the first to add source context, a correction, or a
+      narrow follow-up question using the reply form.
+    </p>
+  );
+}
+
+/** Locked-thread notice that replaces the reply form, with a route forward. */
+function LockedNotice() {
+  return (
+    <Callout tone="note" title="Replies closed">
+      A maintainer locked this thread, so it stays readable as a record but no
+      longer accepts replies. To raise a related point, start a fresh thread on
+      the <Link href="/discussion/">discussion board</Link>.
+    </Callout>
+  );
+}
+
+/**
+ * Dataset-boundary note: kept visible on every thread but deliberately quiet —
+ * a muted footnote under the reply form rather than a tinted callout, so it
+ * never competes with the discussion itself.
+ */
+function DatasetBoundaryNote() {
+  return (
+    <p className="flex gap-2 border-t border-border pt-4 text-xs leading-relaxed text-fg-dim">
+      <span aria-hidden="true" className="text-fg-muted">
+        ›
+      </span>
+      <span>
+        Discussion is not publication into the open dataset. Price claims,
+        corrections, and source tips still go through source review before any
+        dataset change — see the{' '}
+        <Link
+          href="https://github.com/mironovb/lanthanides.io/blob/main/CONTRIBUTING.md"
+          className="text-accent underline decoration-dotted underline-offset-2 hover:text-accent-strong"
+        >
+          contribution guide
+        </Link>
+        .
+      </span>
+    </p>
+  );
+}
+
 export default async function DiscussionThreadPage({ params }: PageProps) {
   const row = await getThread(params.id);
   if (!row) notFound();
@@ -101,7 +163,7 @@ export default async function DiscussionThreadPage({ params }: PageProps) {
           dateModified: thread.updatedAt,
           author: { '@type': 'Person', name: thread.authorName },
           discussionUrl: abs(`/discussion/${thread.id}/`),
-          articleSection: categoryLabel(thread.category),
+          articleSection: thread.categoryLabel,
           commentCount: replies.length,
         }}
       />
@@ -115,44 +177,30 @@ export default async function DiscussionThreadPage({ params }: PageProps) {
         eyebrow={thread.categoryLabel}
         title={thread.title}
         actions={
-          <div className="flex flex-wrap items-center gap-2">
-            <Badge>{thread.categoryLabel}</Badge>
-            <Badge variant={statusVariant(thread.status)}>
-              {statusLabel(thread.status)}
-            </Badge>
-          </div>
+          <Badge variant={statusVariant(thread.status)}>
+            {statusLabel(thread.status)}
+          </Badge>
         }
       />
 
-      <div className="mt-8 grid items-start gap-6 lg:grid-cols-[minmax(0,1fr)_340px]">
-        <article className="min-w-0">
-          <Panel
-            title="Thread"
-            eyebrow={formatDate(thread.createdAt)}
-            actions={
-              <span className="font-mono text-2xs text-fg-dim">
-                updated {formatDate(thread.updatedAt)}
-              </span>
-            }
-          >
-            <p className="text-sm text-fg-muted">
-              Posted by <span className="font-medium text-fg">{thread.authorName}</span>
-              {thread.organization ? (
-                <>
-                  {' '}
-                  at <span className="font-medium text-fg">{thread.organization}</span>
-                </>
-              ) : null}
-            </p>
-            <div className="mt-5 whitespace-pre-wrap text-sm leading-relaxed text-fg">
+      <ThreadMeta thread={thread} />
+
+      <div className="mt-6 grid items-start gap-6 lg:grid-cols-[minmax(0,1fr)_340px]">
+        <article className="min-w-0 space-y-6">
+          <Panel title="Original post" eyebrow="Thread">
+            <div className="whitespace-pre-wrap break-words text-sm leading-relaxed text-fg">
               {thread.body}
             </div>
           </Panel>
 
-          <section className="mt-6" aria-labelledby="discussion-replies">
+          <section
+            id="discussion-replies"
+            aria-label="Replies"
+            className="scroll-mt-20"
+          >
             <Panel
               title="Replies"
-              eyebrow="Thread"
+              eyebrow="Discussion"
               actions={
                 <span className="font-mono text-2xs text-fg-dim">
                   {replies.length} visible
@@ -160,18 +208,23 @@ export default async function DiscussionThreadPage({ params }: PageProps) {
               }
             >
               {replies.length === 0 ? (
-                <p className="text-sm leading-relaxed text-fg-muted">
-                  No replies yet. Add source context, a correction, or a narrow
-                  follow-up question.
-                </p>
+                <RepliesEmpty locked={locked} />
               ) : (
-                <ol className="space-y-4">
-                  {replies.map((reply) => (
+                <ol className="space-y-5">
+                  {replies.map((reply, i) => (
                     <li
                       key={reply.id}
-                      className="border-l-2 border-border pl-4"
+                      id={`reply-${reply.id}`}
+                      className="scroll-mt-20 border-l-2 border-border pl-4"
                     >
                       <div className="flex flex-wrap items-baseline gap-x-2 gap-y-1">
+                        <a
+                          href={`#reply-${reply.id}`}
+                          aria-label={`Permalink to reply ${i + 1}`}
+                          className="font-mono text-2xs text-fg-dim transition-colors duration-fast hover:text-accent"
+                        >
+                          #{i + 1}
+                        </a>
                         <p className="font-medium text-fg">{reply.authorName}</p>
                         <time
                           dateTime={reply.createdAt}
@@ -180,7 +233,7 @@ export default async function DiscussionThreadPage({ params }: PageProps) {
                           {formatDate(reply.createdAt)}
                         </time>
                       </div>
-                      <div className="mt-2 whitespace-pre-wrap text-sm leading-relaxed text-fg-muted">
+                      <div className="mt-2 whitespace-pre-wrap break-words text-sm leading-relaxed text-fg-muted">
                         {reply.body}
                       </div>
                     </li>
@@ -192,32 +245,28 @@ export default async function DiscussionThreadPage({ params }: PageProps) {
         </article>
 
         <aside className="space-y-5">
-          <Callout tone="note" title="Dataset boundary">
-            Discussion is not publication into the open data. Price claims,
-            corrections, and source tips still need source review before any
-            `_data/` file changes.
-          </Callout>
-
-          {locked ? (
-            <Callout tone="warning" title="Thread locked">
-              This thread remains readable, but replies are closed.
-            </Callout>
-          ) : (
-            <DiscussionReplyForm threadId={thread.id} />
-          )}
-
-          <p className="text-xs leading-relaxed text-fg-dim">
-            Need to update a source record? Use the{' '}
-            <Link
-              href="https://github.com/mironovb/lanthanides.io/blob/main/CONTRIBUTING.md"
-              className="text-accent underline decoration-dotted underline-offset-2 hover:text-accent-strong"
-            >
-              contribution guide
-            </Link>
-            .
-          </p>
+          {locked ? <LockedNotice /> : <DiscussionReplyForm threadId={thread.id} />}
+          <DatasetBoundaryNote />
         </aside>
       </div>
+
+      <nav
+        aria-label="Discussion navigation"
+        className="mt-10 flex flex-wrap items-center justify-between gap-x-6 gap-y-2 border-t border-border pt-4 text-sm"
+      >
+        <Link
+          href="/discussion/"
+          className="font-medium text-fg-muted transition-colors duration-fast hover:text-accent-strong"
+        >
+          ← All discussion threads
+        </Link>
+        <Link
+          href={discussionHref({ category: thread.category })}
+          className="font-medium text-fg-muted transition-colors duration-fast hover:text-accent-strong"
+        >
+          More in {thread.categoryLabel} →
+        </Link>
+      </nav>
     </Container>
   );
 }
