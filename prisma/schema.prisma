@@ -161,8 +161,13 @@ model DiscussionThread {
   sourceDate    String? // observed/published date, ISO 'YYYY-MM-DD' (date-only, stored verbatim, mirrors ScreenedOffer.observedDate)
   elementSymbol String? // case-sensitive catalog symbol (e.g. 'Dy'); logical FK to _data/, not DB-enforced
 
-  // Workflow state: enum-like String:
-  // 'open' | 'answered' | 'locked' | 'hidden'. Hidden rows are not public.
+  // Moderation state: enum-like String:
+  // 'pending' (held for maintainer review; NOT public) | 'open' | 'answered' |
+  // 'locked' (read-only) | 'hidden' (removed; NOT public). New threads default to
+  // 'open' (immediate publish); set DISCUSSION_REQUIRE_APPROVAL to create them
+  // 'pending' instead. Public reads only ever surface open/answered/locked. The
+  // column is a free-form String, so this vocabulary needs no migration to grow.
+  // Full model + transitions in docs/DISCUSSION-MODERATION.md.
   status String @default("open")
 
   replies DiscussionReply[]
@@ -187,7 +192,10 @@ model DiscussionReply {
   authorName String
   body       String
 
-  // Moderation state: enum-like String: 'visible' | 'hidden'.
+  // Moderation state: enum-like String: 'pending' (held for review; NOT public) |
+  // 'visible' | 'hidden'. Defaults to 'visible' (immediate publish);
+  // pre-moderation (DISCUSSION_REQUIRE_APPROVAL) creates 'pending' instead. Only
+  // 'visible' replies are ever shown publicly.
   status String @default("visible")
 
   @@index([threadId])

@@ -1,18 +1,24 @@
 /**
  * /api/discussion/threads/[id]/replies: dynamic reply write path.
  *
- * Replies publish as `visible` immediately unless a maintainer later hides them.
- * Locked or hidden threads reject replies. There are no private contact fields,
- * no email, no auth provider, and no third-party moderation call.
+ * By default replies publish as `visible` immediately; under pre-moderation
+ * (DISCUSSION_REQUIRE_APPROVAL) they are created `pending` (held) instead — the
+ * status is always chosen server-side. The lock/hide/pending gate is the shared
+ * `replyDisposition` rule: open/answered accept replies, locked threads 409, and
+ * hidden/pending threads 404 (they are not public, so we do not confirm they
+ * exist). There are no private contact fields, no email, no auth provider, and no
+ * third-party moderation call. See docs/DISCUSSION-MODERATION.md.
  */
 import type { DiscussionReply } from '@prisma/client';
 import { prisma } from '@/lib/db';
 import {
+  replyDisposition,
   toReplyDTO,
   validateReply,
   type CreateReplyResponse,
   type ReplyField,
 } from '@/components/discussion';
+import { initialReplyStatus } from '@/lib/discussion-moderation';
 
 export const dynamic = 'force-dynamic';
 export const runtime = 'nodejs';
@@ -63,10 +69,16 @@ export async function POST(
       select: { id: true, status: true },
     });
 
-    if (!thread || thread.status === 'hidden') {
+    // A missing thread and a non-public (hidden / pending) thread both 404, so we
+    // never confirm a held thread exists.
+    if (!thread) {
       return json({ ok: false, error: 'Thread not found.' }, 404);
     }
-    if (thread.status === 'locked') {
+    const disposition = replyDisposition(thread.status);
+    if (disposition === 'notfound') {
+      return json({ ok: false, error: 'Thread not found.' }, 404);
+    }
+    if (disposition === 'locked') {
       return json({ ok: false, error: 'This thread is locked.' }, 409);
     }
 
@@ -75,7 +87,7 @@ export async function POST(
         threadId: thread.id,
         authorName: clean.authorName,
         body: clean.body,
-        status: 'visible',
+        status: initialReplyStatus(),
       },
     });
 

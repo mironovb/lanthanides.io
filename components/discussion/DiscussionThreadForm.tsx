@@ -42,9 +42,16 @@ type Status = 'idle' | 'submitting' | 'success' | 'error';
 
 export function DiscussionThreadForm({
   elements = [],
+  requireApproval = false,
 }: {
   /** The live element catalog, used to populate + validate the element picker. */
   elements?: ThreadFormElement[];
+  /**
+   * Mirrors the server's pre-moderation mode (DISCUSSION_REQUIRE_APPROVAL) so the
+   * copy matches reality. The created thread's returned status is still the
+   * authority for whether it was held.
+   */
+  requireApproval?: boolean;
 }) {
   const router = useRouter();
   const [values, setValues] = useState<ThreadValues>(EMPTY_THREAD_VALUES);
@@ -52,6 +59,7 @@ export function DiscussionThreadForm({
     Partial<Record<ThreadField, string>>
   >({});
   const [status, setStatus] = useState<Status>('idle');
+  const [held, setHeld] = useState(false);
   const [formError, setFormError] = useState<string | null>(null);
 
   const submitting = status === 'submitting';
@@ -90,9 +98,17 @@ export function DiscussionThreadForm({
       }
 
       const created = data as CreateThreadResponse;
-      setStatus('success');
       setFieldErrors({});
       setValues(EMPTY_THREAD_VALUES);
+      if (created.thread.status === 'pending') {
+        // Held for review: there is no public thread page to land on yet, so stay
+        // here and show the "awaiting review" confirmation instead of navigating.
+        setHeld(true);
+        setStatus('success');
+        return;
+      }
+      setHeld(false);
+      setStatus('success');
       router.refresh();
       router.push(`/discussion/${created.thread.id}/`);
     } catch {
@@ -315,14 +331,22 @@ export function DiscussionThreadForm({
         ) : null}
 
         {status === 'success' ? (
-          <Callout tone="success" title="Thread posted">
-            Your thread is visible now. Dataset changes still require source
-            review before entering the open files.
+          <Callout
+            tone="success"
+            title={held ? 'Thread submitted for review' : 'Thread posted'}
+          >
+            {held
+              ? 'Your thread was received and is awaiting maintainer review. It appears on the board once a maintainer approves it. Nothing was published to the open dataset.'
+              : 'Your thread is visible now. Dataset changes still require source review before entering the open files.'}
           </Callout>
         ) : null}
 
         <div className="flex items-center justify-between gap-3">
-          <p className={HINT}>Posts publish immediately unless later hidden by a maintainer.</p>
+          <p className={HINT}>
+            {requireApproval
+              ? 'New threads are held for maintainer review before they appear.'
+              : 'Posts publish immediately; a maintainer may hide or lock them afterward.'}
+          </p>
           <Button type="submit" disabled={submitting}>
             {submitting ? 'Posting…' : 'Post'}
           </Button>

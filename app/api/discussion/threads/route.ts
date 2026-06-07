@@ -1,11 +1,14 @@
 /**
  * /api/discussion/threads: dynamic discussion write path.
  *
- * POST creates a visible thread with status 'open'. There is no email/contact
- * field, no external moderation service, and no side effects beyond the Prisma
- * write. Public DTOs are contact-safe by construction. Factual price or source
- * claims posted here remain discussion until a maintainer reviews sources and
- * updates the open dataset through the contribution pipeline.
+ * POST creates a thread. By default it publishes immediately with status 'open';
+ * under pre-moderation (DISCUSSION_REQUIRE_APPROVAL) it is created 'pending'
+ * (held, non-public) instead — the status is always chosen server-side, never
+ * read from the request body. There is no email/contact field, no external
+ * moderation service, and no side effects beyond the Prisma write. Public DTOs
+ * are contact-safe by construction. Factual price or source claims posted here
+ * remain discussion until a maintainer reviews sources and updates the open
+ * dataset through the contribution pipeline. See docs/DISCUSSION-MODERATION.md.
  */
 import type { DiscussionThread } from '@prisma/client';
 import { prisma } from '@/lib/db';
@@ -16,6 +19,7 @@ import {
   type CreateThreadResponse,
   type ThreadField,
 } from '@/components/discussion';
+import { initialThreadStatus } from '@/lib/discussion-moderation';
 
 export const dynamic = 'force-dynamic';
 export const runtime = 'nodejs';
@@ -72,7 +76,7 @@ export async function POST(request: Request): Promise<Response> {
         sourceUrl: clean.sourceUrl,
         sourceDate: clean.sourceDate,
         elementSymbol: clean.elementSymbol,
-        status: 'open',
+        status: initialThreadStatus(),
       },
     });
     const payload: CreateThreadResponse = {

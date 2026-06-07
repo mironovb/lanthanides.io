@@ -32,13 +32,25 @@ function FieldError({ id, msg }: { id: string; msg?: string }) {
 
 type Status = 'idle' | 'submitting' | 'success' | 'error';
 
-export function DiscussionReplyForm({ threadId }: { threadId: string }) {
+export function DiscussionReplyForm({
+  threadId,
+  requireApproval = false,
+}: {
+  threadId: string;
+  /**
+   * Mirrors the server's pre-moderation mode so the copy matches reality. The
+   * created reply's returned status is still the authority for whether it was
+   * held.
+   */
+  requireApproval?: boolean;
+}) {
   const router = useRouter();
   const [values, setValues] = useState<ReplyValues>(EMPTY_REPLY_VALUES);
   const [fieldErrors, setFieldErrors] = useState<
     Partial<Record<ReplyField, string>>
   >({});
   const [status, setStatus] = useState<Status>('idle');
+  const [held, setHeld] = useState(false);
   const [formError, setFormError] = useState<string | null>(null);
 
   const submitting = status === 'submitting';
@@ -74,10 +86,14 @@ export function DiscussionReplyForm({ threadId }: { threadId: string }) {
         return;
       }
 
+      const created = data as CreateReplyResponse;
+      const isHeld = created.reply.status === 'pending';
       setValues(EMPTY_REPLY_VALUES);
       setFieldErrors({});
+      setHeld(isHeld);
       setStatus('success');
-      router.refresh();
+      // A held reply is not visible yet, so refreshing would not surface it.
+      if (!isHeld) router.refresh();
     } catch {
       setFormError('Network error. Your reply was not saved. Please try again.');
       setStatus('error');
@@ -125,7 +141,9 @@ export function DiscussionReplyForm({ threadId }: { threadId: string }) {
             <FieldError id="dr-body-error" msg={fieldErrors.body} />
           ) : (
             <p id="dr-body-hint" className={HINT}>
-              Public text only. Factual price claims still need source review.
+              {requireApproval
+                ? 'Public text only — replies are held for maintainer review before they appear.'
+                : 'Public text only. Factual price claims still need source review.'}
             </p>
           )}
         </div>
@@ -137,8 +155,13 @@ export function DiscussionReplyForm({ threadId }: { threadId: string }) {
         ) : null}
 
         {status === 'success' ? (
-          <Callout tone="success" title="Reply posted">
-            Your reply is visible now.
+          <Callout
+            tone="success"
+            title={held ? 'Reply submitted for review' : 'Reply posted'}
+          >
+            {held
+              ? 'Your reply was received and is awaiting maintainer review. It appears once a maintainer approves it.'
+              : 'Your reply is visible now.'}
           </Callout>
         ) : null}
 

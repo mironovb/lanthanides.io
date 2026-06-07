@@ -433,8 +433,13 @@ app surfaces are backed by Prisma models (`MIGRATION.md` §2.2); the reference d
 ### 4.4 Discussion board → `/discussion`
 
 - **Real tonight:** `/discussion` and `/discussion/[id]` read and write `DiscussionThread` / `DiscussionReply` rows
-  through POST routes. Threads and replies publish visibly today unless later hidden by a maintainer; locked threads
-  reject replies.
+  through POST routes. Threads and replies publish immediately by default unless held or hidden by a maintainer;
+  locked threads reject replies.
+- **Moderation:** post-moderation by default (immediate publish, reactive hide/lock). The status vocabulary adds a
+  non-public `pending` (held for review) alongside `hidden`. Two opt-in, off-by-default primitives: pre-moderation
+  (`DISCUSSION_REQUIRE_APPROVAL` creates new posts as `pending`) and a secret-gated maintainer endpoint
+  (`/api/discussion/moderation`, disabled with a `404` unless `DISCUSSION_MODERATION_SECRET` is set — there is no public
+  mutation path and no user auth). Full model in `docs/DISCUSSION-MODERATION.md`.
 - **Boundary:** discussion is coordination and source review, not publication into `_data/`. Factual price claims,
   corrections, and source tips still require the reviewed contribution pipeline before changing the open dataset.
 

@@ -43,13 +43,53 @@ export type DiscussionCategory = (typeof DISCUSSION_CATEGORIES)[number]['id'];
 export const DISCUSSION_CATEGORY_IDS: readonly DiscussionCategory[] =
   DISCUSSION_CATEGORIES.map((c) => c.id);
 
-export const THREAD_STATUSES = ['open', 'answered', 'locked', 'hidden'] as const;
+// Thread moderation states (enum-like Strings; the DB column is a free-form
+// String, so extending this list needs no migration). Public surfaces only ever
+// render PUBLIC_THREAD_STATUSES below — `pending` (held for maintainer review)
+// and `hidden` (removed) are both NON-public. Full model + transitions in
+// docs/DISCUSSION-MODERATION.md.
+export const THREAD_STATUSES = [
+  'pending',
+  'open',
+  'answered',
+  'locked',
+  'hidden',
+] as const;
 export type ThreadStatus = (typeof THREAD_STATUSES)[number];
+
+/** The only statuses a public reader ever sees (board list + thread detail). */
 export const PUBLIC_THREAD_STATUSES = ['open', 'answered', 'locked'] as const;
 export type PublicThreadStatus = (typeof PUBLIC_THREAD_STATUSES)[number];
 
-export const REPLY_STATUSES = ['visible', 'hidden'] as const;
+// Reply moderation states. `pending` mirrors the thread state so the optional
+// pre-moderation mode can hold replies too; only `visible` replies are public.
+export const REPLY_STATUSES = ['pending', 'visible', 'hidden'] as const;
 export type ReplyStatus = (typeof REPLY_STATUSES)[number];
+
+/** Narrowing guards for status values arriving from the DB or an API body. */
+export function isThreadStatus(v: unknown): v is ThreadStatus {
+  return typeof v === 'string' && (THREAD_STATUSES as readonly string[]).includes(v);
+}
+export function isReplyStatus(v: unknown): v is ReplyStatus {
+  return typeof v === 'string' && (REPLY_STATUSES as readonly string[]).includes(v);
+}
+export function isPublicThreadStatus(v: string): v is PublicThreadStatus {
+  return (PUBLIC_THREAD_STATUSES as readonly string[]).includes(v);
+}
+
+/**
+ * Whether a thread in the given status may accept a new reply, and if not, why.
+ * Centralizes the lock/hide/pending gate so the reply API and the detail page
+ * agree on one rule. `notfound` covers hidden, pending, and any unknown status:
+ * those threads are not public, so a reply attempt 404s rather than confirm the
+ * thread exists.
+ */
+export type ReplyDisposition = 'ok' | 'locked' | 'notfound';
+export function replyDisposition(threadStatus: string): ReplyDisposition {
+  if (threadStatus === 'open' || threadStatus === 'answered') return 'ok';
+  if (threadStatus === 'locked') return 'locked';
+  return 'notfound';
+}
 
 export const LIMITS = {
   titleMin: 8,
@@ -168,7 +208,7 @@ export function statusVariant(status: string): 'accent' | 'normal' | 'suspended'
   if (status === 'answered') return 'normal';
   if (status === 'locked') return 'suspended';
   if (status === 'open') return 'accent';
-  return 'default';
+  return 'default'; // pending / hidden (non-public) and any unknown status
 }
 
 /** Compact display text for a source link: the bare hostname (no `www.`), or the
@@ -235,9 +275,8 @@ export function cleanCategory(value: unknown): DiscussionCategory | undefined {
 
 export function cleanStatus(value: unknown): PublicThreadStatus | undefined {
   const v = typeof value === 'string' ? value.trim() : '';
-  return (PUBLIC_THREAD_STATUSES as readonly string[]).includes(v)
-    ? (v as PublicThreadStatus)
-    : undefined;
+  // A reader may only ever filter to a PUBLIC status, never `pending`/`hidden`.
+  return isPublicThreadStatus(v) ? v : undefined;
 }
 
 export function cleanSort(value: unknown): ThreadSort {

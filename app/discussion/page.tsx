@@ -13,6 +13,7 @@ import type { Prisma } from '@prisma/client';
 import Link from 'next/link';
 import { prisma } from '@/lib/db';
 import { getElements } from '@/lib/data';
+import { requiresApproval } from '@/lib/discussion-moderation';
 import { buildMetadata } from '@/lib/seo';
 import { BreadcrumbJsonLd, WebApplicationJsonLd } from '@/components/seo';
 import { Container, PageHeader, StoryLink } from '@/components/layout';
@@ -82,6 +83,7 @@ export default async function DiscussionPage({
   searchParams?: RawDiscussionParams;
 }) {
   const { category, status, sort, q } = parseDiscussionQuery(searchParams);
+  const requireApproval = requiresApproval();
 
   const where: Prisma.DiscussionThreadWhereInput = {
     status: status ?? { in: [...PUBLIC_THREAD_STATUSES] },
@@ -171,9 +173,27 @@ export default async function DiscussionPage({
       </PageHeader>
 
       <Callout tone="note" title="Moderation status" className="mt-8">
-        Threads and replies publish immediately today unless a maintainer later
-        hides or locks them. There is no live moderation queue, no email workflow,
-        and no external service behind this board.
+        {requireApproval ? (
+          <>
+            New threads and replies are{' '}
+            <span className="text-fg">held for maintainer review</span> and become
+            public only after a maintainer approves them. Posting here never
+            publishes into the open dataset.
+          </>
+        ) : (
+          <>
+            Threads and replies{' '}
+            <span className="text-fg">publish immediately</span>. A maintainer can
+            later mark a thread answered, lock it to new replies, hold it for
+            review, or hide it. There is no account system, live moderation queue,
+            or external service behind this board.
+          </>
+        )}{' '}
+        The full policy is in the{' '}
+        <Link href="https://github.com/mironovb/lanthanides.io/blob/main/docs/DISCUSSION-MODERATION.md">
+          moderation guide
+        </Link>
+        .
       </Callout>
 
       <section className="mt-8" aria-label="Discussion board">
@@ -217,7 +237,7 @@ export default async function DiscussionPage({
 
         <div className="mt-4 grid items-start gap-6 xl:grid-cols-[minmax(0,1fr)_390px]">
           <DiscussionThreadList threads={threads} boardEmpty={boardEmpty} />
-          <DiscussionThreadForm elements={elements} />
+          <DiscussionThreadForm elements={elements} requireApproval={requireApproval} />
         </div>
       </section>
     </Container>

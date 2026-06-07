@@ -1,9 +1,9 @@
 /**
  * /discussion/[id]: public detail page for one discussion thread.
  *
- * Hidden threads 404. Hidden replies are excluded. Locked threads remain
- * readable but do not accept replies. This is dynamic user-generated content in
- * Prisma, not reference data.
+ * Hidden and pending threads 404 (only public statuses resolve). Hidden and
+ * pending replies are excluded. Locked threads remain readable but do not accept
+ * replies. This is dynamic user-generated content in Prisma, not reference data.
  *
  * Layout: a masthead + a compact metadata "record" strip (ThreadMeta), then the
  * original post and an anchored, individually-linkable reply list in the main
@@ -15,6 +15,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { prisma } from '@/lib/db';
+import { requiresApproval } from '@/lib/discussion-moderation';
 import { buildMetadata } from '@/lib/seo';
 import { BreadcrumbJsonLd, JsonLd, abs } from '@/components/seo';
 import { Container, PageHeader } from '@/components/layout';
@@ -22,6 +23,7 @@ import { Badge, Callout, Panel } from '@/components/ui';
 import { formatDate } from '@/lib/format';
 import {
   DiscussionReplyForm,
+  PUBLIC_THREAD_STATUSES,
   ThreadMeta,
   discussionHref,
   statusLabel,
@@ -39,7 +41,8 @@ interface PageProps {
 
 async function getThread(id: string) {
   return prisma.discussionThread.findFirst({
-    where: { id, status: { not: 'hidden' } },
+    // Only public statuses resolve: hidden AND pending threads 404 here.
+    where: { id, status: { in: [...PUBLIC_THREAD_STATUSES] } },
     include: {
       replies: {
         where: { status: 'visible' },
@@ -58,7 +61,7 @@ export async function generateMetadata({
   params,
 }: PageProps): Promise<Metadata> {
   const row = await prisma.discussionThread.findFirst({
-    where: { id: params.id, status: { not: 'hidden' } },
+    where: { id: params.id, status: { in: [...PUBLIC_THREAD_STATUSES] } },
     select: { id: true, title: true, body: true, updatedAt: true },
   });
   if (!row) {
@@ -142,6 +145,7 @@ export default async function DiscussionThreadPage({ params }: PageProps) {
   const thread = toThreadDTO(row);
   const replies = row.replies.map(toReplyDTO);
   const locked = thread.status === 'locked';
+  const requireApproval = requiresApproval();
 
   return (
     <Container as="main" className="py-10">
@@ -245,7 +249,14 @@ export default async function DiscussionThreadPage({ params }: PageProps) {
         </article>
 
         <aside className="space-y-5">
-          {locked ? <LockedNotice /> : <DiscussionReplyForm threadId={thread.id} />}
+          {locked ? (
+            <LockedNotice />
+          ) : (
+            <DiscussionReplyForm
+              threadId={thread.id}
+              requireApproval={requireApproval}
+            />
+          )}
           <DatasetBoundaryNote />
         </aside>
       </div>
