@@ -36,7 +36,7 @@ that **require a running Node server**:
 |:--|:--|
 | `/api/price-gauge`, `/api/listings`, `/api/subscribe`, `/api/export/[format]` | Route handlers — server code per request |
 | `/sell`, `/offers`, `/alerts` | `force-dynamic` + Prisma reads/writes (live DB) |
-| `/dashboard` and reference pages | SSG/ISR — built/revalidated by Node |
+| `/dashboard` and reference pages | SSG — built by Node (no `output: 'export'`) |
 | The 3 redirects + `trailingSlash` | Served by Next from `next.config.mjs` |
 
 `next.config.mjs` has **no `output: 'export'`** (verified), so this is a standard
@@ -242,7 +242,7 @@ currently opens review PRs for updates:
 Vercel is connected to the repo, so production-branch merges trigger the web
 deploy. No GitHub Actions workflow deploys the site, calls a deploy hook, or
 builds a GitHub Pages artifact.
-- ISR pages (`/dashboard` etc.) also refresh on rebuild; the data layer memoises
+- SSG pages (`/dashboard` etc.) refresh on rebuild; the data layer memoises
   `_data/` per process, so a fresh build is what picks up new files.
 
 ---

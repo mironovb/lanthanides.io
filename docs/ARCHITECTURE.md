@@ -113,7 +113,7 @@ sequencing; forward-looking).
 | `/about` | SSG | catalog, prices, sources, policy_events | P6 | `/about/` |
 | `/news` | SSG | `_articles/*.md` | P6 | `/news/` |
 | `/news/[slug]` | SSG (`generateStaticParams`) | `_articles/*.md` | P6 | `/news/<slug>/` |
-| `/dashboard` | ISR | fluctuations, catalog (+ DB listing counts later) | P7 | `/dashboard/` |
+| `/dashboard` | SSG | fluctuations, catalog (DB discussion panel is a client island over `/api/dashboard/discussion`, so the page stays SSG / DB-free) | P7 | `/dashboard/` |
 | `/movements` | SSG | movements.yml | P7 | `/movements/` |
 | `/data` | SSG | dataset metadata + export links | P7 | — (NEW) |
 | `/tools/price-gauge` | Dynamic (client + API) | `lib/price-gauge.ts` over price_records | P8 | — (NEW) STUB |

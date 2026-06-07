@@ -500,3 +500,134 @@ copy), run 2026-06-02.
 Deliberate departures from the old site (the `/prices/` Ledger, the elements tile
 grid, the dropped dashboard movers board, the sources YAML card) are listed and
 justified in `docs/OLD-DESIGN.md` under "Accepted differences from the old site".
+
+## 9. Dashboard & discussion QA hardening (2026-06-07)
+
+A focused correctness / accessibility / route-stability / migration-safety pass
+over the dashboard rebuild and the new discussion board (`/dashboard/`,
+`/discussion/`, `/discussion/[id]/`, and the `/api/dashboard/*` +
+`/api/discussion/*` handlers). Companion specs: `docs/DASHBOARD-ROADMAP.md`,
+`docs/DISCUSSION-MODERATION.md`.
+
+**Method (same honesty stance as §0).** No Lighthouse/axe and no headless
+browser are available in this environment (none installed; WebFetch cannot reach
+`localhost`), so no score is fabricated. Verification was done against a **running
+production server** (`next start`) reading the **live Neon dev database** (all
+four migrations applied), driven with `curl` over the rendered HTML and JSON, plus
+source review of the responsive classes. The repo has **no test runner**
+(`jest`/`vitest`/`playwright` absent, no `*.test.*`/`*.spec.*` files) and the only
+in-code check pattern (`lib/data/verify.ts` build-time assertions) validates
+`_data/`, not the DB — so there was no suitable harness to extend, and these are
+recorded as manual checks per the task.
+
+### 9.1 Build, lint, routes
+
+- `npm run build` green (64 static pages generated); `npm run lint` clean.
+- Render modes confirmed in the build manifest: **`/dashboard` is Static (SSG)**
+  and never reads Prisma at build — the page builds with no database. The DB-backed
+  surfaces are all **Dynamic (ƒ)**: `/discussion`, `/discussion/[id]`,
+  `/api/discussion/{threads,threads/[id]/replies,moderation}`,
+  `/api/dashboard/discussion`. `/api/dashboard/brief` is **Static** (file-derived,
+  no DB). This is the SSG/DB-free contract in `DASHBOARD-ROADMAP.md` §5–§6 holding.
+
+### 9.2 Database & migration safety (task 3)
+
+- **Migrations committed and applied.** 4 migrations tracked (`…_init`,
+  `…_add_discussion_board`, `…_add_source_tip_fields`,
+  `…_add_discussion_notice_link`); `prisma migrate status` → *"Database schema is
+  up to date"*; `prisma validate` passes; `prisma generate` run (client current).
+  Each discussion schema field maps to a committed migration (the `elementSymbol`
+  index + `sourceUrl`/`sourceDate` from the source-tip migration, `noticeId` from
+  the notice-link migration); no schema↔migration drift.
+- **Build never touches the DB** (verified: a clean `next build` succeeds and emits
+  `/dashboard` as static), so a deploy without a reachable database still builds.
+
+### 9.3 Contact-safety — no private fields exposed (task 6)
+
+Confirmed by construction **and** by live inspection of a populated board:
+
+- The `DiscussionThread` / `DiscussionReply` schema has **no email/contact/phone
+  column** — `authorName` and `organization` are author-chosen public free text,
+  and the thread body hint explicitly warns *"Do not include private contact
+  details."* (Contrast `Listing.sellerContact`, which the discussion surfaces never
+  read.)
+- `toThreadDTO` / `toReplyDTO`, `CommunityThreadItem`, and the explicit `select`s
+  in `/api/dashboard/discussion`, the board page, and the secret-gated moderation
+  GET all carry display fields only.
+- Live scans of the board JSON, a populated thread+reply detail page, and the
+  dashboard panel API returned **zero** `email`/`contact`/`sellerContact`/`mailto`
+  keys. The maintainer moderation API is **404 when disabled** (no secret set — the
+  default) for both GET and POST, and uses a constant-time secret check.
+
+### 9.4 Audit: links, empty states, metadata, responsive (task 1)
+
+- **Broken links: none.** Every internal cross-link resolves against the running
+  server — `/elements/<Sym>/` (200), the regulatory `id="notice-…"` anchors (the
+  card now renders `noticeAnchor(notice_id)` with `scroll-mt`, matching the
+  discussion `ThreadRefs` href), and the dashboard risk-matrix
+  `/elements/#<category>` deep-links (the four `rare_earth_light|rare_earth_heavy|
+  strategic_metal|semiconductor_metal` ids now exist on `/elements/`). User-supplied
+  source links render `rel="nofollow ugc noopener noreferrer"` + `target="_blank"`.
+- **Empty states are clear and distinct.** The board separates *board-empty*
+  ("No threads yet") from *filter/search-excluded* ("No threads match your search"
+  + Clear button), paying for the extra count query only when a filter is active and
+  the result is empty. `CommunityIntel` degrades through loading → unavailable
+  (DB outage / unmigrated table → `{ok:false}` → "temporarily unavailable", board
+  link intact) → empty → list, and ships a `<noscript>` fallback. Premium leaderboard,
+  coverage, and the risk matrix each render an explicit empty hint under a filter.
+- **Metadata present** on all three pages: `/dashboard` and `/discussion` static
+  `buildMetadata` (title/description/keywords/canonical), `/discussion/[id]`
+  `generateMetadata` (per-thread title + truncated body description + `modifiedTime`;
+  `noindex` on a missing thread). JSON-LD: dashboard `BreadcrumbList`; board
+  `WebApplication` + `BreadcrumbList`; thread `DiscussionForumPosting` +
+  `BreadcrumbList`.
+- **No stale copy.** The dashboard masthead and `getDataGeneratedAt` no longer
+  claim a "6-hourly" pipeline (the only remaining "6-hourly" string is an accurate
+  comment recording that the monitor was *removed*); the "Dashboard scope" callout
+  states plainly the screen is a build-time snapshot.
+- **Overflow / responsive.** Every data table (discussion list, risk matrix,
+  premium leaderboard, coverage detail) renders inside the shared `Table` /
+  `SortableTable` `overflow-x-auto` wrapper, so the 6-column risk matrix and the
+  wide thread list scroll rather than overflow at 320px. The board and thread-detail
+  two-column layouts use `grid-cols-[minmax(0,1fr)_…]` (the `minmax(0,…)` keeps a
+  wide table from forcing page overflow) and stack to one column below `xl`/`lg`.
+  Dashboard stat band and lens chips reflow; forms are single-column with native
+  controls, labels, `aria-invalid`/`aria-describedby`, and per-field + form-level
+  `role="alert"`.
+- **End-to-end round trip** (then cleaned up): created a marked thread + reply on
+  the live DB via the POST APIs, confirmed they render in the board list (element
+  chip, source link, author), the detail page (post, reply, references note,
+  source-tip note, JSON-LD), and the dashboard panel API (per-category count → 1),
+  then hard-deleted both (cascade) and re-confirmed the board empty. Server-side
+  validation mirror rejects a short title and an off-catalog element symbol with
+  `400` (no row written); thread/reply status is server-assigned (a body `status`
+  is ignored).
+
+### 9.5 Fixes applied in this pass
+
+- **`/discussion/` was missing from `app/sitemap.ts`** though it is a header- and
+  footer-nav destination explicitly built to be crawlable (every other nav page,
+  and the dynamic `/offers/`, `/sell/`, `/alerts/`, `/tools/price-gauge/`, were
+  already listed). Added it (priority 0.6, `daily`); individual `/discussion/[id]`
+  threads stay out (dynamic, unbounded, DB-backed). Verified in the built sitemap
+  (54 URLs).
+- **Render-mode doc drift reconciled.** `DASHBOARD-ROADMAP.md` §1/§5 flagged that
+  `ARCHITECTURE.md` §2 and `DEPLOYMENT.md` still called `/dashboard` ISR; the build
+  manifest proves it is SSG. Corrected the route-map row and the two `DEPLOYMENT.md`
+  mentions to SSG (and noted the discussion panel is a client island, not server
+  ISR).
+
+### 9.6 Remaining risks / follow-ups
+
+- **No real-browser / Lighthouse / axe pass** in this environment (as in §0/§5/§7).
+  The checks above are curl-rendered-HTML + class review, not a true viewport or an
+  ARIA-tree validation. Run both in a browser before launch.
+- **Anonymous board, post-moderation by default.** Spam/abuse is possible; the
+  mitigations are reactive hide/lock or opt-in pre-moderation
+  (`DISCUSSION_REQUIRE_APPROVAL`) plus the secret-gated maintainer API — all
+  off by default, documented in `DISCUSSION-MODERATION.md` §9. No rate-limit/captcha
+  (deliberately not built).
+- **No pagination.** The board lists `take: 100`, the dashboard panel `take: 5`
+  (newest); fine at current volume, revisit if the board grows large.
+- **Dashboard freshness.** The "Data as of" stamp is a build-time value and can be
+  days old (the intraday monitor was removed); already disclosed on-page.
