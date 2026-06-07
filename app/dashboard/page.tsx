@@ -27,6 +27,14 @@
  * merge; the old 6-hourly regulatory-monitor commit was removed, so there is no
  * intraday auto-rebuild (docs/DEPLOYMENT.md section 8). An ISR revalidate would
  * only re-render against the same cached snapshot, so it is left off.
+ *
+ * The one live, DB-backed element is the Community intelligence panel
+ * (CommunityIntel), and it is deliberately a client island: it fetches the
+ * discussion board from the force-dynamic /api/dashboard/discussion route at
+ * runtime rather than reading Prisma during the build. That keeps this page SSG
+ * and DB-free, so the build stays green without a database and a board outage
+ * degrades only that panel — never the static reference sections above
+ * (docs/DASHBOARD-ROADMAP.md section 6).
  */
 import type { Metadata } from 'next';
 import Link from 'next/link';
@@ -45,6 +53,7 @@ import { Callout } from '@/components/ui';
 import { MarketSnapshot } from '@/components/dashboard/MarketSnapshot';
 import { DashboardLens } from '@/components/dashboard/DashboardLens';
 import { MovementsSummary } from '@/components/dashboard/MovementsSummary';
+import { CommunityIntel } from '@/components/dashboard/CommunityIntel';
 import { summarizeMovements } from '@/components/dashboard/movement-summary';
 import type { ElementLensMeta } from '@/components/dashboard/lens';
 
@@ -168,6 +177,13 @@ export default function DashboardPage() {
         threshold={movements.config?.threshold_pct ?? 10}
         windowLabel={movements.config?.window ?? '30d'}
       />
+
+      {/* Community intelligence: a restrained bridge from the data gaps above to
+          the source tips and questions that could close them. A client island
+          (it fetches /api/dashboard/discussion at runtime) so this page stays
+          SSG and DB-free at build; a DB outage degrades the panel, never the
+          static reference sections. docs/DASHBOARD-ROADMAP.md §6. */}
+      <CommunityIntel className="mt-12" />
     </Container>
   );
 }

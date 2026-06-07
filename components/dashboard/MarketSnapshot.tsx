@@ -7,12 +7,12 @@
  * in as a prop; nothing here is fabricated (CLAUDE.md hard rule #1). A value that
  * cannot be resolved renders as "n/a", never blank, so a gap is shown not hidden.
  *
- * Deliberately omitted: a live discussion-thread count. The board lives in
- * Prisma, and reading it would couple this otherwise SSG, DB-free page to the
- * database at build time and its failure modes (docs/DASHBOARD-ROADMAP.md §5 and
- * the P3 #6 backlog item, which defers DB-backed dashboard panels). The five
- * figures here are file-derived and build-safe; the discussion board stays
- * reachable from the nav.
+ * Deliberately omitted from THIS band: a live discussion-thread count. The board
+ * lives in Prisma, and reading it here would couple this build-time, file-derived
+ * readout to the database (docs/DASHBOARD-ROADMAP.md §5). The live board instead
+ * reaches the dashboard lower down via the CommunityIntel panel — a client island
+ * over the force-dynamic /api/dashboard/discussion route (§6) — so these four
+ * figures stay file-derived and build-safe even when the database is absent.
  *
  * Server component, presentational. No colour: the dashboard reserves colour for
  * the regulatory risk scale, so a plain count band stays monochrome.

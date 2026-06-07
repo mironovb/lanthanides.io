@@ -168,14 +168,54 @@ readiness and risk. Each item names whether it needs new data or is pure reuse.
   stamp can legitimately be days old (it reads `2026-05-31` today). Stale code
   comments asserting a "6-hourly pipeline commit" were corrected in this pass
   (`app/dashboard/page.tsx`, `lib/data/index.ts` `getDataGeneratedAt`).
-- **SSG vs DB coupling.** The dashboard is intentionally DB-free and static. Any
-  commercial-layer panel (P3 #6) is an architectural decision: it would move the
-  route to dynamic/ISR and add a Prisma dependency and its failure modes.
+- **SSG vs DB coupling.** The dashboard is intentionally DB-free and static. A
+  server-rendered DB panel (e.g. the commercial-layer counts in P3 #6) would move
+  the whole route to dynamic/ISR and add a Prisma dependency and its failure
+  modes. The discussion panel (§6) avoids that by reading the DB from a
+  client-fetched, force-dynamic API route instead, leaving the page SSG.
 - **Documentation drift.** `docs/ARCHITECTURE.md` §2 and `docs/DEPLOYMENT.md`
   still describe `/dashboard` as ISR / "SSG/ISR"; the code is SSG. Reconcile
   these when the rendering model is next revisited so the docs match the route.
 - **Colour discipline must hold.** New panels reuse the semantic risk scale and
   the monochrome density ramp; no new colour axes.
+
+---
+
+## 6. Discussion integration (implemented)
+
+The dashboard now carries a single, restrained link into the discussion board:
+the **Community intelligence** panel (`components/dashboard/CommunityIntel.tsx`),
+sitting below the movement-events summary. It is intentionally *not* a social
+feed — it surfaces only the discussion signals an analyst can act on from the
+dashboard, and routes everything else to `/discussion/`.
+
+**What it surfaces.** Only **public, non-hidden** threads (`open` / `answered` /
+`locked` — never `pending` or `hidden`) in the four dashboard-actionable
+categories: **source tips**, **data corrections**, **price questions**, and
+**regulatory questions** (`DASHBOARD_DISCUSSION_CATEGORIES` in
+`components/dashboard/community-intel.ts`). Market notes and site/meta threads
+are deliberately left to the full board. The panel shows a per-category count
+(each chip links to the filtered `/discussion/?category=…` view) and the five
+most recent threads (title, status, any element/notice reference, and reply
+count — never the body, and threads carry no contact field).
+
+**How it preserves the SSG / DB-free build (the §5 tension, resolved).** Backlog
+item §4 P3 #6 framed any DB-backed panel as forcing the route to dynamic/ISR.
+This integration avoids that: the panel is a **client island** that fetches
+**`GET /api/dashboard/discussion`** (a `force-dynamic`, `nodejs` route — the only
+Prisma reader involved) at runtime. The `/dashboard/` page stays **SSG** and
+never imports `lib/db`, so `npm run build` still produces a static page and never
+reads the database at build time. The static reference panels (snapshot, premium
+leaderboard, coverage, movements) are untouched by this query.
+
+**Graceful degradation + migration requirement.** The panel needs the
+`discussion_threads` table (migrations `…_add_discussion_board` onward; apply with
+`npx prisma migrate deploy`). When that table is **absent in local dev**, or the
+database is briefly unreachable, the API catches the error and returns
+`{ ok: false }`; the panel renders a calm "temporarily unavailable" state with a
+direct link to `/discussion/`. The dashboard — including every static reference
+section — renders normally regardless. Colour discipline holds: the panel reuses
+`Badge` for category/status and is otherwise monochrome.
 
 ---
 
