@@ -3,9 +3,10 @@
  * regulatory questions, data corrections, market notes, and site/meta work.
  *
  * Dynamic + Node runtime: this is user-generated content in Prisma, kept fully
- * separate from the versioned reference dataset in _data/. The first screen is
- * the board itself: filters, server-rendered thread list, and the submission
- * form. No seed content is fabricated.
+ * separate from the versioned reference dataset in _data/. The board reads its
+ * whole state from the URL (?category=&status=&sort=&q=) so it is crawlable and
+ * works without JS: server-rendered filters + search, a sortable thread list,
+ * and the submission form. No seed content is fabricated.
  */
 import type { Metadata } from 'next';
 import type { Prisma } from '@prisma/client';
@@ -16,12 +17,17 @@ import { BreadcrumbJsonLd, WebApplicationJsonLd } from '@/components/seo';
 import { Container, PageHeader, StoryLink } from '@/components/layout';
 import { Callout } from '@/components/ui';
 import {
-  DISCUSSION_CATEGORY_IDS,
   PUBLIC_THREAD_STATUSES,
   DiscussionFilters,
   DiscussionThreadForm,
   DiscussionThreadList,
+  categoryLabel,
+  parseDiscussionQuery,
+  sortLabel,
+  statusLabel,
   toThreadDTO,
+  type RawDiscussionParams,
+  type ThreadSort,
 } from '@/components/discussion';
 
 export const dynamic = 'force-dynamic';
@@ -38,32 +44,66 @@ export const metadata: Metadata = buildMetadata({
   path: '/discussion/',
 });
 
-function cleanCategory(value: unknown): string | undefined {
-  const v = typeof value === 'string' ? value : '';
-  return (DISCUSSION_CATEGORY_IDS as readonly string[]).includes(v) ? v : undefined;
+/**
+ * Sort id → Prisma orderBy. Kept here (server-side) so the shared discussion
+ * helpers stay free of any Prisma import. Every order ends with an id tiebreaker
+ * so paging under the take cap is deterministic. `replies` ranks by total related
+ * rows; a rare maintainer-hidden reply is not subtracted (the displayed count
+ * stays visible-only), which is acceptable for ordering on a small board.
+ */
+function threadOrderBy(
+  sort: ThreadSort,
+): Prisma.DiscussionThreadOrderByWithRelationInput[] {
+  switch (sort) {
+    case 'newest':
+      return [{ createdAt: 'desc' }, { id: 'desc' }];
+    case 'replies':
+      return [{ replies: { _count: 'desc' } }, { updatedAt: 'desc' }, { id: 'desc' }];
+    case 'title':
+      return [{ title: 'asc' }, { id: 'asc' }];
+    case 'latest':
+    default:
+      return [{ updatedAt: 'desc' }, { id: 'desc' }];
+  }
 }
 
-function cleanStatus(value: unknown): string | undefined {
-  const v = typeof value === 'string' ? value : '';
-  return (PUBLIC_THREAD_STATUSES as readonly string[]).includes(v) ? v : undefined;
+function Dot() {
+  return (
+    <span aria-hidden="true" className="text-border-strong">
+      ·
+    </span>
+  );
 }
 
 export default async function DiscussionPage({
   searchParams,
 }: {
-  searchParams?: { category?: string; status?: string };
+  searchParams?: RawDiscussionParams;
 }) {
-  const category = cleanCategory(searchParams?.category);
-  const status = cleanStatus(searchParams?.status);
+  const { category, status, sort, q } = parseDiscussionQuery(searchParams);
 
   const where: Prisma.DiscussionThreadWhereInput = {
     status: status ?? { in: [...PUBLIC_THREAD_STATUSES] },
     ...(category ? { category } : {}),
+    // Free-text search over the public, display-only columns. Prisma `contains`
+    // binds `q` as a query parameter (no SQL string-building), so this is
+    // injection-safe; `cleanSearch` only trims and caps the input. There is no
+    // private contact column on a thread, so search can never reach private data.
+    ...(q
+      ? {
+          OR: [
+            { title: { contains: q, mode: 'insensitive' } },
+            { body: { contains: q, mode: 'insensitive' } },
+            { authorName: { contains: q, mode: 'insensitive' } },
+            { organization: { contains: q, mode: 'insensitive' } },
+          ],
+        }
+      : {}),
   };
 
   const rows = await prisma.discussionThread.findMany({
     where,
-    orderBy: [{ updatedAt: 'desc' }, { createdAt: 'desc' }],
+    orderBy: threadOrderBy(sort),
     include: {
       _count: {
         select: {
@@ -74,6 +114,18 @@ export default async function DiscussionPage({
     take: 100,
   });
   const threads = rows.map(toThreadDTO);
+
+  const filtersActive = Boolean(category || status || q);
+  // Distinguish "no threads exist at all" from "the filters/search excluded
+  // them". Only pay for the extra count when the filtered result is empty AND a
+  // filter is active — with no filter active, an empty result already is an empty
+  // board (the query is the unfiltered baseline).
+  const boardEmpty =
+    threads.length === 0 &&
+    (!filtersActive ||
+      (await prisma.discussionThread.count({
+        where: { status: { in: [...PUBLIC_THREAD_STATUSES] } },
+      })) === 0);
 
   return (
     <Container as="main" className="py-10">
@@ -118,10 +170,46 @@ export default async function DiscussionPage({
       </Callout>
 
       <section className="mt-8" aria-label="Discussion board">
-        <DiscussionFilters category={category} status={status} />
+        <DiscussionFilters category={category} status={status} sort={sort} q={q} />
 
-        <div className="mt-5 grid items-start gap-6 xl:grid-cols-[minmax(0,1fr)_390px]">
-          <DiscussionThreadList threads={threads} />
+        {/* Result summary: count + the active query in one terminal-dense line. */}
+        <p className="mt-3 flex flex-wrap items-center gap-x-1.5 gap-y-1 font-mono text-2xs text-fg-dim">
+          <span className="text-fg-muted">{threads.length}</span>
+          <span>{threads.length === 1 ? 'thread' : 'threads'}</span>
+          <Dot />
+          <span>sorted by {sortLabel(sort).toLowerCase()}</span>
+          {category ? (
+            <>
+              <Dot />
+              <span>in {categoryLabel(category)}</span>
+            </>
+          ) : null}
+          {status ? (
+            <>
+              <Dot />
+              <span>{statusLabel(status).toLowerCase()}</span>
+            </>
+          ) : null}
+          {q ? (
+            <>
+              <Dot />
+              <span>
+                matching &ldquo;<span className="text-fg-muted">{q}</span>&rdquo;
+              </span>
+            </>
+          ) : null}
+          {filtersActive ? (
+            <Link
+              href="/discussion/"
+              className="ml-1 text-accent underline decoration-dotted underline-offset-2 transition-colors duration-fast hover:text-accent-strong"
+            >
+              Clear all
+            </Link>
+          ) : null}
+        </p>
+
+        <div className="mt-4 grid items-start gap-6 xl:grid-cols-[minmax(0,1fr)_390px]">
+          <DiscussionThreadList threads={threads} boardEmpty={boardEmpty} />
           <DiscussionThreadForm />
         </div>
       </section>

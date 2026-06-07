@@ -97,6 +97,132 @@ export function statusVariant(status: string): 'accent' | 'normal' | 'suspended'
   return 'default';
 }
 
+// ── Sort + query parsing (board page) ────────────────────────────────────────
+//
+// The board reads its state from the URL (?category=&status=&sort=&q=) so it is
+// crawlable and works without JS. Everything here is pure string work: parsing,
+// validation, and href building. The sort id → Prisma orderBy mapping lives in
+// the server page, so this module keeps its "no Prisma, no server imports"
+// contract.
+
+export const THREAD_SORTS = [
+  {
+    id: 'latest',
+    label: 'Latest activity',
+    description: 'Most recently updated threads first (the default).',
+  },
+  {
+    id: 'newest',
+    label: 'Newest',
+    description: 'Most recently created threads first.',
+  },
+  {
+    id: 'replies',
+    label: 'Most replies',
+    description: 'Threads with the most replies first.',
+  },
+  {
+    id: 'title',
+    label: 'Title A–Z',
+    description: 'Alphabetical by thread title.',
+  },
+] as const;
+
+export type ThreadSort = (typeof THREAD_SORTS)[number]['id'];
+export const THREAD_SORT_IDS: readonly ThreadSort[] = THREAD_SORTS.map((s) => s.id);
+export const DEFAULT_THREAD_SORT: ThreadSort = 'latest';
+
+/** Longest accepted search string; longer input is truncated, never rejected. */
+export const SEARCH_MAX_LEN = 100;
+
+function isSort(v: string): v is ThreadSort {
+  return (THREAD_SORT_IDS as readonly string[]).includes(v);
+}
+
+export function sortLabel(sort: string): string {
+  return THREAD_SORTS.find((s) => s.id === sort)?.label ?? 'Latest activity';
+}
+
+export function cleanCategory(value: unknown): DiscussionCategory | undefined {
+  const v = typeof value === 'string' ? value.trim() : '';
+  return isCategory(v) ? v : undefined;
+}
+
+export function cleanStatus(value: unknown): PublicThreadStatus | undefined {
+  const v = typeof value === 'string' ? value.trim() : '';
+  return (PUBLIC_THREAD_STATUSES as readonly string[]).includes(v)
+    ? (v as PublicThreadStatus)
+    : undefined;
+}
+
+export function cleanSort(value: unknown): ThreadSort {
+  const v = typeof value === 'string' ? value.trim() : '';
+  return isSort(v) ? v : DEFAULT_THREAD_SORT;
+}
+
+/**
+ * Normalize a raw search string: collapse internal whitespace, trim, and cap the
+ * length. Returns undefined for an empty query so the caller can drop the filter
+ * entirely. The value is only ever passed to Prisma `contains` (a bound query
+ * parameter, never string-concatenated into SQL), so there is no injection
+ * surface — the cap only bounds pathological input.
+ */
+export function cleanSearch(value: unknown): string | undefined {
+  if (typeof value !== 'string') return undefined;
+  const trimmed = value.replace(/\s+/g, ' ').trim().slice(0, SEARCH_MAX_LEN);
+  return trimmed.length > 0 ? trimmed : undefined;
+}
+
+export interface DiscussionQuery {
+  category?: DiscussionCategory;
+  status?: PublicThreadStatus;
+  sort: ThreadSort;
+  q?: string;
+}
+
+/** Raw `searchParams` shape from the App Router (values may repeat → arrays). */
+export interface RawDiscussionParams {
+  category?: string | string[];
+  status?: string | string[];
+  sort?: string | string[];
+  q?: string | string[];
+}
+
+function firstParam(v: string | string[] | undefined): string | undefined {
+  return Array.isArray(v) ? v[0] : v;
+}
+
+export function parseDiscussionQuery(
+  params: RawDiscussionParams | undefined,
+): DiscussionQuery {
+  return {
+    category: cleanCategory(firstParam(params?.category)),
+    status: cleanStatus(firstParam(params?.status)),
+    sort: cleanSort(firstParam(params?.sort)),
+    q: cleanSearch(firstParam(params?.q)),
+  };
+}
+
+/**
+ * Canonical board href for a (partial) query. Defaults are omitted so the bare
+ * board stays `/discussion/` and the default sort never shows in the URL; pass
+ * `null` for a facet to clear it.
+ */
+export function discussionHref(query: {
+  category?: string | null;
+  status?: string | null;
+  sort?: string | null;
+  q?: string | null;
+}): string {
+  const params = new URLSearchParams();
+  if (query.category) params.set('category', query.category);
+  if (query.status) params.set('status', query.status);
+  if (query.sort && query.sort !== DEFAULT_THREAD_SORT) params.set('sort', query.sort);
+  if (query.q) params.set('q', query.q);
+  const qs = params.toString();
+  return qs ? `/discussion/?${qs}` : '/discussion/';
+}
+
 // ── Thread submission ────────────────────────────────────────────────────────
 
 export interface ThreadValues {

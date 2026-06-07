@@ -1,5 +1,15 @@
 import Link from 'next/link';
-import { Badge, Panel, Table, TBody, TD, TH, THead, TR } from '@/components/ui';
+import {
+  Badge,
+  LinkButton,
+  Panel,
+  Table,
+  TBody,
+  TD,
+  TH,
+  THead,
+  TR,
+} from '@/components/ui';
 import { formatDate } from '@/lib/format';
 import {
   type DiscussionThreadDTO,
@@ -9,8 +19,15 @@ import {
 
 export function DiscussionThreadList({
   threads,
+  boardEmpty = false,
 }: {
   threads: DiscussionThreadDTO[];
+  /**
+   * True only when there are no visible threads ANYWHERE on the board (not just
+   * none under the current filters/search). Distinguishes the first-run empty
+   * board from a filter/search that simply excluded everything.
+   */
+  boardEmpty?: boolean;
 }) {
   return (
     <Panel
@@ -24,13 +41,32 @@ export function DiscussionThreadList({
       padding="none"
     >
       {threads.length === 0 ? (
-        <div className="p-5">
-          <p className="font-serif text-lg text-fg">No visible threads yet.</p>
-          <p className="mt-2 max-w-prose text-sm leading-relaxed text-fg-muted">
-            Start with a source tip, a price question, or a regulatory question.
-            The board is empty by design until real users add notes.
-          </p>
-        </div>
+        boardEmpty ? (
+          <div className="p-5">
+            <p className="font-serif text-lg text-fg">No threads yet.</p>
+            <p className="mt-2 max-w-prose text-sm leading-relaxed text-fg-muted">
+              The board stays empty by design until contributors add notes. Start
+              the first one with a source tip, a price question, or a regulatory
+              question using the <span className="text-fg">Start a thread</span>{' '}
+              form.
+            </p>
+          </div>
+        ) : (
+          <div className="p-5">
+            <p className="font-serif text-lg text-fg">
+              No threads match your search.
+            </p>
+            <p className="mt-2 max-w-prose text-sm leading-relaxed text-fg-muted">
+              Threads do exist on the board, but none match the current filters or
+              search terms. Widen the search or clear the filters to see them.
+            </p>
+            <div className="mt-4">
+              <LinkButton href="/discussion/" variant="secondary" size="sm">
+                Clear search and filters
+              </LinkButton>
+            </div>
+          </div>
+        )
       ) : (
         <Table bordered={false}>
           <THead>
