@@ -93,7 +93,7 @@ export function DiscussionFilters({
             defaultValue={q ?? ''}
             maxLength={SEARCH_MAX_LEN}
             placeholder="Title, note, author, or organization"
-            className="w-full rounded-sm border border-border-field bg-base px-2.5 py-1.5 text-sm text-fg placeholder:text-fg-dim transition-colors duration-fast focus-visible:border-accent focus-visible:outline-none"
+            className="w-full rounded-sm border border-border-field bg-surface px-2.5 py-1.5 text-sm text-fg placeholder:text-fg-dim transition-colors duration-fast focus-visible:border-accent focus-visible:outline-none"
           />
         </div>
         <Button type="submit" variant="secondary">

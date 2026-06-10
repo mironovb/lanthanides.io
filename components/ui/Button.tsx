@@ -4,9 +4,10 @@
  * it for navigation, never a button with an onClick that routes).
  *
  * Variants are restrained: one `primary` (the teal accent), a bordered
- * `secondary`, a chromeless `ghost`, and `danger`. Sharp corners, fast hover,
- * and the global focus-visible outline (no custom ring) keep keyboard users
- * covered. `primary` uses white text on the deep-teal accent (7.5:1, AA).
+ * `secondary`, a chromeless `ghost`, and `danger`. Soft corners, a faint
+ * shadow on the filled/bordered variants, fast hover, a one pixel press on
+ * :active, and the global focus-visible outline (no custom ring) keep keyboard
+ * users covered. `primary` uses white text on the deep-teal accent (7.5:1, AA).
  */
 import Link from 'next/link';
 import type { ComponentProps } from 'react';
@@ -17,9 +18,9 @@ export type ButtonSize = 'sm' | 'md';
 
 const VARIANT: Record<ButtonVariant, string> = {
   primary:
-    'border-accent bg-accent text-white hover:border-accent-strong hover:bg-accent-strong',
+    'border-accent bg-accent text-white shadow-sm hover:border-accent-strong hover:bg-accent-strong',
   secondary:
-    'border-border-strong bg-surface text-fg hover:border-accent hover:text-accent-strong',
+    'border-border-strong bg-surface text-fg shadow-sm hover:border-accent hover:text-accent-strong',
   ghost:
     'border-transparent bg-transparent text-fg-muted hover:bg-overlay hover:text-fg',
   danger: 'border-down/40 bg-down/10 text-down hover:bg-down/20',
@@ -36,7 +37,7 @@ export function buttonClasses(
   className?: string,
 ): string {
   return cn(
-    'inline-flex items-center justify-center gap-1.5 rounded-sm border font-medium transition-colors duration-fast disabled:cursor-not-allowed disabled:opacity-50',
+    'inline-flex select-none items-center justify-center gap-1.5 rounded-md border font-medium transition duration-fast active:translate-y-px disabled:cursor-not-allowed disabled:opacity-50',
     VARIANT[variant],
     SIZE[size],
     className,

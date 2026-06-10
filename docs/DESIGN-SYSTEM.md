@@ -13,28 +13,33 @@ primitives over hand-rolling markup.
 
 ## 1. Visual principles
 
-The feel is **an instrument panel a procurement officer trusts** — dense,
-legible, understated. Five rules, in priority order:
+The feel is **a dense, legible market brief a procurement officer trusts**:
+understated, evidence-first. Five rules, in priority order:
 
 1. **Evidence over decoration.** Every visual element carries information. No
-   gradients, no shadows-for-depth, no illustration, no color-for-warmth. If it
-   doesn't point at data, provenance, or status, it isn't there.
-2. **Color only ever encodes meaning.** The palette is mostly monochrome
-   graphite. Non-neutral hue is reserved for exactly three vocabularies — price
-   movement (up/down/flat), regulatory status (the five states), and the four
-   element categories — plus the single teal accent for interaction. Never use
-   these colors decoratively.
-3. **Density with hierarchy.** A 13px base and compact tables are correct for
-   data; section-level hierarchy (serif headings, generous rules) still has to
-   let a non-specialist skim and land. Dense ≠ cramped.
-4. **Restraint signals authority.** Subtle borders and dividers separate
-   content, never elevation/shadow. Sharp corners. One accent. No motion beyond
-   fast hover color transitions.
+   gradients, no illustration, no color-for-warmth. Elevation exists only as the
+   faint layered shadow that lifts a white sheet off the off-white page; it
+   never dramatizes. If it doesn't point at data, provenance, or status, it
+   isn't there.
+2. **Color only ever encodes meaning.** The palette is mostly monochrome.
+   Non-neutral hue is reserved for exactly three vocabularies: price movement
+   (up/down/flat), regulatory status (the five states), and the four element
+   categories, plus the single teal accent for interaction. Never use these
+   colors decoratively.
+3. **Density with hierarchy.** A comfortable 16px reading base with compact
+   tables is correct for data; section-level hierarchy (display headings,
+   generous rules) still has to let a non-specialist skim and land. Dense does
+   not mean cramped.
+4. **Restraint signals authority.** Hairline borders and dividers carry the
+   separation; shadows stay barely-there. Soft 3 to 10px corners, one accent.
+   Motion is fast hover feedback only (color, a one pixel lift on interactive
+   cards, a one pixel press on buttons); no entrance or decorative animation.
 5. **Numeric data is monospace and right-aligned.** Prices, quantities,
-   purities, atomic properties, confidence scores — all render in IBM Plex Mono
-   with tabular figures (`font-variant-numeric: tabular-nums`) and right-align
-   in tables so digits stack by place value. This is non-negotiable; it is the
-   `.numeric` house class and the `numeric` prop on `<TD>`/`<TH>`.
+   purities, atomic properties, confidence scores: all render in the mono
+   family (JetBrains Mono) with tabular figures (`font-variant-numeric:
+   tabular-nums`) and right-align in tables so digits stack by place value.
+   This is non-negotiable; it is the `.numeric` house class and the `numeric`
+   prop on `<TD>`/`<TH>`.
 
 ---
 
@@ -52,7 +57,7 @@ markdown/prose stylesheets (`*-body.css`) resolve them through PostCSS
 
 | Group | Tokens | Use |
 |:--|:--|:--|
-| **Surfaces** | `base` · `surface` · `raised` · `overlay` | page → panel → header/zebra → hover/popover |
+| **Surfaces** | `base` · `surface` · `raised` · `overlay` | page → panel → header/zebra → hover/popover. `base` is a faint cool off-white (`#fafbfc`) one step under the pure-white `surface`, so cards, bordered tables, and fields read as layered sheets |
 | **Borders** | `border` · `border-strong` | hairline dividers → emphasized edges |
 | **Foreground** | `fg` · `fg-muted` · `fg-dim` | primary text/numerics → body → labels/fine print |
 | **Accent** | `accent` · `accent-strong` · `accent-dim` | links/active/focus → hover → tint wash |
@@ -67,23 +72,29 @@ by `<Badge>`): `normal → low`, `monitored → medium`, `active → medium`,
 ### Type
 
 - **Families** (CSS variables in `globals.css`, swappable without touching
-  utilities): **IBM Plex Sans** (`font-sans`, UI/prose) · **IBM Plex Mono**
-  (`font-mono`, ALL numerics, tabular) · **Source Serif 4** (`font-serif`,
-  headings — editorial authority).
-- **Scale:** `2xs` 11 · `xs` 12 · `sm` 13 · `base` 14 · `md` 15 (lead) — the
-  small, dense end is overridden for data density; `lg` 18 · `xl` 20 · `2xl` 24
-  · `3xl` 30 · `4xl` 36 inherit Tailwind defaults and form the serif heading
-  ramp. `h1–h3` are serif with `-0.01em` tracking via the base layer.
+  utilities): **Inter** (`font-sans`, UI/prose) · **JetBrains Mono**
+  (`font-mono`, ALL numerics, tabular) · `font-serif` is bound to Inter too
+  (the static site set headings in Inter), self-hosted via `next/font`.
+- **Scale** (mirrors the static `_variables.scss` ramp): `2xs` 11 · `xs` 12 ·
+  `sm` 14 · `base` 16 · `md` 17 (lead) · `lg` 20 · `xl` 24 · `2xl` 30 ·
+  `3xl` 38 · `4xl` 48 · `5xl` 56. `h1` to `h3` carry `-0.01em` tracking and
+  balanced line wrap (`text-wrap: balance`) via the base layer; paragraphs get
+  `text-wrap: pretty`.
 
-### Spacing, radii, motion
+### Spacing, radii, elevation, motion
 
 - **Spacing:** Tailwind's default scale (4px base) plus `4.5`/`13`/`15`. Keep it
   tight and consistent.
-- **Radii:** sharp — `none`/`sm` 1px/`DEFAULT` 2px/`md` 3px. No rounded cards.
-- **Borders over shadows:** there is no `boxShadow` token. Separation is always
-  a border or a surface step.
-- **Motion:** `duration-fast` 120ms / `duration-base` 200ms, for hover color
-  transitions only. No entrance/decorative animation (see VISUALIZATION-AUDIT).
+- **Radii:** soft, restrained: `sm` 3px / `DEFAULT` 4px / `md` 6px / `lg` 8px /
+  `xl` 10px. Cards, panels, and bordered tables sit at `lg`/`md`; buttons and
+  chips at `md`; badges and inputs at `sm`. Gentle, not SaaS-round.
+- **Elevation:** layered two-step `boxShadow` tokens (`sm`/`DEFAULT`/`md`/`lg`),
+  all barely-there cool grays. Hairline borders still carry most of the
+  separation; the shadow only lifts white sheets off the off-white page.
+- **Motion:** `duration-fast` 120ms / `duration-base` 200ms, for hover feedback
+  only: color transitions, the interactive-card one pixel lift, the button
+  press. No entrance/decorative animation (see VISUALIZATION-AUDIT);
+  `prefers-reduced-motion` collapses everything globally.
 - **Letter-spacing:** `tightish` -0.01em (headings) · `caps` 0.08em (uppercase
   table headers / chip labels) · `eyebrow` 0.2em (the mono uppercase kicker).
 
@@ -128,7 +139,7 @@ footer sits at the bottom.
   interactive `SiteNav` island (client) handles active-route highlighting
   (`usePathname`) and the mobile disclosure menu.
 - **`SiteFooter`** — license (CC BY 4.0), open-data exports, contribute/contact,
-  secondary nav groups. The open-data framing is load-bearing: the dataset *is*
+  secondary nav groups. The open-data framing is central: the dataset *is*
   the product.
 - **`Container`** — the one content column (`max-w-content`, 72rem, consistent
   gutters). Header and footer use it. Pages still render their own `<main>`;
@@ -177,6 +188,19 @@ When the light switch happens: edit the surface/foreground/border hexes (and
 re-check `text-base`-on-accent contrast, since `primary` buttons and active
 chips use near-black text on teal). The category/movement/risk hues are already
 tuned to read on either ground and should need only minor adjustment.
+
+**Modernization refresh (2026-06).** A second token-value pass over the light
+theme, again with no utility-class rewrites on pages: the page `base` went
+off-white (`#fafbfc`) under pure-white `surface` sheets; the radii softened one
+step (3/4/6/8/10px); the shadow tokens became layered two-step stacks; bordered
+tables render as white sheets matching Card/Panel; the sticky header blurs
+content scrolling beneath it (solid white fallback where `backdrop-filter` is
+unsupported); native form controls inherit the teal via `accent-color`;
+headings balance their line wrap; table scroll containers show a thin quiet
+scrollbar. One color moved: `up` darkened one step (`#2e7a4e` to `#2c764b`) so
+its text clears WCAG AA on the `/10` badge tint over the new base. Form fields
+that filled with `bg-base` switched to `bg-surface` so fields stay white. All
+text pairs recomputed and AA: docs/QA.md §10.
 
 ---
 

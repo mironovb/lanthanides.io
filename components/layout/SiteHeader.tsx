@@ -6,6 +6,10 @@
  *
  * The brand mark is the real logo image at a 24px footprint with the wordmark
  * beside it, matching the old _includes/nav.html.
+ *
+ * The bar is solid white by default and goes translucent-with-blur only where
+ * backdrop-filter is supported, so content scrolling under it stays legible
+ * everywhere.
  */
 import Image from 'next/image';
 import Link from 'next/link';
@@ -14,8 +18,8 @@ import { SiteNav } from './SiteNav';
 
 export function SiteHeader() {
   return (
-    <header className="sticky top-0 z-50 border-b border-border bg-surface">
-      <Container className="flex h-12 items-center justify-between gap-4">
+    <header className="sticky top-0 z-50 border-b border-border bg-surface supports-[backdrop-filter]:bg-surface/85 supports-[backdrop-filter]:backdrop-blur-md">
+      <Container className="flex h-14 items-center justify-between gap-4">
         <Link
           href="/"
           className="flex items-center gap-2"

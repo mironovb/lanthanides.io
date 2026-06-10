@@ -50,7 +50,12 @@ export function Stat({
     <div className={className}>
       <dt className="eyebrow">{label}</dt>
       <dd className="mt-1 flex items-baseline gap-1.5">
-        <span className={cn('font-mono tabular-nums text-fg', VALUE_SIZE[size])}>
+        <span
+          className={cn(
+            'font-mono tracking-tightish tabular-nums text-fg',
+            VALUE_SIZE[size],
+          )}
+        >
           {value}
         </span>
         {unit ? <span className="text-xs text-fg-dim">{unit}</span> : null}

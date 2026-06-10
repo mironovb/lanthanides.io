@@ -33,7 +33,7 @@ import {
 } from './alerts';
 
 const FIELD =
-  'w-full rounded-sm border bg-base px-2.5 py-1.5 text-sm text-fg placeholder:text-fg-dim transition-colors duration-fast disabled:cursor-not-allowed disabled:opacity-50';
+  'w-full rounded-sm border bg-surface px-2.5 py-1.5 text-sm text-fg placeholder:text-fg-dim transition-colors duration-fast disabled:cursor-not-allowed disabled:opacity-50';
 const LABEL =
   'mb-1 block text-2xs font-semibold uppercase tracking-caps text-fg-dim';
 const HINT = 'mt-1 text-2xs leading-relaxed text-fg-dim';
@@ -230,7 +230,7 @@ export function EmailWaitlistForm() {
               return (
                 <label
                   key={t.id}
-                  className="flex cursor-pointer items-start gap-2.5 border border-border bg-base px-3 py-2 transition-colors duration-fast hover:border-border-strong"
+                  className="flex cursor-pointer items-start gap-2.5 rounded-md border border-border bg-surface px-3 py-2 transition-colors duration-fast hover:border-border-strong"
                 >
                   <input
                     type="checkbox"

@@ -37,19 +37,19 @@ export function FilterChips({
 }) {
   const labelId = label ? 'filterchips-label' : undefined;
   const base =
-    'rounded-sm border px-2 py-0.5 font-mono text-2xs font-semibold transition-colors duration-fast';
+    'rounded border px-2 py-0.5 font-mono text-2xs font-semibold transition-colors duration-fast';
   const chipClass = (active: boolean) =>
     cn(
       base,
       active
-        ? 'border-accent bg-accent text-white'
+        ? 'border-accent bg-accent text-white shadow-sm'
         : 'border-border bg-raised text-fg-muted hover:border-accent hover:text-accent-strong',
     );
 
   return (
     <div
       className={cn(
-        'flex flex-col gap-2 border border-border bg-surface px-4 py-3 sm:flex-row sm:items-baseline sm:gap-3',
+        'flex flex-col gap-2 rounded-md border border-border bg-surface px-4 py-3 shadow-sm sm:flex-row sm:items-baseline sm:gap-3',
         className,
       )}
     >

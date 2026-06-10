@@ -48,7 +48,9 @@ export function Tooltip({
         id={id}
         hidden={!open}
         className={cn(
-          'absolute left-1/2 z-50 w-max max-w-xs -translate-x-1/2 border border-border-strong bg-overlay px-2 py-1 text-2xs leading-snug text-fg shadow-none',
+          // Inverted near-black bubble (white text, 17:1): reads instantly over
+          // any light surface, and the shadow keeps it clearly above content.
+          'absolute left-1/2 z-50 w-max max-w-xs -translate-x-1/2 rounded-md bg-fg px-2.5 py-1.5 text-2xs leading-snug text-white shadow-lg',
           side === 'top' ? 'bottom-full mb-1.5' : 'top-full mt-1.5',
         )}
       >

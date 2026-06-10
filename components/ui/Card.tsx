@@ -1,8 +1,8 @@
 /**
  * Card & Panel: the two container primitives.
  *
- * `Card` is a bare bordered graphite surface (sharp corners, no shadow, since the
- * system uses borders for separation, never elevation). `Panel` adds a header
+ * `Card` is a bordered white sheet over the off-white page (borders still carry
+ * the separation; the layered shadow is barely-there). `Panel` adds a header
  * bar with an optional eyebrow, a serif title, and an actions slot, with the
  * body padded below a divider. Both are server components.
  */
@@ -21,7 +21,8 @@ export interface CardProps {
   children: React.ReactNode;
   /** Inner padding step (default `md`). Use `none` to pad children yourself. */
   padding?: Padding;
-  /** Adds a hover affordance for clickable cards (border brightens). */
+  /** Adds a hover affordance for clickable cards (border brightens, a one
+   *  pixel lift, deeper shadow). Matches the element-tile hover. */
   interactive?: boolean;
   as?: 'div' | 'section' | 'article' | 'li';
   className?: string;
@@ -40,7 +41,7 @@ export function Card({
         'rounded-lg border border-border bg-surface shadow-sm',
         PADDING[padding],
         interactive &&
-          'transition-shadow duration-fast hover:border-border-strong hover:shadow-md',
+          'transition duration-fast hover:-translate-y-px hover:border-border-strong hover:shadow-md',
         className,
       )}
     >

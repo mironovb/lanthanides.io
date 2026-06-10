@@ -33,7 +33,7 @@ import {
 } from './offers';
 
 const SELECT =
-  'rounded-sm border border-border-strong bg-base px-2.5 py-1.5 text-sm text-fg transition-colors duration-fast focus-visible:border-accent focus-visible:outline-none';
+  'rounded-sm border border-border-strong bg-surface px-2.5 py-1.5 text-sm text-fg transition-colors duration-fast focus-visible:border-accent focus-visible:outline-none';
 const LABEL =
   'mb-1 block text-2xs font-semibold uppercase tracking-caps text-fg-dim';
 

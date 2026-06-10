@@ -31,12 +31,12 @@ function NavLink({
   onNavigate: () => void;
 }) {
   const className = cn(
-    'rounded-sm px-3 py-1 text-sm transition-colors duration-fast',
+    'rounded-md px-3 py-1.5 text-sm transition-colors duration-fast',
     // Full-width 44px rows in the mobile panel; inline on desktop.
     'max-md:flex max-md:min-h-[44px] max-md:w-full max-md:items-center',
     active
-      ? 'font-semibold text-accent'
-      : 'font-medium text-fg-muted hover:bg-raised hover:text-fg',
+      ? 'bg-accent/10 font-semibold text-accent'
+      : 'font-medium text-fg-muted hover:bg-overlay/60 hover:text-fg',
   );
 
   if (item.external) {
@@ -94,7 +94,7 @@ export function SiteNav() {
         className={cn(
           'items-center gap-1 md:flex',
           open
-            ? 'absolute left-0 right-0 top-full flex flex-col border-b border-border bg-surface px-4 py-2'
+            ? 'absolute left-0 right-0 top-full flex flex-col gap-0.5 border-b border-border bg-surface px-4 py-3 shadow-lg'
             : 'hidden',
         )}
       >

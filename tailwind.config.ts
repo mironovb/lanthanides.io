@@ -42,9 +42,12 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        // ── Surfaces, white page & cards; faint grays for raised/hover. ──
-        base: '#ffffff', // page background
-        surface: '#ffffff', // panels / cards (separated by border + subtle shadow)
+        // ── Surfaces, a faint cool off-white page under pure-white cards. ──
+        // The one-step difference makes panels, tables, and form fields read as
+        // layered sheets without any heavier shadow. Contrast deltas vs white
+        // are negligible; every text pair re-verified AA (docs/QA.md §9).
+        base: '#fafbfc', // page background (off-white)
+        surface: '#ffffff', // panels / cards / fields (white, sits above base)
         raised: '#f8f9fa', // table headers, raised strips
         overlay: '#e9ecef', // popovers / hovered rows / tooltips
         border: {
@@ -71,9 +74,12 @@ const config: Config = {
           dim: '#d4eaf0', // accent tint (selection, active row wash)
         },
         // ── Price-movement semantics (financial up / down / flat). ──
-        // Left at the static-site hues: these render as text/numerics on white
-        // (gain 5.2:1, loss 6.0:1, both AA), not on a tint, so no darkening needed.
-        up: '#2e7a4e', // gain, green (AA as text on white)
+        // `down`/`neutral` stay at the static-site hues (AA as text on white and
+        // on the off-white base). `up` is darkened one step from the static
+        // #2e7a4e: on its own /10 badge tint over the off-white base the old
+        // green computed 4.44:1, just under AA; #2c764b clears at 4.67:1 and
+        // reads 5.5:1 as plain text on white (docs/QA.md §9).
+        up: '#2c764b', // gain, green (AA as text and on the /10 tint)
         down: '#b5342b', // loss, red (AA as text on white)
         neutral: '#6c757d', // flat, gray
         flat: '#6c757d', // alias of `neutral` for the up/down/flat trio
@@ -125,22 +131,26 @@ const config: Config = {
         '4xl': ['3rem', { lineHeight: '1.1' }], // 48px, display
         '5xl': ['3.5rem', { lineHeight: '1.05' }], // 56px, large hero
       },
-      // Soft, restrained corners (static site: 2/3/4/6px), gentle, not SaaS-round.
+      // Soft, restrained corners, one step gentler than the static site's
+      // 2/3/4/6px but still far from SaaS-round. Cards/panels sit at `lg`,
+      // buttons and chips at `md`, badges and inputs at `sm`.
       borderRadius: {
         none: '0',
-        sm: '2px',
-        DEFAULT: '2px',
-        md: '3px',
-        lg: '4px',
-        xl: '6px',
+        sm: '3px',
+        DEFAULT: '4px',
+        md: '6px',
+        lg: '8px',
+        xl: '10px',
       },
-      // Subtle elevation to match the static white cards (borders still carry most
-      // of the separation; shadows are barely-there, never dramatic).
+      // Subtle layered elevation (two soft cool-gray layers per step, the
+      // modern "stacked" shadow). Borders still carry most of the separation;
+      // shadows stay barely-there, never dramatic.
       boxShadow: {
-        sm: '0 1px 2px rgba(0, 0, 0, 0.04)',
-        DEFAULT: '0 1px 3px rgba(0, 0, 0, 0.06)',
-        md: '0 1px 4px rgba(0, 0, 0, 0.06)',
-        lg: '0 2px 8px rgba(0, 0, 0, 0.08)',
+        sm: '0 1px 2px rgba(15, 23, 42, 0.04)',
+        DEFAULT:
+          '0 1px 2px rgba(15, 23, 42, 0.04), 0 2px 4px rgba(15, 23, 42, 0.04)',
+        md: '0 2px 4px rgba(15, 23, 42, 0.04), 0 4px 12px rgba(15, 23, 42, 0.06)',
+        lg: '0 4px 8px rgba(15, 23, 42, 0.05), 0 12px 28px rgba(15, 23, 42, 0.08)',
       },
       maxWidth: {
         content: '75rem', // page column (static $content-width 1200px ≈ 75rem)

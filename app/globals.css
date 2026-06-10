@@ -24,6 +24,9 @@
   html {
     -webkit-text-size-adjust: 100%;
     text-size-adjust: 100%;
+    /* Smooth in-page anchor scrolling (methodology/framework deep links).
+       The reduced-motion block below forces it back to auto. */
+    scroll-behavior: smooth;
   }
 
   body {
@@ -34,6 +37,9 @@
     font-feature-settings: 'kern' 1, 'liga' 1;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    /* Native form controls (checkboxes, radios, progress) pick up the brand
+       teal instead of the OS default blue. */
+    accent-color: theme('colors.accent.DEFAULT');
   }
 
   h1,
@@ -41,6 +47,14 @@
   h3 {
     @apply font-serif text-fg;
     letter-spacing: -0.01em;
+    /* Balance multi-line headings so no line is left with a stranded word.
+       Progressive enhancement; older engines simply ignore it. */
+    text-wrap: balance;
+  }
+
+  /* Avoid single-word orphans in body copy where the engine supports it. */
+  p {
+    text-wrap: pretty;
   }
 
   /* Numeric data is monospace with tabular figures (brand commitment). */
@@ -101,5 +115,22 @@
     @apply text-right font-mono;
     font-variant-numeric: tabular-nums;
     font-feature-settings: 'tnum' 1, 'zero' 1;
+  }
+
+  /* Table scroll containers get a thin, quiet scrollbar so wide tables hint
+     their overflow without a heavy OS bar (Firefox + the WebKit fallback). */
+  .overflow-x-auto {
+    scrollbar-width: thin;
+    scrollbar-color: theme('colors.border.strong') transparent;
+  }
+  .overflow-x-auto::-webkit-scrollbar {
+    height: 6px;
+  }
+  .overflow-x-auto::-webkit-scrollbar-thumb {
+    background: theme('colors.border.strong');
+    border-radius: 3px;
+  }
+  .overflow-x-auto::-webkit-scrollbar-track {
+    background: transparent;
   }
 }

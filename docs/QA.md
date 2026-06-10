@@ -631,3 +631,54 @@ Confirmed by construction **and** by live inspection of a populated board:
   (newest); fine at current volume, revisit if the board grows large.
 - **Dashboard freshness.** The "Data as of" stamp is a build-time value and can be
   days old (the intraday monitor was removed); already disclosed on-page.
+
+## 10. Modernization refresh contrast recheck (2026-06-10)
+
+The design refresh changed two color tokens: the page background `base`
+(`#ffffff` to `#fafbfc`, a faint cool off-white under white cards) and `up`
+(`#2e7a4e` to `#2c764b`, darkened one step). Everything else in the refresh is
+non-color (radii, layered shadows, header blur, accent-color, text-wrap), so
+this section recomputes only the pairs the two color moves touch. Same method
+as §7: the WCAG 2.x relative-luminance formula in Node, with `/10` badge tints
+resolved by alpha-compositing the token at 10% over the ground.
+
+### 10.1 Text on the new `base` `#fafbfc` (was white; AA threshold 4.5)
+
+| Token | On `#fafbfc` | Was on white |
+|:--|--:|--:|
+| `fg` `#1a1a1a` | 16.80 | 17.40 |
+| `fg-muted` `#4a4e54` | 8.08 | 8.37 |
+| `fg-dim` `#5a616a` | 6.05 | 6.26 |
+| `accent` `#1a5c6b` | 7.27 | 7.53 |
+| `accent-strong` `#14505d` | 8.68 | 8.99 |
+| `up` (new `#2c764b`) | 5.33 | 5.53 |
+| `down` `#b5342b` | 5.81 | 6.02 |
+| `neutral` `#6c757d` | 4.53 | 4.69 |
+| `risk-low/-medium/-high/-suspended` | 6.21 / 6.48 / 7.08 / 6.18 | 6.44 / 6.72 / 7.33 / 6.40 |
+| `category` ree-light / ree-heavy / strategic / semiconductor | 6.47 / 6.86 / 6.84 / 7.42 | 6.70 / 7.10 / 7.09 / 7.68 |
+
+All pass AA. `neutral` (4.53) is the tightest pair; it renders only as the
+"flat" movement word/figure, and it still clears 4.5.
+
+### 10.2 Badge text on its own `/10` tint over the new base (AA 4.5)
+
+risk-low 5.40 · risk-medium 5.59 · risk-high 6.01 · risk-suspended 5.40 ·
+ree-light 5.56 · ree-heavy 5.84 · strategic 5.86 · semiconductor 6.33 ·
+down 4.98 · **up 4.67** (the motivating fix: the old `#2e7a4e` computed
+**4.44** on this tint, the one sub-AA pair the off-white base would have
+created; `#2c764b` clears it and also improves `up` as plain text).
+
+### 10.3 Unchanged seams re-confirmed
+
+- White button/chip text on `accent` 7.53; white tooltip text on the new
+  inverted `bg-fg` bubble 17.40 (the tooltip moved from gray-on-overlay to
+  white-on-near-black, a contrast upgrade).
+- `fg-dim` on `raised` 5.94 and on `overlay` 5.28 (table headers, hover).
+- `border-field` `#868d95` on the white field fill 3.36 (WCAG 1.4.11 ≥ 3
+  non-text). Form fields kept their white fill by moving from `bg-base` to
+  `bg-surface`, so this ratio is unchanged by the off-white page.
+- Focus ring, selection wash, and reduced-motion handling are untouched; the
+  new smooth anchor scrolling is inside the existing reduced-motion collapse.
+
+As in §0/§7: computed ratios and built-output inspection only, no
+Lighthouse/axe score quoted (neither tool is installed here).

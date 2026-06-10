@@ -42,9 +42,14 @@ export function Hero({
         quantity, and verification status.
       </p>
 
-      <ul className="mt-7 grid grid-cols-2 gap-x-6 gap-y-5 sm:flex sm:flex-wrap sm:gap-x-10">
+      {/* Stat ribbon: hairline-divided on wide screens so the four readouts
+          scan as one ledger strip; a plain two-column grid on mobile. */}
+      <ul className="mt-7 grid grid-cols-2 gap-x-6 gap-y-5 sm:flex sm:flex-wrap sm:gap-0 sm:divide-x sm:divide-border">
         {stats.map((s) => (
-          <li key={s.label} className="flex flex-col gap-0.5">
+          <li
+            key={s.label}
+            className="flex flex-col gap-0.5 sm:px-8 sm:first:pl-0 sm:last:pr-0"
+          >
             <span className="font-mono text-xl font-bold leading-none tracking-tightish tabular-nums text-fg">
               {s.value}
             </span>

@@ -34,7 +34,14 @@ export function Table({
   bordered?: boolean;
 }) {
   return (
-    <div className={cn('overflow-x-auto', bordered && 'border border-border')}>
+    <div
+      className={cn(
+        'overflow-x-auto',
+        // Bordered tables render as a white sheet over the off-white page,
+        // matching Card/Panel; rounded so the sheet reads as one object.
+        bordered && 'rounded-md border border-border bg-surface',
+      )}
+    >
       <table className={cn('w-full border-collapse text-sm', className)}>
         {caption ? (
           <caption className="px-3 py-2 text-left text-2xs text-fg-dim">
@@ -69,7 +76,9 @@ export function TR({
     <tr
       className={cn(
         'border-b border-border last:border-0',
-        hover && 'transition-colors duration-fast hover:bg-overlay',
+        // Hover rows wash with the faint accent tint (the documented "active
+        // row" use of the accent), quieter than the old solid gray overlay.
+        hover && 'transition-colors duration-fast hover:bg-accent/5',
         className,
       )}
     >
