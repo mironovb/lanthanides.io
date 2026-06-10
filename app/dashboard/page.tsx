@@ -33,7 +33,7 @@
  * discussion board from the force-dynamic /api/dashboard/discussion route at
  * runtime rather than reading Prisma during the build. That keeps this page SSG
  * and DB-free, so the build stays green without a database and a board outage
- * degrades only that panel — never the static reference sections above
+ * degrades only that panel, never the static reference sections above
  * (docs/DASHBOARD-ROADMAP.md section 6).
  */
 import type { Metadata } from 'next';
@@ -155,8 +155,8 @@ export default function DashboardPage() {
           className="text-accent hover:text-accent-strong"
         >
           brief
-        </a>{' '}
-        — the derived facts only, licensed CC BY 4.0, no private data.
+        </a>
+        : the derived facts only, licensed CC BY 4.0, no private data.
       </Callout>
 
       {/* Element lens + the three filterable panels (snapshot, premiums,

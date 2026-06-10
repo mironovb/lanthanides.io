@@ -151,7 +151,7 @@ model DiscussionThread {
   organization String?
   body         String
 
-  // Optional, public-safe REFERENCE LINKS — navigational context only. A linked
+  // Optional, public-safe REFERENCE LINKS, navigational context only. A linked
   // element or control notice points a reader at a reference page; it is NEVER a
   // claim that the open dataset changed (that stays the reviewed git-PR flow). Both
   // are logical FKs to the versioned _data/ files (not DB-enforced) and are
@@ -160,11 +160,11 @@ model DiscussionThread {
   elementSymbol String? // case-sensitive catalog symbol (e.g. 'Dy'); validated against getElements()
   noticeId      String? // regulatory notice_id (e.g. 'MOFCOM No. 46/2024'); validated against getRegulatoryNotices()
 
-  // Structured "source tip" lead fields — optional, set only on
+  // Structured "source tip" lead fields, optional, set only on
   // category='source-tip' threads (see components/discussion/discussion.ts). They
   // turn a free-text tip into a triagable lead for the human review pipeline
   // (CONTRIBUTING.md: a source must be Identifiable, Dated, Specific, Verifiable),
-  // but a thread is STILL never auto-published into the open dataset in _data/ —
+  // but a thread is STILL never auto-published into the open dataset in _data/,
   // that stays the reviewed git-PR flow. No private contact field is ever added.
   sourceUrl  String? // a public link a reviewer can open (http/https only)
   sourceDate String? // observed/published date, ISO 'YYYY-MM-DD' (date-only, stored verbatim, mirrors ScreenedOffer.observedDate)

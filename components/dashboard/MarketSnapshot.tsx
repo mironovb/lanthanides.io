@@ -10,8 +10,8 @@
  * Deliberately omitted from THIS band: a live discussion-thread count. The board
  * lives in Prisma, and reading it here would couple this build-time, file-derived
  * readout to the database (docs/DASHBOARD-ROADMAP.md §5). The live board instead
- * reaches the dashboard lower down via the CommunityIntel panel — a client island
- * over the force-dynamic /api/dashboard/discussion route (§6) — so these four
+ * reaches the dashboard lower down via the CommunityIntel panel, a client island
+ * over the force-dynamic /api/dashboard/discussion route (§6), so these four
  * figures stay file-derived and build-safe even when the database is absent.
  *
  * Server component, presentational. No colour: the dashboard reserves colour for

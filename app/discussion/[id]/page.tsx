@@ -9,7 +9,7 @@
  * original post and an anchored, individually-linkable reply list in the main
  * column, with the reply form (or a locked notice) and a quiet dataset-boundary
  * note in the aside. A footer nav links back to the board and to sibling threads
- * in the same category — both plain links, so no extra queries are issued.
+ * in the same category, both plain links, so no extra queries are issued.
  */
 import type { Metadata } from 'next';
 import Link from 'next/link';
@@ -83,7 +83,7 @@ export async function generateMetadata({
   });
 }
 
-/** Empty reply state — branches on lock so a locked thread never invites a reply. */
+/** Empty reply state, branches on lock so a locked thread never invites a reply. */
 function RepliesEmpty({ locked }: { locked: boolean }) {
   if (locked) {
     return (
@@ -112,7 +112,7 @@ function LockedNotice() {
 }
 
 /**
- * Dataset-boundary note: kept visible on every thread but deliberately quiet —
+ * Dataset-boundary note: kept visible on every thread but deliberately quiet,
  * a muted footnote under the reply form rather than a tinted callout, so it
  * never competes with the discussion itself.
  */
@@ -125,7 +125,7 @@ function DatasetBoundaryNote() {
       <span>
         Discussion is not publication into the open dataset. Price claims,
         corrections, and source tips still go through source review before any
-        dataset change — see the{' '}
+        dataset change; see the{' '}
         <Link
           href="https://github.com/mironovb/lanthanides.io/blob/main/CONTRIBUTING.md"
           className="text-accent underline decoration-dotted underline-offset-2 hover:text-accent-strong"

@@ -1,5 +1,5 @@
 /**
- * DiscussionFilters: the board's query toolbar — a no-JS search box plus the
+ * DiscussionFilters: the board's query toolbar, a no-JS search box plus the
  * category, status, and sort facets. Everything is a plain GET form / <Link>, so
  * it works without JavaScript and stays crawlable; the server page reads the
  * resulting ?category=&status=&sort=&q= params. Each control preserves the other

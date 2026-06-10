@@ -1,10 +1,10 @@
 /**
- * /api/discussion/moderation — maintainer-only moderation endpoint.
+ * /api/discussion/moderation: the maintainer-only moderation endpoint.
  *
  * DISABLED BY DEFAULT. With DISCUSSION_MODERATION_SECRET unset, every method
  * returns 404: the endpoint does not advertise itself and offers no surface.
  * With the secret set, every call must present `Authorization: Bearer <secret>`
- * (or the `x-moderation-secret` header) — there is NO public mutation path. This
+ * (or the `x-moderation-secret` header), there is NO public mutation path. This
  * is a single shared secret for a solo maintainer, not user authentication.
  *
  *   GET  → the review queue: non-public (pending + hidden) threads and replies,
@@ -46,7 +46,7 @@ function json(body: unknown, status = 200): Response {
 
 /**
  * 404 when the endpoint is disabled (no secret configured), 401 when the secret
- * is missing or wrong, otherwise null (authorized — proceed).
+ * is missing or wrong, otherwise null (authorized, proceed).
  */
 function authGate(request: Request): Response | null {
   if (!moderationEnabled()) {

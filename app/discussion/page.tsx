@@ -131,7 +131,7 @@ export default async function DiscussionPage({
   const filtersActive = Boolean(category || status || q);
   // Distinguish "no threads exist at all" from "the filters/search excluded
   // them". Only pay for the extra count when the filtered result is empty AND a
-  // filter is active — with no filter active, an empty result already is an empty
+  // filter is active, with no filter active, an empty result already is an empty
   // board (the query is the unfiltered baseline).
   const boardEmpty =
     threads.length === 0 &&

@@ -2,7 +2,7 @@
  * /api/discussion/threads/[id]/replies: dynamic reply write path.
  *
  * By default replies publish as `visible` immediately; under pre-moderation
- * (DISCUSSION_REQUIRE_APPROVAL) they are created `pending` (held) instead — the
+ * (DISCUSSION_REQUIRE_APPROVAL) they are created `pending` (held) instead, the
  * status is always chosen server-side. The lock/hide/pending gate is the shared
  * `replyDisposition` rule: open/answered accept replies, locked threads 409, and
  * hidden/pending threads 404 (they are not public, so we do not confirm they

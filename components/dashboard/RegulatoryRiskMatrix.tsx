@@ -100,7 +100,7 @@ function CountCell({
   );
 }
 
-/** "n / N" — controlled count over the row (or table) total. */
+/** "n / N", controlled count over the row (or table) total. */
 function UnderControl({ controlled, total }: { controlled: number; total: number }) {
   return (
     <>

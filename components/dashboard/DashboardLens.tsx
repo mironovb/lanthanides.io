@@ -7,7 +7,7 @@
  * leaderboard, data coverage).
  *
  * Server-rendered with EMPTY_LENS (all panels show every element), so the whole
- * dashboard is present in the static HTML and fully usable without JavaScript —
+ * dashboard is present in the static HTML and fully usable without JavaScript,
  * filtering is pure progressive enhancement. The page stays SSG: the lens reads
  * the URL only on the client (after hydration, so there is no mismatch) and
  * writes it with the native History API, keeping a filtered view shareable
@@ -59,7 +59,7 @@ export function DashboardLens({
 
   // Adopt any shared filter from the URL once, after hydration. Done in an
   // effect (not a lazy initializer) so the server HTML and the first client
-  // render both show the full, unfiltered dashboard — no hydration mismatch.
+  // render both show the full, unfiltered dashboard, no hydration mismatch.
   useEffect(() => {
     const fromUrl = parseLensFromSearch(window.location.search);
     if (lensActive(fromUrl)) setFilters(fromUrl);

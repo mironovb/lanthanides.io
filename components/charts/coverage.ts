@@ -32,7 +32,7 @@ export const GRADE_LABEL: Record<CoverageGrade, string> = {
 /**
  * Teal density ramp: darker = more data. Standard Tailwind opacity steps only
  * (/25, /10, /5), so every class is guaranteed to emit; full literals so the
- * content scanner sees them. Monochrome on purpose — density is the only meaning,
+ * content scanner sees them. Monochrome on purpose, density is the only meaning,
  * deliberately NOT the price/risk colours.
  */
 export const GRADE_TILE: Record<CoverageGrade, string> = {

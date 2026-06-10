@@ -3,7 +3,7 @@
  *
  * POST creates a thread. By default it publishes immediately with status 'open';
  * under pre-moderation (DISCUSSION_REQUIRE_APPROVAL) it is created 'pending'
- * (held, non-public) instead — the status is always chosen server-side, never
+ * (held, non-public) instead, the status is always chosen server-side, never
  * read from the request body. There is no email/contact field, no external
  * moderation service, and no side effects beyond the Prisma write. Public DTOs
  * are contact-safe by construction. Factual price or source claims posted here

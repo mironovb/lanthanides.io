@@ -181,7 +181,7 @@ export function DiscussionThreadForm({
             Optional. Point readers at the element or control notice this thread is
             about. These are{' '}
             <span className="text-fg-muted">navigation links to reference pages</span>
-            , not dataset edits — posting here never changes the open dataset.
+            , not dataset edits. Posting here never changes the open dataset.
           </p>
 
           <div>
@@ -200,10 +200,10 @@ export function DiscussionThreadForm({
               }
               className={fieldClass(!!fieldErrors.elementSymbol)}
             >
-              <option value="">— Select element (optional) —</option>
+              <option value="">Select element (optional)</option>
               {elements.map((el) => (
                 <option key={el.symbol} value={el.symbol}>
-                  {el.symbol} — {el.name}
+                  {el.symbol} · {el.name}
                 </option>
               ))}
             </select>
@@ -227,7 +227,7 @@ export function DiscussionThreadForm({
                 }
                 className={fieldClass(!!fieldErrors.noticeId)}
               >
-                <option value="">— Select control notice (optional) —</option>
+                <option value="">Select control notice (optional)</option>
                 {notices.map((n) => (
                   <option key={n.id} value={n.id}>
                     {n.label}
@@ -246,8 +246,8 @@ export function DiscussionThreadForm({
             </legend>
             <p className={HINT}>
               Optional, but they make a tip reviewable. Source tips are{' '}
-              <span className="text-fg-muted">leads, not accepted data</span> —
-              nothing here enters the open dataset without source review and a git
+              <span className="text-fg-muted">leads, not accepted data</span>.
+              Nothing here enters the open dataset without source review and a git
               pull request.
             </p>
 
@@ -274,7 +274,7 @@ export function DiscussionThreadForm({
                 <FieldError id="dt-source-url-error" msg={fieldErrors.sourceUrl} />
               ) : (
                 <p id="dt-source-url-hint" className={HINT}>
-                  Public link only — a reviewer must be able to open it.
+                  Public link only; a reviewer must be able to open it.
                 </p>
               )}
             </div>

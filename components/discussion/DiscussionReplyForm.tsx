@@ -142,7 +142,7 @@ export function DiscussionReplyForm({
           ) : (
             <p id="dr-body-hint" className={HINT}>
               {requireApproval
-                ? 'Public text only — replies are held for maintainer review before they appear.'
+                ? 'Public text only. Replies are held for maintainer review before they appear.'
                 : 'Public text only. Factual price claims still need source review.'}
             </p>
           )}

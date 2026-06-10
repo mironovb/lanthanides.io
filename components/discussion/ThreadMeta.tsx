@@ -1,5 +1,5 @@
 /**
- * ThreadMeta: the compact "record header" for one discussion thread — category,
+ * ThreadMeta: the compact "record header" for one discussion thread, category,
  * status, reply count, author, organization, and the created/updated timestamps
  * in a single bordered definition strip, sitting directly under the page
  * masthead. It makes the thread fast to scan and cite without scattering these
@@ -122,7 +122,7 @@ export function ThreadMeta({ thread }: { thread: DiscussionThreadDTO }) {
       </dl>
       {thread.category === SOURCE_TIP_CATEGORY ? (
         <p className="mt-4 border-t border-border pt-3 text-2xs leading-relaxed text-fg-dim">
-          Source tip — an unverified lead for maintainer review, not accepted
+          Source tip: an unverified lead for maintainer review, not accepted
           data. It does not enter the open dataset without source review and a git
           pull request.
         </p>

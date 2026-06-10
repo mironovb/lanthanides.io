@@ -5,11 +5,11 @@
  * small, opt-in primitives, both OFF by default so the deployed board behaves
  * exactly as before unless an operator turns them on:
  *
- *   1. Pre-moderation (DISCUSSION_REQUIRE_APPROVAL) — when truthy, new threads
+ *   1. Pre-moderation (DISCUSSION_REQUIRE_APPROVAL), when truthy, new threads
  *      and replies are created `pending` (held, non-public) instead of publishing
  *      immediately. Only sensible if an operator is actually reviewing the queue,
  *      otherwise the board appears empty to contributors.
- *   2. Maintainer API secret (DISCUSSION_MODERATION_SECRET) — when set (≥16
+ *   2. Maintainer API secret (DISCUSSION_MODERATION_SECRET), when set (≥16
  *      chars), the secret-gated /api/discussion/moderation endpoint is enabled.
  *      When unset, that endpoint is DISABLED (404) and nothing can hide / lock /
  *      approve over HTTP. This is a single shared secret for a solo maintainer,

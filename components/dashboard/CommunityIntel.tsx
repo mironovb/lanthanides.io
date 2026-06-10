@@ -1,5 +1,5 @@
 /**
- * CommunityIntel: the dashboard's restrained "Community intelligence" panel —
+ * CommunityIntel: the dashboard's restrained "Community intelligence" panel,
  * the bridge from a data gap on the dashboard to the source tip or question that
  * could close it, without turning the dashboard into a social feed.
  *
@@ -12,7 +12,7 @@
  * It shows only public, non-hidden threads in the dashboard-actionable
  * categories (source tips, data corrections, price and regulatory questions):
  * a per-category count and the few most recent, each linking to a filtered view
- * of /discussion/. It degrades calmly — loading, empty, and "temporarily
+ * of /discussion/. It degrades calmly, loading, empty, and "temporarily
  * unavailable" all keep the panel frame and the link to the board.
  */
 'use client';
@@ -89,7 +89,7 @@ export function CommunityIntel({ className }: { className?: string }) {
     >
       <p className="max-w-prose text-sm leading-relaxed text-fg-muted">
         Source tips, data corrections, and open questions from contributors,
-        tied to the figures above. Posting here never changes the dataset —
+        tied to the figures above. Posting here never changes the dataset;
         accepted facts still go through{' '}
         <Link
           href="/methodology/"

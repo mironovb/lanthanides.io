@@ -464,7 +464,7 @@ export interface ElementCoverage {
   name: string;
   category: ElementCategory;
   quality: DataQuality | 'none'; // 'none' = no fluctuation entry / zero observations
-  observations: number; // individual (non-aggregate) observations — the grade's obs input
+  observations: number; // individual (non-aggregate) observations, the grade's obs input
   distinctDays: number; // distinct observation days across all tiers (the grade's primary driver); 0 when none
   retailAvailable: boolean; // any retail-tier observations on file
   bulkAvailable: boolean; // any bulk-tier observations on file

@@ -4,7 +4,7 @@
  *
  * This is the ONLY database read involved in the discussion-on-dashboard
  * integration. The /dashboard/ page itself stays SSG and DB-free at build time
- * (docs/DASHBOARD-ROADMAP.md §5–§6); the page renders a client island
+ * (docs/DASHBOARD-ROADMAP.md §5 to §6); the page renders a client island
  * (CommunityIntel) that fetches this route at runtime. Keeping the DB behind a
  * force-dynamic route is what lets `npm run build` stay green with no database,
  * and what insulates the static reference panels from this query's failure modes.
@@ -32,7 +32,7 @@ import {
 export const dynamic = 'force-dynamic';
 export const runtime = 'nodejs';
 
-/** How many recent threads the panel lists — a signal, not a feed. */
+/** How many recent threads the panel lists, a signal, not a feed. */
 const RECENT_LIMIT = 5;
 
 function json(body: CommunityIntelResponse, status = 200): Response {
@@ -110,7 +110,7 @@ export async function GET(): Promise<Response> {
     return json({ ok: true, threads, counts, total });
   } catch (err) {
     // Most likely the board table is not migrated in this environment. Log for
-    // diagnostics, but degrade gracefully — the dashboard must not crash.
+    // diagnostics, but degrade gracefully, the dashboard must not crash.
     console.error('[api/dashboard/discussion] query failed:', err);
     return json({ ok: false, reason: 'unavailable' });
   }

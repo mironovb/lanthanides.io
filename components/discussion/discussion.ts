@@ -45,7 +45,7 @@ export const DISCUSSION_CATEGORY_IDS: readonly DiscussionCategory[] =
 
 // Thread moderation states (enum-like Strings; the DB column is a free-form
 // String, so extending this list needs no migration). Public surfaces only ever
-// render PUBLIC_THREAD_STATUSES below — `pending` (held for maintainer review)
+// render PUBLIC_THREAD_STATUSES below, `pending` (held for maintainer review)
 // and `hidden` (removed) are both NON-public. Full model + transitions in
 // docs/DISCUSSION-MODERATION.md.
 export const THREAD_STATUSES = [
@@ -136,7 +136,7 @@ function isCategory(v: string): v is DiscussionCategory {
 
 const SOURCE_DATE_RE = /^\d{4}-\d{2}-\d{2}$/;
 
-/** A public link a reviewer can open. http/https only — never `javascript:` or
+/** A public link a reviewer can open. http/https only, never `javascript:` or
  *  `data:`, since the value is later rendered as a clickable anchor. */
 function checkSourceUrl(v: unknown): { value: string; error?: string } {
   const raw = str(v);
@@ -174,7 +174,7 @@ function checkSourceDate(v: unknown): { value: string; error?: string } {
 }
 
 /** Case-sensitive catalog symbol (e.g. 'Dy'). When the caller supplies the live
- *  catalog (`allowed`), membership is enforced — the identical rule runs on the
+ *  catalog (`allowed`), membership is enforced, the identical rule runs on the
  *  client (from the form's element list) and the server (from lib/data). Without
  *  it, fall back to a defensive shape check. */
 function checkElementSymbol(
@@ -195,7 +195,7 @@ function checkElementSymbol(
 
 /** A regulatory control notice id (e.g. 'MOFCOM No. 46/2024'). Like the element
  *  symbol, membership is enforced when the caller supplies the live notice list
- *  (`allowed`) — the same rule on the client (from the form's notice list) and
+ *  (`allowed`), the same rule on the client (from the form's notice list) and
  *  the server (from lib/data). Without it, fall back to a length bound. */
 function checkNoticeId(
   v: unknown,
@@ -268,7 +268,7 @@ export const THREAD_SORTS = [
   },
   {
     id: 'title',
-    label: 'Title A–Z',
+    label: 'Title A to Z',
     description: 'Alphabetical by thread title.',
   },
 ] as const;
@@ -309,7 +309,7 @@ export function cleanSort(value: unknown): ThreadSort {
  * length. Returns undefined for an empty query so the caller can drop the filter
  * entirely. The value is only ever passed to Prisma `contains` (a bound query
  * parameter, never string-concatenated into SQL), so there is no injection
- * surface — the cap only bounds pathological input.
+ * surface, the cap only bounds pathological input.
  */
 export function cleanSearch(value: unknown): string | undefined {
   if (typeof value !== 'string') return undefined;
@@ -444,7 +444,7 @@ export function validateThread(
 
   // Reference links are echoed + validated for every category. Source URL/date
   // are echoed for every category (so the form keeps them if the user toggles
-  // category) but only validated + persisted for source tips — see below.
+  // category) but only validated + persisted for source tips, see below.
   const elementSymbol = str(raw.elementSymbol);
   const noticeId = str(raw.noticeId);
   const sourceUrl = str(raw.sourceUrl);
@@ -477,7 +477,7 @@ export function validateThread(
     fieldErrors.body = `Keep the body under ${LIMITS.threadBodyMax} characters.`;
 
   // Reference links (element + control notice) are navigational context, valid on
-  // ANY category — validated against the live lists when supplied, dropped to null
+  // ANY category, validated against the live lists when supplied, dropped to null
   // when left blank.
   let cleanElementSymbol: string | null = null;
   const es = checkElementSymbol(elementSymbol, opts.elementSymbols);

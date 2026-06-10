@@ -2,7 +2,7 @@
 
 /**
  * CoverageTable: the data-coverage drilldown that decodes the CoverageGrid.
- * One row per element — its grade, the individual-observation count and
+ * One row per element, its grade, the individual-observation count and
  * distinct-day count the grade is computed from, which market tiers (retail /
  * bulk) back it, the observation window, and a link to the element page. It
  * turns the grid's monochrome density into explicit, sortable numbers so the
@@ -12,7 +12,7 @@
  * Renders entirely in the initial HTML via the shared SortableTable (sorting is
  * pure progressive enhancement, so the full table is present and usable without
  * JS). Coverage is a transparency feature, not an apology: thin and empty
- * coverage stay visible, and there is no trend line or movement claim here — just
+ * coverage stay visible, and there is no trend line or movement claim here, just
  * the counts behind each grade (CLAUDE.md hard rule #1).
  */
 import Link from 'next/link';
@@ -51,7 +51,7 @@ function Avail({ on, tier }: { on: boolean; tier: string }) {
   return (
     <span title={`${tier}: ${status}`}>
       <span aria-hidden="true" className={on ? 'text-fg' : 'text-fg-dim'}>
-        {on ? '✓' : '—'}
+        {on ? '✓' : '-'}
       </span>
       <span className="sr-only">{status}</span>
     </span>
@@ -59,10 +59,10 @@ function Avail({ on, tier }: { on: boolean; tier: string }) {
 }
 
 /** First-to-latest observation date (ISO, the dense-table convention). A single
- *  day shows once; no data shows an explicit dash. */
+ *  day shows once; no data shows the explicit n/a placeholder. */
 function dateRange(since: string | null, until: string | null): string {
-  if (!since && !until) return '—';
-  if (since && until) return since === until ? since : `${since} – ${until}`;
+  if (!since && !until) return 'n/a';
+  if (since && until) return since === until ? since : `${since} to ${until}`;
   return (since ?? until) as string;
 }
 
@@ -132,7 +132,7 @@ export function CoverageTable({ items }: { items: ElementCoverage[] }) {
       emptyMessage="No elements to detail."
       caption={
         <>
-          Grade reflects how many distinct days of observations back an element —{' '}
+          Grade reflects how many distinct days of observations back an element.{' '}
           <span className="text-fg-muted">rich</span>: {GRADE_DEFINITION.rich} ·{' '}
           <span className="text-fg-muted">moderate</span>:{' '}
           {GRADE_DEFINITION.moderate} ·{' '}

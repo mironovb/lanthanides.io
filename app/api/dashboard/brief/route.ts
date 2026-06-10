@@ -1,8 +1,8 @@
 /**
  * GET /api/dashboard/brief: a structured, machine-readable capture of the
- * /dashboard/ market overview — the China export-control posture, the
+ * /dashboard/ market overview, the China export-control posture, the
  * retail-vs-bulk premium leaderboard, price-data coverage, and the movement-event
- * summary the dashboard renders — serialized so a reader can capture the current
+ * summary the dashboard renders, serialized so a reader can capture the current
  * state without taking a screenshot or scraping the page.
  *
  * Every figure is derived at build time from the versioned `_data/` reference
@@ -16,8 +16,8 @@
  * a private Listing / Subscription / ScreenedOffer row.
  *
  * Cache-safe: pre-rendered at build (`force-static`) and served with a public
- * `Cache-Control`. It captures the FULL, unfiltered ledger — the same set the
- * page renders before its client-side element lens narrows it — so the response
+ * `Cache-Control`. It captures the FULL, unfiltered ledger, the same set the
+ * page renders before its client-side element lens narrows it, so the response
  * is stable and shareable. Licensed CC BY 4.0, surfaced in both the response
  * headers and the body, matching the open-data export at /api/export/[format].
  */
@@ -39,7 +39,7 @@ import { SITE_URL } from '@/lib/seo';
 export const dynamic = 'force-static';
 
 const LICENSE_URL = 'https://creativecommons.org/licenses/by/4.0/';
-const ATTRIBUTION = 'lanthanides.io — Strategic Materials Ledger';
+const ATTRIBUTION = 'lanthanides.io · Strategic Materials Ledger';
 
 /**
  * Assemble the brief object from the typed data layer. Pure read: every value is
@@ -64,16 +64,16 @@ function buildBrief() {
     snapshot.regulatory.active + snapshot.regulatory.suspended;
 
   return {
-    title: 'lanthanides.io — Market Dashboard brief',
+    title: 'lanthanides.io · Market Dashboard brief',
     description:
-      'A machine-readable capture of the /dashboard/ market overview: China export-control posture, retail-vs-bulk price premiums, and price-data coverage. Every figure is derived from the versioned open dataset — no fabricated values, no private database rows.',
+      'A machine-readable capture of the /dashboard/ market overview: China export-control posture, retail-vs-bulk price premiums, and price-data coverage. Every figure is derived from the versioned open dataset: no fabricated values, no private database rows.',
     dashboard_url: `${SITE_URL}/dashboard/`,
     // The freshness anchor: the fluctuations dataset's generation timestamp, the
     // same "data as of" stamp the dashboard masthead shows. Not "now".
     data_as_of: dataAsOf,
     view: 'full_ledger',
     view_note:
-      'The complete, unfiltered ledger — the same set the dashboard renders before its element lens (category / export-control) narrows it client-side. This brief is intentionally unfiltered so the response stays cache-safe and stable.',
+      'The complete, unfiltered ledger, the same set the dashboard renders before its element lens (category / export-control) narrows it client-side. This brief is intentionally unfiltered so the response stays cache-safe and stable.',
     license: {
       id: 'CC-BY-4.0',
       name: 'Creative Commons Attribution 4.0 International',
@@ -102,7 +102,7 @@ function buildBrief() {
       tracked_elements: snapshot.total,
       sourced_price_records: records.length,
       sourced_price_records_note:
-        'Carry a seller, date, and source each — sourced into the dataset, not all independently verified.',
+        'Carry a seller, date, and source each; sourced into the dataset, not all independently verified.',
       priced_in_both_tiers: premiums.length,
       under_china_controls: underChinaControls,
       under_china_controls_note:

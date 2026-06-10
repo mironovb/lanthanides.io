@@ -1,5 +1,5 @@
 /**
- * ThreadRefs: the linked-reference chips for one discussion thread — an element
+ * ThreadRefs: the linked-reference chips for one discussion thread, an element
  * chip (to its reference page) and a control-notice chip (to that notice on the
  * regulatory tracker). Shared by the board list and the thread detail header so
  * both render the links identically.
