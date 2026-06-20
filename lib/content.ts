@@ -87,6 +87,8 @@ export interface ArticleFrontMatter {
   image?: string; // hero image filename under /assets/images/
   image_thumb?: string; // card thumbnail filename
   image_alt?: string;
+  image_w?: number; // hero intrinsic width (defaults to 1200 at render)
+  image_h?: number; // hero intrinsic height (defaults to 721 at render)
 }
 
 export interface ArticleContent {

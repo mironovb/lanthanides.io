@@ -6,6 +6,11 @@ keywords: "rare earth retail premium, rare earth prices explained, why are rare 
 date: 2026-04-05
 status: active
 elements: [La, Ce, Nd, Pr, Dy, Tb, Gd, Ho, Er, Tm, Sc, Y, Eu, Sm, Yb]
+image: retail-premium-1200.jpg
+image_thumb: retail-premium-600.jpg
+image_alt: "A glass display case of collector-grade rare earth metal samples sealed in labelled ampoules on brass stands, each with a retail price plaque (Nd, Eu, Sm, Gd, Lu)."
+image_w: 1200
+image_h: 793
 ---
 
 A 10mm neodymium cube from a US collector seller costs approximately $20,000 per kilogram. Neodymium oxide on Alibaba trades at $70 to 120/kg FOB China. That is a ratio of roughly **200:1**. Even accounting for the cost of reducing oxide to metal, the retail-to-bulk spread for rare earths routinely exceeds 10x and frequently surpasses 50x.

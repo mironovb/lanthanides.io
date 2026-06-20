@@ -6,6 +6,11 @@ keywords: "eBay rare earth prices, Alibaba rare earth, retail rare earth pricing
 date: 2026-04-04
 status: active
 elements: [La, Ce, Nd, Pr, Dy, Tb, Gd, Ho, Tm, Sc, Eu, Er, Y, Sm, Yb, Te, Ga, Ge, In, Co, Bi, W, Zr, V, Nb]
+image: ebay-market-research-1200.jpg
+image_thumb: ebay-market-research-600.jpg
+image_alt: "A magnifying glass enlarging an eBay product listing for a thulium metal specimen priced at €1,250.00, with a ruler-scale photo and Buy It Now controls."
+image_w: 1200
+image_h: 946
 ---
 
 Rare earths are not hard to find on eBay. They are hard to find *cheaply*. A 10mm neodymium cube from a US collector seller costs $19,857 per kilogram. The same metal in 2 kg ingot form from a German industrial supplier costs $1,231/kg. On Alibaba, the FOB China price for 99.9% neodymium ingot is $80 to 380/kg. The retail premium ranges from **15x to over 100x** depending on element, form, and platform.

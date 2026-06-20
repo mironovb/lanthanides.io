@@ -197,8 +197,8 @@ export default function ArticlePage({ params }: { params: Params }) {
               <Image
                 src={`/assets/images/${fm.image}`}
                 alt={fm.image_alt ?? fm.title}
-                width={1200}
-                height={721}
+                width={fm.image_w ?? 1200}
+                height={fm.image_h ?? 721}
                 sizes="(max-width: 768px) 100vw, 736px"
                 priority
                 className="h-auto w-full"
