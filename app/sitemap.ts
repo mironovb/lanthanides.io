@@ -20,9 +20,7 @@ type ChangeFreq = MetadataRoute.Sitemap[number]['changeFrequency'];
 // [path, priority, changeFrequency], ordered roughly by importance.
 const STATIC_PAGES: Array<[string, number, ChangeFreq]> = [
   ['/', 1.0, 'daily'],
-  ['/elements/', 0.9, 'daily'],
   ['/regulatory/', 0.9, 'daily'],
-  ['/dashboard/', 0.8, 'daily'],
   ['/data/', 0.8, 'weekly'],
   ['/framework/', 0.7, 'weekly'],
   ['/news/', 0.7, 'weekly'],

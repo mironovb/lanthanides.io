@@ -19,10 +19,9 @@ export interface NavItem {
   raw?: boolean;
 }
 
-/** The header: Prices first (the core), then the other sections. */
+/** The header. Prices points home: the landing page IS the price ledger. */
 export const NAV_LINKS: NavItem[] = [
-  { href: '/elements/', label: 'Prices' },
-  { href: '/dashboard/', label: 'Dashboard' },
+  { href: '/', label: 'Prices' },
   { href: '/regulatory/', label: 'Regulatory' },
   { href: '/news/', label: 'News' },
   { href: '/data/', label: 'Open Data' },
@@ -40,8 +39,7 @@ export const CONTRIBUTE_CTA: NavItem = {
  * stay out of the header (Methodology, Framework, Price Gauge, Contribute).
  */
 export const FOOTER_LINKS: NavItem[] = [
-  { href: '/elements/', label: 'Prices' },
-  { href: '/dashboard/', label: 'Dashboard' },
+  { href: '/', label: 'Prices' },
   { href: '/regulatory/', label: 'Regulatory' },
   { href: '/news/', label: 'News' },
   { href: '/data/', label: 'Open Data' },

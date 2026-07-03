@@ -60,14 +60,11 @@ export function Hero({
         .
       </p>
 
-      {/* The two site actions, big and unmissable: add an observation, or
-          browse the directory the observations assemble into. */}
-      <div className="mt-6 flex flex-wrap items-center gap-3">
+      {/* The primary action, big and unmissable; the full price ledger sits
+          directly below it on this page. */}
+      <div className="mt-6">
         <LinkButton href="/contribute/" variant="primary" size="lg">
           <span aria-hidden="true">+</span> Add a price
-        </LinkButton>
-        <LinkButton href="/elements/" variant="secondary" size="lg">
-          Browse all {totalElements} element prices
         </LinkButton>
       </div>
 

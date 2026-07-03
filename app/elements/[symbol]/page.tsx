@@ -101,8 +101,7 @@ export default function ElementDetailPage({ params }: { params: Params }) {
       />
       <BreadcrumbJsonLd
         items={[
-          { name: 'Home', path: '/' },
-          { name: 'Prices', path: '/elements/' },
+          { name: 'Prices', path: '/' },
           {
             name: `${element.symbol} · ${element.name}`,
             path: `/elements/${element.symbol}/`,
@@ -112,8 +111,7 @@ export default function ElementDetailPage({ params }: { params: Params }) {
       <Breadcrumbs
         className="mb-5"
         items={[
-          { label: 'Home', href: '/' },
-          { label: 'Prices', href: '/elements/' },
+          { label: 'Prices', href: '/' },
           { label: `${element.symbol} · ${element.name}` },
         ]}
       />

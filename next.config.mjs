@@ -6,13 +6,13 @@ const nextConfig = {
 
   async redirects() {
     return [
-      // MIGRATION §3.5: the one page URL that changes. The legacy interactive
-      // "Ledger" (/prices/) is merged into the canonical /elements/ directory.
+      // The legacy /prices/ ledger lives on the landing page now (the home
+      // page IS the price directory since the 2026-07 consolidation).
       // statusCode: 301 (not `permanent: true`, which emits 308) to honour the
       // documented 301 contract verbatim.
       {
         source: '/prices',
-        destination: '/elements/',
+        destination: '/',
         statusCode: 301,
       },
       // The About page doubles as the investor-facing About/Vision page
@@ -64,12 +64,12 @@ const nextConfig = {
         statusCode: 301,
       },
       // 2026-07-03 simplification: the Market Movements feed was scrapped (its
-      // detection windows are too thin to be worth a surface; the dashboard is
-      // the market overview). The page 301s to the dashboard; the Atom feed
-      // 301s to the surviving news feed so subscribed readers keep resolving.
+      // detection windows are too thin to be worth a surface). The page 301s
+      // home; the Atom feed 301s to the surviving news feed so subscribed
+      // readers keep resolving.
       {
         source: '/movements',
-        destination: '/dashboard/',
+        destination: '/',
         statusCode: 301,
       },
       {
@@ -82,6 +82,25 @@ const nextConfig = {
       {
         source: '/sources',
         destination: '/methodology/',
+        statusCode: 301,
+      },
+      // 2026-07-03 consolidation: the landing page IS the price ledger, so the
+      // /elements index merged into / (element detail pages keep their URLs;
+      // the category anchors moved with the grid, and fragments survive a 301).
+      // The dashboard was removed outright; its brief API follows the exports.
+      {
+        source: '/elements',
+        destination: '/',
+        statusCode: 301,
+      },
+      {
+        source: '/dashboard',
+        destination: '/',
+        statusCode: 301,
+      },
+      {
+        source: '/api/dashboard/brief',
+        destination: '/api/export/json/',
         statusCode: 301,
       },
     ];

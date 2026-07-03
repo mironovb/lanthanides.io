@@ -63,9 +63,8 @@ export default function DataPage() {
   note         = {Open data, CC BY 4.0. Version of ${versionDate}.}
 }`;
 
-  // The one dataset view kept here: coverage honesty (how much data backs each
-  // element). Market analysis views (premiums, control posture) live on
-  // /dashboard so no block renders on two pages.
+  // The one dataset view kept here: coverage honesty (how much data backs
+  // each element). Per-element market detail lives on the element pages.
   const coverage = getElementCoverage();
   const coverageTally = getCoverageTally();
 
@@ -147,7 +146,7 @@ export default function DataPage() {
       <section className="mt-12">
         <SectionHeading
           title="Coverage by element"
-          description="How much price data backs each element. Each tile links to its element page. Market views (premiums, control posture) live on the dashboard."
+          description="How much price data backs each element. Each tile links to its element page."
         />
         <CoverageGrid items={coverage} tally={coverageTally} />
       </section>

@@ -27,7 +27,7 @@ export default function NotFound() {
         <LinkButton href="/" variant="primary">
           Home
         </LinkButton>
-        <LinkButton href="/elements/">Elements &amp; prices</LinkButton>
+        <LinkButton href="/">All prices</LinkButton>
         <LinkButton href="/regulatory/">Regulatory tracker</LinkButton>
       </div>
     </Container>

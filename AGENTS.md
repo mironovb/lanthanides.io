@@ -53,6 +53,13 @@ the versioned dataset. Citable, scientific, no hype.
 > (301). Header nav: Prices · Dashboard · Regulatory · News · Open Data ·
 > About + the Add-a-price CTA; one footer row carries the rest (incl.
 > Framework and Price Gauge).
+>
+> 2026-07-03 consolidation (user-ordered): the element tile grid is BACK on
+> the landing page, which absorbed the /elements index (grouped category
+> sections + legend + anchors; /elements and /prices 301 home). The
+> **dashboard is nuked** (page, components, PremiumLeaderboard, the brief
+> API; /dashboard 301s home). Header nav: Prices(/) · Regulatory · News ·
+> Open Data · About + CTA.
 
 ## Stack
 
@@ -153,23 +160,22 @@ docs/         AUDIT.md, MIGRATION.md, ARCHITECTURE.md, DEPLOYMENT.md, …
 
 | Route | Render | Old URL |
 |:--|:--|:--|
-| `/` | SSG | `/` |
-| `/elements` | SSG | `/elements/` (+ `/prices/` 301→here) |
+| `/` | SSG | `/` — the landing page IS the price ledger (hero + grouped element grid; `/prices` + `/elements` 301→here, category anchors preserved) |
 | `/elements/[symbol]` | SSG (31, case-sensitive) | `/elements/<Symbol>/` |
 | `/regulatory` | SSG | `/regulatory/` |
 | `/framework` | SSG | `/framework/` (preserve anchors) |
 | `/methodology` · `/about` | SSG | same `/…/` (methodology now hosts the source registry) |
 | `/news` · `/news/[slug]` | SSG (5 articles) | `/news/…/` |
-| `/dashboard` | ISR | `/dashboard/` |
 | `/data` | SSG | — (new open-data landing, incl. citation block) |
 | `/contribute` | SSG | — (the growth loop: the Add-a-price form) |
 | `/tools/price-gauge` | Dynamic | — (file-derived estimator, no DB) |
 | `/sitemap.xml` · `/robots.txt` · `/feed.xml` | Handler | same exact path |
-| `/api/price-gauge` · `/api/export/[format]` · `/api/dashboard/brief` | Handler | — (all file-derived) |
+| `/api/price-gauge` · `/api/export/[format]` | Handler | — (all file-derived) |
 | `/api/contributions` | Handler | — (POST-only inbox write; the ONE DB surface) |
 | `/sell` · `/offers` · `/alerts` · `/discussion` | **301** | removed 2026-07-02 → `/contribute/`, `/data/`, `/regulatory/`, `/contribute/` |
 | `/movements` · `/movements.xml` | **301** | scrapped 2026-07-03 → `/dashboard/`, `/feed.xml` |
 | `/sources` | **301** | merged 2026-07-03 → `/methodology/` (registry table moved there) |
+| `/elements` · `/dashboard` · `/api/dashboard/brief` | **301** | consolidated/nuked 2026-07-03 → `/`, `/`, `/api/export/json/` |
 
 ## Design tokens (baseline — Prompt 3)
 
