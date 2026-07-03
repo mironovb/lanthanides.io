@@ -3,10 +3,8 @@
  * element's retail and bulk tiers across 7d / 30d / 90d / 1y windows. A port of
  * legacy/_includes/price-movement-panel.html.
  *
- * Note (AUDIT §3): this is a *table*, not the per-observation line chart. The
- * line chart is deliberately deferred to Prompts 9 to 10. Missing windows render as
- * "n/a" rather than a fabricated zero; the panel renders nothing when the element
- * has no fluctuation entry. Composes the shared Panel primitive (Prompt 12).
+ * Missing windows render as "n/a", never a fabricated zero; the panel renders
+ * nothing when the element has no fluctuation entry.
  */
 import { Panel } from '@/components/ui';
 import { capitalize, formatDate } from '@/lib/format';

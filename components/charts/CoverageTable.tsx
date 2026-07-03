@@ -144,9 +144,8 @@ export function CoverageTable({ items }: { items: ElementCoverage[] }) {
       }
       footnote={
         <>
-          {rows.length} element{rows.length === 1 ? '' : 's'} · sorted by distinct
-          days; click any header to re-sort. Retail and Bulk mark whether that
-          tier has any observations on file
+          {rows.length} element{rows.length === 1 ? '' : 's'} · Retail and Bulk
+          mark whether that tier has any observations on file
           {labBacked.length > 0
             ? ` · lab-tier data backs ${labBacked.join(', ')}`
             : ''}

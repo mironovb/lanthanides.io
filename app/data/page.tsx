@@ -23,7 +23,7 @@ import {
 } from '@/lib/data';
 import { buildMetadata, SITE_URL } from '@/lib/seo';
 import { BreadcrumbJsonLd, DatasetJsonLd } from '@/components/seo';
-import { Container, PageHeader, StoryLink } from '@/components/layout';
+import { Container, PageHeader } from '@/components/layout';
 import { Callout, SectionHeading, Stat, StatGrid } from '@/components/ui';
 import { CoverageGrid } from '@/components/charts/CoverageGrid';
 import { MarketStructure } from '@/components/charts/MarketStructure';
@@ -137,15 +137,8 @@ export default function DataPage() {
         crumbs={[{ label: 'Home', href: '/' }, { label: 'Open Data' }]}
         eyebrow="Open Data"
         title="Open Data"
-        lead="The full dataset behind lanthanides.io is open. Every price carries its source; nothing is fabricated or interpolated. The data lives as versioned files in git, and is served here as JSON and CSV exports."
-      >
-        <StoryLink>
-          See any record in context on its{' '}
-          <Link href="/elements/">element page</Link>, or the controls that
-          shape the market in the{' '}
-          <Link href="/regulatory/">Regulatory Tracker</Link>.
-        </StoryLink>
-      </PageHeader>
+        lead="The full dataset behind lanthanides.io is open, and every price carries its source. Download it here as JSON or CSV."
+      />
 
       {/* ── Coverage ─────────────────────────────────────────────────────── */}
       <StatGrid cols={5} className="mt-10">
@@ -156,30 +149,13 @@ export default function DataPage() {
 
       {/* ── Views of the dataset (rebuilt, data-honest visualizations, P10) ─ */}
       <section className="mt-12">
-        <SectionHeading
-          title="Views of the dataset"
-          description={
-            <>
-              Views derived from the data below. Each states its own sample
-              size; nothing is drawn that the data cannot support. (Price
-              trend lines live on each element page and appear only once a tier has
-              enough distinct observation days. See{' '}
-              <Link
-                href="/methodology/"
-                className="text-fg underline decoration-dotted underline-offset-2 hover:text-accent-strong"
-              >
-                methodology
-              </Link>
-              .)
-            </>
-          }
-        />
+        <SectionHeading title="Views of the dataset" />
 
         <div className="mt-8">
           <SectionHeading
             as="h3"
             title="Coverage by element"
-            description="How much price data backs each tracked element. Thin coverage is shown, not hidden; transparency about data density is part of the provenance-first model. Each tile links to the element."
+            description="How much price data backs each element. Each tile links to its element page."
           />
           <CoverageGrid items={coverage} tally={coverageTally} />
         </div>
@@ -263,9 +239,8 @@ export default function DataPage() {
         <p className="max-w-prose text-sm leading-relaxed text-fg-muted">
           The exports above are generated from the versioned reference data in the
           repository&rsquo;s{' '}
-          <code className="font-mono text-xs">_data/</code> directory. The export
-          API regenerates from those files on every build, so a download can never
-          drift from what the site renders. Browse or fork the raw data:
+          <code className="font-mono text-xs">_data/</code> directory. Browse or
+          fork the raw data:
         </p>
         <p className="mt-3 flex flex-wrap gap-x-5 gap-y-2 text-sm">
           <a
@@ -293,10 +268,9 @@ export default function DataPage() {
           title="Cite this dataset"
           description={
             <>
-              The dataset carries no DOI; cite it by its version date (the
-              generation stamp of the data files, shown below) and the date you
-              accessed it. How each value is collected, normalised, and verified
-              is documented in the <Link href="/methodology/">methodology</Link>.
+              The dataset carries no DOI; cite it by its version date, shown
+              below, and the date you accessed it. Collection and verification
+              are documented in the <Link href="/methodology/">methodology</Link>.
             </>
           }
         />
@@ -323,8 +297,7 @@ export default function DataPage() {
             repository
           </a>
           . For a specific record, cite its record id and the element&rsquo;s
-          provenance table, where every observation lists its seller, date, and
-          source.
+          provenance table.
         </p>
       </section>
 

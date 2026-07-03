@@ -167,8 +167,7 @@ export function PriceGaugeForm({
             className={fieldClass(false)}
           />
           <p id="pg-purity-hint" className={HINT}>
-            Optional. Soft-weights the estimate toward like-purity records; it
-            never adds a fabricated purity premium.
+            Optional. Weights the estimate toward like-purity records.
           </p>
         </div>
 
@@ -221,8 +220,8 @@ export function PriceGaugeForm({
             </p>
           ) : (
             <p id="pg-quantity-hint" className={HINT}>
-              Sets the tier: under 25 kg → retail, 25 kg and up → bulk. Leave
-              blank to default to retail.
+              Under 25 kg is retail, 25 kg and up is bulk. Blank defaults to
+              retail.
             </p>
           )}
         </div>
@@ -253,8 +252,8 @@ export function PriceGaugeForm({
             </p>
           ) : (
             <p id="pg-tier-hint" className={HINT}>
-              Force a band regardless of quantity. Retail and bulk are separate
-              markets and are never averaged together.
+              Force a tier regardless of quantity. Retail and bulk are never
+              mixed.
             </p>
           )}
         </div>

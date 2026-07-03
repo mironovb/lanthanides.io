@@ -15,8 +15,7 @@ import {
   getRegulatedAndSuspendedElements,
   getRegulatoryNotices,
 } from '@/lib/data';
-import Link from 'next/link';
-import { Container, PageHeader, StoryLink } from '@/components/layout';
+import { Container, PageHeader } from '@/components/layout';
 import { Callout } from '@/components/ui';
 import { RegulatoryView } from '@/components/regulatory/RegulatoryView';
 
@@ -66,14 +65,8 @@ export default function RegulatoryPage() {
         crumbs={[{ label: 'Home', href: '/' }, { label: 'Regulatory Tracker' }]}
         eyebrow="Export Controls"
         title="China Rare Earth Export Controls Tracker"
-        lead="Every published Chinese export-control announcement affecting rare earths, strategic metals, and semiconductor materials since 2023. Each entry lists the announcement number, effective date, affected elements, and current status. Filter by element to narrow the page to the controls that touch it."
-      >
-        <StoryLink>
-          Jump to any controlled element in the{' '}
-          <Link href="/elements/">directory</Link>, or see the market shape on
-          the <Link href="/dashboard/">dashboard</Link>.
-        </StoryLink>
-      </PageHeader>
+        lead="Every published Chinese export-control announcement affecting rare earths, strategic metals, and semiconductor materials since 2023. Filter by element to see the controls that touch it."
+      />
 
       <RegulatoryView
         notices={notices}
@@ -81,7 +74,7 @@ export default function RegulatoryPage() {
         filterElements={filterElements}
       />
 
-      {/* ── Key legal references ──────────────────────────────────────── */}
+      {/* Key legal references */}
       <Callout
         tone="note"
         glyph={null}

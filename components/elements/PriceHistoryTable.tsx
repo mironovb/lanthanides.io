@@ -1,26 +1,13 @@
 'use client';
 
 /**
- * Price History: a sortable TABLE of an element's dated price observations
- * (date · tier · form · USD/kg · source). This is the deliberate replacement
- * for the legacy per-element inline-SVG price-history line chart
- * (legacy/_includes/price-chart.html + legacy/assets/js/charts.js), per
- * docs/AUDIT.md §3 (#1) and docs/VISUALIZATION-AUDIT.md.
- *
- * Why a table, never a line: across the catalog the price series is essentially
- * two collection days. 29 of 31 elements have ≤2 distinct observation days, and
- * the richest has 3. A polyline drawn through ≤2 points is either flat, choppy,
- * or reads as a trend the data cannot support. So we draw NO line at any point
- * count; we list every observation and state the sample size honestly.
- *
- * Derived `median_aggregate` rows are excluded. They are computed daily medians,
- * not recorded offers, and would double-count the raw listings they summarise
- * (the legacy chart excluded them too). Renders nothing when an element has no
- * recorded raw observation, so no empty section ever ships.
- *
- * Mirrors ProvenanceTable: a single client island so headers sort in place, but
- * fully present in the SSR HTML (works without JS, stays crawlable). No I/O.
- * Composes Panel + the shared Table primitives (Prompt 12).
+ * Price History: a sortable table of an element's dated price observations
+ * (date, tier, form, USD/kg, source). It replaces the legacy line chart
+ * because most elements have observations on at most 2 distinct days, too few
+ * to support a line (docs/VISUALIZATION-AUDIT.md). Derived `median_aggregate`
+ * rows are excluded so raw listings are not double-counted; renders nothing
+ * when there are no recorded observations. Client island so headers sort in
+ * place, fully present in the SSR HTML.
  */
 import { useMemo, useState } from 'react';
 import type { PriceHistory, PriceObservation } from '@/lib/types';
@@ -163,10 +150,8 @@ export function PriceHistoryTable({
       </Table>
 
       <p className="mt-3 text-xs leading-relaxed text-fg-muted">
-        {elementName} price observations as a dated table, not a trend line: the
-        series is too sparse and unevenly spaced ({sample}) to plot without
-        implying movement between points that was never observed. Click a column
-        to sort.
+        The {elementName} series is too sparse to chart as a trend line, so
+        each observation is listed instead.
       </p>
     </Panel>
   );

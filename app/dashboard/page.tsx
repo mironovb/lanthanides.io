@@ -1,30 +1,15 @@
 /**
- * /dashboard: Market Dashboard. A single screen overview of the ledger: the
- * regulatory snapshot (export control posture and state), the retail premium
- * leaderboard, and the data coverage map. Every figure is derived from `_data/`
- * via lib/data. Nothing here is editorial or fabricated (CLAUDE.md hard rule #1).
+ * /dashboard: Market Dashboard. One screen over the ledger: the regulatory
+ * risk matrix, the retail premium leaderboard, and the data coverage map.
+ * Every figure is derived from `_data/` via lib/data (CLAUDE.md hard rule #1).
  *
- * An element lens (category + China export-control posture) scopes those three
- * panels. It is a client island (DashboardLens) so the page stays SSG: the full
- * dashboard renders unfiltered in the static HTML (usable without JS), the lens
- * filters client-side, and the selection is mirrored to the URL query so a
- * filtered view is shareable (canonical /dashboard/ when cleared). The
- * regulatory snapshot's counts are recomputed within the filter and labelled as
- * such, never silently narrowed.
+ * An element lens (category + China export-control posture) scopes the panels.
+ * It is a client island (DashboardLens) so the page stays SSG: the full
+ * dashboard renders unfiltered in the static HTML, the lens filters
+ * client-side, and the selection mirrors to the URL query.
  *
- * There is no "30-day movers" board. The two distinct day windows that fed it
- * produce oxide to metal artefacts (for example La 30d +761,400%), not real
- * moves (docs/VISUALIZATION-AUDIT.md section 2). The movements feed page built
- * on those windows was scrapped in the 2026-07 simplification for the same
- * reason: too thin to be worth a surface.
- *
- * Rendered SSG, like every other reference surface: the data layer memoises its
- * `_data/` reads per process (lib/data/load.ts), so a fresh build is what picks
- * up new data. Reference data now lands via reviewed PRs (the weekly
- * price-update workflow and the manual community intake), and Vercel rebuilds on
- * merge; the old 6-hourly regulatory-monitor commit was removed, so there is no
- * intraday auto-rebuild (docs/DEPLOYMENT.md section 8). An ISR revalidate would
- * only re-render against the same cached snapshot, so it is left off.
+ * SSG with no ISR revalidate: the data layer memoises `_data/` per process, so
+ * new data arrives via merge and rebuild (docs/DEPLOYMENT.md section 8).
  */
 import type { Metadata } from 'next';
 import Link from 'next/link';
@@ -37,7 +22,7 @@ import {
   getPremiumLeaderboard,
   getPriceRecords,
 } from '@/lib/data';
-import { Container, PageHeader, StoryLink } from '@/components/layout';
+import { Container, PageHeader } from '@/components/layout';
 import { Callout } from '@/components/ui';
 import { MarketSnapshot } from '@/components/dashboard/MarketSnapshot';
 import { DashboardLens } from '@/components/dashboard/DashboardLens';
@@ -88,12 +73,10 @@ export default function DashboardPage() {
         crumbs={[{ label: 'Home', href: '/' }, { label: 'Market Dashboard' }]}
         eyebrow="Data"
         title="Market Dashboard"
-        lead="An overview of the strategic materials market: where Chinese export control concentrates, how steep the retail markup runs over wholesale, and how much price data backs each element. Every figure is derived from the underlying observations."
+        lead="An overview of the strategic materials market: where Chinese export control concentrates, how steep the retail markup runs over wholesale, and how much price data backs each element."
         actions={
           <>
-            {/* Brief: capture the dashboard's current derived facts as a
-                structured, cache-safe JSON snapshot (no DB rows, CC BY 4.0).
-                Plain <a>: it resolves to a route handler, not a page. */}
+            {/* Plain <a>: the brief resolves to a route handler, not a page. */}
             <a
               href="/api/dashboard/brief/"
               className="text-xs text-accent hover:text-accent-strong"
@@ -108,13 +91,7 @@ export default function DashboardPage() {
             </Link>
           </>
         }
-      >
-        <StoryLink>
-          See the detail behind these numbers in the{' '}
-          <Link href="/regulatory/">Regulatory Tracker</Link>, or every record
-          behind them in <Link href="/elements/">the element directory</Link>.
-        </StoryLink>
-      </PageHeader>
+      />
 
       {/* Snapshot band: headline ledger figures, all derived from _data/ */}
       <MarketSnapshot
@@ -126,25 +103,13 @@ export default function DashboardPage() {
         generatedAt={generatedAt}
       />
 
-      {/* Scope: set expectations that this is a derived, build-time snapshot */}
       <Callout tone="note" title="Dashboard scope" className="mt-8">
-        A build-time overview of the open dataset, not a live market feed. Every
-        figure is derived from the underlying{' '}
-        <span className="font-mono">_data/</span> observations as of the data
-        date shown above, and refreshes only when a data update is merged and the
-        site is rebuilt. Capture this snapshot as a structured{' '}
-        <a
-          href="/api/dashboard/brief/"
-          className="text-accent hover:text-accent-strong"
-        >
-          brief
-        </a>
-        : the derived facts only, licensed CC BY 4.0, no private data.
+        A build-time overview of the open dataset, not a live market feed.
+        Figures refresh when a data update is merged and the site is rebuilt.
       </Callout>
 
-      {/* Element lens + the three filterable panels (snapshot, premiums,
-          coverage). The lens is a client island so the page stays SSG; it is
-          SSR'd unfiltered, so the full dashboard is present without JS. */}
+      {/* Element lens + the three filterable panels, SSR'd unfiltered so the
+          full dashboard is present without JS. */}
       <DashboardLens
         elements={elementMeta}
         premiums={premiums}

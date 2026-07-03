@@ -1,14 +1,8 @@
 /**
- * MarketSnapshot: a compact band of headline ledger figures at the top of
- * /dashboard, so an analyst can read the shape of the dataset before scrolling
- * into the detail panels. Not a hero: a dense, monochrome readout.
- *
- * Every value is derived from the versioned _data/ files via lib/data and passed
- * in as a prop; nothing here is fabricated (CLAUDE.md hard rule #1). A value that
- * cannot be resolved renders as "n/a", never blank, so a gap is shown not hidden.
- *
- * Server component, presentational. No colour: the dashboard reserves colour for
- * the regulatory risk scale, so a plain count band stays monochrome.
+ * MarketSnapshot: the compact band of headline ledger figures at the top of
+ * /dashboard. Every value is derived from _data/ via lib/data and passed in as
+ * a prop (CLAUDE.md hard rule #1); an unresolvable value renders "n/a".
+ * Server component, presentational, monochrome.
  */
 import { Stat, StatGrid, cn } from '@/components/ui';
 import { formatDate } from '@/lib/format';

@@ -62,7 +62,7 @@ export function RegulatoryView({
         <SectionHeading
           title="Active Control Regimes"
           count={visibleNotices.length}
-          description="Each card represents a distinct regulatory action. Status reflects the current state of each control regime."
+          description="One card per regulatory action, with its current status."
         />
 
         {visibleNotices.length > 0 ? (
@@ -80,7 +80,7 @@ export function RegulatoryView({
         <SectionHeading
           title="Announcement Timeline"
           count={visibleEvents.length}
-          description="All published Chinese export-control announcements affecting rare earths, strategic metals, and semiconductor materials, newest first."
+          description="Newest first."
         />
 
         {visibleEvents.length > 0 ? (

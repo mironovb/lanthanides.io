@@ -1,11 +1,8 @@
 /**
  * /about: a plain description of what lanthanides.io is (SSG).
  *
- * Matches the old static about page: what the site is, why it exists, the
- * principles, the live coverage stats from the data layer, how to contribute,
- * and a real contact address. The investor "vision" split (Part 01 / Part 02,
- * the staged roadmap table, the marketplace cards) was dropped in the redesign
- * pass so the page reads like the calm reference page it has always been.
+ * What the site is, why it exists, the principles, the live coverage stats
+ * from the data layer, how to contribute, and a real contact address.
  *
  * `/vision` still resolves here via the 301 in next.config.mjs.
  *
@@ -21,7 +18,7 @@ import {
   getPriceRecords,
   getSources,
 } from '@/lib/data';
-import { Container, PageHeader, StoryLink } from '@/components/layout';
+import { Container, PageHeader } from '@/components/layout';
 import { SectionHeading, Stat, StatGrid } from '@/components/ui';
 
 const GITHUB = 'https://github.com/mironovb/lanthanides.io';
@@ -107,42 +104,31 @@ export default function AboutPage() {
         crumbs={[{ label: 'Home', href: '/' }, { label: 'About' }]}
         eyebrow="The project"
         title="About"
-        lead="Independent, open-access pricing and intelligence for rare earth and strategic metals. No subscriptions, no paywalls. Real prices with source provenance."
-      >
-        <StoryLink>
-          See the data itself in the{' '}
-          <Link href="/elements/">element directory</Link>, or how it is
-          collected in <Link href="/methodology/">Methodology</Link>.
-        </StoryLink>
-      </PageHeader>
+        lead="Independent, open-access pricing and intelligence for rare earth and strategic metals. Real prices with source provenance, no subscriptions, no paywalls."
+      />
 
       {/* ── What this is ─────────────────────────────────────────────────── */}
       <section className="mt-12 max-w-prose">
         <SectionHeading title="What this is" />
         <div className="space-y-3 text-base leading-relaxed text-fg-muted">
           <p>
-            <strong className="font-semibold text-fg">lanthanides.io</strong> is
-            an independent, open-access pricing and intelligence platform for rare
-            earth elements and strategic metals, built and maintained by an
-            independent researcher. It tracks real-world prices with full source
-            provenance. Every price is tied to a specific seller, date, quantity,
-            and verification status.
+            <strong className="font-semibold text-fg">lanthanides.io</strong>{' '}
+            is an open price reference for rare earth elements and strategic
+            metals, built and maintained by an independent researcher. Every
+            price is tied to a specific seller, date, quantity, and
+            verification status.
           </p>
           <p>
             The site covers{' '}
             <span className="font-mono tabular-nums text-fg">{elementCount}</span>{' '}
             elements across four categories: light rare earths, heavy rare
-            earths, strategic metals, and semiconductor metals. Price data is
-            sourced from retail distributors, industrial wholesalers, and
-            commodity benchmarks, then normalised to USD per kilogram.
-          </p>
-          <p>
-            The goal is a reference price that can be assembled from community
-            contributions: source-cited observations, submitted by anyone,
-            reviewed in public, and merged into the open dataset. Tools such as
-            the <Link href="/tools/price-gauge/" className={INLINE_LINK}>price
-            gauge</Link> are computed from that record pool, never from an
-            opaque index.
+            earths, strategic metals, and semiconductor metals. Prices come
+            from retail distributors, industrial wholesalers, and commodity
+            benchmarks, normalised to USD per kilogram. Tools such as the{' '}
+            <Link href="/tools/price-gauge/" className={INLINE_LINK}>
+              price gauge
+            </Link>{' '}
+            are computed directly from those records.
           </p>
         </div>
       </section>
@@ -152,18 +138,16 @@ export default function AboutPage() {
         <SectionHeading title="Why it exists" />
         <div className="space-y-3 text-base leading-relaxed text-fg-muted">
           <p>
-            Rare earth pricing is fragmented, paywalled, and disconnected across
-            market tiers. Commodity benchmarks from major reporting agencies sit
-            behind expensive subscriptions. Retail prices vary by orders of
-            magnitude depending on form, purity, and quantity. Chinese regulatory
-            developments, which fundamentally determine supply availability for
-            heavy rare earths, are poorly tracked in English-language sources.
+            Rare earth pricing is fragmented and paywalled. Commodity
+            benchmarks sit behind expensive subscriptions, retail prices vary
+            by orders of magnitude with form, purity, and quantity, and
+            Chinese regulatory developments are poorly tracked in
+            English-language sources.
           </p>
           <p>
-            This project exists because procurement analysts, researchers, and
-            supply chain professionals need a single reference point that is
-            transparent about what it shows, where it comes from, and what it
-            does not know.
+            Procurement analysts, researchers, and supply chain professionals
+            need a single reference point that is open about where its numbers
+            come from and what it does not know.
           </p>
         </div>
       </section>
@@ -198,16 +182,14 @@ export default function AboutPage() {
         <SectionHeading title="Community contributions" />
         <div className="space-y-3 text-base leading-relaxed text-fg-muted">
           <p>
-            Contributions are the mechanism this ledger grows by: the reference
-            prices are assembled from the pool of source-cited observations,
-            and anyone who has seen a current price can add one. The quickest
-            way is the{' '}
+            Reference prices are assembled from source-cited observations, and
+            anyone who has seen a current price can add one. The quickest way
+            is the{' '}
             <Link href="/contribute/" className={INLINE_LINK}>
               Add a price
             </Link>{' '}
-            form (the button in the header, on every page): under a minute, no
-            account. A maintainer checks every submission before it enters the
-            open dataset.
+            form in the header: under a minute, no account. A maintainer
+            checks every submission before it enters the open dataset.
           </p>
           <p>
             For a data error, use the{' '}
@@ -247,22 +229,13 @@ export default function AboutPage() {
           </a>
         </p>
         <p className="mt-3 text-base leading-relaxed text-fg-muted">
-          To contribute price data, see the{' '}
-          <a
-            href={`${GITHUB}/blob/main/CONTRIBUTING.md`}
-            target="_blank"
-            rel="noopener"
-            className={INLINE_LINK}
-          >
-            contribution guide
-          </a>{' '}
-          or the{' '}
-          <Link href="/sources/" className={INLINE_LINK}>
-            Sources
-          </Link>{' '}
-          page for the current registry. To understand how data is processed, see{' '}
+          How prices are collected and verified is documented in{' '}
           <Link href="/methodology/" className={INLINE_LINK}>
             Methodology
+          </Link>
+          ; the current source registry is on{' '}
+          <Link href="/sources/" className={INLINE_LINK}>
+            Sources
           </Link>
           .
         </p>

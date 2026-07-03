@@ -333,34 +333,13 @@ export function PremiumLeaderboard({ rows }: { rows: PremiumLeaderboardRow[] }) 
       </Table>
 
       {/* The methodology caveat: what a premium multiple is, and what it is not. */}
-      <div className="mt-3 space-y-2 text-xs leading-relaxed text-fg-muted">
-        <p>
-          <span className="font-semibold text-fg">
-            A premium multiple, not a market trend.
-          </span>{' '}
-          Each premium is the latest retail reference price divided by the latest
-          bulk benchmark for that element: a snapshot of the markup a
-          small-quantity buyer pays over wholesale, taken at one point in time. It
-          is not a price change over time and not a market trend; the per-date
-          observations behind each side are on the element&rsquo;s page.
-        </p>
-        <p>
-          <span className="font-semibold text-fg">
-            Like-for-like vs cross-form.
-          </span>{' '}
-          A multiple is a clean spread only when both sides are quoted in the same
-          form. Rows where the forms differ (for example metal vs oxide) compare
-          different materials and are tagged{' '}
-          <span className="font-medium text-fg">cross-form</span>; their multiple
-          is not a like-for-like spread. Use{' '}
-          <span className="font-medium text-fg">Like-for-like only</span> to limit
-          the table to same-form rows. Purity can still differ within a form
-          (shown on hover over the Basis cell), so treat every multiple as
-          indicative. A premium below 1× (inverse) means the retail reference is
-          cheaper than the bulk benchmark, usually a form or purity mismatch
-          rather than a real discount. Click any column to sort.
-        </p>
-      </div>
+      <p className="mt-3 text-xs leading-relaxed text-fg-muted">
+        Each premium divides the latest retail reference price by the latest
+        bulk benchmark: a snapshot at one point in time, not a price trend. Rows
+        tagged <span className="font-medium text-fg">cross-form</span> compare
+        different forms (for example metal vs oxide), so their multiple is not a
+        like-for-like spread.
+      </p>
     </div>
   );
 }

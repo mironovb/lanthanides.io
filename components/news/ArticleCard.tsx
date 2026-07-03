@@ -1,7 +1,7 @@
 /**
- * A feature-article tile for the /news index. The migrated site has uneven
- * legacy art, so articles with no image fall back to consistent source-docket
- * placeholders. Element chips sit at the bottom so cards line up in the grid.
+ * Feature-article tile for the /news index. Articles without an image fall
+ * back to a source-docket placeholder; element chips sit at the bottom so
+ * cards line up in the grid.
  */
 import Image from 'next/image';
 import Link from 'next/link';

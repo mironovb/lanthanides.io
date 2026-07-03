@@ -48,7 +48,7 @@ function spanSummary(points: SeriesPoint[]): string {
   const obs = points.reduce((n, p) => n + p.n, 0);
   const first = points[0]?.date;
   const last = points[points.length - 1]?.date;
-  const span = first === last ? first : `${first} → ${last}`;
+  const span = first === last ? first : `${first} to ${last}`;
   return `${points.length} daily median${points.length === 1 ? '' : 's'} across ${span} (${obs} observation${obs === 1 ? '' : 's'})`;
 }
 
@@ -114,9 +114,9 @@ export function PriceHistoryChart({
         ))}
         <p>
           Each point is a per-day median of that day&rsquo;s recorded offers;
-          derived aggregate rows are excluded. A tier is only drawn once it spans
-          at least {MIN_LINE_POINTS} distinct observation days. Otherwise it
-          appears in the Price History table below instead of as a line.
+          derived aggregate rows are excluded. A tier is drawn only once it
+          spans at least {MIN_LINE_POINTS} distinct observation days; below
+          that it appears in the Price History table instead.
         </p>
       </div>
     </Panel>

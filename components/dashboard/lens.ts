@@ -1,12 +1,11 @@
 /**
  * Pure helpers for the dashboard element lens (the category / export-control
  * filter that scopes the dashboard panels). Side-effect-free and framework-free
- * so the logic is testable and the island (DashboardLens) stays presentational.
+ * so the island (DashboardLens) stays presentational.
  *
- * The lens has two orthogonal axes (category, export-control posture); both
- * default to null (unfiltered). It is serialised to the URL query so a filtered
- * view is shareable, and parsed back defensively (unknown values are dropped, so
- * a hand-edited or stale link never throws).
+ * Both axes default to null (unfiltered). The lens serialises to the URL query
+ * and parses back defensively: unknown values are dropped, so a stale link
+ * never throws.
  */
 import type { ChipOption } from '@/components/ui';
 import { CATEGORY_ORDER, CATEGORY_STYLE } from '@/components/elements/categories';
@@ -46,8 +45,7 @@ const CONTROL_ORDER: readonly ExportControlStatus[] = [
 
 /**
  * Export-control chip labels. "Unrestricted" for the `normal` posture matches
- * the dashboard's regulatory-snapshot vocabulary (the element pages say
- * "Normal"), so the control reads consistently with the panel it scopes.
+ * the risk-matrix column vocabulary (the element pages say "Normal").
  */
 export const CONTROL_LABEL: Record<ExportControlStatus, string> = {
   restricted: 'Restricted',
@@ -124,12 +122,9 @@ export const POSTURE_ORDER: readonly ControlPosture[] = [
 ];
 
 /**
- * One element's current control posture. A suspended regime is reported as
- * `suspended` (its export listing is currently paused) rather than its
- * underlying export-control class, so the pause is visible and the four
- * postures stay mutually exclusive; otherwise it is the element's
- * export_control_status. Pure projection of authored catalog fields, never a
- * fabricated state.
+ * One element's current control posture: `suspended` when its regime is paused
+ * (so the four postures stay mutually exclusive), otherwise its
+ * export_control_status. Pure projection of authored catalog fields.
  */
 export function postureOf(e: ElementLensMeta): ControlPosture {
   return e.regulatory === 'suspended' ? 'suspended' : e.control;
@@ -161,8 +156,7 @@ export interface RiskMatrix {
 
 /**
  * Cross-tabulate the in-scope elements by category × current control posture.
- * Every count is a real tally of the scoped catalog rows (never a fabricated
- * figure); rows appear only for categories present in scope, in canonical
+ * Rows appear only for categories present in scope, in canonical
  * CATEGORY_ORDER, so a filtered view never invents an empty category.
  */
 export function buildRiskMatrix(scope: ElementLensMeta[]): RiskMatrix {

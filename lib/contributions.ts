@@ -1,16 +1,17 @@
 /**
  * Server-side access to the contributions inbox: ONE Neon table
  * (price_contributions, db/schema.sql), used for community price contributions
- * and nothing else. This module is the only place the app touches a database.
+ * and nothing else. This module is the only place the app touches a database,
+ * and POST /api/contributions is its only consumer.
  *
  * Rules (CLAUDE.md data strategy):
  * - The build never reads the DB: the client is created lazily at request time
- *   and every consumer is force-dynamic, so `npm run build` stays green with no
- *   DATABASE_URL at all (the inbox simply reports itself unavailable).
+ *   and the consuming route is force-dynamic, so `npm run build` stays green
+ *   with no DATABASE_URL at all (the inbox simply reports itself unavailable).
  * - Rows are a review queue, never reference data: the app only INSERTs
- *   status 'pending' rows and SELECTs recent rows for display. Publishing an
- *   accepted observation into _data/ stays a maintainer git-PR step.
- * - Reads are resilient: a DB outage degrades the queue panel, never the page.
+ *   status 'pending' rows. Reviewing them is a maintainer step done directly
+ *   in SQL, and publishing an accepted observation into _data/ stays a
+ *   maintainer git step.
  *
  * Server-only: importing this from a client component would fail at build
  * (the driver needs Node APIs) and must never happen.
@@ -98,37 +99,3 @@ export async function insertContribution(
   return rowToDTO(rows[0]);
 }
 
-export interface ContributionQueue {
-  rows: ContributionDTO[];
-  pending: number;
-}
-
-/**
- * The recent queue for display, newest first, plus the pending count.
- * Returns null when the inbox is unconfigured OR unreachable, so callers
- * render a calm fallback instead of crashing the page.
- */
-export async function listRecentContributions(
-  limit = 20,
-): Promise<ContributionQueue | null> {
-  const sql = getSql();
-  if (!sql) return null;
-  try {
-    const rows = (await sql`
-      SELECT * FROM price_contributions
-      ORDER BY created_at DESC
-      LIMIT ${limit}
-    `) as Record<string, unknown>[];
-    const counts = (await sql`
-      SELECT count(*)::int AS pending
-      FROM price_contributions
-      WHERE status = 'pending'
-    `) as Record<string, unknown>[];
-    return {
-      rows: rows.map(rowToDTO),
-      pending: Number(counts[0]?.pending ?? 0),
-    };
-  } catch {
-    return null;
-  }
-}

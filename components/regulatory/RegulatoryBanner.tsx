@@ -26,8 +26,8 @@ export function RegulatoryBanner({ elements }: { elements: Element[] }) {
           Active export controls
         </strong>
         <span className="text-xs text-fg-muted">
-          {elements.length} element{plural ? 's' : ''} currently under Chinese
-          export licence requirements:{' '}
+          {elements.length} element{plural ? 's' : ''} under Chinese export
+          licence requirements:{' '}
           {elements.map((el, i) => (
             <span key={el.symbol}>
               <Link

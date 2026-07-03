@@ -11,7 +11,6 @@
  * aria-describedby, role="alert" errors, identical SSR/client markup.
  */
 import { useState } from 'react';
-import { useRouter } from 'next/navigation';
 import { Button, Callout, Panel } from '@/components/ui';
 import { capitalize } from '@/lib/format';
 import {
@@ -48,7 +47,6 @@ export function ContributionForm({
   elements,
   knownForms,
 }: ContributionFormProps) {
-  const router = useRouter();
   const [input, setInput] = useState<ContributionInput>(EMPTY_INPUT);
   const [honeypot, setHoneypot] = useState('');
   const [errors, setErrors] = useState<Errors>({});
@@ -87,8 +85,6 @@ export function ContributionForm({
         setSubmitted(el ? `${el.name} (${el.symbol})` : input.element);
         setInput(EMPTY_INPUT);
         setErrors({});
-        // Refresh the server-rendered queue so the new row appears.
-        router.refresh();
       } else if (data?.errors) {
         setErrors(data.errors);
         setFormError(data.message ?? 'Fix the highlighted fields.');

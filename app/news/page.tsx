@@ -1,17 +1,11 @@
 /**
- * /news: News & Analysis index (SSG). Combines two sources:
- *   • the `_articles` collection, shown as featured long-form analysis tiles, and
- *   • `_data/news.yml`, the full "Regulatory & Trade Developments" timeline,
- *     whose article-backed entries link through to the full pieces.
- *
- * The article grid matches the old news page, and adds the regulatory
- * developments feed that previously had no standalone home.
+ * /news: news index (SSG). Feature cards from the `_articles` collection plus
+ * the dated developments timeline from `_data/news.yml`.
  */
 import type { Metadata } from 'next';
-import Link from 'next/link';
 import { getNews } from '@/lib/data';
 import { getAllArticles } from '@/lib/content';
-import { Container, PageHeader, StoryLink } from '@/components/layout';
+import { Container, PageHeader } from '@/components/layout';
 import { SectionHeading } from '@/components/ui';
 import { ArticleCard } from '@/components/news/ArticleCard';
 import { DevelopmentTimeline } from '@/components/news/DevelopmentTimeline';
@@ -39,28 +33,17 @@ export default function NewsIndexPage() {
         crumbs={[{ label: 'Home', href: '/' }, { label: 'News' }]}
         eyebrow="Editorial"
         title="News & Analysis"
-        lead="Source-linked explainers, market research, and supply-chain intelligence for rare earth and strategic metals."
+        lead="Source-linked explainers, market research, and supply chain analysis for rare earth and strategic metals."
         actions={
           <span className="font-mono text-xs text-fg-dim">
             {articles.length} article{articles.length !== 1 ? 's' : ''}
           </span>
         }
-      >
-        <StoryLink>
-          lanthanides.io maintains a public English-language tracker of Chinese
-          rare earth and strategic-metal export controls. For the structured
-          record behind these pieces, see the{' '}
-          <Link href="/regulatory/">Regulatory Tracker</Link>.
-        </StoryLink>
-      </PageHeader>
+      />
 
       {leadArticle && (
         <section className="mt-10" aria-labelledby="lead-explainer">
-          <SectionHeading
-            id="lead-explainer"
-            title="Latest Explainer"
-            description="The lead article is selected by publication date from the versioned article collection."
-          />
+          <SectionHeading id="lead-explainer" title="Latest Explainer" />
           <ArticleCard article={leadArticle} featured />
         </section>
       )}
@@ -71,7 +54,7 @@ export default function NewsIndexPage() {
             id="analysis-library"
             title="Analysis Library"
             count={`${otherArticles.length} pieces`}
-            description="Long-form briefings, methodology notes, and market surveys. Each piece links back to the underlying materials ledger where possible."
+            description="Long-form briefings, methodology notes, and market surveys."
           />
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {otherArticles.map((article) => (
@@ -81,7 +64,6 @@ export default function NewsIndexPage() {
         </section>
       )}
 
-      {/* ── Regulatory & trade developments (news.yml) ───────────────────── */}
       <section className="mt-12">
         <SectionHeading
           title="Regulatory & Trade Developments"

@@ -23,7 +23,7 @@ import {
   getPriceRecords,
 } from '@/lib/data';
 import { estimatePrice } from '@/lib/price-gauge';
-import { Container, PageHeader, StoryLink } from '@/components/layout';
+import { Container, PageHeader } from '@/components/layout';
 import { Callout, Panel } from '@/components/ui';
 import { PriceGaugeForm } from '@/components/tools/PriceGaugeForm';
 import { PriceGaugeResult } from '@/components/tools/PriceGaugeResult';
@@ -98,7 +98,7 @@ export default function PriceGaugePage({
         crumbs={[{ label: 'Home', href: '/' }, { label: 'Price Gauge' }]}
         eyebrow="Tools"
         title="Price Gauge"
-        lead="Estimate a fair price for a rare-earth or strategic-metal purchase. Enter what you're buying or selling and the gauge returns a low/mid/high range, how confident it is, and the exact sourced records behind the number."
+        lead="Enter an element, form, purity, and quantity. The gauge returns a low/mid/high USD per kg range, a confidence grade, and the sourced records behind it."
         actions={
           <div className="flex flex-col items-start gap-1 text-xs md:items-end">
             <Link
@@ -115,13 +115,7 @@ export default function PriceGaugePage({
             </Link>
           </div>
         }
-      >
-        <StoryLink>
-          The estimate is built from the same provenanced records behind every{' '}
-          <Link href="/elements/">element page</Link> and the{' '}
-          <Link href="/data/">Open Data</Link> exports. Nothing is interpolated.
-        </StoryLink>
-      </PageHeader>
+      />
 
       {/* ── Form + result ────────────────────────────────────────────────── */}
       <div className="mt-8 grid gap-6 lg:grid-cols-[minmax(0,360px)_minmax(0,1fr)]">
@@ -156,34 +150,31 @@ export default function PriceGaugePage({
   );
 }
 
-/** Pre-submit empty state: sets expectations for the three outputs. */
+/** Pre-submit empty state. */
 function GaugeIntro() {
   return (
     <Panel title="What you'll get" eyebrow="Result">
       <p className="text-sm leading-relaxed text-fg-muted">
-        Fill in the form and submit to see a fair-price estimate for that
-        element. Every estimate has three parts:
+        Fill in the form and submit. Every estimate has three parts:
       </p>
       <ul className="mt-4 space-y-3 text-sm leading-relaxed text-fg-muted">
         <li>
-          <span className="font-semibold text-fg">A range, not a point.</span> A
-          low / mid / high band in USD per kg, the robust interquartile spread
-          of the matching sourced records.
+          <span className="font-semibold text-fg">A range, not a point.</span>{' '}
+          A low / mid / high band in USD per kg.
         </li>
         <li>
-          <span className="font-semibold text-fg">A confidence grade.</span> Low,
-          medium, or high, from how many records matched, how many distinct
-          sellers, how recent, and how closely they agree.
+          <span className="font-semibold text-fg">A confidence grade.</span>{' '}
+          Low, medium, or high.
         </li>
         <li>
-          <span className="font-semibold text-fg">A full basis.</span> The record
-          count, seller count, date span, method, and the contributing record ids,
-          each traceable to the element&rsquo;s provenance table.
+          <span className="font-semibold text-fg">A full basis.</span> Record
+          count, seller count, date span, method, and the contributing record
+          ids.
         </li>
       </ul>
       <p className="mt-4 border-t border-border pt-4 text-xs leading-relaxed text-fg-dim">
-        If too few records match your request, the gauge tells you plainly and
-        suggests how to widen it. It never fabricates a price.
+        If too few records match, the gauge says so. It never fabricates a
+        price.
       </p>
     </Panel>
   );

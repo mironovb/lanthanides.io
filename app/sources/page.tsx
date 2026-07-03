@@ -11,7 +11,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { getSiteSettings, getSources } from '@/lib/data';
-import { Container, PageHeader, StoryLink } from '@/components/layout';
+import { Container, PageHeader } from '@/components/layout';
 import { Callout, SectionHeading, Table, THead, TBody, TR, TH, TD } from '@/components/ui';
 import { capitalize } from '@/components/elements/format';
 import { buildMetadata } from '@/lib/seo';
@@ -56,25 +56,8 @@ export default function SourcesPage() {
         crumbs={[{ label: 'Home', href: '/' }, { label: 'Sources' }]}
         eyebrow="Provenance"
         title="Data Sources"
-        lead={
-          <>
-            Every price record names its source. Sources are classified into five
-            trust tiers and tracked in a reviewable registry. See{' '}
-            <Link
-              href="/methodology/"
-              className="text-fg underline decoration-dotted underline-offset-2 hover:text-accent-strong"
-            >
-              Methodology
-            </Link>{' '}
-            for how trust tiers gate reference-price selection.
-          </>
-        }
-      >
-        <StoryLink>
-          See a source attached to live prices on any{' '}
-          <Link href="/elements/">element page</Link>.
-        </StoryLink>
-      </PageHeader>
+        lead="Every price record names its source. Sources are classified into five trust tiers and tracked in the registry below."
+      />
 
       {/* ── Trust tiers ──────────────────────────────────────────────────── */}
       <section className="mt-12">
@@ -176,10 +159,9 @@ export default function SourcesPage() {
 
       {/* ── Disclaimer ───────────────────────────────────────────────────── */}
       <Callout tone="note" glyph={null} className="mt-12">
-        <strong className="text-fg">Disclaimer:</strong> All prices shown require
-        source provenance. No data is fabricated or interpolated. Prices are
-        normalised to USD/kg for comparability; original quoted units are
-        preserved in provenance records. Retail and bulk tiers are never merged.{' '}
+        <strong className="text-fg">Disclaimer:</strong> Every price carries
+        source provenance; nothing is fabricated or interpolated. Prices are
+        normalised to USD/kg, and retail and bulk tiers are never merged.{' '}
         <Link href="/methodology/">Full methodology →</Link>
       </Callout>
     </Container>

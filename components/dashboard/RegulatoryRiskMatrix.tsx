@@ -1,19 +1,10 @@
 /**
- * RegulatoryRiskMatrix: the dashboard's regulatory risk matrix. A cross-tab of
- * element category (rows) against each element's current Chinese export-control
- * posture (columns: Restricted, Monitored, Suspended, Unrestricted), with the
- * element count in every cell. It answers two questions at a glance: which
- * categories carry the most control exposure (the empty Unrestricted cells and
- * the Under-control summary), and where suspended regimes concentrate (the lone
- * populated cell of the Suspended column).
- *
- * Server component, presentational. Colour is semantic only: each posture
- * column reuses the regulatory risk scale, restricted = high, monitored =
- * medium, suspended = gray, normal = low, via the same <Badge> variants and
- * `risk-*` tokens as the rest of the site, never an arbitrary chart palette.
- * Every figure is a real tally of the catalog rows passed in; nothing is
- * fabricated (CLAUDE.md hard rule #1). The count in each cell is its sample
- * size; hovering a cell names the elements it counts.
+ * RegulatoryRiskMatrix: a cross-tab of element category (rows) against current
+ * Chinese export-control posture (columns), with the element count in every
+ * cell. Server component, presentational. Colour is semantic only: each
+ * posture column reuses the regulatory risk scale via the shared <Badge>
+ * variants and `risk-*` tokens. Every figure is a real tally of the catalog
+ * rows passed in (CLAUDE.md hard rule #1).
  */
 import Link from 'next/link';
 import {
@@ -78,9 +69,7 @@ function CountCell({
   symbols: string[];
 }) {
   if (count === 0) {
-    // Show the zero explicitly (its sample size) but dim and untinted, so the
-    // populated cells stand out and an empty posture reads plainly, e.g. the
-    // "0" in Unrestricted for a fully controlled category.
+    // Show the zero explicitly, but dim and untinted so populated cells stand out.
     return (
       <TD numeric align="center">
         <span className="text-fg-dim">0</span>
@@ -188,11 +177,8 @@ export function RegulatoryRiskMatrix({ matrix }: { matrix: RiskMatrix }) {
       </Table>
 
       <p className="mt-3 text-2xs leading-snug text-fg-dim">
-        Each column is the element&rsquo;s current control posture; the number in
-        a cell is how many elements sit there.{' '}
         <span className="text-fg-muted">Suspended</span> counts elements whose
-        export listing is currently paused, shown in their own column rather than
-        under their underlying control class.{' '}
+        export listing is currently paused.{' '}
         <span className="text-fg-muted">Under control</span> sums every posture
         except unrestricted. Hover a cell for the elements it counts.
       </p>

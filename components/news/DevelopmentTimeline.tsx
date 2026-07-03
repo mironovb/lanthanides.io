@@ -1,17 +1,13 @@
 /**
- * The "Regulatory & Trade Developments" timeline on /news (Prompt 8), rendered
- * from `_data/news.yml`. Each entry shows its date, topic tag, status, headline,
- * summary, related elements, and source references. Entries backed by a full
- * article (the `article` slug) link their headline to /news/[slug]/.
- *
- * Server-rendered; newest-first ordering is done by the page.
+ * The "Regulatory & Trade Developments" timeline on /news, rendered from
+ * `_data/news.yml`. Entries backed by a full article (the `article` slug)
+ * link to /news/[slug]/. Server-rendered; the page orders items newest first.
  */
 import Link from 'next/link';
 import { formatDate } from '@/lib/format';
 import type { NewsItem } from '@/lib/types';
 
-// Status colors match the regulatory tracker: In Force is amber (an active
-// control), everything paused or past is gray.
+// Status colors match the regulatory tracker.
 const STATUS_STYLE: Record<string, { label: string; classes: string }> = {
   active: {
     label: 'In Force',

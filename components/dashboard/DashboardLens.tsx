@@ -1,20 +1,14 @@
 'use client';
 
 /**
- * DashboardLens: the interactive shell that scopes the dashboard panels by
- * element category and China export-control posture. It owns the lens state and
- * renders the three filterable sections (regulatory snapshot, retail-premium
- * leaderboard, data coverage).
+ * DashboardLens: the client island that scopes the dashboard panels (risk
+ * matrix, retail-premium leaderboard, data coverage) by element category and
+ * China export-control posture.
  *
- * Server-rendered with EMPTY_LENS (all panels show every element), so the whole
- * dashboard is present in the static HTML and fully usable without JavaScript,
- * filtering is pure progressive enhancement. The page stays SSG: the lens reads
- * the URL only on the client (after hydration, so there is no mismatch) and
- * writes it with the native History API, keeping a filtered view shareable
- * without a server round-trip and restoring the canonical /dashboard/ when
- * cleared. Composes the existing isomorphic panels (CoverageGrid,
- * RegulatorySnapshot) and the already-interactive PremiumLeaderboard with
- * filtered props; nothing here is fabricated (CLAUDE.md hard rule #1).
+ * Server-rendered with EMPTY_LENS so the full dashboard is in the static HTML
+ * and usable without JavaScript. The lens reads the URL after hydration (no
+ * mismatch) and writes it with the native History API, so a filtered view is
+ * shareable and the canonical /dashboard/ returns when cleared.
  */
 import { useEffect, useMemo, useState } from 'react';
 import Link from 'next/link';
@@ -168,28 +162,17 @@ export function DashboardLens({
             active ? (
               <>
                 Within the current filter: {scope.length} of {total} tracked
-                elements, cross-tabulated by category and current export-control
-                posture. The Regulatory Tracker holds the announcement-level
-                detail.
+                elements by category and current export-control posture.
               </>
             ) : (
               <>
-                All {total} tracked elements, cross-tabulated by element category
-                against current Chinese export-control posture. The Suspended
-                column shows where paused regimes concentrate; the Under-control
-                summary shows which categories carry the most exposure. The
-                Regulatory Tracker holds the announcement-level detail behind
-                these counts.
+                All {total} tracked elements by category against current Chinese
+                export-control posture. The Regulatory Tracker holds the
+                announcement-level detail.
               </>
             )
           }
         />
-        {active ? (
-          <p className="mb-3 font-mono text-2xs text-fg-dim">
-            Counts are within the current filter ({scope.length} of {total}{' '}
-            elements), not the full ledger.
-          </p>
-        ) : null}
         {scope.length > 0 ? (
           <RegulatoryRiskMatrix matrix={matrix} />
         ) : (
@@ -219,9 +202,8 @@ export function DashboardLens({
             ) : (
               <>
                 Latest retail reference ÷ latest bulk benchmark, ranked by
-                markup, the premium small-quantity buyers pay over wholesale.{' '}
-                {premiums.length} of {total} elements are priced in both tiers,
-                so a premium can be computed.
+                markup. {premiums.length} of {total} elements are priced in both
+                tiers.
               </>
             )
           }
@@ -230,8 +212,8 @@ export function DashboardLens({
           <PremiumLeaderboard rows={filteredPremiums} />
         ) : (
           <EmptyHint>
-            No elements in this filter are priced in both the retail and bulk
-            tiers, so no premium can be computed. Clear or widen the filter.
+            No elements in this filter are priced in both tiers. Clear or widen
+            the filter.
           </EmptyHint>
         )}
       </section>
@@ -248,22 +230,7 @@ export function DashboardLens({
               Open data →
             </Link>
           }
-          description={
-            active ? (
-              <>
-                One tile per in-filter element, graded by how many distinct days
-                of price observations back it. Thin coverage is shown, not
-                hidden. Each tile links to the element.
-              </>
-            ) : (
-              <>
-                One tile per element, graded by how many distinct days of price
-                observations back it. Thin coverage is shown, not hidden. Sparse
-                elements get a small count, never a fabricated trend. Each tile
-                links to the element.
-              </>
-            )
-          }
+          description="One tile per element in scope, graded by how many distinct days of price observations back it. Each tile links to the element."
         />
         {filteredCoverage.length > 0 ? (
           <>
@@ -272,7 +239,7 @@ export function DashboardLens({
               <SectionHeading
                 as="h3"
                 title="Coverage detail"
-                description="Why each element earns its grade: the observations, distinct days, and market tiers behind it. Thin and empty coverage stay visible, never hidden."
+                description="The observations, distinct days, and market tiers behind each grade."
               />
               <CoverageTable items={filteredCoverage} />
             </div>

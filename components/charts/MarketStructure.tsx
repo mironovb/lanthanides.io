@@ -33,10 +33,8 @@ export function MarketStructure({ rows }: { rows: CategoryControl[] }) {
         ariaLabel="China-export-controlled elements by category"
       />
       <p className="mt-3 text-xs leading-relaxed text-fg-muted">
-        Bars show the share of each category currently under active Chinese
-        export control ({totalControlled} of {total} tracked elements). Control
-        is concentrated in the rare earths. The count beside each bar is the
-        exact figure (controlled / total in the category).
+        Bars show the share of each category under active Chinese export
+        control ({totalControlled} of {total} tracked elements).
       </p>
     </div>
   );

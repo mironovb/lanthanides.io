@@ -19,7 +19,7 @@ const LABEL: Record<Confidence, string> = {
 };
 
 const TITLE =
-  'Overall confidence: from how many records matched, how many distinct sellers, how recent they are, whether the exact form was found, and how closely the prices agree. Thin or dispersed evidence grades low.';
+  'Confidence reflects record count, seller diversity, recency, form match, and price agreement.';
 
 export function ConfidenceMeter({
   level,

@@ -19,7 +19,7 @@ import Link from 'next/link';
 import '@/components/content/content-body.css';
 
 import { buildMetadata } from '@/lib/seo';
-import { Container, PageHeader, StoryLink } from '@/components/layout';
+import { Container, PageHeader } from '@/components/layout';
 import { Callout } from '@/components/ui';
 import { Markdown } from '@/components/content/Markdown';
 import { BreadcrumbJsonLd } from '@/components/seo';
@@ -56,13 +56,7 @@ export default function FrameworkPage() {
         eyebrow="Operational Reference"
         title="Import / Export Operational Framework"
         lead="How to classify a rare-earth product into a regulatory tier, what tariff stack applies, what a realistic landed cost looks like, and which procurement channel fits which buyer."
-      >
-        <StoryLink>
-          The operational companion to the{' '}
-          <Link href="/regulatory/">regulatory tracker</Link> and{' '}
-          <Link href="/methodology/">pricing methodology</Link>.
-        </StoryLink>
-      </PageHeader>
+      />
 
       <div className="content-body mt-10">
         <Markdown>{BODY}</Markdown>
@@ -70,11 +64,9 @@ export default function FrameworkPage() {
 
       <div className="mt-10 max-w-prose">
         <Callout tone="note" title="Disclaimer">
-          All prices shown require source provenance. No data is fabricated or
-          interpolated. Prices are normalized to USD/kg for comparability;
-          original quoted units are preserved in provenance records. Retail and
-          bulk tiers are never merged. Different forms and purities are tracked
-          separately. <Link href="/methodology/">Full methodology →</Link>
+          Every price carries source provenance; nothing is fabricated or
+          interpolated. Prices are normalized to USD/kg.{' '}
+          <Link href="/methodology/">Full methodology →</Link>
         </Callout>
       </div>
     </Container>

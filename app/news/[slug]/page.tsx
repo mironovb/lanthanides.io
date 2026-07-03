@@ -1,12 +1,9 @@
 /**
  * /news/[slug]: long-form article page (SSG, case-sensitive slugs).
  *
- * Statically generated for the five `_articles/*.md` files via
- * generateStaticParams(); `dynamicParams = false` 404s anything else. The layout
- * matches the old article page: dateline and status badge, title and subtitle,
- * related-element tags, optional hero image, the markdown body, and a back-link.
- * Per-article metadata (title/description/keywords/canonical/OG) comes from the
- * front matter via the Metadata API.
+ * Statically generated for the `_articles/*.md` files via generateStaticParams();
+ * `dynamicParams = false` 404s anything else. Per-article metadata comes from
+ * the front matter.
  */
 import type { Metadata } from 'next';
 import Link from 'next/link';
@@ -48,8 +45,7 @@ export function generateMetadata({ params }: { params: Params }): Metadata {
   });
 }
 
-// In Force is amber (an active export control), Suspended is gray, matching the
-// regulatory tracker's status language.
+// Status colors match the regulatory tracker.
 const STATUS_BADGE: Record<string, { label: string; classes: string }> = {
   active: {
     label: 'In Force',
@@ -218,7 +214,7 @@ export default function ArticlePage({ params }: { params: Params }) {
               href="/news/"
               className="font-mono text-xs uppercase tracking-wider text-fg-muted hover:text-accent-strong"
             >
-              ← All developments
+              ← All news
             </Link>
           </footer>
         </article>

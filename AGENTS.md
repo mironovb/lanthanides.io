@@ -37,8 +37,10 @@ the versioned dataset. Citable, scientific, no hype.
 > `/movements.xml` feed + the home/dashboard movement widgets; the detection
 > windows were too thin to be worth a surface — both URLs 301). Contribution
 > is deliberately frictionless: the **"Add a price" button in the site header
-> is on every page**, the `/contribute/` page is just form + queue +
-> standards, and user-facing copy never asks contributors for GitHub or PRs
+> is on every page**, the `/contribute/` page is just the form + the
+> submission standards (the public review queue render was dropped 2026-07-03
+> for simplicity; the inbox is reviewed directly in SQL), and user-facing
+> copy never asks contributors for GitHub or PRs
 > (GitHub appears only as a fallback in failure states).
 
 ## Stack
@@ -149,7 +151,7 @@ docs/         AUDIT.md, MIGRATION.md, ARCHITECTURE.md, DEPLOYMENT.md, …
 | `/news` · `/news/[slug]` | SSG (5 articles) | `/news/…/` |
 | `/dashboard` | ISR | `/dashboard/` |
 | `/data` | SSG | — (new open-data landing, incl. citation block) |
-| `/contribute` | Dynamic | — (the growth loop: form + live review queue) |
+| `/contribute` | SSG | — (the growth loop: the Add-a-price form) |
 | `/tools/price-gauge` | Dynamic | — (file-derived estimator, no DB) |
 | `/sitemap.xml` · `/robots.txt` · `/feed.xml` | Handler | same exact path |
 | `/api/price-gauge` · `/api/export/[format]` · `/api/dashboard/brief` | Handler | — (all file-derived) |

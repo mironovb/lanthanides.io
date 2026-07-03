@@ -221,13 +221,10 @@ export default function ElementDetailPage({ params }: { params: Params }) {
       {/* ── Price Movement % table ─────────────────────────────────────── */}
       <PriceMovementTable fluctuation={fluctuation} symbol={element.symbol} />
 
-      {/* ── Price Trend (gated line, renders only for a tier with ≥5
-          distinct days; today no tier qualifies, so the observations table
-          below stands in for every element). docs/VISUALIZATION-AUDIT.md ── */}
+      {/* ── Price Trend (gated; draws only with enough distinct days) ──── */}
       <PriceHistoryChart history={priceHistory} elementName={element.name} />
 
-      {/* ── Price History observations table (always present; the honest
-          fallback that carries the data for all 31 elements today) ─────── */}
+      {/* ── Price History observations table ───────────────────────────── */}
       <PriceHistoryTable history={priceHistory} elementName={element.name} />
 
       {/* ── Inline regulatory notice ───────────────────────────────────── */}
@@ -248,18 +245,16 @@ export default function ElementDetailPage({ params }: { params: Params }) {
         </section>
       )}
 
-      {/* ── Contribute pointer: the record pool behind this page is open ── */}
+      {/* ── Contribute pointer ─────────────────────────────────────────── */}
       <p className="mt-6 border-l-2 border-l-accent bg-surface py-2 pl-4 pr-3 text-sm leading-relaxed text-fg-muted">
-        Seen a sourced {element.name} quote that is missing above?{' '}
+        If you have a sourced {element.name} quote that is missing above,{' '}
         <Link
           href="/contribute/"
           className="font-medium text-accent hover:text-accent-strong"
         >
-          Contribute the record
+          contribute the record
         </Link>
-        . Each accepted observation is reviewed, merged into the open dataset,
-        and becomes part of the pool this page&rsquo;s reference prices are
-        assembled from.
+        .
       </p>
 
       {/* ── Related elements ───────────────────────────────────────────── */}

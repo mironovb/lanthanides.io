@@ -234,10 +234,3 @@ export function isHttpUrl(value: string): boolean {
     return false;
   }
 }
-
-/** "60 USD/kg" style price rendering for queue rows; verbatim, no conversion. */
-export function fmtContributionPrice(d: ContributionDTO): string {
-  const n = d.price >= 100 ? Math.round(d.price).toLocaleString('en-US')
-    : d.price.toLocaleString('en-US', { maximumFractionDigits: 2 });
-  return `${n} ${d.currency}/${d.unit}`;
-}

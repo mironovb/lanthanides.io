@@ -42,7 +42,7 @@ export function PriceGaugeResult({
         </Callout>
 
         <p className="mt-4 text-sm leading-relaxed text-fg-muted">
-          We won&rsquo;t invent a figure from thin air. On file for{' '}
+          The gauge never invents a price. On file for{' '}
           <span className="text-fg">{element.name}</span>:{' '}
           <span className="font-mono text-fg">{b.availableByTier.retail}</span>{' '}
           retail and{' '}
@@ -59,22 +59,17 @@ export function PriceGaugeResult({
             <span className="text-fg-dim">›</span> Set Form to{' '}
             <span className="text-fg">Any form</span> to widen the search.
           </li>
-          <li>
-            <span className="text-fg-dim">›</span> Inspect every quoted price for
-            this element directly on its page.
-          </li>
         </ul>
 
         <p className="mt-4 border-l-2 border-l-accent pl-3 text-sm leading-relaxed text-fg-muted">
-          This gap is exactly what community contributions close. If you have
-          seen a sourced quote for {element.name},{' '}
+          If you have a sourced quote for {element.name},{' '}
           <Link
             href="/contribute/"
             className="font-medium text-accent hover:text-accent-strong"
           >
             contribute the record
-          </Link>{' '}
-          and this estimate exists for the next person.
+          </Link>
+          .
         </p>
 
         <div className="mt-5 border-t border-border pt-4">
@@ -96,16 +91,16 @@ export function PriceGaugeResult({
     caveats.push(
       `No ${b.requestedForm} records in the ${tierLabel.toLowerCase()} tier, so the estimate widens to all available forms (${b.matchedForms
         .map(capitalize)
-        .join(', ')}). Compare like-for-like before relying on it.`,
+        .join(', ')}).`,
     );
   }
   if (result.confidence === 'low') {
     caveats.push(
-      `Indicative only, based on ${b.matchedRecords} record${
+      `Indicative only: ${b.matchedRecords} record${
         b.matchedRecords === 1 ? '' : 's'
       } from ${b.distinctSellers} seller${
         b.distinctSellers === 1 ? '' : 's'
-      }. Treat it as a sanity check, not a benchmark.`,
+      }.`,
     );
   } else if (b.matchMode !== 'form-widened' && b.matchedForms.length > 1) {
     caveats.push(
@@ -156,7 +151,7 @@ export function PriceGaugeResult({
         </div>
 
         {caveats.length > 0 ? (
-          <Callout tone="warning" title="Read this before you quote it" className="mt-4">
+          <Callout tone="warning" title="Caveats" className="mt-4">
             <ul className="space-y-1.5">
               {caveats.map((c, i) => (
                 <li key={i}>{c}</li>
@@ -221,8 +216,7 @@ export function PriceGaugeResult({
               ))}
             </ul>
             <p className="mt-3 text-xs leading-relaxed text-fg-muted">
-              Every record above is listed with full seller, date, quantity, and
-              verification detail on the{' '}
+              Each record is listed in full on the{' '}
               <Link
                 href={`/elements/${element.symbol}/`}
                 className="font-medium text-accent hover:text-accent-strong"
@@ -230,12 +224,12 @@ export function PriceGaugeResult({
                 {element.name} provenance table
               </Link>{' '}
               ({availableTotal} record{availableTotal === 1 ? '' : 's'} total).
-              The band tightens as records accumulate:{' '}
+              To add a sourced quote,{' '}
               <Link
                 href="/contribute/"
                 className="font-medium text-accent hover:text-accent-strong"
               >
-                contribute a sourced quote
+                contribute the record
               </Link>
               .
             </p>

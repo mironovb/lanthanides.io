@@ -11,11 +11,10 @@
  * next.config.mjs (MIGRATION section 3.5).
  */
 import type { Metadata } from 'next';
-import Link from 'next/link';
 import { getElementsByCategory, getReferencePrices } from '@/lib/data';
 import { buildMetadata } from '@/lib/seo';
 import { BreadcrumbJsonLd } from '@/components/seo';
-import { Container, PageHeader, StoryLink } from '@/components/layout';
+import { Container, PageHeader } from '@/components/layout';
 import { SectionHeading } from '@/components/ui';
 import {
   CATEGORY_ORDER,
@@ -52,14 +51,8 @@ export default function ElementsIndexPage() {
         crumbs={[{ label: 'Home', href: '/' }, { label: 'Elements' }]}
         eyebrow="Reference · Price Ledger"
         title="All Rare Earth & Strategic Metal Prices"
-        lead={`Current prices per kilogram for ${total} rare earth elements, strategic metals, and semiconductor materials. Each element shows a retail reference and bulk benchmark with export-control status. Prices are normalised to USD/kg from verified, in-stock listings.`}
-      >
-        <StoryLink>
-          See which of these elements face Chinese export controls in the{' '}
-          <Link href="/regulatory/">Regulatory Tracker</Link>, or take the whole
-          dataset from <Link href="/data/">Open Data</Link>.
-        </StoryLink>
-      </PageHeader>
+        lead={`Current prices per kilogram for ${total} rare earth elements, strategic metals, and semiconductor materials. Each element shows a retail and bulk reference price with export-control status.`}
+      />
 
       {CATEGORY_ORDER.map((cat) => {
         const elements = [...byCategory[cat]].sort(
