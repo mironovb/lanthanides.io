@@ -1,12 +1,12 @@
 /**
  * GET /api/dashboard/brief: a structured, machine-readable capture of the
  * /dashboard/ market overview, the China export-control posture, the
- * retail-vs-bulk premium leaderboard, price-data coverage, and the movement-event
- * summary the dashboard renders, serialized so a reader can capture the current
- * state without taking a screenshot or scraping the page.
+ * retail-vs-bulk premium leaderboard, and price-data coverage the dashboard
+ * renders, serialized so a reader can capture the current state without
+ * taking a screenshot or scraping the page.
  *
  * Every figure is derived at build time from the versioned `_data/` reference
- * files through the SAME `lib/data` accessors (and the same movements summarizer)
+ * files through the SAME `lib/data` accessors
  * the dashboard itself uses, so the brief can never drift from the rendered page
  * and nothing is fabricated (CLAUDE.md hard rule #1).
  *
@@ -26,14 +26,11 @@ import {
   getCoverageTally,
   getDataGeneratedAt,
   getElementCoverage,
-  getMovements,
   getPremiumLeaderboard,
   getPriceRecords,
   getRegulatorySnapshot,
   getSiteSettings,
 } from '@/lib/data';
-import { summarizeMovements } from '@/components/dashboard/movement-summary';
-import { MIN_SPARKLINE_POINTS } from '@/components/charts/sufficiency';
 import { SITE_URL } from '@/lib/seo';
 
 export const dynamic = 'force-static';
@@ -54,8 +51,6 @@ function buildBrief() {
   const coverage = getElementCoverage();
   const tally = getCoverageTally();
   const byCategory = getControlByCategory();
-  const movements = getMovements();
-  const moveSummary = summarizeMovements(movements.events);
   const settings = getSiteSettings();
 
   // Elements named in a Chinese export-control regime, in force or paused: the
@@ -152,22 +147,6 @@ function buildBrief() {
         data_since: c.dataSince,
         data_until: c.dataUntil,
       })),
-    },
-    movement_events: {
-      note: 'Auto-detected price and regulatory events. No "movers" board is ranked: most windows span only two observation days, so ranking them would surface oxide-vs-metal artefacts as real moves. The /movements feed shows each event with its own confidence and sample size.',
-      detection: {
-        threshold_pct: movements.config?.threshold_pct ?? 10,
-        window: movements.config?.window ?? '30d',
-        min_observation_days_for_trend: MIN_SPARKLINE_POINTS,
-      },
-      total: moveSummary.total,
-      by_type: moveSummary.byType,
-      price_moves: moveSummary.priceMoves,
-      windows_reaching_min_days: moveSummary.multiDay,
-      thin_two_day_windows: moveSummary.thin,
-      confidence: moveSummary.confidence,
-      latest_event: moveSummary.latestEvent,
-      detail_url: `${SITE_URL}/movements/`,
     },
   };
 }

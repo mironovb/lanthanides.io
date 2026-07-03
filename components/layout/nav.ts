@@ -16,29 +16,33 @@ export interface NavItem {
 /**
  * The header: a flat row of plain links, in the old site's order. "Prices" is
  * the label the static site used for what now lives at /elements/. Contribute
- * points at the on-site pipeline page (/contribute/), the entry point for the
- * community price records this ledger is assembled from.
+ * is deliberately NOT here: it is the always-visible "Add a price" button in
+ * SiteHeader, present on every page (including mobile, outside the collapsed
+ * menu), because contributions are the point of the site.
  */
 export const NAV_LINKS: NavItem[] = [
   { href: '/dashboard/', label: 'Dashboard' },
   { href: '/elements/', label: 'Prices' },
   { href: '/regulatory/', label: 'Regulatory' },
-  { href: '/movements/', label: 'Movements' },
   { href: '/news/', label: 'News' },
   { href: '/data/', label: 'Data' },
   { href: '/methodology/', label: 'Methodology' },
   { href: '/about/', label: 'About' },
-  { href: '/contribute/', label: 'Contribute' },
 ];
+
+/** The site-wide contribute CTA, rendered by SiteHeader on every page. */
+export const CONTRIBUTE_CTA: NavItem = {
+  href: '/contribute/',
+  label: 'Add a price',
+};
 
 /**
  * The footer link row: the same set as the header but with Dashboard dropped
- * and Sources added.
+ * and Sources + Contribute added.
  */
 export const FOOTER_LINKS: NavItem[] = [
   { href: '/elements/', label: 'Prices' },
   { href: '/regulatory/', label: 'Regulatory' },
-  { href: '/movements/', label: 'Movements' },
   { href: '/news/', label: 'News' },
   { href: '/data/', label: 'Data' },
   { href: '/methodology/', label: 'Methodology' },

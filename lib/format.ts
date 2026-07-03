@@ -5,8 +5,8 @@
  *
  * Numeric helpers return the bare string; typography (mono, tabular figures,
  * right-alignment) is the `.numeric` house class / the `numeric` prop on
- * `<TD>`/`<TH>`. Editorial surfaces (article cards, timelines, the movements
- * feed) format dates through `formatDate`; dense data tables keep ISO
+ * `<TD>`/`<TH>`. Editorial surfaces (article cards, timelines) format dates
+ * through `formatDate`; dense data tables keep ISO
  * `YYYY-MM-DD` (sortable, monospace, terminal-grade).
  */
 

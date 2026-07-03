@@ -24,8 +24,17 @@ export function RecentContributions({
   if (queue === null) {
     return (
       <Callout tone="note" title="Queue temporarily unavailable">
-        The inbox cannot be reached right now. The dataset itself is unaffected,
-        and the GitHub issue template accepts submissions as usual.
+        The inbox cannot be reached right now. The dataset itself is
+        unaffected; try again shortly, or submit via the{' '}
+        <a
+          href="https://github.com/mironovb/lanthanides.io/issues/new?template=price-update.yml"
+          target="_blank"
+          rel="noopener"
+          className="font-medium underline decoration-dotted underline-offset-2"
+        >
+          GitHub template
+        </a>
+        .
       </Callout>
     );
   }

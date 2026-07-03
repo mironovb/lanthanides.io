@@ -4,8 +4,8 @@
  * ContributionForm: the on-site intake for one community price observation.
  * Validates locally with the same validateContribution the API runs, POSTs to
  * /api/contributions, and refreshes the server-rendered queue on success. The
- * GitHub issue template remains as the alternative path (linked below the
- * form), so nobody is stranded if the inbox is down.
+ * GitHub issue template appears only as the fallback in the failure state, so
+ * nobody is stranded if the inbox is down; the happy path never mentions it.
  *
  * Accessibility mirrors PriceGaugeForm: labelled controls, aria-invalid +
  * aria-describedby, role="alert" errors, identical SSR/client markup.
@@ -118,7 +118,15 @@ export function ContributionForm({
       ) : null}
       {formError ? (
         <Callout tone="warning" title="Not submitted" className="mb-4">
-          {formError}
+          {formError}{' '}
+          <a
+            href={GITHUB_TEMPLATE}
+            target="_blank"
+            rel="noopener"
+            className="font-medium underline decoration-dotted underline-offset-2"
+          >
+            GitHub template →
+          </a>
         </Callout>
       ) : null}
 
@@ -458,18 +466,11 @@ export function ContributionForm({
           <Button type="submit" variant="primary" disabled={submitting}>
             {submitting ? 'Submitting…' : 'Submit for review'}
           </Button>
-          <a
-            href={GITHUB_TEMPLATE}
-            target="_blank"
-            rel="noopener"
-            className="text-xs font-medium text-fg-dim transition-colors duration-fast hover:text-fg"
-          >
-            Prefer GitHub? Use the issue template →
-          </a>
         </div>
         <p className="text-2xs leading-relaxed text-fg-dim">
-          Submissions are public review-queue entries. Do not include private
-          contact details; a missing field is better than a guessed one.
+          No account needed. Submissions are public review-queue entries: do not
+          include private contact details, and a missing field is better than a
+          guessed one.
         </p>
       </form>
     </Panel>

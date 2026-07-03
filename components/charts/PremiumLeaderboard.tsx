@@ -341,15 +341,8 @@ export function PremiumLeaderboard({ rows }: { rows: PremiumLeaderboardRow[] }) 
           Each premium is the latest retail reference price divided by the latest
           bulk benchmark for that element: a snapshot of the markup a
           small-quantity buyer pays over wholesale, taken at one point in time. It
-          is not a price change over time and not a market trend. For movement
-          over time, see{' '}
-          <Link
-            href="/movements/"
-            className="text-accent hover:text-accent-strong"
-          >
-            Market Movements
-          </Link>
-          .
+          is not a price change over time and not a market trend; the per-date
+          observations behind each side are on the element&rsquo;s page.
         </p>
         <p>
           <span className="font-semibold text-fg">

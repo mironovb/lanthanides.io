@@ -5,8 +5,7 @@
  * has no `_posts` (the news content lives in the `_articles` collection), so
  * the legacy feed shipped empty. This handler populates the same `/feed.xml`
  * URL from the five articles (newest first), so feed discovery (advertised via
- * `<link rel="alternate">` on every page) resolves to real content. Mirrors the
- * shape and conventions of the companion /movements.xml feed.
+ * `<link rel="alternate">` on every page) resolves to real content.
  *
  * The URL is preserved exactly (`/feed.xml`, no trailing slash, a machine
  * endpoint). `force-static` emits it as a build-time file.
@@ -17,7 +16,7 @@ import { SITE_NAME, SITE_URL } from '@/lib/seo';
 export const dynamic = 'force-static';
 
 const AUTHOR = 'Bogdan Mironov';
-// Host for the tag: URI scheme, scheme + slashes stripped (matches movements.xml).
+// Host for the tag: URI scheme, scheme + slashes stripped.
 const HOST = SITE_URL.replace(/^https?:\/\//, '').replace(/\//g, '');
 
 /** Escape the five XML metacharacters. */

@@ -63,6 +63,20 @@ const nextConfig = {
         destination: '/contribute/',
         statusCode: 301,
       },
+      // 2026-07-03 simplification: the Market Movements feed was scrapped (its
+      // detection windows are too thin to be worth a surface; the dashboard is
+      // the market overview). The page 301s to the dashboard; the Atom feed
+      // 301s to the surviving news feed so subscribed readers keep resolving.
+      {
+        source: '/movements',
+        destination: '/dashboard/',
+        statusCode: 301,
+      },
+      {
+        source: '/movements.xml',
+        destination: '/feed.xml',
+        statusCode: 301,
+      },
     ];
   },
 };

@@ -1,9 +1,9 @@
 /**
  * Home (/). The plain reference home from the last deployed static site
- * (_layouts/home.html), in its original block order: a hero with a stat ribbon,
- * the category legend, the full element grid, the active controls banner, the
- * recent articles, and the recent movements. Every number and list comes from
- * the data layer; nothing is fabricated (CLAUDE.md hard rule #1).
+ * (_layouts/home.html): a hero with a stat ribbon, the category legend, the
+ * full element grid, the active controls banner, and the recent articles.
+ * Every number and list comes from the data layer; nothing is fabricated
+ * (CLAUDE.md hard rule #1).
  */
 import type { Metadata } from 'next';
 import {
@@ -27,7 +27,6 @@ import { Hero } from '@/components/home/Hero';
 import { CategoryLegend } from '@/components/home/CategoryLegend';
 import { RegulatoryBanner } from '@/components/regulatory/RegulatoryBanner';
 import { ArticleCard } from '@/components/news/ArticleCard';
-import { HomeMovements } from '@/components/movements/HomeMovements';
 
 const TITLE =
   'lanthanides.io: Rare Earth Prices, Export Controls, and Strategic Materials Intelligence';
@@ -109,9 +108,6 @@ export default function HomePage() {
           </div>
         </section>
       )}
-
-      {/* 6. Recent movements */}
-      <HomeMovements />
     </Container>
   );
 }

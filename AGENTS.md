@@ -31,7 +31,15 @@ the versioned dataset. Citable, scientific, no hype.
 > (`price_contributions`, `db/schema.sql`) behind the `/contribute/` form +
 > `POST /api/contributions` — community **price contributions and nothing
 > else**. One optional env var (`DATABASE_URL`); the build never reads the DB;
-> publishing stays the reviewed git pipeline.
+> publishing stays a maintainer merge into `_data/`.
+>
+> Also scrapped 2026-07-03: **Market Movements** (`/movements` page +
+> `/movements.xml` feed + the home/dashboard movement widgets; the detection
+> windows were too thin to be worth a surface — both URLs 301). Contribution
+> is deliberately frictionless: the **"Add a price" button in the site header
+> is on every page**, the `/contribute/` page is just form + queue +
+> standards, and user-facing copy never asks contributors for GitHub or PRs
+> (GitHub appears only as a fallback in failure states).
 
 ## Stack
 
@@ -86,10 +94,12 @@ models, or write paths.
 2. **Preserve permalinks.** `trailingSlash: true` is set in `next.config.mjs`;
    every page URL keeps its trailing slash. Machine-readable endpoints
    (`.xml`/`.json`/`.txt`/`.webmanifest`) keep their exact extension path with
-   **no** trailing slash. The only URL that changes: `/prices/ → 301 →
-   /elements/`. Element URLs are case-sensitive (`/elements/Dy/`, not `/dy/`).
-   Preserve in-page anchors (e.g. `/methodology/#display-price`,
-   `/framework/#pricing`).
+   **no** trailing slash. A retired URL is never a 404: every removed route
+   301s to its nearest surviving surface (the full table lives in
+   `next.config.mjs` — `/prices`, `/vision`, `/sell`, `/offers`, `/alerts`,
+   `/discussion`, `/movements`, `/movements.xml`, `/assets/data/elements.json`).
+   Element URLs are case-sensitive (`/elements/Dy/`, not `/dy/`). Preserve
+   in-page anchors (e.g. `/methodology/#display-price`, `/framework/#pricing`).
 3. **No real credentials, no paid services in the repo.** The only env var is
    `DATABASE_URL` (the Neon contributions inbox), optional, documented in
    `.env.example`, and it lives only in the host secret store and the
@@ -109,8 +119,8 @@ models, or write paths.
 ## Directory map (condensed from ARCHITECTURE §1)
 
 ```
-app/          Next.js App Router — routes + handlers (api/, sitemap.ts, robots.ts, feed.xml/, movements.xml/)
-components/    server-first React (seo/, charts/, elements/, regulatory/, trust/, layout/, ui/, …)
+app/          Next.js App Router — routes + handlers (api/, sitemap.ts, robots.ts, feed.xml/)
+components/    server-first React (seo/, charts/, elements/, regulatory/, contribute/, layout/, ui/, …)
 lib/          data/ (typed readers over _data/), types.ts, price-gauge.ts, contributions.ts, seo.ts, format.ts
 db/           schema.sql + init.mjs — the single contributions-inbox table
 _data/        UNCHANGED — versioned reference + provenance (yml/json)
@@ -138,14 +148,14 @@ docs/         AUDIT.md, MIGRATION.md, ARCHITECTURE.md, DEPLOYMENT.md, …
 | `/methodology` · `/sources` · `/about` | SSG | same `/…/` |
 | `/news` · `/news/[slug]` | SSG (5 articles) | `/news/…/` |
 | `/dashboard` | ISR | `/dashboard/` |
-| `/movements` | SSG | `/movements/` |
 | `/data` | SSG | — (new open-data landing, incl. citation block) |
 | `/contribute` | Dynamic | — (the growth loop: form + live review queue) |
 | `/tools/price-gauge` | Dynamic | — (file-derived estimator, no DB) |
-| `/sitemap.xml` · `/robots.txt` · `/feed.xml` · `/movements.xml` | Handler | same exact path |
+| `/sitemap.xml` · `/robots.txt` · `/feed.xml` | Handler | same exact path |
 | `/api/price-gauge` · `/api/export/[format]` · `/api/dashboard/brief` | Handler | — (all file-derived) |
 | `/api/contributions` | Handler | — (POST-only inbox write; the ONE DB surface) |
 | `/sell` · `/offers` · `/alerts` · `/discussion` | **301** | removed 2026-07-02 → `/contribute/`, `/data/`, `/regulatory/`, `/contribute/` |
+| `/movements` · `/movements.xml` | **301** | scrapped 2026-07-03 → `/dashboard/`, `/feed.xml` |
 
 ## Design tokens (baseline — Prompt 3)
 

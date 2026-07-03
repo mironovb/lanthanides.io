@@ -198,58 +198,29 @@ export default function AboutPage() {
         <SectionHeading title="Community contributions" />
         <div className="space-y-3 text-base leading-relaxed text-fg-muted">
           <p>
-            lanthanides.io is open to contributions from researchers, analysts,
-            procurement professionals, and anyone with sourced pricing data or
-            market intelligence for rare earths and strategic metals.
-            Contributions are the mechanism this ledger grows by: each accepted
-            observation lands as a reviewable git diff and becomes part of the
-            record pool the reference prices are assembled from. The pipeline is
-            described in full on the{' '}
+            Contributions are the mechanism this ledger grows by: the reference
+            prices are assembled from the pool of source-cited observations,
+            and anyone who has seen a current price can add one. The quickest
+            way is the{' '}
             <Link href="/contribute/" className={INLINE_LINK}>
-              Contribute
+              Add a price
             </Link>{' '}
-            page.
+            form (the button in the header, on every page): under a minute, no
+            account. A maintainer checks every submission before it enters the
+            open dataset.
           </p>
-          <p>You can contribute by:</p>
-          <ul className="list-disc space-y-1.5 pl-5 marker:text-fg-dim">
-            <li>
-              Submitting a price observation via a{' '}
-              <a
-                href={`${GITHUB}/issues/new?template=price-update.yml`}
-                target="_blank"
-                rel="noopener"
-                className={INLINE_LINK}
-              >
-                GitHub issue
-              </a>
-            </li>
-            <li>
-              Reporting a data error via the{' '}
-              <a
-                href={`${GITHUB}/issues/new?template=data-correction.yml`}
-                target="_blank"
-                rel="noopener"
-                className={INLINE_LINK}
-              >
-                correction template
-              </a>
-            </li>
-            <li>
-              Sharing market intelligence via the{' '}
-              <a
-                href={`${GITHUB}/issues/new?template=market-note.yml`}
-                target="_blank"
-                rel="noopener"
-                className={INLINE_LINK}
-              >
-                market note template
-              </a>
-            </li>
-            <li>Opening a pull request with data or code improvements</li>
-          </ul>
           <p>
-            All contributions must be factual, sourced, and verifiable. See the
-            full{' '}
+            For a data error, use the{' '}
+            <a
+              href={`${GITHUB}/issues/new?template=data-correction.yml`}
+              target="_blank"
+              rel="noopener"
+              className={INLINE_LINK}
+            >
+              correction template
+            </a>{' '}
+            or email the address below. All contributions must be factual,
+            sourced, and verifiable; the details live in the{' '}
             <a
               href={`${GITHUB}/blob/main/CONTRIBUTING.md`}
               target="_blank"
@@ -257,8 +228,8 @@ export default function AboutPage() {
               className={INLINE_LINK}
             >
               contribution guide
-            </a>{' '}
-            for data formats, source requirements, and local setup instructions.
+            </a>
+            .
           </p>
         </div>
       </section>

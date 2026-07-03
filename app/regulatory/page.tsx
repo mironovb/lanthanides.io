@@ -69,10 +69,9 @@ export default function RegulatoryPage() {
         lead="Every published Chinese export-control announcement affecting rare earths, strategic metals, and semiconductor materials since 2023. Each entry lists the announcement number, effective date, affected elements, and current status. Filter by element to narrow the page to the controls that touch it."
       >
         <StoryLink>
-          See how these controls move prices in{' '}
-          <Link href="/movements/">Market Movements</Link>, or jump to any
-          controlled element in the{' '}
-          <Link href="/elements/">directory</Link>.
+          Jump to any controlled element in the{' '}
+          <Link href="/elements/">directory</Link>, or see the market shape on
+          the <Link href="/dashboard/">dashboard</Link>.
         </StoryLink>
       </PageHeader>
 

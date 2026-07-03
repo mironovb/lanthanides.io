@@ -35,11 +35,10 @@ export const DEFAULT_KEYWORDS =
 
 export const DEFAULT_OG_IMAGE = '/assets/images/og-default.png';
 
-/** The two site Atom feeds, surfaced as `<link rel="alternate">` on every page. */
+/** The site Atom feed, surfaced as `<link rel="alternate">` on every page. */
 const FEED_ALTERNATES = {
   'application/atom+xml': [
     { url: '/feed.xml', title: `${SITE_NAME} · News` },
-    { url: '/movements.xml', title: `${SITE_NAME} · Market Movements` },
   ],
 };
 

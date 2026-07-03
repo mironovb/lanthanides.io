@@ -102,7 +102,6 @@ export const metadata: Metadata = {
     types: {
       'application/atom+xml': [
         { url: '/feed.xml', title: `${SITE_NAME} · News` },
-        { url: '/movements.xml', title: `${SITE_NAME} · Market Movements` },
       ],
     },
   },

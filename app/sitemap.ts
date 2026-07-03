@@ -3,8 +3,7 @@
  * page: the static reference routes, all 31 case-sensitive element pages, and
  * all 5 news articles. URLs are absolute (via metadataBase/SITE_URL) and carry
  * the trailing slash that matches the canonical contract. Machine endpoints
- * (/feed.xml, /movements.xml, /api/*) and the sitemap itself are intentionally
- * excluded.
+ * (/feed.xml, /api/*) and the sitemap itself are intentionally excluded.
  *
  * lastModified uses the dataset's generated-at stamp for data-backed pages and
  * the article date for each article, both real values, never fabricated.
@@ -23,7 +22,6 @@ const STATIC_PAGES: Array<[string, number, ChangeFreq]> = [
   ['/', 1.0, 'daily'],
   ['/elements/', 0.9, 'daily'],
   ['/regulatory/', 0.9, 'daily'],
-  ['/movements/', 0.8, 'daily'],
   ['/dashboard/', 0.8, 'daily'],
   ['/data/', 0.8, 'weekly'],
   ['/framework/', 0.7, 'weekly'],

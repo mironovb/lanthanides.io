@@ -26,14 +26,6 @@
  */
 export const MIN_LINE_POINTS = 5;
 
-/**
- * Inline event sparklines (the movements feed) use a looser ≥3: a 2-point
- * sparkline is a slope fixed by direction, not by data (the Prompt 9 decision).
- * Kept distinct from the line threshold but routed through the same gate so there
- * is still only one rule.
- */
-export const MIN_SPARKLINE_POINTS = 3;
-
 /** Count the distinct values produced by `key` over `items`. */
 export function distinctCount<T>(
   items: readonly T[],
