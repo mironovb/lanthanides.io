@@ -1,16 +1,33 @@
 /**
- * Compact element tile for the /elements category grid. Matches the tile from
- * the last static site (the .element-tile rule in _sass/_home.scss): a 4px
- * category band down the left edge, a faint category tint along the top, the
- * category microlabel, atomic number, the China export control and high demand
- * markers, the symbol set large with the name beneath, the export control status
- * tag, and the retail and bulk reference prices with form and quote month. The
- * whole tile links to the element detail page.
+ * Element tile: a periodic-table cell fused with a price-ledger row.
+ *
+ * The anatomy follows the periodic convention (atomic number in the top-left
+ * corner, the symbol set large, the name beneath) and ends in a two-line
+ * ledger (retail, then bulk) whose tabular figures right-align: with the grid
+ * rows equalised (auto-rows-fr) the prices line up across neighbouring tiles,
+ * so a section scans like one table.
+ *
+ * One colour voice per axis, nothing decorative (design tokens): the 2px top
+ * band is the category; a small dot is the export-control status (risk-high
+ * restricted, risk-medium monitored, none for normal); 🔥 marks high demand.
+ * The category microlabel, tint wash, left band, and status pill of the old
+ * tile are gone: the section heading already names the category, and the dot
+ * says more than the pill did in a fraction of the space.
+ *
+ * The whole tile links to the element detail page. Server component.
  */
 import Link from 'next/link';
-import type { Element, PriceRecord } from '@/lib/types';
-import { CATEGORY_STYLE, CONTROL_STYLE } from './categories';
-import { capitalize, fmtUsdPrice } from './format';
+import type { Element, ExportControlStatus, PriceRecord } from '@/lib/types';
+import { CATEGORY_STYLE } from './categories';
+import { fmtUsdPrice } from './format';
+
+/** Export-control marks: colour only ever encodes meaning (risk scale). */
+const CONTROL_DOT: Partial<
+  Record<ExportControlStatus, { classes: string; title: string }>
+> = {
+  restricted: { classes: 'bg-risk-high', title: 'Export licence required' },
+  monitored: { classes: 'bg-risk-medium', title: 'Under surveillance' },
+};
 
 interface ElementCardProps {
   element: Element;
@@ -20,87 +37,85 @@ interface ElementCardProps {
 
 export function ElementCard({ element, retail, bulk }: ElementCardProps) {
   const cat = CATEGORY_STYLE[element.category];
-  const ctrl = CONTROL_STYLE[element.export_control_status];
+  const dot = CONTROL_DOT[element.export_control_status];
 
   return (
     <Link
       href={`/elements/${element.symbol}/`}
-      className={`relative flex flex-col overflow-hidden rounded-xl border-y border-r border-l-4 border-border ${cat.borderLeft} ${cat.hoverBorder} bg-surface px-4 pb-2 pt-3 transition duration-fast hover:-translate-y-px hover:shadow-md`}
+      className={`flex flex-col rounded-lg border border-t-2 border-border ${cat.borderTop} ${cat.hoverBorder} bg-surface p-3.5 shadow-sm transition duration-fast hover:-translate-y-px hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2`}
     >
-      <span
-        aria-hidden="true"
-        className={`pointer-events-none absolute inset-x-0 top-0 h-8 ${cat.tint}`}
-      />
-
-      <div className="relative flex items-center justify-between leading-none">
-        <span
-          className={`font-mono text-2xs font-semibold uppercase tracking-caps ${cat.text}`}
-        >
-          {cat.short}
+      {/* Corner row: atomic number left (periodic convention), marks right */}
+      <div className="flex items-center justify-between leading-none">
+        <span className="font-mono text-2xs tabular-nums text-fg-dim">
+          {element.atomic_number}
         </span>
-        <span className="flex items-center gap-1 text-2xs leading-none text-fg-dim">
-          {element.cn_export_control && (
-            <span title="China export control">❗</span>
+        <span className="flex items-center gap-1.5">
+          {dot && (
+            <span
+              title={dot.title}
+              className={`h-1.5 w-1.5 rounded-full ${dot.classes}`}
+            />
           )}
-          {element.high_demand && <span title="High demand">🔥</span>}
-          <span className="ml-1 font-mono tabular-nums">
-            {element.atomic_number}
-          </span>
+          {element.high_demand && (
+            <span title="High demand" className="text-2xs leading-none">
+              🔥
+            </span>
+          )}
         </span>
       </div>
 
-      <div className="relative mt-2 flex flex-col gap-0.5">
-        <span className="font-serif text-2xl font-bold leading-none tracking-tightish text-fg">
-          {element.symbol}
-        </span>
-        <span className="truncate text-xs text-fg-muted">{element.name}</span>
-      </div>
+      {/* Symbol + name */}
+      <span className="mt-2 font-serif text-3xl font-bold leading-none tracking-tightish text-fg">
+        {element.symbol}
+      </span>
+      <span className="mb-3 mt-1.5 truncate text-xs leading-snug text-fg-muted">
+        {element.name}
+      </span>
 
-      <div className="relative mt-2">
-        <span
-          className={`inline-block rounded-sm px-1 py-px font-mono text-2xs font-semibold ${ctrl.classes}`}
-        >
-          {ctrl.label}
-        </span>
-      </div>
-
-      <div className="relative mt-auto flex flex-col gap-1 border-t border-border pb-1 pt-2">
-        <PriceRow label="Retail" record={retail} muted={false} />
-        <PriceRow label="Bulk" record={bulk} muted />
+      {/* Price ledger, pinned to the bottom so figures align across the row */}
+      <div className="mt-auto flex flex-col gap-1.5 border-t border-border pt-2">
+        <PriceRow tier="retail" record={retail} strong />
+        <PriceRow tier="bulk" record={bulk} strong={false} />
       </div>
     </Link>
   );
 }
 
+/**
+ * One ledger line: "tier · form" set small and dim on the left, the USD/kg
+ * figure mono + tabular on the right. The quote month lives on the detail
+ * page's provenance table, not here.
+ */
 function PriceRow({
-  label,
+  tier,
   record,
-  muted,
+  strong,
 }: {
-  label: string;
+  tier: 'retail' | 'bulk';
   record: PriceRecord | null;
-  muted: boolean;
+  strong: boolean;
 }) {
   return (
-    <div className="flex items-baseline gap-1 overflow-hidden">
-      <span className="w-9 flex-shrink-0 text-2xs leading-none text-fg-dim">
-        {label}
+    <div className="flex items-baseline justify-between gap-2">
+      <span className="min-w-0 truncate text-2xs leading-none text-fg-dim">
+        {tier}
+        {record ? (
+          // The form matters (metal vs oxide prices differ by orders of
+          // magnitude) but yields to the figure on narrow tiles.
+          <span className="hidden sm:inline"> · {record.form.toLowerCase()}</span>
+        ) : null}
       </span>
       {record ? (
-        <>
-          <span
-            className={`whitespace-nowrap font-mono text-xs font-semibold leading-none ${muted ? 'text-fg-muted' : 'text-fg'}`}
-          >
-            {fmtUsdPrice(record.normalized_usd_per_kg)}
-            <span className="text-2xs font-normal text-fg-muted">/kg</span>
-          </span>
-          <span className="ml-auto min-w-0 truncate text-2xs leading-none text-fg-dim">
-            {capitalize(record.form)}{' '}
-            <span className="font-mono">{record.quote_date.slice(0, 7)}</span>
-          </span>
-        </>
+        <span
+          className={`whitespace-nowrap font-mono text-xs font-semibold leading-none tabular-nums ${
+            strong ? 'text-fg' : 'text-fg-muted'
+          }`}
+        >
+          {fmtUsdPrice(record.normalized_usd_per_kg)}
+          <span className="font-normal text-fg-dim">/kg</span>
+        </span>
       ) : (
-        <span className="text-fg-dim">n/a</span>
+        <span className="font-mono text-xs leading-none text-fg-dim">n/a</span>
       )}
     </div>
   );

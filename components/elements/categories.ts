@@ -8,11 +8,7 @@
  * the `category` / `risk` tokens in tailwind.config.ts; colour only ever encodes
  * meaning (CLAUDE.md design tokens).
  */
-import type {
-  ElementCategory,
-  ExportControlStatus,
-  RegulatoryStatus,
-} from '@/lib/types';
+import type { ElementCategory, RegulatoryStatus } from '@/lib/types';
 
 /** Display order for the four categories (matches the legacy grid / CATEGORY_ORDER). */
 export const CATEGORY_ORDER: readonly ElementCategory[] = [
@@ -27,95 +23,42 @@ export interface CategoryStyle {
   label: string;
   /** Singular detail-header badge, e.g. 'Light Rare Earth'. */
   badgeLabel: string;
-  /** Compact tile label, e.g. 'Light REE'. */
-  short: string;
   /** Solid swatch background (heading swatch / chip accent). */
   swatch: string;
   /** Top-accent border colour utility. */
   borderTop: string;
-  /** Left-edge accent band (4px) used on the elements grid tile (static look). */
-  borderLeft: string;
   /** Hover border colour (whole tile turns the category colour on hover). */
   hoverBorder: string;
-  /** Faint category tint washed along the top edge of the tile. */
-  tint: string;
-  /** Foreground accent for the symbol/category text. */
-  text: string;
-  /** Outlined category badge (text + border + tint). */
-  badge: string;
 }
 
 export const CATEGORY_STYLE: Record<ElementCategory, CategoryStyle> = {
   rare_earth_light: {
     label: 'Light Rare Earths',
     badgeLabel: 'Light Rare Earth',
-    short: 'Light REE',
     swatch: 'bg-category-ree-light',
     borderTop: 'border-t-category-ree-light',
-    borderLeft: 'border-l-category-ree-light',
     hoverBorder: 'hover:border-category-ree-light',
-    tint: 'bg-gradient-to-b from-category-ree-light/10 to-transparent',
-    text: 'text-category-ree-light',
-    badge:
-      'text-category-ree-light border border-category-ree-light/40 bg-category-ree-light/10',
   },
   rare_earth_heavy: {
     label: 'Heavy Rare Earths',
     badgeLabel: 'Heavy Rare Earth',
-    short: 'Heavy REE',
     swatch: 'bg-category-ree-heavy',
     borderTop: 'border-t-category-ree-heavy',
-    borderLeft: 'border-l-category-ree-heavy',
     hoverBorder: 'hover:border-category-ree-heavy',
-    tint: 'bg-gradient-to-b from-category-ree-heavy/10 to-transparent',
-    text: 'text-category-ree-heavy',
-    badge:
-      'text-category-ree-heavy border border-category-ree-heavy/40 bg-category-ree-heavy/10',
   },
   strategic_metal: {
     label: 'Strategic & Rare Metals',
     badgeLabel: 'Strategic Metal',
-    short: 'Strategic',
     swatch: 'bg-category-strategic',
     borderTop: 'border-t-category-strategic',
-    borderLeft: 'border-l-category-strategic',
     hoverBorder: 'hover:border-category-strategic',
-    tint: 'bg-gradient-to-b from-category-strategic/10 to-transparent',
-    text: 'text-category-strategic',
-    badge:
-      'text-category-strategic border border-category-strategic/40 bg-category-strategic/10',
   },
   semiconductor_metal: {
     label: 'Semiconductor Metals',
     badgeLabel: 'Semiconductor Metal',
-    short: 'Semi',
     swatch: 'bg-category-semiconductor',
     borderTop: 'border-t-category-semiconductor',
-    borderLeft: 'border-l-category-semiconductor',
     hoverBorder: 'hover:border-category-semiconductor',
-    tint: 'bg-gradient-to-b from-category-semiconductor/10 to-transparent',
-    text: 'text-category-semiconductor',
-    badge:
-      'text-category-semiconductor border border-category-semiconductor/40 bg-category-semiconductor/10',
-  },
-};
-
-/** Export-control status → label + risk-coloured tag classes (teal/amber/red). */
-export const CONTROL_STYLE: Record<
-  ExportControlStatus,
-  { label: string; classes: string }
-> = {
-  restricted: {
-    label: 'Restricted',
-    classes: 'text-risk-high bg-risk-high/10 border border-risk-high/25',
-  },
-  monitored: {
-    label: 'Monitored',
-    classes: 'text-risk-medium bg-risk-medium/10 border border-risk-medium/25',
-  },
-  normal: {
-    label: 'Normal',
-    classes: 'text-risk-low bg-risk-low/10 border border-risk-low/25',
   },
 };
 

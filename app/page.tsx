@@ -25,7 +25,6 @@ import { SectionHeading } from '@/components/ui';
 import {
   CATEGORY_ORDER,
   CATEGORY_STYLE,
-  CONTROL_STYLE,
 } from '@/components/elements/categories';
 import { ElementCard } from '@/components/elements/ElementCard';
 import { Hero } from '@/components/home/Hero';
@@ -88,7 +87,7 @@ export default function HomePage() {
               count={elements.length}
             />
 
-            <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5 xl:grid-cols-6">
+            <div className="grid auto-rows-fr grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5 xl:grid-cols-6">
               {elements.map((element) => {
                 const { retailRef, bulkRef } = getReferencePrices(
                   element.symbol,
@@ -107,17 +106,28 @@ export default function HomePage() {
         );
       })}
 
-      {/* 3. Legend for the tile markers and control tags */}
-      <div className="mt-12 flex flex-wrap gap-x-5 gap-y-3 border-t border-border pt-4 text-xs text-fg-muted">
-        <span className="flex items-center gap-1">
-          <span aria-hidden="true">❗</span> China export control active
+      {/* 3. Legend for the tile marks */}
+      <div className="mt-12 flex flex-wrap items-center gap-x-6 gap-y-3 border-t border-border pt-4 text-xs text-fg-muted">
+        <span className="flex items-center gap-1.5">
+          <span
+            aria-hidden="true"
+            className="h-1.5 w-1.5 rounded-full bg-risk-high"
+          />
+          Export licence required
         </span>
-        <span className="flex items-center gap-1">
+        <span className="flex items-center gap-1.5">
+          <span
+            aria-hidden="true"
+            className="h-1.5 w-1.5 rounded-full bg-risk-medium"
+          />
+          Under surveillance
+        </span>
+        <span className="flex items-center gap-1.5">
           <span aria-hidden="true">🔥</span> High demand
         </span>
-        <LegendTag kind="restricted" /> Export licence required
-        <LegendTag kind="monitored" /> Under surveillance
-        <LegendTag kind="normal" /> No restrictions
+        <span className="text-fg-dim">
+          Latest retail and bulk references, USD per kg
+        </span>
       </div>
 
       {/* 4. Active controls banner */}
@@ -138,15 +148,3 @@ export default function HomePage() {
   );
 }
 
-function LegendTag({ kind }: { kind: keyof typeof CONTROL_STYLE }) {
-  const ctrl = CONTROL_STYLE[kind];
-  return (
-    <span className="flex items-center gap-1">
-      <span
-        className={`inline-block rounded-sm px-1 py-px font-mono text-2xs font-semibold ${ctrl.classes}`}
-      >
-        {ctrl.label}
-      </span>
-    </span>
-  );
-}
