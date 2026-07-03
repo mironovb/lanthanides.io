@@ -13,13 +13,11 @@ export interface NavItem {
   raw?: boolean;
 }
 
-/** GitHub CONTRIBUTING guide. The old nav and footer both linked here for "Contribute". */
-const CONTRIBUTING_URL =
-  'https://github.com/mironovb/lanthanides.io/blob/main/CONTRIBUTING.md';
-
 /**
- * The header: a flat row of eight links, in the old site's order. "Prices" is
- * the label the static site used for what now lives at /elements/.
+ * The header: a flat row of plain links, in the old site's order. "Prices" is
+ * the label the static site used for what now lives at /elements/. Contribute
+ * points at the on-site pipeline page (/contribute/), the entry point for the
+ * community price records this ledger is assembled from.
  */
 export const NAV_LINKS: NavItem[] = [
   { href: '/dashboard/', label: 'Dashboard' },
@@ -27,37 +25,31 @@ export const NAV_LINKS: NavItem[] = [
   { href: '/regulatory/', label: 'Regulatory' },
   { href: '/movements/', label: 'Movements' },
   { href: '/news/', label: 'News' },
-  { href: '/discussion/', label: 'Discussion' },
+  { href: '/data/', label: 'Data' },
   { href: '/methodology/', label: 'Methodology' },
   { href: '/about/', label: 'About' },
-  { href: CONTRIBUTING_URL, label: 'Contribute', external: true },
+  { href: '/contribute/', label: 'Contribute' },
 ];
 
 /**
- * The footer link row, matching the old footer.html: the same set as the header
- * but with Dashboard dropped and Sources added.
+ * The footer link row: the same set as the header but with Dashboard dropped
+ * and Sources added.
  */
 export const FOOTER_LINKS: NavItem[] = [
   { href: '/elements/', label: 'Prices' },
   { href: '/regulatory/', label: 'Regulatory' },
   { href: '/movements/', label: 'Movements' },
   { href: '/news/', label: 'News' },
-  { href: '/discussion/', label: 'Discussion' },
+  { href: '/data/', label: 'Data' },
   { href: '/methodology/', label: 'Methodology' },
   { href: '/about/', label: 'About' },
   { href: '/sources/', label: 'Sources' },
-  { href: CONTRIBUTING_URL, label: 'Contribute', external: true },
+  { href: '/contribute/', label: 'Contribute' },
 ];
 
-/**
- * Tools and alerts are real pages, but the old site kept them out of the top
- * nav. They live in a low-key secondary footer row instead.
- */
+/** The price gauge lives in a low-key secondary footer row, out of the top nav. */
 export const FOOTER_TOOLS: NavItem[] = [
   { href: '/tools/price-gauge/', label: 'Price Gauge' },
-  { href: '/sell/', label: 'Sell' },
-  { href: '/offers/', label: 'Offers' },
-  { href: '/alerts/', label: 'Alerts' },
 ];
 
 /** Open-data export endpoints, shown as small links in the footer. Real handlers. */

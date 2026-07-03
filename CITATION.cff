@@ -1,0 +1,19 @@
+# Machine-readable citation metadata (Citation File Format).
+# The dataset (everything under _data/, _elements/, _articles/) is CC BY 4.0;
+# the site code is MIT. There is no DOI: cite by version date (the dataset's
+# generation stamp, shown on https://www.lanthanides.io/data/) and access date.
+cff-version: 1.2.0
+message: "If you use this dataset, please cite it as below."
+title: "lanthanides.io Strategic Materials Ledger: price-records dataset"
+type: dataset
+authors:
+  - name: "lanthanides.io contributors"
+url: "https://www.lanthanides.io/data/"
+repository-code: "https://github.com/mironovb/lanthanides.io"
+license: CC-BY-4.0
+keywords:
+  - rare earth elements
+  - strategic metals
+  - commodity prices
+  - export controls
+  - open data

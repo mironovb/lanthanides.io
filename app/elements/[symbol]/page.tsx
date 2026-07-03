@@ -248,6 +248,20 @@ export default function ElementDetailPage({ params }: { params: Params }) {
         </section>
       )}
 
+      {/* ── Contribute pointer: the record pool behind this page is open ── */}
+      <p className="mt-6 border-l-2 border-l-accent bg-surface py-2 pl-4 pr-3 text-sm leading-relaxed text-fg-muted">
+        Seen a sourced {element.name} quote that is missing above?{' '}
+        <Link
+          href="/contribute/"
+          className="font-medium text-accent hover:text-accent-strong"
+        >
+          Contribute the record
+        </Link>
+        . Each accepted observation is reviewed, merged into the open dataset,
+        and becomes part of the pool this page&rsquo;s reference prices are
+        assembled from.
+      </p>
+
       {/* ── Related elements ───────────────────────────────────────────── */}
       {related.length > 0 && (
         <div className="mt-8 flex flex-wrap items-baseline gap-2 border border-border bg-surface px-4 py-3 text-sm">

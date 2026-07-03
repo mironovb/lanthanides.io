@@ -6,7 +6,7 @@
  * genuine differentiator (small-quantity buyers pay a steep markup over
  * commodity pricing), and a sortable table conveys it cleanly.
  *
- * Basis disclosure is the load-bearing feature here. A ratio can silently divide
+ * Basis disclosure is the core feature here. A ratio can silently divide
  * metal-retail by oxide-bulk, which inflates it and is NOT a like-for-like spread
  * (the two largest premiums in the live data, Ce and Li, are exactly this). So
  * every row states the form AND the source date each side is quoted in, and is

@@ -65,6 +65,18 @@ export function PriceGaugeResult({
           </li>
         </ul>
 
+        <p className="mt-4 border-l-2 border-l-accent pl-3 text-sm leading-relaxed text-fg-muted">
+          This gap is exactly what community contributions close. If you have
+          seen a sourced quote for {element.name},{' '}
+          <Link
+            href="/contribute/"
+            className="font-medium text-accent hover:text-accent-strong"
+          >
+            contribute the record
+          </Link>{' '}
+          and this estimate exists for the next person.
+        </p>
+
         <div className="mt-5 border-t border-border pt-4">
           <LinkButton
             href={`/elements/${element.symbol}/`}
@@ -218,6 +230,14 @@ export function PriceGaugeResult({
                 {element.name} provenance table
               </Link>{' '}
               ({availableTotal} record{availableTotal === 1 ? '' : 's'} total).
+              The band tightens as records accumulate:{' '}
+              <Link
+                href="/contribute/"
+                className="font-medium text-accent hover:text-accent-strong"
+              >
+                contribute a sourced quote
+              </Link>
+              .
             </p>
           </div>
         ) : null}

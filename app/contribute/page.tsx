@@ -71,7 +71,7 @@ export default function ContributePage() {
         crumbs={[{ label: 'Home', href: '/' }, { label: 'Contribute' }]}
         eyebrow="Open & Auditable"
         title="Contribute data"
-        lead="This ledger grows by review, not by scraping. Every price and market note enters through a public pipeline with two human checkpoints, so what gets published is open, attributable, and reversible by anyone reading the git history."
+        lead="Every reference price on this site is assembled from source-cited observations, and this page is where those observations come from. The ledger grows by review, not by scraping: each submission passes two human checkpoints, so what gets published is open, attributable, and reversible by anyone reading the git history."
       >
         <StoryLink>
           See what governs each accepted value in the{' '}

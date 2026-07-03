@@ -1,5 +1,10 @@
 # DASHBOARD-ROADMAP.md: /dashboard baseline audit and backlog
 
+> **Historical record (2026-07-02).** The discussion board and the dashboard's
+> Community-intelligence panel described below were **removed** with the whole
+> database layer in the community-contributions refocus. The dashboard is now
+> fully file-derived. Read the DB/board sections as history.
+
 > Date: 2026-06-07 · Branch: `main` · Companion to `docs/VISUALIZATION-AUDIT.md`
 > (the data-sufficiency gate), `docs/ARCHITECTURE.md` (route map, data
 > contracts), and `docs/DEPLOYMENT.md` §8 (how reference data refreshes).

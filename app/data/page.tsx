@@ -12,6 +12,7 @@ import Link from 'next/link';
 import {
   getControlByCategory,
   getCoverageTally,
+  getDataGeneratedAt,
   getElementCoverage,
   getElements,
   getPremiumLeaderboard,
@@ -20,7 +21,7 @@ import {
   getSourceBreakdown,
   getSources,
 } from '@/lib/data';
-import { buildMetadata } from '@/lib/seo';
+import { buildMetadata, SITE_URL } from '@/lib/seo';
 import { BreadcrumbJsonLd, DatasetJsonLd } from '@/components/seo';
 import { Container, PageHeader, StoryLink } from '@/components/layout';
 import { Callout, SectionHeading, Stat, StatGrid } from '@/components/ui';
@@ -48,6 +49,23 @@ export default function DataPage() {
   const notices = getRegulatoryNotices().length;
   const sources = getSources().length;
   const observations = getSourceBreakdown().total_observations;
+
+  // Dataset version for citations: the real generation stamp of the versioned
+  // data, never a fabricated release date (CLAUDE.md hard rule #1).
+  const generatedAt = getDataGeneratedAt();
+  const versionDate = generatedAt.slice(0, 10);
+  const versionYear = versionDate.slice(0, 4);
+  const dataUrl = `${SITE_URL}/data/`;
+
+  const plainCitation = `lanthanides.io contributors (${versionYear}). lanthanides.io Strategic Materials Ledger: price-records dataset, version of ${versionDate}. ${dataUrl}. Licensed CC BY 4.0.`;
+
+  const bibtex = `@misc{lanthanides_ledger_${versionYear},
+  title        = {lanthanides.io Strategic Materials Ledger: price-records dataset},
+  author       = {{lanthanides.io contributors}},
+  year         = {${versionYear}},
+  howpublished = {\\url{${dataUrl}}},
+  note         = {Open data, CC BY 4.0. Version of ${versionDate}.}
+}`;
 
   // Data-honest visualizations, each stating its own sample size.
   const coverage = getElementCoverage();
@@ -269,6 +287,47 @@ export default function DataPage() {
         </p>
       </section>
 
+      {/* ── Cite this dataset ────────────────────────────────────────────── */}
+      <section className="mt-12">
+        <SectionHeading
+          title="Cite this dataset"
+          description={
+            <>
+              The dataset carries no DOI; cite it by its version date (the
+              generation stamp of the data files, shown below) and the date you
+              accessed it. How each value is collected, normalised, and verified
+              is documented in the <Link href="/methodology/">methodology</Link>.
+            </>
+          }
+        />
+        <p className="max-w-prose border-l-2 border-l-accent bg-surface py-2 pl-4 pr-3 text-sm leading-relaxed text-fg">
+          {plainCitation}
+        </p>
+        <p className="mt-4 font-mono text-2xs uppercase tracking-caps text-fg-dim">
+          BibTeX
+        </p>
+        <div className="mt-1 overflow-x-auto border border-border bg-surface">
+          <pre className="p-4 font-mono text-xs leading-relaxed text-fg-muted">
+            {bibtex}
+          </pre>
+        </div>
+        <p className="mt-3 max-w-prose text-xs leading-relaxed text-fg-dim">
+          A machine-readable <code className="font-mono">CITATION.cff</code>{' '}
+          ships in the{' '}
+          <a
+            href={`${REPO}/blob/main/CITATION.cff`}
+            target="_blank"
+            rel="noopener"
+            className="underline decoration-dotted underline-offset-2 hover:text-fg"
+          >
+            repository
+          </a>
+          . For a specific record, cite its record id and the element&rsquo;s
+          provenance table, where every observation lists its seller, date, and
+          source.
+        </p>
+      </section>
+
       {/* ── Licence & attribution ────────────────────────────────────────── */}
       <Callout tone="note" glyph={null} title="Licence & Attribution" className="mt-12">
         <p className="max-w-prose leading-relaxed">
@@ -281,22 +340,12 @@ export default function DataPage() {
             Creative Commons Attribution 4.0 (CC BY 4.0)
           </a>
           . You are free to share and adapt it for any purpose, including
-          commercially, provided you give appropriate credit. The site code is
-          licensed{' '}
+          commercially, provided you give appropriate credit (the citation
+          above). The site code is licensed{' '}
           <a href="https://opensource.org/licenses/MIT" target="_blank" rel="noopener">
             MIT
           </a>
           .
-        </p>
-        <p className="mt-3 max-w-prose leading-relaxed">
-          Suggested citation:{' '}
-          <span className="text-fg">
-            lanthanides.io Strategic Materials Ledger, price-records dataset (CC
-            BY 4.0), www.lanthanides.io/data/.
-          </span>{' '}
-          See{' '}
-          <Link href="/methodology/">Methodology</Link> for how each value is
-          collected, normalised, and verified.
         </p>
       </Callout>
     </Container>

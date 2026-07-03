@@ -1,4 +1,4 @@
-# CLAUDE.md — lanthanides.io
+# AGENTS.md — lanthanides.io
 
 Conventions every unattended session must follow. **Read this first.** The hard
 rules below are non-negotiable; the migration checklist at the bottom tracks
@@ -158,7 +158,7 @@ must leave `npm run build` green.
   strategy, URL contract, sequencing) + `docs/ARCHITECTURE.md` (layout, route
   map, data contracts).
 - [x] **3 — Scaffold.** Next.js + TS + Tailwind + Prisma app shell; baseline
-  design tokens; Jekyll build files quarantined into `legacy/`; this `CLAUDE.md`.
+  design tokens; Jekyll build files quarantined into `legacy/`; this `AGENTS.md`.
   `npm run build` passes on the placeholder home.
 - [x] **4 — Data layer.** `lib/data/types.ts` (+ `lib/types.ts` re-export) =
   ARCHITECTURE §3 contracts; `lib/data/{load,index,verify}.ts` readers over the

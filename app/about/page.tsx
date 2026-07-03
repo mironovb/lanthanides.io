@@ -26,7 +26,7 @@ import { SectionHeading, Stat, StatGrid } from '@/components/ui';
 
 const GITHUB = 'https://github.com/mironovb/lanthanides.io';
 
-// hello@lanthanides.io is the project contact used site-wide (footer, /alerts,
+// hello@lanthanides.io is the project contact used site-wide (footer,
 // CONTRIBUTING). TODO(owner): confirm the alias is live before launch.
 const CONTACT_EMAIL = 'hello@lanthanides.io';
 
@@ -137,8 +137,12 @@ export default function AboutPage() {
             commodity benchmarks, then normalised to USD per kilogram.
           </p>
           <p>
-            Over time the site adds tools on top of this data, such as a price
-            gauge and regulatory alerts, but the open reference comes first.
+            The goal is a reference price that can be assembled from community
+            contributions: source-cited observations, submitted by anyone,
+            reviewed in public, and merged into the open dataset. Tools such as
+            the <Link href="/tools/price-gauge/" className={INLINE_LINK}>price
+            gauge</Link> are computed from that record pool, never from an
+            opaque index.
           </p>
         </div>
       </section>
@@ -197,6 +201,14 @@ export default function AboutPage() {
             lanthanides.io is open to contributions from researchers, analysts,
             procurement professionals, and anyone with sourced pricing data or
             market intelligence for rare earths and strategic metals.
+            Contributions are the mechanism this ledger grows by: each accepted
+            observation lands as a reviewable git diff and becomes part of the
+            record pool the reference prices are assembled from. The pipeline is
+            described in full on the{' '}
+            <Link href="/contribute/" className={INLINE_LINK}>
+              Contribute
+            </Link>{' '}
+            page.
           </p>
           <p>You can contribute by:</p>
           <ul className="list-disc space-y-1.5 pl-5 marker:text-fg-dim">

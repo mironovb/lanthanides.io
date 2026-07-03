@@ -1,5 +1,11 @@
 # lanthanides.io — Target Architecture
 
+> **Historical record (2026-07-02).** The Prisma/Postgres models and the
+> commercial feature modules described below (`/sell`, `/offers`, `/alerts`,
+> `/discussion`) were **removed** in the community-contributions refocus. The
+> app is file-based only. The file-store contracts (§3) remain authoritative;
+> read the DB sections as migration history. Current truth: `CLAUDE.md`.
+
 > Companion to `docs/AUDIT.md` (inventory) and `docs/MIGRATION.md` (stack decision, data strategy, URL contract).
 > This document fixes the **directory layout**, the **route map** (with the prompt that builds each route), the
 > **TypeScript data contracts** (using the actual field names found in `_data/`), and the **feature module map** for

@@ -262,7 +262,7 @@ export function ElementJsonLd({
   );
 }
 
-// ── Dataset (open data: /data, /regulatory, /offers) ────────────────────────
+// ── Dataset (open data: /data, /regulatory) ─────────────────────────────────
 export interface DatasetDistribution {
   encodingFormat: string;
   contentUrl: string;

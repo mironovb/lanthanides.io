@@ -1,8 +1,10 @@
 # Contributing to lanthanides.io
 
 lanthanides.io accepts sourced pricing data, data corrections, and market notes
-for rare earths and strategic metals. The rule is simple: every factual claim
-must be traceable to a source another person can inspect.
+for rare earths and strategic metals. Contributions are the point of the
+project: every reference price on the site is assembled from the pool of
+source-cited observations this pipeline feeds. The rule is simple: every
+factual claim must be traceable to a source another person can inspect.
 
 The public dataset is versioned in git. Community submissions never publish
 directly to the site. They pass through a structured GitHub issue, a maintainer
@@ -74,21 +76,15 @@ Do not submit:
 
 ## Data Boundaries
 
-Reference data stays in versioned files:
+All data lives in versioned files; there is no database:
 
 - `_data/price_history/*.yml` stores observed price history.
 - `_data/price_records.json` stores the selected reference-price record set.
 - `_data/regulatory/` stores export-control notices and policy events.
 - `_elements/` and `_articles/` store editorial markdown.
 
-Runtime user data stays in Postgres through Prisma:
-
-- `Listing`
-- `Subscription`
-- `ScreenedOffer`
-
-Do not move open reference data into Prisma, and do not auto-publish runtime rows
-back into the open dataset.
+Every change to the dataset must arrive as a reviewable git diff. Do not add a
+runtime write path or a second data store.
 
 ## Maintainer Intake Runbook
 
@@ -118,27 +114,16 @@ write data by itself.
 
 ## Local Development
 
-Requires Node 18.17 or newer, npm, Python 3, and a local Postgres if you need to
-exercise database-backed pages.
+Requires Node 18.17 or newer and npm (plus Python 3 for the data scripts). No
+database, no environment variables, no external services.
 
 ```bash
 git clone https://github.com/mironovb/lanthanides.io.git
 cd lanthanides.io
 npm install
 
-cp .env.example .env
-npx prisma generate
-
 npm run lint
 npm run build
-```
-
-For database-backed surfaces, point `DATABASE_URL` and `DIRECT_URL` in `.env` at
-a local Postgres, then run:
-
-```bash
-npx prisma migrate deploy
-npx prisma db seed
 npm run dev
 ```
 

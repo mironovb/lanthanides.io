@@ -1,5 +1,11 @@
 # Investor Walkthrough — lanthanides.io
 
+> **Superseded (2026-07-02).** The marketplace legs of this walkthrough
+> (`/sell`, `/offers`, `/alerts`, `/discussion`) were removed in the
+> community-contributions refocus; those routes now 301 to surviving pages.
+> The current product story is the open, citable, community-assembled dataset
+> (see `README.md`). Kept as a historical narrative of the earlier direction.
+
 > A click-through narrative for a reviewer (investor / Emergent Ventures /
 > grant committee). It takes ~5 minutes at [www.lanthanides.io](https://www.lanthanides.io),
 > in the order below. Every figure here is live on the site and traceable to a

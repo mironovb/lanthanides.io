@@ -33,6 +33,36 @@ const nextConfig = {
         destination: '/api/export/json/',
         statusCode: 301,
       },
+      // 2026-07 refocus: the database-backed layer (seller listings, screened
+      // offers, the alerts waitlist, the discussion board) was removed; the
+      // site is file-based only, and community contributions flow through the
+      // reviewed git pipeline instead. These routes were live and indexed, so
+      // each 301s to its nearest surviving surface.
+      {
+        source: '/sell',
+        destination: '/contribute/',
+        statusCode: 301,
+      },
+      {
+        source: '/offers',
+        destination: '/data/',
+        statusCode: 301,
+      },
+      {
+        source: '/alerts',
+        destination: '/regulatory/',
+        statusCode: 301,
+      },
+      {
+        source: '/discussion',
+        destination: '/contribute/',
+        statusCode: 301,
+      },
+      {
+        source: '/discussion/:id',
+        destination: '/contribute/',
+        statusCode: 301,
+      },
     ];
   },
 };

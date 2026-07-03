@@ -1,8 +1,7 @@
 /**
  * Pure helpers for the dashboard element lens (the category / export-control
  * filter that scopes the dashboard panels). Side-effect-free and framework-free
- * so the logic is testable and the island (DashboardLens) stays presentational,
- * mirrors the offers/sell/alerts pure-helper modules.
+ * so the logic is testable and the island (DashboardLens) stays presentational.
  *
  * The lens has two orthogonal axes (category, export-control posture); both
  * default to null (unfiltered). It is serialised to the URL query so a filtered

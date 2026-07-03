@@ -1,10 +1,10 @@
 /**
  * /sitemap.xml (Prompt 24): replaces jekyll-sitemap. Covers every indexable
- * page: the static reference/commercial routes, all 31 case-sensitive element
- * pages, and all 5 news articles. URLs are absolute (via metadataBase/SITE_URL)
- * and carry the trailing slash that matches the canonical contract. Machine
- * endpoints (/feed.xml, /movements.xml, /api/*) and the sitemap itself are
- * intentionally excluded.
+ * page: the static reference routes, all 31 case-sensitive element pages, and
+ * all 5 news articles. URLs are absolute (via metadataBase/SITE_URL) and carry
+ * the trailing slash that matches the canonical contract. Machine endpoints
+ * (/feed.xml, /movements.xml, /api/*) and the sitemap itself are intentionally
+ * excluded.
  *
  * lastModified uses the dataset's generated-at stamp for data-backed pages and
  * the article date for each article, both real values, never fabricated.
@@ -28,18 +28,13 @@ const STATIC_PAGES: Array<[string, number, ChangeFreq]> = [
   ['/data/', 0.8, 'weekly'],
   ['/framework/', 0.7, 'weekly'],
   ['/news/', 0.7, 'weekly'],
-  // The discussion board landing: a stable, crawlable URL in the header/footer
-  // nav. Only the board index is listed; individual /discussion/[id] threads are
-  // dynamic, unbounded, and DB-backed, so they stay out of the static sitemap.
-  ['/discussion/', 0.6, 'daily'],
-  ['/offers/', 0.6, 'weekly'],
+  // The contribution pipeline: the entry point for the community price records
+  // the ledger is assembled from, so it ranks with the reference pages.
+  ['/contribute/', 0.7, 'monthly'],
   ['/methodology/', 0.6, 'monthly'],
   ['/sources/', 0.6, 'monthly'],
   ['/about/', 0.6, 'monthly'],
   ['/tools/price-gauge/', 0.6, 'monthly'],
-  ['/contribute/', 0.5, 'monthly'],
-  ['/sell/', 0.5, 'monthly'],
-  ['/alerts/', 0.5, 'monthly'],
 ];
 
 export default function sitemap(): MetadataRoute.Sitemap {

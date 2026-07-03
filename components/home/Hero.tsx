@@ -1,11 +1,16 @@
 /**
  * Home hero: the plain masthead from the last deployed static site
  * (_layouts/home.html, .home-hero in _sass/_home.scss). A small eyebrow, a one
- * line headline, a one sentence lede, and a four number stat ribbon. Every
- * number is passed in from the data layer (app/page.tsx); nothing is hard coded.
+ * line headline, a short lede, and a four number stat ribbon. Every number is
+ * passed in from the data layer (app/page.tsx); nothing is hard coded.
+ *
+ * The lede states the project's goal plainly: the reference prices are
+ * assembled from source-cited observations, and anyone can contribute one
+ * through the reviewed pipeline (/contribute/).
  *
  * Server component.
  */
+import Link from 'next/link';
 
 export interface HeroProps {
   totalElements: number;
@@ -40,6 +45,24 @@ export function Hero({
         {totalElements} elements across four categories. Retail surveys and bulk
         benchmarks tracked separately. Every record carries a seller, date,
         quantity, and verification status.
+      </p>
+      <p className="mt-2 max-w-[64ch] text-md leading-relaxed text-fg-muted">
+        Each reference price is assembled from those records, and the record
+        pool is open: anyone can{' '}
+        <Link
+          href="/contribute/"
+          className="font-medium text-accent hover:text-accent-strong"
+        >
+          contribute a sourced observation
+        </Link>{' '}
+        for review, and the full dataset is{' '}
+        <Link
+          href="/data/"
+          className="font-medium text-accent hover:text-accent-strong"
+        >
+          free to download and cite
+        </Link>
+        .
       </p>
 
       {/* Stat ribbon: hairline-divided on wide screens so the four readouts
