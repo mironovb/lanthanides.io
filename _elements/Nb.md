@@ -92,7 +92,7 @@ permalink: /elements/Nb/
 
 <div class="element-section info-block">
   <h2 class="section-title">Verified Offers</h2>
-  <p class="section-intro">Niobium is the rare strategic material where China is not the dominant producer. Brazil&rsquo;s CBMM at the Ara&xacute;a deposit accounts for roughly three-quarters of global supply. The auto-rendered table shows tracked retail listings.</p>
+  <p class="section-intro">Niobium is the rare strategic material where China is not the dominant producer. Brazil&rsquo;s CBMM at the Arax&aacute; deposit accounts for roughly three-quarters of global supply. The auto-rendered table shows tracked retail listings.</p>
   {% include provenance-table.html symbol=page.symbol %}
 </div>
 
@@ -101,7 +101,7 @@ permalink: /elements/Nb/
   <div class="notes-block">
     <div class="note-item">
       <strong>Brazilian supply concentration</strong>
-      CBMM (Companhia Brasileira de Metalurgia e Minera&ccedil;&atilde;o) accounts for ~75% of global Nb supply from a single deposit at Ara&xacute;a, Minas Gerais. Single-asset risk is offset by Brazil&rsquo;s alignment with Western steel buyers and CBMM&rsquo;s long history of reliable delivery.
+      CBMM (Companhia Brasileira de Metalurgia e Minera&ccedil;&atilde;o) accounts for ~75% of global Nb supply from a single deposit at Arax&aacute;, Minas Gerais. Single-asset risk is offset by Brazil&rsquo;s alignment with Western steel buyers and CBMM&rsquo;s long history of reliable delivery.
     </div>
     <div class="note-item">
       <strong>Pipeline steel demand floor</strong>

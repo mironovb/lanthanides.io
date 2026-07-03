@@ -64,7 +64,7 @@ export function PriceGaugeResult({
         <p className="mt-4 border-l-2 border-l-accent pl-3 text-sm leading-relaxed text-fg-muted">
           If you have a sourced quote for {element.name},{' '}
           <Link
-            href="/contribute/"
+            href={`/contribute/?element=${element.symbol}`}
             className="font-medium text-accent hover:text-accent-strong"
           >
             contribute the record
@@ -226,7 +226,7 @@ export function PriceGaugeResult({
               ({availableTotal} record{availableTotal === 1 ? '' : 's'} total).
               To add a sourced quote,{' '}
               <Link
-                href="/contribute/"
+                href={`/contribute/?element=${element.symbol}`}
                 className="font-medium text-accent hover:text-accent-strong"
               >
                 contribute the record

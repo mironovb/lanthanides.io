@@ -30,7 +30,7 @@ import { buildMetadata } from '@/lib/seo';
 import type { Element } from '@/lib/types';
 import { BreadcrumbJsonLd, ElementJsonLd } from '@/components/seo';
 import { Container } from '@/components/layout';
-import { Badge, Breadcrumbs, SectionHeading } from '@/components/ui';
+import { Badge, Breadcrumbs, LinkButton, SectionHeading } from '@/components/ui';
 import { PriceHistoryChart } from '@/components/charts/PriceHistoryChart';
 import {
   CATEGORY_ORDER,
@@ -245,17 +245,19 @@ export default function ElementDetailPage({ params }: { params: Params }) {
         </section>
       )}
 
-      {/* ── Contribute pointer ─────────────────────────────────────────── */}
-      <p className="mt-6 border-l-2 border-l-accent bg-surface py-2 pl-4 pr-3 text-sm leading-relaxed text-fg-muted">
-        If you have a sourced {element.name} quote that is missing above,{' '}
-        <Link
-          href="/contribute/"
-          className="font-medium text-accent hover:text-accent-strong"
+      {/* ── Contribute pointer: lands in the form with this element set ── */}
+      <div className="mt-6 flex flex-wrap items-center justify-between gap-3 border-l-2 border-l-accent bg-surface py-3 pl-4 pr-3">
+        <p className="text-sm leading-relaxed text-fg-muted">
+          Seen a sourced {element.name} quote that is missing above?
+        </p>
+        <LinkButton
+          href={`/contribute/?element=${element.symbol}`}
+          variant="secondary"
+          size="sm"
         >
-          contribute the record
-        </Link>
-        .
-      </p>
+          + Add a {element.symbol} price
+        </LinkButton>
+      </div>
 
       {/* ── Related elements ───────────────────────────────────────────── */}
       {related.length > 0 && (

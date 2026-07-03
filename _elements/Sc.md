@@ -198,7 +198,7 @@ permalink: /elements/Sc/
       </tr>
     </tbody>
   </table>
-  <p class="table-note">Chinese bulk quotes (~$5,000/kg) are roughly half the Western retail rate but require a 4-month export licensing process with no guarantee of approval [2]. Smart-Elements also offers 2 to 8% volume discounts and a 10% coupon code (GETMINUS10NOW) [7].</p>
+  <p class="table-note">Chinese bulk quotes (~$5,000/kg) are roughly half the Western retail rate but require a 4-month export licensing process with no guarantee of approval [2].</p>
 </div>
 
 <div class="element-section info-block">

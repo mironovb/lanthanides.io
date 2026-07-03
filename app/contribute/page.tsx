@@ -13,6 +13,7 @@
  * so it renders SSG like the rest of the reference site.
  */
 import type { Metadata } from 'next';
+import { Suspense } from 'react';
 import Link from 'next/link';
 import { buildMetadata } from '@/lib/seo';
 import { BreadcrumbJsonLd } from '@/components/seo';
@@ -61,7 +62,11 @@ export default function ContributePage() {
       />
 
       <div className="mt-8 grid items-start gap-6 lg:grid-cols-2">
-        <ContributionForm elements={elementOptions} knownForms={knownForms} />
+        {/* Suspense: the form reads ?element= via useSearchParams, which Next
+            requires to sit under a boundary for the page to stay static. */}
+        <Suspense fallback={null}>
+          <ContributionForm elements={elementOptions} knownForms={knownForms} />
+        </Suspense>
 
         {/* ── What makes a submission usable ──────────────────────────────── */}
         <div className="max-w-prose">

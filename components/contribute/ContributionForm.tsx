@@ -11,6 +11,7 @@
  * aria-describedby, role="alert" errors, identical SSR/client markup.
  */
 import { useState } from 'react';
+import { useSearchParams } from 'next/navigation';
 import { Button, Callout, Panel } from '@/components/ui';
 import { capitalize } from '@/lib/format';
 import {
@@ -47,7 +48,18 @@ export function ContributionForm({
   elements,
   knownForms,
 }: ContributionFormProps) {
-  const [input, setInput] = useState<ContributionInput>(EMPTY_INPUT);
+  // "?element=Dy" preselects the element, so the "+ Add a price" links on the
+  // element pages land in a form already pointed at the right material.
+  // useSearchParams keeps the page static; the caller wraps this island in
+  // <Suspense> as Next requires for that combination.
+  const searchParams = useSearchParams();
+  const [input, setInput] = useState<ContributionInput>(() => {
+    const q = searchParams?.get('element')?.trim().toLowerCase();
+    const match = q
+      ? elements.find((e) => e.symbol.toLowerCase() === q)
+      : undefined;
+    return match ? { ...EMPTY_INPUT, element: match.symbol } : EMPTY_INPUT;
+  });
   const [honeypot, setHoneypot] = useState('');
   const [errors, setErrors] = useState<Errors>({});
   const [formError, setFormError] = useState<string | null>(null);

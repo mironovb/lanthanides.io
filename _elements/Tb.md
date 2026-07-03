@@ -229,7 +229,7 @@ permalink: /elements/Tb/
       </tr>
     </tbody>
   </table>
-  <p class="table-note">PEGUYS offers the lowest per-gram retail pricing at $4.68/g for the 10&thinsp;g vial. All PEGUYS prices include a stated 15% United States tariff surcharge. Smart-Elements offers volume discounts plus a 10% discount code [4]. Luciteria is almost entirely sold out across all terbium products [5].</p>
+  <p class="table-note">PEGUYS offers the lowest per-gram retail pricing at $4.68/g for the 10&thinsp;g vial. All PEGUYS prices include a stated 15% United States tariff surcharge. Luciteria is almost entirely sold out across all terbium products [5].</p>
 </div>
 
 <div class="element-section info-block">
