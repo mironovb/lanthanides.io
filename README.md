@@ -23,9 +23,11 @@ and add to.
   price-gauge estimate discloses its full basis: which records, which sellers,
   what date span, what method.
 - **The pipeline.** The ledger grows by review, not by scraping. A community
-  contribution enters as a structured GitHub issue, passes a maintainer review
-  and a pull request (two human checkpoints), and merges into the open dataset
-  as a plain git diff. Each accepted observation sharpens the assembled prices.
+  contribution enters through the form on
+  [/contribute/](https://www.lanthanides.io/contribute/) (a public review
+  queue) or as a structured GitHub issue, passes a maintainer review and a
+  pull request, and merges into the open dataset as a plain git diff. Each
+  accepted observation sharpens the assembled prices.
 
 ### Who it's for
 
@@ -78,10 +80,12 @@ specific figure, cite the record id from the element's provenance table.
   Source Serif 4, self-hosted).
 - **Content tooling**: `gray-matter` (front matter), `yaml` (`_data/*.yml`),
   `react-markdown` + `remark-gfm` + `rehype-raw` (HTML-rich element/article bodies).
-- **No database.** All data is versioned files, read at build/request time
-  through the typed data layer in `lib/data/`. _(A Prisma + Postgres layer for
-  listings/offers/alerts/discussion existed until 2026-07 and was removed; see
-  [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md), appendix.)_
+- **One database table.** The contributions inbox: `price_contributions` on
+  Neon Postgres via `@neondatabase/serverless` (schema in
+  [`db/schema.sql`](db/schema.sql)), holding community price contributions
+  awaiting review and nothing else. No ORM, no migrations engine. _(The old
+  Prisma layer for listings/offers/alerts/discussion was removed in 2026-07;
+  see [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md), appendix.)_
 
 ### The data strategy (the core decision)
 
@@ -89,7 +93,13 @@ specific figure, cite the record id from the element's provenance table.
 `_elements/`, `_articles/`), read at build time through `lib/data/` and rendered
 SSG. It is open data (CC BY 4.0). Updates, the weekly pipeline PRs and every
 community contribution alike, land as **reviewed git diffs**, never as runtime
-writes. There is deliberately no second store.
+writes.
+
+The one database table is deliberately not a second store: a
+`price_contributions` row is a **review-queue entry**, never reference data. It
+renders as "pending" on `/contribute/`, and an accepted observation enters the
+dataset only when a maintainer merges it into `_data/` as a PR. The build never
+reads the database.
 
 Docs: **[docs/ARCHITECTURE.md](docs/ARCHITECTURE.md)** (layout, route map, data
 contracts) · **[docs/MIGRATION.md](docs/MIGRATION.md)** (the Jekyll→Next
@@ -103,7 +113,8 @@ migration record and URL contract) · **[docs/DESIGN-SYSTEM.md](docs/DESIGN-SYST
 ```
 app/          Next.js App Router routes + handlers (api/, sitemap.ts, robots.ts, feed.xml/, movements.xml/)
 components/   server-first React (seo/, charts/, elements/, regulatory/, trust/, layout/, ui/, …)
-lib/          data/ (typed readers over _data/), types.ts, price-gauge.ts, seo.ts, format.ts
+lib/          data/ (typed readers over _data/), types.ts, price-gauge.ts, contributions.ts, seo.ts, format.ts
+db/           schema.sql + init.mjs, the single contributions-inbox table
 _data/        versioned reference + provenance (yml/json), open data, the product
 _elements/    31 element bodies (.md)   ·   _articles/   analysis articles (.md)
 scripts/      Python pipeline (scheduled PR updates for _data/)
@@ -115,8 +126,7 @@ docs/         architecture, migration, audit, design system, QA, SEO, deployment
 
 ## Local development
 
-Requires **Node 18.17+** (Next 14) and npm. No database, no environment
-variables, no external services.
+Requires **Node 18.17+** (Next 14) and npm.
 
 ```bash
 git clone https://github.com/mironovb/lanthanides.io.git
@@ -125,12 +135,24 @@ npm install
 npm run dev                 # http://localhost:3000
 ```
 
+That is the whole setup: every page renders from the versioned files. The one
+optional extra is the contributions inbox. To exercise it locally, set
+`DATABASE_URL` in `.env` (see `.env.example`) to a Neon database and create the
+single table once:
+
+```bash
+npm run db:init             # idempotent; creates price_contributions
+```
+
+Without it, `/contribute` simply marks the queue unavailable.
+
 | Command | What it does |
 |:--|:--|
 | `npm run dev` | Local dev server. |
-| `npm run build` | Production build. **The gate: it must pass before every commit.** |
+| `npm run build` | Production build. **The gate: it must pass before every commit.** Never reads the DB. |
 | `npm run start` | Serve the production build. |
 | `npm run lint` | ESLint (`next/core-web-vitals`). |
+| `npm run db:init` | Create the contributions-inbox table (`db/schema.sql`), idempotent. |
 
 ---
 
@@ -147,10 +169,12 @@ keeps its original URL.
 
 ## Deployment
 
-The site deploys on **Vercel** (a few API route handlers and one
-request-rendered page need a Node server; everything else is SSG). There is no
-database to provision and no required environment variables. Full host setup,
-DNS cutover, and post-cutover verification: **[docs/DEPLOYMENT.md](docs/DEPLOYMENT.md)**.
+The site deploys on **Vercel** (a few API route handlers and two
+request-rendered pages need a Node server; everything else is SSG). The build
+command is pinned to plain `next build` by `vercel.json`, and the only
+environment variable is `DATABASE_URL` (the contributions inbox; the site
+degrades gracefully without it). Full host setup, DNS cutover, and post-cutover
+verification: **[docs/DEPLOYMENT.md](docs/DEPLOYMENT.md)**.
 
 The data pipeline (`scripts/`, Python) runs on scheduled GitHub Actions and
 opens review PRs for data updates. It does not deploy the web app; Vercel
@@ -163,12 +187,12 @@ builds and deploys after merges to `main`.
 **Contributions are the point.** The goal of this project is a reference price
 that can be assembled from community-contributed, source-cited observations.
 Every change must be factual, sourced, and verifiable, and lands as a
-**reviewable git diff**, never an opaque edit. The intake is a
-two-human-checkpoint flow: a structured issue, an `approved` label, a manually
-dispatched PR, merge.
+**reviewable git diff**, never an opaque edit. Submissions pass a maintainer
+review and a merged pull request; nothing publishes automatically.
 
-- **[/contribute/](https://www.lanthanides.io/contribute/)**: the pipeline in
-  context, with the live intake mix.
+- **[/contribute/](https://www.lanthanides.io/contribute/)**: submit a price
+  observation with the on-site form and watch the public review queue, or use
+  the GitHub issue templates.
 - **[CONTRIBUTING.md](CONTRIBUTING.md)**: data formats, source standards, and
   the submission workflow.
 

@@ -1,32 +1,41 @@
 /**
- * /contribute: the contributor pipeline as a first-class credibility surface
- * (Prompt 16, task #3). Explains the open, auditable, double-human-review intake
- * (GitHub issue, maintainer `approved` label, manually-dispatched PR, merge),
- * links the existing structured issue templates, and shows the live intake mix
- * so the openness is verifiable rather than asserted.
+ * /contribute: where the ledger grows. Two entry doors, one review:
  *
- * Everything here is checkable against the repository (CLAUDE.md hard rule #1):
- * the two-checkpoint flow is `.github/workflows/community-intake.yml`; the
- * templates are the live `.github/ISSUE_TEMPLATE/*.yml`; the intake counts come
- * from `_data/source_breakdown.yml` (community submissions read 0 today: shown,
- * not hidden).
+ * 1. The on-site form (ContributionForm) writes a pending row to the
+ *    contributions inbox, the single Neon table behind /api/contributions,
+ *    and the queue renders right below it so the loop is visible end to end.
+ * 2. The GitHub issue templates + the community-intake workflow, unchanged.
+ *
+ * Either way, nothing publishes without a maintainer review: accepted
+ * observations are merged into the versioned _data/ files as a reviewed PR.
+ *
+ * force-dynamic: the page reads the inbox at request time and the build never
+ * touches the database (CLAUDE.md data strategy); a DB outage degrades the
+ * queue panel to a note, never the page. Counts still come from
+ * `_data/source_breakdown.yml` (published community records read 0 today:
+ * shown, not hidden).
  */
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { buildMetadata } from '@/lib/seo';
 import { BreadcrumbJsonLd } from '@/components/seo';
-import { getSourceBreakdown } from '@/lib/data';
+import { getElements, getPriceRecords, getSourceBreakdown } from '@/lib/data';
+import { listRecentContributions } from '@/lib/contributions';
 import { Container, PageHeader, StoryLink } from '@/components/layout';
 import { Callout, SectionHeading, Table, TBody, TD, TH, THead, TR } from '@/components/ui';
+import { ContributionForm } from '@/components/contribute/ContributionForm';
+import { RecentContributions } from '@/components/contribute/RecentContributions';
 import {
   ContributePanel,
   MethodologyCallout,
   SourceBreakdownPanel,
 } from '@/components/trust';
 
+export const dynamic = 'force-dynamic';
+
 const TITLE = 'Contribute Data';
 const DESCRIPTION =
-  'How sourced prices and market intelligence enter lanthanides.io: an open, auditable contributor pipeline with two human checkpoints: GitHub issue, maintainer review, pull request, and merge. No fabricated or auto-published data.';
+  'Submit a sourced price observation for review, on this page or via GitHub. An open, auditable pipeline with human checkpoints: every accepted record lands in the open dataset as a reviewed change. No fabricated or auto-published data.';
 
 const PIPELINE_CHECKS = [
   {
@@ -55,8 +64,17 @@ export const metadata: Metadata = buildMetadata({
   path: '/contribute/',
 });
 
-export default function ContributePage() {
+export default async function ContributePage() {
   const breakdown = getSourceBreakdown();
+  const elementOptions = getElements().map((e) => ({
+    symbol: e.symbol,
+    name: e.name,
+  }));
+  const knownForms = [
+    ...new Set(getPriceRecords().map((r) => r.form.toLowerCase())),
+  ].sort();
+  // Resilient read: null renders the queue's calm "unavailable" note.
+  const queue = await listRecentContributions();
 
   return (
     <Container as="main" className="py-10">
@@ -71,7 +89,7 @@ export default function ContributePage() {
         crumbs={[{ label: 'Home', href: '/' }, { label: 'Contribute' }]}
         eyebrow="Open & Auditable"
         title="Contribute data"
-        lead="Every reference price on this site is assembled from source-cited observations, and this page is where those observations come from. The ledger grows by review, not by scraping: each submission passes two human checkpoints, so what gets published is open, attributable, and reversible by anyone reading the git history."
+        lead="Every reference price on this site is assembled from source-cited observations, and this page is where those observations come from. Submit one with the form below, or through GitHub; either way it enters a public review queue, and what gets published is open, attributable, and reversible by anyone reading the git history."
       >
         <StoryLink>
           See what governs each accepted value in the{' '}
@@ -80,11 +98,30 @@ export default function ContributePage() {
         </StoryLink>
       </PageHeader>
 
-      {/* ── The pipeline (credibility feature) ───────────────────────────── */}
+      {/* ── Submit + the live review queue ───────────────────────────────── */}
       <section className="mt-10">
         <SectionHeading
+          title="Submit a price observation"
+          description="The quickest way in: one sourced observation. It lands in the public review queue; a maintainer merges accepted records into the open dataset, and the assembled prices sharpen."
+        />
+        <div className="grid items-start gap-6 lg:grid-cols-2">
+          <ContributionForm elements={elementOptions} knownForms={knownForms} />
+          <div>
+            <SectionHeading
+              as="h3"
+              title="Review queue"
+              description="Newest submissions, awaiting review. Queued is not published."
+            />
+            <RecentContributions queue={queue} />
+          </div>
+        </div>
+      </section>
+
+      {/* ── The pipeline (credibility feature) ───────────────────────────── */}
+      <section className="mt-12">
+        <SectionHeading
           title="How data gets in"
-          description="Two checkpoints stand between a submission and the public dataset: a maintainer's review, and a merged pull request. Neither can be skipped."
+          description="Whichever door a submission uses, the form above or a GitHub issue, the same checkpoints stand between it and the public dataset: a maintainer's review, and a merged pull request. Neither can be skipped."
         />
         <ContributePanel />
 
@@ -151,10 +188,20 @@ export default function ContributePage() {
           />
           <SourceBreakdownPanel breakdown={breakdown} />
           <Callout tone="info" glyph={null} className="mt-4">
-            Community submissions read{' '}
-            <span className="font-mono tabular-nums text-fg">0</span> today. The
-            pipeline is open and ready, but the dataset is still maintainer- and
-            benchmark-collected.
+            Community records in the <em>published</em> dataset read{' '}
+            <span className="font-mono tabular-nums text-fg">0</span> today
+            {queue && queue.pending > 0 ? (
+              <>
+                , with{' '}
+                <span className="font-mono tabular-nums text-fg">
+                  {queue.pending}
+                </span>{' '}
+                submission{queue.pending === 1 ? '' : 's'} waiting in the review
+                queue above
+              </>
+            ) : null}
+            . The pipeline is open and ready, but the dataset is still
+            maintainer- and benchmark-collected.
           </Callout>
         </div>
       </section>

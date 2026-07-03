@@ -14,8 +14,12 @@ approval label, a generated pull request, and a second review at merge.
 
 ### 1. Submit a Price Observation
 
-Use the [Price Update](https://github.com/mironovb/lanthanides.io/issues/new?template=price-update.yml)
-issue template when you have a specific observed price.
+The quickest path is the form on
+[lanthanides.io/contribute](https://www.lanthanides.io/contribute/): it
+validates the observation, queues it in a public review inbox, and shows it in
+the queue table immediately. Prefer GitHub? Use the
+[Price Update](https://github.com/mironovb/lanthanides.io/issues/new?template=price-update.yml)
+issue template instead. Both paths end in the same maintainer review.
 
 A usable price observation includes:
 
@@ -76,17 +80,29 @@ Do not submit:
 
 ## Data Boundaries
 
-All data lives in versioned files; there is no database:
+Reference data lives in versioned files:
 
 - `_data/price_history/*.yml` stores observed price history.
 - `_data/price_records.json` stores the selected reference-price record set.
 - `_data/regulatory/` stores export-control notices and policy events.
 - `_elements/` and `_articles/` store editorial markdown.
 
-Every change to the dataset must arrive as a reviewable git diff. Do not add a
-runtime write path or a second data store.
+One database table exists: `price_contributions` (`db/schema.sql`), the inbox
+behind the /contribute form. A row there is a review-queue entry, never
+published data; it enters the dataset only when a maintainer merges it into
+`_data/` as a reviewed git diff. Do not add further tables or write paths.
 
 ## Maintainer Intake Runbook
+
+For a form submission (an inbox row on
+[/contribute](https://www.lanthanides.io/contribute/)):
+
+1. Read the pending row and inspect the source, exactly as for an issue.
+2. If usable, add the observation to `_data/price_history/<symbol>.yml`,
+   refresh the derived files (the script block below), and open a PR.
+3. After the PR merges, mark the row directly in SQL:
+   `UPDATE price_contributions SET status = 'merged' WHERE id = ...;`
+   (or `'rejected'`). The app never changes a row's status itself.
 
 For a community price issue:
 
@@ -114,8 +130,7 @@ write data by itself.
 
 ## Local Development
 
-Requires Node 18.17 or newer and npm (plus Python 3 for the data scripts). No
-database, no environment variables, no external services.
+Requires Node 18.17 or newer and npm (plus Python 3 for the data scripts).
 
 ```bash
 git clone https://github.com/mironovb/lanthanides.io.git
@@ -126,6 +141,11 @@ npm run lint
 npm run build
 npm run dev
 ```
+
+The contributions inbox is optional: set `DATABASE_URL` in `.env` (see
+`.env.example`) and run `npm run db:init` once if you want to exercise the
+/contribute form locally. Without it the site runs fully; the queue just
+reports itself unavailable.
 
 ## Pull Request Checklist
 

@@ -21,14 +21,17 @@ can be assembled from community contributions** — source-cited observations,
 submitted by anyone, reviewed in public (two human checkpoints), merged into
 the versioned dataset. Citable, scientific, no hype.
 
-> **2026-07-02 refocus (supersedes older framing below).** The "thin commercial
-> app" and its **entire Prisma + Postgres (Neon) layer were removed**: `/sell`,
-> `/offers`, `/alerts`, `/discussion`, their APIs, `prisma/`, `lib/db.ts`,
-> `lib/screening/`. The site is **file-based only**; there is **no database**
-> and **no required env var**. Those routes 301 to surviving surfaces
-> (next.config.mjs). Checklist entries and docs describing the DB era are
-> **historical records** — do not rebuild that layer. Community input flows
-> through the reviewed git pipeline (`/contribute/`).
+> **2026-07 refocus (supersedes older framing below).** The "thin commercial
+> app" and its **entire Prisma + Postgres layer were removed** (2026-07-02):
+> `/sell`, `/offers`, `/alerts`, `/discussion`, their APIs, `prisma/`,
+> `lib/db.ts`, `lib/screening/`. Those routes 301 to surviving surfaces
+> (next.config.mjs). Checklist entries and docs describing that layer are
+> **historical records** — do not rebuild it. What exists instead (2026-07-03,
+> by user request): **exactly one Neon table**, the contributions inbox
+> (`price_contributions`, `db/schema.sql`) behind the `/contribute/` form +
+> `POST /api/contributions` — community **price contributions and nothing
+> else**. One optional env var (`DATABASE_URL`); the build never reads the DB;
+> publishing stays the reviewed git pipeline.
 
 ## Stack
 
@@ -37,8 +40,11 @@ the versioned dataset. Citable, scientific, no hype.
 - **Tailwind CSS** — tokens in `tailwind.config.ts`; fonts as CSS variables in
   `app/globals.css`. Type pairing: **IBM Plex Sans** (UI) · **IBM Plex Mono**
   (all numerics, tabular figures) · **Source Serif 4** (headings).
-- **No database.** _(The Prisma + Postgres layer was removed in the 2026-07-02
-  refocus; see `docs/DEPLOYMENT.md` appendix.)_
+- **One database table** — the contributions inbox: `price_contributions` on
+  Neon via **`@neondatabase/serverless`** (HTTP driver, no ORM, no migrations
+  engine; schema in `db/schema.sql`, created by `npm run db:init`). Accessed
+  only through `lib/contributions.ts`, lazily at request time. _(The old
+  Prisma layer was removed in the refocus; see `docs/DEPLOYMENT.md` appendix.)_
 - Content tooling: `gray-matter` (front matter), `yaml` (`_data/*.yml`),
   `react-markdown` + `remark-gfm` + `rehype-raw` (HTML-rich element/article
   bodies).
@@ -51,8 +57,16 @@ layer in **`lib/data/`** (contracts in `lib/types.ts`, mirroring ARCHITECTURE
 §3), rendered **SSG** (plus a few file-derived route handlers). This data *is*
 the product: it must stay inspectable in git (open-data / CC BY 4.0). Every
 update — the scheduled pipeline PRs and every community contribution — lands as
-a **reviewed git diff**, never a runtime write. There is deliberately no second
-store; do not add one.
+a **reviewed git diff**, never a runtime write.
+
+**The one DB table is not a second store.** A `price_contributions` row is a
+**review-queue entry** (status `pending`), shown on `/contribute/` as queued,
+never rendered as reference data and never auto-published; a maintainer merges
+accepted observations into `_data/` as a PR and flips the row's status in SQL.
+The app only INSERTs pending rows and SELECTs recent ones; the client is
+created lazily so **the build never reads the DB** (DB-consuming routes are
+`force-dynamic`, and reads degrade to null on outage). Do not add more tables,
+models, or write paths.
 
 ## Commands
 
@@ -61,6 +75,8 @@ store; do not add one.
   not-yet-ported route renders a labeled placeholder; it must never be a build
   error (MIGRATION §4 invariant).
 - `npm run lint` — ESLint (`next/core-web-vitals`).
+- `npm run db:init` — create the contributions-inbox table (idempotent; reads
+  `DATABASE_URL` from the env or `.env`).
 
 ## Hard rules (non-negotiable)
 
@@ -74,12 +90,13 @@ store; do not add one.
    /elements/`. Element URLs are case-sensitive (`/elements/Dy/`, not `/dy/`).
    Preserve in-page anchors (e.g. `/methodology/#display-price`,
    `/framework/#pricing`).
-3. **No real credentials, no paid services in the repo.** There is no database
-   and no required env var; if anything external is ever needed, stub it with
-   env vars + placeholders and document it in `.env.example`. Never commit a
-   real `.env`, key, or secret. **Do not `git add -A`** — `.arun/`,
-   `combined*.txt`, `chat.md` are gitignored scratch/secrets; **stage deliverables
-   explicitly.**
+3. **No real credentials, no paid services in the repo.** The only env var is
+   `DATABASE_URL` (the Neon contributions inbox), optional, documented in
+   `.env.example`, and it lives only in the host secret store and the
+   gitignored `.env`. If anything else external is ever needed, stub it with
+   env vars + placeholders. Never commit a real `.env`, key, or secret.
+   **Do not `git add -A`** — `.arun/`, `combined*.txt`, `chat.md` are
+   gitignored scratch/secrets; **stage deliverables explicitly.**
 4. **No Jekyll dependency.** The Next build **never** imported from `legacy/`
    (the quarantined Jekyll layouts/includes/SCSS/pages/config/JS). `legacy/` was
    **removed in Prompt 25** after route-parity sign-off (with the two dead
@@ -94,7 +111,8 @@ store; do not add one.
 ```
 app/          Next.js App Router — routes + handlers (api/, sitemap.ts, robots.ts, feed.xml/, movements.xml/)
 components/    server-first React (seo/, charts/, elements/, regulatory/, trust/, layout/, ui/, …)
-lib/          data/ (typed readers over _data/), types.ts, price-gauge.ts, seo.ts, format.ts
+lib/          data/ (typed readers over _data/), types.ts, price-gauge.ts, contributions.ts, seo.ts, format.ts
+db/           schema.sql + init.mjs — the single contributions-inbox table
 _data/        UNCHANGED — versioned reference + provenance (yml/json)
 _elements/    UNCHANGED — 31 element bodies (.md)
 _articles/    UNCHANGED — 5 articles (.md)
@@ -122,10 +140,11 @@ docs/         AUDIT.md, MIGRATION.md, ARCHITECTURE.md, DEPLOYMENT.md, …
 | `/dashboard` | ISR | `/dashboard/` |
 | `/movements` | SSG | `/movements/` |
 | `/data` | SSG | — (new open-data landing, incl. citation block) |
-| `/contribute` | SSG | — (the community pipeline; the growth loop) |
+| `/contribute` | Dynamic | — (the growth loop: form + live review queue) |
 | `/tools/price-gauge` | Dynamic | — (file-derived estimator, no DB) |
 | `/sitemap.xml` · `/robots.txt` · `/feed.xml` · `/movements.xml` | Handler | same exact path |
 | `/api/price-gauge` · `/api/export/[format]` · `/api/dashboard/brief` | Handler | — (all file-derived) |
+| `/api/contributions` | Handler | — (POST-only inbox write; the ONE DB surface) |
 | `/sell` · `/offers` · `/alerts` · `/discussion` | **301** | removed 2026-07-02 → `/contribute/`, `/data/`, `/regulatory/`, `/contribute/` |
 
 ## Design tokens (baseline — Prompt 3)
