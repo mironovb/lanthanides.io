@@ -68,44 +68,24 @@ export default function ContributePage() {
           <ContributionForm elements={elementOptions} knownForms={knownForms} />
         </Suspense>
 
-        {/* ── What makes a submission usable ──────────────────────────────── */}
+        {/* ── The one aside the form doesn't already say ───────────────────── */}
         <div className="max-w-prose">
-          <SectionHeading
-            title="What makes a submission usable"
-            description="Four things a reviewer needs. Everything else is optional."
-          />
-          <ul className="space-y-2 text-sm leading-relaxed text-fg-muted">
-            <li className="border-l-2 border-border-strong pl-3">
-              <span className="font-medium text-fg">A real source.</span> A
-              seller or publisher name and, where possible, a URL: something a
-              reviewer can open and check. Anonymous listings are excluded.
-            </li>
-            <li className="border-l-2 border-border-strong pl-3">
-              <span className="font-medium text-fg">Form, purity, quantity.</span>{' '}
-              A price is only comparable with its form (metal/oxide/...),
-              purity, and the quantity it applies to.
-            </li>
-            <li className="border-l-2 border-border-strong pl-3">
-              <span className="font-medium text-fg">An observation date.</span>{' '}
-              The date you saw the price.
-            </li>
-            <li className="border-l-2 border-l-accent pl-3">
-              <span className="font-medium text-fg">No guessing.</span> A
-              missing field is left blank, not filled in to complete the
-              record.
-            </li>
-          </ul>
-          <p className="mt-5 text-sm leading-relaxed text-fg-muted">
-            How accepted values are normalised and verified is documented in
-            the{' '}
+          <SectionHeading title="What a reviewer needs" />
+          <p className="text-sm leading-relaxed text-fg-muted">
+            A source that can be checked, and a blank field wherever you are
+            not sure: a missing value is better than a guessed one. How
+            accepted values are normalised and verified is documented in the{' '}
             <Link
               href="/methodology/"
               className="text-fg underline decoration-dotted underline-offset-2 hover:text-accent-strong"
             >
               methodology
             </Link>
-            . For corrections to existing data, or anything that does not fit
-            the form, email{' '}
+            .
+          </p>
+          <p className="mt-4 text-sm leading-relaxed text-fg-muted">
+            For corrections to existing data, or anything that does not fit the
+            form, email{' '}
             <a
               href={`mailto:${CONTACT_EMAIL}`}
               className="text-fg underline decoration-dotted underline-offset-2 hover:text-accent-strong"

@@ -10,12 +10,10 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import {
-  getControlByCategory,
   getCoverageTally,
   getDataGeneratedAt,
   getElementCoverage,
   getElements,
-  getPremiumLeaderboard,
   getPriceRecords,
   getRegulatoryNotices,
   getSourceBreakdown,
@@ -26,8 +24,6 @@ import { BreadcrumbJsonLd, DatasetJsonLd } from '@/components/seo';
 import { Container, PageHeader } from '@/components/layout';
 import { Callout, SectionHeading, Stat, StatGrid } from '@/components/ui';
 import { CoverageGrid } from '@/components/charts/CoverageGrid';
-import { MarketStructure } from '@/components/charts/MarketStructure';
-import { PremiumLeaderboard } from '@/components/charts/PremiumLeaderboard';
 
 // Live record count drives both the metadata and the page body, so neither can
 // overstate coverage (CLAUDE.md hard rule #1).
@@ -67,11 +63,11 @@ export default function DataPage() {
   note         = {Open data, CC BY 4.0. Version of ${versionDate}.}
 }`;
 
-  // Data-honest visualizations, each stating its own sample size.
+  // The one dataset view kept here: coverage honesty (how much data backs each
+  // element). Market analysis views (premiums, control posture) live on
+  // /dashboard so no block renders on two pages.
   const coverage = getElementCoverage();
   const coverageTally = getCoverageTally();
-  const control = getControlByCategory();
-  const premiums = getPremiumLeaderboard();
 
   const stats: Array<[number, string]> = [
     [priceRecords, 'Price records'],
@@ -147,38 +143,13 @@ export default function DataPage() {
         ))}
       </StatGrid>
 
-      {/* ── Views of the dataset (rebuilt, data-honest visualizations, P10) ─ */}
+      {/* ── Coverage by element (the dataset's honesty view) ─────────────── */}
       <section className="mt-12">
-        <SectionHeading title="Views of the dataset" />
-
-        <div className="mt-8">
-          <SectionHeading
-            as="h3"
-            title="Coverage by element"
-            description="How much price data backs each element. Each tile links to its element page."
-          />
-          <CoverageGrid items={coverage} tally={coverageTally} />
-        </div>
-
-        <div className="mt-10">
-          <SectionHeading
-            as="h3"
-            title="Control by category"
-            description="Where active Chinese export control concentrates across the four material classes."
-          />
-          <div className="max-w-2xl">
-            <MarketStructure rows={control} />
-          </div>
-        </div>
-
-        <div className="mt-10">
-          <SectionHeading
-            as="h3"
-            title="Retail premium leaderboard"
-            description="The markup small-quantity buyers pay over commodity pricing: latest retail reference ÷ latest bulk benchmark, per element."
-          />
-          <PremiumLeaderboard rows={premiums} />
-        </div>
+        <SectionHeading
+          title="Coverage by element"
+          description="How much price data backs each element. Each tile links to its element page. Market views (premiums, control posture) live on the dashboard."
+        />
+        <CoverageGrid items={coverage} tally={coverageTally} />
       </section>
 
       {/* ── Downloads ────────────────────────────────────────────────────── */}

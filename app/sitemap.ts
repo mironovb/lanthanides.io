@@ -30,7 +30,6 @@ const STATIC_PAGES: Array<[string, number, ChangeFreq]> = [
   // the ledger is assembled from, so it ranks with the reference pages.
   ['/contribute/', 0.7, 'monthly'],
   ['/methodology/', 0.6, 'monthly'],
-  ['/sources/', 0.6, 'monthly'],
   ['/about/', 0.6, 'monthly'],
   ['/tools/price-gauge/', 0.6, 'monthly'],
 ];

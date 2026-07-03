@@ -2,8 +2,9 @@
 
 /**
  * DashboardLens: the client island that scopes the dashboard panels (risk
- * matrix, retail-premium leaderboard, data coverage) by element category and
- * China export-control posture.
+ * matrix, retail-premium leaderboard) by element category and China
+ * export-control posture. Coverage lives on /data (single owner per block,
+ * 2026-07 simplification).
  *
  * Server-rendered with EMPTY_LENS so the full dashboard is in the static HTML
  * and usable without JavaScript. The lens reads the URL after hydration (no
@@ -13,14 +14,10 @@
 import { useEffect, useMemo, useState } from 'react';
 import Link from 'next/link';
 import { FilterChips, SectionHeading } from '@/components/ui';
-import { CoverageGrid } from '@/components/charts/CoverageGrid';
-import { CoverageTable } from '@/components/charts/CoverageTable';
 import { PremiumLeaderboard } from '@/components/charts/PremiumLeaderboard';
 import { RegulatoryRiskMatrix } from './RegulatoryRiskMatrix';
 import type {
-  CoverageTally,
   ElementCategory,
-  ElementCoverage,
   ExportControlStatus,
   PremiumLeaderboardRow,
 } from '@/lib/types';
@@ -40,14 +37,11 @@ import {
 export function DashboardLens({
   elements,
   premiums,
-  coverage,
 }: {
   /** Lean catalog slice (every tracked element), the authoritative scope source. */
   elements: ElementLensMeta[];
   /** Full retail-premium leaderboard (elements priced in both tiers). */
   premiums: PremiumLeaderboardRow[];
-  /** Per-element coverage rows (every tracked element). */
-  coverage: ElementCoverage[];
 }) {
   const [filters, setFilters] = useState<LensFilters>(EMPTY_LENS);
 
@@ -83,15 +77,6 @@ export function DashboardLens({
     () => premiums.filter((p) => scopeSymbols.has(p.symbol)),
     [premiums, scopeSymbols],
   );
-  const filteredCoverage = useMemo(
-    () => coverage.filter((c) => scopeSymbols.has(c.symbol)),
-    [coverage, scopeSymbols],
-  );
-  const filteredTally = useMemo<CoverageTally>(() => {
-    const t: CoverageTally = { rich: 0, moderate: 0, sparse: 0, none: 0 };
-    for (const c of filteredCoverage) t[c.quality] += 1;
-    return t;
-  }, [filteredCoverage]);
   const matrix = useMemo(() => buildRiskMatrix(scope), [scope]);
 
   const active = lensActive(filters);
@@ -218,36 +203,6 @@ export function DashboardLens({
         )}
       </section>
 
-      {/* ── Data coverage map ─────────────────────────────────────────────── */}
-      <section className="mt-12">
-        <SectionHeading
-          title="Data coverage"
-          actions={
-            <Link
-              href="/data/"
-              className="text-xs font-normal text-accent hover:text-accent-strong"
-            >
-              Open data →
-            </Link>
-          }
-          description="One tile per element in scope, graded by how many distinct days of price observations back it. Each tile links to the element."
-        />
-        {filteredCoverage.length > 0 ? (
-          <>
-            <CoverageGrid items={filteredCoverage} tally={filteredTally} />
-            <div className="mt-8">
-              <SectionHeading
-                as="h3"
-                title="Coverage detail"
-                description="The observations, distinct days, and market tiers behind each grade."
-              />
-              <CoverageTable items={filteredCoverage} />
-            </div>
-          </>
-        ) : (
-          <EmptyHint>No elements match this filter.</EmptyHint>
-        )}
-      </section>
     </div>
   );
 }

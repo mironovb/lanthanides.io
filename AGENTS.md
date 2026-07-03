@@ -37,11 +37,22 @@ the versioned dataset. Citable, scientific, no hype.
 > `/movements.xml` feed + the home/dashboard movement widgets; the detection
 > windows were too thin to be worth a surface — both URLs 301). Contribution
 > is deliberately frictionless: the **"Add a price" button in the site header
-> is on every page**, the `/contribute/` page is just the form + the
-> submission standards (the public review queue render was dropped 2026-07-03
-> for simplicity; the inbox is reviewed directly in SQL), and user-facing
-> copy never asks contributors for GitHub or PRs
-> (GitHub appears only as a fallback in failure states).
+> is on every page**, the `/contribute/` page is just the form + a short
+> reviewer note (the public review queue render was dropped 2026-07-03; the
+> inbox is reviewed directly in SQL), and user-facing copy never asks
+> contributors for GitHub or PRs (GitHub appears only as a fallback in
+> failure states).
+>
+> 2026-07-03 audit pass (single owner per block): the element grid renders
+> ONLY on /elements (home is hero + banner + articles); /dashboard owns the
+> market views (risk matrix, premium leaderboard), /data owns coverage +
+> downloads + citation; element pages dropped the 2-day-window Price Movement
+> % table, the dormant trend chart, the duplicate observations table, and two
+> of three bottom navs (the 31-chip bar is the one directory); /news dropped
+> the timeline that duplicated /regulatory; /sources merged into /methodology
+> (301). Header nav: Prices · Dashboard · Regulatory · News · Open Data ·
+> About + the Add-a-price CTA; one footer row carries the rest (incl.
+> Framework and Price Gauge).
 
 ## Stack
 
@@ -147,7 +158,7 @@ docs/         AUDIT.md, MIGRATION.md, ARCHITECTURE.md, DEPLOYMENT.md, …
 | `/elements/[symbol]` | SSG (31, case-sensitive) | `/elements/<Symbol>/` |
 | `/regulatory` | SSG | `/regulatory/` |
 | `/framework` | SSG | `/framework/` (preserve anchors) |
-| `/methodology` · `/sources` · `/about` | SSG | same `/…/` |
+| `/methodology` · `/about` | SSG | same `/…/` (methodology now hosts the source registry) |
 | `/news` · `/news/[slug]` | SSG (5 articles) | `/news/…/` |
 | `/dashboard` | ISR | `/dashboard/` |
 | `/data` | SSG | — (new open-data landing, incl. citation block) |
@@ -158,6 +169,7 @@ docs/         AUDIT.md, MIGRATION.md, ARCHITECTURE.md, DEPLOYMENT.md, …
 | `/api/contributions` | Handler | — (POST-only inbox write; the ONE DB surface) |
 | `/sell` · `/offers` · `/alerts` · `/discussion` | **301** | removed 2026-07-02 → `/contribute/`, `/data/`, `/regulatory/`, `/contribute/` |
 | `/movements` · `/movements.xml` | **301** | scrapped 2026-07-03 → `/dashboard/`, `/feed.xml` |
+| `/sources` | **301** | merged 2026-07-03 → `/methodology/` (registry table moved there) |
 
 ## Design tokens (baseline — Prompt 3)
 

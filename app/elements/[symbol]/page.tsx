@@ -3,12 +3,15 @@
  *
  * Statically generated for all 31 catalog symbols via generateStaticParams();
  * `dynamicParams = false` 404s anything else (URLs are case-sensitive: /Dy/, not
- * /dy/). Ports the old element-detail layout (Jekyll, git 56e980f): header +
- * badges, the two reference-price cards, the Price Movement table, the price
- * history observations table, the inline regulatory notice, the editorial body
- * (with its embedded provenance table), related elements, prev/next, and the
- * all-element nav bar. Per-page metadata comes from the `_elements/*.md` front
- * matter via the Next Metadata API.
+ * /dy/). Header + badges, the two reference-price cards, the inline regulatory
+ * notice, the editorial body (with its embedded provenance table), the
+ * gauge/contribute pointer, and the all-element nav bar. Per-page metadata
+ * comes from the `_elements/*.md` front matter via the Next Metadata API.
+ *
+ * 2026-07 simplification: the Price Movement % table (2-day windows, mostly
+ * n/a), the dormant gated trend chart, the duplicate observations table, and
+ * two of the three bottom navs were removed; the provenance table is the one
+ * per-record listing and the chip bar the one directory.
  */
 import type { Metadata } from 'next';
 import Link from 'next/link';
@@ -20,8 +23,6 @@ import { getElementContent } from '@/lib/content';
 import {
   getElementBySymbol,
   getElements,
-  getFluctuation,
-  getPriceHistory,
   getPriceRecords,
   getReferencePrices,
 } from '@/lib/data';
@@ -31,7 +32,6 @@ import type { Element } from '@/lib/types';
 import { BreadcrumbJsonLd, ElementJsonLd } from '@/components/seo';
 import { Container } from '@/components/layout';
 import { Badge, Breadcrumbs, LinkButton, SectionHeading } from '@/components/ui';
-import { PriceHistoryChart } from '@/components/charts/PriceHistoryChart';
 import {
   CATEGORY_ORDER,
   CATEGORY_STYLE,
@@ -39,8 +39,6 @@ import {
 } from '@/components/elements/categories';
 import { ElementBody } from '@/components/elements/ElementBody';
 import { fmtPremium } from '@/components/elements/format';
-import { PriceHistoryTable } from '@/components/elements/PriceHistoryTable';
-import { PriceMovementTable } from '@/components/elements/PriceMovementTable';
 import { ProvenanceTable } from '@/components/elements/ProvenanceTable';
 import { ReferencePriceCard } from '@/components/elements/ReferencePriceCard';
 import { RegulatoryNotice } from '@/components/elements/RegulatoryNotice';
@@ -76,8 +74,6 @@ export default function ElementDetailPage({ params }: { params: Params }) {
   const { retailRef, bulkRef, retailPremium } = getReferencePrices(
     element.symbol,
   );
-  const fluctuation = getFluctuation(element.symbol);
-  const priceHistory = getPriceHistory(element.symbol);
   const content = getElementContent(element.symbol);
 
   const cat = CATEGORY_STYLE[element.category];
@@ -93,11 +89,7 @@ export default function ElementDetailPage({ params }: { params: Params }) {
   const hasInlineProvenance =
     !!content && PROVENANCE_INCLUDE.test(content.body);
 
-  const related = relatedElements(allElements, element);
   const ordered = orderedElements(allElements);
-  const idx = ordered.findIndex((e) => e.symbol === element.symbol);
-  const prev = idx > 0 ? ordered[idx - 1] : null;
-  const next = idx >= 0 && idx < ordered.length - 1 ? ordered[idx + 1] : null;
 
   return (
     <Container as="main" className="py-10">
@@ -110,7 +102,7 @@ export default function ElementDetailPage({ params }: { params: Params }) {
       <BreadcrumbJsonLd
         items={[
           { name: 'Home', path: '/' },
-          { name: 'Elements', path: '/elements/' },
+          { name: 'Prices', path: '/elements/' },
           {
             name: `${element.symbol} · ${element.name}`,
             path: `/elements/${element.symbol}/`,
@@ -121,7 +113,7 @@ export default function ElementDetailPage({ params }: { params: Params }) {
         className="mb-5"
         items={[
           { label: 'Home', href: '/' },
-          { label: 'Elements', href: '/elements/' },
+          { label: 'Prices', href: '/elements/' },
           { label: `${element.symbol} · ${element.name}` },
         ]}
       />
@@ -218,15 +210,6 @@ export default function ElementDetailPage({ params }: { params: Params }) {
         />
       </div>
 
-      {/* ── Price Movement % table ─────────────────────────────────────── */}
-      <PriceMovementTable fluctuation={fluctuation} symbol={element.symbol} />
-
-      {/* ── Price Trend (gated; draws only with enough distinct days) ──── */}
-      <PriceHistoryChart history={priceHistory} elementName={element.name} />
-
-      {/* ── Price History observations table ───────────────────────────── */}
-      <PriceHistoryTable history={priceHistory} elementName={element.name} />
-
       {/* ── Inline regulatory notice ───────────────────────────────────── */}
       {element.regulatory_status !== 'none' && (
         <RegulatoryNotice
@@ -250,65 +233,22 @@ export default function ElementDetailPage({ params }: { params: Params }) {
         <p className="text-sm leading-relaxed text-fg-muted">
           Seen a sourced {element.name} quote that is missing above?
         </p>
-        <LinkButton
-          href={`/contribute/?element=${element.symbol}`}
-          variant="secondary"
-          size="sm"
-        >
-          + Add a {element.symbol} price
-        </LinkButton>
-      </div>
-
-      {/* ── Related elements ───────────────────────────────────────────── */}
-      {related.length > 0 && (
-        <div className="mt-8 flex flex-wrap items-baseline gap-2 border border-border bg-surface px-4 py-3 text-sm">
-          <span className="text-xs font-semibold uppercase tracking-caps text-fg-dim">
-            Related elements
-          </span>
-          {related.map((rel, i) => (
-            <span key={rel.symbol} className="flex items-baseline gap-2">
-              <Link
-                href={`/elements/${rel.symbol}/`}
-                className="font-medium text-fg hover:text-accent-strong"
-              >
-                {rel.name}
-              </Link>
-              {i < related.length - 1 && (
-                <span className="text-fg-dim">·</span>
-              )}
-            </span>
-          ))}
+        <div className="flex flex-wrap items-center gap-3">
+          <Link
+            href={`/tools/price-gauge/?symbol=${element.symbol}`}
+            className="text-sm font-medium text-accent hover:text-accent-strong"
+          >
+            Gauge a fair price →
+          </Link>
+          <LinkButton
+            href={`/contribute/?element=${element.symbol}`}
+            variant="secondary"
+            size="sm"
+          >
+            + Add a {element.symbol} price
+          </LinkButton>
         </div>
-      )}
-
-      {/* ── Previous / Next ────────────────────────────────────────────── */}
-      {(prev || next) && (
-        <nav
-          aria-label="Element navigation"
-          className="mt-8 flex items-center justify-between border-t border-border py-4 text-sm"
-        >
-          {prev ? (
-            <Link
-              href={`/elements/${prev.symbol}/`}
-              className="font-medium text-fg-muted hover:text-accent-strong"
-            >
-              ← {prev.name}
-            </Link>
-          ) : (
-            <span />
-          )}
-          {next ? (
-            <Link
-              href={`/elements/${next.symbol}/`}
-              className="ml-auto text-right font-medium text-fg-muted hover:text-accent-strong"
-            >
-              {next.name} →
-            </Link>
-          ) : (
-            <span />
-          )}
-        </nav>
-      )}
+      </div>
 
       {/* ── All-element navigation chips ───────────────────────────────── */}
       <nav className="mt-12 border-t border-border-strong pt-4">
@@ -353,17 +293,3 @@ function orderedElements(all: Element[]): Element[] {
   );
 }
 
-/**
- * Up to four related elements in the same category: the two nearest below the
- * current atomic number, then filled up to four from those above.
- */
-function relatedElements(all: Element[], current: Element): Element[] {
-  const sameCat = all
-    .filter((e) => e.category === current.category && e.symbol !== current.symbol)
-    .sort((a, b) => a.atomic_number - b.atomic_number);
-  const before = sameCat
-    .filter((e) => e.atomic_number < current.atomic_number)
-    .slice(-2);
-  const after = sameCat.filter((e) => e.atomic_number > current.atomic_number);
-  return [...before, ...after].slice(0, 4);
-}

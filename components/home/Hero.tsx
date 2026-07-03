@@ -11,6 +11,7 @@
  * Server component.
  */
 import Link from 'next/link';
+import { LinkButton } from '@/components/ui';
 
 export interface HeroProps {
   totalElements: number;
@@ -48,14 +49,8 @@ export function Hero({
       </p>
       <p className="mt-2 max-w-[64ch] text-md leading-relaxed text-fg-muted">
         Each reference price is assembled from those records, and the record
-        pool is open: anyone can{' '}
-        <Link
-          href="/contribute/"
-          className="font-medium text-accent hover:text-accent-strong"
-        >
-          contribute a sourced observation
-        </Link>{' '}
-        for review, and the full dataset is{' '}
+        pool is open: anyone can add a sourced observation for review, and the
+        full dataset is{' '}
         <Link
           href="/data/"
           className="font-medium text-accent hover:text-accent-strong"
@@ -64,6 +59,17 @@ export function Hero({
         </Link>
         .
       </p>
+
+      {/* The two site actions, big and unmissable: add an observation, or
+          browse the directory the observations assemble into. */}
+      <div className="mt-6 flex flex-wrap items-center gap-3">
+        <LinkButton href="/contribute/" variant="primary" size="lg">
+          <span aria-hidden="true">+</span> Add a price
+        </LinkButton>
+        <LinkButton href="/elements/" variant="secondary" size="lg">
+          Browse all {totalElements} element prices
+        </LinkButton>
+      </div>
 
       {/* Stat ribbon: hairline-divided on wide screens so the four readouts
           scan as one ledger strip; a plain two-column grid on mobile. */}

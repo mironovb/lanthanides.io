@@ -44,11 +44,11 @@ export default function ElementsIndexPage() {
       <BreadcrumbJsonLd
         items={[
           { name: 'Home', path: '/' },
-          { name: 'Elements', path: '/elements/' },
+          { name: 'Prices', path: '/elements/' },
         ]}
       />
       <PageHeader
-        crumbs={[{ label: 'Home', href: '/' }, { label: 'Elements' }]}
+        crumbs={[{ label: 'Home', href: '/' }, { label: 'Prices' }]}
         eyebrow="Reference · Price Ledger"
         title="All Rare Earth & Strategic Metal Prices"
         lead={`Current prices per kilogram for ${total} rare earth elements, strategic metals, and semiconductor materials. Each element shows a retail and bulk reference price with export-control status.`}

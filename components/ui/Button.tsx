@@ -14,7 +14,7 @@ import type { ComponentProps } from 'react';
 import { cn } from './cn';
 
 export type ButtonVariant = 'primary' | 'secondary' | 'ghost' | 'danger';
-export type ButtonSize = 'sm' | 'md';
+export type ButtonSize = 'sm' | 'md' | 'lg';
 
 const VARIANT: Record<ButtonVariant, string> = {
   primary:
@@ -29,6 +29,7 @@ const VARIANT: Record<ButtonVariant, string> = {
 const SIZE: Record<ButtonSize, string> = {
   sm: 'px-2.5 py-1 text-xs',
   md: 'px-3.5 py-1.5 text-sm',
+  lg: 'px-6 py-2.5 text-base font-semibold',
 };
 
 export function buttonClasses(

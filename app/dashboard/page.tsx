@@ -17,10 +17,8 @@ import { buildMetadata } from '@/lib/seo';
 import { BreadcrumbJsonLd } from '@/components/seo';
 import {
   getDataGeneratedAt,
-  getElementCoverage,
   getElements,
   getPremiumLeaderboard,
-  getPriceRecords,
 } from '@/lib/data';
 import { Container, PageHeader } from '@/components/layout';
 import { Callout } from '@/components/ui';
@@ -29,13 +27,13 @@ import { DashboardLens } from '@/components/dashboard/DashboardLens';
 import type { ElementLensMeta } from '@/components/dashboard/lens';
 
 const DESCRIPTION =
-  'A single screen market overview for rare earths and strategic metals: retail to bulk price premiums, China export control posture, and data coverage. Every figure is derived from the underlying observations, with no editorial interpretation.';
+  'A single screen market overview for rare earths and strategic metals: retail to bulk price premiums and China export control posture, derived from the open dataset.';
 
 export const metadata: Metadata = buildMetadata({
-  title: 'Market Dashboard: Premiums, Export Controls & Coverage',
+  title: 'Market Dashboard: Premiums & Export Controls',
   description: DESCRIPTION,
   keywords:
-    'rare earth market dashboard, strategic metals overview, retail premium ratio, China export control snapshot, rare earth data coverage',
+    'rare earth market dashboard, strategic metals overview, retail premium ratio, China export control snapshot',
   path: '/dashboard/',
 });
 
@@ -43,9 +41,7 @@ export default function DashboardPage() {
   const generatedAt = getDataGeneratedAt();
   const elements = getElements();
   const total = elements.length;
-  const records = getPriceRecords().length;
   const premiums = getPremiumLeaderboard();
-  const coverage = getElementCoverage();
 
   // Lean catalog slice the lens scopes by; the authoritative element set, passed
   // to the client island which derives the in-scope subset and per-panel views.
@@ -97,7 +93,6 @@ export default function DashboardPage() {
       <MarketSnapshot
         className="mt-8"
         totalElements={total}
-        priceRecords={records}
         dualTierElements={premiums.length}
         controlledElements={controlled}
         generatedAt={generatedAt}
@@ -110,11 +105,7 @@ export default function DashboardPage() {
 
       {/* Element lens + the three filterable panels, SSR'd unfiltered so the
           full dashboard is present without JS. */}
-      <DashboardLens
-        elements={elementMeta}
-        premiums={premiums}
-        coverage={coverage}
-      />
+      <DashboardLens elements={elementMeta} premiums={premiums} />
     </Container>
   );
 }

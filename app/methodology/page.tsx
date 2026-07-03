@@ -17,10 +17,12 @@ import matter from 'gray-matter';
 
 import '@/components/content/content-body.css';
 
-import { getSourceBreakdown } from '@/lib/data';
+import { getSourceBreakdown, getSources } from '@/lib/data';
 import { Container, PageHeader } from '@/components/layout';
+import { SectionHeading } from '@/components/ui';
 import { Markdown } from '@/components/content/Markdown';
 import { SourceBreakdownTable } from '@/components/content/SourceBreakdownTable';
+import { SourceRegistryTable } from '@/components/content/SourceRegistryTable';
 import { buildMetadata } from '@/lib/seo';
 import { BreadcrumbJsonLd } from '@/components/seo';
 
@@ -46,6 +48,7 @@ export const metadata: Metadata = buildMetadata({
 
 export default function MethodologyPage() {
   const breakdown = getSourceBreakdown();
+  const sources = getSources();
   // Splice the live breakdown table in where the Liquid block was.
   const [before, after] = BODY.split(BREAKDOWN_BLOCK);
 
@@ -73,6 +76,17 @@ export default function MethodologyPage() {
           <Markdown>{after}</Markdown>
         </div>
       )}
+
+      {/* Registered sources: merged in from the retired /sources page (which
+          301s here). One row per curated source in _data/source_registry.yml. */}
+      <section id="registered-sources" className="mt-12">
+        <SectionHeading
+          title="Registered Sources"
+          count={sources.length}
+          description="The curated source registry behind the records: trust tier, coverage, and review status for each."
+        />
+        <SourceRegistryTable sources={sources} />
+      </section>
     </Container>
   );
 }

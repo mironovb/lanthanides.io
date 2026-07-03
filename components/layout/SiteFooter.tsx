@@ -1,20 +1,13 @@
 /**
- * SiteFooter. The old static site footer (git 56e980f, _includes/footer.html):
- * a centered, calm block of a link row, a live stats line, one methodology note,
- * and a license line. A small secondary row carries the tools, alerts, and the
- * open-data exports, which the old site kept out of the top nav.
- *
- * Stats are read live from the data layer, never hardcoded. Server component.
+ * SiteFooter. A centered, calm block: ONE link row (every page plus the JSON
+ * and CSV export endpoints), a live stats line, one methodology note, and a
+ * license line. Stats are read live from the data layer, never hardcoded.
+ * Server component.
  */
 import Link from 'next/link';
 import { getElements, getPriceRecords } from '@/lib/data';
 import { Container } from './Container';
-import {
-  FOOTER_LINKS,
-  FOOTER_TOOLS,
-  OPEN_DATA_EXPORTS,
-  type NavItem,
-} from './nav';
+import { FOOTER_LINKS, OPEN_DATA_EXPORTS, type NavItem } from './nav';
 
 const LICENSE_URL = 'https://creativecommons.org/licenses/by/4.0/';
 const MIT_URL = 'https://opensource.org/licenses/MIT';
@@ -69,16 +62,7 @@ export function SiteFooter() {
           aria-label="Footer navigation"
           className="flex flex-wrap justify-center gap-x-6 gap-y-2 text-xs text-fg-muted"
         >
-          {FOOTER_LINKS.map((item) => (
-            <FooterLink key={item.href} item={item} />
-          ))}
-        </nav>
-
-        <nav
-          aria-label="Tools and data"
-          className="flex flex-wrap justify-center gap-x-5 gap-y-2 text-2xs text-fg-dim"
-        >
-          {[...FOOTER_TOOLS, ...OPEN_DATA_EXPORTS].map((item) => (
+          {[...FOOTER_LINKS, ...OPEN_DATA_EXPORTS].map((item) => (
             <FooterLink key={item.href} item={item} />
           ))}
         </nav>

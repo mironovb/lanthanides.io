@@ -1,7 +1,7 @@
 /**
  * /about: a plain description of what lanthanides.io is (SSG).
  *
- * What the site is, why it exists, the principles, the live coverage stats
+ * What the site is, why it exists, the principles
  * from the data layer, how to contribute, and a real contact address.
  *
  * `/vision` still resolves here via the 301 in next.config.mjs.
@@ -12,14 +12,9 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { buildMetadata } from '@/lib/seo';
 import { BreadcrumbJsonLd } from '@/components/seo';
-import {
-  getElements,
-  getPolicyEvents,
-  getPriceRecords,
-  getSources,
-} from '@/lib/data';
+import { getElements } from '@/lib/data';
 import { Container, PageHeader } from '@/components/layout';
-import { SectionHeading, Stat, StatGrid } from '@/components/ui';
+import { SectionHeading } from '@/components/ui';
 
 const GITHUB = 'https://github.com/mironovb/lanthanides.io';
 
@@ -41,16 +36,6 @@ const INLINE_LINK =
 
 export default function AboutPage() {
   const elementCount = getElements().length;
-  const recordCount = getPriceRecords().length;
-  const sourceCount = getSources().length;
-  const policyEventCount = getPolicyEvents().length;
-
-  const coverage: Array<{ label: string; value: number }> = [
-    { label: 'Elements tracked', value: elementCount },
-    { label: 'Price records', value: recordCount },
-    { label: 'Data sources', value: sourceCount },
-    { label: 'Policy events', value: policyEventCount },
-  ];
 
   const principles: Array<[string, React.ReactNode]> = [
     [
@@ -167,16 +152,6 @@ export default function AboutPage() {
         </dl>
       </section>
 
-      {/* ── Data coverage ────────────────────────────────────────────────── */}
-      <section className="mt-10">
-        <SectionHeading title="Data coverage" />
-        <StatGrid cols={4}>
-          {coverage.map((s) => (
-            <Stat key={s.label} label={s.label} value={s.value} />
-          ))}
-        </StatGrid>
-      </section>
-
       {/* ── Community contributions ──────────────────────────────────────── */}
       <section className="mt-10 max-w-prose">
         <SectionHeading title="Community contributions" />
@@ -229,13 +204,10 @@ export default function AboutPage() {
           </a>
         </p>
         <p className="mt-3 text-base leading-relaxed text-fg-muted">
-          How prices are collected and verified is documented in{' '}
+          How prices are collected and verified, and the current source
+          registry, are documented in{' '}
           <Link href="/methodology/" className={INLINE_LINK}>
             Methodology
-          </Link>
-          ; the current source registry is on{' '}
-          <Link href="/sources/" className={INLINE_LINK}>
-            Sources
           </Link>
           .
         </p>

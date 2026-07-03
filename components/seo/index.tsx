@@ -314,7 +314,7 @@ export function DatasetJsonLd({
   );
 }
 
-// ── WebApplication (tool surfaces: price-gauge, sell, alerts) ───────────────
+// ── WebApplication (/tools/price-gauge) ───────────────
 export function WebApplicationJsonLd({
   name,
   description,

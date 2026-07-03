@@ -1,14 +1,13 @@
 /**
- * /news: news index (SSG). Feature cards from the `_articles` collection plus
- * the dated developments timeline from `_data/news.yml`.
+ * /news: news index (SSG). Feature cards from the `_articles` collection. The
+ * dated developments timeline was removed in the 2026-07 simplification: it
+ * duplicated the /regulatory tracker entry for entry.
  */
 import type { Metadata } from 'next';
-import { getNews } from '@/lib/data';
 import { getAllArticles } from '@/lib/content';
 import { Container, PageHeader } from '@/components/layout';
 import { SectionHeading } from '@/components/ui';
 import { ArticleCard } from '@/components/news/ArticleCard';
-import { DevelopmentTimeline } from '@/components/news/DevelopmentTimeline';
 import { buildMetadata } from '@/lib/seo';
 import { BreadcrumbJsonLd } from '@/components/seo';
 
@@ -22,9 +21,6 @@ export const metadata: Metadata = buildMetadata({
 export default function NewsIndexPage() {
   const articles = getAllArticles();
   const [leadArticle, ...otherArticles] = articles;
-  const developments = [...getNews()].sort((a, b) =>
-    b.date.localeCompare(a.date),
-  );
 
   return (
     <Container as="main" className="py-10">
@@ -64,14 +60,6 @@ export default function NewsIndexPage() {
         </section>
       )}
 
-      <section className="mt-12">
-        <SectionHeading
-          title="Regulatory & Trade Developments"
-          count={`${developments.length} entries`}
-          description="A dated record of China export-control announcements and related trade measures since 2023, newest first."
-        />
-        <DevelopmentTimeline items={developments} />
-      </section>
     </Container>
   );
 }

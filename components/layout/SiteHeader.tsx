@@ -48,7 +48,7 @@ export function SiteHeader() {
           <SiteNav />
           <Link
             href={CONTRIBUTE_CTA.href}
-            className={buttonClasses('primary', 'sm')}
+            className={buttonClasses('primary', 'md')}
           >
             <span aria-hidden="true">+</span> {CONTRIBUTE_CTA.label}
           </Link>

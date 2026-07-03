@@ -428,4 +428,4 @@ For developers and analysts who want to contribute via PR:
 - **Manual entry:** Add records directly to `_data/price_records.json` following
   the schema
 
-All contributions must include source provenance. See the full [contribution guide](https://github.com/mironovb/lanthanides.io/blob/main/CONTRIBUTING.md) for data formats, source requirements, and local setup instructions. See the [Sources](/sources/) page for the current source registry.
+All contributions must include source provenance. See the full [contribution guide](https://github.com/mironovb/lanthanides.io/blob/main/CONTRIBUTING.md) for data formats, source requirements, and local setup instructions. The current source registry is in the [Registered Sources](#registered-sources) section below.

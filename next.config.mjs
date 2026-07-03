@@ -77,6 +77,13 @@ const nextConfig = {
         destination: '/feed.xml',
         statusCode: 301,
       },
+      // 2026-07-03 audit: /sources merged into /methodology (the registry table
+      // moved there; the trust-tier table it also carried was a duplicate).
+      {
+        source: '/sources',
+        destination: '/methodology/',
+        statusCode: 301,
+      },
     ];
   },
 };

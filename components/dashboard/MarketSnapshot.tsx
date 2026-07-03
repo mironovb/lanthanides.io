@@ -8,10 +8,8 @@ import { Stat, StatGrid, cn } from '@/components/ui';
 import { formatDate } from '@/lib/format';
 
 export interface MarketSnapshotProps {
-  /** All tracked catalog elements. */
+  /** All tracked catalog elements (the denominator for the two stats). */
   totalElements: number;
-  /** Price records sourced into the dataset (sourced, not all verified). */
-  priceRecords: number;
   /** Elements with both a retail reference and a bulk benchmark. */
   dualTierElements: number;
   /** Elements with an active or suspended Chinese export-control regime. */
@@ -23,7 +21,6 @@ export interface MarketSnapshotProps {
 
 export function MarketSnapshot({
   totalElements,
-  priceRecords,
   dualTierElements,
   controlledElements,
   generatedAt,
@@ -37,26 +34,19 @@ export function MarketSnapshot({
         className,
       )}
     >
-      <StatGrid cols={4} className="gap-y-5 p-5">
-        <Stat
-          label="Tracked elements"
-          value={totalElements}
-          hint="Four categories"
-        />
-        <Stat
-          label="Sourced price records"
-          value={priceRecords}
-          hint="Seller, date, source each"
-        />
+      {/* Only the dashboard-specific figures: the premium board's denominator
+          and the risk matrix's headline. Element and record totals live in the
+          home hero ribbon (single owner per stat). */}
+      <StatGrid cols={2} className="gap-y-5 p-5">
         <Stat
           label="Priced in both tiers"
           value={dualTierElements}
-          hint="Retail and bulk references"
+          hint={`of ${totalElements} tracked elements`}
         />
         <Stat
           label="Under China controls"
           value={controlledElements}
-          hint="Active or suspended"
+          hint="Active or suspended regime"
         />
       </StatGrid>
 

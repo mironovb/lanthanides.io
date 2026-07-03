@@ -11,7 +11,6 @@ export {
   NAV_LINKS,
   CONTRIBUTE_CTA,
   FOOTER_LINKS,
-  FOOTER_TOOLS,
   OPEN_DATA_EXPORTS,
 } from './nav';
 export type { NavItem } from './nav';
