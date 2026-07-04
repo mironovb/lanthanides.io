@@ -111,14 +111,14 @@ export default function HomePage() {
         <span className="flex items-center gap-1.5">
           <span
             aria-hidden="true"
-            className="h-1.5 w-1.5 rounded-full bg-risk-high"
+            className="h-2 w-2 rounded-full bg-risk-high"
           />
           Export licence required
         </span>
         <span className="flex items-center gap-1.5">
           <span
             aria-hidden="true"
-            className="h-1.5 w-1.5 rounded-full bg-risk-medium"
+            className="h-2 w-2 rounded-full border-2 border-risk-medium"
           />
           Under surveillance
         </span>

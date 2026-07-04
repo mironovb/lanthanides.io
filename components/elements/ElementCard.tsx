@@ -21,12 +21,22 @@ import type { Element, ExportControlStatus, PriceRecord } from '@/lib/types';
 import { CATEGORY_STYLE } from './categories';
 import { fmtUsdPrice } from './format';
 
-/** Export-control marks: colour only ever encodes meaning (risk scale). */
+/**
+ * Export-control marks. Colour encodes the risk scale, but the SHAPE carries
+ * the distinction (solid dot vs hollow ring): at this size two hues alone are
+ * indistinguishable, and shape survives colour-vision deficiency.
+ */
 const CONTROL_DOT: Partial<
   Record<ExportControlStatus, { classes: string; title: string }>
 > = {
-  restricted: { classes: 'bg-risk-high', title: 'Export licence required' },
-  monitored: { classes: 'bg-risk-medium', title: 'Under surveillance' },
+  restricted: {
+    classes: 'h-2 w-2 rounded-full bg-risk-high',
+    title: 'Export licence required',
+  },
+  monitored: {
+    classes: 'h-2 w-2 rounded-full border-2 border-risk-medium',
+    title: 'Under surveillance',
+  },
 };
 
 interface ElementCardProps {
@@ -51,14 +61,13 @@ export function ElementCard({ element, retail, bulk }: ElementCardProps) {
         </span>
         <span className="flex items-center gap-1.5">
           {dot && (
-            <span
-              title={dot.title}
-              className={`h-1.5 w-1.5 rounded-full ${dot.classes}`}
-            />
+            <span title={dot.title} className={dot.classes}>
+              <span className="sr-only">{dot.title}</span>
+            </span>
           )}
           {element.high_demand && (
             <span title="High demand" className="text-2xs leading-none">
-              🔥
+              🔥<span className="sr-only">High demand</span>
             </span>
           )}
         </span>
