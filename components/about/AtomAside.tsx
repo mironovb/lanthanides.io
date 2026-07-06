@@ -17,7 +17,7 @@ import { useEffect, useState } from 'react';
 
 const LanthanumBohrScroll = dynamic(
   () => import('@/components/about/LanthanumBohrScroll'),
-  { ssr: false, loading: () => <div style={{ width: '100%', height: 440 }} /> },
+  { ssr: false, loading: () => <div style={{ width: '100%', height: 300 }} /> },
 );
 
 export function AtomAside() {
@@ -35,12 +35,13 @@ export function AtomAside() {
   // exists exactly when its sidebar column does.
   if (!wide) return null;
 
+  // Sticky offset keeps the atom vertically centered in the viewport while
+  // the prose scrolls past. The 300px canvas is wider than it is tall, so the
+  // camera frustum holds the whole outer shell with margin (a taller-than-wide
+  // canvas clipped the outermost ring at the column edge).
   return (
-    <div className="sticky top-24">
-      <LanthanumBohrScroll height={440} />
-      <p className="eyebrow mt-2 text-center">
-        La · lanthanum · Z 57, the ledger&apos;s namesake
-      </p>
+    <div className="sticky top-[calc(50vh-150px)]">
+      <LanthanumBohrScroll height={300} />
     </div>
   );
 }

@@ -97,7 +97,7 @@ export default function AboutPage() {
           lanthanum Bohr model (the specimen kit's atom; client-only WebGL,
           rendered at all only on wide screens). On smaller screens the left
           column is simply the page. */}
-      <div className="lg:grid lg:grid-cols-[minmax(0,1fr)_22rem] lg:gap-16">
+      <div className="lg:grid lg:grid-cols-[minmax(0,1fr)_20rem] lg:gap-16">
         <div>
           {/* ── What this is ─────────────────────────────────────────────── */}
           <section className="mt-12 max-w-prose">
