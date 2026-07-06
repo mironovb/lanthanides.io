@@ -8,10 +8,15 @@
  * assembled from source-cited observations, and anyone can contribute one
  * through the reviewed pipeline (/contribute/).
  *
+ * Beside the text (below it on small screens): the specimen-kit composition,
+ * three photographic specimen cutouts linking to their element pages
+ * (components/home/HeroSpecimens, a client island).
+ *
  * Server component.
  */
 import Link from 'next/link';
 import { LinkButton } from '@/components/ui';
+import { HeroSpecimens } from '@/components/home/HeroSpecimens';
 
 export interface HeroProps {
   totalElements: number;
@@ -38,34 +43,44 @@ export function Hero({
       className="border-b border-border pb-8 pt-10 sm:pt-12"
       aria-label="Strategic Materials Ledger"
     >
-      <p className="eyebrow text-accent">Strategic Materials Ledger</p>
-      <h1 className="mt-3 max-w-[22ch] font-serif text-3xl font-bold leading-tight tracking-tightish text-fg sm:text-4xl">
-        Rare earth &amp; critical metal prices, with provenance.
-      </h1>
-      <p className="mt-3 max-w-[64ch] text-md leading-relaxed text-fg-muted">
-        {totalElements} elements across four categories. Retail surveys and bulk
-        benchmarks tracked separately. Every record carries a seller, date,
-        quantity, and verification status.
-      </p>
-      <p className="mt-2 max-w-[64ch] text-md leading-relaxed text-fg-muted">
-        Each reference price is assembled from those records, and the record
-        pool is open: anyone can add a sourced observation for review, and the
-        full dataset is{' '}
-        <Link
-          href="/data/"
-          className="font-medium text-accent hover:text-accent-strong"
-        >
-          free to download and cite
-        </Link>
-        .
-      </p>
+      <div className="grid items-center gap-10 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,0.95fr)]">
+        <div>
+          <p className="eyebrow text-accent">Strategic Materials Ledger</p>
+          <h1 className="mt-3 max-w-[22ch] font-serif text-3xl font-bold leading-tight tracking-tightish text-fg sm:text-4xl">
+            Rare earth &amp; critical metal prices, with provenance.
+          </h1>
+          <p className="mt-3 max-w-[64ch] text-md leading-relaxed text-fg-muted">
+            {totalElements} elements across four categories. Retail surveys and
+            bulk benchmarks tracked separately. Every record carries a seller,
+            date, quantity, and verification status.
+          </p>
+          <p className="mt-2 max-w-[64ch] text-md leading-relaxed text-fg-muted">
+            Each reference price is assembled from those records, and the
+            record pool is open: anyone can add a sourced observation for
+            review, and the full dataset is{' '}
+            <Link
+              href="/data/"
+              className="font-medium text-accent hover:text-accent-strong"
+            >
+              free to download and cite
+            </Link>
+            .
+          </p>
 
-      {/* The primary action, big and unmissable; the full price ledger sits
-          directly below it on this page. */}
-      <div className="mt-6">
-        <LinkButton href="/contribute/" variant="primary" size="lg">
-          <span aria-hidden="true">+</span> Add a price
-        </LinkButton>
+          {/* The primary action, big and unmissable; the full price ledger
+              sits directly below it on this page. */}
+          <div className="mt-6">
+            <LinkButton href="/contribute/" variant="primary" size="lg">
+              <span aria-hidden="true">+</span> Add a price
+            </LinkButton>
+          </div>
+        </div>
+
+        {/* Specimen photographs of three catalog elements; each links to its
+            element page. The !h-* overrides beat the stylesheet's fixed 420px
+            default (page CSS loads after the utility layer, so plain h-*
+            would lose the cascade tie). */}
+        <HeroSpecimens className="!h-[300px] sm:!h-[380px] lg:!h-[420px]" />
       </div>
 
       {/* Stat ribbon: hairline-divided on wide screens so the four readouts

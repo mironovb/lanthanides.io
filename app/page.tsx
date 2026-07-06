@@ -30,6 +30,7 @@ import { ElementCard } from '@/components/elements/ElementCard';
 import { Hero } from '@/components/home/Hero';
 import { RegulatoryBanner } from '@/components/regulatory/RegulatoryBanner';
 import { ArticleCard } from '@/components/news/ArticleCard';
+import '@/components/home/specimen-showcase.css';
 
 const TITLE =
   'lanthanides.io: Rare Earth Prices, Export Controls, and Strategic Materials Intelligence';

@@ -29,6 +29,14 @@
     scroll-behavior: smooth;
   }
 
+  /* Theme hooks for the specimen-kit showcase (components/home/
+     specimen-showcase.css): chip border/symbol and chip text, bound to the
+     site tokens instead of the kit's orange defaults. */
+  :root {
+    --sk-accent: theme('colors.accent.DEFAULT');
+    --sk-text: theme('colors.fg.muted');
+  }
+
   body {
     @apply bg-base text-fg font-sans antialiased;
     font-size: 1rem; /* 16px, comfortable reading baseline (static site) */

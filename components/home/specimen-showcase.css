@@ -1,0 +1,104 @@
+/* SpecimenShowcase styles, from the specimen kit. Self-contained: no framework,
+   no external tokens. Themed for this site via custom properties on :root
+   (app/globals.css): --sk-accent (chip border + symbol) and --sk-text (chip
+   text) are bound to the accent/fg tokens there. Imported once, by the page
+   that renders the showcase (app/page.tsx), the same pattern as
+   components/elements/element-body.css. */
+
+.specimen-showcase {
+  position: relative;
+  height: 420px;
+}
+
+.specimen-link {
+  position: absolute;
+  display: block;
+  text-decoration: none;
+}
+
+/* Composition: top-left, top-right, bottom-center (percent-based, scales with container) */
+.specimen-slot-1 { left: 2%;  top: 4%;    width: 44%; }
+.specimen-slot-2 { right: 2%; top: 10%;   width: 36%; }
+.specimen-slot-3 { left: 24%; bottom: 2%; width: 48%; }
+
+.specimen-img {
+  display: block;
+  width: 100%;
+  height: auto;
+  transition: transform 0.3s ease;
+}
+
+.specimen-link:hover .specimen-img,
+.specimen-link:focus-visible .specimen-img {
+  transform: scale(1.03);
+}
+
+/* Grounding shadow (drop-shadow follows the alpha silhouette, not the box) */
+.specimen-shadow {
+  filter: drop-shadow(0 22px 26px rgba(20, 20, 20, 0.16));
+}
+
+/* Gentle vertical drift; staggered phase/duration per slot for depth */
+@keyframes specimen-float {
+  from { transform: translateY(-5px); }
+  to   { transform: translateY(7px); }
+}
+
+.specimen-float   { animation: specimen-float 6.5s ease-in-out infinite alternate; }
+.specimen-float-2 { animation-duration: 8s;   animation-delay: -2.5s; }
+.specimen-float-3 { animation-duration: 7.2s; animation-delay: -4.5s; }
+
+/* Element chips: hidden until the specimen is hovered or keyboard-focused */
+.specimen-chip {
+  position: absolute;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.2rem 0.6rem;
+  border: 1px solid var(--sk-accent, #e65100);
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.94);
+  font-family: var(--font-mono, ui-monospace), 'SFMono-Regular', Menlo, monospace;
+  font-size: 0.7rem;
+  color: var(--sk-text, #4a4a4a);
+  white-space: nowrap;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.06);
+  opacity: 0;
+  transform: translateY(4px);
+  transition: opacity 0.18s ease, transform 0.18s ease;
+  pointer-events: none;
+}
+
+.specimen-chip-symbol {
+  color: var(--sk-accent, #e65100);
+  font-weight: 600;
+}
+
+.specimen-chip-1 { left: 8%;   bottom: -4px; }
+.specimen-chip-2 { right: 6%;  bottom: -4px; }
+.specimen-chip-3 { left: 30%;  bottom: -8px; }
+
+.specimen-link:hover .specimen-chip,
+.specimen-link:focus-visible .specimen-chip {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Touch devices and small screens: no hover, so no name labels at all */
+@media (hover: none), (max-width: 639px) {
+  .specimen-chip {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .specimen-float,
+  .specimen-float-2,
+  .specimen-float-3 {
+    animation: none;
+  }
+  .specimen-img,
+  .specimen-chip {
+    transition: none;
+  }
+}
