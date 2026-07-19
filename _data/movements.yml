@@ -42,7 +42,7 @@ state:
     Y: active|controlled=yes|restricted
     Yb: suspended|controlled=yes|monitored
     Zr: none|controlled=no|normal
-  last_run: '2026-07-12T07:54:26Z'
+  last_run: '2026-07-19T07:54:23Z'
 events:
 - id: Y-retail-30d-2026-04-04
   date: '2026-04-04'
