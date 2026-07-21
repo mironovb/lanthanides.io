@@ -38,10 +38,14 @@ export function buildPriceMap(
     if (!dateTo || r.quote_date > dateTo) dateTo = r.quote_date;
   }
 
-  // Decade-bounded log domain from the data ([0, 6] today: $1 to $1M). A
-  // degenerate span still yields a drawable one-decade axis.
+  // Log domain from the data: lo snaps DOWN to the decade below the cheapest
+  // observation (keeps the $1 anchor tick; the left margin is small), while hi
+  // is the dearest observation plus 5% of the log span as right headroom, so
+  // the axis ends just past the last mark instead of at the next mostly-empty
+  // decade ([0, ~5.53] today). A degenerate span still yields a drawable
+  // one-decade axis.
   let lo = Math.floor(Math.log10(min));
-  let hi = Math.ceil(Math.log10(max));
+  let hi = Math.log10(max) + 0.05 * (Math.log10(max) - lo);
   if (!(Number.isFinite(lo) && Number.isFinite(hi))) {
     lo = 0;
     hi = 1;

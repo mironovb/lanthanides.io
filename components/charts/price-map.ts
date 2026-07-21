@@ -82,7 +82,11 @@ export interface AxisTick {
 /** The serializable model the server builds and the island renders. */
 export interface PriceMapModel {
   rows: MapRow[];
-  /** [log10 lo, log10 hi], computed from the data, never hardcoded. */
+  /**
+   * [log10 lo, log10 hi], computed from the data, never hardcoded. `hi`
+   * carries 5% right headroom past the dearest observation, so it is not an
+   * integer.
+   */
   domain: [number, number];
   ticks: AxisTick[];
   totals: {

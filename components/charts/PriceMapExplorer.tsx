@@ -13,14 +13,22 @@
  * beside text.
  *
  * The geometric layer is aria-hidden; the label text, the printed medians,
- * and the summary table below carry the same numbers accessibly, so the
- * native-title tooltips on marks only ever enhance.
+ * and the summary table below carry the same numbers accessibly, so mark
+ * tooltips only ever enhance. Server HTML carries native title attributes as
+ * the no-JS fallback; hydration strips them and one shared styled tooltip
+ * (`MapTooltip`, ref-driven, event-delegated) takes over.
  */
-import { useMemo, useState } from 'react';
+import {
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+  type RefObject,
+} from 'react';
 import Link from 'next/link';
 import { CATEGORY_ORDER, CATEGORY_STYLE } from '@/components/elements/categories';
 import { FilterChips, SectionHeading, SortableTable, cn } from '@/components/ui';
-import { fmtUsdPrice } from '@/lib/format';
+import { fmtPremium, fmtUsdPrice } from '@/lib/format';
 import {
   CHART_MIN_PX,
   LABEL_COL_PX,
@@ -84,6 +92,7 @@ export function PriceMapExplorer({ model }: { model: PriceMapModel }) {
   const [form, setForm] = useState<string | null>(null);
   const [tier, setTier] = useState<TierChoice>('both');
   const [sort, setSort] = useState<SortKey>('category');
+  const chartRef = useRef<HTMLDivElement>(null);
 
   const { domain, ticks } = model;
 
@@ -224,7 +233,7 @@ export function PriceMapExplorer({ model }: { model: PriceMapModel }) {
       </div>
 
       {/* ── The map ──────────────────────────────────────────────────────── */}
-      <div className="mt-2 overflow-x-auto">
+      <div ref={chartRef} className="mt-2 overflow-x-auto">
         <div style={{ minWidth: CHART_MIN_PX }}>
           {sections.map((section) => (
             <section
@@ -251,11 +260,13 @@ export function PriceMapExplorer({ model }: { model: PriceMapModel }) {
         </div>
       </div>
 
+      <MapTooltip rootRef={chartRef} />
+
       {/* ── Legend: the mandatory two-series decode, after the grid like the
              home ledger's legend row ─────────────────────────────────────── */}
       <div className="mt-6 flex flex-wrap items-center gap-x-6 gap-y-3 border-t border-border pt-4 text-xs text-fg-muted">
         <span className="flex items-center gap-1.5">
-          <span aria-hidden className="h-2.5 w-2.5 rounded-full bg-fg" /> one
+          <span aria-hidden className="h-2.5 w-2.5 rounded-full bg-fg/80" /> one
           retail observation
         </span>
         <span className="flex items-center gap-1.5">
@@ -266,16 +277,25 @@ export function PriceMapExplorer({ model }: { model: PriceMapModel }) {
           one bulk observation
         </span>
         <span className="flex items-center gap-1.5">
-          <span aria-hidden className="h-px w-6 bg-border-strong" /> observed min
-          to max (from {MIN_STRIP_N})
+          <span aria-hidden className="h-px w-6 bg-fg-dim/50" /> observed min to
+          max (from {MIN_STRIP_N})
         </span>
         <span className="flex items-center gap-1.5">
-          <span aria-hidden className="h-2 w-6 bg-accent/25" /> middle half, P25
-          to P75 (from {MIN_QUARTILE_N})
+          <span aria-hidden className="h-2 w-6 rounded-[2px] bg-accent/30" />{' '}
+          middle half, P25 to P75 (from {MIN_QUARTILE_N})
         </span>
         <span className="flex items-center gap-1.5">
           <span aria-hidden className="h-3 w-0.5 bg-accent-strong" /> median
           (from {MIN_QUARTILE_N})
+        </span>
+        <span className="flex items-center gap-1.5">
+          <span
+            aria-hidden
+            className="font-mono font-semibold text-risk-medium"
+          >
+            n×
+          </span>{' '}
+          retail premium: retail median over bulk median, when both exist
         </span>
         <span className="text-fg-dim">
           Log scale: each gridline is 10 times the last. The figure at the end
@@ -333,7 +353,7 @@ function AxisRuler({ ticks }: { ticks: AxisTick[] }) {
       >
         <span className="font-mono text-2xs text-fg-dim">USD/kg · log</span>
       </div>
-      <div className="relative min-w-0 flex-1">
+      <div className="relative min-w-0 flex-1 border-b border-border">
         {ticks.map((t) => (
           <span
             key={t.value}
@@ -349,6 +369,13 @@ function AxisRuler({ ticks }: { ticks: AxisTick[] }) {
           >
             {t.label}
           </span>
+        ))}
+        {ticks.map((t) => (
+          <span
+            key={`stem-${t.value}`}
+            className="absolute bottom-0 h-[3px] w-px bg-border-strong"
+            style={{ left: `${t.pct}%` }}
+          />
         ))}
       </div>
       <div className="shrink-0" style={{ width: VALUE_COL_PX }} />
@@ -383,64 +410,75 @@ function MapRowItem({
     <li
       id={row.symbol}
       className={cn(
-        'flex items-stretch border-b border-border/60 target:bg-accent-dim/40',
+        'group/row flex items-stretch border-b border-border/60 target:bg-accent-dim/40 hover:bg-accent/[0.04]',
         empty && 'opacity-50',
       )}
     >
-      {/* Label cell (sticky so rows stay identifiable while the plot scrolls) */}
+      {/* Label cell (sticky so rows stay identifiable while the plot scrolls).
+          The opaque bg-base must stay to mask the scrolling plot; on row hover
+          a uniform translucent gradient paints OVER it, compositing to the
+          same wash as the li's hover so no seam shows at the column edge. */}
       <div
-        className="sticky left-0 z-20 shrink-0 bg-base py-1.5 pl-2.5 pr-2"
+        className="sticky left-0 z-20 flex shrink-0 items-center gap-2 bg-base from-accent/[0.04] to-accent/[0.04] py-1.5 pl-2 pr-2 group-hover/row:bg-gradient-to-r"
         style={{ width: LABEL_COL_PX }}
       >
-        <span
-          aria-hidden="true"
-          className={cn('absolute bottom-1.5 left-0 top-1.5 w-[3px]', cat.swatch)}
-        />
-        <div className="flex items-center gap-1.5 leading-none">
-          <span className="font-mono text-2xs tabular-nums text-fg-dim">
-            {row.atomicNumber}
-          </span>
-          <Link
-            href={`/elements/${row.symbol}/`}
-            className="font-serif text-sm font-bold text-fg hover:text-accent-strong focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
-          >
-            {row.symbol}
-          </Link>
-          <span className="min-w-0 truncate text-2xs text-fg-muted">
-            {row.name}
-          </span>
-          {dot && (
-            <span title={dot.title} className={cn('shrink-0', dot.classes)}>
-              <span className="sr-only">{dot.title}</span>
+        <Link
+          href={`/elements/${row.symbol}/`}
+          className={cn(
+            'inline-flex h-7 w-9 shrink-0 items-center justify-center border border-t-2 border-border bg-surface font-sans text-xs font-bold text-fg transition-colors duration-fast',
+            cat.borderTop,
+            'hover:bg-fg hover:text-base group-hover/row:bg-fg group-hover/row:text-base',
+            'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent',
+          )}
+        >
+          {row.symbol}
+        </Link>
+        <div className="min-w-0 flex-1">
+          <div className="flex items-center gap-1.5 leading-none">
+            <span className="min-w-0 truncate text-xs text-fg-muted">
+              {row.name}
             </span>
-          )}
-          {row.highDemand && (
-            <span title="High demand" className="shrink-0 text-2xs leading-none">
-              🔥<span className="sr-only">High demand</span>
-            </span>
-          )}
+            {dot && (
+              <span title={dot.title} className={cn('shrink-0', dot.classes)}>
+                <span className="sr-only">{dot.title}</span>
+              </span>
+            )}
+            {row.highDemand && (
+              <span
+                title="High demand"
+                className="shrink-0 text-2xs leading-none"
+              >
+                🔥<span className="sr-only">High demand</span>
+              </span>
+            )}
+          </div>
+          {/* One count line per tier, mirroring the track order (an inline
+              "7 retail · 5 bulk" wraps raggedly in the 100px next to the chip) */}
+          <div className="mt-1 space-y-0.5 font-mono text-2xs leading-none text-fg-dim">
+            {showRetail && (
+              <div>
+                {retailMarks.length > 0
+                  ? `${retailMarks.length} retail`
+                  : 'no retail'}
+              </div>
+            )}
+            {showBulk && (
+              <div>
+                {bulkMarks.length > 0
+                  ? `${bulkMarks.length} bulk`
+                  : 'no bulk'}
+              </div>
+            )}
+          </div>
+          <span className="sr-only">
+            {retail
+              ? `Observed retail ${fmtUsdPrice(retail.min)} to ${fmtUsdPrice(retail.max)} per kg.`
+              : ''}
+            {bulk
+              ? ` Observed bulk ${fmtUsdPrice(bulk.min)} to ${fmtUsdPrice(bulk.max)} per kg.`
+              : ''}
+          </span>
         </div>
-        <div className="mt-1 font-mono text-2xs leading-none text-fg-dim">
-          {showRetail && (
-            <>
-              {retailMarks.length > 0
-                ? `${retailMarks.length} retail`
-                : 'no retail'}
-            </>
-          )}
-          {showRetail && showBulk && ' · '}
-          {showBulk && (
-            <>{bulkMarks.length > 0 ? `${bulkMarks.length} bulk` : 'no bulk'}</>
-          )}
-        </div>
-        <span className="sr-only">
-          {retail
-            ? `Observed retail ${fmtUsdPrice(retail.min)} to ${fmtUsdPrice(retail.max)} per kg.`
-            : ''}
-          {bulk
-            ? ` Observed bulk ${fmtUsdPrice(bulk.min)} to ${fmtUsdPrice(bulk.max)} per kg.`
-            : ''}
-        </span>
       </div>
 
       {/* Plot cell */}
@@ -477,6 +515,15 @@ function MapRowItem({
       >
         {showRetail && <TrackValue stats={retail} />}
         {showBulk && <TrackValue stats={bulk} />}
+        {showRetail &&
+          showBulk &&
+          retail?.median != null &&
+          bulk?.median != null &&
+          bulk.median > 0 && (
+            <div className="flex h-3.5 items-center justify-end whitespace-nowrap font-mono text-2xs tabular-nums text-risk-medium">
+              premium {fmtPremium(retail.median / bulk.median)}×
+            </div>
+          )}
       </div>
     </li>
   );
@@ -497,7 +544,7 @@ function TierTrack({
     <div className="relative h-4">
       {stats?.stripPct && (
         <div
-          className="absolute top-1/2 h-px -translate-y-1/2 bg-border-strong"
+          className="absolute top-1/2 h-px -translate-y-1/2 bg-fg-dim/50"
           style={{
             left: `${stats.stripPct.left}%`,
             width: `${stats.stripPct.width}%`,
@@ -506,7 +553,7 @@ function TierTrack({
       )}
       {stats?.bandPct && (
         <div
-          className="absolute inset-y-1 bg-accent/25"
+          className="absolute inset-y-1 rounded-[2px] bg-accent/30"
           style={{
             left: `${stats.bandPct.left}%`,
             width: `${stats.bandPct.width}%`,
@@ -515,16 +562,24 @@ function TierTrack({
       )}
       {stats?.medianPct != null && (
         <div
-          className="absolute inset-y-0 w-0.5 -translate-x-1/2 bg-accent-strong"
+          className="absolute inset-y-[-2px] w-0.5 -translate-x-1/2 bg-accent-strong"
           style={{ left: `${stats.medianPct}%` }}
         />
       )}
       {marks.map((m) => (
         <span
           key={m.id}
+          // The native title is the no-JS fallback; hydration strips it and
+          // MapTooltip reads the data-* payload instead.
           title={`${fmtUsdPrice(m.price)}/kg · ${m.form}${
             m.purity ? ` · ${m.purity}` : ''
           } · ${band} · ${m.date} · ${m.seller}`}
+          data-price={fmtUsdPrice(m.price)}
+          data-form={m.form}
+          data-purity={m.purity}
+          data-tier={band}
+          data-date={m.date}
+          data-seller={m.seller}
           className="absolute top-1/2 flex h-6 w-6 -translate-x-1/2 -translate-y-1/2 items-center justify-center"
           style={{
             left: `${m.pct}%`,
@@ -536,7 +591,9 @@ function TierTrack({
           <span
             className={cn(
               'h-2.5 w-2.5 rounded-full ring-2 ring-surface',
-              band === 'retail' ? 'bg-fg' : 'border-2 border-fg bg-surface',
+              // Retail fill at 80% ink so stacked marks visibly darken where
+              // observations pile up (an honest density read).
+              band === 'retail' ? 'bg-fg/80' : 'border-2 border-fg bg-surface',
             )}
           />
         </span>
@@ -643,5 +700,117 @@ function SummaryTable({ view }: { view: RowView[] }) {
       footnote={`${rows.length} element-tier groups · P25/median/P75 need ${MIN_QUARTILE_N}+ observations · click a column to sort`}
       emptyMessage="No observations match the current filters."
     />
+  );
+}
+
+/**
+ * The shared mark tooltip: one fixed-position inverted bubble (the ui Tooltip
+ * visual vocabulary) driven imperatively through refs so a pointer sweep
+ * across 238 marks costs zero React re-renders. Events are delegated from the
+ * chart root over the marks' 24px hit spans via their data-* payload; writes
+ * go through textContent only. Marks stay non-focusable: the summary table is
+ * the keyboard path, so this layer only ever enhances.
+ */
+function MapTooltip({ rootRef }: { rootRef: RefObject<HTMLDivElement> }) {
+  const tipRef = useRef<HTMLDivElement>(null);
+  const valueRef = useRef<HTMLDivElement>(null);
+  const metaRef = useRef<HTMLDivElement>(null);
+  const sellerRef = useRef<HTMLDivElement>(null);
+  const hideRef = useRef<() => void>(() => {});
+
+  // After EVERY commit (no dependency array): strip native titles from the
+  // mark hit spans so native and custom tooltips never double-show, and close
+  // any tooltip left pointing at a re-filtered mark. Marks remounted by a
+  // filter or sort change re-arrive with title=, hence the re-run. The
+  // selector leaves the label-cell titles (control dot, high demand) alone.
+  useEffect(() => {
+    const root = rootRef.current;
+    if (!root) return;
+    root
+      .querySelectorAll('[data-price][title]')
+      .forEach((el) => el.removeAttribute('title'));
+    hideRef.current();
+  });
+
+  useEffect(() => {
+    const root = rootRef.current;
+    const tip = tipRef.current;
+    if (!root || !tip) return;
+
+    const hide = () => {
+      tip.style.opacity = '0';
+    };
+    hideRef.current = hide;
+
+    const show = (el: HTMLElement) => {
+      const d = el.dataset;
+      if (valueRef.current) valueRef.current.textContent = `${d.price ?? ''}/kg`;
+      if (metaRef.current)
+        metaRef.current.textContent = [d.form, d.purity, d.tier, d.date]
+          .filter(Boolean)
+          .join(' · ');
+      if (sellerRef.current) sellerRef.current.textContent = d.seller ?? '';
+      const r = el.getBoundingClientRect();
+      const w = tip.offsetWidth;
+      const h = tip.offsetHeight;
+      let x = r.left + r.width / 2 - w / 2;
+      x = Math.max(8, Math.min(x, window.innerWidth - 8 - w));
+      // Prefer above; flip below near the top so the sticky header (z-50,
+      // 56px tall) never covers the bubble (the tooltip itself is z-40).
+      let y = r.top - h - 8;
+      if (y < 72) y = r.bottom + 8;
+      y = Math.max(8, Math.min(y, window.innerHeight - 8 - h));
+      tip.style.transform = `translate(${x}px, ${y}px)`;
+      tip.style.opacity = '1';
+    };
+
+    const markOf = (t: EventTarget | null): HTMLElement | null => {
+      const el =
+        t instanceof Element ? t.closest<HTMLElement>('[data-price]') : null;
+      return el && root.contains(el) ? el : null;
+    };
+
+    const onOver = (e: PointerEvent) => {
+      const m = markOf(e.target);
+      if (m) show(m);
+    };
+    const onOut = (e: PointerEvent) => {
+      // Touch keeps the tip up until a tap elsewhere (onDocDown) or a scroll.
+      if (e.pointerType === 'touch') return;
+      const m = markOf(e.target);
+      if (!m) return;
+      if (e.relatedTarget instanceof Node && m.contains(e.relatedTarget)) return;
+      hide();
+    };
+    const onDocDown = (e: PointerEvent) => {
+      if (!markOf(e.target)) hide();
+    };
+    // Fixed coordinates go stale on any scroll, including the chart's own
+    // horizontal pan, hence the capture-phase document listener.
+    const onAnyScroll = () => hide();
+
+    root.addEventListener('pointerover', onOver);
+    root.addEventListener('pointerout', onOut);
+    document.addEventListener('pointerdown', onDocDown);
+    document.addEventListener('scroll', onAnyScroll, true);
+    return () => {
+      root.removeEventListener('pointerover', onOver);
+      root.removeEventListener('pointerout', onOut);
+      document.removeEventListener('pointerdown', onDocDown);
+      document.removeEventListener('scroll', onAnyScroll, true);
+    };
+  }, [rootRef]);
+
+  return (
+    <div
+      ref={tipRef}
+      role="tooltip"
+      aria-hidden="true"
+      className="pointer-events-none fixed left-0 top-0 z-40 w-max max-w-xs rounded-md bg-fg px-2.5 py-1.5 text-2xs leading-snug text-white opacity-0 shadow-md transition-opacity duration-fast"
+    >
+      <div ref={valueRef} className="font-mono text-sm font-semibold tabular-nums" />
+      <div ref={metaRef} />
+      <div ref={sellerRef} className="text-white/70" />
+    </div>
   );
 }
