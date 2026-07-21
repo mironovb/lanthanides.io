@@ -46,6 +46,7 @@ export const FOOTER_LINKS: NavItem[] = [
   { href: '/methodology/', label: 'Methodology' },
   { href: '/framework/', label: 'Framework' },
   { href: '/tools/price-gauge/', label: 'Price Gauge' },
+  { href: '/tools/price-map/', label: 'Price Map' },
   { href: '/about/', label: 'About' },
   { href: '/contribute/', label: 'Contribute' },
 ];

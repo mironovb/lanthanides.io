@@ -8,6 +8,7 @@
  *
  * For static, non-interactive tags use <Chip>; for tabbed views use <Tabs>.
  */
+import { useId } from 'react';
 import { cn } from './cn';
 
 export interface ChipOption {
@@ -35,7 +36,9 @@ export function FilterChips({
   showAll?: boolean;
   className?: string;
 }) {
-  const labelId = label ? 'filterchips-label' : undefined;
+  // Unique per instance: pages can render several chip groups side by side.
+  const uid = useId();
+  const labelId = label ? `filterchips-${uid}` : undefined;
   const base =
     'rounded border px-2 py-0.5 font-mono text-2xs font-semibold transition-colors duration-fast';
   const chipClass = (active: boolean) =>

@@ -108,6 +108,12 @@ export default function PriceGaugePage({
               How prices are set →
             </Link>
             <Link
+              href="/tools/price-map/"
+              className="text-accent hover:text-accent-strong"
+            >
+              See every price on one axis →
+            </Link>
+            <Link
               href={apiHref}
               className="font-mono text-fg-dim hover:text-fg"
             >

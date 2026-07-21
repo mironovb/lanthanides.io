@@ -197,8 +197,12 @@ function capConfidence(c: Confidence, ceiling: Confidence): Confidence {
   return CONFIDENCE_RANK[c] <= CONFIDENCE_RANK[ceiling] ? c : ceiling;
 }
 
-/** Fold a dataset tier into one of the two methodology bands. */
-function bandOf(tier: MarketTier): TierBand {
+/**
+ * Fold a dataset tier into one of the two methodology bands. Exported as the
+ * single source of truth for the dichotomy: the Price Map buckets its
+ * observations with this exact rule so map and gauge can never disagree.
+ */
+export function bandOf(tier: MarketTier): TierBand {
   return tier === 'bulk' || tier === 'wholesale' || tier === 'industrial'
     ? 'bulk'
     : 'retail';

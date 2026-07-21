@@ -146,7 +146,20 @@ export default function DataPage() {
       <section className="mt-12">
         <SectionHeading
           title="Coverage by element"
-          description="How much price data backs each element. Each tile links to its element page."
+          description={
+            <>
+              How much price data backs each element. Each tile links to its
+              element page. To see every observation drawn on one log axis,
+              open the{' '}
+              <Link
+                href="/tools/price-map/"
+                className="text-accent hover:text-accent-strong"
+              >
+                Price Map
+              </Link>
+              .
+            </>
+          }
         />
         <CoverageGrid items={coverage} tally={coverageTally} />
       </section>

@@ -30,6 +30,7 @@ const STATIC_PAGES: Array<[string, number, ChangeFreq]> = [
   ['/methodology/', 0.6, 'monthly'],
   ['/about/', 0.6, 'monthly'],
   ['/tools/price-gauge/', 0.6, 'monthly'],
+  ['/tools/price-map/', 0.6, 'monthly'],
 ];
 
 export default function sitemap(): MetadataRoute.Sitemap {
