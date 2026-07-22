@@ -12,6 +12,11 @@
  * shape (solid dot vs hollow ring), category only ever appears as a swatch
  * beside text.
  *
+ * The form law governs every statistic here: each row draws one track per
+ * element x tier x FORM group (metal and oxide are different commodities), so
+ * strips, bands, medians, sorts, premiums, and the summary table never pool
+ * across forms.
+ *
  * The geometric layer is aria-hidden; the label text, the printed medians,
  * and the summary table below carry the same numbers accessibly, so mark
  * tooltips only ever enhance. Server HTML carries native title attributes as
@@ -30,6 +35,7 @@ import { CATEGORY_ORDER, CATEGORY_STYLE } from '@/components/elements/categories
 import { FilterChips, SectionHeading, SortableTable, cn } from '@/components/ui';
 import { fmtPremium, fmtUsdPrice } from '@/lib/format';
 import {
+  CAPTION_COL_PX,
   CHART_MIN_PX,
   LABEL_COL_PX,
   MIN_QUARTILE_N,
@@ -38,11 +44,13 @@ import {
   deriveTierStats,
   dupOffsets,
   filterByForm,
+  groupTracks,
   type AxisTick,
   type MapMark,
   type MapRow,
   type PriceMapModel,
   type TierStats,
+  type Track,
 } from './price-map';
 
 type TierChoice = 'both' | 'retail' | 'bulk';
@@ -53,6 +61,18 @@ const SORT_LABEL: Record<SortKey, string> = {
   median: 'Median price, high to low',
   spread: 'Widest spread first',
 };
+
+/**
+ * Every line in the caption, plot, and value stacks. The three columns stay
+ * aligned only because every line kind shares this height and the block gap
+ * below; a column that skips or resizes a line desyncs the whole row.
+ */
+const LINE_H = 'h-4';
+/**
+ * Extra gap before the bulk block and before the premium block, applied
+ * identically in all three stacks.
+ */
+const BLOCK_GAP = 'mt-1';
 
 /** Export-control marks, the ElementCard vocabulary (shape, not hue alone). */
 const CONTROL_DOT: Partial<
@@ -68,15 +88,26 @@ const CONTROL_DOT: Partial<
   },
 };
 
-interface RowView {
-  row: MapRow;
-  retailMarks: MapMark[];
-  bulkMarks: MapMark[];
-  retail: TierStats | null;
-  bulk: TierStats | null;
+/** One track (a single element x tier x form group) with its statistics. */
+interface TrackView {
+  track: Track;
+  stats: TierStats | null;
 }
 
-/** Ordering value for a tier: the median, else the observed midpoint. */
+/** A same-form retail/bulk median pair: the only honest premium. */
+interface PairView {
+  form: string;
+  ratio: number;
+}
+
+interface RowView {
+  row: MapRow;
+  retailTracks: TrackView[];
+  bulkTracks: TrackView[];
+  pairs: PairView[];
+}
+
+/** Ordering value for a track: the median, else the observed midpoint. */
 function sortValue(stats: TierStats | null): number | null {
   if (!stats) return null;
   return stats.median ?? (stats.min + stats.max) / 2;
@@ -97,6 +128,8 @@ export function PriceMapExplorer({ model }: { model: PriceMapModel }) {
   const { domain, ticks } = model;
 
   // One derivation feeds the chart, the printed labels, and the table twin.
+  // The form law is enforced here: marks group into per-form tracks BEFORE any
+  // statistic is computed, so deriveTierStats only ever sees one commodity.
   const view = useMemo<RowView[]>(
     () =>
       model.rows.map((row) => {
@@ -104,13 +137,26 @@ export function PriceMapExplorer({ model }: { model: PriceMapModel }) {
           tier === 'bulk' ? [] : filterByForm(row.retail, form);
         const bulkMarks =
           tier === 'retail' ? [] : filterByForm(row.bulk, form);
-        return {
-          row,
-          retailMarks,
-          bulkMarks,
-          retail: tier === 'bulk' ? null : deriveTierStats(retailMarks, domain),
-          bulk: tier === 'retail' ? null : deriveTierStats(bulkMarks, domain),
-        };
+        const tracks: TrackView[] = groupTracks(retailMarks, bulkMarks).map(
+          (track) => ({ track, stats: deriveTierStats(track.marks, domain) }),
+        );
+        const retailTracks = tracks.filter((t) => t.track.band === 'retail');
+        const bulkTracks = tracks.filter((t) => t.track.band === 'bulk');
+        // Premium pairs: same form on both sides, both medians present (the
+        // median itself already needs 3 observations). Cross-form ratios are
+        // never computed.
+        const pairs: PairView[] = retailTracks
+          .flatMap((r) => {
+            const rm = r.stats?.median;
+            if (rm == null) return [];
+            const b = bulkTracks.find((t) => t.track.form === r.track.form);
+            const bm = b?.stats?.median;
+            return bm != null && bm > 0
+              ? [{ form: r.track.form, ratio: rm / bm }]
+              : [];
+          })
+          .sort((a, b) => a.form.localeCompare(b.form));
+        return { row, retailTracks, bulkTracks, pairs };
       }),
     [model.rows, domain, form, tier],
   );
@@ -143,13 +189,24 @@ export function PriceMapExplorer({ model }: { model: PriceMapModel }) {
     return { options, total };
   }, [model.rows, tier]);
 
+  // Metric sorts rank one form at a time: medians of different forms are
+  // different commodities and are never ranked against each other. Deriving
+  // (not syncing) means clearing the form chip falls back to category order
+  // and re-selecting a form restores the chosen ranking.
+  const effectiveSort: SortKey =
+    form == null && sort !== 'category' ? 'category' : sort;
+
   const sorted = useMemo(() => {
-    if (sort === 'category') return view;
-    const metric = sort === 'median' ? sortValue : spreadValue;
+    if (effectiveSort === 'category') return view;
+    const metric = effectiveSort === 'median' ? sortValue : spreadValue;
     // The visible tier drives the ranking; with both shown, retail leads
-    // (every element has retail observations, so no row is unrankable).
-    const pick = (v: RowView) =>
-      tier === 'bulk' ? metric(v.bulk) : metric(v.retail);
+    // (every element has retail observations). With a form selected each
+    // block holds at most one track.
+    const pick = (v: RowView) => {
+      const tracks = tier === 'bulk' ? v.bulkTracks : v.retailTracks;
+      const t = tracks.find((x) => x.track.form === form);
+      return metric(t?.stats ?? null);
+    };
     return [...view].sort((a, b) => {
       const av = pick(a);
       const bv = pick(b);
@@ -158,7 +215,7 @@ export function PriceMapExplorer({ model }: { model: PriceMapModel }) {
       if (bv == null) return -1;
       return bv - av;
     });
-  }, [view, sort, tier]);
+  }, [view, effectiveSort, tier, form]);
 
   const sections: Array<{
     key: string;
@@ -167,7 +224,7 @@ export function PriceMapExplorer({ model }: { model: PriceMapModel }) {
     swatch?: string;
     rows: RowView[];
   }> =
-    sort === 'category'
+    effectiveSort === 'category'
       ? CATEGORY_ORDER.map((cat) => ({
           key: cat,
           id: cat,
@@ -178,13 +235,18 @@ export function PriceMapExplorer({ model }: { model: PriceMapModel }) {
       : [
           {
             key: 'ranked',
-            title: `All elements · ${SORT_LABEL[sort].toLowerCase()}`,
+            title: `All elements · ${SORT_LABEL[effectiveSort].toLowerCase()}`,
             rows: sorted,
           },
         ];
 
   const visibleCount = view.reduce(
-    (acc, v) => acc + v.retailMarks.length + v.bulkMarks.length,
+    (acc, v) =>
+      acc +
+      [...v.retailTracks, ...v.bulkTracks].reduce(
+        (a, t) => a + t.track.marks.length,
+        0,
+      ),
     0,
   );
 
@@ -219,18 +281,23 @@ export function PriceMapExplorer({ model }: { model: PriceMapModel }) {
             Sort
           </span>
           <select
-            value={sort}
+            value={effectiveSort}
             onChange={(e) => setSort(e.target.value as SortKey)}
             className="rounded border border-border-field bg-surface px-2 py-0.5 font-mono text-2xs font-semibold text-fg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
           >
             {(Object.keys(SORT_LABEL) as SortKey[]).map((k) => (
-              <option key={k} value={k}>
+              <option key={k} value={k} disabled={k !== 'category' && form == null}>
                 {SORT_LABEL[k]}
+                {k !== 'category' && form == null ? ' (select a form)' : ''}
               </option>
             ))}
           </select>
         </label>
       </div>
+      <p className="mt-2 text-2xs leading-snug text-fg-dim">
+        Median and spread sorts rank one form at a time: medians of different
+        forms are different commodities and are not ranked against each other.
+      </p>
 
       {/* ── The map ──────────────────────────────────────────────────────── */}
       <div ref={chartRef} className="mt-2 overflow-x-auto">
@@ -278,15 +345,15 @@ export function PriceMapExplorer({ model }: { model: PriceMapModel }) {
         </span>
         <span className="flex items-center gap-1.5">
           <span aria-hidden className="h-px w-6 bg-fg-dim/50" /> observed min to
-          max (from {MIN_STRIP_N})
+          max, one form and market (from {MIN_STRIP_N})
         </span>
         <span className="flex items-center gap-1.5">
           <span aria-hidden className="h-2 w-6 rounded-[2px] bg-accent/30" />{' '}
-          middle half, P25 to P75 (from {MIN_QUARTILE_N})
+          middle half, P25 to P75, one form and market (from {MIN_QUARTILE_N})
         </span>
         <span className="flex items-center gap-1.5">
-          <span aria-hidden className="h-3 w-0.5 bg-accent-strong" /> median
-          (from {MIN_QUARTILE_N})
+          <span aria-hidden className="h-3 w-0.5 bg-accent-strong" /> median,
+          one form and market (from {MIN_QUARTILE_N})
         </span>
         <span className="flex items-center gap-1.5">
           <span
@@ -295,12 +362,14 @@ export function PriceMapExplorer({ model }: { model: PriceMapModel }) {
           >
             n×
           </span>{' '}
-          retail premium: retail median over bulk median, when both exist
+          retail premium within one form, retail median over bulk median, when
+          both medians exist
         </span>
         <span className="text-fg-dim">
-          Log scale: each gridline is 10 times the last. The figure at the end
-          of a track is its median, or the value itself for a single
-          observation.
+          Log scale: each gridline is 10 times the last. Each row draws one
+          track per form and market; the caption names the form and its count.
+          The figure at the end of a track is its median, or the value itself
+          for a single observation.
         </span>
       </div>
 
@@ -311,8 +380,8 @@ export function PriceMapExplorer({ model }: { model: PriceMapModel }) {
           count={`${visibleCount} of ${model.totals.records} observations`}
           description={
             <>
-              The same statistics as the map, one row per element and tier.
-              Scope: {form ?? 'all forms'} ·{' '}
+              The same statistics as the map, one row per element, tier, and
+              form. Scope: {form ?? 'all forms'} ·{' '}
               {tier === 'both' ? 'both tiers' : `${tier} only`}. Per-record
               detail lives in each element&apos;s provenance table.
             </>
@@ -330,7 +399,7 @@ function Gridlines({ ticks }: { ticks: AxisTick[] }) {
     <div
       aria-hidden="true"
       className="absolute inset-y-0 z-0"
-      style={{ left: LABEL_COL_PX, right: VALUE_COL_PX }}
+      style={{ left: LABEL_COL_PX + CAPTION_COL_PX, right: VALUE_COL_PX }}
     >
       {ticks.map((t) => (
         <div
@@ -353,6 +422,7 @@ function AxisRuler({ ticks }: { ticks: AxisTick[] }) {
       >
         <span className="font-mono text-2xs text-fg-dim">USD/kg · log</span>
       </div>
+      <div className="shrink-0" style={{ width: CAPTION_COL_PX }} />
       <div className="relative min-w-0 flex-1 border-b border-border">
         {ticks.map((t) => (
           <span
@@ -383,7 +453,12 @@ function AxisRuler({ ticks }: { ticks: AxisTick[] }) {
   );
 }
 
-/** One element row: label cell, one or two tier tracks, value column. */
+/**
+ * One element row: sticky label (chip + name), per-track captions, per-track
+ * plot lines, per-track values plus same-form premium lines. The four cells
+ * are parallel stacks mapping the SAME arrays in the SAME order with LINE_H
+ * and BLOCK_GAP, which is the entire alignment guarantee.
+ */
 function MapRowItem({
   view,
   tier,
@@ -393,24 +468,26 @@ function MapRowItem({
   tier: TierChoice;
   form: string | null;
 }) {
-  const { row, retail, bulk, retailMarks, bulkMarks } = view;
+  const { row, retailTracks, bulkTracks, pairs } = view;
   const cat = CATEGORY_STYLE[row.category];
   const dot = CONTROL_DOT[row.exportControlStatus];
-  const empty = retailMarks.length === 0 && bulkMarks.length === 0;
+  const empty = retailTracks.length === 0 && bulkTracks.length === 0;
+  const hasRetailBlock = retailTracks.length > 0;
 
-  const showRetail = tier !== 'bulk';
-  const showBulk = tier !== 'retail';
-
-  const missingText = (band: 'retail' | 'bulk') =>
-    form == null
-      ? `no ${band} observations`
-      : `no ${band} ${form} observations`;
+  // Printed only when the CURRENT FILTERS leave the row track-less; under the
+  // default Both view a missing bulk block is visible as a missing caption.
+  const emptyText =
+    form != null
+      ? tier === 'both'
+        ? `no ${form} observations`
+        : `no ${tier} ${form} observations`
+      : `no ${tier === 'both' ? '' : `${tier} `}observations`;
 
   return (
     <li
       id={row.symbol}
       className={cn(
-        'group/row flex items-stretch border-b border-border/60 target:bg-accent-dim/40 hover:bg-accent/[0.04]',
+        'group/row flex items-stretch border-b border-border/60 scroll-mt-24 target:bg-accent-dim/40 hover:bg-accent/[0.04]',
         empty && 'opacity-50',
       )}
     >
@@ -433,115 +510,183 @@ function MapRowItem({
         >
           {row.symbol}
         </Link>
-        <div className="min-w-0 flex-1">
-          <div className="flex items-center gap-1.5 leading-none">
-            <span className="min-w-0 truncate text-xs text-fg-muted">
-              {row.name}
-            </span>
-            {dot && (
-              <span title={dot.title} className={cn('shrink-0', dot.classes)}>
-                <span className="sr-only">{dot.title}</span>
-              </span>
-            )}
-            {row.highDemand && (
-              <span
-                title="High demand"
-                className="shrink-0 text-2xs leading-none"
-              >
-                🔥<span className="sr-only">High demand</span>
-              </span>
-            )}
-          </div>
-          {/* One count line per tier, mirroring the track order (an inline
-              "7 retail · 5 bulk" wraps raggedly in the 100px next to the chip) */}
-          <div className="mt-1 space-y-0.5 font-mono text-2xs leading-none text-fg-dim">
-            {showRetail && (
-              <div>
-                {retailMarks.length > 0
-                  ? `${retailMarks.length} retail`
-                  : 'no retail'}
-              </div>
-            )}
-            {showBulk && (
-              <div>
-                {bulkMarks.length > 0
-                  ? `${bulkMarks.length} bulk`
-                  : 'no bulk'}
-              </div>
-            )}
-          </div>
-          <span className="sr-only">
-            {retail
-              ? `Observed retail ${fmtUsdPrice(retail.min)} to ${fmtUsdPrice(retail.max)} per kg.`
-              : ''}
-            {bulk
-              ? ` Observed bulk ${fmtUsdPrice(bulk.min)} to ${fmtUsdPrice(bulk.max)} per kg.`
-              : ''}
+        <div className="flex min-w-0 flex-1 items-center gap-1.5 leading-none">
+          <span className="min-w-0 truncate text-xs text-fg-muted">
+            {row.name}
           </span>
+          {dot && (
+            <span title={dot.title} className={cn('shrink-0', dot.classes)}>
+              <span className="sr-only">{dot.title}</span>
+            </span>
+          )}
+          {row.highDemand && (
+            <span
+              title="High demand"
+              className="shrink-0 text-2xs leading-none"
+            >
+              🔥<span className="sr-only">High demand</span>
+            </span>
+          )}
         </div>
       </div>
 
-      {/* Plot cell */}
+      {/* Caption stack: one line per track (tier glyph + form + n). The text
+          is the accessible per-track summary, so this cell is NOT aria-hidden
+          (only the glyphs are). */}
+      <div
+        className="flex shrink-0 flex-col justify-center py-1.5"
+        style={{ width: CAPTION_COL_PX }}
+      >
+        {retailTracks.map((t) => (
+          <CaptionLine key={`r-${t.track.form}`} view={t} />
+        ))}
+        {bulkTracks.map((t, i) => (
+          <CaptionLine
+            key={`b-${t.track.form}`}
+            view={t}
+            className={i === 0 && hasRetailBlock ? BLOCK_GAP : undefined}
+          />
+        ))}
+        {pairs.map((p, i) => (
+          <div
+            key={`p-${p.form}`}
+            aria-hidden="true"
+            className={cn(LINE_H, i === 0 && BLOCK_GAP)}
+          />
+        ))}
+        {empty && <div aria-hidden="true" className={LINE_H} />}
+      </div>
+
+      {/* Plot stack: one track per element x tier x form group. */}
       <div
         aria-hidden="true"
         className="flex min-w-0 flex-1 flex-col justify-center py-1.5"
       >
-        {showRetail &&
-          (retailMarks.length > 0 ? (
-            <TierTrack marks={retailMarks} stats={retail} band="retail" />
-          ) : (
-            <div className="flex h-4 items-center">
-              <span className="bg-base/80 px-1 text-2xs text-fg-dim">
-                {missingText('retail')}
-              </span>
-            </div>
-          ))}
-        {showBulk &&
-          (bulkMarks.length > 0 ? (
-            <TierTrack marks={bulkMarks} stats={bulk} band="bulk" />
-          ) : (
-            <div className="flex h-4 items-center">
-              <span className="bg-base/80 px-1 text-2xs text-fg-dim">
-                {missingText('bulk')}
-              </span>
-            </div>
-          ))}
+        {retailTracks.map((t) => (
+          <TierTrack
+            key={`r-${t.track.form}`}
+            marks={t.track.marks}
+            stats={t.stats}
+            band="retail"
+          />
+        ))}
+        {bulkTracks.map((t, i) => (
+          <TierTrack
+            key={`b-${t.track.form}`}
+            marks={t.track.marks}
+            stats={t.stats}
+            band="bulk"
+            className={i === 0 && hasRetailBlock ? BLOCK_GAP : undefined}
+          />
+        ))}
+        {pairs.map((p, i) => (
+          <div key={`p-${p.form}`} className={cn(LINE_H, i === 0 && BLOCK_GAP)} />
+        ))}
+        {empty && (
+          <div className={cn(LINE_H, 'flex items-center')}>
+            <span className="bg-base/80 px-1 text-2xs text-fg-dim">
+              {emptyText}
+            </span>
+          </div>
+        )}
       </div>
 
-      {/* Value column: the selective label (median, or the lone value) */}
+      {/* Value stack: the selective label per track, then the same-form
+          premium line(s). */}
       <div
         className="flex shrink-0 flex-col justify-center py-1.5 text-right"
         style={{ width: VALUE_COL_PX }}
       >
-        {showRetail && <TrackValue stats={retail} />}
-        {showBulk && <TrackValue stats={bulk} />}
-        {showRetail &&
-          showBulk &&
-          retail?.median != null &&
-          bulk?.median != null &&
-          bulk.median > 0 && (
-            <div className="flex h-3.5 items-center justify-end whitespace-nowrap font-mono text-2xs tabular-nums text-risk-medium">
-              premium {fmtPremium(retail.median / bulk.median)}×
-            </div>
-          )}
+        {retailTracks.map((t) => (
+          <TrackValue key={`r-${t.track.form}`} stats={t.stats} />
+        ))}
+        {bulkTracks.map((t, i) => (
+          <TrackValue
+            key={`b-${t.track.form}`}
+            stats={t.stats}
+            className={i === 0 && hasRetailBlock ? BLOCK_GAP : undefined}
+          />
+        ))}
+        {pairs.map((p, i) => (
+          <div
+            key={`p-${p.form}`}
+            title={
+              pairs.length > 1
+                ? `${p.form} retail premium: retail median over bulk median, ${fmtPremium(p.ratio)}×`
+                : undefined
+            }
+            className={cn(
+              LINE_H,
+              i === 0 && BLOCK_GAP,
+              'flex items-center justify-end overflow-hidden whitespace-nowrap font-mono text-2xs tabular-nums text-risk-medium',
+            )}
+          >
+            {pairs.length > 1
+              ? `${p.form} ${fmtPremium(p.ratio)}×`
+              : `premium ${fmtPremium(p.ratio)}×`}
+          </div>
+        ))}
+        {empty && <div className={LINE_H} />}
       </div>
     </li>
   );
 }
 
-/** One tier's strip, band, tick, and marks. Geometry only (aria-hidden). */
+/** One caption line: the tier glyph (the mark encoding at 8px), form, n. */
+function CaptionLine({
+  view,
+  className,
+}: {
+  view: TrackView;
+  className?: string;
+}) {
+  const { track, stats } = view;
+  return (
+    <div
+      className={cn(
+        LINE_H,
+        'flex items-center justify-end gap-1.5 pl-2 pr-3 font-mono text-2xs leading-none text-fg-dim',
+        className,
+      )}
+    >
+      <span
+        aria-hidden="true"
+        className={cn(
+          'h-2 w-2 shrink-0 rounded-full',
+          track.band === 'retail' ? 'bg-fg/80' : 'border-2 border-fg bg-surface',
+        )}
+      />
+      <span className="truncate">
+        {track.form} {track.marks.length}
+        <span className="sr-only">
+          {stats && stats.n >= 2
+            ? `: ${track.band}, ${fmtUsdPrice(stats.min)} to ${fmtUsdPrice(stats.max)} per kg`
+            : `: ${track.band}, ${fmtUsdPrice(stats?.min ?? track.marks[0]?.price ?? null)} per kg`}
+        </span>
+      </span>
+    </div>
+  );
+}
+
+/**
+ * One track's strip, band, tick, and marks: a single element x tier x form
+ * group, so every statistic drawn here describes one commodity. Geometry only
+ * (the parent stack is aria-hidden).
+ */
 function TierTrack({
   marks,
   stats,
   band,
+  className,
 }: {
   marks: MapMark[];
   stats: TierStats | null;
   band: 'retail' | 'bulk';
+  className?: string;
 }) {
   const offsets = dupOffsets(marks);
   return (
-    <div className="relative h-4">
+    <div className={cn('relative', LINE_H, className)}>
       {stats?.stripPct && (
         <div
           className="absolute top-1/2 h-px -translate-y-1/2 bg-fg-dim/50"
@@ -602,15 +747,30 @@ function TierTrack({
   );
 }
 
-/** The end-of-track figure: median from 3 observations, the value for 1. */
-function TrackValue({ stats }: { stats: TierStats | null }) {
+/**
+ * The end-of-track figure: median from 3 observations, the value for 1. The
+ * blank n=2 line still renders (skipping it would desync the three stacks).
+ */
+function TrackValue({
+  stats,
+  className,
+}: {
+  stats: TierStats | null;
+  className?: string;
+}) {
   let text = '';
   if (stats) {
     if (stats.median != null) text = fmtUsdPrice(stats.median);
     else if (stats.n === 1) text = fmtUsdPrice(stats.min);
   }
   return (
-    <div className="flex h-4 items-center justify-end font-mono text-2xs tabular-nums text-fg">
+    <div
+      className={cn(
+        LINE_H,
+        'flex items-center justify-end font-mono text-2xs tabular-nums text-fg',
+        className,
+      )}
+    >
       {text}
     </div>
   );
@@ -621,6 +781,7 @@ interface SummaryRow {
   symbol: string;
   name: string;
   band: string;
+  form: string;
   n: number;
   min: number;
   p25: number | null;
@@ -628,23 +789,24 @@ interface SummaryRow {
   p75: number | null;
   max: number;
   latest: string;
-  forms: string;
 }
 
-/** The table-view twin over the exact same derived statistics. */
+/**
+ * The table-view twin over the exact same derived statistics: one row per
+ * element x tier x form group, never pooled across forms.
+ */
 function SummaryTable({ view }: { view: RowView[] }) {
   const rows: SummaryRow[] = [];
   for (const v of view) {
-    for (const [band, stats] of [
-      ['retail', v.retail],
-      ['bulk', v.bulk],
-    ] as const) {
+    for (const t of [...v.retailTracks, ...v.bulkTracks]) {
+      const stats = t.stats;
       if (!stats) continue;
       rows.push({
-        key: `${v.row.symbol}-${band}`,
+        key: `${v.row.symbol}-${t.track.band}-${t.track.form}`,
         symbol: v.row.symbol,
         name: v.row.name,
-        band,
+        band: t.track.band,
+        form: t.track.form,
         n: stats.n,
         min: stats.min,
         p25: stats.p25,
@@ -652,7 +814,6 @@ function SummaryTable({ view }: { view: RowView[] }) {
         p75: stats.p75,
         max: stats.max,
         latest: stats.latestDate,
-        forms: stats.forms.join(', '),
       });
     }
   }
@@ -682,6 +843,7 @@ function SummaryTable({ view }: { view: RowView[] }) {
           ),
         },
         { key: 'band', header: 'Tier', render: (r) => r.band },
+        { key: 'form', header: 'Form', render: (r) => r.form },
         { key: 'n', header: 'n', numeric: true, render: (r) => r.n },
         { key: 'min', header: 'Min', numeric: true, render: (r) => price(r.min) },
         { key: 'p25', header: 'P25', numeric: true, render: (r) => price(r.p25) },
@@ -694,10 +856,9 @@ function SummaryTable({ view }: { view: RowView[] }) {
         { key: 'p75', header: 'P75', numeric: true, render: (r) => price(r.p75) },
         { key: 'max', header: 'Max', numeric: true, render: (r) => price(r.max) },
         { key: 'latest', header: 'Latest quote', render: (r) => r.latest },
-        { key: 'forms', header: 'Forms', render: (r) => r.forms },
       ]}
-      caption="Observed price statistics per element and tier, USD per kg"
-      footnote={`${rows.length} element-tier groups · P25/median/P75 need ${MIN_QUARTILE_N}+ observations · click a column to sort`}
+      caption="Observed price statistics per element, tier, and form, USD per kg"
+      footnote={`${rows.length} element-tier-form groups · P25/median/P75 need ${MIN_QUARTILE_N}+ observations · click a column to sort`}
       emptyMessage="No observations match the current filters."
     />
   );

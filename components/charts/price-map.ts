@@ -10,6 +10,12 @@
  * visualization-audit discipline (docs/VISUALIZATION-AUDIT.md): a mark is a
  * datum and always draws, but a statistic must earn its ink. Nothing in the
  * Price Map is ever a line through time.
+ *
+ * The form law: different forms of the same element (metal, oxide, powder,
+ * compound, alloy) are different commodities separated by orders of magnitude,
+ * so every statistic is computed per element x tier x FORM. A metal quote is
+ * never pooled with an oxide quote; `groupTracks` is where that separation
+ * happens and `deriveTierStats` must only ever receive a single-form set.
  */
 import type { TierBand } from '@/lib/price-gauge';
 import type { ElementCategory, ExportControlStatus, ISODate } from '@/lib/types';
@@ -25,9 +31,14 @@ export const MIN_QUARTILE_N = 3;
 
 /** Fixed row-grid columns, shared so gridlines align with every plot cell. */
 export const LABEL_COL_PX = 160;
+/** Per-track captions (tier glyph + form + n) between label and plot. */
+export const CAPTION_COL_PX = 108;
 export const VALUE_COL_PX = 88;
-/** Minimum width of the whole chart block inside its scroll container. */
-export const CHART_MIN_PX = 640;
+/**
+ * Minimum width of the whole chart block inside its scroll container:
+ * label + caption + value + the same 392px plot the pre-caption layout had.
+ */
+export const CHART_MIN_PX = 748;
 
 /** One sourced observation, positioned on the log axis. */
 export interface MapMark {
@@ -145,6 +156,38 @@ export function quantile(sortedAsc: number[], q: number): number {
 /** Keep only marks of one form (null = all forms). */
 export function filterByForm(marks: MapMark[], form: string | null): MapMark[] {
   return form == null ? marks : marks.filter((m) => m.form === form);
+}
+
+/** One drawable track: the marks of a single element x tier x form group. */
+export interface Track {
+  band: TierBand;
+  form: string;
+  marks: MapMark[];
+}
+
+/**
+ * Group filtered marks into per-form tracks: retail block first, then bulk;
+ * within a block, forms by observation count descending, alphabetical
+ * tiebreak. Marks arrive price-ascending from the model and Map preserves
+ * insertion order, so each track's marks stay price-sorted. This is the form
+ * law's enforcement point: statistics downstream only ever see one track.
+ */
+export function groupTracks(
+  retailMarks: MapMark[],
+  bulkMarks: MapMark[],
+): Track[] {
+  const block = (marks: MapMark[], band: TierBand): Track[] => {
+    const byForm = new Map<string, MapMark[]>();
+    for (const m of marks) {
+      const list = byForm.get(m.form);
+      if (list) list.push(m);
+      else byForm.set(m.form, [m]);
+    }
+    return [...byForm.entries()]
+      .sort((a, b) => b[1].length - a[1].length || a[0].localeCompare(b[0]))
+      .map(([form, ms]) => ({ band, form, marks: ms }));
+  };
+  return [...block(retailMarks, 'retail'), ...block(bulkMarks, 'bulk')];
 }
 
 /**
