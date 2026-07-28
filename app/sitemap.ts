@@ -11,6 +11,7 @@
 import type { MetadataRoute } from 'next';
 import { getDataGeneratedAt, getElements } from '@/lib/data';
 import { getAllArticles } from '@/lib/content';
+import { getListings, getSellers } from '@/lib/marketplace';
 import { SITE_URL } from '@/lib/seo';
 
 export const dynamic = 'force-static';
@@ -22,6 +23,7 @@ const STATIC_PAGES: Array<[string, number, ChangeFreq]> = [
   ['/', 1.0, 'daily'],
   ['/regulatory/', 0.9, 'daily'],
   ['/data/', 0.8, 'weekly'],
+  ['/marketplace/', 0.8, 'weekly'],
   ['/framework/', 0.7, 'weekly'],
   ['/news/', 0.7, 'weekly'],
   // The contribution pipeline: the entry point for the community price records
@@ -60,5 +62,23 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.6,
   }));
 
-  return [...pages, ...elements, ...articles];
+  // Marketplace: lastModified is each listing's real updated_at (a data value,
+  // never fabricated); placeholder-status listings are noindex and excluded.
+  const listings: MetadataRoute.Sitemap = getListings()
+    .filter((l) => l.status === 'preliminary')
+    .map((l) => ({
+      url: url(l.url),
+      lastModified: l.updatedAt,
+      changeFrequency: 'weekly',
+      priority: 0.6,
+    }));
+
+  const sellers: MetadataRoute.Sitemap = getSellers().map((s) => ({
+    url: url(`/marketplace/sellers/${s.handle}/`),
+    lastModified: s.memberSince,
+    changeFrequency: 'monthly',
+    priority: 0.5,
+  }));
+
+  return [...pages, ...elements, ...articles, ...listings, ...sellers];
 }

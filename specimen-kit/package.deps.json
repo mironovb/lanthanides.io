@@ -1,0 +1,14 @@
+{
+  "comment": "Dependencies required by this kit. SpecimenShowcase needs only React. LanthanumBohrScroll additionally needs three + @react-three/fiber.",
+  "dependencies": {
+    "three": "^0.182.0",
+    "@react-three/fiber": "^9.4.2"
+  },
+  "devDependencies": {
+    "@types/three": "^0.182.0"
+  },
+  "compatibility": {
+    "react": "@react-three/fiber v9 requires React 19. On React 18, install @react-three/fiber@^8 instead; the component code works unchanged.",
+    "typescript": "Components are TSX with strict-friendly types; plain-JS projects can rename to .jsx and delete the type annotations."
+  }
+}

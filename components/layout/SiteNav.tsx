@@ -39,6 +39,17 @@ function NavLink({
       : 'font-medium text-fg-muted hover:bg-overlay/60 hover:text-fg',
   );
 
+  // Status pill after the label (the Badge `accent` recipe, inlined: this row
+  // is the one place a Badge would sit inside a link). Deliberately NOT
+  // aria-hidden — "Preliminary" belongs in the link's accessible name. The
+  // inline-block box renders identically inside the desktop inline link and
+  // the 44px mobile flex row.
+  const badge = item.badge ? (
+    <span className="ml-1.5 inline-block rounded-sm border border-accent/40 bg-accent/10 px-1 py-px font-mono text-2xs uppercase tracking-caps text-accent-strong">
+      {item.badge}
+    </span>
+  ) : null;
+
   if (item.external) {
     return (
       <a
@@ -48,6 +59,7 @@ function NavLink({
         className={className}
       >
         {item.label}
+        {badge}
       </a>
     );
   }
@@ -59,6 +71,7 @@ function NavLink({
       className={className}
     >
       {item.label}
+      {badge}
     </Link>
   );
 }

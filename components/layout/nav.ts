@@ -17,11 +17,14 @@ export interface NavItem {
   external?: boolean;
   /** Same-origin non-page resource (an export endpoint): rendered as a plain <a>. */
   raw?: boolean;
+  /** Small status pill after the label (e.g. "Preliminary"). Part of the accessible name. */
+  badge?: string;
 }
 
 /** The header. Prices points home: the landing page IS the price ledger. */
 export const NAV_LINKS: NavItem[] = [
   { href: '/', label: 'Prices' },
+  { href: '/marketplace/', label: 'Lanthanides Marketplace', badge: 'Preliminary' },
   { href: '/regulatory/', label: 'Regulatory' },
   { href: '/news/', label: 'News' },
   { href: '/data/', label: 'Open Data' },
@@ -40,6 +43,7 @@ export const CONTRIBUTE_CTA: NavItem = {
  */
 export const FOOTER_LINKS: NavItem[] = [
   { href: '/', label: 'Prices' },
+  { href: '/marketplace/', label: 'Marketplace' },
   { href: '/regulatory/', label: 'Regulatory' },
   { href: '/news/', label: 'News' },
   { href: '/data/', label: 'Open Data' },
