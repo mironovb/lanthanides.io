@@ -126,6 +126,18 @@ Each entry: the call, why, and what would change it. Ordered chronologically.
     all 19 listings are real imports with `status: preliminary`. The
     `placeholder` status remains in the schema as specified.
 
-18. **Alt-text hard rule relaxed** from DESIGN's ≥12 chars to non-empty,
+18. **qa-fidelity write scope.** The qa-fidelity agent definition is
+    read-only; the brief also requires its findings appended to
+    IMPORT_REPORT.md. The dispatched auditor was granted write access to
+    exactly that one file (everything else read-only) so the audit lands in
+    the committed report without the orchestrator re-emitting it.
+
+19. **No push, no PR.** The brief permits a draft PR only if a remote and
+    credentials already exist. `origin` exists, but `gh` is not authenticated
+    on this machine, so the PR path is unavailable and a blind `git push`
+    could hang on an interactive credential prompt mid-run. The branch is
+    left local; pushing is a one-command owner step (HANDOFF.md).
+
+20. **Alt-text hard rule relaxed** from DESIGN's ≥12 chars to non-empty,
     with <12 a soft warning: source alts (e.g. "Cobalt pieces") are short but
     honest, and padding them would be invention.
