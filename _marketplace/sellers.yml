@@ -1,0 +1,25 @@
+# Marketplace sellers. Top-level list, mirroring _data/element_catalog.yml.
+# kazakhelements is the platform's first registered seller: the site
+# founder's existing retail business, whose catalog seeds the marketplace.
+- handle: kazakhelements
+  display_name: "Kazakh Elements"
+  country: KZ
+  # First commit of the periodictech store repository (the store demonstrably
+  # operated earlier — see the bio — but this is the earliest recorded date).
+  member_since: "2026-03-11"
+  verified: true
+  verification_basis: >-
+    First-party seller: the store is operated by the site's founder, whose
+    identity and ownership of the source catalog are known to the site
+    operator. "Verified" covers identity and catalog ownership only — it does
+    not mean any material has been independently assayed.
+  contact_email: "support@periodictech.com"
+  avatar:
+    path: /assets/marketplace/sellers/kazakhelements/avatar.svg
+    alt: "Kazakh Elements monogram"
+    width: 512
+    height: 512
+  tagline: "Rare-earth and specialty-metal samples, sealed and shipped from stock."
+  declared_claims:
+    - { label: "Years trading", value: "~6", basis: seller-declared }
+    - { label: "Transactions to date", value: "~10,000", basis: seller-declared }

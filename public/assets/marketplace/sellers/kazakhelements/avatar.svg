@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512" role="img" aria-label="Kazakh Elements monogram">
+  <!-- Monogram placeholder avatar in the site's design tokens
+       (surface #ffffff, border #dee2e6, accent #1a5c6b, dim #5a616a). -->
+  <rect x="0" y="0" width="512" height="512" rx="32" fill="#ffffff"/>
+  <rect x="6" y="6" width="500" height="500" rx="28" fill="none" stroke="#dee2e6" stroke-width="12"/>
+  <text x="256" y="284" text-anchor="middle" font-family="'JetBrains Mono','IBM Plex Mono',ui-monospace,monospace" font-size="192" font-weight="600" letter-spacing="-8" fill="#1a5c6b">KE</text>
+  <text x="256" y="404" text-anchor="middle" font-family="'JetBrains Mono','IBM Plex Mono',ui-monospace,monospace" font-size="40" letter-spacing="14" fill="#5a616a">KZ</text>
+</svg>

@@ -1,0 +1,43 @@
+# Marketplace thresholds and display labels (mirrors _data/site_settings.yml).
+# Read by lib/marketplace/load.ts; every enum member must carry a label or the
+# build fails.
+currency: USD
+
+# Count integrity gate: _marketplace/listings/*.md must equal this exactly.
+# Bump it in the SAME diff as any import/removal (lib/marketplace/verify.ts).
+expected_listings: 0
+
+# Catalog-average gating (DESIGN §4). The comparison hint needs at least this
+# many OTHER listings (leave-one-out) in the (element × form) cell; cells with
+# fewer contributing variants than min_variants are omitted from the API.
+catalog_average_min_sample: 5
+catalog_average_min_variants: 3
+
+stale_listing_days: 180
+
+category_labels:
+  pure-metal: "Pure Metal"
+  oxide: "Oxide"
+  mineral-ore: "Mineral / Ore"
+  alloy: "Alloy"
+  high-tech: "High-Tech Material"
+  equipment: "Equipment"
+
+form_labels:
+  metal: "Metal"
+  oxide: "Oxide"
+  alloy: "Alloy"
+  salt: "Salt / Compound"
+  mineral: "Mineral"
+
+source_type_labels:
+  mine: "Mine"
+  refinery: "Refinery"
+  lab: "Laboratory"
+  private-collection: "Private Collection"
+  recycled: "Recycled / Reclaimed"
+
+verification_labels:
+  seller-declared: "Verification pending"
+  document-on-file: "Documents on file"
+  site-verified: "Site-verified"
