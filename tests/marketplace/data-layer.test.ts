@@ -34,9 +34,9 @@ describe('listing collection', () => {
     expect(process.cwd()).toBe(ROOT);
   });
 
-  it('has exactly 19 listings, equal to settings.yml expected_listings', () => {
-    expect(settings.expectedListings).toBe(19);
-    expect(listings).toHaveLength(19);
+  it('has exactly 23 listings, equal to settings.yml expected_listings', () => {
+    expect(settings.expectedListings).toBe(23);
+    expect(listings).toHaveLength(23);
     expect(listings).toHaveLength(settings.expectedListings);
   });
 
@@ -94,11 +94,19 @@ describe('listing collection', () => {
   });
 });
 
-describe('the 19 = 16 elemental + 3 alloys split', () => {
-  const alloys = listings.filter((l) => l.category === 'alloy');
-  const elemental = listings.filter((l) => l.category !== 'alloy');
+describe('the 23 = 19 imported (16 elemental + 3 alloys) + 4 demo split', () => {
+  const real = listings.filter((l) => l.source?.store === 'periodictech');
+  const demo = listings.filter((l) => l.source?.store === 'demo');
+  const alloys = real.filter((l) => l.category === 'alloy');
+  const elemental = real.filter((l) => l.category !== 'alloy');
 
-  it('has exactly 3 alloy listings, each form "alloy" with country null (origin never stated)', () => {
+  it('has exactly 19 periodictech-imported and 4 demo listings, nothing else', () => {
+    expect(real).toHaveLength(19);
+    expect(demo).toHaveLength(4);
+    expect(real.length + demo.length).toBe(listings.length);
+  });
+
+  it('has exactly 3 alloy imports, each form "alloy" with country null (origin never stated)', () => {
     expect(alloys).toHaveLength(3);
     for (const l of alloys) {
       expect(l.form, `${l.slug} form`).toBe('alloy');
@@ -107,11 +115,25 @@ describe('the 19 = 16 elemental + 3 alloys split', () => {
     }
   });
 
-  it('has exactly 16 elemental listings, each form "metal" with country "KZ"', () => {
+  it('has exactly 16 elemental imports, each form "metal" with country "KZ"', () => {
     expect(elemental).toHaveLength(16);
     for (const l of elemental) {
       expect(l.form, `${l.slug} form`).toBe('metal');
       expect(l.provenance.country, `${l.slug} country`).toBe('KZ');
+    }
+  });
+
+  it('demo listings are marked internally and can never enter the statistics', () => {
+    for (const l of demo) {
+      expect(l.status, `${l.slug} status`).toBe('placeholder');
+      expect(l.excludeFromCatalogAverage, `${l.slug} stats exclusion`).toBe(true);
+      for (const v of l.variants) {
+        expect(v.legacySku.startsWith('DEMO-'), `${l.slug} ${v.legacySku} DEMO- prefix`).toBe(true);
+      }
+    }
+    // Specimen documents exist ONLY on demo listings — never on real inventory.
+    for (const l of real) {
+      expect(l.provenance.documents, `${l.slug} must carry no documents`).toBeNull();
     }
   });
 });

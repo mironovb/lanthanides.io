@@ -5,7 +5,7 @@ currency: USD
 
 # Count integrity gate: _marketplace/listings/*.md must equal this exactly.
 # Bump it in the SAME diff as any import/removal (lib/marketplace/verify.ts).
-expected_listings: 19
+expected_listings: 23
 
 # Catalog-average gating (DESIGN §4). The comparison hint needs at least this
 # many OTHER listings (leave-one-out) in the (element × form) cell; cells with

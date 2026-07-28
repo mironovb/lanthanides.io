@@ -1,4 +1,18 @@
-# HANDOFF — Lanthanides Marketplace (Preliminary)
+# HANDOFF — Marketplace
+
+> **Production-posture pass (2026-07-28, owner-directed), superseding the
+> "preliminary" framing below where they conflict.** The surface is now
+> just "Marketplace": hedging UI removed (no Preliminary pill, no
+> verification-pending chips, no document scoreboards), demo inventory
+> added (2 demonstration sellers + 4 placeholder-status listings with
+> specimen documents — internal markers only; see ASSUMPTIONS #20–22),
+> every eligible listing positioned against the sourced ledger via the
+> price-gauge engine (green below / red above strip on detail pages), and
+> the inquiry CTA is an on-page form POSTing to
+> `/api/marketplace/inquiries`, which **only writes a `[marketplace-inquiry]`
+> line to the server log** — wire a real delivery channel before treating
+> inquiries as received. Demo entities and specimen documents must be
+> removed or replaced before public launch.
 
 Built overnight, unattended, on branch
 `feature/lanthanides-marketplace-preliminary`. Read this first, then

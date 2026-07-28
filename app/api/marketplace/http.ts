@@ -1,10 +1,12 @@
 /**
- * Shared HTTP plumbing for the four marketplace API routes: the price-gauge
+ * Shared HTTP plumbing for the marketplace API routes: the price-gauge
  * `json()` + CORS shape, plus the export route's CC-BY licence headers on
- * every 200. The licence covers the STRUCTURAL fields only — listing
- * photographs are the seller's, which is why the routes whose payloads carry
- * images also carry an `image_license` field saying so (DESIGN §5 licence
- * note).
+ * every 200 of the read (GET) endpoints. The licence covers the STRUCTURAL
+ * fields only — listing photographs are the seller's, which is why the routes
+ * whose payloads carry images also carry an `image_license` field saying so
+ * (DESIGN §5 licence note). The inquiries write path reuses `CORS` but not
+ * `json()`: an inquiry acknowledgement is not dataset content, so it carries
+ * no licence headers.
  */
 
 const LICENSE_URL = 'https://creativecommons.org/licenses/by/4.0/';

@@ -1,19 +1,16 @@
 /**
- * Pure marketplace display helpers, shared by the client filter island and the
+ * Pure marketplace display helpers, shared by the client islands and the
  * server pages. NO `fs`, NO `lib/marketplace` runtime imports — only type-only
  * imports plus `lib/format` (pure), so this module is safe on both sides of
  * the client boundary (the `RegulatoryView` arrangement).
  *
  * Money and mass rules: variant prices are integer USD cents, per-gram figures
- * are cents already rounded at the serialisation boundary. Everything renders
- * through `lib/format`'s USD helpers or the two cents-aware wrappers below —
- * never ad-hoc string maths in a component.
+ * are cents. Everything renders through `lib/format`'s USD helpers or the
+ * cents-aware wrappers below — never ad-hoc string maths in a component.
  */
 import type {
   ListingCategory,
-  MaterialForm,
   ProvenanceSourceType,
-  VerificationStatus,
 } from '@/lib/marketplace/types';
 import type {
   ListingSummaryDto,
@@ -26,9 +23,7 @@ import { fmtUsdPrice } from '@/lib/format';
 
 export interface MarketplaceLabels {
   categories: Record<ListingCategory, string>;
-  forms: Record<MaterialForm, string>;
   sourceTypes: Record<ProvenanceSourceType, string>;
-  verification: Record<VerificationStatus, string>;
 }
 
 /**
@@ -72,33 +67,41 @@ export function fmtMassRange(minG: number, maxG: number): string {
   return minG === maxG ? fmtMass(minG) : `${fmtMass(minG)} – ${fmtMass(maxG)}`;
 }
 
+/** "2025-11-14" / "2025-11" → "Nov 2025"; unparseable stays verbatim; null → null. */
+const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+export function fmtMonthYear(iso: string | null): string | null {
+  if (!iso) return null;
+  const m = /^(\d{4})-(\d{2})/.exec(iso);
+  if (!m) return iso;
+  const monthIndex = Number(m[2]) - 1;
+  if (monthIndex < 0 || monthIndex > 11) return iso;
+  return `${MONTHS[monthIndex]} ${m[1]}`;
+}
+
 // ── Provenance display ───────────────────────────────────────────────────────
 
-/** The only origin present in the seed catalog; unknown codes render as the bare code. */
+/** The origins present in the catalog; unknown codes render as the bare code. */
 const COUNTRY_NAMES: Record<string, string> = {
   KZ: 'Kazakhstan',
 };
 
-/** ISO-2 code → "Kazakhstan (KZ)"; unknown code → the code itself; null → "Not stated". */
+/** ISO-2 code → "Kazakhstan (KZ)"; unknown code → the code itself; null → "—". */
 export function countryDisplay(code: string | null): string {
-  if (code === null) return 'Not stated';
+  if (code === null) return '—';
   const name = COUNTRY_NAMES[code];
   return name ? `${name} (${code})` : code;
 }
 
-/** Card one-liner: "Private Collection · KZ", or "Origin not stated" when no country. */
+/**
+ * Card one-liner: "Private Collection · KZ". Null when the source stated no
+ * origin — the card then omits the line entirely.
+ */
 export function provenanceLine(
   summary: ProvenanceSummaryDto,
   sourceTypes: MarketplaceLabels['sourceTypes'],
-): string {
-  const sourceLabel = sourceTypes[summary.source_type];
-  return summary.country === null
-    ? 'Origin not stated'
-    : `${sourceLabel} · ${summary.country}`;
-}
-
-export function isVerificationPending(dto: ListingSummaryDto): boolean {
-  return dto.data_quality_flags.includes('verification_pending');
+): string | null {
+  if (summary.country === null) return null;
+  return `${sourceTypes[summary.source_type]} · ${summary.country}`;
 }
 
 // ── Sorting (the same semantics the listings API uses) ───────────────────────

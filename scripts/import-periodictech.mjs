@@ -614,20 +614,24 @@ console.log(
 
 // ── Step 8/9: settings.yml expected_listings bump (surgical) ─────────────────
 
+// The importer owns only its 19 files; other listings (e.g. hand-authored
+// demonstration inventory) may legitimately coexist. The count gate is the
+// TOTAL number of listing files on disk, so a re-run never regresses it.
+const totalListingFiles = readdirSync(LISTINGS_DIR).filter((f) => f.endsWith('.md')).length;
 let settingsStatus;
 {
   const text = readFileSync(SETTINGS_YML, 'utf8');
   const re = /^expected_listings: (\d+)$/m;
   const m = text.match(re);
   assert(m, 'settings.yml has no expected_listings line to bump');
-  if (Number(m[1]) === EXPECTED_LISTINGS) {
+  if (Number(m[1]) === totalListingFiles) {
     settingsStatus = 'identical';
   } else {
-    writeFileSync(SETTINGS_YML, text.replace(re, `expected_listings: ${EXPECTED_LISTINGS}`));
-    settingsStatus = `updated (${m[1]} -> ${EXPECTED_LISTINGS})`;
+    writeFileSync(SETTINGS_YML, text.replace(re, `expected_listings: ${totalListingFiles}`));
+    settingsStatus = `updated (${m[1]} -> ${totalListingFiles})`;
   }
 }
-console.log(`settings.yml expected_listings: ${settingsStatus}`);
+console.log(`settings.yml expected_listings: ${settingsStatus} (${totalListingFiles} total on disk)`);
 
 // ── Step 10a: validate through the REAL loader (tsc + node harness) ──────────
 
@@ -732,13 +736,17 @@ const check = (slug, field, got, want) => {
   if (!eq(got, want)) errors.push(slug + ': ' + field + ' got ' + JSON.stringify(got) + ', want ' + JSON.stringify(want));
 };
 
-if (listings.length !== expected.expectedListings) {
-  errors.push('listing count ' + listings.length + ' !== ' + expected.expectedListings);
+// The importer reconciles ONLY the listings it owns (source.store
+// 'periodictech'); hand-authored inventory may coexist and is validated by
+// the loader's own integrity gate, not by this harness.
+const owned = listings.filter((l) => l.source && l.source.store === 'periodictech');
+if (owned.length !== expected.expectedListings) {
+  errors.push('owned listing count ' + owned.length + ' !== ' + expected.expectedListings);
 }
 let variantTotal = 0;
-for (const l of listings) {
+for (const l of owned) {
   const want = expected.listings[l.slug];
-  if (!want) { errors.push('unexpected listing ' + l.slug); continue; }
+  if (!want) { errors.push('unexpected periodictech-sourced listing ' + l.slug); continue; }
   variantTotal += l.variants.length;
   check(l.slug, 'title', l.title, want.title);
   check(l.slug, 'summary', l.summary, want.summary);
@@ -785,7 +793,8 @@ if (errors.length > 0) {
 }
 console.log(JSON.stringify({
   ok: true,
-  listingCount: listings.length,
+  listingCount: owned.length,
+  totalListingCount: listings.length,
   variantTotal,
   expectedListings: settings.expectedListings,
   minVariants: settings.catalogAverageMinVariants,
@@ -1001,11 +1010,20 @@ ${flagRows}
 
 - Listing files: ${listingStats.created} created, ${listingStats.updated} updated, ${listingStats.identical} byte-identical.
 - Photos: ${imageStats.created} created, ${imageStats.updated} updated, ${imageStats.identical} byte-identical.
-- \`settings.yml\`: ${settingsStatus === 'identical' ? 'already `expected_listings: 19` (untouched)' : settingsStatus}.
+- \`settings.yml\`: ${settingsStatus === 'identical' ? `already \`expected_listings: ${totalListingFiles}\` (untouched)` : settingsStatus}.
 - **${runIdempotent ? 'PASS — every output byte-identical to the previous run.' : 'First materializing run — re-run to prove byte-identical output.'}**
 `;
 
-const reportStatus = writeIfChanged(REPORT_MD, report);
+// Preserve any appended audit sections (e.g. "## Data-fidelity audit …")
+// across regeneration: everything from the first '## Data-fidelity' heading
+// onward in the existing file is carried over verbatim.
+let auditTail = '';
+if (existsSync(REPORT_MD)) {
+  const prev = readFileSync(REPORT_MD, 'utf8');
+  const i = prev.indexOf('\n## Data-fidelity');
+  if (i !== -1) auditTail = prev.slice(i);
+}
+const reportStatus = writeIfChanged(REPORT_MD, report + auditTail);
 console.log(`IMPORT_REPORT.md: ${reportStatus}`);
 
 // ── Final summary ────────────────────────────────────────────────────────────

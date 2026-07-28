@@ -2,8 +2,8 @@
 
 /**
  * MarketplaceView: the interactive shell of /marketplace/ — filter chips for
- * element / category / form, min/max USD bounds, a debounced free-text search
- * over the serialised `search_text` haystack (the exact field the listings API
+ * element and category, min/max USD bounds, a debounced free-text search over
+ * the serialised `search_text` haystack (the exact field the listings API
  * matches, so island and endpoint can never disagree), a native sort select,
  * and the card grid.
  *
@@ -30,7 +30,6 @@ import {
 export interface MarketplaceViewFacets {
   elements: string[];
   categories: string[];
-  forms: string[];
 }
 
 const FIELD =
@@ -51,7 +50,6 @@ export function MarketplaceView({
 }) {
   const [element, setElement] = useState<string | null>(null);
   const [category, setCategory] = useState<string | null>(null);
-  const [form, setForm] = useState<string | null>(null);
   const [minUsd, setMinUsd] = useState('');
   const [maxUsd, setMaxUsd] = useState('');
   const [query, setQuery] = useState('');
@@ -75,14 +73,6 @@ export function MarketplaceView({
       })),
     [facets.categories, labels.categories],
   );
-  const formOptions = useMemo(
-    () =>
-      facets.forms.map((f) => ({
-        value: f,
-        label: labels.forms[f as keyof MarketplaceLabels['forms']] ?? f,
-      })),
-    [facets.forms, labels.forms],
-  );
 
   const visible = useMemo(() => {
     const needle = debouncedQuery.trim().toLowerCase();
@@ -92,18 +82,16 @@ export function MarketplaceView({
       (l) =>
         (element === null || l.elements.includes(element)) &&
         (category === null || l.category === category) &&
-        (form === null || l.form === form) &&
         (minCents === null || l.price_from_cents >= minCents) &&
         (maxCents === null || l.price_from_cents <= maxCents) &&
         (needle === '' || l.search_text.includes(needle)),
     );
     return [...matched].sort((a, b) => compareListings(sort, a, b));
-  }, [listings, element, category, form, minUsd, maxUsd, debouncedQuery, sort]);
+  }, [listings, element, category, minUsd, maxUsd, debouncedQuery, sort]);
 
   const hasFilters =
     element !== null ||
     category !== null ||
-    form !== null ||
     minUsd !== '' ||
     maxUsd !== '' ||
     query !== '';
@@ -111,7 +99,6 @@ export function MarketplaceView({
   function clearFilters() {
     setElement(null);
     setCategory(null);
-    setForm(null);
     setMinUsd('');
     setMaxUsd('');
     setQuery('');
@@ -132,13 +119,6 @@ export function MarketplaceView({
         value={category}
         onChange={setCategory}
         label="Category"
-        className="mt-2"
-      />
-      <FilterChips
-        options={formOptions}
-        value={form}
-        onChange={setForm}
-        label="Form"
         className="mt-2"
       />
 
@@ -209,11 +189,7 @@ export function MarketplaceView({
       </div>
 
       <section className="mt-8">
-        <SectionHeading
-          title="Listings"
-          count={visible.length}
-          description="Every price is the seller's catalog price for that pack size."
-        />
+        <SectionHeading title="Listings" count={visible.length} />
 
         {visible.length > 0 ? (
           <div className="grid gap-4 [grid-template-columns:repeat(auto-fill,minmax(min(100%,280px),1fr))]">

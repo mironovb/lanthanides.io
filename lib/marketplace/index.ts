@@ -19,11 +19,13 @@ import {
   getCatalogAverageFor,
   isCatalogAverageEligible,
 } from './catalog-average';
+import { computeLedgerComparison } from './ledger';
 import { loadMarketplaceSettings, loadSellers, once } from './load';
 import { loadListings } from './load-listings';
 import type {
   CatalogAverageCell,
   CatalogAverageHint,
+  LedgerComparison,
   Listing,
   MarketplaceFacets,
   MarketplaceSettings,
@@ -199,4 +201,22 @@ export function getCatalogAverageForListing(listing: Listing): CatalogAverageHin
     listing.form,
     listing.slug,
   );
+}
+
+// ── Ledger comparison (owner-directed, 2026-07-28) ───────────────────────────
+
+/**
+ * The listing's positioning against the site's sourced reference ledger, via
+ * the price-gauge engine at the listing's median pack size (see `ledger.ts` —
+ * the DESIGN §4.3 ban is owner-overruled for this feature). Null when the
+ * listing has no single catalog element, its form is not metal/oxide, or the
+ * gauge reports insufficient data. Memoised per slug.
+ *
+ * Serialisation stays fs-free by threading: pass this function's result into
+ * `toListingSummaryDto` / `toListingDetailDto`, or the function itself as
+ * `toSellerDto`'s third argument.
+ */
+export function getLedgerComparisonForListing(listing: Listing): LedgerComparison | null {
+  ensureMarketplaceIntegrity();
+  return computeLedgerComparison(listing);
 }

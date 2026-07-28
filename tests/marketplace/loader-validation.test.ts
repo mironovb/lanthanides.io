@@ -25,7 +25,11 @@ const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..', '..');
 
 // Real source material, read once from the repo before any chdir.
 const REAL_SETTINGS = readFileSync(join(ROOT, '_marketplace', 'settings.yml'), 'utf8');
-const REAL_SELLERS = readFileSync(join(ROOT, '_marketplace', 'sellers.yml'), 'utf8');
+// Keep the fixture minimal and future-proof: only the first (real) seller —
+// demonstration sellers and their assets are irrelevant to loader validation.
+const REAL_SELLERS = readFileSync(join(ROOT, '_marketplace', 'sellers.yml'), 'utf8').split(
+  '# Demonstration seller',
+)[0];
 const REAL_LISTING = readFileSync(
   join(ROOT, '_marketplace', 'listings', 'scandium-1900.md'),
   'utf8',

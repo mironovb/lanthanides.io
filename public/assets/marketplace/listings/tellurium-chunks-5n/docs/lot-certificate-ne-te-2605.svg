@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="794" height="1123" viewBox="0 0 794 1123" role="img" aria-label="Lot certificate NE-TE-2605 (specimen document)">
+  <!-- Specimen document template: lot certificate. Issued for demonstration
+       within the marketplace prototype; states so in its footer. -->
+  <style>
+    .sans { font-family: 'Inter','IBM Plex Sans',system-ui,sans-serif; }
+    .mono { font-family: 'JetBrains Mono','IBM Plex Mono',ui-monospace,Menlo,monospace; }
+    .ink { fill: #1f2933; }
+    .dim { fill: #5a616a; }
+    .accent { fill: #1a5c6b; }
+  </style>
+  <rect x="0" y="0" width="794" height="1123" fill="#ffffff"/>
+
+  <!-- Issuer header -->
+  <text x="72" y="96" class="mono accent" font-size="26" font-weight="600" letter-spacing="2">NORD ELEMENT OU</text>
+  <text x="72" y="122" class="sans dim" font-size="13">Laboratory materials · Tallinn, Estonia · trade@nordelement.example</text>
+  <line x1="72" y1="148" x2="722" y2="148" stroke="#1a5c6b" stroke-width="1.5"/>
+
+  <text x="72" y="204" class="sans ink" font-size="24" letter-spacing="6">LOT CERTIFICATE</text>
+  <text x="72" y="230" class="sans dim" font-size="13">Statement of nominal lot data for material supplied by the issuer</text>
+
+  <!-- Field rows -->
+  <line x1="72" y1="272" x2="722" y2="272" stroke="#d8dde3" stroke-width="1"/>
+  <text x="72" y="304" class="sans dim" font-size="13">Material</text>
+  <text x="300" y="304" class="mono ink" font-size="14">Tellurium metal, chunks</text>
+  <line x1="72" y1="322" x2="722" y2="322" stroke="#d8dde3" stroke-width="1"/>
+  <text x="72" y="354" class="sans dim" font-size="13">Element symbol</text>
+  <text x="300" y="354" class="mono ink" font-size="14">Te</text>
+  <line x1="72" y1="372" x2="722" y2="372" stroke="#d8dde3" stroke-width="1"/>
+  <text x="72" y="404" class="sans dim" font-size="13">Lot number</text>
+  <text x="300" y="404" class="mono ink" font-size="14">NE-TE-2605</text>
+  <line x1="72" y1="422" x2="722" y2="422" stroke="#d8dde3" stroke-width="1"/>
+  <text x="72" y="454" class="sans dim" font-size="13">Nominal purity</text>
+  <text x="300" y="454" class="mono ink" font-size="14">99.999% (5N), metals basis</text>
+  <line x1="72" y1="472" x2="722" y2="472" stroke="#d8dde3" stroke-width="1"/>
+  <text x="72" y="504" class="sans dim" font-size="13">Form</text>
+  <text x="300" y="504" class="mono ink" font-size="14">Chunks, broken polycrystalline ingot</text>
+  <line x1="72" y1="522" x2="722" y2="522" stroke="#d8dde3" stroke-width="1"/>
+  <text x="72" y="554" class="sans dim" font-size="13">Lot mass</text>
+  <text x="300" y="554" class="mono ink" font-size="14">250 g</text>
+  <line x1="72" y1="572" x2="722" y2="572" stroke="#d8dde3" stroke-width="1"/>
+  <text x="72" y="604" class="sans dim" font-size="13">Packing</text>
+  <text x="300" y="604" class="mono ink" font-size="14">Double-sealed bag with desiccant</text>
+  <line x1="72" y1="622" x2="722" y2="622" stroke="#d8dde3" stroke-width="1"/>
+  <text x="72" y="654" class="sans dim" font-size="13">Date of issue</text>
+  <text x="300" y="654" class="mono ink" font-size="14">2026-05-04</text>
+  <line x1="72" y1="672" x2="722" y2="672" stroke="#d8dde3" stroke-width="1"/>
+
+  <!-- Statement -->
+  <text x="72" y="724" class="sans dim" font-size="12" letter-spacing="1">STATEMENT</text>
+  <text x="72" y="748" class="sans ink" font-size="13">Purity is as stated in the upstream supplier's assay documentation for the sealed lot.</text>
+  <text x="72" y="768" class="sans ink" font-size="13">Values are nominal and have not been independently verified by the issuer.</text>
+
+  <!-- Signature -->
+  <line x1="72" y1="880" x2="330" y2="880" stroke="#1f2933" stroke-width="1"/>
+  <text x="72" y="902" class="sans dim" font-size="12">Materials desk, Nord Element OU · 2026-05-04</text>
+
+  <!-- Footer -->
+  <line x1="72" y1="1042" x2="722" y2="1042" stroke="#d8dde3" stroke-width="1"/>
+  <text x="397" y="1070" text-anchor="middle" class="sans dim" font-size="12">Specimen document — issued for demonstration.</text>
+</svg>

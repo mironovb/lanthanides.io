@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="794" height="1123" viewBox="0 0 794 1123" role="img" aria-label="Sale invoice GMS-2026-031 (specimen document)">
+  <!-- Specimen document template: sale invoice. Issued for demonstration
+       within the marketplace prototype; states so in its footer. -->
+  <style>
+    .sans { font-family: 'Inter','IBM Plex Sans',system-ui,sans-serif; }
+    .mono { font-family: 'JetBrains Mono','IBM Plex Mono',ui-monospace,Menlo,monospace; }
+    .ink { fill: #1f2933; }
+    .dim { fill: #5a616a; }
+    .accent { fill: #1a5c6b; }
+  </style>
+  <rect x="0" y="0" width="794" height="1123" fill="#ffffff"/>
+
+  <!-- Issuer header -->
+  <text x="72" y="96" class="mono accent" font-size="26" font-weight="600" letter-spacing="2">GRAY MATTER SPECIMENS</text>
+  <text x="72" y="122" class="sans dim" font-size="13">Element specimens · United States · desk@graymatterspecimens.example</text>
+  <text x="722" y="96" text-anchor="end" class="sans dim" font-size="14" letter-spacing="4">SALE INVOICE</text>
+  <line x1="72" y1="148" x2="722" y2="148" stroke="#1a5c6b" stroke-width="1.5"/>
+
+  <!-- Meta block -->
+  <text x="72" y="192" class="sans dim" font-size="12" letter-spacing="1">INVOICE NO.</text>
+  <text x="72" y="214" class="mono ink" font-size="15">GMS-2026-031</text>
+  <text x="292" y="192" class="sans dim" font-size="12" letter-spacing="1">DATE OF ISSUE</text>
+  <text x="292" y="214" class="mono ink" font-size="15">2026-03-24</text>
+  <text x="512" y="192" class="sans dim" font-size="12" letter-spacing="1">TERMS</text>
+  <text x="512" y="214" class="mono ink" font-size="15">Pro forma</text>
+
+  <text x="72" y="262" class="sans dim" font-size="12" letter-spacing="1">BILLED TO</text>
+  <text x="72" y="284" class="sans ink" font-size="15">Marketplace prototype review account</text>
+  <text x="72" y="304" class="sans dim" font-size="13">lanthanides.io marketplace (preliminary)</text>
+  <line x1="72" y1="336" x2="722" y2="336" stroke="#d8dde3" stroke-width="1"/>
+
+  <!-- Item table -->
+  <text x="72" y="368" class="sans dim" font-size="12" letter-spacing="1">DESCRIPTION</text>
+  <text x="428" y="368" class="sans dim" font-size="12" letter-spacing="1">LOT</text>
+  <text x="560" y="368" text-anchor="end" class="sans dim" font-size="12" letter-spacing="1">MASS</text>
+  <text x="640" y="368" text-anchor="end" class="sans dim" font-size="12" letter-spacing="1">UNIT</text>
+  <text x="722" y="368" text-anchor="end" class="sans dim" font-size="12" letter-spacing="1">AMOUNT</text>
+  <line x1="72" y1="380" x2="722" y2="380" stroke="#d8dde3" stroke-width="1"/>
+
+  <text x="72" y="410" class="sans ink" font-size="14">Scandium metal, dendritic crystals, 99.99% (4N)</text>
+  <text x="428" y="410" class="mono ink" font-size="13">GMS-SC-2603</text>
+  <text x="560" y="410" text-anchor="end" class="mono ink" font-size="13">25 g</text>
+  <text x="640" y="410" text-anchor="end" class="mono ink" font-size="13">$9.80/g</text>
+  <text x="722" y="410" text-anchor="end" class="mono ink" font-size="13">$245.00</text>
+  <line x1="72" y1="430" x2="722" y2="430" stroke="#d8dde3" stroke-width="1"/>
+
+  <!-- Totals -->
+  <text x="640" y="470" text-anchor="end" class="sans dim" font-size="13">Total (USD)</text>
+  <text x="722" y="470" text-anchor="end" class="mono ink" font-size="16" font-weight="600">$245.00</text>
+  <line x1="512" y1="486" x2="722" y2="486" stroke="#1f2933" stroke-width="1"/>
+
+  <!-- Notes -->
+  <text x="72" y="540" class="sans dim" font-size="12" letter-spacing="1">NOTES</text>
+  <text x="72" y="562" class="sans ink" font-size="13">Vial-packed in a foam-lined box; sold by mass, crystal count varies.</text>
+  <text x="72" y="582" class="sans ink" font-size="13">Purity as marked on the acquired vial; no independent assay on file.</text>
+
+  <!-- Footer -->
+  <line x1="72" y1="1042" x2="722" y2="1042" stroke="#d8dde3" stroke-width="1"/>
+  <text x="397" y="1070" text-anchor="middle" class="sans dim" font-size="12">Specimen document — issued for demonstration.</text>
+</svg>

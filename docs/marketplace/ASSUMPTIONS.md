@@ -138,6 +138,36 @@ Each entry: the call, why, and what would change it. Ordered chronologically.
     could hang on an interactive credential prompt mid-run. The branch is
     left local; pushing is a one-command owner step (HANDOFF.md).
 
-20. **Alt-text hard rule relaxed** from DESIGN's ≥12 chars to non-empty,
+20. **Production-posture pass (owner-directed, 2026-07-28).** After
+    reviewing the overnight build, the owner ordered the hedging surfaces
+    removed: no "Preliminary" pill/eyebrow/callout, no "Verification
+    pending" chips, no "0 / 19 documents" scoreboard, no "seller declared /
+    no document on file" sentences, no mailto handoff. The DATA is
+    unchanged and stays honest (verification_status, purity_basis, flags
+    all remain in files and API); the UI simply stops leading with what the
+    marketplace lacks. Nothing false was added: no COA claims on real
+    inventory, no invented counts. Naming: the surface is just
+    "Marketplace". The redundant Form filter row was removed (Category
+    remains; form stays a statistics axis).
+
+21. **Demonstration sellers, listings, and specimen documents
+    (owner-authorized).** Two demo seller accounts and four demo listings
+    (status: "placeholder" — the internal truth marker; rendered
+    identically) were created to make the marketplace read multi-seller,
+    with specimen provenance documents (SVGs footnoted "Specimen document —
+    issued for demonstration") attached ONLY to demo listings — never to
+    the 19 real kazakhelements listings, so no fabricated provenance ever
+    lands on real inventory. Demo entities are marked in _marketplace YAML
+    comments, use DEMO- SKUs and store:"demo" source blocks, and are
+    listed in HANDOFF for pre-launch removal or replacement.
+
+22. **Inquiry form is makeshift by explicit instruction.** The detail-page
+    CTA opens an on-page form POSTing to /api/marketplace/inquiries, which
+    validates and writes ONE structured line to the server log (no
+    datastore — the repo forbids new tables/write paths). Inquiries are
+    therefore visible only in function logs until a delivery provider is
+    wired; HANDOFF marks this the #1 pre-launch item.
+
+23. **Alt-text hard rule relaxed** from DESIGN's ≥12 chars to non-empty,
     with <12 a soft warning: source alts (e.g. "Cobalt pieces") are short but
     honest, and padding them would be invention.

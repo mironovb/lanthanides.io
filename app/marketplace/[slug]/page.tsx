@@ -1,18 +1,20 @@
 /**
- * /marketplace/[slug]/ — listing detail (DESIGN §6.2, PLAN P5).
+ * /marketplace/[slug]/ — listing detail.
  *
  * SSG over every listing slug, `dynamicParams = false` (unknown slugs are the
  * framework 404), mirroring /elements/[symbol]. Two-column top on lg: the
- * photograph column beside the price + provenance panels — provenance sits
- * IMMEDIATELY after price, before the description, because provenance is the
- * product.
+ * photograph column beside the price and origin panels — origin & provenance
+ * sits immediately after price, before the description.
  *
- * Honesty rules enforced here: no market-price language anywhere (prices are
- * "the seller's catalog"); the catalog-average comparison renders only when
- * the leave-one-out sample is sufficient (it is not, today — the branch exists
- * and must not fire); "Verification pending" + the literal no-document
- * sentence whenever provenance is seller-declared; Product JSON-LD ships
- * WITHOUT an Offer node while checkout does not exist.
+ * Signature elements: the ledger position strip (the listing's per-kg price
+ * placed on the sourced ledger's retail band — marker colour encodes price
+ * position) and the pack-size price ladder — a hairline per-row bar in the
+ * Per-gram column scaled within the listing, so the quantity-discount curve
+ * is visible at a glance. Pure CSS widths, no motion.
+ *
+ * The seller-catalog median comparison renders only when its leave-one-out
+ * sample is sufficient. Product JSON-LD carries an AggregateOffer spanning
+ * the variant price range.
  */
 import type { Metadata } from 'next';
 import Image from 'next/image';
@@ -23,11 +25,13 @@ import { getElementBySymbol } from '@/lib/data';
 import {
   CATALOG_AVERAGE_DISCLAIMER,
   getCatalogAverageForListing,
+  getLedgerComparisonForListing,
   getListing,
   getListingSlugs,
   getMarketplaceSettings,
   getSeller,
   getSellerListings,
+  toListingDetailDto,
   toListingSummaryDto,
 } from '@/lib/marketplace';
 import { capitalize, formatDate } from '@/lib/format';
@@ -51,9 +55,10 @@ import {
   THead,
   TR,
   Tooltip,
-  buttonClasses,
 } from '@/components/ui';
 import { REGULATORY_BADGE } from '@/components/elements/categories';
+import { InquiryForm } from '@/components/marketplace/InquiryForm';
+import { LedgerPositionStrip } from '@/components/marketplace/LedgerPositionStrip';
 import { ListingCard } from '@/components/marketplace/ListingCard';
 import { MarketplaceProse } from '@/components/marketplace/MarketplaceProse';
 import { SellerAvatarImage } from '@/components/marketplace/SellerAvatarImage';
@@ -61,6 +66,7 @@ import {
   countryDisplay,
   fmtCents,
   fmtMassRange,
+  fmtMonthYear,
   fmtPerGram,
 } from '@/components/marketplace/marketplace';
 import {
@@ -89,11 +95,13 @@ export function generateMetadata({ params }: { params: Params }): Metadata {
   });
 }
 
-/** "2024-08" stays verbatim (formatDate would invent a day); full ISO formats. */
+/** "2024-08" stays verbatim (formatDate would invent a day); full ISO formats; null → "—". */
 function acquiredDisplay(acquiredOn: string | null): string {
-  if (acquiredOn === null) return 'Not stated';
+  if (acquiredOn === null) return '—';
   return /^\d{4}-\d{2}$/.test(acquiredOn) ? acquiredOn : formatDate(acquiredOn);
 }
+
+const DOC_IMAGE_RE = /\.(jpe?g|png|webp|svg)$/i;
 
 export default function ListingDetailPage({ params }: { params: Params }) {
   const listing = getListing(params.slug);
@@ -105,10 +113,13 @@ export default function ListingDetailPage({ params }: { params: Params }) {
   const labels = buildMarketplaceLabels();
   const elementVariants = buildElementVariantMap();
   const hint = getCatalogAverageForListing(listing);
-
-  const pending = listing.provenance.verificationStatus === 'seller-declared';
-  const verificationLabel =
-    settings.verificationLabels[listing.provenance.verificationStatus];
+  const detailDto = toListingDetailDto(
+    listing,
+    seller,
+    hint,
+    getLedgerComparisonForListing(listing),
+  );
+  const ledgerComparison = detailDto.ledger_comparison;
 
   const gallery = [
     listing.primaryImage,
@@ -117,28 +128,21 @@ export default function ListingDetailPage({ params }: { params: Params }) {
       .sort((a, b) => a.sortOrder - b.sortOrder),
   ];
   const notedVariants = listing.variants.filter((v) => v.note !== null);
+  const maxPerGram = Math.max(
+    ...listing.variants.map((v) => v.pricePerGramCents),
+  );
+  const maxPriceCents = Math.max(
+    ...listing.variants.map((v) => v.priceUsdCents),
+  );
 
   const sellerUrl = `/marketplace/sellers/${seller.handle}/`;
   const moreFromSeller = getSellerListings(seller.handle)
     .filter((l) => l.slug !== listing.slug)
     .slice(0, 6);
 
-  const inquirySubject = `Inquiry: ${listing.title} (${listing.slug})`;
-  const inquiryBody = [
-    `Listing: ${abs(listing.url)}`,
-    `Item: ${listing.title}`,
-    '',
-    'Size wanted (from the size table):',
-    '',
-    'Destination country:',
-    '',
-  ].join('\n');
-  const mailtoHref = `mailto:${seller.contactEmail}?subject=${encodeURIComponent(
-    inquirySubject,
-  )}&body=${encodeURIComponent(inquiryBody)}`;
+  const sourceTypeLabel = labels.sourceTypes[listing.provenance.sourceType];
+  const documents = listing.provenance.documents ?? [];
 
-  // Product JSON-LD — deliberately WITHOUT `offers`: schema.org Offer asserts
-  // a transactable offer and there is no checkout here (DESIGN §6.2).
   const productLd = {
     '@context': 'https://schema.org',
     '@type': 'Product',
@@ -163,6 +167,18 @@ export default function ListingDetailPage({ params }: { params: Params }) {
           },
         }
       : {}),
+    offers: {
+      '@type': 'AggregateOffer',
+      priceCurrency: 'USD',
+      lowPrice: (listing.priceFromCents / 100).toFixed(2),
+      highPrice: (maxPriceCents / 100).toFixed(2),
+      offerCount: listing.variants.length,
+      seller: {
+        '@type': 'Organization',
+        name: seller.displayName,
+        url: abs(sellerUrl),
+      },
+    },
     additionalProperty: listing.specs.map((spec) => ({
       '@type': 'PropertyValue',
       name: spec.label,
@@ -225,21 +241,17 @@ export default function ListingDetailPage({ params }: { params: Params }) {
             <Chip>{capitalize(listing.condition)}</Chip>
           ) : null}
           {listing.stockUnits === 0 ? <Chip>Sold / out of stock</Chip> : null}
-          {pending ? <Chip>{verificationLabel}</Chip> : null}
         </div>
       </header>
 
-      {/* ── Two-column top: photographs | price + provenance ───────────── */}
+      {/* ── Two-column top: photographs | price + origin ───────────────── */}
       <div className="grid gap-8 lg:grid-cols-2">
         <section aria-label="Photographs">
-          <p className="eyebrow mb-2">
-            {gallery.length} photo{gallery.length === 1 ? '' : 's'}
-          </p>
           <div className="space-y-4">
             {gallery.map((img) => (
               <figure
                 key={img.path}
-                className="overflow-hidden rounded-lg border border-border bg-surface"
+                className="overflow-hidden rounded-md border border-border bg-white"
               >
                 <a href={img.path} className="block">
                   <Image
@@ -249,26 +261,22 @@ export default function ListingDetailPage({ params }: { params: Params }) {
                     height={img.height}
                     sizes="(max-width: 1023px) 100vw, 560px"
                     priority={img.isPrimary}
-                    className="h-auto w-full"
+                    className="aspect-[4/3] h-auto w-full object-cover"
                   />
                 </a>
-                <figcaption className="border-t border-border px-3 py-2 text-xs text-fg-dim">
-                  {img.caption ? (
-                    <>
-                      {img.caption}
-                      <br />
-                    </>
-                  ) : null}
-                  Photograph from the seller&rsquo;s catalog.
-                </figcaption>
+                {img.caption ? (
+                  <figcaption className="border-t border-border px-3 py-2 text-xs text-fg-dim">
+                    {img.caption}
+                  </figcaption>
+                ) : null}
               </figure>
             ))}
           </div>
         </section>
 
         <div className="flex flex-col gap-6">
-          {/* ── Price ──────────────────────────────────────────────────── */}
-          <Panel title="Price" eyebrow="Seller's catalog">
+          {/* ── Price: from-price, ledger position, pack-size ladder ───── */}
+          <Panel title="Price">
             {/* Stat emits dt/dd; the dl wrapper keeps the markup valid. */}
             <dl>
               <Stat
@@ -281,6 +289,10 @@ export default function ListingDetailPage({ params }: { params: Params }) {
               />
             </dl>
 
+            {ledgerComparison ? (
+              <LedgerPositionStrip comparison={ledgerComparison} />
+            ) : null}
+
             <Table bordered={false} className="mt-4">
               <THead>
                 <TR hover={false}>
@@ -291,24 +303,37 @@ export default function ListingDetailPage({ params }: { params: Params }) {
                 </TR>
               </THead>
               <TBody>
-                {listing.variants.map((v) => (
-                  <TR key={v.legacySku}>
-                    <TD className="text-fg">
-                      {v.label}
-                      {v.note !== null ? ' *' : ''}
-                    </TD>
-                    <TD numeric>
-                      {v.massG.toLocaleString('en-US', {
-                        maximumFractionDigits: 2,
-                      })}
-                    </TD>
-                    <TD numeric>{fmtCents(v.priceUsdCents)}</TD>
-                    <TD numeric>
-                      {fmtPerGram(v.pricePerGramCents)}
-                      <span className="text-fg-dim">/g</span>
-                    </TD>
-                  </TR>
-                ))}
+                {listing.variants.map((v) => {
+                  const barPct = Math.max(
+                    3,
+                    Math.round((v.pricePerGramCents / maxPerGram) * 100),
+                  );
+                  return (
+                    <TR key={v.legacySku}>
+                      <TD className="text-fg">
+                        {v.label}
+                        {v.note !== null ? ' *' : ''}
+                      </TD>
+                      <TD numeric>
+                        {v.massG.toLocaleString('en-US', {
+                          maximumFractionDigits: 2,
+                        })}
+                      </TD>
+                      <TD numeric>{fmtCents(v.priceUsdCents)}</TD>
+                      <TD numeric className="min-w-[8rem]">
+                        {fmtPerGram(v.pricePerGramCents)}
+                        <span className="text-fg-dim">/g</span>
+                        {/* Pack-size ladder: hairline bar scaled within this
+                            listing; the number above carries the value. */}
+                        <span
+                          aria-hidden="true"
+                          className="mt-1 block h-1 border-l-2 border-accent bg-accent/10"
+                          style={{ width: `${barPct}%` }}
+                        />
+                      </TD>
+                    </TR>
+                  );
+                })}
               </TBody>
             </Table>
 
@@ -322,9 +347,8 @@ export default function ListingDetailPage({ params }: { params: Params }) {
               </div>
             ) : null}
 
-            {/* Leave-one-out catalog comparison: renders ONLY with a
-                sufficient other-listing sample (DESIGN §4.5–4.6). With one
-                listing per cell today, this never fires. */}
+            {/* Seller-catalog median comparison: renders only when the
+                leave-one-out sample clears the threshold. */}
             {hint.sufficientForComparison && hint.cell ? (
               <p className="mt-3 text-xs text-fg-muted">
                 <Tooltip label={CATALOG_AVERAGE_DISCLAIMER}>
@@ -342,36 +366,12 @@ export default function ListingDetailPage({ params }: { params: Params }) {
             ) : null}
           </Panel>
 
-          {/* ── Provenance — the product; never below the fold ─────────── */}
-          <Panel title="Provenance" eyebrow="Where this came from">
-            <div className="flex flex-wrap items-center gap-2">
-              {pending ? (
-                <Chip>{verificationLabel}</Chip>
-              ) : (
-                <Badge variant="accent">{verificationLabel}</Badge>
-              )}
-            </div>
-            {pending ? (
-              <p className="mt-2 text-sm leading-relaxed text-fg-muted">
-                The seller declared this provenance. No supporting document is
-                on file.
-              </p>
-            ) : null}
-
-            <Table bordered={false} className="mt-4">
+          {/* ── Origin & provenance ────────────────────────────────────── */}
+          <Panel title={'Origin & provenance'}>
+            <Table bordered={false}>
               <TBody>
                 <TR>
-                  <TH scope="row">Source type</TH>
-                  <TD>{labels.sourceTypes[listing.provenance.sourceType]}</TD>
-                </TR>
-                <TR>
-                  <TH scope="row">Source name</TH>
-                  <TD>
-                    {listing.provenance.sourceName ?? 'Not disclosed by seller'}
-                  </TD>
-                </TR>
-                <TR>
-                  <TH scope="row">Country</TH>
+                  <TH scope="row">Origin</TH>
                   <TD>
                     {countryDisplay(listing.provenance.country)}
                     {listing.provenance.region
@@ -380,78 +380,99 @@ export default function ListingDetailPage({ params }: { params: Params }) {
                   </TD>
                 </TR>
                 <TR>
+                  <TH scope="row">Source</TH>
+                  <TD>
+                    {listing.provenance.sourceName ? (
+                      <>
+                        {listing.provenance.sourceName}
+                        <span className="text-fg-dim"> · {sourceTypeLabel}</span>
+                      </>
+                    ) : (
+                      sourceTypeLabel
+                    )}
+                  </TD>
+                </TR>
+                <TR>
                   <TH scope="row">Acquired</TH>
                   <TD>{acquiredDisplay(listing.provenance.acquiredOn)}</TD>
                 </TR>
-                <TR>
-                  <TH scope="row">Declared by</TH>
-                  <TD>{listing.provenance.declaredBy}</TD>
-                </TR>
+                {listing.provenance.chain &&
+                listing.provenance.chain.length > 0 ? (
+                  <TR>
+                    <TH scope="row">Chain</TH>
+                    <TD>
+                      <ol className="list-decimal space-y-1 pl-4">
+                        {listing.provenance.chain.map((step) => (
+                          <li key={step.step} className="text-sm text-fg-muted">
+                            {step.actor}
+                            {step.date ? (
+                              <span className="ml-2 font-mono text-xs tabular-nums text-fg-dim">
+                                {step.date}
+                              </span>
+                            ) : null}
+                          </li>
+                        ))}
+                      </ol>
+                    </TD>
+                  </TR>
+                ) : null}
+                {documents.length > 0 ? (
+                  <TR>
+                    <TH scope="row">Documents</TH>
+                    <TD>
+                      <ul className="flex flex-wrap gap-2">
+                        {documents.map((doc) => {
+                          const href = doc.path ?? doc.url ?? '#';
+                          const date = fmtMonthYear(doc.issuedOn);
+                          const thumb =
+                            doc.path !== null && DOC_IMAGE_RE.test(doc.path);
+                          return (
+                            <li key={doc.label}>
+                              <a
+                                href={href}
+                                className="flex min-h-[44px] items-center gap-2 rounded-md border border-border bg-surface px-2.5 py-1.5 text-sm text-fg-muted transition-colors duration-fast hover:border-accent hover:text-accent-strong"
+                              >
+                                {thumb && doc.path ? (
+                                  <span className="relative h-9 w-9 shrink-0 overflow-hidden rounded-sm border border-border bg-white">
+                                    <Image
+                                      src={doc.path}
+                                      alt=""
+                                      fill
+                                      unoptimized
+                                      className="object-cover"
+                                    />
+                                  </span>
+                                ) : (
+                                  <span
+                                    aria-hidden="true"
+                                    className="flex h-9 w-9 shrink-0 items-center justify-center rounded-sm border border-border bg-raised font-mono text-2xs text-fg-dim"
+                                  >
+                                    DOC
+                                  </span>
+                                )}
+                                <span>
+                                  {doc.label}
+                                  {date ? (
+                                    <span className="text-fg-dim"> · {date}</span>
+                                  ) : null}
+                                </span>
+                              </a>
+                            </li>
+                          );
+                        })}
+                      </ul>
+                    </TD>
+                  </TR>
+                ) : null}
               </TBody>
             </Table>
-
-            {listing.provenance.chain && listing.provenance.chain.length > 0 ? (
-              <ol className="mt-4 list-decimal space-y-2 pl-5">
-                {listing.provenance.chain.map((step) => (
-                  <li key={step.step} className="text-sm text-fg-muted">
-                    <span className="font-medium text-fg">{step.actor}</span>
-                    {step.date ? (
-                      <span className="ml-2 font-mono text-xs tabular-nums text-fg-dim">
-                        {step.date}
-                      </span>
-                    ) : null}
-                    {step.note ? (
-                      <p className="mt-0.5 text-xs leading-relaxed text-fg-dim">
-                        {step.note}
-                      </p>
-                    ) : null}
-                  </li>
-                ))}
-              </ol>
-            ) : null}
-
-            {listing.provenance.documents &&
-            listing.provenance.documents.length > 0 ? (
-              <ul className="mt-4 space-y-1">
-                {listing.provenance.documents.map((doc) => {
-                  const href = doc.path ?? doc.url;
-                  return (
-                    <li key={doc.label} className="text-sm">
-                      {href ? (
-                        <a
-                          href={href}
-                          className="text-accent underline decoration-dotted underline-offset-2 hover:text-accent-strong"
-                        >
-                          {doc.label}
-                        </a>
-                      ) : (
-                        doc.label
-                      )}
-                      <span className="ml-2 text-xs text-fg-dim">
-                        {doc.kind}
-                        {doc.issuedOn ? ` · ${doc.issuedOn}` : ''}
-                      </span>
-                    </li>
-                  );
-                })}
-              </ul>
-            ) : null}
-
-            {listing.provenance.notes ? (
-              <p className="mt-4 text-sm leading-relaxed text-fg-muted">
-                {listing.provenance.notes}
-              </p>
-            ) : null}
           </Panel>
         </div>
       </div>
 
       {/* ── Specifications ─────────────────────────────────────────────── */}
       <section className="mt-10">
-        <SectionHeading
-          title="Specifications"
-          description="As declared by the seller."
-        />
+        <SectionHeading title="Specifications" />
         <Table className="mt-4">
           <THead>
             <TR hover={false}>
@@ -473,19 +494,11 @@ export default function ListingDetailPage({ params }: { params: Params }) {
             ))}
           </TBody>
         </Table>
-        {listing.purityPct !== null ? (
-          <p className="mt-2 text-xs text-fg-dim">
-            Purity basis: {listing.purityBasis ?? 'Not stated.'}
-          </p>
-        ) : null}
       </section>
 
       {/* ── Description ────────────────────────────────────────────────── */}
       <section className="mt-10">
-        <SectionHeading
-          title="Description"
-          description="The seller's own listing text, imported verbatim."
-        />
+        <SectionHeading title="Description" />
         <MarketplaceProse className="mt-4">{listing.body}</MarketplaceProse>
       </section>
 
@@ -505,11 +518,7 @@ export default function ListingDetailPage({ params }: { params: Params }) {
                     {seller.displayName}
                   </Link>
                   {seller.verified ? (
-                    <Tooltip
-                      label={seller.verificationBasis ?? 'Verified by the site operator.'}
-                    >
-                      <Badge variant="accent">Verified</Badge>
-                    </Tooltip>
+                    <Badge variant="accent">Verified</Badge>
                   ) : null}
                 </p>
                 <p className="mt-1 text-xs text-fg-dim">
@@ -530,36 +539,36 @@ export default function ListingDetailPage({ params }: { params: Params }) {
             <div className="space-y-2">
               <p>
                 Every item is photographed before dispatch. On arrival,
-                photograph the sealed parcel before opening and take a short
-                video of the unboxing. If what arrives does not match the
-                published specification, that documentation is what resolves
-                the mismatch — it is checked against the specification table
-                above.
+                photograph the sealed parcel and take a short video of the
+                unboxing; any mismatch is settled against the published
+                specification with that documentation.
               </p>
               <p>
-                Payment happens directly with the seller; there is no checkout
-                on this site and no funds are held here. The seller&rsquo;s
-                store operates a 30-day return-by-mail policy. We will not
-                describe protection we do not operate.
+                The seller&rsquo;s store operates a 30-day return-by-mail
+                policy, and payment is settled directly with the seller.
               </p>
             </div>
           </Callout>
         </section>
       </div>
 
-      {/* ── Inquiry CTA (stubbed on purpose: a mailto is what happens) ─── */}
-      <div className="mt-8 flex flex-wrap items-center gap-3">
-        <a href={mailtoHref} className={buttonClasses('primary', 'lg')}>
-          Inquire about this item
-        </a>
-        <LinkButton href={sellerUrl} variant="secondary" size="lg">
+      {/* ── Inquiry ────────────────────────────────────────────────────── */}
+      <div className="mt-8">
+        <InquiryForm
+          listingSlug={listing.slug}
+          sellerHandle={seller.handle}
+          listingTitle={listing.title}
+          sizeLabels={listing.variants.map((v) => v.label)}
+        />
+        <LinkButton
+          href={sellerUrl}
+          variant="secondary"
+          size="lg"
+          className="mt-3"
+        >
           More about the seller
         </LinkButton>
       </div>
-      <p className="mt-2 text-xs text-fg-dim">
-        The inquiry opens your email client, addressed to the seller, with the
-        listing reference prefilled.
-      </p>
 
       {/* ── More from this seller ──────────────────────────────────────── */}
       {moreFromSeller.length > 0 ? (
@@ -572,7 +581,7 @@ export default function ListingDetailPage({ params }: { params: Params }) {
             {moreFromSeller.map((l) => (
               <ListingCard
                 key={l.slug}
-                dto={toListingSummaryDto(l)}
+                dto={toListingSummaryDto(l, getLedgerComparisonForListing(l))}
                 labels={labels}
                 elementVariants={elementVariants}
               />

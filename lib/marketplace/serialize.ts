@@ -16,14 +16,18 @@
 import type {
   CatalogAverageCell,
   CatalogAverageHint,
+  Confidence,
   DataQualityFlag,
   DocumentKind,
   ISODate,
+  LedgerComparison,
+  LedgerZone,
   Listing,
   ListingCategory,
   ListingCondition,
   ListingShape,
   ListingStatus,
+  MatchMode,
   MaterialForm,
   ProvenanceSourceType,
   Seller,
@@ -44,9 +48,22 @@ export const CATALOG_AVERAGE_DISCLAIMER =
 /** Photos are the seller's — never CC-BY, unlike the structural fields (DESIGN §5). */
 export const IMAGE_LICENSE = 'All rights reserved by the seller';
 
+/**
+ * Honest labeling for the owner-directed ledger comparison, baked into every
+ * serialised comparison object so no consumer can render the zoning without
+ * its basis.
+ */
+export const LEDGER_COMPARISON_BASIS_NOTE =
+  "Positioned against the site's sourced reference ledger (retail tier) via the price-gauge engine, at the listing's median pack size.";
+
 /** Round to 1 decimal place of a cent (per-gram figures only). */
 function round1(value: number): number {
   return Math.round(value * 10) / 10;
+}
+
+/** Round to 2 decimal places (USD-per-kg figures). */
+function round2(value: number): number {
+  return Math.round(value * 100) / 100;
 }
 
 // ── Listing summary ──────────────────────────────────────────────────────────
@@ -63,6 +80,35 @@ export interface ProvenanceSummaryDto {
   country: string | null;
   verification_status: VerificationStatus;
   document_count: number;
+}
+
+/**
+ * Compact ledger positioning for cards/grids (owner-directed feature; the
+ * DESIGN §4.3 ban is overruled for this surface by owner instruction).
+ */
+export interface LedgerComparisonSummaryDto {
+  zone: LedgerZone;
+  /** Rounded to 1 decimal place. */
+  delta_vs_mid_pct: number;
+  /** Rounded to 2 decimal places (USD per kg). */
+  ledger_mid_usd_per_kg: number;
+  confidence: Confidence;
+}
+
+/** Full ledger positioning for the detail page and API. */
+export interface LedgerComparisonDto extends LedgerComparisonSummaryDto {
+  element_symbol: string;
+  form: 'metal' | 'oxide';
+  quantity_kg_basis: number;
+  variant_label_basis: string;
+  /** Rounded to 2 decimal places (USD per kg). */
+  listing_per_kg_usd: number;
+  ledger_low_usd_per_kg: number;
+  ledger_high_usd_per_kg: number;
+  matched_records: number;
+  match_mode: MatchMode;
+  /** Always `LEDGER_COMPARISON_BASIS_NOTE` — the disclosure travels with the figure. */
+  basis_note: string;
 }
 
 export interface ListingSummaryDto {
@@ -88,6 +134,8 @@ export interface ListingSummaryDto {
   updated_at: ISODate;
   primary_image: ListingImageSummaryDto;
   provenance_summary: ProvenanceSummaryDto;
+  /** Null when ineligible/insufficient, or when the caller did not compute one. */
+  ledger_comparison: LedgerComparisonSummaryDto | null;
   data_quality_flags: DataQualityFlag[];
   /**
    * Lowercased haystack for free-text `q` filtering: title + summary +
@@ -107,7 +155,15 @@ function buildSearchText(listing: Listing): string {
   return parts.join(' ').toLowerCase();
 }
 
-export function toListingSummaryDto(listing: Listing): ListingSummaryDto {
+/**
+ * `ledgerComparison` is threaded in (not computed here) so this module stays
+ * fs-free and client-island-safe: pass `getLedgerComparisonForListing(listing)`
+ * from server callers, or omit it to serialise `ledger_comparison: null`.
+ */
+export function toListingSummaryDto(
+  listing: Listing,
+  ledgerComparison?: LedgerComparison | null,
+): ListingSummaryDto {
   return {
     slug: listing.slug,
     url: listing.url,
@@ -141,6 +197,14 @@ export function toListingSummaryDto(listing: Listing): ListingSummaryDto {
       verification_status: listing.provenance.verificationStatus,
       document_count: listing.provenance.documents?.length ?? 0,
     },
+    ledger_comparison: ledgerComparison
+      ? {
+          zone: ledgerComparison.zone,
+          delta_vs_mid_pct: round1(ledgerComparison.deltaVsMidPct),
+          ledger_mid_usd_per_kg: round2(ledgerComparison.ledgerMid),
+          confidence: ledgerComparison.confidence,
+        }
+      : null,
     data_quality_flags: listing.dataQualityFlags,
     search_text: buildSearchText(listing),
   };
@@ -236,6 +300,8 @@ export interface ListingDetailDto extends ListingSummaryDto {
   provenance: ProvenanceDto;
   seller: SellerCardDto;
   catalog_average: CatalogAverageComparisonDto | null;
+  /** Narrows the summary field to the full comparison object (or null). */
+  ledger_comparison: LedgerComparisonDto | null;
 }
 
 function toSpecRowDto(spec: SpecRow): SpecRowDto {
@@ -257,10 +323,11 @@ export function toListingDetailDto(
   listing: Listing,
   seller: Seller,
   catalogAverageHint: CatalogAverageHint | null,
+  ledgerComparison?: LedgerComparison | null,
 ): ListingDetailDto {
   const cell = catalogAverageHint?.cell ?? null;
   return {
-    ...toListingSummaryDto(listing),
+    ...toListingSummaryDto(listing, ledgerComparison),
     body_md: listing.body,
     purity_basis: listing.purityBasis,
     variants: listing.variants.map((v) => ({
@@ -327,6 +394,25 @@ export function toListingDetailDto(
             sufficient: catalogAverageHint?.sufficientForComparison ?? false,
             disclaimer: CATALOG_AVERAGE_DISCLAIMER,
           },
+    // Overrides the summary's compact shape with the full disclosure.
+    ledger_comparison: ledgerComparison
+      ? {
+          zone: ledgerComparison.zone,
+          delta_vs_mid_pct: round1(ledgerComparison.deltaVsMidPct),
+          ledger_mid_usd_per_kg: round2(ledgerComparison.ledgerMid),
+          confidence: ledgerComparison.confidence,
+          element_symbol: ledgerComparison.elementSymbol,
+          form: ledgerComparison.form,
+          quantity_kg_basis: ledgerComparison.quantityKgBasis,
+          variant_label_basis: ledgerComparison.variantLabelBasis,
+          listing_per_kg_usd: round2(ledgerComparison.listingPerKgUsd),
+          ledger_low_usd_per_kg: round2(ledgerComparison.ledgerLow),
+          ledger_high_usd_per_kg: round2(ledgerComparison.ledgerHigh),
+          matched_records: ledgerComparison.matchedRecords,
+          match_mode: ledgerComparison.matchMode,
+          basis_note: LEDGER_COMPARISON_BASIS_NOTE,
+        }
+      : null,
   };
 }
 
@@ -368,8 +454,17 @@ export interface SellerDto {
   listings: ListingSummaryDto[];
 }
 
-/** `listings` must be the seller's own (e.g. `getSellerListings(handle)`), newest-first. */
-export function toSellerDto(seller: Seller, listings: Listing[]): SellerDto {
+/**
+ * `listings` must be the seller's own (e.g. `getSellerListings(handle)`),
+ * newest-first. Pass `getLedgerComparisonForListing` as `getLedgerComparison`
+ * from server callers to populate each summary's `ledger_comparison`; omitted,
+ * the field serialises null (this module stays fs-free).
+ */
+export function toSellerDto(
+  seller: Seller,
+  listings: Listing[],
+  getLedgerComparison?: (listing: Listing) => LedgerComparison | null,
+): SellerDto {
   const categories = Object.fromEntries(
     LISTING_CATEGORIES.map((c) => [c, 0]),
   ) as Record<ListingCategory, number>;
@@ -408,7 +503,7 @@ export function toSellerDto(seller: Seller, listings: Listing[]): SellerDto {
       earliest_listed_on: earliestListedOn,
       latest_updated_at: latestUpdatedAt,
     },
-    listings: listings.map(toListingSummaryDto),
+    listings: listings.map((l) => toListingSummaryDto(l, getLedgerComparison?.(l))),
   };
 }
 

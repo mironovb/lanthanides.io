@@ -1,15 +1,16 @@
 /**
- * Pure parameter validation + query application for
- * GET /api/marketplace/listings (DESIGN §5.1, amended by PLAN "Schema
- * deltas": price filtering and sorting operate on `price_from_cents`, the
- * cheapest-variant "from" price).
+ * Pure parameter validation for the marketplace API:
+ *  - GET /api/marketplace/listings — query validation + filter/sort/paginate
+ *    (DESIGN §5.1, amended by PLAN "Schema deltas": price filtering and
+ *    sorting operate on `price_from_cents`, the cheapest-variant "from"
+ *    price).
+ *  - POST /api/marketplace/inquiries — field validation + the honeypot check.
  *
  * Deliberately free of runtime imports (type-only imports, no fs) so the
- * whole thing is a pure function of its inputs: the route hands in the enum
- * vocabularies and the symbols actually present in listings, and gets back
- * either a fully-resolved query or an `{ error, ...hints }` body with its
- * HTTP status — the discriminated `Validated` pattern from
- * `app/api/price-gauge/route.ts`.
+ * whole thing is a pure function of its inputs: the routes hand in the enum
+ * vocabularies / resolved-listing context, and get back either a
+ * fully-resolved value or an error body — the discriminated `Validated`
+ * pattern from `app/api/price-gauge/route.ts`.
  */
 import type { ListingCategory, ListingSummaryDto, MaterialForm } from '@/lib/marketplace';
 
@@ -62,16 +63,18 @@ export type ValidatedListingsParams =
   | { ok: true; query: ListingsQuery }
   | { ok: false; status: 400 | 404; body: Record<string, unknown> };
 
+/** Normalise an unknown raw value: trimmed string, or undefined when absent/blank. */
+function toTrimmed(v: unknown): string | undefined {
+  if (v === undefined || v === null) return undefined;
+  const s = String(v).trim();
+  return s.length > 0 ? s : undefined;
+}
+
 /** Coerce + validate raw GET params into a `ListingsQuery`. First failure wins. */
 export function validateListingsParams(
   raw: RawListingsParams,
   opts: ListingsParamOptions,
 ): ValidatedListingsParams {
-  const str = (v: unknown): string | undefined => {
-    if (v === undefined || v === null) return undefined;
-    const s = String(v).trim();
-    return s.length > 0 ? s : undefined;
-  };
   const bad = (
     body: Record<string, unknown>,
     status: 400 | 404 = 400,
@@ -81,7 +84,7 @@ export function validateListingsParams(
   // among those actually present in listings (price-gauge's resolveSymbol
   // contract). A miss is a 404 — the element, not the filter, is unknown.
   let element: string | null = null;
-  const elementRaw = str(raw.element);
+  const elementRaw = toTrimmed(raw.element);
   if (elementRaw) {
     const lower = elementRaw.toLowerCase();
     element = opts.knownSymbols.find((sym) => sym.toLowerCase() === lower) ?? null;
@@ -92,7 +95,7 @@ export function validateListingsParams(
 
   // category / form / sort / include: enum params, 400 + `allowed` on a miss.
   let category: ListingCategory | null = null;
-  const categoryRaw = str(raw.category);
+  const categoryRaw = toTrimmed(raw.category);
   if (categoryRaw) {
     const c = categoryRaw.toLowerCase();
     if (!opts.categories.includes(c as ListingCategory)) {
@@ -102,7 +105,7 @@ export function validateListingsParams(
   }
 
   let form: MaterialForm | null = null;
-  const formRaw = str(raw.form);
+  const formRaw = toTrimmed(raw.form);
   if (formRaw) {
     const f = formRaw.toLowerCase();
     if (!opts.forms.includes(f as MaterialForm)) {
@@ -112,7 +115,7 @@ export function validateListingsParams(
   }
 
   let sort: ListingsSort = 'newest';
-  const sortRaw = str(raw.sort);
+  const sortRaw = toTrimmed(raw.sort);
   if (sortRaw) {
     const s = sortRaw.toLowerCase();
     if (!LISTING_SORTS.includes(s as ListingsSort)) {
@@ -122,7 +125,7 @@ export function validateListingsParams(
   }
 
   let includePlaceholder = false;
-  const includeRaw = str(raw.include);
+  const includeRaw = toTrimmed(raw.include);
   if (includeRaw) {
     if (includeRaw.toLowerCase() !== 'placeholder') {
       return bad({ error: `Unknown include "${includeRaw}".`, allowed: INCLUDE_VALUES });
@@ -136,7 +139,7 @@ export function validateListingsParams(
     name: string,
     v: unknown,
   ): { ok: true; usd: number | null } | { ok: false; body: Record<string, unknown> } => {
-    const s = str(v);
+    const s = toTrimmed(v);
     if (s === undefined) return { ok: true, usd: null };
     const n = Number(s);
     if (!Number.isFinite(n) || n < 0) {
@@ -164,7 +167,7 @@ export function validateListingsParams(
   // DTO's `search_text` (built once in lib/marketplace/serialize.ts so the
   // API and the client filter island can never disagree).
   let q: string | null = null;
-  const qRaw = str(raw.q);
+  const qRaw = toTrimmed(raw.q);
   if (qRaw) {
     if (qRaw.length > MAX_Q_LENGTH) {
       return bad({
@@ -175,7 +178,7 @@ export function validateListingsParams(
   }
 
   let page = 1;
-  const pageRaw = str(raw.page);
+  const pageRaw = toTrimmed(raw.page);
   if (pageRaw) {
     const n = Number(pageRaw);
     if (!Number.isInteger(n) || n < 1) {
@@ -185,7 +188,7 @@ export function validateListingsParams(
   }
 
   let perPage = DEFAULT_PER_PAGE;
-  const perPageRaw = str(raw.per_page);
+  const perPageRaw = toTrimmed(raw.per_page);
   if (perPageRaw) {
     const n = Number(perPageRaw);
     if (!Number.isInteger(n) || n < 1 || n > MAX_PER_PAGE) {
@@ -261,5 +264,133 @@ export function applyListingsQuery(
       total_pages: Math.ceil(total / query.per_page),
     },
     results: filtered.slice(start, start + query.per_page),
+  };
+}
+
+// ── Inquiries (POST /api/marketplace/inquiries) ──────────────────────────────
+
+export const INQUIRY_NAME_MAX = 120;
+export const INQUIRY_EMAIL_MAX = 254;
+export const INQUIRY_COUNTRY_MAX = 80;
+export const INQUIRY_MESSAGE_MAX = 2000;
+
+/** Raw inquiry fields as read from a JSON or form-encoded body. */
+export interface RawInquiryFields {
+  listing_slug?: unknown;
+  seller_handle?: unknown;
+  size_label?: unknown;
+  name?: unknown;
+  email?: unknown;
+  country?: unknown;
+  message?: unknown;
+  /** Honeypot — hidden from humans; any value marks the submission as spam. */
+  website?: unknown;
+}
+
+/** Honeypot check (contributions-route precedent): non-empty ⇒ spam. */
+export function isInquirySpam(raw: RawInquiryFields): boolean {
+  return toTrimmed(raw.website) !== undefined;
+}
+
+/** The validated, trimmed inquiry — exactly what the route logs (snake_case). */
+export interface InquiryFields {
+  listing_slug: string;
+  seller_handle: string;
+  size_label: string | null;
+  name: string;
+  email: string;
+  country: string | null;
+  message: string | null;
+}
+
+export type ValidatedInquiry =
+  | { ok: true; fields: InquiryFields }
+  | { ok: false; errors: Record<string, string> };
+
+/** The resolved-listing context the route passes in (it owns the 404 on an unknown slug). */
+export interface InquiryListingContext {
+  slug: string;
+  sellerHandle: string;
+  /** Verbatim variant labels (e.g. "25 g", "325 g (as pictured)"). */
+  variantLabels: readonly string[];
+}
+
+/**
+ * Validate inquiry fields against the resolved listing. Pure. Unlike the
+ * listings validator, field errors are COLLECTED rather than first-fail: the
+ * `{ errors: { field: message } }` map drives per-field form feedback
+ * (contributions-route precedent).
+ */
+export function validateInquiryFields(
+  raw: RawInquiryFields,
+  listing: InquiryListingContext,
+): ValidatedInquiry {
+  const errors: Record<string, string> = {};
+
+  const sellerHandle = toTrimmed(raw.seller_handle);
+  if (sellerHandle === undefined) {
+    errors.seller_handle = 'Required.';
+  } else if (sellerHandle !== listing.sellerHandle) {
+    errors.seller_handle = "Does not match the listing's seller.";
+  }
+
+  let sizeLabel: string | null = null;
+  const sizeRaw = toTrimmed(raw.size_label);
+  if (sizeRaw !== undefined) {
+    if (!listing.variantLabels.includes(sizeRaw)) {
+      errors.size_label = `Unknown size "${sizeRaw}" for this listing.`;
+    } else {
+      sizeLabel = sizeRaw;
+    }
+  }
+
+  const name = toTrimmed(raw.name);
+  if (name === undefined) {
+    errors.name = 'Required.';
+  } else if (name.length > INQUIRY_NAME_MAX) {
+    errors.name = `Too long (${name.length} characters). Expected at most ${INQUIRY_NAME_MAX}.`;
+  }
+
+  // Syntactic only, by design: exactly one "@" with non-empty sides, no
+  // whitespace, ≤254 characters. No deliverability claims.
+  const email = toTrimmed(raw.email);
+  if (email === undefined) {
+    errors.email = 'Required.';
+  } else if (
+    email.length > INQUIRY_EMAIL_MAX ||
+    /\s/.test(email) ||
+    email.split('@').length !== 2 ||
+    email.startsWith('@') ||
+    email.endsWith('@')
+  ) {
+    errors.email = 'Enter a valid email address.';
+  }
+
+  const country = toTrimmed(raw.country) ?? null;
+  if (country !== null && country.length > INQUIRY_COUNTRY_MAX) {
+    errors.country = `Too long (${country.length} characters). Expected at most ${INQUIRY_COUNTRY_MAX}.`;
+  }
+
+  const message = toTrimmed(raw.message) ?? null;
+  if (message !== null && message.length > INQUIRY_MESSAGE_MAX) {
+    errors.message = `Too long (${message.length} characters). Expected at most ${INQUIRY_MESSAGE_MAX}.`;
+  }
+
+  // The undefined re-checks are redundant at runtime (each already recorded an
+  // error) but give TypeScript the narrowing for the success arm.
+  if (Object.keys(errors).length > 0 || name === undefined || email === undefined) {
+    return { ok: false, errors };
+  }
+  return {
+    ok: true,
+    fields: {
+      listing_slug: listing.slug,
+      seller_handle: listing.sellerHandle,
+      size_label: sizeLabel,
+      name,
+      email,
+      country,
+      message,
+    },
   };
 }

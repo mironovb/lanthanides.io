@@ -13,6 +13,7 @@
  */
 import {
   getCatalogAverageForListing,
+  getLedgerComparisonForListing,
   getListing,
   getListingSlugs,
   getSeller,
@@ -40,7 +41,12 @@ export function GET(
     return json({ error: `Unknown listing "${params.slug}".` }, 404);
   }
   return json(
-    toListingDetailDto(listing, seller, getCatalogAverageForListing(listing)),
+    toListingDetailDto(
+      listing,
+      seller,
+      getCatalogAverageForListing(listing),
+      getLedgerComparisonForListing(listing),
+    ),
     200,
     'public, max-age=3600',
   );

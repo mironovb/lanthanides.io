@@ -21,6 +21,7 @@
  * cache.
  */
 import {
+  getLedgerComparisonForListing,
   getListings,
   getMarketplaceFacets,
   IMAGE_LICENSE,
@@ -61,7 +62,7 @@ export function GET(request: Request): Response {
   if (!v.ok) return json(v.body, v.status);
 
   const { pagination, results } = applyListingsQuery(
-    getListings().map(toListingSummaryDto),
+    getListings().map((l) => toListingSummaryDto(l, getLedgerComparisonForListing(l))),
     v.query,
   );
   // `image_license` rides at the envelope level: the summary DTOs carry image

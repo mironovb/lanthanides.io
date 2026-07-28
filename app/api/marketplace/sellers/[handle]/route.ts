@@ -10,6 +10,7 @@
  * only changes on a rebuild.
  */
 import {
+  getLedgerComparisonForListing,
   getSeller,
   getSellerListings,
   getSellers,
@@ -39,7 +40,10 @@ export function GET(
   // summaries' photos are the seller's, not CC-BY, and SellerDto itself
   // carries no licence field.
   return json(
-    { ...toSellerDto(seller, getSellerListings(seller.handle)), image_license: IMAGE_LICENSE },
+    {
+      ...toSellerDto(seller, getSellerListings(seller.handle), getLedgerComparisonForListing),
+      image_license: IMAGE_LICENSE,
+    },
     200,
     'public, max-age=3600',
   );

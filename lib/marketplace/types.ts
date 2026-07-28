@@ -8,6 +8,10 @@
  * Boundary rule: files and API JSON are snake_case; TypeScript is camelCase.
  * The mapping lives in `load.ts` (in) and `serialize.ts` (out) — nowhere else.
  */
+// Type-only imports (erased at compile): the ledger-comparison contract reuses
+// the gauge's own vocabulary so the two can never drift.
+import type { Confidence } from '../data/types';
+import type { MatchMode } from '../price-gauge';
 
 // ── Vocabularies ─────────────────────────────────────────────────────────────
 
@@ -307,6 +311,48 @@ export interface CatalogAverageHint {
   otherListingCount: number;
   /** `otherListingCount >= settings.catalogAverageMinSample`. */
   sufficientForComparison: boolean;
+}
+
+// ── Ledger comparison (owner-directed, 2026-07-28) ───────────────────────────
+// Positions a listing's price against the site's sourced reference ledger via
+// the price-gauge engine, so the UI can show above/below-reference zoning.
+// This EXPLICITLY overrules DESIGN §4.3's ban on rendering ledger figures next
+// to marketplace prices — by owner instruction, for this feature only. The
+// data still flows one way (ledger → marketplace UI); marketplace prices never
+// feed the ledger (DESIGN Q2 stands).
+
+export type { Confidence } from '../data/types';
+export type { MatchMode } from '../price-gauge';
+
+export type LedgerZone = 'below' | 'within' | 'above';
+
+/**
+ * Derived in `ledger.ts`, never authored. Null (no comparison at all) when the
+ * listing has no single catalog element, its form is not `metal`/`oxide` (the
+ * only 1:1 mappings onto the ledger's form vocabulary), or the gauge reports
+ * insufficient data — the engine never invents a number (hard rule #1).
+ */
+export interface LedgerComparison {
+  elementSymbol: string;
+  /** The gauge form queried; alloys/salts/minerals/high-tech never compare. */
+  form: 'metal' | 'oxide';
+  /** Mass of the representative variant (median by mass), in kg. */
+  quantityKgBasis: number;
+  /** That variant's display label, for the "at the 25 g pack" disclosure. */
+  variantLabelBasis: string;
+  /** The listing's price at the representative variant, USD per kg, unrounded. */
+  listingPerKgUsd: number;
+  /** Gauge P25 / P50 / P75 of normalized_usd_per_kg (retail band). */
+  ledgerLow: number;
+  ledgerMid: number;
+  ledgerHigh: number;
+  /** (listingPerKgUsd − ledgerMid) / ledgerMid × 100, unrounded. */
+  deltaVsMidPct: number;
+  /** 'within' = inside [low, high] inclusive; otherwise by sign vs mid. */
+  zone: LedgerZone;
+  confidence: Confidence;
+  matchedRecords: number;
+  matchMode: MatchMode;
 }
 
 export interface MarketplaceFacets {

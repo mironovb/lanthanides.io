@@ -2,7 +2,7 @@
  * Server-only marketplace prop builders (they touch `lib/data` /
  * `lib/marketplace`, which read the filesystem). Pages call these and pass the
  * resulting plain objects to the presentational components and the client
- * island; nothing under the client boundary imports this file.
+ * islands; nothing under the client boundary imports this file.
  */
 import { getElements } from '@/lib/data';
 import { getMarketplaceSettings } from '@/lib/marketplace';
@@ -13,9 +13,7 @@ export function buildMarketplaceLabels(): MarketplaceLabels {
   const settings = getMarketplaceSettings();
   return {
     categories: settings.categoryLabels,
-    forms: settings.formLabels,
     sourceTypes: settings.sourceTypeLabels,
-    verification: settings.verificationLabels,
   };
 }
 

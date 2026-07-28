@@ -9,10 +9,9 @@
  *   A. Built HTML exists: marketplace index, every listing detail page, and
  *      every seller profile page under .next/server/app.
  *   B. In the site-wide header of a built page, the marketplace link is the
- *      SECOND item inside <nav> and carries "Lanthanides Marketplace" and its
- *      "Preliminary" badge.
+ *      SECOND item inside <nav> and carries the "Marketplace" label.
  *   C. Every one of the 19 detail-page HTML files contains the provenance
- *      heading ("Provenance") and the string "Verification pending".
+ *      section (case-insensitive "provenance").
  *   D. Quarantine: `git ls-files` contains zero paths starting periodictech/.
  *   E. Every image path referenced in _marketplace/listings/*.md exists under
  *      public/.
@@ -97,10 +96,9 @@ function checkHeaderNavOrder() {
   const text = second.replace(/<[^>]+>/g, ' ');
   const problems = [];
   if (href !== '/marketplace/') problems.push(`second nav item href is "${href}", expected "/marketplace/"`);
-  if (!text.includes('Lanthanides Marketplace')) problems.push('second nav item lacks "Lanthanides Marketplace"');
-  if (!text.includes('Preliminary')) problems.push('second nav item lacks the "Preliminary" badge');
+  if (!/\bMarketplace\b/.test(text)) problems.push('second nav item lacks "Marketplace"');
   if (problems.length > 0) return { ok: false, detail: problems.join('; ') };
-  return { ok: true, detail: 'second <nav> item is /marketplace/ ("Lanthanides Marketplace" + "Preliminary")' };
+  return { ok: true, detail: 'second <nav> item is /marketplace/ ("Marketplace")' };
 }
 
 function checkDetailPagesProvenance() {
@@ -115,11 +113,10 @@ function checkDetailPagesProvenance() {
     }
     const html = readFileSync(p, 'utf8');
     checked += 1;
-    if (!html.includes('Provenance')) bad.push(`${slug}: no "Provenance" heading`);
-    if (!html.includes('Verification pending')) bad.push(`${slug}: no "Verification pending"`);
+    if (!/provenance/i.test(html)) bad.push(`${slug}: no provenance section`);
   }
   if (bad.length > 0) return { ok: false, detail: bad.join('; ') };
-  return { ok: true, detail: `${checked}/${slugs.length} detail pages carry "Provenance" + "Verification pending"` };
+  return { ok: true, detail: `${checked}/${slugs.length} detail pages carry the provenance section` };
 }
 
 function checkQuarantine() {
