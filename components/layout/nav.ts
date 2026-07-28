@@ -22,6 +22,7 @@ export interface NavItem {
 /** The header. Prices points home: the landing page IS the price ledger. */
 export const NAV_LINKS: NavItem[] = [
   { href: '/', label: 'Prices' },
+  { href: '/marketplace/', label: 'Marketplace' },
   { href: '/regulatory/', label: 'Regulatory' },
   { href: '/news/', label: 'News' },
   { href: '/data/', label: 'Open Data' },
@@ -40,6 +41,7 @@ export const CONTRIBUTE_CTA: NavItem = {
  */
 export const FOOTER_LINKS: NavItem[] = [
   { href: '/', label: 'Prices' },
+  { href: '/marketplace/', label: 'Marketplace' },
   { href: '/regulatory/', label: 'Regulatory' },
   { href: '/news/', label: 'News' },
   { href: '/data/', label: 'Open Data' },
