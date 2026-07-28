@@ -58,6 +58,12 @@ yarn-error.log*
 dev.db
 prisma/dev.db
 
+# ── Marketplace: vendored periodictech source repo (never commit) ────────────
+# Read-only source material for the marketplace import pipeline. Everything
+# usable is COPIED out into committed paths (_marketplace/, public/marketplace/);
+# the vendored folder itself must never enter this repo's history.
+/periodictech/
+
 # ── Local agent tooling & scratch (never commit; see CLAUDE.md hard rule #3) ──
 # `.arun/` holds local session state including credentials; `combined*.txt` and
 # `chat.md` are scratch dumps. Ignoring these stops `git add -A` from sweeping
