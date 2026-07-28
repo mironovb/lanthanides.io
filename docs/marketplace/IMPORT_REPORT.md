@@ -33,7 +33,7 @@ hero PNGs 4,
 | Variants | 90 | 90 across the loaded listings | YES |
 | Photos | 19 refs to 18 unique files | 19 per-slug copies (18 unique + 1 shared duplicate: `cadmium.jpg` serves both `cadmium-6n` and `cadmium-ingot-996`) | YES |
 | Documents (COA/PDF) | 0 | 0 imported; every `provenance.documents` is null | YES |
-| Price range | $22.00 - $7,540.00 (RECON §6) | $5.00 - $10,850.00 (measured) | CHECK |
+| Price range | $22.00 - $7,540.00 (RECON §6) | $19.00 - $10,850.00 (measured) | CHECK |
 
 Copies are byte-identical (no re-encode); image dimensions were measured with
 `sips` and stored in each listing's front matter.
@@ -63,17 +63,17 @@ Owner-directed reprice (2026-07-28): the listings below are scaled by a fixed
 per-listing factor so their median-pack price sits at (or, for the two cheap
 base metals, much nearer) the site's sourced reference band. Factors were
 computed once from the price-gauge band and are baked into the script, so
-imports stay deterministic. Rounding: whole dollars, $5 pack floor, then a
+imports stay deterministic. Rounding: whole dollars; scaled-down listings add a flat $14 per-pack handling base so small lots stay commercially sane; then a
 non-decreasing repair by mass. All other listings keep their source prices
 verbatim.
 
 | Listing | Factor | From-price now |
 |---|---|---|
-| bismuth-6n | ×0.25 | $7.00 |
-| selenium | ×0.25 | $6.00 |
-| tungsten-100 | ×0.193 | $5.00 |
-| zirconium | ×0.307 | $8.00 |
-| indium-25450 | ×0.448 | $15.00 |
+| bismuth-6n | ×0.25 | $21.00 |
+| selenium | ×0.25 | $20.00 |
+| tungsten-100 | ×0.193 | $19.00 |
+| zirconium | ×0.307 | $22.00 |
+| indium-25450 | ×0.448 | $29.00 |
 | scandium-1900 | ×1.439 | $35.00 |
 | terbium | ×1.457 | $32.00 |
 | holmium | ×2.104 | $50.00 |
@@ -175,19 +175,19 @@ variant (below the 3-variant floor), so they appear in no cell:
 
 | Element | Form | Variants | Listings | Median ¢/g |
 |---|---|---|---|---|
-| Bi | metal | 5 | 1 | 9.2 |
+| Bi | metal | 5 | 1 | 13.5 |
 | Cd | metal | 5 | 2 | 28 |
 | Co | metal | 3 | 1 | 15.6 |
 | Ho | metal | 8 | 1 | 291.7 |
-| In | metal | 6 | 1 | 32.7 |
+| In | metal | 6 | 1 | 44 |
 | Pb | metal | 5 | 1 | 25 |
 | Sc | metal | 10 | 1 | 1207 |
-| Se | metal | 5 | 1 | 15.6 |
+| Se | metal | 5 | 1 | 31.1 |
 | Tb | metal | 8 | 1 | 642.7 |
 | Te | metal | 10 | 1 | 55 |
 | Tm | metal | 4 | 1 | 497 |
 | V | metal | 10 | 2 | 145.7 |
-| Zr | metal | 5 | 1 | 14.9 |
+| Zr | metal | 5 | 1 | 20.4 |
 
 13 cells will appear in the price-reference API. Both V and Cd
 cells pool two listings each; every other cell is a single listing.

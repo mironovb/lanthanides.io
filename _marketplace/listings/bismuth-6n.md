@@ -16,27 +16,27 @@ variants:
   - legacy_sku: "394269153316"
     label: "50 g"
     mass_g: 50
-    price_usd_cents: 700
+    price_usd_cents: 2100
     note: null
   - legacy_sku: "394269155633"
     label: "250 g"
     mass_g: 250
-    price_usd_cents: 2300
+    price_usd_cents: 3700
     note: null
   - legacy_sku: "394403400817"
     label: "325 g (as pictured)"
     mass_g: 325
-    price_usd_cents: 3000
+    price_usd_cents: 4400
     note: null
   - legacy_sku: "394269157533"
     label: "450 g"
     mass_g: 450
-    price_usd_cents: 4200
+    price_usd_cents: 5600
     note: null
   - legacy_sku: "394269154284"
     label: "950 g"
     mass_g: 950
-    price_usd_cents: 8300
+    price_usd_cents: 9700
     note: null
 currency: "USD"
 moq_units: null

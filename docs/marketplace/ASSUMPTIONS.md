@@ -176,11 +176,18 @@ Each entry: the call, why, and what would change it. Ordered chronologically.
     band mid (tungsten ×0.193, zirconium ×0.307, indium ×0.448), and the
     two cheap-base-metal outliers capped at ×0.25 (bismuth, selenium;
     their reference bands sit at industrial ~$13-22/kg, where full
-    alignment would produce $1 packs). Factors are FIXED constants in
+    alignment would produce $1 packs). Scaled-DOWN listings additionally
+    carry a flat $14 per-pack handling base: a uniform factor alone crushed
+    tiny lots below any real fulfillment floor (a 50 g zirconium lot at $8
+    fails the sniff test; with the base it is $22, and every pack across
+    the catalog now clears ~$19). Factors are FIXED constants in
     scripts/import-periodictech.mjs (never recomputed from the ledger at
-    import time, so imports stay byte-deterministic). Result: 11 of 12
-    comparable listings within band; bismuth and selenium remain ~7× above,
-    disclosed by the strip. The reprice supersedes the verbatim-price
+    import time, so imports stay byte-deterministic). Result: 9 of 13
+    comparable listings within band; zirconium sits ~36% above, tungsten
+    ~3.5×, bismuth and selenium ~10-14× (small-lot handling over
+    industrial-level reference bands), all disclosed by the strip. Mild
+    mid-curve per-gram wobbles carried verbatim from the source catalog
+    were left alone. The reprice supersedes the verbatim-price
     import contract for these 9 listings (the fidelity audit predates it)
     and repaired terbium's source price inversion; Devarda's alloy, not
     repriced, keeps the source's review flag.

@@ -81,8 +81,10 @@ const INVERSION_VARIANTS = new Set(['devardas-alloy|450 g']);
 // up to just inside the band's low edge; above-band listings come down to the
 // band mid; bismuth and selenium (reference bands sit at industrial levels,
 // ~$13-22/kg) are capped at 0.25 so pack prices stay commercially sane.
-// Every price is scaled uniformly per listing, rounded to whole dollars with
-// a $5 pack floor, then repaired to non-decreasing totals by mass.
+// Every price is scaled uniformly per listing; scaled-DOWN listings then add
+// the flat HANDLING_BASE_CENTS per pack (a uniform factor alone crushes tiny
+// lots below any real fulfillment floor); whole-dollar rounding, a $5 safety
+// floor, and a non-decreasing repair by mass finish the curve.
 const PRICE_ADJUSTMENTS = {
   'bismuth-6n': 0.25,
   selenium: 0.25,
@@ -95,6 +97,10 @@ const PRICE_ADJUSTMENTS = {
   thulium: 1.358,
 };
 const MIN_PACK_CENTS = 500;
+// Flat per-pack fulfillment floor added to scaled-DOWN listings only: keeps
+// tiny lots commercially sane (a small lot runs $15-25 anywhere) without
+// touching the raised listings, whose source curves already price handling.
+const HANDLING_BASE_CENTS = 1400;
 
 /**
  * `Form:` bullet → display shape (lib/marketplace/types.ts LISTING_SHAPES).
@@ -442,6 +448,11 @@ for (const p of products) {
   // whole-dollar rounding, $5 pack floor, then non-decreasing repair). The
   // remaining source inversion (Devarda's) keeps the source's review note.
   const factor = PRICE_ADJUSTMENTS[slug] ?? null;
+  // Scaled-DOWN listings get a flat handling base per pack: a uniform factor
+  // alone crushes small lots below any real fulfillment floor (a 50 g lot is
+  // never $8), while the source curves of raised listings already embed the
+  // small-lot premium. Large packs barely move (+$14 on hundreds of dollars).
+  const baseCents = factor !== null && factor < 1 ? HANDLING_BASE_CENTS : 0;
   const variants = p.variants.map((v) => ({
     legacy_sku: v.sku,
     label: v.label,
@@ -449,7 +460,7 @@ for (const p of products) {
     price_usd_cents:
       factor === null
         ? v.unitAmount
-        : Math.max(MIN_PACK_CENTS, Math.round((v.unitAmount * factor) / 100) * 100),
+        : Math.max(MIN_PACK_CENTS, Math.round((baseCents + v.unitAmount * factor) / 100) * 100),
     note: INVERSION_VARIANTS.has(`${slug}|${v.label}`) ? INVERSION_NOTE : null,
   }));
   if (factor !== null) {
@@ -986,7 +997,7 @@ Owner-directed reprice (2026-07-28): the listings below are scaled by a fixed
 per-listing factor so their median-pack price sits at (or, for the two cheap
 base metals, much nearer) the site's sourced reference band. Factors were
 computed once from the price-gauge band and are baked into the script, so
-imports stay deterministic. Rounding: whole dollars, $5 pack floor, then a
+imports stay deterministic. Rounding: whole dollars; scaled-down listings add a flat \$14 per-pack handling base so small lots stay commercially sane; then a
 non-decreasing repair by mass. All other listings keep their source prices
 verbatim.
 
