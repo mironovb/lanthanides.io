@@ -1,12 +1,12 @@
 /**
- * camelCase TS → snake_case DTOs: the ONE outbound mapping table (DESIGN §2 —
+ * camelCase TS → snake_case DTOs: the ONE outbound mapping table (DESIGN §2:
  * files and API JSON are snake_case, TypeScript is camelCase; `load.ts` maps
  * in, this file maps out, nowhere else). Every builder returns a plain,
  * JSON-safe object emitted verbatim by the API routes and passed as props to
  * client islands.
  *
  * Pure: no `fs`, no imports beyond `./types`, so these helpers (and the DTO
- * interfaces) are safe to import from Client Components — the client filter
+ * interfaces) are safe to import from Client Components, the client filter
  * island consumes `ListingSummaryDto[]` exactly as `RegulatoryView` consumes
  * its serialised props.
  *
@@ -43,9 +43,9 @@ import { LISTING_CATEGORIES } from './types';
  * for a market price or for the site's sourced reference prices.
  */
 export const CATALOG_AVERAGE_DISCLAIMER =
-  "Averaged across this seller's own listings for this element and form. It is a catalog statistic, not a market price, and not the site's sourced reference prices — those are industrial quotes in USD/kg and are not comparable.";
+  "Averaged across this seller's own listings for this element and form. It is a catalog statistic, not a market price, and not the site's sourced reference prices; those are industrial quotes in USD/kg and are not comparable.";
 
-/** Photos are the seller's — never CC-BY, unlike the structural fields (DESIGN §5). */
+/** Photos are the seller's, never CC-BY, unlike the structural fields (DESIGN §5). */
 export const IMAGE_LICENSE = 'All rights reserved by the seller';
 
 /**
@@ -107,7 +107,7 @@ export interface LedgerComparisonDto extends LedgerComparisonSummaryDto {
   ledger_high_usd_per_kg: number;
   matched_records: number;
   match_mode: MatchMode;
-  /** Always `LEDGER_COMPARISON_BASIS_NOTE` — the disclosure travels with the figure. */
+  /** Always `LEDGER_COMPARISON_BASIS_NOTE`, the disclosure travels with the figure. */
   basis_note: string;
 }
 
@@ -425,7 +425,7 @@ export interface DeclaredClaimDto {
 }
 
 /**
- * Derived and true by construction — counts over files in the repo. Kept
+ * Derived and true by construction, counts over files in the repo. Kept
  * structurally separate from `declared_claims` so no consumer can render a
  * seller's own "~10,000 transactions" next to a computed figure with the same
  * weight (DESIGN §5.3).

@@ -1,6 +1,6 @@
 /**
  * SellerRail: a compact horizontal row of seller cards under the browse
- * masthead — avatar, display name, country, listing count, Verified badge —
+ * masthead, avatar, display name, country, listing count, Verified badge,
  * each linking to the seller profile. Presentational server component; the
  * page derives the items from `lib/marketplace` and passes plain props.
  * Scrolls horizontally on narrow viewports (quiet scrollbar via the global

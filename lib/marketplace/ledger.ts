@@ -4,13 +4,13 @@
  * price-gauge engine (`lib/price-gauge` over `_data/price_records.json`).
  *
  * This EXPLICITLY overrules DESIGN §4.3's prohibition on rendering ledger
- * figures next to marketplace prices — by owner instruction, for this feature
+ * figures next to marketplace prices, by owner instruction, for this feature
  * only. The comparison flows one way (ledger → marketplace UI); marketplace
  * prices still never feed the ledger or any published reference price
  * (DESIGN Q2 stands untouched).
  *
  * Honesty guarantees inherited from the engine, none re-implemented here:
- *   - the gauge never invents a number — insufficient data ⇒ null, no zone;
+ *   - the gauge never invents a number, insufficient data means null, no zone;
  *   - the band derives from the listing's own representative pack size, and a
  *     median pack measured in grams always lands in the RETAIL band (< 25 kg),
  *     the right ledger population for specimen pricing;
@@ -19,7 +19,7 @@
  *
  * Eligibility is deliberately narrower than the catalog average's: only a
  * single-element listing whose symbol the site's ledger actually covers, in a
- * form that maps 1:1 onto the records' form vocabulary (`metal`, `oxide` — the
+ * form that maps 1:1 onto the records' form vocabulary (`metal`, `oxide`, the
  * two are literal record values). Alloys, salts, minerals, high-tech and
  * equipment never compare: the ledger has no comparable population for them.
  *
@@ -40,7 +40,7 @@ const cache = new Map<string, LedgerComparison | null>();
 
 /**
  * Compute (or return the memoised) ledger positioning for one listing.
- * Null when the listing is ineligible or the gauge reports insufficient data —
+ * Null when the listing is ineligible or the gauge reports insufficient data;
  * never a fabricated comparison (hard rule #1).
  */
 export function computeLedgerComparison(listing: Listing): LedgerComparison | null {

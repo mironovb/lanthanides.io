@@ -21,7 +21,7 @@ export const SLUG_RE = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
 /** Calendar date, 'YYYY-MM-DD'. Always a quoted string in YAML (DESIGN §2.5). */
 export const ISO_DATE_RE = /^\d{4}-\d{2}-\d{2}$/;
 
-/** Month precision, 'YYYY-MM' — permitted for provenance dates only. */
+/** Month precision, 'YYYY-MM', permitted for provenance dates only. */
 export const YEAR_MONTH_RE = /^\d{4}-\d{2}$/;
 
 /**

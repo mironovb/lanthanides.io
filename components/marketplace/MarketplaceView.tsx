@@ -1,7 +1,7 @@
 'use client';
 
 /**
- * MarketplaceView: the interactive shell of /marketplace/ — filter chips for
+ * MarketplaceView: the interactive shell of /marketplace/, filter chips for
  * element and category, min/max USD bounds, a debounced free-text search over
  * the serialised `search_text` haystack (the exact field the listings API
  * matches, so island and endpoint can never disagree), a native sort select,
@@ -9,7 +9,7 @@
  *
  * The RegulatoryView contract, preserved exactly: this component is SSR'd with
  * every filter cleared, so the complete grid ships in the initial HTML and the
- * page reads, crawls, and works with JavaScript disabled — filtering is pure
+ * page reads, crawls, and works with JavaScript disabled, filtering is pure
  * progressive enhancement. Props are plain serialised DTOs; no `fs`, no
  * `lib/marketplace` runtime import crosses the client boundary.
  */
@@ -122,7 +122,7 @@ export function MarketplaceView({
         className="mt-2"
       />
 
-      {/* Price bounds, free text, sort — 44px-tall controls, all labelled. */}
+      {/* Price bounds, free text, sort, 44px-tall controls, all labelled. */}
       <div className="mt-2 grid grid-cols-2 gap-3 rounded-md border border-border bg-surface px-4 py-3 shadow-sm sm:grid-cols-[1fr_6.5rem_6.5rem_auto] sm:items-end">
         <div className="col-span-2 sm:col-span-1">
           <label htmlFor="marketplace-q" className={LABEL}>

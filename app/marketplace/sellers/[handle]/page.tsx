@@ -1,10 +1,10 @@
 /**
- * /marketplace/sellers/[handle]/ — seller profile.
+ * /marketplace/sellers/[handle]/, seller profile.
  *
  * SSG over the seller handles, `dynamicParams = false`. Identity header
  * (avatar, name, Verified badge, country, member-since, tagline), the seller
  * bio, one StatGrid (the seller's stated history from `sellers.yml` alongside
- * the file-derived listing and element counts), and the listings grid — a
+ * the file-derived listing and element counts), and the listings grid, a
  * plain server render, no island: the catalog is small and /marketplace/ is
  * the filterable surface.
  */

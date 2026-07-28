@@ -1,12 +1,12 @@
 /**
- * ListingCard: one marketplace listing tile. Purely presentational — it
+ * ListingCard: one marketplace listing tile. Purely presentational, it
  * receives a serialised `ListingSummaryDto` plus label/variant maps, imports
  * nothing server-only, and therefore renders identically under the client
  * filter island (`MarketplaceView`) and in plain server grids (seller page,
  * "more from this seller").
  *
  * The whole card is ONE link (to the listing page), so the element badges are
- * non-interactive spans here — the linked badges live on the detail page.
+ * non-interactive spans here, the linked badges live on the detail page.
  * Colour discipline: element badges reuse the site-catalog category variants,
  * the category is a neutral Chip; figures are mono/tabular, price prominent,
  * meta quieter.
@@ -80,7 +80,7 @@ export function ListingCard({
             <p className="mt-0.5 font-mono text-2xs tabular-nums text-fg-dim">
               {fmtMassRange(dto.mass_min_g, dto.mass_max_g)} · {sizesLabel}
             </p>
-            {/* Position against the sourced ledger — colour encodes meaning.
+            {/* Position against the sourced ledger, colour encodes meaning.
                 Deltas under 100% read as a whole percent; larger ones as a
                 multiple of the ledger mid (only reachable above the band). */}
             {ledger ? (

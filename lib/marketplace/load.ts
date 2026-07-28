@@ -3,11 +3,11 @@
  * `settings.yml` + `sellers.yml` (+ seller bio markdown), plus the shared
  * read/validate helpers the listing parser (`load-listings.ts`) builds on.
  *
- * Read-only: this layer NEVER writes to `_marketplace/` (DESIGN §3.5 — every
+ * Read-only: this layer NEVER writes to `_marketplace/` (DESIGN §3.5, every
  * data change is a reviewed git diff; backfill scripts print proposed front
  * matter for a human to commit). Each loader parses once and memoises the
  * result per process. YAML is read via the `yaml` package (which, unlike
- * gray-matter's js-yaml, leaves unquoted dates as strings — the Date-instance
+ * gray-matter's js-yaml, leaves unquoted dates as strings, the Date-instance
  * checks below are defence in depth). Validation runs at parse time so a
  * malformed file fails `npm run build` loudly, with a message naming the file,
  * the field path, and what was expected (DESIGN §3: fixable from the CI log
@@ -89,7 +89,7 @@ export function checkKeys(
     if (!allowed.includes(key)) {
       fail(
         file,
-        `${label} has unknown key "${key}" — allowed keys: ${allowed.join(', ')}`,
+        `${label} has unknown key "${key}", allowed keys: ${allowed.join(', ')}`,
       );
     }
   }
@@ -139,7 +139,7 @@ export function reqEnum<T extends string>(
   }
   return fail(
     file,
-    `"${field}" is ${JSON.stringify(value)} — allowed: ${allowed.join(', ')}`,
+    `"${field}" is ${JSON.stringify(value)}, allowed: ${allowed.join(', ')}`,
   );
 }
 
@@ -156,15 +156,15 @@ export function nullableEnum<T extends string>(
 
 /**
  * Require a quoted ISO 'YYYY-MM-DD' string. A `Date` instance means the YAML
- * value was unquoted and the parser (js-yaml, under gray-matter) converted it —
+ * value was unquoted and the parser (js-yaml, under gray-matter) converted it;
  * which serialises to a timestamp and can shift a day across timezones
- * (DESIGN §2.5) — so it fails with the exact fix.
+ * (DESIGN §2.5), so it fails with the exact fix.
  */
 export function reqISODate(file: string, field: string, value: unknown): string {
   if (value instanceof Date) {
     return fail(
       file,
-      `"${field}" must be a quoted ISO date string ("YYYY-MM-DD"); YAML parsed the unquoted date into a Date object — quote it`,
+      `"${field}" must be a quoted ISO date string ("YYYY-MM-DD"); YAML parsed the unquoted date into a Date object, quote it`,
     );
   }
   if (typeof value !== 'string' || !ISO_DATE_RE.test(value)) {
@@ -193,7 +193,7 @@ export function nullableCountry(
     return fail(
       file,
       `"${field}" ("${code}") is not an ISO-3166-1 alpha-2 code${
-        ISO_COUNTRIES.has(upper) ? ` — use uppercase "${upper}"` : ''
+        ISO_COUNTRIES.has(upper) ? `, use uppercase "${upper}"` : ''
       }`,
     );
   }
@@ -232,7 +232,7 @@ function readLabelMap<K extends string>(
     if (!(members as readonly string[]).includes(key)) {
       fail(
         file,
-        `"${field}" has unknown key "${key}" — allowed keys: ${members.join(', ')}`,
+        `"${field}" has unknown key "${key}", allowed keys: ${members.join(', ')}`,
       );
     }
   }
@@ -250,7 +250,7 @@ export const loadMarketplaceSettings = once<MarketplaceSettings>(() => {
   checkKeys(file, data, 'settings', SETTINGS_KEYS);
 
   if (data.currency !== 'USD') {
-    fail(file, `"currency" is ${JSON.stringify(data.currency)} — allowed: USD`);
+    fail(file, `"currency" is ${JSON.stringify(data.currency)}, allowed: USD`);
   }
   if (!isNonNegativeInteger(data.expected_listings)) {
     fail(
@@ -320,7 +320,7 @@ const CLAIM_KEYS = ['label', 'value', 'basis'] as const;
 
 /**
  * Optional long bio: the markdown body of `_marketplace/sellers/<handle>.md`
- * (front matter, if any, is ignored — DESIGN §1). Null when the file is absent
+ * (front matter, if any, is ignored, DESIGN §1). Null when the file is absent
  * or its body is blank. `handle` is regex-validated before this is called, so
  * the filename cannot be a traversal vector.
  */
@@ -367,7 +367,7 @@ function parseSeller(file: string, row: unknown, index: number): Seller {
   if (row.verified && verificationBasis === null) {
     fail(
       file,
-      `${label} has verified: true but no "verification_basis" — state exactly what "verified" covers`,
+      `${label} has verified: true but no "verification_basis", state exactly what "verified" covers`,
     );
   }
 
@@ -409,7 +409,7 @@ function parseSeller(file: string, row: unknown, index: number): Seller {
     if (claim.basis !== 'seller-declared') {
       fail(
         file,
-        `${claimLabel}.basis is ${JSON.stringify(claim.basis)} — allowed: seller-declared`,
+        `${claimLabel}.basis is ${JSON.stringify(claim.basis)}, allowed: seller-declared`,
       );
     }
     return {

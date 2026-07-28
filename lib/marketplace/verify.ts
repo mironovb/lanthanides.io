@@ -3,7 +3,7 @@
  * mirroring `lib/data/verify.ts`.
  *
  * Confirms the cross-file invariants the marketplace surfaces rely on:
- *   1. the listing count equals `settings.yml` `expected_listings` exactly —
+ *   1. the listing count equals `settings.yml` `expected_listings` exactly,
  *      the count gate that turns a file dropped by a bad merge into a red CI
  *      run instead of a silently shrunken catalog (DESIGN §3.1 rule 36; bump
  *      `expected_listings` in the same diff as every import),
@@ -48,7 +48,7 @@ export function verifyMarketplace(): MarketplaceVerifyReport {
 
   if (listings.length !== settings.expectedListings) {
     errors.push(
-      `expected ${settings.expectedListings} listings (settings.yml "expected_listings"), loaded ${listings.length} — bump expected_listings in _marketplace/settings.yml in the same diff as the listing files`,
+      `expected ${settings.expectedListings} listings (settings.yml "expected_listings"), loaded ${listings.length}, bump expected_listings in _marketplace/settings.yml in the same diff as the listing files`,
     );
   }
 
@@ -72,7 +72,7 @@ export function verifyMarketplace(): MarketplaceVerifyReport {
   for (const seller of sellers) {
     if (!handlesWithListings.has(seller.handle)) {
       console.warn(
-        `[lib/marketplace] seller "${seller.handle}" has zero listings (allowed — the profile page renders an empty grid)`,
+        `[lib/marketplace] seller "${seller.handle}" has zero listings (allowed, the profile page renders an empty grid)`,
       );
     }
   }

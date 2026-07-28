@@ -1,12 +1,12 @@
 /**
  * Pure marketplace display helpers, shared by the client islands and the
- * server pages. NO `fs`, NO `lib/marketplace` runtime imports — only type-only
+ * server pages. NO `fs`, NO `lib/marketplace` runtime imports, only type-only
  * imports plus `lib/format` (pure), so this module is safe on both sides of
  * the client boundary (the `RegulatoryView` arrangement).
  *
  * Money and mass rules: variant prices are integer USD cents, per-gram figures
  * are cents. Everything renders through `lib/format`'s USD helpers or the
- * cents-aware wrappers below — never ad-hoc string maths in a component.
+ * cents-aware wrappers below, never ad-hoc string maths in a component.
  */
 import type {
   ListingCategory,
@@ -62,9 +62,9 @@ export function fmtMass(grams: number): string {
   return `${grams.toLocaleString('en-US', { maximumFractionDigits: 2 })} g`;
 }
 
-/** "1 g – 900 g", collapsing to a single value when min === max. */
+/** "1 g to 900 g", collapsing to a single value when min === max. */
 export function fmtMassRange(minG: number, maxG: number): string {
-  return minG === maxG ? fmtMass(minG) : `${fmtMass(minG)} – ${fmtMass(maxG)}`;
+  return minG === maxG ? fmtMass(minG) : `${fmtMass(minG)} to ${fmtMass(maxG)}`;
 }
 
 /** "2025-11-14" / "2025-11" → "Nov 2025"; unparseable stays verbatim; null → null. */
@@ -94,7 +94,7 @@ export function countryDisplay(code: string | null): string {
 
 /**
  * Card one-liner: "Private Collection · KZ". Null when the source stated no
- * origin — the card then omits the line entirely.
+ * origin, the card then omits the line entirely.
  */
 export function provenanceLine(
   summary: ProvenanceSummaryDto,

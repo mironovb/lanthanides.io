@@ -5,13 +5,13 @@
   display_name: "Kazakh Elements"
   country: KZ
   # First commit of the periodictech store repository (the store demonstrably
-  # operated earlier — see the bio — but this is the earliest recorded date).
+  # operated earlier, see the bio, but this is the earliest recorded date).
   member_since: "2026-03-11"
   verified: true
   verification_basis: >-
     First-party seller: the store is operated by the site's founder, whose
     identity and ownership of the source catalog are known to the site
-    operator. "Verified" covers identity and catalog ownership only — it does
+    operator. "Verified" covers identity and catalog ownership only; it does
     not mean any material has been independently assayed.
   contact_email: "support@periodictech.com"
   avatar:
@@ -24,7 +24,7 @@
     - { label: "Years trading", value: "~6", basis: seller-declared }
     - { label: "Transactions to date", value: "~10,000", basis: seller-declared }
 
-# Demonstration seller (prototype review). EU laboratory-materials trader —
+# Demonstration seller (prototype review). EU laboratory-materials trader:
 # a demo identity: the contact address is an .example domain by design, and
 # verification_basis records the truth of what "verified" covers here.
 - handle: nordelement
@@ -42,7 +42,7 @@
   tagline: "Laboratory metals and sealed research lots, shipped from Tallinn."
   declared_claims: []
 
-# Demonstration seller (prototype review). US collector-dealer — a demo
+# Demonstration seller (prototype review). US collector-dealer, a demo
 # identity: the contact address is an .example domain by design, and
 # verification_basis records the truth of what "verified" covers here.
 - handle: graymatterspecimens

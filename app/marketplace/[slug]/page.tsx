@@ -1,14 +1,14 @@
 /**
- * /marketplace/[slug]/ — listing detail.
+ * /marketplace/[slug]/, listing detail.
  *
  * SSG over every listing slug, `dynamicParams = false` (unknown slugs are the
  * framework 404), mirroring /elements/[symbol]. Two-column top on lg: the
- * photograph column beside the price and origin panels — origin & provenance
+ * photograph column beside the price and origin panels, origin & provenance
  * sits immediately after price, before the description.
  *
  * Signature elements: the ledger position strip (the listing's per-kg price
- * placed on the sourced ledger's retail band — marker colour encodes price
- * position) and the pack-size price ladder — a hairline per-row bar in the
+ * placed on the sourced ledger's retail band, marker colour encodes price
+ * position) and the pack-size price ladder, a hairline per-row bar in the
  * Per-gram column scaled within the listing, so the quantity-discount curve
  * is visible at a glance. Pure CSS widths, no motion.
  *
@@ -341,7 +341,7 @@ export default function ListingDetailPage({ params }: { params: Params }) {
               <div className="mt-2 space-y-1">
                 {notedVariants.map((v) => (
                   <p key={v.legacySku} className="text-xs text-fg-dim">
-                    * {v.label} — {v.note}
+                    * {v.label}: {v.note}
                   </p>
                 ))}
               </div>

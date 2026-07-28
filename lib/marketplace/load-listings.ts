@@ -13,7 +13,7 @@
  * Soft, buyer-relevant warnings (DESIGN §3.3) never fail the build: they are
  * collected into `dataQualityFlags` and simultaneously `console.warn`ed.
  *
- * Read-only, server-only (`fs`), memoised per process — see `load.ts`.
+ * Read-only, server-only (`fs`), memoised per process, see `load.ts`.
  */
 import { existsSync, readdirSync } from 'node:fs';
 import { join } from 'node:path';
@@ -72,7 +72,7 @@ import {
 } from './validate';
 
 /**
- * The authored front-matter schema — exactly the snake_case keys of the
+ * The authored front-matter schema, exactly the snake_case keys of the
  * `Listing` contract (derived fields are computed here, never authored, so
  * they cannot appear in a file). An unknown key fails the build with this
  * list in the message (DESIGN §3.1 rule 6, §3.2).
@@ -155,7 +155,7 @@ function nullableProvenanceDate(file: string, field: string, value: unknown): st
   if (value instanceof Date) {
     return fail(
       file,
-      `"${field}" must be a quoted date string ("YYYY-MM-DD" or "YYYY-MM"); YAML parsed the unquoted date into a Date object — quote it`,
+      `"${field}" must be a quoted date string ("YYYY-MM-DD" or "YYYY-MM"); YAML parsed the unquoted date into a Date object, quote it`,
     );
   }
   if (typeof value !== 'string' || !(ISO_DATE_RE.test(value) || YEAR_MONTH_RE.test(value))) {
@@ -211,7 +211,7 @@ function parseVariants(file: string, raw: unknown): ListingVariant[] {
     skus.add(v.legacySku);
   }
 
-  // Ascending by mass, stable (no fail on authored order — the loader owns it).
+  // Ascending by mass, stable (no fail on authored order, the loader owns it).
   return [...variants].sort((a, b) => a.massG - b.massG);
 }
 
@@ -233,7 +233,7 @@ function parseImages(file: string, raw: unknown, slug: string): ListingImage[] {
     if (!(IMAGE_EXTENSIONS as readonly string[]).includes(ext)) {
       fail(
         file,
-        `${path}.path extension "${ext}" is not allowed — allowed: ${IMAGE_EXTENSIONS.join(', ')}`,
+        `${path}.path extension "${ext}" is not allowed, allowed: ${IMAGE_EXTENSIONS.join(', ')}`,
       );
     }
     if (!existsSync(join(process.cwd(), 'public', webPath))) {
@@ -245,7 +245,7 @@ function parseImages(file: string, raw: unknown, slug: string): ListingImage[] {
       // Soft warning only (PLAN relaxed DESIGN's ≥12 hard rule: the source
       // catalog's alts are short but honest).
       console.warn(
-        `[lib/marketplace] _marketplace/${file}: ${path}.alt is shorter than 12 characters ("${alt}") — kept, but consider a fuller description of the photo`,
+        `[lib/marketplace] _marketplace/${file}: ${path}.alt is shorter than 12 characters ("${alt}"), kept, but consider a fuller description of the photo`,
       );
     }
 
@@ -299,7 +299,7 @@ function parseSpecs(file: string, raw: unknown): SpecRow[] {
     if (!isObject(entry)) fail(file, `${path} is not a mapping`);
     checkKeys(file, entry, path, SPEC_KEYS, SPEC_REQUIRED);
     if (typeof entry.value === 'number') {
-      fail(file, `${path}.value must be a string — quote numeric values ("${entry.value}")`);
+      fail(file, `${path}.value must be a string, quote numeric values ("${entry.value}")`);
     }
     return {
       label: reqString(file, `${path}.label`, entry.label),
@@ -333,7 +333,7 @@ function parseChain(file: string, raw: unknown): ProvenanceStep[] | null {
     if (entry.step !== i + 1) {
       fail(
         file,
-        `${path}.step is ${JSON.stringify(entry.step)} — steps must be contiguous from 1 (expected ${i + 1})`,
+        `${path}.step is ${JSON.stringify(entry.step)}, steps must be contiguous from 1 (expected ${i + 1})`,
       );
     }
     return {
@@ -391,7 +391,7 @@ function parseProvenance(
   if (!isObject(raw)) {
     fail(
       file,
-      '"provenance" block is missing or not a mapping — a listing without provenance is not publishable here',
+      '"provenance" block is missing or not a mapping, a listing without provenance is not publishable here',
     );
   }
   checkKeys(file, raw, 'provenance', PROVENANCE_KEYS);
@@ -454,7 +454,7 @@ function parseListing(
   if (RESERVED_SLUGS.has(slug)) {
     fail(
       file,
-      `"slug" ("${slug}") is a reserved route segment — reserved: ${[...RESERVED_SLUGS].join(', ')}`,
+      `"slug" ("${slug}") is a reserved route segment, reserved: ${[...RESERVED_SLUGS].join(', ')}`,
     );
   }
   const stem = fileName.replace(/\.md$/, '');
@@ -472,7 +472,7 @@ function parseListing(
   if (!sellerHandles.has(sellerHandle)) {
     fail(
       file,
-      `"seller" ("${sellerHandle}") does not resolve in _marketplace/sellers.yml — known handles: ${[...sellerHandles].join(', ') || '(none)'}`,
+      `"seller" ("${sellerHandle}") does not resolve in _marketplace/sellers.yml, known handles: ${[...sellerHandles].join(', ') || '(none)'}`,
     );
   }
 
@@ -486,7 +486,7 @@ function parseListing(
       fail(
         file,
         `elements[${i}] (${JSON.stringify(v)}) is not a periodic-table symbol${
-          canonical ? ` — symbols are case-sensitive; did you mean "${canonical}"?` : ''
+          canonical ? `, symbols are case-sensitive; did you mean "${canonical}"?` : ''
         }`,
       );
     }
@@ -523,20 +523,20 @@ function parseListing(
     if (fm.primary_element !== null) {
       fail(
         file,
-        `"primary_element" must be null when "elements" has ${elements.length} symbols — only a single-element listing has a per-gram statistics key (got ${JSON.stringify(fm.primary_element)})`,
+        `"primary_element" must be null when "elements" has ${elements.length} symbols, only a single-element listing has a per-gram statistics key (got ${JSON.stringify(fm.primary_element)})`,
       );
     }
     primaryElement = null;
   }
 
   // form: the statistics axis. Required for material categories; forbidden for
-  // high-tech/equipment — the guard that keeps a sputtering target out of the
+  // high-tech/equipment, the guard that keeps a sputtering target out of the
   // per-gram metal average (DESIGN §3.1 rule 29).
   const form = nullableEnum(file, 'form', fm.form, MATERIAL_FORMS);
   if (isMaterial && form === null) {
     fail(
       file,
-      `"form" must be non-null for material category "${category}" — allowed: ${MATERIAL_FORMS.join(', ')}`,
+      `"form" must be non-null for material category "${category}", allowed: ${MATERIAL_FORMS.join(', ')}`,
     );
   }
   if (!isMaterial && form !== null) {
@@ -555,7 +555,7 @@ function parseListing(
     if (!isFiniteNumber(purityRaw)) {
       fail(
         file,
-        `"purity_pct" must be a YAML number or null (got ${JSON.stringify(purityRaw)}) — write N-notation like "4N" in "purity_basis"`,
+        `"purity_pct" must be a YAML number or null (got ${JSON.stringify(purityRaw)}), write N-notation like "4N" in "purity_basis"`,
       );
     }
     if (purityRaw <= 0 || purityRaw > 100) {
@@ -571,7 +571,7 @@ function parseListing(
   const variants = parseVariants(file, fm.variants);
 
   if (fm.currency !== 'USD') {
-    fail(file, `"currency" is ${JSON.stringify(fm.currency)} — allowed: USD`);
+    fail(file, `"currency" is ${JSON.stringify(fm.currency)}, allowed: USD`);
   }
 
   const readNonNegIntOrNull = (field: 'moq_units' | 'stock_units'): number | null => {
@@ -592,7 +592,7 @@ function parseListing(
   if (!isMaterial && condition === null) {
     fail(
       file,
-      `"condition" must be non-null for category "${category}" — allowed: ${LISTING_CONDITIONS.join(', ')}`,
+      `"condition" must be non-null for category "${category}", allowed: ${LISTING_CONDITIONS.join(', ')}`,
     );
   }
 
@@ -604,7 +604,7 @@ function parseListing(
   }
 
   // Dates: quoted ISO strings, ordered, never in the future (a future date
-  // would make the build non-deterministic — DESIGN §3.1 rule 33).
+  // would make the build non-deterministic, DESIGN §3.1 rule 33).
   const listedOn = reqISODate(file, 'listed_on', fm.listed_on);
   const updatedAt = reqISODate(file, 'updated_at', fm.updated_at);
   if (updatedAt < listedOn) {
@@ -634,7 +634,7 @@ function parseListing(
   }
 
   if (content.trim() === '') {
-    fail(file, 'markdown body is empty — the listing description is required');
+    fail(file, 'markdown body is empty, the listing description is required');
   }
 
   // Soft, buyer-relevant flags (DESIGN §3.3): surfaced, never fatal.
@@ -648,7 +648,7 @@ function parseListing(
   if (daysBetween(updatedAt, today) > staleListingDays) flags.push('stale_listing');
   if (stockUnits === 0) flags.push('out_of_stock');
   for (const flag of flags) {
-    console.warn(`[lib/marketplace] _marketplace/${file}: ${flag} — ${FLAG_REASONS[flag]}`);
+    console.warn(`[lib/marketplace] _marketplace/${file}: ${flag}, ${FLAG_REASONS[flag]}`);
   }
 
   const primaryImage = images.find((img) => img.isPrimary) as ListingImage; // exactly one, asserted above
@@ -701,7 +701,7 @@ function parseListing(
  *
  * Graceful-empty rule (PLAN P1): a missing or empty `listings/` directory is a
  * legitimate bootstrap state ONLY while `settings.yml` says
- * `expected_listings: 0`; otherwise it fails — a dropped directory must never
+ * `expected_listings: 0`; otherwise it fails, a dropped directory must never
  * silently ship an empty marketplace.
  */
 export const loadListings = once<Listing[]>(() => {
@@ -733,7 +733,7 @@ export const loadListings = once<Listing[]>(() => {
   );
 
   // Duplicate slugs are only reachable via case variance or a stale
-  // front-matter slug (both already fail above) — checked anyway (§3.1 rule 4).
+  // front-matter slug (both already fail above), checked anyway (§3.1 rule 4).
   const bySlug = new Map<string, string>();
   for (let i = 0; i < listings.length; i += 1) {
     const prev = bySlug.get(listings[i].slug);

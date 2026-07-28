@@ -1,12 +1,12 @@
 /**
  * Marketplace data contracts (docs/marketplace/DESIGN.md §2, as amended by
- * PLAN.md "Schema deltas"). This file IS the schema: there is no database —
+ * PLAN.md "Schema deltas"). This file IS the schema: there is no database;
  * listings live as versioned files under `_marketplace/`, validated at build
  * time by `lib/marketplace/load.ts`, and every schema change is a reviewed
  * git diff paired with the data migration it requires (DESIGN §3.5).
  *
  * Boundary rule: files and API JSON are snake_case; TypeScript is camelCase.
- * The mapping lives in `load.ts` (in) and `serialize.ts` (out) — nowhere else.
+ * The mapping lives in `load.ts` (in) and `serialize.ts` (out), nowhere else.
  */
 // Type-only imports (erased at compile): the ledger-comparison contract reuses
 // the gauge's own vocabulary so the two can never drift.
@@ -109,7 +109,7 @@ export interface ListingVariant {
   legacySku: string;
   /** Display label, verbatim from the source (e.g. "25 g", "4.4 kg", "325 g (as pictured)"). */
   label: string;
-  /** Mass in grams. The numeric source of truth — never parse `label`. */
+  /** Mass in grams. The numeric source of truth, never parse `label`. */
   massG: number;
   /** Integer USD cents. */
   priceUsdCents: number;
@@ -156,7 +156,7 @@ export interface ProvenanceDocument {
 export interface ProvenanceRecord {
   sourceType: ProvenanceSourceType;
   sourceName: string | null;
-  /** ISO-3166-1 alpha-2, uppercase — or null when the source never stated an origin ("Not stated"). */
+  /** ISO-3166-1 alpha-2, uppercase, or null when the source never stated an origin ("Not stated"). */
   country: string | null;
   region: string | null;
   acquiredOn: string | null; // ISO date or 'YYYY-MM'
@@ -210,7 +210,7 @@ export interface Listing {
   images: ListingImage[]; // ≥1
   provenance: ProvenanceRecord;
   tags: string[] | null;
-  /** Markdown body — the source description, verbatim. */
+  /** Markdown body, the source description, verbatim. */
   body: string;
 
   // Derived in the loader (never authored, so they cannot drift):
@@ -222,7 +222,7 @@ export interface Listing {
   dataQualityFlags: DataQualityFlag[];
   /** `/marketplace/<slug>/` */
   url: string;
-  /** `elements` ∩ the site's element catalog — drives /elements/<Sym>/ cross-links. Decorated in index.ts. */
+  /** `elements` ∩ the site's element catalog, drives /elements/<Sym>/ cross-links. Decorated in index.ts. */
   catalogElements: string[];
 }
 
@@ -249,7 +249,7 @@ export interface Seller {
   country: string;
   memberSince: ISODate;
   verified: boolean;
-  /** Required when verified — what "verified" actually covers. */
+  /** Required when verified, what "verified" actually covers. */
   verificationBasis: string | null;
   contactEmail: string;
   avatar: SellerAvatar;
@@ -280,7 +280,7 @@ export interface MarketplaceSettings {
 
 /**
  * Per (element × form): the seller-catalog per-gram statistic. NOT a market
- * price and NOT the site's sourced reference prices — see DESIGN §4.7. The
+ * price and NOT the site's sourced reference prices, see DESIGN §4.7. The
  * words "reference price" / "market price" are banned on marketplace surfaces.
  */
 export interface CatalogAverageCell {
@@ -290,7 +290,7 @@ export interface CatalogAverageCell {
   avgPerGramCents: number;
   minPerGramCents: number;
   maxPerGramCents: number;
-  /** Contributing variants (pack sizes pooled — disclose). */
+  /** Contributing variants (pack sizes pooled, disclose). */
   sampleSize: number;
   /** Distinct contributing listings. */
   listingCount: number;
@@ -317,7 +317,7 @@ export interface CatalogAverageHint {
 // Positions a listing's price against the site's sourced reference ledger via
 // the price-gauge engine, so the UI can show above/below-reference zoning.
 // This EXPLICITLY overrules DESIGN §4.3's ban on rendering ledger figures next
-// to marketplace prices — by owner instruction, for this feature only. The
+// to marketplace prices, by owner instruction, for this feature only. The
 // data still flows one way (ledger → marketplace UI); marketplace prices never
 // feed the ledger (DESIGN Q2 stands).
 
@@ -330,7 +330,7 @@ export type LedgerZone = 'below' | 'within' | 'above';
  * Derived in `ledger.ts`, never authored. Null (no comparison at all) when the
  * listing has no single catalog element, its form is not `metal`/`oxide` (the
  * only 1:1 mappings onto the ledger's form vocabulary), or the gauge reports
- * insufficient data — the engine never invents a number (hard rule #1).
+ * insufficient data, the engine never invents a number (hard rule #1).
  */
 export interface LedgerComparison {
   elementSymbol: string;

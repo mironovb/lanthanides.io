@@ -6,7 +6,7 @@
  * Integrity is checked once, lazily, on first access: each accessor calls
  * `ensureMarketplaceIntegrity()`, which runs `assertMarketplaceIntegrity()` a
  * single time and throws if the files violate their invariants, so a broken
- * `_marketplace/` fails `npm run build` rather than rendering wrong pages —
+ * `_marketplace/` fails `npm run build` rather than rendering wrong pages,
  * exactly the `ensureVerified()` arrangement in `lib/data/index.ts`.
  *
  * Server-only (transitively uses `fs`): import from Server Components / route
@@ -66,7 +66,7 @@ const ensureMarketplaceIntegrity = (() => {
 /**
  * Listings with `catalogElements` decorated: `elements` ∩ the site's element
  * catalog. This is the ONLY cross-import from `lib/data`, and it is a
- * NAVIGATION join, nothing more — a symbol intersection so listing pages can
+ * NAVIGATION join, nothing more, a symbol intersection so listing pages can
  * cross-link `/elements/<Sym>/` and reuse the regulatory badge for symbols
  * the site actually covers. Price data never crosses between the modules in
  * either direction: marketplace prices never feed the ledger, and the site's
@@ -129,7 +129,7 @@ export function getSellerListings(handle: string): Listing[] {
 }
 
 /**
- * Listings containing `symbol` (case-sensitive, full periodic table — pass a
+ * Listings containing `symbol` (case-sensitive, full periodic table, pass a
  * catalog symbol to power the `/elements/<Sym>/` cross-link block).
  */
 export function getListingsByElement(symbol: string): Listing[] {
@@ -172,7 +172,7 @@ export function getMarketplaceFacets(): MarketplaceFacets {
 // ── Catalog averages ─────────────────────────────────────────────────────────
 
 /**
- * All publishable (element × form) cells — cells under
+ * All publishable (element × form) cells, cells under
  * `catalogAverageMinVariants` are omitted entirely (DESIGN §5.4).
  */
 export function getCatalogAverages(): CatalogAverageCell[] {
@@ -182,7 +182,7 @@ export function getCatalogAverages(): CatalogAverageCell[] {
 
 /**
  * The leave-one-out comparison hint for one listing's detail page (DESIGN
- * §4.5). An ineligible listing (§4.2 — placeholder, multi-element, form-less,
+ * §4.5). An ineligible listing (§4.2, placeholder, multi-element, form-less,
  * author-excluded, or sold out) gets the empty hint: no cell, no comparison.
  */
 export function getCatalogAverageForListing(listing: Listing): CatalogAverageHint {
@@ -207,7 +207,7 @@ export function getCatalogAverageForListing(listing: Listing): CatalogAverageHin
 
 /**
  * The listing's positioning against the site's sourced reference ledger, via
- * the price-gauge engine at the listing's median pack size (see `ledger.ts` —
+ * the price-gauge engine at the listing's median pack size (see `ledger.ts`;
  * the DESIGN §4.3 ban is owner-overruled for this feature). Null when the
  * listing has no single catalog element, its form is not metal/oxide, or the
  * gauge reports insufficient data. Memoised per slug.

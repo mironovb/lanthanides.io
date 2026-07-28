@@ -1,17 +1,17 @@
 /**
- * LedgerPositionStrip: the detail-page signature strip — a horizontal track
+ * LedgerPositionStrip: the detail-page signature strip, a horizontal track
  * representing the ledger's retail band ([low → high] shaded, mid tick) with
  * the listing's own per-kg price as a diamond marker. Marker colour encodes
  * price position (the site's meaning-bearing use of colour): below mid →
  * `up` green, above → `down` red, within the band → neutral.
  *
  * Scale maps [min(low, listing)×0.9 → max(high, listing)×1.1] linearly, but
- * the domain never stretches further than 3× beyond the band — retail
+ * the domain never stretches further than 3× beyond the band, retail
  * specimen prices can sit at 28× the industrial ledger mid, and an uncapped
  * scale would crush the band to a sliver. A listing beyond the capped domain
  * clamps to the track edge with an off-scale chevron; the caption always
  * prints the real numbers. Pure CSS widths, no animation; the track is
- * aria-hidden — the caption row carries every figure as text.
+ * aria-hidden, the caption row carries every figure as text.
  */
 import { fmtUsdPrice } from '@/lib/format';
 import type { LedgerComparisonDto } from '@/lib/marketplace/serialize';
@@ -89,7 +89,7 @@ export function LedgerPositionStrip({
           {comparison.variant_label_basis})
         </span>
         <span>
-          ledger {fmtUsdPrice(low)}–{fmtUsdPrice(high)}/kg · mid{' '}
+          ledger {fmtUsdPrice(low)} to {fmtUsdPrice(high)}/kg · mid{' '}
           {fmtUsdPrice(mid)} · {records}
           {nearestForm} · {comparison.confidence} confidence
         </span>

@@ -2,7 +2,7 @@
  * Seller avatar via next/image with the stored intrinsic dimensions. The seed
  * avatar is a local SVG; SVGs must bypass the image optimizer (there is no
  * `images.dangerouslyAllowSVG` config in this repo, deliberately), so `.svg`
- * paths render `unoptimized` — served as-is from `public/`.
+ * paths render `unoptimized`, served as-is from `public/`.
  */
 import Image from 'next/image';
 import type { SellerAvatar } from '@/lib/marketplace/types';

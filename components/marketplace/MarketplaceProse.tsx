@@ -1,6 +1,6 @@
 /**
  * Markdown renderer for seller-authored marketplace text (listing bodies,
- * seller bios). remark-gfm only — deliberately NO rehype-raw, unlike the
+ * seller bios). remark-gfm only, deliberately NO rehype-raw, unlike the
  * content-collection renderer: marketplace bodies are plain markdown imported
  * from the seller's catalog, and inline HTML must never execute here
  * (DESIGN §2.1).

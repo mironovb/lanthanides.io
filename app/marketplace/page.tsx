@@ -1,16 +1,16 @@
 /**
- * /marketplace/ — the marketplace index.
+ * /marketplace/, the marketplace index.
  *
  * SSG: every listing is read from `_marketplace/` at build time through
  * `lib/marketplace`, serialised to plain DTOs, and handed to the
  * `MarketplaceView` client island with all filters cleared, so the full grid
- * ships in the initial HTML (the RegulatoryView contract — the page works
+ * ships in the initial HTML (the RegulatoryView contract, the page works
  * without JavaScript).
  *
  * Masthead: serif H1, one-line lead, and a single quiet mono meta-line whose
  * figures are derived live from the files; beneath it the sellers rail, then
  * the filterable grid. Marketplace prices never mix with the ledger's
- * reference dataset — the closing line states the separation.
+ * reference dataset, the closing line states the separation.
  */
 import type { Metadata } from 'next';
 
@@ -33,7 +33,7 @@ import {
 } from '@/components/marketplace/server';
 
 const DESCRIPTION =
-  'Element samples, alloys, and specimen-grade materials from verified sellers — every listing with provenance, specifications, and pack-size pricing.';
+  'Element samples, alloys, and specimen materials from verified sellers. Every listing shows its provenance, specifications, and pack prices.';
 
 export const metadata: Metadata = buildMetadata({
   title: 'Marketplace',
@@ -99,9 +99,8 @@ export default function MarketplacePage() {
 
       <PageHeader
         crumbs={[{ label: 'Home', href: '/' }, { label: 'Marketplace' }]}
-        eyebrow="Marketplace"
         title="Marketplace"
-        lead="Element samples, alloys, and specimen-grade materials from verified sellers — every listing with provenance and pack-size pricing."
+        lead="Element samples, alloys, and specimen materials from verified sellers. Every listing shows its provenance, specifications, and pack prices."
       >
         <p className="mt-4 font-mono text-xs tabular-nums text-fg-dim">
           {metaLine}
