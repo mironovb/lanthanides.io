@@ -16,22 +16,22 @@ variants:
   - legacy_sku: "394098466929"
     label: "5 g"
     mass_g: 5
-    price_usd_cents: 2400
+    price_usd_cents: 3300
     note: null
   - legacy_sku: "396283965297"
     label: "10 g"
     mass_g: 10
-    price_usd_cents: 2800
+    price_usd_cents: 3800
     note: null
   - legacy_sku: "396337946963"
     label: "25 g"
     mass_g: 25
-    price_usd_cents: 8900
+    price_usd_cents: 12100
     note: null
   - legacy_sku: "396339961589"
     label: "50 g"
     mass_g: 50
-    price_usd_cents: 18800
+    price_usd_cents: 25500
     note: null
 currency: "USD"
 moq_units: null

@@ -16,42 +16,42 @@ variants:
   - legacy_sku: "396780019316"
     label: "5 g"
     mass_g: 5
-    price_usd_cents: 2400
+    price_usd_cents: 5000
     note: null
   - legacy_sku: "396337957570"
     label: "10 g"
     mass_g: 10
-    price_usd_cents: 3600
+    price_usd_cents: 7600
     note: null
   - legacy_sku: "396339900108"
     label: "25 g"
     mass_g: 25
-    price_usd_cents: 6900
+    price_usd_cents: 14500
     note: null
   - legacy_sku: "396780020467"
     label: "100 g"
     mass_g: 100
-    price_usd_cents: 13800
+    price_usd_cents: 29000
     note: null
   - legacy_sku: "396532418076"
     label: "150 g"
     mass_g: 150
-    price_usd_cents: 20900
+    price_usd_cents: 44000
     note: null
   - legacy_sku: "396780032097"
     label: "250 g"
     mass_g: 250
-    price_usd_cents: 33800
+    price_usd_cents: 71100
     note: null
   - legacy_sku: "396780038552"
     label: "450 g"
     mass_g: 450
-    price_usd_cents: 59900
+    price_usd_cents: 126000
     note: null
   - legacy_sku: "396783052593"
     label: "900 g"
     mass_g: 900
-    price_usd_cents: 117700
+    price_usd_cents: 247600
     note: null
 currency: "USD"
 moq_units: null

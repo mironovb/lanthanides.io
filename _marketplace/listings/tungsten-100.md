@@ -16,7 +16,7 @@ variants:
   - legacy_sku: "394537858684"
     label: "100 g"
     mass_g: 100
-    price_usd_cents: 2800
+    price_usd_cents: 500
     note: null
 currency: "USD"
 moq_units: null

@@ -33,7 +33,7 @@ hero PNGs 4,
 | Variants | 90 | 90 across the loaded listings | YES |
 | Photos | 19 refs to 18 unique files | 19 per-slug copies (18 unique + 1 shared duplicate: `cadmium.jpg` serves both `cadmium-6n` and `cadmium-ingot-996`) | YES |
 | Documents (COA/PDF) | 0 | 0 imported; every `provenance.documents` is null | YES |
-| Price range | $22.00 - $7,540.00 (RECON §6) | $22.00 - $7,540.00 (measured) | YES |
+| Price range | $22.00 - $7,540.00 (RECON §6) | $5.00 - $10,850.00 (measured) | CHECK |
 
 Copies are byte-identical (no re-encode); image dimensions were measured with
 `sips` and stored in each listing's front matter.
@@ -57,18 +57,36 @@ preserved verbatim in each listing's reviewer-only `source.category`.
 - **Listings missing explicit provenance: 3 / 19** — `rose-453`, `woods-metal`, `devardas-alloy` (the three alloys; no `Origin:` bullet in the source). Each gets the honest fallback: `country: null` (renders "Not stated"), `source_type: private-collection`, `verification_status: seller-declared`, and the note *"No origin stated in the source catalog. Imported from the periodictech catalog; provenance verification pending."* The seller's Kazakhstan claim was **not** extended to them (ASSUMPTIONS #5).
 - The 16 elemental listings all carry a literal `Origin: Kazakhstan` bullet (asserted during the run) → `country: "KZ"`, still `seller-declared` with a verification-pending note. No COA/certificate exists anywhere in the source, so `documents: null` on all 19.
 
-## 5. Price inversions (imported verbatim, flagged)
+## 5. Owner price adjustments (ledger alignment) and inversions
 
-The mass-ascending price scan found exactly the two inversions the source's own
-comments flag as pending owner review — no others:
+Owner-directed reprice (2026-07-28): the listings below are scaled by a fixed
+per-listing factor so their median-pack price sits at (or, for the two cheap
+base metals, much nearer) the site's sourced reference band. Factors were
+computed once from the price-gauge band and are baked into the script, so
+imports stay deterministic. Rounding: whole dollars, $5 pack floor, then a
+non-decreasing repair by mass. All other listings keep their source prices
+verbatim.
+
+| Listing | Factor | From-price now |
+|---|---|---|
+| bismuth-6n | ×0.25 | $7.00 |
+| selenium | ×0.25 | $6.00 |
+| tungsten-100 | ×0.193 | $5.00 |
+| zirconium | ×0.307 | $8.00 |
+| indium-25450 | ×0.448 | $15.00 |
+| scandium-1900 | ×1.439 | $35.00 |
+| terbium | ×1.457 | $32.00 |
+| holmium | ×2.104 | $50.00 |
+| thulium | ×1.358 | $33.00 |
+
+The repricing repaired terbium's source inversion (90 g had been priced above
+150 g). The remaining, untouched inversion is flagged, not fixed:
 
 | Listing | Lighter pack | Heavier pack (cheaper) | Flag |
 |---|---|---|---|
-| terbium | 90 g at $539.00 | 150 g at $534.00 | `90 g` variant carries the note |
 | devardas-alloy | 250 g at $51.00 | 450 g at $49.00 | `450 g` variant carries the note |
 
-Both anomalous variants carry the note: *"Price flagged for review in the source catalog (heavier pack priced below a lighter one); imported verbatim."* Prices were not
-"fixed" — that would fabricate data.
+The flagged variant carries the note: *"Price flagged for review in the source catalog (heavier pack priced below a lighter one); imported verbatim."*
 
 ## 6. Exclusions (third-party marks / non-catalog, ASSUMPTIONS #14)
 
@@ -157,19 +175,19 @@ variant (below the 3-variant floor), so they appear in no cell:
 
 | Element | Form | Variants | Listings | Median ¢/g |
 |---|---|---|---|---|
-| Bi | metal | 5 | 1 | 37 |
+| Bi | metal | 5 | 1 | 9.2 |
 | Cd | metal | 5 | 2 | 28 |
 | Co | metal | 3 | 1 | 15.6 |
-| Ho | metal | 8 | 1 | 138.7 |
-| In | metal | 6 | 1 | 73.3 |
+| Ho | metal | 8 | 1 | 291.7 |
+| In | metal | 6 | 1 | 32.7 |
 | Pb | metal | 5 | 1 | 25 |
-| Sc | metal | 10 | 1 | 838.8 |
-| Se | metal | 5 | 1 | 60 |
-| Tb | metal | 8 | 1 | 407 |
+| Sc | metal | 10 | 1 | 1207 |
+| Se | metal | 5 | 1 | 15.6 |
+| Tb | metal | 8 | 1 | 642.7 |
 | Te | metal | 10 | 1 | 55 |
-| Tm | metal | 4 | 1 | 366 |
+| Tm | metal | 4 | 1 | 497 |
 | V | metal | 10 | 2 | 145.7 |
-| Zr | metal | 5 | 1 | 48.8 |
+| Zr | metal | 5 | 1 | 14.9 |
 
 13 cells will appear in the price-reference API. Both V and Cd
 cells pool two listings each; every other cell is a single listing.
@@ -283,3 +301,11 @@ devardas-alloy and nowhere else, all 19 photos are byte-identical copies
 KZ only where the source literally states Kazakhstan, null for the three
 alloys, no documents, certificates, mines, dates, or source names invented
 anywhere. No corrective action required.
+
+### Amendment (2026-07-28, post-audit)
+
+The audit above verified prices against the source **before** the
+owner-directed ledger reprice (report §5, ASSUMPTIONS #23). For the nine
+repriced listings, marketplace prices now intentionally differ from the
+source catalog by the documented fixed factors; titles, bodies, specs,
+photos, and provenance remain as audited.

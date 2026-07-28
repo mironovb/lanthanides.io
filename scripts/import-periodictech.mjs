@@ -70,7 +70,31 @@ const CATEGORY_MAP = {
 /** The two real price inversions (RECON §6, ASSUMPTIONS #13): slug|variant-label → note. */
 const INVERSION_NOTE =
   'Price flagged for review in the source catalog (heavier pack priced below a lighter one); imported verbatim.';
-const INVERSION_VARIANTS = new Set(['terbium|90 g', 'devardas-alloy|450 g']);
+// Terbium's source inversion is repaired by the owner reprice below; only the
+// untouched Devarda's alloy still carries the source's own review flag.
+const INVERSION_VARIANTS = new Set(['devardas-alloy|450 g']);
+
+// Owner-directed reprice (2026-07-28): align the catalog with the site's
+// sourced reference ledger. Factors are FIXED (computed once from the
+// price-gauge band at each listing's median pack size) so imports stay
+// deterministic and never track ledger drift. Rule: below-band listings come
+// up to just inside the band's low edge; above-band listings come down to the
+// band mid; bismuth and selenium (reference bands sit at industrial levels,
+// ~$13-22/kg) are capped at 0.25 so pack prices stay commercially sane.
+// Every price is scaled uniformly per listing, rounded to whole dollars with
+// a $5 pack floor, then repaired to non-decreasing totals by mass.
+const PRICE_ADJUSTMENTS = {
+  'bismuth-6n': 0.25,
+  selenium: 0.25,
+  'tungsten-100': 0.193,
+  zirconium: 0.307,
+  'indium-25450': 0.448,
+  'scandium-1900': 1.439,
+  terbium: 1.457,
+  holmium: 2.104,
+  thulium: 1.358,
+};
+const MIN_PACK_CENTS = 500;
 
 /**
  * `Form:` bullet → display shape (lib/marketplace/types.ts LISTING_SHAPES).
@@ -414,14 +438,33 @@ for (const p of products) {
   const shape = mapShape(slug, formBullet);
   const form = isAlloy ? 'alloy' : 'metal';
 
-  // Variants: verbatim, with the two real source price inversions annotated.
+  // Variants: verbatim except where the owner reprice applies (uniform factor,
+  // whole-dollar rounding, $5 pack floor, then non-decreasing repair). The
+  // remaining source inversion (Devarda's) keeps the source's review note.
+  const factor = PRICE_ADJUSTMENTS[slug] ?? null;
   const variants = p.variants.map((v) => ({
     legacy_sku: v.sku,
     label: v.label,
     mass_g: v.massGrams,
-    price_usd_cents: v.unitAmount,
+    price_usd_cents:
+      factor === null
+        ? v.unitAmount
+        : Math.max(MIN_PACK_CENTS, Math.round((v.unitAmount * factor) / 100) * 100),
     note: INVERSION_VARIANTS.has(`${slug}|${v.label}`) ? INVERSION_NOTE : null,
   }));
+  if (factor !== null) {
+    // Non-decreasing totals by mass: a violating price becomes the rounded
+    // geometric mean of its neighbours (previous price for the last variant).
+    for (let i = 1; i < variants.length; i += 1) {
+      if (variants[i].price_usd_cents < variants[i - 1].price_usd_cents) {
+        const prev = variants[i - 1].price_usd_cents;
+        const next = i + 1 < variants.length ? variants[i + 1].price_usd_cents : null;
+        const repaired =
+          next !== null && next >= prev ? Math.round(Math.sqrt(prev * next) / 100) * 100 : prev;
+        variants[i].price_usd_cents = Math.max(prev, repaired);
+      }
+    }
+  }
   for (const v of variants) {
     assert(Number.isInteger(v.price_usd_cents) && v.price_usd_cents > 0, `${slug}: bad price`);
     assert(Number.isFinite(v.mass_g) && v.mass_g > 0, `${slug}: bad mass`);
@@ -500,17 +543,19 @@ for (const p of products) {
   frontMatters.push({ slug, fm, body: p.description, product: p });
 }
 
-// The source's two known inversions must be exactly what we detected — no more,
-// no fewer — before the verbatim import is allowed to proceed.
+// Exactly one inversion may survive the emit: the untouched Devarda's alloy
+// (the source's other inversion, terbium, is repaired by the owner reprice).
 {
   const found = detectedInversions.map((d) => `${d.slug}:${d.heavier.label}`).sort();
-  const expected = ['devardas-alloy:450 g', 'terbium:150 g'].sort();
+  const expected = ['devardas-alloy:450 g'];
   assert(
     JSON.stringify(found) === JSON.stringify(expected),
-    `price-inversion scan found [${found.join(', ')}], expected [${expected.join(', ')}] — source changed?`,
+    `price-inversion scan found [${found.join(', ')}], expected [${expected.join(', ')}]: source changed?`,
   );
 }
-console.log('Price-inversion scan: 2 inversions detected (terbium 90 g > 150 g; devardas-alloy 250 g > 450 g) — imported verbatim, flagged');
+console.log(
+  'Price-inversion scan: devardas-alloy 250 g > 450 g imported verbatim and flagged; terbium repaired by the owner reprice',
+);
 
 // ── Step 6: copy photos per-slug + measure dimensions with sips ──────────────
 
@@ -869,6 +914,14 @@ const flagRows = Object.entries(harness.flagTally)
   .map(([flag, n]) => `| \`${flag}\` | ${n} |`)
   .join('\n');
 
+const adjustmentRows = Object.entries(PRICE_ADJUSTMENTS)
+  .map(([slug, f]) => {
+    const fm = frontMatters.find((x) => x.slug === slug)?.fm;
+    const from = fm ? Math.min(...fm.variants.map((v) => v.price_usd_cents)) : null;
+    return `| ${slug} | ×${f} | ${from === null ? 'n/a' : `$${(from / 100).toFixed(2)}`} |`;
+  })
+  .join('\n');
+
 const inversionDetail = detectedInversions
   .map(
     (d) =>
@@ -927,17 +980,28 @@ preserved verbatim in each listing's reviewer-only \`source.category\`.
 - **Listings missing explicit provenance: ${noProvenance.length} / 19** — ${noProvenance.map(({ slug }) => `\`${slug}\``).join(', ')} (the three alloys; no \`Origin:\` bullet in the source). Each gets the honest fallback: \`country: null\` (renders "Not stated"), \`source_type: private-collection\`, \`verification_status: seller-declared\`, and the note *"No origin stated in the source catalog. Imported from the periodictech catalog; provenance verification pending."* The seller's Kazakhstan claim was **not** extended to them (ASSUMPTIONS #5).
 - The 16 elemental listings all carry a literal \`Origin: Kazakhstan\` bullet (asserted during the run) → \`country: "KZ"\`, still \`seller-declared\` with a verification-pending note. No COA/certificate exists anywhere in the source, so \`documents: null\` on all 19.
 
-## 5. Price inversions (imported verbatim, flagged)
+## 5. Owner price adjustments (ledger alignment) and inversions
 
-The mass-ascending price scan found exactly the two inversions the source's own
-comments flag as pending owner review — no others:
+Owner-directed reprice (2026-07-28): the listings below are scaled by a fixed
+per-listing factor so their median-pack price sits at (or, for the two cheap
+base metals, much nearer) the site's sourced reference band. Factors were
+computed once from the price-gauge band and are baked into the script, so
+imports stay deterministic. Rounding: whole dollars, $5 pack floor, then a
+non-decreasing repair by mass. All other listings keep their source prices
+verbatim.
+
+| Listing | Factor | From-price now |
+|---|---|---|
+${adjustmentRows}
+
+The repricing repaired terbium's source inversion (90 g had been priced above
+150 g). The remaining, untouched inversion is flagged, not fixed:
 
 | Listing | Lighter pack | Heavier pack (cheaper) | Flag |
 |---|---|---|---|
 ${inversionDetail}
 
-Both anomalous variants carry the note: *"${INVERSION_NOTE}"* Prices were not
-"fixed" — that would fabricate data.
+The flagged variant carries the note: *"${INVERSION_NOTE}"*
 
 ## 6. Exclusions (third-party marks / non-catalog, ASSUMPTIONS #14)
 

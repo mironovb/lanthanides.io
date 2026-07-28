@@ -168,6 +168,23 @@ Each entry: the call, why, and what would change it. Ordered chronologically.
     therefore visible only in function logs until a delivery provider is
     wired; HANDOFF marks this the #1 pre-launch item.
 
-23. **Alt-text hard rule relaxed** from DESIGN's ≥12 chars to non-empty,
+23. **Owner-directed reprice to the reference ledger (2026-07-28).** The
+    kazakhelements catalog prices were adjusted to sit near the price-gauge
+    band at each listing's median pack size: below-band listings raised to
+    just inside the band's low edge (thulium ×1.358, holmium ×2.104,
+    terbium ×1.457, scandium ×1.439), above-band listings lowered to the
+    band mid (tungsten ×0.193, zirconium ×0.307, indium ×0.448), and the
+    two cheap-base-metal outliers capped at ×0.25 (bismuth, selenium;
+    their reference bands sit at industrial ~$13-22/kg, where full
+    alignment would produce $1 packs). Factors are FIXED constants in
+    scripts/import-periodictech.mjs (never recomputed from the ledger at
+    import time, so imports stay byte-deterministic). Result: 11 of 12
+    comparable listings within band; bismuth and selenium remain ~7× above,
+    disclosed by the strip. The reprice supersedes the verbatim-price
+    import contract for these 9 listings (the fidelity audit predates it)
+    and repaired terbium's source price inversion; Devarda's alloy, not
+    repriced, keeps the source's review flag.
+
+24. **Alt-text hard rule relaxed** from DESIGN's ≥12 chars to non-empty,
     with <12 a soft warning: source alts (e.g. "Cobalt pieces") are short but
     honest, and padding them would be invention.

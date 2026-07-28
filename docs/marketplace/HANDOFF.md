@@ -69,8 +69,11 @@ its own.
   reference/market price, the leave-one-out comparison hint is gated and
   renders nowhere at current sample sizes, Product JSON-LD ships without
   Offer (no checkout exists), buyer-protection copy names no processor.
-- Two source price inversions imported verbatim and flagged (terbium 90 g,
-  Devarda's 450 g) — the source itself marks them pending owner review.
+- Prices: the owner repriced the catalog to the reference ledger on
+  2026-07-28 (ASSUMPTIONS #23) — 9 listings scaled by fixed factors baked
+  into the import script; terbium's source price inversion was repaired by
+  that pass. Devarda's alloy, not repriced, still carries the source's own
+  pending-review flag on its 450 g pack.
 
 ## Known gaps
 
